@@ -1,0 +1,5 @@
+#estas carpetas no se sincronizan con el repositorio
+/bin/
+/.classpath
+/.project
+/.settings/
