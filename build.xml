@@ -1,6 +1,5 @@
 <project>
-
-	<!-- variables o constantes -->
+	
 	<property name="source.dir" location="src" />
 	<property name="build.dir" location="bin" />
 	<property name="doc.dir" location="javadoc" />
@@ -23,8 +22,5 @@
 			<arg value="${file}" />
 		</exec>
 	</target>
-
-
-
 
 </project>
