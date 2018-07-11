@@ -20,6 +20,7 @@ public class Ejercicio3 {
 		System.out.println("El doble de " + num + " es: " + num*2);
 		System.out.println("El triple de " + num +" es: " + num*3);
 		//TODO falta validacion de entero
+		sc.close();
 	}
 
 }

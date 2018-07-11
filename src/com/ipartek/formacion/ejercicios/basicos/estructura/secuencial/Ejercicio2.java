@@ -18,6 +18,7 @@ public class Ejercicio2 {
 		System.out.print("Ingrese un nombre: ");
 		nombre = sc.next();
 		System.out.println("Buenos dias " + nombre);
+		sc.close();
 		// TODO Hacer validacion si es String lo que ingresa.
 
 	}

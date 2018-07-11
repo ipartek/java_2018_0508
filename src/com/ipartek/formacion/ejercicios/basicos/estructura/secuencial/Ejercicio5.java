@@ -28,6 +28,7 @@ public class Ejercicio5 {
 
 		area = Math.PI * Math.pow(radio, 2);
 		System.out.println("El area de la circunferencia con radio " + radio + " es: " + df.format(area));
+		sc.close();
 	}
 
 }
