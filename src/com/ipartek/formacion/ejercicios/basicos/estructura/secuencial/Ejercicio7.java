@@ -17,13 +17,14 @@ public class Ejercicio7 {
 		Scanner sc = new Scanner(System.in);
 		float cateto1;
 		float cateto2;
-		
+
 		System.out.print("Introduce cateto1: ");
 		cateto1 = sc.nextFloat();
 		System.out.print("Introduce cateto2: ");
 		cateto2 = sc.nextFloat();
-		System.out.println("La longitud de la hipotenusa es " + Math.sqrt(Math.pow(cateto1, 2)+Math.pow(cateto2,2)));
-		
+		System.out.println("La longitud de la hipotenusa es " + Math.sqrt(Math.pow(cateto1, 2) + Math.pow(cateto2, 2)));
+
+		sc.close();
 	}
 
 }
