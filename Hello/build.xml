@@ -1,0 +1,25 @@
+<project>
+
+	
+	<property name="source.dir" location="src"/>
+	<property name="build.dir" location="bin"/>
+	<property name="doc.dir" location="javadoc"/>
+	
+	<target name="hello">
+		<echo>Hello World</echo>
+	</target>
+
+	<target name="lorem" depends="hello">
+		<echo>Lorem Ipsum</echo>
+	</target>
+	
+	<target name="clean">
+		<delete  dir="${doc.dir}"></delete>
+	</target>
+
+	<target name="javadocu" depends="clean">
+		<javadoc sourcepath="${source.dir}" destdir="${doc.dir}"/>
+	</target>
+	
+	
+</project>
