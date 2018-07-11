@@ -44,6 +44,7 @@ public class Ejercicio13 {
 		System.out.println("Tu fecha es "+dia+"/"+mes+"/"+anyo);
 		System.out.println("Tu numero de la suerte es:"+nSuerte);
 		
+		sc.close();
 
 	}
 
