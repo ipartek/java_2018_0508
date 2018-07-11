@@ -1,6 +1,6 @@
 package com.ipartek.formacion.ejercicios.basicos.estructura.condicional;
 
-import java.util.Scanner;
+import java.io.IOException;
 
 /**
  * Programa que lea un carácter por teclado y compruebe si es una letra
@@ -10,13 +10,11 @@ import java.util.Scanner;
 
 public class Ejercicio3 {
 
-	public static void main(String[] args) {
-
-		Scanner teclado = new Scanner(System.in);
+	public static void main(String[] args) throws IOException {
 
 		System.out.print("Introduzca un carácter: ");
-		String ch = teclado.next();
-		
+		char ch = (char)System.in.read();
+		System.out.println("'"+ch+"'"+((Character.isUpperCase(ch))?" es una leta mayúscula":" es una letra minúscula"));
 
 	}
 
