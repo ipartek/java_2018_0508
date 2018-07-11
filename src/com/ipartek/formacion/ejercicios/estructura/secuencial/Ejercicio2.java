@@ -7,7 +7,7 @@ import java.util.Scanner;
  * “Buenos dias nombre_introducido”
  * @author Curso
  *
- */
+ */  
 
 public class Ejercicio2 {
 
