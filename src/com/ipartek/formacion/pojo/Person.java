@@ -2,40 +2,32 @@ package com.ipartek.formacion.pojo;
 
 public class Person {
 
-	// constantes
-	public final static char SEXO_INDEFINIDO = 'i';
-	public final static char SEXO_MUJER = 'm';
-	public final static char SEXO_HOMBRE = 'h';
-
+	// Constantes
+	public final static char SEXO_INDEFINIDO = 'I';
+	public final static char SEXO_MUJER = 'M';
+	public final static char SEXO_HOMBRE = 'H';
 	public final static float NOTA_MINIMA = 0.0f;
 	public final static float NOTA_MAXIMA = 10.0f;
+	public final static int EDAD_MINIMA = 18;
+	public final static int EDAD_MAXIMA = 65;
 
 	// Atributos
 
-	// TODO nueva atributo edad => 16 y 100
-
 	private String nombre;
-
 	private String apellido;
-
 	private char sexo;
-
 	private int edad;
+	private float nota;// 0 y 10
 
-	private float nota;
+	// Constructores
 
 	public Person() {
 		super();
 		this.nombre = "";
 		this.apellido = "";
 		this.sexo = SEXO_INDEFINIDO;
-		this.edad = 0;
+		this.edad = EDAD_MINIMA;
 		this.nota = NOTA_MINIMA;
-	}
-
-	public Person(String nombre) {
-		this();
-		this.nombre = nombre;
 	}
 
 	public Person(String nombre, char sexo) {
@@ -44,23 +36,25 @@ public class Person {
 		this.setSexo(sexo);
 	}
 
-	public Person(String nombre, String apellidos, char sexo) {
+	public Person(String nombre, String apellido, char sexo) {
 		this();
 		this.setNombre(nombre);
-		this.setApellido(apellidos);
+		this.setApellido(apellido);
 		this.setSexo(sexo);
 	}
 
+	// Getters y Setters
 	public String getNombre() {
-		return nombre;
+		return this.nombre;
 	}
 
 	public void setNombre(String nombre) {
+
 		this.nombre = (nombre != null) ? nombre : "";
 	}
 
 	public String getApellido() {
-		return apellido;
+		return this.apellido;
 	}
 
 	public void setApellido(String apellido) {
@@ -72,22 +66,18 @@ public class Person {
 	}
 
 	/**
-	 * Setear el sexo de la persona, podemos usar 'h' hombre, 'm' mujer ( tanto
-	 * mayusculas como minusculas). * En caso de no pasar pasar esos valores será
-	 * 'i' indefinido.
+	 * Setea el sexo de la persona, podemos usar 'h' hombre, 'm' mujer , (tanto
+	 * mayusculas como minusculas). En caso de no pasar esos valores será 'i' de
+	 * indefinido.
 	 * 
-	 * @see constnates: SEXO_INDEFINIDO, SEXO_MUJER, SEXO_HOMBRE
-	 * @param sexo char character que indica el sexo Person
-	 * 
+	 * @see constantes: SEXO_HOMBRE , SEXO_MUJER , SEXO_INDEFINIDO
+	 * @param sexo char caracter que indica el sexo de Person
 	 */
 	public void setSexo(char sexo) {
 
-		sexo = Character.toLowerCase(sexo);
+		sexo = Character.toUpperCase(sexo);
 		switch (sexo) {
 		case SEXO_HOMBRE:
-			this.sexo = sexo;
-			break;
-
 		case SEXO_MUJER:
 			this.sexo = sexo;
 			break;
@@ -96,7 +86,6 @@ public class Person {
 			this.sexo = SEXO_INDEFINIDO;
 			break;
 		}
-
 	}
 
 	public int getEdad() {
@@ -104,7 +93,18 @@ public class Person {
 	}
 
 	public void setEdad(int edad) {
-		this.edad = edad;
+
+		switch (edad) {
+		case EDAD_MAXIMA:
+		case EDAD_MINIMA:
+			this.edad = edad;
+			break;
+
+		default:
+			this.edad = (edad < EDAD_MINIMA) ? EDAD_MINIMA : (edad > EDAD_MAXIMA) ? EDAD_MAXIMA : edad;
+			break;
+		}
+
 	}
 
 	public float getNota() {
@@ -113,22 +113,13 @@ public class Person {
 
 	public void setNota(float nota) {
 
-		if (nota < NOTA_MINIMA) {
-			this.nota = NOTA_MINIMA;
-
-		} else if (nota > NOTA_MAXIMA) {
-			this.nota = NOTA_MAXIMA;
-
-		} else {
-			this.nota = nota;
-		}
-
+		this.nota = (nota < NOTA_MINIMA) ? NOTA_MINIMA : (nota > NOTA_MAXIMA ? NOTA_MAXIMA : nota);
 	}
 
+	// METODOS
 	@Override
 	public String toString() {
-		return "Person [nombre=" + nombre + ", apellido=" + apellido + ", sexo=" + sexo + ", edad=" + edad + ", nota="
-				+ nota + "]";
+		return "Person [nombre=" + nombre + ", apellido=" + apellido + ", sexo=" + sexo + "," + ", edad=" + edad
+				+ ", nota=" + nota + "]";
 	}
-
 }
