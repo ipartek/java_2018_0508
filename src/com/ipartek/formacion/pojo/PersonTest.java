@@ -8,8 +8,7 @@ public class PersonTest {
 
 	@Test
 	public void testComparar() {
-		
-		assertTrue( 2 == 2 );		
+				
 		assertTrue( "manolo".equalsIgnoreCase("Manolo") );
 		assertFalse( "manolo".equals("Manolo") );
 		
