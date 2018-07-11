@@ -1,7 +1,6 @@
 /**
+ * Ejercicios básicos que utilizan la estructura repetitiva.
  * 
- */
-/**
  * @author Curso
  *
  */
