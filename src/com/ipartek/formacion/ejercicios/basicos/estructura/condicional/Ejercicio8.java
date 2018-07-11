@@ -1,5 +1,11 @@
 package com.ipartek.formacion.ejercicios.basicos.estructura.condicional;
 
+/**
+ * Calcular el mayor de tres números enteros en Java.
+ * El programa lee por teclado tres números enteros y calcula y muestra el mayor 
+ * de los tres.
+ */
+
 import java.util.Scanner;
 
 public class Ejercicio8 {

@@ -1,5 +1,10 @@
 package com.ipartek.formacion.ejercicios.basicos.estructura.condicional;
 
+/**
+ * Programa java que lea un carácter por teclado y compruebe 
+ * si es un dígito numérico (cifra entre 0 y 9).
+ */
+
 import java.util.Scanner;
 
 public class Ejercicio6 {

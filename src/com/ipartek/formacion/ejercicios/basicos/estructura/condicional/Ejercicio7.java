@@ -1,5 +1,11 @@
 package com.ipartek.formacion.ejercicios.basicos.estructura.condicional;
 
+/**
+ * Programa que lea dos números por teclado y muestre el resultado de la división 
+ * del primer número por el segundo. 
+ * Se debe comprobar que el divisor no puede ser cero.
+ */
+
 import java.util.Scanner;
 
 public class Ejercicio7 {

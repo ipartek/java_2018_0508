@@ -1,5 +1,10 @@
 package com.ipartek.formacion.ejercicios.basicos.estructura.condicional;
 
+/**
+ * Programa java que lea dos caracteres por teclado y compruebe 
+ * si los dos son letras minúsculas
+ */
+
 import java.io.IOException;
 import java.util.Scanner;
 
