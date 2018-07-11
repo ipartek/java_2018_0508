@@ -47,6 +47,12 @@ public class VideoYoutube {
 		this.titulo = titulo;
 	}
 	
-	
+	@Override
+	public String toString() {
+
+		String aDevolver = this.id+"--"+this.titulo;
+		aDevolver+="\nCodigo: "+this.codigo;
+		return aDevolver;
+	}
 
 }
