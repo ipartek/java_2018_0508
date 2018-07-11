@@ -1,5 +1,10 @@
 package com.ipartek.formacion.ejercicios.basicos.estructura.secuencial;
 
+/**
+ * Programa Java que lea un nombre y muestre por pantalla:
+ * “Buenos dias nombre_introducido”
+ */
+
 import java.util.Scanner;
 
 public class Ejercicio2 {

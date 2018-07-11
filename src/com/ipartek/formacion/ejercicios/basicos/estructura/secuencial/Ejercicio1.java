@@ -1,5 +1,9 @@
 package com.ipartek.formacion.ejercicios.basicos.estructura.secuencial;
 
+/**
+ * Programa Java que lea dos números enteros por teclado y los muestre por pantalla.
+ */
+
 import java.util.Scanner;
 
 public class Ejercicio1 {

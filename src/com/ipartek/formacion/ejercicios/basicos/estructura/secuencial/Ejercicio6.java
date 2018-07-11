@@ -1,5 +1,9 @@
 package com.ipartek.formacion.ejercicios.basicos.estructura.secuencial;
 
+/**
+ * Programa que pase una velocidad en Km/h a m/s. La velocidad se lee por teclado.
+ */
+
 import java.util.Scanner;
 
 public class Ejercicio6 {

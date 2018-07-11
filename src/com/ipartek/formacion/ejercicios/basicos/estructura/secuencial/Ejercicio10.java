@@ -1,5 +1,10 @@
 package com.ipartek.formacion.ejercicios.basicos.estructura.secuencial;
 
+/**
+ * Programa Java que lea un número entero de 3 cifras y muestre por separado 
+ * las cifras del número.
+ */
+
 import java.util.Scanner;
 
 public class Ejercicio10 {
