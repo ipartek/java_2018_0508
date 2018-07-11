@@ -3,7 +3,7 @@ package com.ipartek.formacion.ejercicios.basicos.estructura.secuencial;
 import java.util.Scanner;
 
 /**
- * 4. Programa que lea una cantidad de grados centígrados y la pase a grados
+ * 4. Programa que lea una cantidad de grados centígrados y la pase a grados<br>
  * Fahrenheit. La fórmula correspondiente es: F = 32 + ( 9 * C / 5)
  * 
  * @author Curso
