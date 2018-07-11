@@ -10,13 +10,13 @@ import java.io.InputStreamReader;
  */
 public class Ejercicio1 {
 	public static void main(String[] args) throws Exception {
-		
-		int numero ;
+
+		int numero;
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		System.out.println("Introduce un numero :");
 		numero = Integer.parseInt(br.readLine());
-		
-		System.out.println(numero%2== 0 ? "Es par" :"Es impar");
-		
+
+		System.out.println(numero % 2 == 0 ? "Es par" : "Es impar");
+
 	}
 }
