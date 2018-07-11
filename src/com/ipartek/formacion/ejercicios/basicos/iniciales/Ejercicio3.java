@@ -11,7 +11,7 @@ package com.ipartek.formacion.ejercicios.basicos.iniciales;
 public class Ejercicio3 {
 
 	public static void main(String[] args) {
-		int n= 3;
+		int n = 3;
 		System.out.println(n += 77);
 		System.out.println(n -= 3);
 		System.out.println(n *= 2);

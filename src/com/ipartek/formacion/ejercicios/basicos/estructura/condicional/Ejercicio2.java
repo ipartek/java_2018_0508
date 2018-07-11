@@ -14,7 +14,7 @@ public class Ejercicio2 {
 
 		System.out.print("Introduzca un número: ");
 		int num = teclado.nextInt();
-		System.out.println(num+ ((num%5==0)?" es multiplo de 5": " no es multiplo de 5"));
+		System.out.println(num + ((num % 5 == 0) ? " es multiplo de 5" : " no es multiplo de 5"));
 		teclado.close();
 	}
 

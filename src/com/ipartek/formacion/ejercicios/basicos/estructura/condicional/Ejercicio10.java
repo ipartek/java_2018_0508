@@ -13,17 +13,17 @@ public class Ejercicio10 {
 	public static void main(String[] args) {
 
 		Scanner teclado = new Scanner(System.in);
-		int m =0;
+		int m = 0;
 		do {
 			System.out.print("Introduce el numero correspondiente a un mes: ");
 			m = teclado.nextInt();
-		}while(m<=0 || m>12);
-		
-		if( (m<=7 && m%2==0 && m!=2) || (m>8 && m%2!=0)) {
+		} while (m <= 0 || m > 12);
+
+		if ((m <= 7 && m % 2 == 0 && m != 2) || (m > 8 && m % 2 != 0)) {
 			System.out.println("Tiene 30 dias");
-		}else if(m==2){
+		} else if (m == 2) {
 			System.out.println("Tiene 28 dias");
-		}else {
+		} else {
 			System.out.println("Tiene 31 dias");
 		}
 		teclado.close();

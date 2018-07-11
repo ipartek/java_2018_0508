@@ -1,4 +1,5 @@
 package com.ipartek.formacion.ejercicios.basicos.estructura.condicional;
+
 import java.util.Scanner;
 
 /**
@@ -11,16 +12,16 @@ import java.util.Scanner;
 public class Ejercicio7 {
 
 	public static void main(String[] args) {
-		
+
 		Scanner teclado = new Scanner(System.in);
 		System.out.print("Introduzca el primer numero: ");
 		float x = teclado.nextInt();
 		float y = 0.0f;
-		while(y==0.0f) {
-			System.out.print("Introduzca el segundo numero: ");		
+		while (y == 0.0f) {
+			System.out.print("Introduzca el segundo numero: ");
 			y = teclado.nextInt();
-		}		
-		System.out.println(x/y);
+		}
+		System.out.println(x / y);
 		teclado.close();
 
 	}

@@ -15,7 +15,7 @@ public class Ejercicio1 {
 
 		System.out.print("Introduzca un número: ");
 		int num = teclado.nextInt();
-		System.out.println(num+ ((num%2==0)?" es par": " es impar"));
+		System.out.println(num + ((num % 2 == 0) ? " es par" : " es impar"));
 		teclado.close();
 
 	}
