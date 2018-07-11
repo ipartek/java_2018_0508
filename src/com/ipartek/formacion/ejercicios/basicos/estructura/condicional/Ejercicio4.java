@@ -5,7 +5,7 @@ import java.io.InputStreamReader;
 
 /**
  * 
- * @author drohne 4. Programa que lea dos caracteres por teclado y compruebe si
+ * @author Curso 1 4. Programa que lea dos caracteres por teclado y compruebe si
  *         son iguales.
  */
 public class Ejercicio4 {

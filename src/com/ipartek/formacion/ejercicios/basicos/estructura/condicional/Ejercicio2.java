@@ -5,7 +5,7 @@ import java.io.InputStreamReader;
 
 /**
  * 
- * @author drohne 2. Programa que lea un número entero y muestre si el número es
+ * @author Curso 1 2. Programa que lea un número entero y muestre si el número es
  *         múltiplo de 10.
  */
 public class Ejercicio2 {

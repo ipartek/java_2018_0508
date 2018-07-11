@@ -5,7 +5,7 @@ import java.io.InputStreamReader;
 
 /**
  * 
- * @author drohne 5. Programa que lea dos caractere y compruebe si son dos
+ * @author Curso 1 5. Programa que lea dos caractere y compruebe si son dos
  *         letras minúsculas.
  */
 public class Ejercicio5 {

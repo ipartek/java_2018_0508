@@ -5,7 +5,7 @@ import java.io.InputStreamReader;
 
 /**
  * 
- * @author drohne 3. Programa que lea un carácter por teclado y compruebe si es
+ * @author Curso 1 3. Programa que lea un carácter por teclado y compruebe si es
  *         una letra mayúscula.
  */
 public class Ejercicio3 {
