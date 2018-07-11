@@ -12,7 +12,7 @@ public class Person {
 
 	// Atributos
 
-	// TODO nueva atributo edad => 16 y 100
+	//nueva atributo edad => 16 y 100
 
 	private String nombre;
 

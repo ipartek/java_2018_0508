@@ -21,10 +21,10 @@ public class Ejercicio10 {
 		num = scan.nextInt();
 
 		a = num / 100;
-		b = (num-(a*100)) / 10;
-		c = num-(a*100)-(b*10);
-		
-		System.out.println("Primera cifra: "+ a+" Segunda cifra: "+b+" Tercera cifra: "+c);
+		b = (num - (a * 100)) / 10;
+		c = num - (a * 100) - (b * 10);
+
+		System.out.println("Primera cifra: " + a + " Segunda cifra: " + b + " Tercera cifra: " + c);
 
 	}
 
