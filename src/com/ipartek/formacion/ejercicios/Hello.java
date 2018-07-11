@@ -16,7 +16,7 @@ public class Hello {
 		log.info("Listado Alumnos-----------------");
 
 		 
-		//String[] alumnos = { "Eneko Muñoz", "joseba", "Adrian P","Ainara", "Asier", "Adrian G", " Raul", "Luis", "Guillermo Sanchez", "Carlos",
+		//String[] alumnos = { "Eneko Muñoz", "joseba", "Adrian P","Ainara", "Asier", "Adrian G", " Raul", "Luis", "Guillermo S", "Carlos",
 		//		"Eneko Sanchez","Adriana", "Andrea", "Valeria", "Alain" };
 
 		Person[] alumnos = new Person[15];
