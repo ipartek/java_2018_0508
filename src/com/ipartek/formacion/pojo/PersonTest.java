@@ -4,92 +4,80 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
-public class PersonTest {  
+public class PersonTest {
 
 	@Test
-	public void testComparar() {
+	public void testSetGender() {
+		Person p =new Person();
+		assertEquals(Person.SEXO_INDEFINIDO,p.getGender());
 		
-		assertTrue( 2 == 2 );		
-		assertTrue( "manolo".equalsIgnoreCase("Manolo") );
-		assertFalse( "manolo".equals("Manolo") );
+		p.setGender('h');
+		assertEquals(Person.SEXO_HOMBRE, p.getGender());
 		
+		p.setGender('m');
+		assertEquals(Person.SEXO_MUJER, p.getGender());
+		
+		p.setGender('i');
+		assertEquals(Person.SEXO_INDEFINIDO, p.getGender());
+		
+		p.setGender('H');
+		assertEquals(Person.SEXO_HOMBRE, p.getGender());
+		
+		p.setGender('M');
+		assertEquals(Person.SEXO_MUJER, p.getGender());
+		
+		p.setGender('I');
+		assertEquals(Person.SEXO_INDEFINIDO, p.getGender());
+		
+		p.setGender('g');
+		assertEquals(Person.SEXO_INDEFINIDO, p.getGender());
+		
+		p.setGender(' ');
+		assertEquals(Person.SEXO_INDEFINIDO, p.getGender());
+				
 	}
+	
+	@Test
+	public void testSetMark() {
+		Person p =new Person();
+		assertTrue(Person.NOTA_MIN == p.getMark());
+		assertEquals(Person.NOTA_MIN,p.getMark(),0); // el 0 es la desviacion que quiero dejarle 
+		
+		p.setMark(15);
+		assertTrue(Person.NOTA_MAX == p.getMark());
+		
+		p.setMark(-1);
+		assertTrue(Person.NOTA_MIN== p.getMark());
+		
+		p.setMark(10);
+		assertTrue(Person.NOTA_MAX == p.getMark());
+		
+		p.setMark(0);
+		assertTrue(Person.NOTA_MIN== p.getMark());
+		
+		p.setMark(5);
+		assertTrue(5 == p.getMark());
+	}
+	
+	@Test
+	public void testPersonNameGender() {
+		
+		Person p= new Person("carlos",'o');
+		assertEquals("carlos",p.getName());
+		assertEquals('I',p.getGender());
+		
+		p= new Person("carlos",'i');
+		assertEquals("carlos",p.getName());
+		assertEquals('I',p.getGender());
+		
+		p= new Person(null,'h');
+		assertEquals("Sin nombre",p.getName());
+		assertEquals('H',p.getGender());
+		
+		p= new Person("",'m');
+		assertEquals("Sin nombre",p.getName());
+		assertEquals('M',p.getGender());
 
-	@Test
-	public void testPersonNombreSexo() {
-	
-		Person p = new Person("Manolo", 'h');
-		assertEquals("Manolo", p.getNombre());
-		assertEquals('h', p.getSexo());
-		
-		
-		p = new Person("Manolo", 'o');
-		assertEquals("Manolo", p.getNombre());
-		assertEquals('i', p.getSexo());
-		
-		
-		p = new Person(null, 'h');
-		assertEquals("", p.getNombre() );
-		assertEquals('h', p.getSexo());		
-		
-	}
-	
-	@Test
-	public void testSetSexo() {
-		
-		Person p = new Person();		
-		assertTrue( Person.SEXO_INDEFINIDO  ==  p.getSexo() );
-		
-		p.setSexo('h');
-		assertTrue( Person.SEXO_HOMBRE  ==  p.getSexo() );
-		
-		p.setSexo('H');
-		assertTrue( Person.SEXO_HOMBRE  ==  p.getSexo() );
-		
-		p.setSexo('m');
-		assertTrue( Person.SEXO_MUJER  ==  p.getSexo() );
-		
-		p.setSexo('M');
-		assertTrue( Person.SEXO_MUJER  ==  p.getSexo() );
-		
-		p.setSexo('i');
-		assertTrue( Person.SEXO_INDEFINIDO  ==  p.getSexo() );
-		
-		p.setSexo('I');
-		assertTrue( Person.SEXO_INDEFINIDO  ==  p.getSexo() );
-		
-		p.setSexo('z');
-		assertTrue( Person.SEXO_INDEFINIDO  ==  p.getSexo() );
-		
-		
-	}
-	
-	@Test
-	public void testSetNota() {
-		
-		Person p = new Person();		
-		assertEquals( Person.NOTA_MINIMA , p.getNota() , 0 );
-		
-		p.setNota( -2 );
-		assertEquals( Person.NOTA_MINIMA , p.getNota(), 0 );
-		
-		
-		p.setNota( 0 );
-		assertEquals( Person.NOTA_MINIMA , p.getNota(), 0 );
-		
-		p.setNota( 2 );
-		assertEquals( 2 , p.getNota(), 0 );
-		
-		p.setNota( Person.NOTA_MAXIMA );
-		assertEquals( Person.NOTA_MAXIMA , p.getNota(), 0 );
-		
-		p.setNota( 33 );
-		assertEquals( Person.NOTA_MAXIMA , p.getNota(), 0 );
-		
-		//assertEquals( 0.999 , 1.0,  0.1 );
-		
-		
-	
 	}
 
 }
