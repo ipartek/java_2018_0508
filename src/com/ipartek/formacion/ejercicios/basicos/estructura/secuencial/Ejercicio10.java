@@ -9,8 +9,25 @@ import java.io.InputStreamReader;
  */
 public class Ejercicio10 {
 public static void main(String[] args) throws Exception{
+	int numero;
+    int tercero;
+    int segundo;
+    int primero;
+    
 	System.out.println("Introduce numero de 3 cifras :");
     BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-    int  numeroc = Integer.parseInt(br.readLine());
+    numero = Integer.parseInt(br.readLine());
+    
+    primero = numero /100;
+    segundo = (numero / 10) %10;
+    tercero = numero % 10 ;
+
+    
+    System.out.println("Primera cifra de " + numero + " -> " + primero); 
+    System.out.println("Segunda central de " + numero + " -> " + segundo);
+    System.out.println("Tercera cifra  de " + numero + " -> " + tercero);
+    
+
+    
 }
 }
