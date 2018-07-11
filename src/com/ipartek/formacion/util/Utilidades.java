@@ -2,27 +2,51 @@ package com.ipartek.formacion.util;
 
 public class Utilidades {
 
-	/**
-	 * Ordenamos un array de enteros de menor a mayor mediante el metodo "bubble
-	 * sort"
-	 * 
-	 * @param arrayDesordenado int[]
-	 * @return array ordenado de menor a mayor
-	 */
-	public static int[] bubbleSort(int[] array) {
-		int temp;
-		for (int i = 0; i < array.length; i++) {
-			for (int j = 1; j < (array.length - i); j++) {
-				if (array[j - 1] > array[j]) {
-					// swap elements
-					temp = array[j - 1];
-					array[j - 1] = array[j];
-					array[j] = temp;
-				}
+	static int[] array = { 0, 3, 1, 8, 7, 2, 5, 4, 6, 9 };
+	static int[] res;
 
+	public static void main(String[] args) {
+
+		res = bubbleSort(array, true);
+		for (int i = 0; i < res.length; i++) {
+			System.out.print(res[i] + " ");
+		}
+		System.out.println();
+		
+		res = bubbleSort(array, false);
+		for (int i = 0; i < res.length; i++) {
+			System.out.print(res[i] + " ");
+		}
+		System.out.println();
+
+	}
+	/**
+	 * Función que ordena un array de enteros según el algoritmo bubbleSort.
+	 * @param nums
+	 * @param asc
+	 * @return int[] con el array nums[] ordenado ascendente o descendentemente
+	 */
+	public static int[] bubbleSort(int[] nums, boolean asc) {
+		int[] res = nums;
+		int aux;
+		for (int i = 0; i < res.length; i++) {
+			for (int j = i; j < res.length; j++) {
+				if (asc) {
+					if (res[i] > res[j]) {
+						aux = res[i];
+						res[i] = res[j];
+						res[j] = aux;
+					}
+				} else {
+					if (res[i] < res[j]) {
+						aux = res[i];
+						res[i] = res[j];
+						res[j] = aux;
+					}
+				}
 			}
 		}
-		return array;
+		return res;
 	}
 
 }

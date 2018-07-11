@@ -2,61 +2,56 @@ package com.ipartek.formacion.pojo;
 
 public class Person {
 
-	// constantes
-	public final static char SEXO_INDEFINIDO = 'i';
-	public final static char SEXO_MUJER = 'm';
-	public final static char SEXO_HOMBRE = 'h';
+	// CONSTANTES
+	public static final char SEXO_INDEFINIDO = 'I';
+	public static final char SEXO_HOMBRE = 'H';
+	public static final char SEXO_MUJER = 'M';
 
-	public final static float NOTA_MINIMA = 0.0f;
-	public final static float NOTA_MAXIMA = 10.0f;
+	public static final float NOTA_MINIMA = 0.0F;
+	public static final float NOTA_MAXIMA = 10.0F;
+	
+	public static final int EDAD_MINIMA = 18;
+	public static final int EDAD_MAXIMA = 65;
 
-	// Atributos
-
-	// TODO nueva atributo edad => 16 y 100
-
+	// ATRIBUTOS
 	private String nombre;
-
 	private String apellido;
-
 	private char sexo;
-
 	private int edad;
-
 	private float nota;
 
+	// CONSTRUCTOR(ES)
 	public Person() {
 		super();
 		this.nombre = "";
 		this.apellido = "";
 		this.sexo = SEXO_INDEFINIDO;
-		this.edad = 0;
+		this.edad = EDAD_MINIMA;
 		this.nota = NOTA_MINIMA;
 	}
 
-	public Person(String nombre) {
+	public Person(String nombre, String apellido) {
 		this();
 		this.nombre = nombre;
+		this.setNombre(nombre);
+		this.setApellido(apellido);
+		
 	}
-
-	public Person(String nombre, char sexo) {
+	
+	public Person(String nombre, String apellido, char sexo) {
 		this();
 		this.setNombre(nombre);
+		this.setApellido(apellido);
 		this.setSexo(sexo);
 	}
 
-	public Person(String nombre, String apellidos, char sexo) {
-		this();
-		this.setNombre(nombre);
-		this.setApellido(apellidos);
-		this.setSexo(sexo);
-	}
-
+	// GETTERS AND SETTERS
 	public String getNombre() {
 		return nombre;
 	}
 
 	public void setNombre(String nombre) {
-		this.nombre = (nombre != null) ? nombre : "";
+		this.nombre = (nombre==null) ? "" : nombre.trim();	
 	}
 
 	public String getApellido() {
@@ -64,7 +59,8 @@ public class Person {
 	}
 
 	public void setApellido(String apellido) {
-		this.apellido = (apellido != null) ? apellido : "";
+		this.apellido = (apellido==null) ? "" : apellido.trim();
+		
 	}
 
 	public char getSexo() {
@@ -72,62 +68,71 @@ public class Person {
 	}
 
 	/**
-	 * Setear el sexo de la persona, podemos usar 'h' hombre, 'm' mujer ( tanto
-	 * mayusculas como minusculas). * En caso de no pasar pasar esos valores será
-	 * 'i' indefinido.
+	 * Establece el sexo de la persona, H = hombre, M = mujer, I = Indefinido,
+	 * admite mayúsculas y minúsculas. Por defecto, el sexo es I.
 	 * 
-	 * @see constnates: SEXO_INDEFINIDO, SEXO_MUJER, SEXO_HOMBRE
-	 * @param sexo char character que indica el sexo Person
-	 * 
+	 * @see constantes SEXO_INDEFINIDO, SEXO_HOMBRE, SEXO_MUJER
+	 * @param sexo char, character que indica el sexo de Person
 	 */
 	public void setSexo(char sexo) {
-
-		sexo = Character.toLowerCase(sexo);
+		sexo = Character.toUpperCase(sexo);
 		switch (sexo) {
 		case SEXO_HOMBRE:
-			this.sexo = sexo;
-			break;
-
 		case SEXO_MUJER:
 			this.sexo = sexo;
 			break;
-
 		default:
 			this.sexo = SEXO_INDEFINIDO;
 			break;
 		}
-
 	}
 
 	public int getEdad() {
 		return edad;
 	}
 
+	/**
+	 * Establece la edad de la persona. Si edad es menor que EDAD_MINIMA, entonces
+	 * edad es igual a EDAD_MINIMA. Si edad es mayor que EDAD_MAXIMA, entonces nota
+	 * vale EDAD_MAXIMA. Por defecto, nota vale EDAD_MINIMA
+	 * @see constantes EDAD_MINIMA, EDAD_MAXIMA
+	 * @param edad, int que refleja la edad de la persona
+	 */
 	public void setEdad(int edad) {
-		this.edad = edad;
+		if (edad < EDAD_MINIMA) {
+			this.edad = EDAD_MINIMA;
+		} else if (edad > EDAD_MAXIMA) {
+			this.edad = EDAD_MAXIMA;
+		} else {
+			this.edad = edad;
+		}
 	}
 
 	public float getNota() {
 		return nota;
 	}
 
+	/**
+	 * Establece la nota de la persona. Si nota es menor que NOTA_MINIMA, entonces
+	 * nota es igual a NOTA_MINIMA. Si nota es mayor que NOTA_MAXIMA, entonces nota
+	 * vale NOTA_MAXIMA. Por defecto, nota vale NOTA_MINIMA
+	 * 
+	 * @see constantes NOTA_MINIMA, NOTA_MAXIMA
+	 * @param nota float, indica la nota de la Persona
+	 */
 	public void setNota(float nota) {
-
 		if (nota < NOTA_MINIMA) {
 			this.nota = NOTA_MINIMA;
-
 		} else if (nota > NOTA_MAXIMA) {
 			this.nota = NOTA_MAXIMA;
-
 		} else {
 			this.nota = nota;
 		}
-
 	}
 
 	@Override
 	public String toString() {
-		return "Person [nombre=" + nombre + ", apellido=" + apellido + ", sexo=" + sexo + ", edad=" + edad + ", nota="
+		return "Persona [nombre=" + nombre + ", apellido=" + apellido + ", sexo=" + sexo + ", edad=" + edad + ", nota="
 				+ nota + "]";
 	}
 
