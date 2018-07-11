@@ -18,6 +18,7 @@ public class Ejercicio3 {
 		else {
 			System.out.println("Es una letra minuscula	");
 		}
+		sc.close();
 	}
 
 }

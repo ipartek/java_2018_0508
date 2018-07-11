@@ -17,6 +17,7 @@ public class Ejercicio4 {
 		System.out.println("Hace: " + gradosC + " ºC que son: " + gradosF + 
 				" ºF ");
 
+		sc.close();
 	}
 
 }

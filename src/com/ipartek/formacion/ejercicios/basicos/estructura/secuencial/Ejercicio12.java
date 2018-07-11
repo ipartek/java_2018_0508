@@ -17,6 +17,8 @@ public class Ejercicio12 {
 		System.out.println(n/100);
 		System.out.println(n/1000);
 		System.out.println(n/10000);
+		
+		sc.close();
 	}
 
 }

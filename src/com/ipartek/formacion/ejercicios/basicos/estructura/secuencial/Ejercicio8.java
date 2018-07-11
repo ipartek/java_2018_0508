@@ -17,6 +17,7 @@ public class Ejercicio8 {
 		System.out.println("Tu esfera de " + radio + " centimetros, tiene un volumen de "
 				+ volumen + " centimetros cubicos");
 
+		sc.close();
 	}
 
 }

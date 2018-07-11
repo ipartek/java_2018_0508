@@ -31,7 +31,7 @@ public class Ejercicio8 {
 			maximo = num3;
 			System.out.println("El maximo es: " + maximo);
 		}
-		
+		sc.close();
 	}
 
 }

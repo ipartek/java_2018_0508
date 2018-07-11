@@ -15,6 +15,8 @@ public class Ejercicio10 {
 		System.out.println("El primer digito es: " + numero/100);
 		System.out.println("El segundo digito es: " + numero/10 % 10);
 		System.out.println("El tercer digito es: " + numero%10);
+		
+		sc.close();
 	}
 
 }

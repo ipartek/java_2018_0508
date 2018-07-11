@@ -38,6 +38,7 @@ public class Ejercicio9 {
 		else{
 			System.out.println("La hora no es valida");
 		}
+		sc.close();
 	}
 
 }

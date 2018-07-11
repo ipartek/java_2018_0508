@@ -16,6 +16,7 @@ public class Ejercicio3 {
 		System.out.println("tu numero es: " + numero + " , el doble es: " + (numero*2) + 
 				" y el triple: " + (numero * 3));
 
+		sc.close();
 	}
 
 }

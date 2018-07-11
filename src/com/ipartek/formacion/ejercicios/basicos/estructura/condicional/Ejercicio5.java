@@ -23,6 +23,7 @@ public class Ejercicio5 {
         	   System.out.println("Una es minuscula pero la otra no");
            }           
         }
+		sc.close();
 	}
 
 }

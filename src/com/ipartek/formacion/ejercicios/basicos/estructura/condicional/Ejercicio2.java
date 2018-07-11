@@ -17,6 +17,8 @@ public class Ejercicio2 {
 		else {
 			System.out.println("Este numero no es multiplo de 10");
 		}
+		sc.close();
 	}
+	
 
 }

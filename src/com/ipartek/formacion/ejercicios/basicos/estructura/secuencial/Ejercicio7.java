@@ -18,6 +18,7 @@ public class Ejercicio7 {
 				" centimetros y otro cateto de " + cateto2 + " centimetros. Su hipotenusa seria de "
 				+ Math.sqrt(Math.pow(cateto1, 2) + Math.pow(cateto2, 2)) + " centimetros.");
 
+		sc.close();
 	}
 
 }

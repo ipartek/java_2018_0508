@@ -17,6 +17,8 @@ public class Ejercicio1 {
 		num2 = sc.nextInt();
 		
 		System.out.println("Los numeros elegidos son: " + num1 + " y " + num2);
+		
+		sc.close();
 	}
 
 }

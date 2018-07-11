@@ -21,6 +21,7 @@ public class Ejercicio4 {
 		else {
 			System.out.println("Las letras son diferentes");
 		}
+		sc.close();
 	}
 
 }

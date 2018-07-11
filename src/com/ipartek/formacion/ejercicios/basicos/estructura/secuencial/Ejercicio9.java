@@ -23,6 +23,8 @@ public class Ejercicio9 {
 		
 		area = Math.sqrt(p*(p-a)*(p-b)*(p-c));
 		System.out.println("El area de ese triangulo es: " + area);
+		
+		sc.close();
 	}
 
 }

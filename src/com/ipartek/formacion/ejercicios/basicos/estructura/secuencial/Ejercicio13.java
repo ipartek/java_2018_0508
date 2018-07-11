@@ -28,6 +28,8 @@ public class Ejercicio13 {
 		suerte = cifra1 + cifra2 + cifra3 + cifra4;
 		
 		System.out.println("Tu numero de la suerte es: " + suerte);
+		
+		sc.close();
 	}
 
 }

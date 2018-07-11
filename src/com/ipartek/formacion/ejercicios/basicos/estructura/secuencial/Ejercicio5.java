@@ -18,6 +18,8 @@ public class Ejercicio5 {
 		
 		System.out.println("Tu circulo tiene: " + radio + " cms de radio. Una longitud de: "
 				+ longitud + "cms. Y un area de: " + area + " centimetros cuadrados.");
+	
+		sc.close();
 	}
 
 }

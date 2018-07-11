@@ -13,6 +13,8 @@ public class Ejercicio2 {
 		nombre = sc.nextLine();
 		
 		System.out.println("Buenos dias " + nombre);
+		
+		sc.close();
 	}
 
 }

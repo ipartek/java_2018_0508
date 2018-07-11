@@ -14,6 +14,8 @@ public class Ejercicio6 {
 		
 		velocidadsegundo = velocidad * 1000/3600;
 		System.out.println(velocidadsegundo);
+		
+		sc.close();
 	}
 
 }

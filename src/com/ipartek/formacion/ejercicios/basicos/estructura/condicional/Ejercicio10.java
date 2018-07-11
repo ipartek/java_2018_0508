@@ -65,7 +65,7 @@ public class Ejercicio10 {
 				System.out.println("Este mes tiene 30 dias");
 			}
 		}
-			
+		sc.close();	
 	}
 
 }

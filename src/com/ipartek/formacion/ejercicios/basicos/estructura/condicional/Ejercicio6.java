@@ -18,6 +18,7 @@ public class Ejercicio6 {
 		else {
 			System.out.println("Este caracter es una letra");
 		}
+		sc.close();
 	}
 
 }
