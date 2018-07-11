@@ -6,7 +6,7 @@ import java.util.Scanner;
  * Programa que lea un número entero N de 5 cifras y muestre sus cifras desde el 
  * principio como en el ejemplo.
  */
-public class Cinco_Digitos_Inicio {
+public class Ejercicio11 {
 
 	static Scanner sc = new Scanner(System.in);
 

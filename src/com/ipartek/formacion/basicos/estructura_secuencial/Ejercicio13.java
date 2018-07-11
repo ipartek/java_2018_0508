@@ -2,7 +2,7 @@ package com.ipartek.formacion.basicos.estructura_secuencial;
 
 import java.util.Scanner;
 
-public class Numero_De_La_Suerte {
+public class Ejercicio13 {
 	
 	static Scanner sc = new Scanner(System.in);
 

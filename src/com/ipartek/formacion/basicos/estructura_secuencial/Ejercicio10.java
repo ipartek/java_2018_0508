@@ -5,7 +5,7 @@ import java.util.Scanner;
 /*
  * Programa que lee un número de 3 cifras y muestra sus cifras por separado.
  */
-public class Tres_Digitos {
+public class Ejercicio10 {
 	
 	static Scanner sc = new Scanner(System.in);
 	
