@@ -1,5 +1,5 @@
 package com.ipartek.ejercicios.estructura.secuencial;
-import java.util.*;
+import java.util.Scanner;
 /**
  * Programa lea la longitud de los catetos de un triángulo rectángulo y calcule la longitud de la hipotenusa según el teorema de Pitágoras.
  * @author Curso
@@ -7,10 +7,13 @@ import java.util.*;
  */
 
 public class Ejercicio7 {
+	private static Scanner sc;
+
 	public static void main(String[] args) {
-		Scanner sc= new Scanner(System.in);
+		sc = new Scanner(System.in);
 		
-		 double cateto1, cateto2;
+		 double cateto1;
+		 double cateto2;
 	     System.out.print("Introduce la longitud del primer cateto: ");
 	     cateto1 = sc.nextDouble();
 	     System.out.print("Introduce la longitud del segundo cateto: ");

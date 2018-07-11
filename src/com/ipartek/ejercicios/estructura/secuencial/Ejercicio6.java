@@ -1,13 +1,15 @@
 package com.ipartek.ejercicios.estructura.secuencial;
-import java.util.*;
+import java.util.Scanner;
 /**
  * Programa que pase una velocidad en Km/h a m/s. La velocidad se lee por teclado.
  * @author Curso
  *
  */
 public class Ejercicio6 {
+	private static Scanner sc;
+
 	public static void main(String[] args) {
-		Scanner sc= new Scanner(System.in);
+		sc = new Scanner(System.in);
 		
         double velocidad;
         System.out.println("Introduce velocidad en Km/h: ");

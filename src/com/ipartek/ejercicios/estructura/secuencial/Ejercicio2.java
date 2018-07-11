@@ -1,5 +1,5 @@
 package com.ipartek.ejercicios.estructura.secuencial;
-import java.util.*;
+import java.util.Scanner;
 
 /**
  * 2.      Programa Java que lea un nombre y muestre por pantalla:
@@ -10,9 +10,11 @@ import java.util.*;
 
 public class Ejercicio2 {
 	
+	private static Scanner sc;
+
 	public static void main(String[] args) {
 		
-		Scanner sc= new Scanner(System.in);
+		sc = new Scanner(System.in);
 		
 		String nombre;
 		

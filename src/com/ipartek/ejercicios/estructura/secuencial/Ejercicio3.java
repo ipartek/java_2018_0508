@@ -1,5 +1,5 @@
 package com.ipartek.ejercicios.estructura.secuencial;
-import java.util.*;
+import java.util.Scanner;
 
 /**
  * 3.      Escribe un programa Java que lee un número entero por teclado y obtiene y muestra por pantalla el doble y el triple de ese número.
@@ -9,8 +9,10 @@ import java.util.*;
 
 public class Ejercicio3 {
 	
+	private static Scanner sc;
+
 	public static void main(String[] args) {
-		Scanner sc= new Scanner(System.in);
+		sc = new Scanner(System.in);
 		
 		int numero;
         System.out.println("Introduce un número entero:");

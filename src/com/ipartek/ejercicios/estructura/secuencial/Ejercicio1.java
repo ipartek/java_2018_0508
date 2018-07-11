@@ -1,5 +1,5 @@
 package com.ipartek.ejercicios.estructura.secuencial;
-import java.util.*;
+import java.util.Scanner;
 
 /**
  * 1.      Programa Java que lea dos números enteros por teclado y los muestre por pantalla.
@@ -9,11 +9,14 @@ import java.util.*;
 
 public class Ejercicio1 {
 	
+	private static Scanner sc;
+
 	public static void main(String[] args) {
 		
-		int n1, n2;
+		int n1;
+		int n2;
 		
-		Scanner sc= new Scanner(System.in);
+		sc = new Scanner(System.in);
 		
 		System.out.println("Introduce un número entero: "); 
         n1 = sc.nextInt();      //lee un numero entero por teclado
