@@ -11,7 +11,13 @@ package com.ipartek.formacion.ejercicios.basicos.estructura.secuencial;
 public class Ejercicio11 {
 
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
+
+		int n = 12345;
+		 System.out.println(n/10000);
+		 System.out.println(n/1000);
+		 System.out.println(n/100);
+		 System.out.println(n/10);
+		 System.out.println(n);
 
 	}
 
