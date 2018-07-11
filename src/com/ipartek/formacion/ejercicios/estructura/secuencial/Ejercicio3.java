@@ -24,6 +24,7 @@ public class Ejercicio3 {
 		System.out.println("El doble de " + n1 + " es: " + n1*2);
 		System.out.println("El triple de " + n1 + " es: " + n1*3);
 
+		teclado.close();
 	}
 
 }

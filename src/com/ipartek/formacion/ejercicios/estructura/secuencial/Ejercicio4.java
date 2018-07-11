@@ -24,7 +24,6 @@ public class Ejercicio4 {
 		
 		System.out.println(n1 + " ºC = " + n2 + " ºF");
 		
-		
-		
+		teclado.close();
 	}
 }

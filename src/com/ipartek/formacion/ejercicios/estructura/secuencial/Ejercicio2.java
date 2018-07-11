@@ -23,6 +23,7 @@ public class Ejercicio2 {
 		System.out.println();
 		System.out.println("Buenos días " + nombre);
 
+		teclado.close();
 	}
 
 }

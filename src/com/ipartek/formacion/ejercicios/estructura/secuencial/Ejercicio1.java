@@ -24,7 +24,7 @@ public class Ejercicio1 {
 		
 		System.out.println("Los numeros escritos son: " + n1 + " y " + n2);
 		
-
+		teclado.close();
 	}
 
 }

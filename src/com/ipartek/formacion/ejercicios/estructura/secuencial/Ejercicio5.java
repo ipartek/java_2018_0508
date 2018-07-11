@@ -31,6 +31,7 @@ public class Ejercicio5 {
 		System.out.println("Su longitud es: " + longitud);
 		System.out.println("Su area es: " + area);
 
+		teclado.close();
 	}
 
 }
