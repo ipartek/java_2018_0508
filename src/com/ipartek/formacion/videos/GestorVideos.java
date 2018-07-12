@@ -1,10 +1,6 @@
 package com.ipartek.formacion.videos;
 
-import java.util.Iterator;
 import java.util.Scanner;
-
-import javax.sound.midi.Soundbank;
-
 import com.ipartek.formacion.pojo.VideoYoutube;
 
 /**
@@ -27,8 +23,8 @@ public class GestorVideos {
 
 		videos[0] = new VideoYoutube(1, "Vj1190w58UM", "Uno X Uno", "Manuel Carrasco");
 		videos[1] = new VideoYoutube(2, "RgULjdsjiLQ", "Clandestino", "Shakira, Maluma");
-		videos[2] = new VideoYoutube(3, "I8oOS73Mpao", "Quiero ser un tronista", "chirigota callejera de Cádiz");
-		videos[3] = new VideoYoutube(2, "RgULjdsjiLQ", "No vaya a ser", "Pablo Alborán");
+		videos[2] = new VideoYoutube(3, "I8oOS73Mpao", "Quiero ser un tronista", "chirigota callejera de Cï¿½diz");
+		videos[3] = new VideoYoutube(2, "RgULjdsjiLQ", "No vaya a ser", "Pablo Alborï¿½n");
 		videos[4] = new VideoYoutube(2, "RgULjdsjiLQ", "Lo Malo", "Aitana, Ana Guerra");
 
 		do {
@@ -93,21 +89,11 @@ public class GestorVideos {
 
 	}
 
-	private static boolean validarEnt(String cadena) {
-		try {
-			Integer.parseInt(cadena);
-			return true;
-		} catch (NumberFormatException nfe) {
-			return false;
-		}
-
-	}
-
 	private static void listaVideo(VideoYoutube[] videos) {
 		System.out.println("\n");
 		System.out.println(" Listando videos:    ");
 		for (int i = 0; i < videos.length; i++) {
-			System.out.println(videos[i].getId() + " " + videos[i].getAutor()+" "+videos[i].getTitulo());
+			System.out.println(videos[i].getId() + " " + videos[i].getAutor() + " " + videos[i].getTitulo());
 
 		}
 		System.out.println("\n");
@@ -148,8 +134,10 @@ public class GestorVideos {
 		System.out.println("\n");
 	}
 
-	private static void eliminaElement(VideoYoutube[] arrayVideos, int num) {
-
-	}
+	// TODO implementar metodo eliminar
+//	private static void eliminaElement(VideoYoutube[] arrayVideos, int num) {
+//
+//		
+//	}
 
 }

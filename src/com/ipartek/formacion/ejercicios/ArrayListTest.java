@@ -4,7 +4,6 @@ import static org.junit.Assert.*;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.List;
 
 import org.junit.Test;
 
@@ -18,7 +17,7 @@ public class ArrayListTest {
 		assertTrue(paises.isEmpty());
 		assertNotNull(paises);
 
-		paises.add("España");
+		paises.add("Espaï¿½a");
 		paises.add("Italia");
 		paises.add("Alemania");
 		paises.add("Burkina Faso");
