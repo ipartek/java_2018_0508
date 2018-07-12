@@ -4,7 +4,7 @@ import java.util.Scanner;
 
 import com.ipartek.formacion.pojo.VideoYoutube;
 
-public class GesrtorVideos {
+public class GestorVideos {
 
 	static VideoYoutube[] videos = new VideoYoutube[5];
 
