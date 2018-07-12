@@ -8,7 +8,16 @@ public class VideoYoutube {
 
 	public VideoYoutube() {
 		super();
-		// TODO Auto-generated constructor stub
+		this.id = -1;
+		this.codigo = "";
+		this.titulo = "";
+	}
+
+	public VideoYoutube(long id, String titulo, String codigo) {
+		this();
+		this.id = id;
+		this.titulo = titulo;
+		this.codigo = codigo;		
 	}
 
 	public long getId() {
