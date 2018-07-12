@@ -1,4 +1,4 @@
-package com.ipartek.formacion.ejercicios.basicos.estructura.repititiva;
+package com.ipartek.formacion.ejercicios.basicos.estructura.repetitiva;
 
 /**
  * Ejemplo de uso de for. Programa Java que muestre los números del 1 al 100

@@ -1,4 +1,4 @@
-package com.ipartek.formacion.ejercicios.basicos.estructura.repititiva;
+package com.ipartek.formacion.ejercicios.basicos.estructura.repetitiva;
 
 /**
  * Ejemplo de uso de do-while. Programa Java que muestre los números del 100 al
