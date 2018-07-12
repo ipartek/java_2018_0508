@@ -51,7 +51,7 @@ public class VideoYoutube {
 	public String toString() {
 
 		String aDevolver = this.id+"--"+this.titulo;
-		aDevolver+="\nCodigo: "+this.codigo;
+		aDevolver+="\nCodigo: "+this.codigo+"\n";
 		return aDevolver;
 	}
 
