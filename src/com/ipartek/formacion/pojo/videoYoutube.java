@@ -9,8 +9,16 @@ public class videoYoutube {
 	
 	public videoYoutube() {
 		super();
+		this.id = -1;
 		this.titulo = ""  ;
 		this.codigo = "" ;
+
+	}
+	public videoYoutube(long i ,String titulo, String codigo) {
+		this();
+		this.id = i;
+		this.titulo = titulo  ;
+		this.codigo = codigo ;
 
 	}
 
