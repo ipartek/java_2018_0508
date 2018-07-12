@@ -5,6 +5,9 @@ import java.util.Scanner;
 import com.ipartek.formacion.pojo.VideoYoutube;
 
 public class GestorVideos {
+	
+	public static final int opcMinima = 1;
+	public static final int opcMaxima = 1;
 
 	static VideoYoutube[] videos = new VideoYoutube[5];
 
@@ -55,10 +58,10 @@ public class GestorVideos {
 			System.out.println("Elige una opcion:");
 			opc = sc.nextInt();
 			
-			if(opc>3 || opc<1) {
+			if(opc>opcMaxima || opc<opcMinima) {
 				System.out.println("No existe la opcion, vuelve a probar.");
 			}
-		} while (opc>3 || opc<1);
+		} while (opc>opcMaxima || opc<opcMinima);
 
 		sc.close();
 		return opc;
