@@ -10,8 +10,6 @@ import org.junit.Test;
 
 import com.ipartek.formacion.pojo.VideoYoutube;
 
-import jdk.nashorn.internal.ir.annotations.Ignore;
-
 public class VideoYoutubeArrayDAOTest {
 
 	static VideoYoutubeArrayDAO dao;

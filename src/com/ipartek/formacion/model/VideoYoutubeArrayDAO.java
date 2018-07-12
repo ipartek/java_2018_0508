@@ -1,7 +1,6 @@
 package com.ipartek.formacion.model;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 import com.ipartek.formacion.pojo.VideoYoutube;
@@ -61,31 +60,44 @@ public class VideoYoutubeArrayDAO implements CrudAble {
 
 	@Override
 	public VideoYoutube getById(long id) {
-		// TODO Auto-generated method stub
-		return null;
+
+		VideoYoutube aux = new VideoYoutube();
+
+		for (int i = 0; i < lista.size();) {
+			for (VideoYoutube videoYt : lista) {
+				if (videoYt.getId() == id) {
+					aux = lista.get(i);
+				}
+			}
+			break;
+		}
+		return aux;
 	}
 
 	@Override
 	public boolean update(VideoYoutube video) {
 
+		boolean resul = false;
+
 		if (video != null) {
 
-			for (int i = 0; i < lista.size(); i++) {
-				for (VideoYoutube videoYt : lista) {
-					if (videoYt.getId() == video.getId()) {
-						lista.set(i, video);
-						break;
-					}
+			for (int i = 0; i < lista.size();) {
+
+				if (lista.get(i).getId() == video.getId()) {
+					lista.set(i, video);
+
 				}
+
+				break;
 			}
-
 		}
-
-		return false;
+		return resul;
 	}
 
 	@Override
 	public boolean delete(long id) {
+
+		boolean resul = false;
 
 		for (int i = 0; i < lista.size(); i++) {
 			for (VideoYoutube videoYt : lista) {
@@ -95,7 +107,7 @@ public class VideoYoutubeArrayDAO implements CrudAble {
 				}
 			}
 		}
-		return true;
+		return resul;
 	}
 
 }
