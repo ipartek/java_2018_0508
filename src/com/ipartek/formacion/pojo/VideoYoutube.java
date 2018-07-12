@@ -6,11 +6,18 @@ public class VideoYoutube {
 	private String titulo;
 	private String codigo;
 	
-	public VideoYoutube(long id, String titulo, String codigo) {
+	public VideoYoutube() {
 		super();
-		this.id = id; 
-		this.titulo = titulo;
-		this.codigo = codigo;
+		this.setId(-1);
+		this.setTitulo("");
+		this.setCodigo("");
+	}
+	
+	public VideoYoutube(long id, String titulo, String codigo) {
+		this();
+		this.setId(id);
+		this.setTitulo(titulo);
+		this.setCodigo(codigo);
 	}
 	
 	public long getId() {

@@ -1,12 +1,14 @@
 package com.ipartek.formacion.videos;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 import com.ipartek.formacion.pojo.VideoYoutube;
 
 public class GestorVideos {
 	
-	 static VideoYoutube videos[] = new VideoYoutube[5];
+	static List <VideoYoutube> videos = new ArrayList<VideoYoutube>();
 
 	public static void main(String[] args) {
 		
@@ -17,18 +19,17 @@ public class GestorVideos {
 	}
 	
 	public static void cargarVideos() {
-		//TODO crear y guardar 5 videos en el array
-		
-		videos[0] = new VideoYoutube(1, "Receta de cocina", "a8");
-		videos[1] = new VideoYoutube(2, "Canción de rock", "m4");
-		videos[2] = new VideoYoutube(3, "Partido de fútbol", "89n");
-		videos[3] = new VideoYoutube(4, "Música clásica", "01k");
-		videos[4] = new VideoYoutube(5, "Noticias", "abc43");
-		
+		/*		
+		videos.add(1 VideoYoutube);
+		videos.add(2);
+		videos.add(3, "Programa", "a9");
+		videos.add(4, "Partido fútbol", "a9");
+		videos.add(5, "Música clásica", "a9");
+		*/
 	}
 	
 	public static void pintarMenu() { 
-		//TODO pintar menu
+		
 		System.out.println("---------------------------");
 		System.out.println("--        Youtube        --");
 		System.out.println("---------------------------");
@@ -57,7 +58,7 @@ public class GestorVideos {
 			break;
 			
 		case 2:
-			//aniadir()
+			aniadir();
 			break;
 			
 		case 3:
@@ -70,15 +71,34 @@ public class GestorVideos {
 	
 	public static void listar() {
 		
-		for (int i = 0; i < videos.length; i++) {
-			System.out.println(videos[i]);
+		for (int i = 0; i < videos.size(); i++) {
+			System.out.println(videos.get(i));
 		}
 		
 	}
 	
 	public static void aniadir() {
 		
+		Scanner sc = new Scanner(System.in);
 		
+		long id;
+		String titulo;
+		String codigo;
+		int i = 5;
+		
+		System.out.println("Introduce la id del video");
+		id = sc.nextLong();
+		
+		System.out.println("Introduce el título del video");
+		titulo = sc.next();
+		
+		System.out.println("Introduce el código del video");
+		codigo = sc.next();
+		
+		//videos[i] = new VideoYoutube(id, titulo, codigo);
+		i++;
+		
+		sc.close();
 		
 	}
 
