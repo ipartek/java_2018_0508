@@ -15,7 +15,7 @@ import com.ipartek.formacion.pojo.VideoYoutube;
 
 public class GestorVideos {
 
-	static VideoYoutube[] videos = new VideoYoutube[2];
+	static VideoYoutube[] videos = new VideoYoutube[5];
 	static Scanner sc = new Scanner(System.in);
 	static String continuar = "s";
 	static int respuesta;
@@ -26,7 +26,10 @@ public class GestorVideos {
 	public static void main(String[] args) {
 
 		videos[0] = new VideoYoutube(1, "Vj1190w58UM", "Uno X Uno", "Manuel Carrasco");
-		videos[1] = new VideoYoutube(2, "Vj1190w58UM", "Uno X Uno", "Manuel Carrasco");
+		videos[1] = new VideoYoutube(2, "RgULjdsjiLQ", "Clandestino", "Shakira, Maluma");
+		videos[2] = new VideoYoutube(3, "I8oOS73Mpao", "Quiero ser un tronista", "chirigota callejera de Cádiz");
+		videos[3] = new VideoYoutube(2, "RgULjdsjiLQ", "No vaya a ser", "Pablo Alborán");
+		videos[4] = new VideoYoutube(2, "RgULjdsjiLQ", "Lo Malo", "Aitana, Ana Guerra");
 
 		do {
 			pintarMenu();
@@ -104,7 +107,7 @@ public class GestorVideos {
 		System.out.println("\n");
 		System.out.println(" Listando videos:    ");
 		for (int i = 0; i < videos.length; i++) {
-			System.out.println(videos[i].getId() + " " + videos[i].getAutor());
+			System.out.println(videos[i].getId() + " " + videos[i].getAutor()+" "+videos[i].getTitulo());
 
 		}
 		System.out.println("\n");
