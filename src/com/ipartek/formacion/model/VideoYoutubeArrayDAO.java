@@ -1,21 +1,62 @@
 package com.ipartek.formacion.model;
 
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import com.ipartek.formacion.pojo.VideoYoutube;
 
+/**
+ * Clase DAO para gestionar los VideoYutube con ArrayList Usamos patron
+ * Singlenton
+ * 
+ * @see https://es.wikipedia.org/wiki/Singleton
+ * @author andreaPerez
+ *
+ */
 public class VideoYoutubeArrayDAO implements CrudAble {
+
+	private static VideoYoutubeArrayDAO INSTANCE = null;
+	private static List<VideoYoutube> lista = null;
+
+	/**
+	 * inicializa el array
+	 */
+	private VideoYoutubeArrayDAO() {
+
+		lista = new ArrayList<VideoYoutube>();
+	}
+
+	/**
+	 * metodo de acceso al DAO
+	 * 
+	 * @return INSTANCE
+	 */
+	public static synchronized VideoYoutubeArrayDAO getInstance() {
+
+		if (INSTANCE == null) {
+			INSTANCE = new VideoYoutubeArrayDAO();
+		}
+
+		return INSTANCE;
+	}
 
 	@Override
 	public boolean insert(VideoYoutube video) {
-		// TODO Auto-generated method stub
-		return false;
+
+		boolean resul = false;
+		if (video != null) {
+			lista.add(video);
+
+		}
+
+		return resul;
 	}
 
 	@Override
 	public List<VideoYoutube> getALl() {
-		// TODO Auto-generated method stub
-		return null;
+
+		return lista;
 	}
 
 	@Override
@@ -26,14 +67,35 @@ public class VideoYoutubeArrayDAO implements CrudAble {
 
 	@Override
 	public boolean update(VideoYoutube video) {
-		// TODO Auto-generated method stub
+
+		if (video != null) {
+
+			for (int i = 0; i < lista.size(); i++) {
+				for (VideoYoutube videoYt : lista) {
+					if (videoYt.getId() == video.getId()) {
+						lista.set(i, video);
+						break;
+					}
+				}
+			}
+
+		}
+
 		return false;
 	}
 
 	@Override
 	public boolean delete(long id) {
-		// TODO Auto-generated method stub
-		return false;
+
+		for (int i = 0; i < lista.size(); i++) {
+			for (VideoYoutube videoYt : lista) {
+				if (videoYt.getId() == id) {
+					lista.remove(i);
+					break;
+				}
+			}
+		}
+		return true;
 	}
 
 }

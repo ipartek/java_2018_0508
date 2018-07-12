@@ -14,10 +14,10 @@ public class VideoYoutube {
 
 	public VideoYoutube(long id, String codigo, String titulo, String autor) {
 		this();
-		this.id = id;
-		this.codigo = codigo;
-		this.titulo = titulo;
-		this.autor = autor;
+		this.id = -1;
+		this.codigo = "";
+		this.titulo = "";
+		this.autor = "";
 	}
 
 	public VideoYoutube(String idBorrar, String codigo, String titulo, String autor) {
@@ -26,6 +26,13 @@ public class VideoYoutube {
 		this.codigo = codigo;
 		this.titulo = titulo;
 		this.autor = autor;
+	}
+
+	public VideoYoutube(Long id, String titulo, String codigo) {
+		this();
+		this.id = id;
+		this.titulo = titulo;
+		this.codigo = codigo;
 	}
 
 	public String getIdBorrar() {
