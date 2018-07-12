@@ -9,16 +9,17 @@ import com.ipartek.formacion.pojo.VideoYoutube;
 public class GestorVideos {
 
 	// TODO insertar las canciones, mostrar por pantalla las canciones
-	// TODO recuperar la cancion 5397 
+	// TODO recuperar la cancion 5397
 	// TODO eliminar la cancion pintxo pintxo, luego por pantalla
 	// TODO cambiar nombre, volver a mostrar por pantalla
-	
+
 	static VideoYoutubeArrayDAO dao;
 
-	public static final int opcMinima = 1;
-	public static final int opcMaxima = 2;
+	private static final int opcMinima = 1;
+	private static final int opcMaxima = 2;
+	private static Scanner sc = new Scanner(System.in);
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws IOException {
 
 		dao = VideoYoutubeArrayDAO.getInstance();
 
@@ -36,10 +37,15 @@ public class GestorVideos {
 		case 2:
 			eliminarVideo();
 			break;
+			
+		case 3:
+			modficarVideo();
 		default:
 			System.out.println("Adios!!!!");
 			break;
 		}
+
+		sc.close();
 	}
 
 	private static void cargarVideos() {
@@ -62,16 +68,16 @@ public class GestorVideos {
 		System.out.println("-------------");
 		System.out.println("-2. Eliminar-");
 		System.out.println("-------------");
-		System.out.println("--3. Pintar--");
+		System.out.println("-3. Modificar-");
 		System.out.println("-------------");
 		System.out.println("--4. Pintar--");
 		System.out.println("-------------");
 	}
 
-	private static int opcion() {
+	private static int opcion() throws IOException {
 
 		int opc;
-		Scanner sc = new Scanner(System.in);
+
 		do {
 
 			System.out.println("Elige una opcion:");
@@ -80,9 +86,9 @@ public class GestorVideos {
 			if (opc > opcMaxima || opc < opcMinima) {
 				System.out.println("No existe la opcion, vuelve a probar.");
 			}
+			System.in.read();
 		} while (opc > opcMaxima || opc < opcMinima);
 
-		sc.close();
 		return opc;
 
 	}
@@ -92,22 +98,32 @@ public class GestorVideos {
 		System.out.println(dao.getAll());
 
 	}
-	
-	private static void eliminarVideo() {
+
+	private static void eliminarVideo() throws IOException {
 		long id;
-		Scanner sc = new Scanner(System.in);
-		
-//		System.in.read();
-//		System.in.read();
-		
+
+		System.in.read();
+		System.in.read();
+
 		System.out.println("Dime el id de una cancion para borrarla...");
-		id = (long)sc.nextInt();
-		
+		id = (long) sc.nextInt();
+
 		dao.delete(id);
-		
+
 		listarVideos();
+
+	}
+	
+	private static void modficarVideo() {
 		
-		sc.close();
+		System.out.println("Dime el video a modificar:");
+		long id = (long) sc.nextInt();
+		
+		VideoYoutube video = dao.getById(id);
+		
+		System.out.println("Que quieres modificar:\n1.-Titulo:"+video.getTitulo()+"\n2.-Codigo:"+video.getCodigo());
+		
+		//TODO hace swith
 		
 	}
 
