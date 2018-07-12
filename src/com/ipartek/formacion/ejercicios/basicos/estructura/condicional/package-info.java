@@ -1,7 +1,7 @@
 /**
  * @author Adrian Garcia
- * Package para contener todas las clases de tipo POJO.
- * @see https://es.wikipedia.org/wiki/Plain_Old_Java_Object
+ * Los siguiente ejercicios utilizan la estructura condicional 
+ * también llamada estructura alternativa o selectiva.
  *
  */
 package com.ipartek.formacion.ejercicios.basicos.estructura.condicional;

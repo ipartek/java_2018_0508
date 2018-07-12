@@ -2,25 +2,26 @@ package com.ipartek.formacion.ejercicios.basicos.estructura.secuencial;
 
 import java.util.Scanner;
 
+/**
+* Programa Java que lea un nombre y muestre por pantalla:
+* “Buenos dias nombre_introducido”
+*/
 public class Ejercicio2 {
 
 	public static void main(String[] args) {
-		/**
-		 * Programa Java que lea un nombre y muestre por pantalla:
-		 * “Buenos dias nombre_introducido”
-		 */
+		
 
 		//TODO controlar que solo se introduzcan Strings
-		Scanner leer = new Scanner(System.in);
+		Scanner sc = new Scanner(System.in);
 		String nombre = "";
 		
 		System.out.println("Escribe tu nombre");
 		
-		nombre = leer.nextLine();
+		nombre = sc.next();
 		
 		System.out.println("Buenos días " + nombre);
 		
-		leer.close();
+		sc.close();
 		
 	}
 

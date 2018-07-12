@@ -2,27 +2,28 @@ package com.ipartek.formacion.ejercicios.basicos.estructura.secuencial;
 
 import java.util.Scanner;
 
+/**
+* Escribe un programa Java que lee un número entero por teclado y obtiene y 
+* muestra por pantalla el doble y el triple de ese número.
+*/
 public class Ejercicio3 {
 
 	public static void main(String[] args) {
-		/**
-		 * Escribe un programa Java que lee un número entero por teclado y obtiene y 
-		 * muestra por pantalla el doble y el triple de ese número.
-		 */
+		
 		
 		//TODO controlar que solo se introduzcan números enteros
-		Scanner leer = new Scanner(System.in);
+		Scanner sc = new Scanner(System.in);
 		
 		System.out.println("Introduce un número");
 		
 		int numero;
 		
-		numero = leer.nextInt();
+		numero = sc.nextInt();
 		
 		System.out.println("El doble del número introducido es " + 2 * numero);
 		System.out.println("El triple del número introducido es " + 3 * numero);
 		
-		leer.close();
+		sc.close();
 		
 	}
 
