@@ -2,6 +2,7 @@ package com.ipartek.formacion.model;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 
 import com.ipartek.formacion.pojo.VideoYoutube;
 
@@ -63,6 +64,13 @@ public class VideoYoutubeArrayDAO implements CrudAble {
 	@Override
 	public boolean update(VideoYoutube video) {
 		// TODO Auto-generated method stub
+		
+		sc = new Scanner(System.in);
+		
+		System.out.print(video.getCodigo() + " - Codigo nuevo: ");
+		
+		
+		
 		return false;
 	}
 
