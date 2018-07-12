@@ -1,5 +1,5 @@
 package com.ipartek.formacion.pojo;
-
+ 
 public class VideoYoutube {
 	
 	private long id;
