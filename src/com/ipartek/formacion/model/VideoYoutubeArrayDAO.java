@@ -1,4 +1,5 @@
 package com.ipartek.formacion.model;
+
 /**
  * Clase DAO para gestionar los VideoYoutube con ArrayList.
  * Usamos patron Singleton
@@ -24,14 +25,17 @@ public class VideoYoutubeArrayDAO implements CrudAble {
 
 	@Override
 	public boolean insert(VideoYoutube video) {
-		// TODO Auto-generated method stub
-		return false;
+		boolean resul = false;
+		if (video != null) {
+			lista.add(video);
+			resul = true;
+		}
+		return resul;
 	}
 
 	@Override
 	public List<VideoYoutube> getAll() {
-		// TODO Auto-generated method stub
-		return null;
+		return lista;
 	}
 
 	@Override
