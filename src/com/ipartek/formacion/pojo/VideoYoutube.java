@@ -10,7 +10,7 @@ public class VideoYoutube {
 	// Constructores
 	public VideoYoutube() {
 		super();
-		this.id = 0;
+		this.id = -1;
 		this.codigo = "";
 		this.titulo = "";
 	}

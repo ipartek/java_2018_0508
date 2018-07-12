@@ -15,14 +15,22 @@ public class Ejercicio03 {
 	public static void main(String[] args) {
 
 		char salir = 'n';
+		int temperatura;
 		Scanner sc = new Scanner(System.in);
 		
 		do {
-			System.out.println("Repetir proceso? (S/N)");
-			salir = sc.nextLine().charAt(0);
 			
-		} while (salir != 's');
+			System.out.println("Introduce los grados celsius:");
+			temperatura = sc.nextInt();
+			
+			System.out.println(temperatura+"ºC son "+(temperatura+273)+"ºK");
+			
+			System.out.println("Repetir proceso? (S/N)");
+			salir = sc.next().charAt(0);
+			
+		} while (salir == 's');
 
+		sc.close();
 	}
 
 }
