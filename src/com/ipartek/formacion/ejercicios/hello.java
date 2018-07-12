@@ -1,4 +1,4 @@
-package com.ipartek.formacion.ejecicios;
+package com.ipartek.formacion.ejercicios;
 import com.ipartek.formacion.pojo.Person;
 import java.util.logging.Logger;
 

@@ -1,4 +1,4 @@
-package com.ipartek.formacion.ejecicios;
+package com.ipartek.formacion.ejercicios;
 import static org.junit.Assert.*;
 import org.junit.Test;
 

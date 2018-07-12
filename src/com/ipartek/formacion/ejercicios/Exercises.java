@@ -1,4 +1,4 @@
-package com.ipartek.formacion.ejecicios;
+package com.ipartek.formacion.ejercicios;
 
 import java.util.Scanner;
 import java.util.ArrayList;

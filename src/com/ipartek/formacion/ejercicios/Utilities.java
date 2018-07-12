@@ -1,4 +1,4 @@
-package com.ipartek.formacion.ejecicios;
+package com.ipartek.formacion.ejercicios;
 
 public class Utilities {
 
