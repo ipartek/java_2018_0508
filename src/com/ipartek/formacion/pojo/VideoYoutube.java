@@ -3,17 +3,28 @@ package com.ipartek.formacion.pojo;
 public class VideoYoutube {
 
 	// VARIABLES
-	long id = 0;
+	long id;
 	String titulo;
 	String codigo;
 
 	// CONSTRUCTOR(es)
-	public VideoYoutube(String s) {
-
-		this.id+= 1;
-		this.titulo = s;
-		this.codigo = s.substring(0, 3) + Long.toString(this.id);
+	public VideoYoutube() {		// Por defecto, todo vacío
+		super();
+		this.id = -1;
+		this.codigo = "";
+		this.titulo = "";
 	}
+
+	public VideoYoutube(long id, String titulo, String codigo) { // Con parámetros
+		this();
+		this.id = id;
+		this.titulo = titulo;
+		this.codigo = codigo;
+		
+	}
+
+
+
 
 	// GETTERS AND SETTERS
 	public long getId() {

@@ -10,22 +10,22 @@ import com.ipartek.formacion.util.Utilidades;
  * @author Curso
  *
  */
-public class Ejercicio1 {
+public class Ejercicio2 {
 
 	static Scanner sc = new Scanner(System.in);
 
 	public static void main(String[] args) {
 
 		int n;
-			
-			n = Utilidades.leerInt(sc);
-			System.out.println(esPar(n) ? n + " es par" : n + " es impar");
-		
+
+		n = Utilidades.leerInt(sc);
+		System.out.println(esMultiploDe10(n) ? n + " es múltiplo de 10" : n + " no es múltiplo de 10");
+
 	}
 
-	private static boolean esPar(int n) {
+	private static boolean esMultiploDe10(int n) {
 
-		return (n % 2 == 0 ? true : false);
+		return (n % 10 == 0 ? true : false);
 	}
 
 }

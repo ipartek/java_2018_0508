@@ -1,8 +1,11 @@
 package com.ipartek.formacion.gestorDeVideos;
 
+import java.util.Arrays;
 import java.util.Scanner;
 
 import com.ipartek.formacion.pojo.VideoYoutube;
+import com.ipartek.formacion.util.Utilidades;
+
 
 public class GestorDeVideos {
 
@@ -24,7 +27,8 @@ public class GestorDeVideos {
 			listarVideos();
 			break;
 		case 2:
-			addVideo();
+			videos = addVideo();
+			listarVideos();
 			break;
 		case 3:
 			eliminarVideo();
@@ -37,7 +41,7 @@ public class GestorDeVideos {
 		// TODO pintar Menu
 		System.out.println("--------------------");
 		System.out.println("----- YOUTUBE ------");
-		System.out.println("--------------------");
+		System.out.println("-------Menu---------");
 		System.out.println("1. Listar Videos");
 		System.out.println("2. Añadir Video");
 		System.out.println("3. Eliminar Video");
@@ -47,22 +51,7 @@ public class GestorDeVideos {
 	private static void cargarVideos() {
 
 		// TODO cargar videos
-		
-		VideoYoutube v = new VideoYoutube("Video de Prueba 1");
-		videos[0] = v;
-		
-		v = new VideoYoutube("Video de Prueba 2");
-		videos[1] = v;
-		
-		v = new VideoYoutube("Video de Prueba 3");
-		videos[2] = v;
-		
-		v = new VideoYoutube("Video de Prueba 4");
-		videos[3] = v;
-		
-		v = new VideoYoutube("Video de Prueba 5");
-		videos[4] = v;
-
+	
 	}
 
 	private static void listarVideos() {
@@ -73,20 +62,19 @@ public class GestorDeVideos {
 		}
 	}
 
-	private static void addVideo() {
+	private static VideoYoutube[] addVideo() {
 
 		String tit = "";
 
-		while (sc.nextLine() == null) {
-			System.out.println("Introduce título: ");
-			tit = sc.nextLine();
-		}
+		// Creamos el nuevo video
+		tit = Utilidades.leerString(sc);
+		VideoYoutube v = new VideoYoutube();
 		
-		VideoYoutube[] tmp = new VideoYoutube[videos.length + 1];
-		VideoYoutube v = new VideoYoutube(tit);
-		tmp[videos.length + 1] = v;
-
-		videos = tmp;
+		//	Creamos un nuevo array con una posición más
+		videos  = Arrays.copyOf(videos, videos.length + 1);
+		videos[videos.length - 1] = v;
+	    return videos;
+		
 	}
 
 	private static void eliminarVideo() {

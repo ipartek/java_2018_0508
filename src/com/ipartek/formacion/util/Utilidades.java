@@ -1,10 +1,13 @@
 package com.ipartek.formacion.util;
 
+import java.util.Scanner;
+
 public class Utilidades {
 
 	static int[] array = { 0, 3, 1, 8, 7, 2, 5, 4, 6, 9 };
 	static int[] res;
 
+	//	PARA TESTEAR EL CÓDIGO
 	public static void main(String[] args) {
 
 		res = bubbleSort(array, true);
@@ -47,6 +50,43 @@ public class Utilidades {
 			}
 		}
 		return res;
+	}
+	
+	//	FUNCIONES DE LECTURA DE DATOS EN CONSOLA
+	/**
+	 * Pide y Lee un número entero introducido por consola.
+	 * @param sc
+	 * @return int, con el valor introducido en consola.
+	 */
+	public static int leerInt(Scanner sc) {
+		
+		int n;
+		
+		sc = new Scanner(System.in);
+		System.out.println("Introduce un valor númerico entero: ");
+		n = sc.nextInt();
+		sc.close();
+		
+		return n;
+		
+	}
+	
+	/**
+	 * Pide y Lee una línea introducida en consola.
+	 * @param sc
+	 * @return String, con la línea introducida en consola.
+	 */
+	public static String leerString(Scanner sc) {
+		
+		String s;
+		
+		sc = new Scanner(System.in);
+		System.out.println("Introduce un texto: ");
+		s = sc.nextLine();
+		sc.close();
+		
+		return s;
+		
 	}
 
 }
