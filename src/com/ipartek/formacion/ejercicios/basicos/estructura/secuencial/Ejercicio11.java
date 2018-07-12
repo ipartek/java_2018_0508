@@ -14,8 +14,21 @@ package com.ipartek.formacion.ejercicios.basicos.estructura.secuencial;
 import java.util.Scanner;
 
 public class Ejercicio11 {
-	public static void main(String[] args){
-		
+	public static void main(String[] args) {
+
+		int num;
+
+		Scanner sc = new Scanner(System.in);
+
+		System.out.print("Introduzca un numero de cinco cifras: ");
+		num = sc.nextInt();
+		System.out.println(num / 10000);
+		System.out.println(num / 1000);
+		System.out.println(num / 100);
+		System.out.println(num / 10);
+		System.out.println(num);
+
+		sc.close();
 
 	}
 }
