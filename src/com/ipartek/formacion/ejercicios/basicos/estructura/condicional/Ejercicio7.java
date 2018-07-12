@@ -13,18 +13,25 @@ public class Ejercicio7 {
 
 	public static void main(String[] args) {
 
-		int num;
-		int num2;
+		float num;
+		float num2;
+		float result;
 		
 		Scanner sc=new Scanner(System.in);
 
-		System.out.println("Introduce un numero: ");
+		System.out.println("Introduce un numero de dividendo: ");
 		num=sc.nextInt();
-		System.out.println("Introduce otro numero: ");
+		System.out.println("Introduce otro numero de divisor: ");
 		num2=sc.nextInt();
-		//TODO terminar el ejercicio
 		
-		System.out.println("El caracter introducido es : " + num);
+		if(num2==0) {
+			System.out.println("La division no se puede hacer");
+		}else {
+			result=num/num2;
+			System.out.println("La division de los dos numeros es : " + result);
+		}
+		
+		sc.close();
 
 	}
 
