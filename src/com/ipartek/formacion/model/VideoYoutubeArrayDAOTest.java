@@ -55,12 +55,10 @@ public class VideoYoutubeArrayDAOTest {
 
 		assertFalse(dao.insert(null));
 		assertEquals(totalVideos, dao.getAll().size());
-		
+
 		assertTrue(dao.insert(mock1));
 		assertEquals(totalVideos + 1, dao.getAll().size());
 
-		
-		
 	}
 
 	@Test
@@ -80,33 +78,38 @@ public class VideoYoutubeArrayDAOTest {
 		assertEquals(MOCK1_ID, video.getId());
 		assertEquals(MOCK1_CODIGO, video.getCodigo());
 		assertEquals(MOCK1_TITULO, video.getTitulo());
-		
-		
-		assertNull("No deberia de encontrar este id -1",dao.getById(-1));
-		
+
+		assertNull("No deberia de encontrar este id -1", dao.getById(-1));
+
 	}
 
-	//TODO terminar test
-	//@Test
+	@Test
 	public void testUpdate() {
 
 		assertTrue(dao.insert(mock1));
 
 		VideoYoutube video = dao.getById(MOCK1_ID);
-		
+
 		video.setTitulo("Cambio");
-		
+
 		assertTrue(dao.update(video));
-		
+
 		assertEquals(MOCK1_ID, video.getId());
 		assertEquals(MOCK1_CODIGO, video.getCodigo());
 		assertEquals("Cambio", video.getTitulo());
-		
+
 	}
 
-	//@Test
+	@Test
 	public void testDelete() {
-		fail("Not yet implemented");
+
+		int totalVideos = dao.getAll().size();
+
+		assertTrue(dao.insert(mock1));
+		assertTrue(dao.delete(MOCK1_ID));
+
+		assertEquals(totalVideos, dao.getAll().size());
+
 	}
 
 }

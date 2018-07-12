@@ -55,19 +55,14 @@ public class VideoYoutubeArrayDAO implements CrudAble {
 
 		VideoYoutube video = null;
 		if (id != -1) {
-			int contador = 0;
-			int tamano = this.getAll().size();
-			boolean encontrado = false;
 
-			while (contador < tamano || encontrado == false) {
+			for (int i = 0; i < lista.size(); i++) {
 
-				video = this.getAll().get(contador);
+				video = lista.get(i);
 
 				if (video.getId() == id) {
-					encontrado = true;
+					break;
 				}
-
-				contador++;
 			}
 		}
 
@@ -83,13 +78,30 @@ public class VideoYoutubeArrayDAO implements CrudAble {
 		}
 
 		return resul;
-		
+
 	}
 
 	@Override
 	public boolean delete(long id) {
-		// TODO Auto-generated method stub
-		return false;
+
+		boolean resul = false;
+
+		if (id != -1) {
+			VideoYoutube video = null;
+
+			for (int i = 0; i < lista.size(); i++) {
+
+				video = lista.get(i);
+
+				if (video.getId() == id) {
+					lista.remove(i);
+					resul = true;
+					break;
+				}
+			}
+		}
+
+		return resul;
 	}
 
 }
