@@ -22,7 +22,9 @@ public class Ejercicio9 {
 		System.out.print("Introduzca longitud del tercer lado del triángulo: ");
 		lado3 = sc.nextDouble();
 		perimetro = (lado1 + lado2 + lado3) / 2;
-		System.out.println("El area del triángulo es: " + Math.sqrt(perimetro * (perimetro - lado1) * (perimetro - lado2) * (perimetro - lado3)));
+		System.out.println("El area del triángulo es: "
+				+ Math.sqrt(perimetro * (perimetro - lado1) * (perimetro - lado2) * (perimetro - lado3)));
+		sc.close();
 	}
 
 }

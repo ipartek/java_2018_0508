@@ -20,7 +20,7 @@ public class Ejercicio10 {
 		System.out.println("Primera cifra de " + num + " -> " + (num / 100));
 		System.out.println("Segunda cifra de " + num + " -> " + (num / 10) % 10);
 		System.out.println("Última cifra  de " + num + " -> " + (num % 10));
-
+		sc.close();
 	}
 
 }

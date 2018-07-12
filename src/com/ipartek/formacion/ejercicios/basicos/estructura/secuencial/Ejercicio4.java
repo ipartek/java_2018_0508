@@ -23,7 +23,7 @@ public class Ejercicio4 {
 		celsius = sc.nextFloat();
 		fahrenheit = 32 + (9 * celsius / 5);
 		System.out.println(celsius + " celsius son " + fahrenheit + "º fahrenheit.");
-
+		sc.close();
 	}
 
 }

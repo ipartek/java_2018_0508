@@ -27,6 +27,7 @@ public class Ejercicio2 {
 		msg = (num1 % 10 == 0) ? "El número " + num1 + " 5ES MULTIPLO DE 10"
 				: "El número " + num1 + " NO ES MULTIPLO DE 10";
 		log.info(msg);
+		sc.close();
 	}
 
 }

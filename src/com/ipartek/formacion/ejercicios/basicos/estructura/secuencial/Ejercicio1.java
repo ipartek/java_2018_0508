@@ -23,6 +23,7 @@ public class Ejercicio1 {
 		num2 = sc.nextInt();
 
 		log.info("Los numeros introducidos son: " + num1 + "," + num2);
+		sc.close();
 	}
 
 }

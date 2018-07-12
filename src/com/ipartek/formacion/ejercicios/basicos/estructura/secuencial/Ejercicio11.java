@@ -19,6 +19,7 @@ public class Ejercicio11 {
 		System.out.println(num / 100);
 		System.out.println(num / 10);
 		System.out.println(num);
+		sc.close();
 	}
 
 }

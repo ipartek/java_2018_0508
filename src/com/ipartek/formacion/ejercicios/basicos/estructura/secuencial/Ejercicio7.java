@@ -25,6 +25,7 @@ public class Ejercicio7 {
 		cateto2 = sc.nextDouble();
 		hipotenusa = Math.sqrt(Math.pow(cateto1, 2) + Math.pow(cateto2, 2));
 		System.out.println("La hipotenusa del triangulo con lados " + cateto1 + ", y " + cateto2 + " es:" + hipotenusa);
+		sc.close();
 	}
 
 }

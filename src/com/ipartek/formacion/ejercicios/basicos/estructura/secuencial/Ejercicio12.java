@@ -22,7 +22,7 @@ public class Ejercicio12 {
 		System.out.println(num / 100);
 		System.out.println(num / 1000);
 		System.out.println(num / 10000);
-
+		sc.close();
 	}
 
 }

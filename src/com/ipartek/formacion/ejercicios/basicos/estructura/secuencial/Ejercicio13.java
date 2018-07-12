@@ -33,5 +33,6 @@ public class Ejercicio13 {
 		cifra4 = suma % 10;
 		numSuerte = cifra1 + cifra2 + cifra3 + cifra4;
 		System.out.println("Su número de la suerte es: " + numSuerte);
+		sc.close();
 	}
 }

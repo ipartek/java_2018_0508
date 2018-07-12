@@ -23,6 +23,7 @@ public class Ejercicio6 {
 		vel = sc.nextFloat();
 		velFinal = vel * 0.2778f;
 		System.out.println("La velocidad introducida convertida a m/s es: " + velFinal);
+		sc.close();
 
 	}
 

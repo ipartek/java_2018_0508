@@ -18,6 +18,7 @@ public class Ejercicio3 {
 		num = sc.nextInt();
 		System.out.println(
 				"El número introducido es: " + num + " , su doble es: " + num * 2 + " y su triple es: " + num * 3);
+		sc.close();
 	}
 
 }

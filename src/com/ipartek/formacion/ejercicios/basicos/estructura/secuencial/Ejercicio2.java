@@ -17,5 +17,6 @@ public class Ejercicio2 {
 		System.out.println("Por favor introduzca su nombre.");
 		nombre = sc.nextLine();
 		System.out.println("Buenos dias " + nombre);
+		sc.close();
 	}
 }
