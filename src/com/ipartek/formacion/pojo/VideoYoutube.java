@@ -8,7 +8,7 @@ public class VideoYoutube {
 	
 	public VideoYoutube(long id, String titulo, String codigo) {
 		super();
-		this.id = id;
+		this.id = id; 
 		this.titulo = titulo;
 		this.codigo = codigo;
 	}

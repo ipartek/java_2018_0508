@@ -1,5 +1,5 @@
 package com.ipartek.formacion.ejercicios.basicos.estructura.condicional;
-
+ 
 import java.util.Scanner;
 
 /**

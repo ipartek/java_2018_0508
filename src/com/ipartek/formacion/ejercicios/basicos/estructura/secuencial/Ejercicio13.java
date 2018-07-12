@@ -1,5 +1,5 @@
 package com.ipartek.formacion.ejercicios.basicos.estructura.secuencial;
-
+ 
 import java.util.Scanner;
 
 /**

@@ -27,7 +27,7 @@ public class GestorVideos {
 		
 	}
 	
-	public static void pintarMenu() {
+	public static void pintarMenu() { 
 		//TODO pintar menu
 		System.out.println("---------------------------");
 		System.out.println("--        Youtube        --");
