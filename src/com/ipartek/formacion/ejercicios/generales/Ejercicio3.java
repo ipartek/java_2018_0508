@@ -8,8 +8,13 @@ package com.ipartek.formacion.ejercicios.generales;
 public class Ejercicio3 {
 
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-
+		char ch = 'S';
+		while(ch == 'S') {
+			
+			//K = °C + 273.15
+			
+		
+		}
 	}
 
 }
