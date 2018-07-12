@@ -1,7 +1,6 @@
 package com.ipartek.formacion.ejercicios.basicos.estructura.condicional;
 
 import java.io.IOException;
-import java.util.Scanner;
 
 /**
  * 4. Programa que lea dos caracteres por teclado y compruebe si son iguales.
