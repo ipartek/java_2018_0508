@@ -112,7 +112,7 @@ public class VideoYoutubeArrayDAOTest {
 		// Recuperar video y comprobar atributos
 		VideoYoutube videoModificado = dao.getById(MOCK1_ID);
 		assertEquals(MOCK1_ID, videoModificado.getId());
-		assertEquals("El fary", videoModificado.getTitulo());
+		assertEquals("El Fary", videoModificado.getTitulo());
 		assertEquals("fff", videoModificado.getCodigo());
 
 		// Modificamos un video que no Existe
