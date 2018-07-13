@@ -6,7 +6,6 @@ import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
-import org.junit.Ignore;
 import org.junit.Test;
 
 import com.ipartek.formacion.pojo.VideoYoutube;
@@ -15,10 +14,19 @@ public class VideoYoutubeArrayDAOTest {
 	
 	static VideoYoutubeArrayDAO dao;
 	
+	static final long ID_INEXISTENTE = -1;
+	
 	static VideoYoutube mock1;
+	
 	static final long MOCK1_ID = 325;
 	static final String MOCK1_CODIGO = "Que te den";
 	static final String MOCK1_NOMBRE = "AY4QbN5PCxg";
+
+	static VideoYoutube mock2;
+	
+	static final long MOCK2_ID = 421;
+	static final String MOCK2_CODIGO = "JSAanjdlbdh";
+	static final String MOCK2_NOMBRE = "En la noche";
 
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
@@ -33,12 +41,20 @@ public class VideoYoutubeArrayDAOTest {
 	@Before
 	public void setUp() throws Exception {
 		//mock1
-		mock1 = new VideoYoutube();
+		mock1 = new VideoYoutube(MOCK1_ID, MOCK1_CODIGO, MOCK1_NOMBRE);
+		mock2 = new VideoYoutube(MOCK2_ID, MOCK2_CODIGO, MOCK2_NOMBRE);
+		
+		assertTrue(dao.insert(mock1));
+		assertTrue(dao.insert(mock2));
 	}
 
 	@After
 	public void tearDown() throws Exception {
+		dao.delete(MOCK1_ID);
+		dao.delete(MOCK2_ID);
+		
 		mock1 = null;
+		mock2 = null;
 	}
 
 	@Test
@@ -54,12 +70,12 @@ public class VideoYoutubeArrayDAOTest {
 
 	@Test
 	public void testGetAll() {
+		//Mirar que no sea nulo
 		assertNotNull(dao.getAll());
 	}
 
 	@Test
 	public void testGetById() {
-		assertTrue(dao.insert(mock1));
 		
 		VideoYoutube video = dao.getById(MOCK1_ID);
 		
@@ -67,19 +83,37 @@ public class VideoYoutubeArrayDAOTest {
 		assertEquals(MOCK1_CODIGO, video.getCodigo());
 		assertEquals(MOCK1_NOMBRE, video.getNombre());
 		
-		assertNull("No deberia encontrar este id -1" ,dao.getById(-1));
+		assertNull("No deberia encontrar este id -1" ,dao.getById(ID_INEXISTENTE));
 	}
 
-	//TODO terminar test
-	@Ignore
+	@Test
 	public void testUpdate() {
+		assertFalse(dao.update(null));
 		
+		//Modificamos un Video que existe
+		VideoYoutube videoModificarConId = new VideoYoutube(MOCK1_ID, "El fary", "ff");
+		assertTrue(dao.update(videoModificarConId));
+		
+		//Recuperar video
+		VideoYoutube videoModificado = dao.getById(MOCK1_ID);
+		assertEquals(MOCK1_ID, videoModificado.getId());
+		assertEquals("El fary", videoModificado.getNombre());
+		assertEquals("ff", videoModificado.getCodigo());
+		
+		//Modificamos un Video que NO existe
+		VideoYoutube videoModificarSinId = new VideoYoutube(ID_INEXISTENTE, "Inexistente", "FFF");
+		assertFalse(dao.update(videoModificarSinId));
 	}
 
-	//TODO terminar test
-	@Ignore
+	@Test
 	public void testDelete() {
-		fail("Not yet implemented");
+		//eliminar video no existente
+		assertFalse(dao.delete(ID_INEXISTENTE) );
+		assertEquals(2, dao.getAll().size() );
+				
+		//eliminar video existente
+		assertTrue(dao.delete(MOCK2_ID));
+		assertEquals(1, dao.getAll().size() );
 	}
 
 }
