@@ -5,6 +5,7 @@ package com.ipartek.formacion.model;
  * Usamos patron Singleton
  */
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 public class VideoYoutubeArrayDAO implements CrudAble {
@@ -40,13 +41,38 @@ public class VideoYoutubeArrayDAO implements CrudAble {
 
 	@Override
 	public VideoYoutube getById(long id) {
-		return null;
+		VideoYoutube resul = null;
+		// foreach
+		for (VideoYoutube videoIteracion : lista) {
+			if (id == videoIteracion.getId()) {
+				resul = videoIteracion;
+				break;
+			}
+		}
+
+		return resul;
 	}
 
 	@Override
-	public boolean update(VideoYoutube video) {
-		// TODO Auto-generated method stub
-		return false;
+	public boolean update(VideoYoutube videoUpdate) {
+		boolean resul = false;
+		VideoYoutube videoIteracion = null;
+		int i = 0;
+		if (videoUpdate != null) {
+
+			// Iterator
+			Iterator<VideoYoutube> it = lista.iterator();
+			while (it.hasNext()) {
+				videoIteracion = it.next();
+				if (videoIteracion.getId() == videoUpdate.getId()) {
+					lista.set(i, videoUpdate);
+					resul = true;
+					break;
+				}
+				i++;
+			}
+		}
+		return resul;
 	}
 
 	@Override
@@ -55,7 +81,7 @@ public class VideoYoutubeArrayDAO implements CrudAble {
 		VideoYoutube vIteracion = null;
 		// buscar video a eliminar
 		for (int i = 0; i < lista.size(); i++) {
-			vIteracion = lista.get(i); //video sobre el que iteramos
+			vIteracion = lista.get(i);
 			if (id == vIteracion.getId()) { // video encontrado
 				resul = lista.remove(vIteracion);
 				break;

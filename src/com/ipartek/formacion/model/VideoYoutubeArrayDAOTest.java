@@ -114,11 +114,11 @@ public class VideoYoutubeArrayDAOTest {
 
 		// eliminar video no existente
 		assertFalse(dao.delete(ID_INEXISTENTE));
-		assertEquals(2, dao.getAll().size());
+		assertEquals(3, dao.getAll().size());
 
 		// eliminar video existente
 		assertTrue(dao.delete(MOCK2_ID));
-		assertEquals(1, dao.getAll().size());
+		assertEquals(2, dao.getAll().size());
 
 	}
 
