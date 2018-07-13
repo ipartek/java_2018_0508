@@ -13,16 +13,16 @@ public class Ejercicio10 {
 	        int num = teclado.nextInt();
 	        int digit = 0;
 	        int decimal= 0;
-
-	        for (int i = 0; i < Integer.toString(num).length(); i++) {
-	        	//TODO arreglar este ejercicio
-	        	 digit = num % 10;            
-	        	 decimal += digit * Math.pow(2, i);   
-	 
-	        	 num/=10;
+	        int i=0;
+	        while(num>0) {
+	        	digit = num % 10;            
+	        	decimal += digit * Math.pow(2, i);   
+	        	num/=10;
+	        	i++;
+	        	
 	        }
 
-	        System.out.println(decimal);
+	        System.out.print("El numero decimal es: "+decimal);
 	        teclado.close();
 	}
 
