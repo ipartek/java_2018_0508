@@ -1,4 +1,4 @@
-package com.ipartek.formacion.ejrcicios.basicos.iniciales;
+package com.ipartek.formacion.ejercicios.basicos.iniciales;
 /**
  * 
  * @author Asier Cornejo

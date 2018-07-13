@@ -16,4 +16,4 @@
  *         salida por consola utilizando los métodos print y println.
  *
  */
-package com.ipartek.formacion.ejrcicios.basicos.iniciales;
+package com.ipartek.formacion.ejercicios.basicos.iniciales;
