@@ -6,8 +6,8 @@ import java.util.List;
 import com.ipartek.formacion.pojo.VideoYoutube;
 
 /**
- * Clase DAO para gestionar los VideoYoutube con ArrayList. Usamos patron
- * Singleton
+ * Clase DAO para gestionar los VideoYoutube con ArrayList.<br>
+ * Usamos patron Singleton
  * 
  * @see https://es.wikipedia.org/wiki/Singleton
  * @author Curso
@@ -51,26 +51,30 @@ public class VideoYoutubeArrayDAO implements CrudAble {
 	public VideoYoutube getById(long id) {
 
 		VideoYoutube video = null;
-		for (int i = 0; i < lista.size(); i++) {
-			if (lista.get(i).getId() == id) {
-				video = lista.get(i);
+		for (VideoYoutube videoYoutube : lista) {
+			if (videoYoutube.getId() == id) {
+				video = videoYoutube;
 				break;
 			}
 		}
-
 		return video;
 	}
 
 	@Override
-	public boolean update(VideoYoutube video) {
+	public boolean update(VideoYoutube videoUpdate) {
 		boolean correcto = false;
-		if (video != null) {
-			for (int i = 0; i < lista.size(); i++) {
-				if(lista.get(i).getId()==video.getId()) {
-					lista.set(i, video);
+		if (videoUpdate != null) {
+			VideoYoutube videoIteracion = null;
+			Iterator<VideoYoutube> it = lista.iterator();
+			int i = 0;
+			while (it.hasNext()) {
+				videoIteracion = it.next();
+				if (videoIteracion.getId() == videoUpdate.getId()) {
+					lista.set(i, videoUpdate);
 					correcto = true;
-					break;					
+					break;
 				}
+				i++;
 			}
 		}
 		return correcto;
@@ -80,14 +84,12 @@ public class VideoYoutubeArrayDAO implements CrudAble {
 	public boolean delete(long id) {
 		boolean eliminado = false;
 		for (int i = 0; i < lista.size(); i++) {
-			if(lista.get(i).getId()==id) {
-				lista.remove(i);
-				eliminado = true;
-				break;					
+			if (lista.get(i).getId() == id) {
+				eliminado = lista.remove(lista.get(i));
+				break;
 			}
 		}
 
-		
 		return eliminado;
 	}
 

@@ -64,6 +64,7 @@ public class GestorVideos {
 		video.setCodigo(teclado.next());
 		System.out.print("Introduce el titulo del video: ");
 		video.setTitulo(teclado.next());
+		teclado.close();
 	}
 	
 	

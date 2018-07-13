@@ -11,8 +11,10 @@ import java.util.Scanner;
  */
 public class Ejercicio12 {
 
+	public static final String ALPHABET = "abcdefghijklmnopqrstuvwxyz";
+
 	public static void main(String[] args) throws IOException {
-		String alphabet="abcdefghijklmnopqrstuvwxyz";
+
 		Scanner teclado = new Scanner(System.in);
 		String text;
 		int code;
@@ -27,23 +29,40 @@ public class Ejercicio12 {
 			System.out.print("Introduce el código: ");
 			code = teclado.nextInt();
 		} while (code < 1);
+		System.out.print("Codificacion: " + cesardecode(text, code));
 
 		do {
 			teclado.nextLine();
 			System.out.print("(C) cifrar o (D) descifrar?: ");
 			option = (char) System.in.read();
-		} while (Character.toUpperCase(option) != 'C' || Character.toUpperCase(option) != 'D');
-		
-		
+
+		} while (Character.toUpperCase(option) != 'C' && Character.toUpperCase(option) != 'D');
+		System.out.println("Resultado: "+((Character.toUpperCase(option)=='C')?cesarCode(text,code):cesardecode(text,code)));
+		teclado.close();
+	}
+
+	public static String cesarCode(String txt, int position) {
+
+		String result = "";
+		for (int i = 0; i < txt.length(); i++) {
+			result += ((ALPHABET.indexOf(txt.charAt(i)) + position) >= ALPHABET.length())
+					? ALPHABET.charAt((ALPHABET.indexOf(txt.charAt(i)) + position) - ALPHABET.length())
+					: ALPHABET.charAt((ALPHABET.indexOf(txt.charAt(i)) + position));
+		}
+		return result;
 
 	}
-	
-	public static void cesarCode(String text,int position, String encode) {
-		
-		for (int i = 0; i < text.length(); i++) {
-			
+
+	public static String cesardecode(String txt, int position) {
+
+		String result = "";
+		for (int i = 0; i < txt.length(); i++) {
+			result += ((ALPHABET.indexOf(txt.charAt(i)) - position) < 0)
+					? ALPHABET.charAt((ALPHABET.indexOf(txt.charAt(i)) - position) + ALPHABET.length() - 1)
+					: ALPHABET.charAt((ALPHABET.indexOf(txt.charAt(i)) - position));
 		}
-		
+		return result;
+
 	}
 
 }

@@ -8,7 +8,8 @@ public class Utilities {
 	/***
 	 * 
 	 * @param values int[] array de numeros enteros
-	 * @param asc boolean determina si el orden es ascendente (true) o descendente(false)
+	 * @param asc    boolean determina si el orden es ascendente (true) o
+	 *               descendente(false)
 	 * @return int[] el array de numeros ordenados
 	 */
 	public static int[] bubbleSort(int[] values, boolean asc) {
@@ -32,7 +33,7 @@ public class Utilities {
 		}
 		return values;
 	}
-	
+
 	public static int sumDivisors(int num) {
 		int sum = 0;
 		for (int i = 1; i < num; i++) {
@@ -41,5 +42,14 @@ public class Utilities {
 			}
 		}
 		return sum;
+	}
+
+	public static void factorial(int num) {
+		int factorial = 1;
+		for (int i = 1; i <= num; i++) {
+			factorial = factorial * i;
+		}
+		System.out.println(num + "! = " + factorial);
+
 	}
 }
