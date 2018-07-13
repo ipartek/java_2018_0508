@@ -11,7 +11,7 @@ public class GestorVideos {
 	static VideoYoutubeArrayDAO dao;
 
 	private static final int opcMinima = 1;
-	private static final int opcMaxima = 3;
+	private static final int opcMaxima = 4;
 	private static Scanner sc = new Scanner(System.in);
 
 	public static void main(String[] args) throws IOException {
@@ -35,6 +35,12 @@ public class GestorVideos {
 
 		case 3:
 			modficarVideo();
+			break;
+			
+		case 4:
+			altaVideo();
+			break;
+			
 		default:
 			System.out.println("Adios!!!!");
 			break;
@@ -56,17 +62,17 @@ public class GestorVideos {
 
 	private static void pintarMenu() {
 
-		System.out.println("-------------");
-		System.out.println("---Youtube---");
-		System.out.println("-------------");
-		System.out.println("--1. Listar--");
-		System.out.println("-------------");
-		System.out.println("-2. Eliminar-");
-		System.out.println("-------------");
-		System.out.println("-3. Modificar-");
-		System.out.println("-------------");
-		System.out.println("--4. Pintar--");
-		System.out.println("-------------");
+		System.out.println("---------------------------------------");
+		System.out.println("----------------Youtube----------------");
+		System.out.println("---------------------------------------");
+		System.out.println("-------------1. Listar-----------------");
+		System.out.println("---------------------------------------");
+		System.out.println("-------------2. Eliminar---------------");
+		System.out.println("---------------------------------------");
+		System.out.println("-------------3. Modificar--------------");
+		System.out.println("---------------------------------------");
+		System.out.println("-------------4. Alta-------------------");
+		System.out.println("---------------------------------------");
 	}
 
 	private static int opcion() throws IOException {
@@ -144,4 +150,23 @@ public class GestorVideos {
 
 	}
 
+	private static void altaVideo() throws IOException {
+		VideoYoutube video = new VideoYoutube();
+		
+		System.out.println("Introduce el ID de la nueva cancion:");
+		video.setId((long)sc.nextInt());
+		
+		System.in.read();
+		System.in.read();
+		
+		System.out.println("Introduce el titulo de la nueva cancion:");
+		video.setTitulo(sc.nextLine());
+		
+		System.out.println("Introduce el codigo de la nueva cancion:");
+		video.setCodigo(sc.nextLine());
+		
+		dao.insert(video);
+		
+		listarVideos();
+	}
 }

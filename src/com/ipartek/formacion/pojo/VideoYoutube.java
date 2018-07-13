@@ -3,9 +3,9 @@ package com.ipartek.formacion.pojo;
 public class VideoYoutube {
 
 	// Atributos
-	long id;
-	String codigo;
-	String titulo;
+	private long id;
+	private String codigo;
+	private String titulo;
 
 	// Constructores
 	public VideoYoutube() {

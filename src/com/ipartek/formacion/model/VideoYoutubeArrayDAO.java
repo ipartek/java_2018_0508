@@ -1,6 +1,7 @@
 package com.ipartek.formacion.model;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import com.ipartek.formacion.pojo.VideoYoutube;
@@ -53,54 +54,61 @@ public class VideoYoutubeArrayDAO implements CrudAble {
 	@Override
 	public VideoYoutube getById(long id) {
 
-		VideoYoutube video = null;
-		if (id != -1) {
+		VideoYoutube resul = null;
 
-			for (int i = 0; i < lista.size(); i++) {
+		// foreach
+		for (VideoYoutube videoIteracion : lista) {
 
-				video = lista.get(i);
-
-				if (video.getId() == id) {
-					break;
-				}
+			if (id == videoIteracion.getId()) {
+				resul = videoIteracion;
+				break;
 			}
-		}
 
-		return video;
+		}
+		return resul;
 	}
 
 	@Override
-	public boolean update(VideoYoutube video) {
+	public boolean update(VideoYoutube videoUpdate) {
 
 		boolean resul = false;
-		if (video != null) {
-			resul = lista.add(video);
-		}
+		VideoYoutube vIteracion = null;
+		int i = 0;
 
+		if (videoUpdate != null) {
+			// iterator
+			Iterator<VideoYoutube> it = lista.iterator();
+			while (it.hasNext()) {
+
+				vIteracion = it.next();
+				if (vIteracion.getId() == videoUpdate.getId()) {
+					lista.set(i, videoUpdate);
+					resul = true;
+					break;
+				}
+				i++;
+
+			}
+		}
 		return resul;
 
 	}
 
 	@Override
 	public boolean delete(long id) {
-
 		boolean resul = false;
 
-		if (id != -1) {
-			VideoYoutube video = null;
+		VideoYoutube vIteracion = null;
 
-			for (int i = 0; i < lista.size(); i++) {
+		for (int i = 0; i < lista.size(); i++) {
 
-				video = lista.get(i);
+			vIteracion = lista.get(i);
 
-				if (video.getId() == id) {
-					lista.remove(i);
-					resul = true;
-					break;
-				}
+			if (vIteracion.getId() == id) {
+				resul = lista.remove(vIteracion);
+				break;
 			}
 		}
-
 		return resul;
 	}
 
