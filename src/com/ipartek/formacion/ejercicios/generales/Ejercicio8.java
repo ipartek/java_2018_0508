@@ -25,10 +25,10 @@ public class Ejercicio8 {
 		int fibo1;
 		int fibo2;
 		do {
-			System.out.print("Introduce numero mayor que 1: ");
+			System.out.print("Introduce numero de numeros que quieres ver de la serie Fibonacci: ");
 			num = sc.nextInt();
 		} while (num <= 1);
-		System.out.println("Los " + num + " primeros términos de la serie de Fibonacci son:");
+		System.out.println("Los " + num + " primeros numeros de la serie de Fibonacci son:");
 
 		fibo1 = 1;
 		fibo2 = 1;

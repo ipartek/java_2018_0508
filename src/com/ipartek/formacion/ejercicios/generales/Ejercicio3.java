@@ -23,11 +23,13 @@ public class Ejercicio3 {
 		double temperatura;
 		char car = 0;
 		do {
-			System.out.println("Introduzca una temperatura en grados kelvin");
+			System.out.println("Introduzca una temperatura en grados Centigrados");
 			temperatura = sc.nextDouble();
 			System.out.println("Grados kelvin " + (temperatura + 273));
+			System.out.println("¿Quieres convertir otra cifra en grados kelvin?");
+			car = sc.next().charAt(0);
 
-		} while (car == 'S');
+		} while (car == 'S' || car == 's');
 
 		sc.close();
 	}
