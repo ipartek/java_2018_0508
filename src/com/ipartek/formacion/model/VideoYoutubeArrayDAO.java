@@ -46,20 +46,57 @@ public class VideoYoutubeArrayDAO implements CrudAble {
 
 	@Override
 	public VideoYoutube getById(long id) {
-		// TODO Auto-generated method stub
-		return null;
+		VideoYoutube result = null;
+		for (int i = 0; i < lista.size(); i++) {
+			if (id==lista.get(i).getId()) {
+				result = lista.get(i);
+				break;
+			}
+		}
+		//para recorrer como un foreach:
+		/*
+		for (VideoYoutube videoIteracion : lista) {
+			result = videoIteracion;
+			break;
+		}
+		*/
+		return result;
 	}
 
 	@Override
 	public boolean update(VideoYoutube video) {
-		// TODO Auto-generated method stub
-		return false;
+		if (video == null) {
+			return false;
+		}
+		else {
+			VideoYoutube videoModificar = this.getById(video.getId());
+			boolean result = false;
+			if (videoModificar!=null) {
+				//lista.remove(videoModificar);
+				videoModificar.setCodigo(video.getCodigo());
+				videoModificar.setTitulo(video.getTitulo());
+				//lista.add(videoModificar);
+				result = true;
+			}
+			return result;
+		}
 	}
 
 	@Override
 	public boolean delete(long id) {
-		// TODO Auto-generated method stub
-		return false;
+		boolean resul = false;
+		VideoYoutube video = null;
+		//buscar video a eliminar
+		for (int i = 0; i < lista.size(); i++) {
+			video = lista.get(i);
+			if (id==video.getId()) {  //video encontrado
+				lista.remove(i);
+				resul = true;
+				break;
+			}
+		}
+		
+		return resul;
 	}
 
 }

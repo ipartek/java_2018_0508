@@ -22,9 +22,21 @@ public interface CrudAble {
 	
 	boolean insert(VideoYoutube video);
 	
+	/**
+	 * recupera todos los videoyoutube	
+	 * @return si no existen resultados retorna lista vacia.
+	 *
+	 */
 	List<VideoYoutube> getAll();
-		
+	
+	/**
+	 * buscamos un videoyoutube por su id
+	 * @param id long
+	 * @return VideoYoutube si lo encuentra, null si no encuentra
+	 *
+	 */
 	VideoYoutube getById(long id);
+	
 	
 	boolean update(VideoYoutube video);
 	

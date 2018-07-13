@@ -2,9 +2,9 @@ package com.ipartek.formacion.pojo;
 
 public class VideoYoutube {
 
-	long id;
-	String codigo;
-	String titulo;
+	private long id;
+	private String codigo;
+	private String titulo;
 
 	public VideoYoutube() {
 		super();
