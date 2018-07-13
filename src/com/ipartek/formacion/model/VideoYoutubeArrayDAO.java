@@ -40,7 +40,6 @@ public class VideoYoutubeArrayDAO implements CrudAble {
 
 	@Override
 	public VideoYoutube getById(long id) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
@@ -52,8 +51,17 @@ public class VideoYoutubeArrayDAO implements CrudAble {
 
 	@Override
 	public boolean delete(long id) {
-		// TODO Auto-generated method stub
-		return false;
+		boolean resul = false;
+		VideoYoutube vIteracion = null;
+		// buscar video a eliminar
+		for (int i = 0; i < lista.size(); i++) {
+			vIteracion = lista.get(i); //video sobre el que iteramos
+			if (id == vIteracion.getId()) { // video encontrado
+				resul = lista.remove(vIteracion);
+				break;
+			}
+		}
+		return resul;
 	}
 
 }
