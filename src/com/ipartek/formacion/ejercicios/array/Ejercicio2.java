@@ -39,5 +39,6 @@ public class Ejercicio2 {
 		
 		System.out.println("La media de los numeros introducidos en posiciones pares es: " + (suma1 / contPar));
 		
+		teclado.close();
 	}
 }
