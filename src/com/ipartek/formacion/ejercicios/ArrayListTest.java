@@ -16,6 +16,8 @@ public class ArrayListTest {
 		List<String> paises = new ArrayList<String>();
 
 		assertTrue(paises.isEmpty());
+		
+		
 		assertNotNull(paises);
 
 		paises.add("Egpaña");
