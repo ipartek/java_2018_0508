@@ -3,8 +3,6 @@ package com.ipartek.formacion.model;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.sound.midi.Soundbank;
-
 import com.ipartek.formacion.pojo.videoYoutube;
 
 /**
