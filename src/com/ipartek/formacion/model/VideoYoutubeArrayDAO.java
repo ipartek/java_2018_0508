@@ -1,6 +1,7 @@
 package com.ipartek.formacion.model;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import com.ipartek.formacion.pojo.VideoYoutube;
@@ -45,8 +46,8 @@ public class VideoYoutubeArrayDAO implements CrudAble {
 
 		boolean resul = false;
 		if (video != null) {
-			lista.add(video);
-			resul=true;
+
+			resul = lista.add(video);
 		}
 
 		return resul;
@@ -61,34 +62,35 @@ public class VideoYoutubeArrayDAO implements CrudAble {
 	@Override
 	public VideoYoutube getById(long id) {
 
-		VideoYoutube aux = new VideoYoutube();
+		VideoYoutube aux = null;
 
-		for (int i = 0; i < lista.size();) {
-			for (VideoYoutube videoYt : lista) {
-				if (videoYt.getId() == id) {
-					aux = lista.get(i);
-				}
+		for (VideoYoutube videoIteracion : lista) {
+			if (id == videoIteracion.getId()) {
+				aux = videoIteracion;
+				break;
 			}
-			break;
 		}
 		return aux;
 	}
 
 	@Override
-	public boolean update(VideoYoutube video) {
+	public boolean update(VideoYoutube videoUpdate) {
 
 		boolean resul = false;
+		VideoYoutube vIteracion;
+		int i = 0;
 
-		if (video != null) {
+		if (videoUpdate != null) {
 
-			for (int i = 0; i < lista.size();) {
-
-				if (lista.get(i).getId() == video.getId()) {
-					lista.set(i, video);
-
+			Iterator<VideoYoutube> it = lista.iterator();
+			while (it.hasNext()) {
+				vIteracion = it.next();
+				if (vIteracion.getId() == videoUpdate.getId()) {
+					lista.set(0, videoUpdate);
+					resul = true;
+					break;
 				}
-
-				break;
+				i++;
 			}
 		}
 		return resul;
@@ -99,12 +101,16 @@ public class VideoYoutubeArrayDAO implements CrudAble {
 
 		boolean resul = false;
 
+		VideoYoutube viTeracion = null;
+
+		// buscar video a eliminar
 		for (int i = 0; i < lista.size(); i++) {
-			for (VideoYoutube videoYt : lista) {
-				if (videoYt.getId() == id) {
-					lista.remove(i);
-					break;
-				}
+
+			viTeracion = lista.get(i);
+
+			if (id == viTeracion.getId()) {
+				resul = lista.remove(viTeracion);
+				break;
 			}
 		}
 		return resul;

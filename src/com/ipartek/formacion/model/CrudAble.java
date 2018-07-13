@@ -18,14 +18,25 @@ import com.ipartek.formacion.pojo.VideoYoutube;
  */
 public interface CrudAble {
 
-	boolean insert(VideoYoutube video);	
-	
-	List<VideoYoutube>getALl();
-	
+	boolean insert(VideoYoutube video);
+
+	/**
+	 * recupera todos los VideoYoutube
+	 * 
+	 * @return si no existen resultados retorna Lista vacia,no null
+	 */
+	List<VideoYoutube> getALl();
+
+	/**
+	 * Buscamos un VideoYoutube oir su identificador
+	 * 
+	 * @param id long identificador
+	 * @return VideoYoutube si lo encuentra, null si no encuentra
+	 */
 	VideoYoutube getById(long id);
-	
+
 	boolean update(VideoYoutube video);
-	
+
 	boolean delete(long id);
-	
+
 }
