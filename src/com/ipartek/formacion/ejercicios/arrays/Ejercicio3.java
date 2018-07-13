@@ -17,9 +17,28 @@ public class Ejercicio3 {
 
 		int[] notas = new int[10];
 		int alumnos ;
+		int suma = 0;
+		int media =0;
+		
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
 		System.out.println("Introduce el numero de alumnos: ");
 		alumnos = Integer.parseInt(br.readLine());
+		for (int i = 0; i < alumnos; i++) {
+			System.out.print("Introduce una nota");
+			notas[i] = Integer.parseInt(br.readLine());
+		}
+		for (int x = 0; x < notas.length;x++) {
+			suma =suma + notas[x];
+			
+		}
+		media = suma / alumnos;
+		
+		for (int j = 0; j < alumnos;j++) {
+			if (notas[j] > suma) {
+				System.out.println("Alumno nº: "+ j +" Con nota: "+ notas[j]);
+			}
+		}
+		
 	}
 }
