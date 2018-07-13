@@ -8,6 +8,9 @@ public class VideoYoutube {
 
 	public VideoYoutube() {
 		super();
+		this.id = 1;
+		this.codigo = "";
+		this.titulo = "";
 	}
 
 	public VideoYoutube(long id, String titulo, String codigo) {
@@ -46,5 +49,4 @@ public class VideoYoutube {
 		return "VideoYoutube [id=" + id + ", titulo=" + titulo + ", codigo=" + codigo + "]";
 	}
 
-	
 }

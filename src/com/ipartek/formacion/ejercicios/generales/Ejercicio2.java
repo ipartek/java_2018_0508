@@ -24,6 +24,7 @@ public class Ejercicio2 {
 		}
 
 		System.out.println("El numero introducido tiene " + cifras + " cifras");
+		sc.close();
 	}
 
 }

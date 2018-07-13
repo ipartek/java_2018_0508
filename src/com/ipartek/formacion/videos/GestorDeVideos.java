@@ -69,7 +69,7 @@ public class GestorDeVideos {
 		listarVideos();
 		System.out.println("introduce el codigo de video a eliminar");
 		codElim = sc.nextInt();
-		videos[codElim] = null;
+		videos[codElim] = new VideoYoutube(codElim, "", "");
 
 	}
 
@@ -81,12 +81,36 @@ public class GestorDeVideos {
 	}
 
 	private static void añadirVideo() {
-		String cod;
-		String tit = "";
-		System.out.println("Introduce el codigo del video");
-		cod = sc.nextLine();
-		System.out.println("Introduce el titulo del video");
-		tit = sc.nextLine();
+
+		int cont = 0;
+		for (int i = 0; i < videos.length; i++) {
+			if (videos[i].getTitulo().equalsIgnoreCase("")) {
+				cont++;
+				String cod;
+				String tit = "";
+
+				System.out.println("Introduce el codigo del video");
+				cod = sc.next();
+
+				System.out.println("Introduce el titulo del video");
+				tit = sc.next();
+
+				for (int j = 0; j < videos.length; j++) {
+					if (videos[j].getTitulo().equalsIgnoreCase("")) {
+						videos[j] = new VideoYoutube(j, tit, cod);
+					}
+				}
+				cont--;
+				System.out.println("Video añadido a la lista.");
+				System.out.println("Quedan " + cont + "huecos en la lista");
+
+			} else {
+
+				System.out.println("Lo siento, pero no hay espacio en la lista.");
+			}
+		}
+
+		pintarMenu();
 
 	}
 

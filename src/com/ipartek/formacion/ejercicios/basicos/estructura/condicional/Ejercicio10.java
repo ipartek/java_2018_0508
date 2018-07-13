@@ -70,7 +70,7 @@ public class Ejercicio10 {
 				System.out.println(" es un mes de 31 días");
 			}
 		}
-
+		sc.close();
 	}
 
 }

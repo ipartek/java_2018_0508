@@ -27,8 +27,9 @@ public class Ejercicio3 {
 			temperatura = sc.nextDouble();
 			System.out.println("Grados kelvin " + (temperatura + 273));
 
-		} while (car=='S');
+		} while (car == 'S');
 
+		sc.close();
 	}
 
 }
