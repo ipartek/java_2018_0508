@@ -42,13 +42,6 @@ public class VideoYoutubeArrayDAO implements CrudAble {
 		return lista;
 	}
 
-	/**
-	 * Función que devuelve el video con el id pasado por parámetro.
-	 * 
-	 * @param id, tipo long, que representa el identificador del video
-	 * @return v, objeto VideoYoutube Si no encuentra el <b>id</b>, devuelve
-	 *         <b>null</b>
-	 */
 	@Override
 	public VideoYoutube getById(long id) {
 		VideoYoutube v = null;
@@ -62,13 +55,7 @@ public class VideoYoutubeArrayDAO implements CrudAble {
 		return v;
 	}
 
-	/**
-	 * Función que modifica el video pasado por parámetro.
-	 * 
-	 * @param video, objeto de clase VideoYoutube, que representa un video
-	 * @see VideoYoutube
-	 * @return result, boolean Si no encuentra el video, devuelve <b>false</b>
-	 */
+	
 	@Override
 	public boolean update(VideoYoutube video) {
 		boolean result = false;
@@ -84,12 +71,6 @@ public class VideoYoutubeArrayDAO implements CrudAble {
 		return result;
 	}
 
-	/**
-	 * Función que elimina el video con el id pasado por parámetro.
-	 * 
-	 * @param id, tipo long, que representa el identificador del video
-	 * @return result, boolean Si no encuentra el <b>id</b>, devuelve <b>false</b>
-	 */
 	@Override
 	public boolean delete(long id) {
 

@@ -4,34 +4,41 @@ import java.util.Scanner;
 
 public class Utilidades {
 
-	static int[] array = { 0, 3, 1, 8, 7, 2, 5, 4, 6, 9 };
-	static int[] res;
-
-	//	PARA TESTEAR EL CÓDIGO
+	// PARA TESTEAR EL CÓDIGO
 	public static void main(String[] args) {
 
-		res = bubbleSort(array, true);
+		int[] array = { 0, 3, 1, 8, 7, 2, 5, 4, 6, 9 };
+		int[] res;
+
+		res = bubbleSort(array, true); // Llamada a la función bubbleShort en orden ascendente
 		for (int i = 0; i < res.length; i++) {
 			System.out.print(res[i] + " ");
 		}
+
 		System.out.println();
-		
-		res = bubbleSort(array, false);
+
+		res = bubbleSort(array, false); // Llamada a la función bubbleShort en orden descendente
 		for (int i = 0; i < res.length; i++) {
 			System.out.print(res[i] + " ");
 		}
 		System.out.println();
 
 	}
+
+	// UTILIDADES PARA LOS ARRAYS DE ENTEROS
+	// --------------------------------------
 	/**
 	 * Función que ordena un array de enteros según el algoritmo bubbleSort.
-	 * @param nums
-	 * @param asc
+	 * 
+	 * @param nums, array de enteros con valores numericos
+	 * @param asc, boolean que indica si es ascendente
 	 * @return int[] con el array nums[] ordenado ascendente o descendentemente
 	 */
 	public static int[] bubbleSort(int[] nums, boolean asc) {
+
 		int[] res = nums;
 		int aux;
+
 		for (int i = 0; i < res.length; i++) {
 			for (int j = i; j < res.length; j++) {
 				if (asc) {
@@ -47,46 +54,60 @@ public class Utilidades {
 						res[j] = aux;
 					}
 				}
-			}
-		}
+			} // for 2
+		} // for
 		return res;
 	}
-	
-	//	FUNCIONES DE LECTURA DE DATOS EN CONSOLA
+
+	/**
+	 * Función que devuelve un String con la representación de los valores del
+	 * array.
+	 * 
+	 * @param array, con valores enteros
+	 * @return String con los valores del array
+	 */
+	public static String arrayIntToString(int[] array) {
+
+		String result = "[ ";
+
+		for (int i = 0; i < array.length; i++) {
+			result += (i == array.length - 1 ? array[i] + "]" : array[i] + ", ");
+		}
+		return result;
+	}
+
+	// FUNCIONES DE LECTURA DE DATOS EN CONSOLA
+	// -----------------------------------------
 	/**
 	 * Pide y Lee un número entero introducido por consola.
-	 * @param sc
+	 * 
+	 * @param sc, Scanner
 	 * @return int, con el valor introducido en consola.
 	 */
 	public static int leerInt(Scanner sc) {
-		
+
 		int n;
-		
-		sc = new Scanner(System.in);
+
 		System.out.println("Introduce un valor númerico entero: ");
 		n = sc.nextInt();
-		sc.close();
-		
+
 		return n;
-		
 	}
-	
+
 	/**
 	 * Pide y Lee una línea introducida en consola.
-	 * @param sc
+	 * 
+	 * @param sc, Scanner
 	 * @return String, con la línea introducida en consola.
 	 */
 	public static String leerString(Scanner sc) {
-		
+
 		String s;
-		
-		sc = new Scanner(System.in);
+
 		System.out.println("Introduce un texto: ");
-		s = sc.nextLine();
-		sc.close();
-		
+		s = sc.next();
+
 		return s;
-		
 	}
 
 }
