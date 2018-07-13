@@ -1,5 +1,6 @@
 package com.ipartek.formacion.model;
 
+import java.io.IOException;
 import java.util.Scanner;
 
 import com.ipartek.formacion.model.VideoYoutubeArrayDAO;
@@ -15,7 +16,7 @@ public class GestorVideos {
 	static private final int OPCION_ANADIR = 2;
 	static private final int OPCION_ELIMINAR = 3;
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws IOException {
 
 		sc = new Scanner(System.in);
 
@@ -39,7 +40,6 @@ public class GestorVideos {
 			break;
 		}
 
-		sc.close();
 	}
 
 	private static void salir() {
@@ -52,13 +52,13 @@ public class GestorVideos {
 
 	}
 
-	private static void noOption() {
+	private static void noOption(){
 		System.out.println("Lo sentimos No existe esa opcion");
 		pintarMenu();
 
 	}
 
-	private static void listar() {
+	private static void listar(){
 
 		for (VideoYoutube video : dao.getAll()) {
 			System.out.println("    " + video);
@@ -73,15 +73,15 @@ public class GestorVideos {
 	}
 
 	private static void cargarVideos() {
-		VideoYoutube video = new VideoYoutube(12650, "Nightmares On Wax Boiler Room London DJ Set", "Q692lHFaLVM");
+		VideoYoutube video = new VideoYoutube(1, "Nightmares On Wax Boiler Room London DJ Set", "Q692lHFaLVM");
 		dao.insert(video);
 
-		video = new VideoYoutube(701, "The Skatalites - Rock Fort Rock", "6bLVdKbPHHY");
+		video = new VideoYoutube(2, "The Skatalites - Rock Fort Rock", "6bLVdKbPHHY");
 		dao.insert(video);
 
 	}
 
-	private static void pintarMenu() {
+	private static void pintarMenu(){
 
 		System.out.println("------------------------------------");
 		System.out.println("--          youtube               --");
@@ -96,6 +96,7 @@ public class GestorVideos {
 		System.out.println("Dime una opcion por favor");
 
 		opcionSeleccionada = sc.nextInt();
+		
 
 	}
 

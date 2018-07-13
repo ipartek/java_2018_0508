@@ -17,7 +17,7 @@ public class VideoYoutube {
 		this();
 		this.id = id;
 		this.titulo = titulo;
-		this.codigo = codigo;
+		this.codigo = codigo;		
 	}
 
 	public long getId() {
@@ -42,6 +42,11 @@ public class VideoYoutube {
 
 	public void setTitulo(String titulo) {
 		this.titulo = titulo;
+	}
+
+	@Override
+	public String toString() {
+		return "VideoYoutube [id=" + id + ", codigo=" + codigo + ", titulo=" + titulo + "]";
 	}
 
 }
