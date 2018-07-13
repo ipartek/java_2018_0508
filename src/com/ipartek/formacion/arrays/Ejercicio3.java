@@ -3,7 +3,7 @@ package com.ipartek.formacion.arrays;
 import java.util.Scanner;
 
 /**
- * rograma que lee por teclado la nota de los alumnos de una clase y calcula la
+ * Programa que lee por teclado la nota de los alumnos de una clase y calcula la
  * nota media del grupo. También muestra los alumnos con notas superiores a la
  * media. El número de alumnos se lee por teclado.
  * 

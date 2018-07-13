@@ -1,4 +1,4 @@
-package com.ipartek.formacion.basicos.estructura.condicional;
+package com.ipartek.formacion.basicos.estructura_condicional;
 
 import java.util.Scanner;
 
