@@ -65,7 +65,7 @@ public class VideoYoutubeArrayDAO implements CrudAble {
 	public boolean update(VideoYoutube video) {
 		// TODO Auto-generated method stub
 		
-		sc = new Scanner(System.in);
+		Scanner sc = new Scanner(System.in);
 		
 		System.out.print(video.getCodigo() + " - Codigo nuevo: ");
 		
