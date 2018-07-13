@@ -1,5 +1,7 @@
 package com.ipartek.formacion.ejercicios.generales;
 
+import java.util.Scanner;
+
 /**
  * Programa Java que pide un número entero por teclado y calcula y 
  * muestra el número de cifras que tiene.
@@ -17,7 +19,22 @@ public class Ejercicio2 {
 
 	public static void main(String[] args) {
 
+		Scanner sc = new Scanner(System.in);
 		
+		int numero;
+		int cifras = 0;
+		
+		System.out.println("Introduce un número entero");
+		numero = sc.nextInt();
+		
+		while(numero != 0) {
+			numero /= 10;
+			cifras++;
+		}
+		
+		System.out.println("El número tiene " + cifras + " cifras");
+		
+		sc.close();
 
 	}
 
