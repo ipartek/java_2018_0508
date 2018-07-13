@@ -5,7 +5,7 @@ import java.util.List;
 import com.ipartek.formacion.pojo.VideoYoutube;
 
 /**
- * Interfaz para determinar o especificar los medotos de <b>CRUD</b>:
+ * Interfaz para determinar o especificar los metodos de <b>CRUD</b>:
  * 
  * <ul>
  * <li>Create</li>
@@ -23,9 +23,21 @@ public interface CrudAble {
 
 	boolean insert(VideoYoutube video);
 
-	List<VideoYoutube> getAll();
+	/**
+	 * Recupera todos los VideoYoutube
+	 * 
+	 * @return si no existe resultado retorna lista vacia, no null
+	 */
 
-	VideoYoutube getByID(long id);
+	List<VideoYoutube> getAll();// conseguir todos los videos
+
+	/**
+	 * Buscamos un VideoYoutube por su identificador
+	 * 
+	 * @param id long identificador
+	 * @return VideoYoutube si lo encuentra, null si no encuentra
+	 */
+	VideoYoutube getById(long id);
 
 	boolean update(VideoYoutube video);
 
