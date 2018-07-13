@@ -8,11 +8,6 @@ import com.ipartek.formacion.pojo.VideoYoutube;
 
 public class GestorVideos {
 
-	// TODO insertar las canciones, mostrar por pantalla las canciones
-	// TODO recuperar la cancion 5397
-	// TODO eliminar la cancion pintxo pintxo, luego por pantalla
-	// TODO cambiar nombre, volver a mostrar por pantalla
-
 	static VideoYoutubeArrayDAO dao;
 
 	private static final int opcMinima = 1;
