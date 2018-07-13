@@ -10,7 +10,7 @@ import java.util.Scanner;
 public class Ejercicio5 {
 
 	public static void main(String[] args) {
-		/*
+		
 		Scanner sc = new Scanner(System.in);
 		
 		int numero;
@@ -18,8 +18,19 @@ public class Ejercicio5 {
 		
 		do {
 			
+			System.out.println("Introduzca un número (negativo para finalizar)");
+			numero = sc.nextInt();
+			
+			if(numero % 10 == 2) {
+				contador++;
+			}
+			
 		} while (numero >= 0);
-		*/
+		
+		System.out.println("Has introducido " + contador + " números acabados en 2");
+		
+		sc.close();
+		
 	}
 
 }
