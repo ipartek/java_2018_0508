@@ -2,8 +2,8 @@ package com.ipartek.formacion.pojo;
 
 public class videoYoutube {
 	
-	//variables
-	long id;
+	//variables han de ir encapsuladas para hacer uso de ellas mediante los getter y setters
+	private long id;
 	private String titulo;
 	private String codigo;
 	
