@@ -3,64 +3,95 @@ package com.ipartek.formacion.gestorDeVideos;
 import java.util.Scanner;
 
 import com.ipartek.formacion.model.VideoYoutubeArrayDAO;
+import com.ipartek.formacion.pojo.VideoYoutube;
 
 public class GestorDeVideos {
-
-	static VideoYoutubeArrayDAO videos;
+	
 	static Scanner sc = new Scanner(System.in);
-	static long id;
 
 	public static void main(String args[]) {
 
-		int op;
+		sc = new Scanner(System.in);
+
+		dao = VideoYoutubeArrayDAO.getInstance();
 
 		cargarVideos();
+
 		pintarMenu();
 
-		op = sc.nextInt();
+		switch (opcionSeleccionada)
 
-		switch (op) {
-		case 1:
-			listarVideos();
+		{
+		case OPCION_LISTAR:
+			listar();
 			break;
-		case 2:
-			videos = addVideo();
-			listarVideos();
+
+		case OPCION_SALIR:
+			salir();
 			break;
-		case 3:
-			eliminarVideo();
+
+		default:
+			noOption();
 			break;
 		}
+
+		sc.close();
+	}
+
+	private static void salir() {
+		System.out.println("");
+		System.out.println("");
+		System.out.println("");
+		System.out.println("");
+		System.out.println("");
+		System.out.println("AGUR VENUR, esperamos verte pronto");
+
+	}
+
+	private static void noOption() {
+		System.out.println("Lo sentimos No existe esa opcion");
+		pintarMenu();
+
+	}
+
+	private static void listar() {
+
+		for (VideoYoutube video : dao.getAll()) {
+			System.out.println("    " + video);
+		}
+
+		System.out.println("");
+		System.out.println("");
+		System.out.println("");
+
+		pintarMenu();
+
+	}
+
+	private static void cargarVideos() {
+		VideoYoutube video = new VideoYoutube(12650, "Nightmares On Wax Boiler Room London DJ Set", "Q692lHFaLVM");
+		dao.insert(video);
+
+		video = new VideoYoutube(701, "The Skatalites - Rock Fort Rock", "6bLVdKbPHHY");
+		dao.insert(video);
+
 	}
 
 	private static void pintarMenu() {
 
-		// TODO pintar Menu
-		System.out.println("--------------------");
-		System.out.println("----- YOUTUBE ------");
-		System.out.println("-------Menu---------");
-		System.out.println("1. Listar Videos");
-		System.out.println("2. Añadir Video");
-		System.out.println("3. Eliminar Video");
-		System.out.println("--------------------");
-	}
+		System.out.println("------------------------------------");
+		System.out.println("--          youtube               --");
+		System.out.println("------------------------------------");
+		System.out.println("-    1. Listar                     -");
+		System.out.println("-    2. Añadir Nuevo               -");
+		System.out.println("-    3. Eliminar                   -");
+		System.out.println("-                                  -");
+		System.out.println("-    0 - salir                     -");
+		System.out.println("------------------------------------");
+		System.out.println("");
+		System.out.println("Dime una opcion por favor");
 
-	private static void cargarVideos() {
-		// TODO cargar videos
-
-	}
-
-	private static void listarVideos() {
-		// TODO listar videos
-	}
-
-	private static VideoYoutubeArrayDAO addVideo() {
-		// TODO añadir video
-		return videos;
-	}
-
-	private static void eliminarVideo() {
-		// TODO eliminar video
+		opcionSeleccionada = sc.nextInt();
 
 	}
 
