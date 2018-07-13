@@ -1,8 +1,6 @@
 package com.ipartek.formacion.ejercicios.basicos.estructura.condicional;
 
 import java.util.*;
-import java.io.*;
-
 
 /**
  * Programa que lea un carácter por teclado y compruebe si es una letra
@@ -30,6 +28,7 @@ public class Ejercicio3 {
         else
             System.out.println("No es una letra mayúscula");   
 		
+        sc.close();
 	}
 
 }

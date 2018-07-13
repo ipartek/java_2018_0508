@@ -3,12 +3,9 @@ package com.ipartek.formacion.ejercicios;
 import static org.junit.Assert.*;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
 import org.junit.Test;
-
-import com.sun.xml.internal.ws.policy.privateutil.PolicyUtils.Collections;
 
 public class ArrayListTest {
 
@@ -40,14 +37,10 @@ public class ArrayListTest {
 
 		assertTrue(paises.contains("Hungria"));
 		assertFalse("Francia",paises.contains("Francia"));
-		
-		//TODO insertar entre italia y alemania suiza
 
 		int pos = paises.indexOf("Italia");
 		paises.add(pos+1, "Suiza");
 		
-		//TODO ordenar alfabeticamente de A a Z:
-
 		paises.sort(null);
 		
 		// Collections.sort(paises);
