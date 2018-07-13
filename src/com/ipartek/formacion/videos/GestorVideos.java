@@ -14,41 +14,47 @@ import com.ipartek.formacion.pojo.VideoYoutube;
 
 public class GestorVideos {
 
-	static Scanner sc = new Scanner(System.in);
-	static String continuar = "s";
-	static int respuesta;
+	static private VideoYoutubeArrayDAO dao;
+	static private int opcionSeleccionada = 0;
+	static Scanner sc = null;
+	
+	static private final int OPCION_SALIR = 0;
+	static private final int OPCION_LISTAR = 1;
+	static private final int OPCION_ANADIR = 2;
+	static private final int OPCION_ELIMINAR = 3;
+	
 
 	static ArrayList<VideoYoutube> videos = new ArrayList<VideoYoutube>();
 
 	public static void main(String[] args) {
-
-		videos.add(new VideoYoutube(1, "Vj1190w58UM", "Uno X Uno", "Manuel Carrasco"));
-		videos.add(new VideoYoutube(2, "RgULjdsjiLQ", "Clandestino", "Shakira, Maluma"));
-		videos.add(new VideoYoutube(3, "I8oOS73Mpao", "Quiero ser un tronista", "chirigota callejera de Cadiz"));
-		videos.add(new VideoYoutube(4, "RgULjdsjiLQ", "Lo Malo", "Aitana, Ana Guerra"));
-		videos.add(new VideoYoutube(5, "RgULjdsjiLQ", "No vaya a ser", "Pablo Alboran"));
-
-		do {
-			pintarMenu();
-			System.out.print("Inserta el numero de la opcion deseada:");
-			respuesta = sc.nextInt();
-			switch (respuesta) {
-			case 1:
-				listaVideo(videos);
-				break;
-			case 2:
-				agregarVideo();
-				break;
-			case 3:
-				eliminaElement();
-				break;
-			case 4:
-				System.out.println(" ADIOS!! ");
-				break;
-
-			}
-
-		} while (respuesta != 0);
+//
+//		VideoYoutube video = new VideoYoutube(12650, "Uno X Uno", "6bLVdKbPHHY");
+//		dao.insert(video);
+//		
+//		video = new VideoYoutube(701, "Clandestino", "RgULjdsjiLQ");
+//		dao.insert(video);				
+//
+//		do {
+//			pintarMenu();
+//			System.out.print("Inserta el numero de la opcion deseada:");
+//			respuesta = sc.nextInt();
+//			switch (respuesta) {
+//			case 1:
+//				listaVideo(videos);
+//				break;
+//			case 2:
+//				agregarVideo();
+//				break;
+//			case 3:
+//				eliminaElement();
+//				break;
+//			case 4:
+//				System.out.println(" ADIOS!! ");
+//				break;
+//
+//			}
+//
+//		} while (respuesta != 0);
 
 	}
 
@@ -99,9 +105,9 @@ public class GestorVideos {
 			VideoYoutubeArrayDAO.getInstance().insert(v);
 			cont++;
 			System.out.println("¿Deseas agregar mas videos? \"s\" si \"n\"no");
-			continuar = sc.next();
+			opcionSeleccionada = sc.next();
 
-		} while (!"n".equalsIgnoreCase(continuar));
+		} while (!"n".equalsIgnoreCase(opcionSeleccionada));
 		System.out.println("\n");
 	}
 
