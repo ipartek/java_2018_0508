@@ -16,7 +16,7 @@ public class GestorVideos {
 	static VideoYoutubeArrayDAO dao;
 
 	private static final int opcMinima = 1;
-	private static final int opcMaxima = 2;
+	private static final int opcMaxima = 3;
 	private static Scanner sc = new Scanner(System.in);
 
 	public static void main(String[] args) throws IOException {
@@ -37,7 +37,7 @@ public class GestorVideos {
 		case 2:
 			eliminarVideo();
 			break;
-			
+
 		case 3:
 			modficarVideo();
 		default:
@@ -100,6 +100,7 @@ public class GestorVideos {
 	}
 
 	private static void eliminarVideo() throws IOException {
+
 		long id;
 
 		System.in.read();
@@ -113,18 +114,39 @@ public class GestorVideos {
 		listarVideos();
 
 	}
-	
+
 	private static void modficarVideo() {
-		
+
 		System.out.println("Dime el video a modificar:");
 		long id = (long) sc.nextInt();
-		
+
 		VideoYoutube video = dao.getById(id);
-		
-		System.out.println("Que quieres modificar:\n1.-Titulo:"+video.getTitulo()+"\n2.-Codigo:"+video.getCodigo());
-		
-		//TODO hace swith
-		
+
+		System.out
+				.println("Que quieres modificar:\n1.-Titulo:" + video.getTitulo() + "\n2.-Codigo:" + video.getCodigo());
+		int opc = sc.nextInt();
+
+		switch (opc) {
+		case 1:
+			System.out.println("Escribe el nuevo titulo:");
+			String titulo = sc.next();
+			video.setTitulo(titulo);
+			break;
+
+		case 2:
+			System.out.println("Escribe el nuevo codigo:");
+			String codigo = sc.next();
+			video.setTitulo(codigo);
+			break;
+		default:
+			System.out.println("No quieres modificar nada.");
+			break;
+		}
+
+		dao.update(video);
+
+		listarVideos();
+
 	}
 
 }
