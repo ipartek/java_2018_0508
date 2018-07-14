@@ -5,9 +5,23 @@ import java.util.Scanner;
 import com.ipartek.formacion.model.VideoYoutubeArrayDAO;
 import com.ipartek.formacion.pojo.VideoYoutube;
 
+/**
+ * Clase GestorDeVideos para gestionar videos utilizando el model
+ * VideoYoutubeArrayDAO
+ * 
+ * @author Luis
+ *
+ */
 public class GestorDeVideos {
-	
-	static Scanner sc = new Scanner(System.in);
+
+	static private VideoYoutubeArrayDAO dao;
+	static private int opcionSeleccionada = 0;
+	static Scanner sc = null;
+
+	static private final int OPCION_SALIR = 0;
+	static private final int OPCION_LISTAR = 1;
+	static private final int OPCION_ANADIR = 2;
+	static private final int OPCION_ELIMINAR = 3;
 
 	public static void main(String args[]) {
 
@@ -19,9 +33,7 @@ public class GestorDeVideos {
 
 		pintarMenu();
 
-		switch (opcionSeleccionada)
-
-		{
+		switch (opcionSeleccionada) {
 		case OPCION_LISTAR:
 			listar();
 			break;
@@ -29,28 +41,34 @@ public class GestorDeVideos {
 		case OPCION_SALIR:
 			salir();
 			break;
-
+			
+		case OPCION_ANADIR:
+			anadir();
+			break;
+			
+		case OPCION_ELIMINAR:
+			eliminar();
+			break;
+			
 		default:
 			noOption();
 			break;
 		}
 
-		sc.close();
-	}
-
-	private static void salir() {
-		System.out.println("");
-		System.out.println("");
-		System.out.println("");
-		System.out.println("");
-		System.out.println("");
-		System.out.println("AGUR VENUR, esperamos verte pronto");
-
 	}
 
 	private static void noOption() {
-		System.out.println("Lo sentimos No existe esa opcion");
+		System.out.println("Lo sentimos, no existe esa opcion");
 		pintarMenu();
+
+	}
+
+	private static void cargarVideos() {
+		VideoYoutube video = new VideoYoutube(12650, "Nightmares On Wax Boiler Room London DJ Set", "Q692lHFaLVM");
+		dao.insert(video);
+
+		video = new VideoYoutube(701, "The Skatalites - Rock Fort Rock", "6bLVdKbPHHY");
+		dao.insert(video);
 
 	}
 
@@ -68,13 +86,45 @@ public class GestorDeVideos {
 
 	}
 
-	private static void cargarVideos() {
-		VideoYoutube video = new VideoYoutube(12650, "Nightmares On Wax Boiler Room London DJ Set", "Q692lHFaLVM");
-		dao.insert(video);
+	private static void salir() {
+		System.out.println("");
+		System.out.println("");
+		System.out.println("");
+		System.out.println("");
+		System.out.println("");
+		sc.close();
+		System.out.println("AGUR BEN-HUR, esperamos verte pronto");
 
-		video = new VideoYoutube(701, "The Skatalites - Rock Fort Rock", "6bLVdKbPHHY");
-		dao.insert(video);
+	}
 
+	private static void anadir() {
+		long id;
+		String tit;
+		String cod;
+
+		System.out.println("Teclea un id: ");
+		id = sc.nextLong();
+
+		System.out.println("Teclea un título: ");
+		tit = sc.nextLine();
+
+		System.out.println("Teclea un código: ");
+		cod = sc.nextLine();
+
+		VideoYoutube v = new VideoYoutube(id, tit, cod);
+		System.out.println(dao.insert(v) ? "Video insertado con éxito." : "Error durante la insersción.");
+
+	}
+
+	private static void eliminar() {
+		long id;
+
+		listar();
+		
+		System.out.println("Teclea el id del video que deseas eliminar : ");
+		id = sc.nextLong();
+
+		System.out.println(dao.delete(id) ? "Video eliminado con éxito." : "No existe ese video.");
 	}
 
 	private static void pintarMenu() {
