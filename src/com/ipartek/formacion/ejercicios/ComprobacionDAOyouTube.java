@@ -11,9 +11,9 @@ public class ComprobacionDAOyouTube {
 
 		VideoYoutube miVideo1, miVideo2, miVideo3;
 
-		miVideo1 = new VideoYoutube(1L, "Pintxo pintxo", "XXXXX");
-		miVideo2 = new VideoYoutube(2L, "La casa por el tejado", "YYYYY");
-		miVideo3 = new VideoYoutube(3L, "uno x uno", "ZZZZZZZ");
+		miVideo1 = new VideoYoutube(1, "Pintxo pintxo", "XXXXX");
+		miVideo2 = new VideoYoutube(2, "La casa por el tejado", "YYYYY");
+		miVideo3 = new VideoYoutube(3, "uno x uno", "ZZZZZZZ");
 
 		insertarVideo(miVideo1, miVideo2, miVideo3);
 		mostrarVideo();
@@ -36,7 +36,7 @@ public class ComprobacionDAOyouTube {
 	public static void mostrarVideo() {
 
 		// Recuperar y mostrar video con id 1
-		System.out.println("El video con id " + 1 + " : " + dao.getById(1L));
+		System.out.println("El video con id " + 1 + " : " + dao.getById(1));
 
 	}
 
@@ -52,7 +52,7 @@ public class ComprobacionDAOyouTube {
 
 	public static void modificarVideo() {
 
-		VideoYoutube miVideo1 = new VideoYoutube(2L, "LAlala", "YYYYYYY");
+		VideoYoutube miVideo1 = new VideoYoutube(2, "LAlala", "YYYYYYY");
 		dao.update(miVideo1);
 
 		System.out.println(" ");
