@@ -90,6 +90,7 @@ public class Utilidades {
 
 		System.out.println("Introduce un valor númerico entero: ");
 		n = sc.nextInt();
+		sc.nextLine();
 
 		return n;
 	}
@@ -105,7 +106,7 @@ public class Utilidades {
 		String s;
 
 		System.out.println("Introduce un texto: ");
-		s = sc.next();
+		s = sc.nextLine();
 
 		return s;
 	}

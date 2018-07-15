@@ -1,4 +1,4 @@
-package com.ipartek.formacion.gestorDeVideos;
+package com.ipartek.formacion.videos;
 
 import java.util.Scanner;
 
@@ -9,6 +9,7 @@ import com.ipartek.formacion.pojo.VideoYoutube;
  * Clase GestorDeVideos para gestionar videos utilizando el model
  * VideoYoutubeArrayDAO
  * 
+ * @see VideoYoutubeArrayDAO
  * @author Luis
  *
  */
@@ -33,116 +34,122 @@ public class GestorDeVideos {
 
 		pintarMenu();
 
-		switch (opcionSeleccionada) {
-		case OPCION_LISTAR:
-			listar();
-			break;
+		do {
+			switch (opcionSeleccionada) {
+			case OPCION_LISTAR:
+				listar();
+				break;
 
-		case OPCION_SALIR:
-			salir();
-			break;
-			
-		case OPCION_ANADIR:
-			anadir();
-			break;
-			
-		case OPCION_ELIMINAR:
-			eliminar();
-			break;
-			
-		default:
-			noOption();
-			break;
-		}
+			case OPCION_SALIR:
+				salir();
+				break;
+
+			case OPCION_ANADIR:
+				anadir();
+				break;
+
+			case OPCION_ELIMINAR:
+				eliminar();
+				break;
+
+			default:
+				noOption();
+				break;
+			}
+		} while (opcionSeleccionada != OPCION_SALIR);
 
 	}
 
 	private static void noOption() {
-		System.out.println("Lo sentimos, no existe esa opcion");
+
+		System.out.println("La opción seleccionada no existe.");
 		pintarMenu();
 
-	}
+	} // FIN noOption();
 
 	private static void cargarVideos() {
-		VideoYoutube video = new VideoYoutube(12650, "Nightmares On Wax Boiler Room London DJ Set", "Q692lHFaLVM");
+
+		VideoYoutube video = new VideoYoutube(12650, "Crystallion - Crystal Clear", "qllRVZnpttM");
 		dao.insert(video);
 
-		video = new VideoYoutube(701, "The Skatalites - Rock Fort Rock", "6bLVdKbPHHY");
+		video = new VideoYoutube(701, "Crystallion - Burning Bridges", "MSRvZ-YSlZI");
 		dao.insert(video);
 
-	}
+	} // FIN cargarVideos();
 
 	private static void listar() {
 
 		for (VideoYoutube video : dao.getAll()) {
 			System.out.println("    " + video);
 		}
-
 		System.out.println("");
 		System.out.println("");
 		System.out.println("");
 
-		pintarMenu();
-
-	}
+	} // FIN listar();
 
 	private static void salir() {
-		System.out.println("");
-		System.out.println("");
+
 		System.out.println("");
 		System.out.println("");
 		System.out.println("");
 		sc.close();
-		System.out.println("AGUR BEN-HUR, esperamos verte pronto");
+		System.out.println("AGUR BEN-HUR, esperamos volver a verte. =)");
 
-	}
+	} // FIN salir();
 
 	private static void anadir() {
+
 		long id;
 		String tit;
 		String cod;
 
-		System.out.println("Teclea un id: ");
+		System.out.print("Teclea un id: ");
 		id = sc.nextLong();
+		sc.nextLine(); // El método nextLong no salta de línea, debemos hacerlo nosotros
 
-		System.out.println("Teclea un título: ");
+		System.out.print("Teclea un título: ");
 		tit = sc.nextLine();
 
-		System.out.println("Teclea un código: ");
+		System.out.print("Teclea un código: ");
 		cod = sc.nextLine();
 
 		VideoYoutube v = new VideoYoutube(id, tit, cod);
 		System.out.println(dao.insert(v) ? "Video insertado con éxito." : "Error durante la insersción.");
 
-	}
+		pintarMenu();
+
+	} // FIN anadir();
 
 	private static void eliminar() {
 		long id;
 
 		listar();
-		
+
 		System.out.println("Teclea el id del video que deseas eliminar : ");
 		id = sc.nextLong();
 
 		System.out.println(dao.delete(id) ? "Video eliminado con éxito." : "No existe ese video.");
-	}
+
+		pintarMenu();
+
+	} // FIN eliminar();
 
 	private static void pintarMenu() {
 
 		System.out.println("------------------------------------");
-		System.out.println("--          youtube               --");
+		System.out.println("--          YOUTUBE               --");
 		System.out.println("------------------------------------");
 		System.out.println("-    1. Listar                     -");
 		System.out.println("-    2. Añadir Nuevo               -");
 		System.out.println("-    3. Eliminar                   -");
-		System.out.println("-                                  -");
-		System.out.println("-    0 - salir                     -");
+		System.out.println("-    0. Salir                     -");
 		System.out.println("------------------------------------");
 		System.out.println("");
-		System.out.println("Dime una opcion por favor");
+		System.out.print("Selecciona una opción: ");
 
 		opcionSeleccionada = sc.nextInt();
 
-	}
+	} // FIN pintarMenu();
 
-}
+} // FIN GestorDeVideos
