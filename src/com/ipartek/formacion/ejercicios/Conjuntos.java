@@ -2,7 +2,6 @@ package com.ipartek.formacion.ejercicios;
 
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.Iterator;
 import java.util.Map.Entry;
 import java.util.Set;
 
@@ -29,9 +28,9 @@ public class Conjuntos {
 		HashMap<String, String> hmPaises = new HashMap<String, String>();
 
 		hmPaises.put("En_en", "Ingles de Inglaterra");
-		hmPaises.put("Es_es", "Español de España");
-		hmPaises.put("Es_eu", "Euskera de España");
-		hmPaises.put("Es_ct", "Catalan de España");
+		hmPaises.put("Es_es", "Espaï¿½ol de Espaï¿½a");
+		hmPaises.put("Es_eu", "Euskera de Espaï¿½a");
+		hmPaises.put("Es_ct", "Catalan de Espaï¿½a");
 
 //		for (int i = 0; i < hmPaises.size(); i++) {
 //			System.out.println(hmPaises.values());
@@ -39,11 +38,6 @@ public class Conjuntos {
 
 		for (Entry<String, String> pais : hmPaises.entrySet()) {
 			System.out.println(pais.getKey() + " => " + pais.getValue());
-		}
-		
-		
-		
-		
+		}		
 	}
-
 }

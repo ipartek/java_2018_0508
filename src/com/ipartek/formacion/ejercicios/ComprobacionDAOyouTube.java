@@ -42,7 +42,7 @@ public class ComprobacionDAOyouTube {
 
 	public static void eliminarVideo() {
 
-		dao.getInstance().delete(1L);
+		dao.delete(1);
 		System.out.println("Listado despues de eliminar video seleccionado:");
 
 		for (VideoYoutube listVideos : dao.getALl()) {
