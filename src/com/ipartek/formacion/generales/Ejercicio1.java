@@ -4,14 +4,14 @@ import java.util.Scanner;
 
 /**
  * 
- * Programa para intercambiar el valor de dos variables. Los valores iniciales
+ * Programa para intercambiar el valor de dos variables. Los valores iniciales<br>
  * se leen por teclado.<br>
- * Por ejemplo, suponiendo que las variables se llaman A y B, si A contiene 3 y
+ * Por ejemplo, suponiendo que las variables se llaman A y B, si A contiene 3 y<br>
  * B contiene 5, después <br>
  * del intercambio A contendrá 5 y B 3. <br>
- * En este ejemplo, para intercambiar el valor entre dos variables utilizaremos
+ * En este ejemplo, para intercambiar el valor entre dos variables utilizaremos<br>
  * una avariable <br>
- * auxiliar donde guardar el valor de una de ellas. Después veremos la forma de
+ * auxiliar donde guardar el valor de una de ellas. Después veremos la forma de<br>
  * hacerlo sin usar una <br>
  * variable auxiliar para el intercambio. <br>
  * Las instrucciones a realizar son:<br>

@@ -10,8 +10,6 @@ import java.util.List;
 
 import org.junit.Test;
 
-import com.sun.xml.internal.ws.policy.privateutil.PolicyUtils.Collections;
-
 public class ArrayListTest {
 
 	@Test
