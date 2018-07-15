@@ -16,6 +16,7 @@ package com.ipartek.formacion.generales;
  * 7 * 9  = 63<br>
  * 7 * 10 = 70<br>
  * 
+ *  @author Ainara
  */
 
 import java.util.Scanner;
@@ -24,19 +25,19 @@ public class Ejercicio4 {
 
 	public static void main(String[] args) {
 		int multi;
-		
+
 		Scanner sc = new Scanner(System.in);
-		
-			System.out.print("Introduce un número: ");
-			multi = sc.nextInt();
 
-			
-			System.out.print("");
+		System.out.print("Introduce un número: \n");
+		multi = sc.nextInt();
 
-			System.out.print("Tabla del "+ multi);
-			System.out.print("---------------");
-	 
+		System.out.print("Tabla del " + multi + "\n");
+		System.out.print("---------------\n");
 
+		for (int i = 1; i <= 10; i++) {
+
+			System.out.println(multi + " * " + i + " = " + multi * i);
+		}
 
 		sc.close();
 	}
