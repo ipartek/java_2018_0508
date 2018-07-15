@@ -1,7 +1,5 @@
 /**
- * 
- */
-/**
+ * Ejercicios de bucles anidados.
  * @author Curso
  *
  */

@@ -1,7 +1,5 @@
 /**
- * 
- */
-/**
+ * Ejercicios de arrays
  * @author Curso
  *
  */
