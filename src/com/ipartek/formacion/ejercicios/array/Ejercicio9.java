@@ -18,6 +18,7 @@ public class Ejercicio9 {
 		for (int num : nums) {
 			System.out.println(num);
 		}
+		
 	}
 
 }
