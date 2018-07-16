@@ -1,6 +1,5 @@
 package com.ipartek.formacion.videos;
 
-import java.io.IOException;
 import java.util.Scanner;
 
 import com.ipartek.formacion.model.VideoYoutubeArrayDAO;
@@ -8,165 +7,108 @@ import com.ipartek.formacion.pojo.VideoYoutube;
 
 public class GestorVideos {
 
-	static VideoYoutubeArrayDAO dao;
-
-	private static final int opcMinima = 1;
-	private static final int opcMaxima = 4;
-	private static Scanner sc = new Scanner(System.in);
-
-	public static void main(String[] args) throws IOException {
-
+	static private VideoYoutubeArrayDAO dao;
+	static private int opcionSeleccionada = 0;
+	static Scanner sc = null;
+	
+	static private final int OPCION_SALIR = 0;
+	static private final int OPCION_LISTAR = 1;
+	static private final int OPCION_ANADIR = 2;
+	static private final int OPCION_ELIMINAR = 3;
+	
+	
+	public static void main(String[] args) {
+				
+		sc = new Scanner(System.in);
+		
 		dao = VideoYoutubeArrayDAO.getInstance();
-
+		
 		cargarVideos();
-
+		
 		pintarMenu();
-
-		int opc = opcion();
-
-		switch (opc) {
-		case 1:
-			listarVideos();
+		
+		
+		switch (opcionSeleccionada) {
+		case OPCION_LISTAR:
+			listar();
 			break;
 
-		case 2:
-			eliminarVideo();
-			break;
-
-		case 3:
-			modficarVideo();
-			break;
-			
-		case 4:
-			altaVideo();
-			break;
+		case OPCION_SALIR:
+			salir();
+			break;	
 			
 		default:
-			System.out.println("Adios!!!!");
+			noOption();
 			break;
 		}
-
+		
+		
 		sc.close();
 	}
 
-	private static void cargarVideos() {
-
-		VideoYoutube video = new VideoYoutube(1, "yuFI5KSPAt4",
-				"Red Hot Chili Peppers - Snow (Hey Oh) (Official Music Video)");
-		dao.insert(video);
-		dao.insert(new VideoYoutube(2, "hTWKbfoikeg", "Nirvana - Smells Like Teen Spirit"));
-		dao.insert(new VideoYoutube(3, "iywaBOMvYLI", "System Of A Down - Toxicity"));
-		dao.insert(new VideoYoutube(4, "1V_xRb0x9aw", "Gorillaz - Clint Eastwood (Official Video)"));
-		dao.insert(new VideoYoutube(5, "LPHJLB1ZeAc", "BODY COUNT - Raining In Blood (OFFICIAL VIDEO)"));
+	
+	private static void salir() {
+		System.out.println("");
+		System.out.println("");
+		System.out.println("");
+		System.out.println("");
+		System.out.println("");
+		System.out.println("AGUR VENUR, esperamos verte pronto");
+		
 	}
+
+
+	private static void noOption() {
+		System.out.println("Lo sentimos No existe esa opcion");
+		pintarMenu();
+		
+	}
+
+
+	private static void listar() {
+		
+		for ( VideoYoutube video : dao.getAll() ) {
+			System.out.println("    " + video);
+		}
+		
+		System.out.println("");
+		System.out.println("");
+		System.out.println("");
+		
+		pintarMenu();
+		
+	}
+
+
+	private static void cargarVideos() {
+		VideoYoutube video = new VideoYoutube(12650, "Nightmares On Wax Boiler Room London DJ Set", "Q692lHFaLVM");
+		dao.insert(video);
+		
+		video = new VideoYoutube(701, "The Skatalites - Rock Fort Rock", "6bLVdKbPHHY");
+		dao.insert(video);
+		
+		
+	}
+
 
 	private static void pintarMenu() {
-
-		System.out.println("---------------------------------------");
-		System.out.println("----------------Youtube----------------");
-		System.out.println("---------------------------------------");
-		System.out.println("-------------1. Listar-----------------");
-		System.out.println("---------------------------------------");
-		System.out.println("-------------2. Eliminar---------------");
-		System.out.println("---------------------------------------");
-		System.out.println("-------------3. Modificar--------------");
-		System.out.println("---------------------------------------");
-		System.out.println("-------------4. Alta-------------------");
-		System.out.println("---------------------------------------");
-	}
-
-	private static int opcion() throws IOException {
-
-		int opc;
-
-		do {
-
-			System.out.println("Elige una opcion:");
-			opc = sc.nextInt();
-
-			if (opc > opcMaxima || opc < opcMinima) {
-				System.out.println("No existe la opcion, vuelve a probar.");
-			}
-			System.in.read();
-		} while (opc > opcMaxima || opc < opcMinima);
-
-		return opc;
-
-	}
-
-	private static void listarVideos() {
-
-		System.out.println(dao.getAll());
-
-	}
-
-	private static void eliminarVideo() throws IOException {
-
-		long id;
-
-		System.in.read();
-		System.in.read();
-
-		System.out.println("Dime el id de una cancion para borrarla...");
-		id = (long) sc.nextInt();
-
-		dao.delete(id);
-
-		listarVideos();
-
-	}
-
-	private static void modficarVideo() {
-
-		System.out.println("Dime el video a modificar:");
-		long id = (long) sc.nextInt();
-
-		VideoYoutube video = dao.getById(id);
-
-		System.out
-				.println("Que quieres modificar:\n1.-Titulo:" + video.getTitulo() + "\n2.-Codigo:" + video.getCodigo());
-		int opc = sc.nextInt();
-
-		switch (opc) {
-		case 1:
-			System.out.println("Escribe el nuevo titulo:");
-			String titulo = sc.next();
-			video.setTitulo(titulo);
-			break;
-
-		case 2:
-			System.out.println("Escribe el nuevo codigo:");
-			String codigo = sc.next();
-			video.setTitulo(codigo);
-			break;
-		default:
-			System.out.println("No quieres modificar nada.");
-			break;
-		}
-
-		dao.update(video);
-
-		listarVideos();
-
-	}
-
-	private static void altaVideo() throws IOException {
-		VideoYoutube video = new VideoYoutube();
 		
-		System.out.println("Introduce el ID de la nueva cancion:");
-		video.setId((long)sc.nextInt());
+		System.out.println("------------------------------------");
+		System.out.println("--          youtube               --");
+		System.out.println("------------------------------------");
+		System.out.println("-    1. Listar                     -");
+		System.out.println("-    2. Añadir Nuevo               -");
+		System.out.println("-    3. Eliminar                   -");
+		System.out.println("-                                  -");
+		System.out.println("-    0 - salir                     -");
+		System.out.println("------------------------------------");
+		System.out.println("");
+		System.out.println("Dime una opcion por favor");
 		
-		System.in.read();
-		System.in.read();
 		
-		System.out.println("Introduce el titulo de la nueva cancion:");
-		video.setTitulo(sc.nextLine());
+		opcionSeleccionada = sc.nextInt();
 		
-		System.out.println("Introduce el codigo de la nueva cancion:");
-		video.setCodigo(sc.nextLine());
 		
-		dao.insert(video);
-		
-		listarVideos();
 	}
+	
 }
