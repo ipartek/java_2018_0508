@@ -2,18 +2,32 @@ package com.ipartek.formacion.ejercicios.interfaces;
 
 import java.util.List;
 
+
 import com.ipartek.formacion.pojo.Youtube;
 
 public interface CrudAble {
 
-		boolean insert(Youtube video);
+	/**
+	 * recupera todos los VideoYoutube
+	 * 
+	 * @return si no existen resultados retorna Lista vacia,no null
+	 */
 
-		List<Youtube> getAll();
+	/**
+	 * Buscamos un VideoYoutube oir su identificador
+	 * 
+	 * @param id long identificador
+	 * @return VideoYoutube si lo encuentra, null si no encuentra
+	 */
 
-		Youtube getByID(long id);
+	boolean update(Youtube video);
 
-		boolean update(Youtube video);
+	boolean delete(long id);
 
-		boolean delete(long id);
+	boolean insert(Youtube video);
+
+	List<Youtube> getAll();
+
+	Youtube getByID(long id);
 
 }
