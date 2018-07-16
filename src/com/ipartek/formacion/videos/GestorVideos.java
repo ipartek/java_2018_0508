@@ -10,7 +10,7 @@ public class GestorVideos {
 	static private VideoYoutubeArrayDAO dao;
 	static private int opcionSeleccionada = 0;
 	static Scanner sc = null;
-	static private long IdCounter = 0;
+	static private long idCounter = 0;
 	
 	static private final int OPCION_SALIR = 0;
 	static private final int OPCION_LISTAR = 1;
@@ -27,6 +27,7 @@ public class GestorVideos {
 		cargarVideos();
 		
 		do {
+			
 			pintarMenu();
 		
 			switch (opcionSeleccionada) {
@@ -40,6 +41,7 @@ public class GestorVideos {
 			
 			case OPCION_ANADIR:
 				anadir();
+				break;
 				
 			default:
 				noOption();
@@ -53,30 +55,37 @@ public class GestorVideos {
 	
 	private static void anadir() {
 		
-		Scanner sc = new Scanner(System.in);
+		Scanner sc2 = new Scanner(System.in);
 		
 		long id;
 		String titulo;
 		String codigo;
+				
+		id = idCounter;
 		
-		try {
-			System.out.println("Introduce la id del video");
-			id = sc.nextLong();
-		} catch (Exception e){
-			sc.nextLine();
-			System.out.println("OPCION NO VALIDA. Por favor introduce una ID correcta (solo numeros)");
-		}
+		do {
+			System.out.println("Introduce el titulo del video");
+			titulo = sc2.next();
+			if ( (titulo.length()<3) || (titulo.length()>254) ) {
+				System.out.println("Titulo no valido (debe introducir de 3 a 254 caracdteres alfanumericos)");
+			}
+		} while ( (titulo.length()<3) || (titulo.length()>254) );
+			
+		do {
+			System.out.println("Introduce el codigo del video");
+			codigo = sc2.next();
+			if (codigo.length()!=11)
+				System.out.println("Codigo no valido (debe introducir 11 caracteres alfanumericos");
+		} while (codigo.length()!=11);
 		
-		System.out.println("Introduce el título del video");
-		titulo = sc.next();
+		VideoYoutube nuevoVideo = new VideoYoutube(id, titulo, codigo);
 		
-		System.out.println("Introduce el código del video");
-		codigo = sc.next();
+		if (dao.insert(nuevoVideo))
+			idCounter++;
 		
-		//videos[i] = new VideoYoutube(id, titulo, codigo);
-		
-		sc.close();
-		
+		sc2.close();
+			
+		//pintarMenu();
 	}
 	
 	private static void salir() {
@@ -115,11 +124,11 @@ public class GestorVideos {
 	private static void cargarVideos() {
 		VideoYoutube video = new VideoYoutube(1, "Nightmares On Wax Boiler Room London DJ Set", "Q692lHFaLVM");
 		dao.insert(video);
-		++IdCounter;
+		++idCounter;
 		
 		video = new VideoYoutube(2, "The Skatalites - Rock Fort Rock", "6bLVdKbPHHY");
 		dao.insert(video);
-		++IdCounter;
+		++idCounter;
 		
 	}
 
