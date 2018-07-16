@@ -24,8 +24,12 @@ public class Excepciones4 {
 	static void metodoB() {
 		System.out.println("        metodoB entro");
 		
-		Object o = null;
-		o.toString();
+		try {
+			Object o = null;
+			o.toString();
+		}catch (Exception e) {
+			System.out.println("******* Exception capturada");
+		}	
 		
 		System.out.println("        metodoB salgo");
 	}
