@@ -125,7 +125,7 @@ public class Person {
 
 	}
 
-	@Override
+	@Override	
 	public String toString() {
 		return "Person [nombre=" + nombre + ", apellido=" + apellido + ", sexo=" + sexo + ", edad=" + edad + ", nota="
 				+ nota + "]";

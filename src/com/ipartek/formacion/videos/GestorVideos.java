@@ -26,8 +26,7 @@ public class GestorVideos {
 		cargarVideos();
 		
 		pintarMenu();
-		
-		
+				
 		switch (opcionSeleccionada) {
 		case OPCION_LISTAR:
 			listar();
@@ -91,7 +90,7 @@ public class GestorVideos {
 	}
 
 
-	private static void pintarMenu() {
+	private static void pintarMenu() { // throws Exception, NullPointerException{
 		
 		System.out.println("------------------------------------");
 		System.out.println("--          youtube               --");
@@ -105,8 +104,19 @@ public class GestorVideos {
 		System.out.println("");
 		System.out.println("Dime una opcion por favor");
 		
-		
 		opcionSeleccionada = sc.nextInt();
+		
+		try {			
+			opcionSeleccionada = sc.nextInt();
+				
+			
+		}catch (Exception e) {
+			// e.printStackTrace();   pinta la pila de excepcion
+			sc.nextLine();
+			System.out.println("OPCION NO VALIDA, Por favor introduce un numero del menu");
+			pintarMenu();
+		}
+			
 		
 		
 	}
