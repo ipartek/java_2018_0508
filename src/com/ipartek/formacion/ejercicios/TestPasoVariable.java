@@ -1,11 +1,6 @@
 package com.ipartek.formacion.ejercicios;
 
 import static org.junit.Assert.*;
-
-import org.junit.After;
-import org.junit.AfterClass;
-import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 
 import com.ipartek.formacion.pojo.VideoYoutube;

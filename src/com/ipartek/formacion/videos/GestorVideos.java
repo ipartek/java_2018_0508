@@ -13,8 +13,8 @@ public class GestorVideos {
 
 	static private final int OPCION_SALIR = 0;
 	static private final int OPCION_LISTAR = 1;
-	static private final int OPCION_ANADIR = 2;
-	static private final int OPCION_ELIMINAR = 3;
+	//static private final int OPCION_ANADIR = 2;
+	//static private final int OPCION_ELIMINAR = 3;
 
 	public static void main(String[] args) {
 
@@ -88,7 +88,7 @@ public class GestorVideos {
 		System.out.println("--          youtube               --");
 		System.out.println("------------------------------------");
 		System.out.println("-    1. Listar                     -");
-		System.out.println("-    2. Añadir Nuevo               -");
+		System.out.println("-    2. Aï¿½adir Nuevo               -");
 		System.out.println("-    3. Eliminar                   -");
 		System.out.println("-                                  -");
 		System.out.println("-    0 - salir                     -");
