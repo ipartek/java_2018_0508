@@ -143,43 +143,42 @@ public class GestorVideos {
 		int opcion;
 		VideoYoutubeArrayDao videoArrayBorrar;
 		try {
-			
-		
-		System.out.println("Menu elimina canciones");
-		System.out.println("introduce el id de la cancion que quieres borrar");
-		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-		userDelete = (long) Integer.parseInt(br.readLine());
-		videoB[0] = dao.getById(userDelete);
-		if (videoB[0] != null) {
-			if (videoB[0].getId() == userDelete) {
-				dao.delete(userDelete);
-				System.out.println("Registro " + userDelete + " eliminado correctamente");
-			}
 
-		} else {
-			System.out.println(
-					"Registro no encontrado intentalo de nuevo, si necesitas recordar las canciones, puedes listarlas");
-		}
-		System.out.println("Que quieres hacer ahora ? 1-listar. 2-Añadir. 3- Eliminar. 4 Salir");
-		opcion = Integer.parseInt(br.readLine());
-		if (opcion == 1) {
-			listarCanciones();
-		} else {
-			if (opcion == 2) {
-				Anadir();
-			} else {
-				if (opcion == 3) {
-					eliminarCancion();
+			System.out.println("Menu elimina canciones");
+			System.out.println("introduce el id de la cancion que quieres borrar");
+			BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+			userDelete = (long) Integer.parseInt(br.readLine());
+			videoB[0] = dao.getById(userDelete);
+			if (videoB[0] != null) {
+				if (videoB[0].getId() == userDelete) {
+					dao.delete(userDelete);
+					System.out.println("Registro " + userDelete + " eliminado correctamente");
 				}
-			}
 
-		}}catch(Exception e) {
+			} else {
+				System.out.println(
+						"Registro no encontrado intentalo de nuevo, si necesitas recordar las canciones, puedes listarlas");
+			}
+			System.out.println("Que quieres hacer ahora ? 1-listar. 2-Añadir. 3- Eliminar. 4 Salir");
+			opcion = Integer.parseInt(br.readLine());
+			if (opcion == 1) {
+				listarCanciones();
+			} else {
+				if (opcion == 2) {
+					Anadir();
+				} else {
+					if (opcion == 3) {
+						eliminarCancion();
+					}
+				}
+
+			}
+		} catch (Exception e) {
 
 			System.out.println("Ha introducido un id incorrecto");
 			eliminarCancion();
 		}
 	}
-	
 
 	private static VideoYoutubeArrayDao cargarCanciones() {
 		if (dao.getAll().size() == 0) {
@@ -211,7 +210,7 @@ public class GestorVideos {
 	}
 
 	private static boolean comprobarCodigo(String codigo) {
-		if (codigo.length() != 11 ) {
+		if (codigo.length() != 11) {
 			return true;
 		}
 		return false;
