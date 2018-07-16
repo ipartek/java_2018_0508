@@ -118,16 +118,34 @@ public class VideoClub {
 
 			v.setId(dao.getALl().size() + 1);
 
-			System.out.print("inserte titulo: ");
-			v.setTitulo(sc.next());
+			do {
+				System.out.print("inserte titulo : ");
+				v.setTitulo(sc.next());
 
-			System.out.print("inserte codigo: ");
-			v.setCodigo(sc.next());
+				if (v.getTitulo().length() < 3) {
+					System.out.println("La longitud del titulo es corta");
+
+				} else if (v.getTitulo().length() > 254) {
+					System.out.println("La longitud del titulo es demasiado largo");
+
+				}
+			} while (v.getTitulo().length() < 3 || v.getTitulo().length() > 254);
+
+			do {
+				System.out.print("inserte codigo: ");
+				v.setCodigo(sc.next());
+				if (v.getCodigo().length() < 11) {
+					System.out.println("La longitud del codigo es corta");
+				}
+				if (v.getCodigo().length() > 11) {
+					System.out.println("La longitud del codigo es corta");
+				}
+			} while (resul);
 
 			System.out.println("guardado registro....");
 			dao.insert(v);
 
-			System.out.println("Â¿Deseas agregar mas videos? \"s\" si \"n\"no");
+			System.out.println("¿Deseas agregar mas videos? \"s\" si \"n\"no");
 			continuar = sc.next();
 			resul = validarContinuar(continuar);
 
@@ -143,33 +161,26 @@ public class VideoClub {
 
 	private static void eliminaElement() {
 
-		String continuar = "n";
-		boolean resul = false;
+		if (dao.getALl().isEmpty()) {
+			System.out.println("\n No hay videos que mostrar \n");
+			pintarMenu();
+		} else {
+			System.out.println(" \n Listado de videos :    ");
+			listarVideo(videos);
 
-		do {
-			if (dao.getALl().isEmpty()) {
-				System.out.println("\n No hay videos que mostrar \n");
-				pintarMenu();
-			} else {
-				System.out.println(" \n Listado de videos :    ");
-				listarVideo(videos);
-
-				System.out.print("Ingrese el numero del video a eliminar:");
+			System.out.print("Ingrese el numero del video a eliminar:");
+			try {
 				long r = sc.nextLong();
-
 				dao.delete(r);
+			} catch (Exception e) {
 
-				if (!dao.getALl().isEmpty()) {
-					System.out.println(" \n Listado actualizado :    ");
+				System.out.println("El codigo es incorrecto..");
+				sc.nextLine();
 
-					listarVideo(videos);
-
-					System.out.println("¿Deseas seguir eliminando ? \"s\" si \"n\"no");
-					continuar = sc.next();
-					resul = validarContinuar(continuar);
-				}
+				eliminaElement();
 			}
-		} while (!"n".equalsIgnoreCase(continuar));
+
+		}
 
 	}
 
