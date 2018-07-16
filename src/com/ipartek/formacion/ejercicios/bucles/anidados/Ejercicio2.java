@@ -15,7 +15,7 @@ public class Ejercicio2 {
 		System.out.print("Introduce un numero: ");
 		Scanner teclado = new Scanner(System.in);
 		int num = teclado.nextInt();
-		Utilities.factorial(num);
+		System.out.println(num+"!= "+Utilities.factorial(num));
 		teclado.close();
 
 	}

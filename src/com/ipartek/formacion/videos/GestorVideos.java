@@ -2,113 +2,110 @@ package com.ipartek.formacion.videos;
 
 import java.util.Scanner;
 
+import com.ipartek.formacion.model.VideoYoutubeArrayDAO;
 import com.ipartek.formacion.pojo.VideoYoutube;
 
 public class GestorVideos {
 
-	static VideoYoutube[] videos = new VideoYoutube[5];
+	static private VideoYoutubeArrayDAO dao;
+	static private int opcionSeleccionada = 0;
+	static Scanner sc = null;
+
+	static private final int OPCION_SALIR = 0;
+	static private final int OPCION_LISTAR = 1;
+	static private final int OPCION_ANADIR = 2;
+	static private final int OPCION_ELIMINAR = 3;
 
 	public static void main(String[] args) {
+
+		sc = new Scanner(System.in);
+
+		dao = VideoYoutubeArrayDAO.getInstance();
+
 		cargarVideos();
+
+		pintarMenu();
+
+		switch (opcionSeleccionada) {
+		case OPCION_LISTAR:
+			listar();
+			break;
+
+		case OPCION_SALIR:
+			salir();
+			break;
+
+		default:
+			noOption();
+			break;
+		}
+
+		sc.close();
+	}
+
+	private static void salir() {
+		System.out.println("");
+		System.out.println("");
+		System.out.println("");
+		System.out.println("");
+		System.out.println("");
+		System.out.println("AGUR VENUR, esperamos verte pronto");
+
+	}
+
+	private static void noOption() {
+		System.out.println("Lo sentimos No existe esa opcion");
 		pintarMenu();
 
 	}
 
-	public static void pintarMenu() {
+	private static void listar() {
 
-		System.out.println("----------------------");
-		System.out.println("       YOUTUBE        ");
-		System.out.println("----------------------");
-		System.out.println("1.Listar");
-		System.out.println("2.Añadir");
-		System.out.println("3.Mostrar");
-		Scanner teclado = new Scanner(System.in);
-		System.out.print("Opción: ");
-		int opc = teclado.nextInt();
-		teclado.close();
-		switch (opc) {
-		case 1:
-			listarVideos();
-			break;
-		case 2:
-			System.out.println("Crear un video");
-
-			break;
-		case 3:
-
-			break;
-
-		default:
-			break;
-		}
-	}
-
-	public static void cargarVideos() {
-		for (int i = 0; i < videos.length; i++) {
-			VideoYoutube video = new VideoYoutube();
-			videos[i] = video;
-		}
-	}
-
-	public static void listarVideos() {
-		for (int i = 0; i < videos.length; i++) {
-			videos[i].toString();
-			System.out.println();
-		}
-	}
-	
-	public static void crearVideo() {
-		Scanner teclado = new Scanner(System.in);
-		VideoYoutube video = new VideoYoutube();
-		System.out.print("Introduce codigo del video: ");
-		video.setCodigo(teclado.next());
-		System.out.print("Introduce el titulo del video: ");
-		video.setTitulo(teclado.next());
-		teclado.close();
-	}
-	
-	
-	
-
-	public static void mostrarVideo(VideoYoutube video) {
-		video.toString();
-	}
-
-	public static boolean existInArray(VideoYoutube video) {
-		for (int i = 0; i < videos.length; i++) {
-			if (videos[i] == video) {
-				return true;
-			}
-		}
-		return false;
-	}
-
-	public static void modificarVideo(VideoYoutube video) {
-		boolean encontrado = false;
-		int i = 0;
-		while (!encontrado) {
-			if (videos[i].getId() == video.getId()) {
-				videos[i] = video;
-			}
+		for (VideoYoutube video : dao.getAll()) {
+			System.out.println("    " + video);
 		}
 
+		System.out.println("");
+		System.out.println("");
+		System.out.println("");
+
+		pintarMenu();
+
 	}
 
-	public static void borrarVideo(VideoYoutube video) {
-		boolean encontrado = false;
-		int i = 0;
-		while (!encontrado) {
-			if (videos[i].getId() == video.getId()) {
-				videos[i] = new VideoYoutube();
-			}
-		}
+	private static void cargarVideos() {
+		VideoYoutube video = new VideoYoutube(12650, "Nightmares On Wax Boiler Room London DJ Set", "Q692lHFaLVM");
+		dao.insert(video);
+
+		video = new VideoYoutube(701, "The Skatalites - Rock Fort Rock", "6bLVdKbPHHY");
+		dao.insert(video);
+
 	}
 
-	public static void borrarVideos(VideoYoutube video) {
+	private static void pintarMenu() {
 
-		for (int i = 0; i < videos.length; i++) {
-			videos[i] = new VideoYoutube();
+		System.out.println("------------------------------------");
+		System.out.println("--          youtube               --");
+		System.out.println("------------------------------------");
+		System.out.println("-    1. Listar                     -");
+		System.out.println("-    2. Añadir Nuevo               -");
+		System.out.println("-    3. Eliminar                   -");
+		System.out.println("-                                  -");
+		System.out.println("-    0 - salir                     -");
+		System.out.println("------------------------------------");
+		System.out.println("");
+		System.out.print("Dime una opcion por favor: ");
+
+		try {
+			opcionSeleccionada = sc.nextInt();
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println("OPCION NO VALIDA, Por favor introduce un numero del menu");
+			sc.nextLine();
+			pintarMenu();
+
 		}
+
 	}
 
 }

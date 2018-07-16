@@ -44,12 +44,13 @@ public class Utilities {
 		return sum;
 	}
 
-	public static void factorial(int num) {
+	public static int factorial(int num) {
 		int factorial = 1;
 		for (int i = 1; i <= num; i++) {
 			factorial = factorial * i;
 		}
-		System.out.println(num + "! = " + factorial);
+		return factorial;
+		
 
 	}
 }
