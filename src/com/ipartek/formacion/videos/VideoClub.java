@@ -138,9 +138,9 @@ public class VideoClub {
 					System.out.println("La longitud del codigo es corta");
 				}
 				if (v.getCodigo().length() > 11) {
-					System.out.println("La longitud del codigo es corta");
+					System.out.println("La longitud del codigo es larga");
 				}
-			} while (resul);
+			} while (v.getCodigo().length() < 11 || v.getCodigo().length() > 11);
 
 			System.out.println("guardado registro....");
 			dao.insert(v);
