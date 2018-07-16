@@ -98,5 +98,9 @@ public class VideoYoutubeArrayDAO implements CrudAble {
 		
 		return resul;
 	}
+	
+	public int length() {
+		return lista.size();
+	}
 
 }
