@@ -26,19 +26,30 @@ public class GestorVideos {
 
 		pintarMenu();
 
-		switch (opcionSeleccionada) {
-		case OPCION_LISTAR:
-			listar();
-			break;
+		do {
+			switch (opcionSeleccionada) {
+			case OPCION_LISTAR:
+				listar();
+				break;
 
-		case OPCION_SALIR:
-			salir();
-			break;
+			case OPCION_ANADIR:
+				anadirVideos();
+				break;
 
-		default:
-			noOption();
-			break;
-		}
+			case OPCION_ELIMINAR:
+				eliminarVideos();
+				break;
+
+			case OPCION_SALIR:
+				salir();
+				break;
+
+			default:
+				noOption();
+				break;
+			}
+
+		} while (opcionSeleccionada != OPCION_SALIR);
 
 	}
 
@@ -52,13 +63,13 @@ public class GestorVideos {
 
 	}
 
-	private static void noOption(){
+	private static void noOption() {
 		System.out.println("Lo sentimos No existe esa opcion");
 		pintarMenu();
 
 	}
 
-	private static void listar(){
+	private static void listar() {
 
 		for (VideoYoutube video : dao.getAll()) {
 			System.out.println("    " + video);
@@ -72,6 +83,37 @@ public class GestorVideos {
 
 	}
 
+	private static void eliminarVideos() {
+		int idVideo = 0;
+
+		do {
+
+			System.out.println("Selecciona un video a ELIMINAR(negativo para no eliminar mas videos): ");
+			idVideo = sc.nextInt();
+
+			if (idVideo != 0) {
+				System.out.println("Eliminando video seleccionado...");
+				dao.delete(idVideo);
+			}
+
+			for (VideoYoutube video : dao.getAll()) {
+				System.out.println("    " + video);
+			}
+
+		} while (idVideo != 0);
+		pintarMenu();
+	}
+
+	private static void anadirVideos() {
+
+		String titulo = "";
+		String codigo = "";
+
+		VideoYoutube video = new VideoYoutube(1, "Nightmares On Wax Boiler Room London DJ Set", "Q692lHFaLVM");
+		dao.insert(video);
+
+	}
+
 	private static void cargarVideos() {
 		VideoYoutube video = new VideoYoutube(1, "Nightmares On Wax Boiler Room London DJ Set", "Q692lHFaLVM");
 		dao.insert(video);
@@ -81,7 +123,7 @@ public class GestorVideos {
 
 	}
 
-	private static void pintarMenu(){
+	private static void pintarMenu() {
 
 		System.out.println("------------------------------------");
 		System.out.println("--          youtube               --");
@@ -96,7 +138,6 @@ public class GestorVideos {
 		System.out.println("Dime una opcion por favor");
 
 		opcionSeleccionada = sc.nextInt();
-		
 
 	}
 
