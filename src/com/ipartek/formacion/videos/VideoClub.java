@@ -154,6 +154,7 @@ public class VideoClub {
 				System.out.println("Marque \"s\" si \"n\"no");
 				continuar = sc.next();
 				resul = validarContinuar(continuar);
+				sc.nextLine();
 			}
 
 		} while (!"n".equalsIgnoreCase(continuar));
