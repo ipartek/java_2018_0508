@@ -2,6 +2,7 @@ package com.ipartek.formacion.ejercicios.generales;
 
 import java.util.Scanner;
 
+
 /**
  * Programa para intercambiar el valor de dos variables. Los valores iniciales
  * se leen por teclado.
@@ -19,30 +20,49 @@ import java.util.Scanner;
  * AUX = A; A = B; B = AUX;
  * 
  * @author Curso
+=======
+import com.sun.org.apache.xerces.internal.util.SynchronizedSymbolTable;
+
+/**
+ * rograma para intercambiar el valor de dos variables. Los valores iniciales se
+ * leen por teclado.
+ * 
+ * Por ejemplo, suponiendo que las variables se llaman A y B, si A contiene 3 y
+ * B contiene 5, después del intercambio A contendrá 5 y B 3.
+ * 
+ * En este ejemplo, para intercambiar el valor entre dos variables utilizaremos
+ * una avariable auxiliar donde guardar el valor de una de ellas. Después
+ * veremos la forma de hacerlo sin usar una variable auxiliar para el
+ * intercambio.
+ * 
+ * Las instrucciones a realizar son:
+ * 
+ * AUX = A; A = B; B = AUX;
+ * 
+ * @author valen
+>>>>>>> branch 'valeriaValencia' of https://github.com/ipartek/java_2018_0508.git
  *
  */
 
 public class Ejercicio1 {
-
 	public static void main(String[] args) {
-
 		Scanner p = new Scanner(System.in);
-
 		int a;
 		int b;
-		int z;
+		int aux;
 
-		System.out.println("Ingrese el valor de A : ");
+		System.out.println("Ingrese el valor de la primera variable = ");
 		a = p.nextInt();
-		System.out.println("Ingrese el valor de B : ");
+		System.out.println("Ingrese el valor de la segunda variable = ");
 		b = p.nextInt();
-		System.out.println("El valor de A es : " + a + " El valor de B es : " + b);
+		System.out.println("La variable ingresada de a es = " + a + " La variable ingresa de b es = ");
 
-		z = a;
+		aux = a;
 		a = b;
-		b = z;
-		System.out.println("Ahora el valor de A es : " + a + "  Ahora el valor de B es : " + b);
+		b = aux;
+		System.out.println(" Ahora el valor de b es = " + b + " Ahora el valor de a es = " + a);
 
 	}
 
+	
 }
