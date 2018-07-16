@@ -18,6 +18,9 @@ public class VideoClub {
 	static private final int OPCION_ANADIR = 4;
 	static private final int VALOR_CHIVATO = -1;
 	static private int ULTIMO_ID = 0;
+	static private final int MAX_TITULO = 254;
+	static private final int MIN_TITULO = 3;
+	static private final int TAMANO_CODIGO = 11;
 
 	private static Scanner sc = new Scanner(System.in);
 
@@ -26,8 +29,8 @@ public class VideoClub {
 		dao = VideoYoutubeArrayDAO.getInstance();
 
 		cargarVideos();
-		
-		ULTIMO_ID = dao.getAll().size()+1;
+
+		ULTIMO_ID = dao.getAll().size() + 1;
 
 		int opc = VALOR_CHIVATO;
 
@@ -96,8 +99,10 @@ public class VideoClub {
 	}
 
 	/**
-	 * Funcion que pinta el menu, trata el numero/valor que nos introduzca el usuario.
-	 * Se tiene en cuenta, que nos introduzca un entero, se trata la excepcion si nos introduce 
+	 * Funcion que pinta el menu, trata el numero/valor que nos introduzca el
+	 * usuario. Se tiene en cuenta, que nos introduzca un entero, se trata la
+	 * excepcion si nos introduce
+	 * 
 	 * @return
 	 */
 	private static int opcion() {
@@ -133,51 +138,67 @@ public class VideoClub {
 
 	private static void eliminarVideo() {
 
-		sc.nextLine();
-		long id;
+		long id = pedirID("modificar");
 
-		System.out.println("Dime el id de una cancion para borrarla...");
-		id = (long) sc.nextInt();
-
-		dao.delete(id);
-
-		listarVideos();
-
+		if (id == VALOR_CHIVATO || id >= ULTIMO_ID) {
+			System.out.println("El video que quieres eliminar no existe.");
+		} else {
+			System.out.println((dao.delete(id) == true) ? "El video se ha borrado correctamente."
+					: "UPSS, no se ha podido borrar el video.");
+		}
 	}
 
 	private static void modficarVideo() {
 
-		sc.nextLine();
-
-		System.out.println("Dime el video a modificar:");
-		long id = (long) sc.nextInt();
+		long id = pedirID("modificar");
 
 		VideoYoutube video = dao.getById(id);
 
-		System.out
-				.println("Que quieres modificar:\n1.-Titulo:" + video.getTitulo() + "\n2.-Codigo:" + video.getCodigo());
-		int opc = sc.nextInt();
+		if (video != null) {
+			int opc = VALOR_CHIVATO;
+			do {
 
-		switch (opc) {
-		case 1:
-			System.out.println("Escribe el nuevo titulo:");
-			String titulo = sc.nextLine();
-			video.setTitulo(titulo);
-			break;
+				try {
+					System.out.println("Que quieres modificar:\n1.-Titulo:" + video.getTitulo() + "\n2.-Codigo:"
+							+ video.getCodigo());
+					opc = sc.nextInt();
+				} catch (Exception e) {
+					System.out.println("Uppsss, Tienes que meter un numero, sin letras.");
+					opc = (VALOR_CHIVATO);
+					sc.nextLine();
+				}
 
-		case 2:
-			System.out.println("Escribe el nuevo codigo:");
-			String codigo = sc.nextLine();
-			video.setTitulo(codigo);
-			break;
-		default:
-			System.out.println("No quieres modificar nada.");
-			break;
+			} while (opc == VALOR_CHIVATO);
+
+			switch (opc) {
+			case 1:
+				String titulo = "";
+				while (titulo == "") {
+					System.out.println("Escribe el nuevo titulo:");
+					titulo = sc.nextLine();
+					titulo = comprobarTitulo(titulo);
+				}
+				video.setTitulo(titulo);
+				break;
+
+			case 2:
+				String codigo = "";
+				while (codigo == "") {
+					System.out.println("Escribe el nuevo codigo:");
+					codigo = sc.nextLine();
+					codigo = comprobarCodigo(codigo);
+				}
+				video.setTitulo(codigo);
+				break;
+			default:
+				System.out.println("No quieres modificar nada.");
+				break;
+			}
+
+			dao.update(video);
+		} else {
+			System.out.println("El video no existe.");
 		}
-
-		dao.update(video);
-
-		listarVideos();
 
 	}
 
@@ -185,43 +206,83 @@ public class VideoClub {
 
 		VideoYoutube video = new VideoYoutube();
 
-//		do {
-//
-//			try {
-//				System.out.println("Introduce el ID de la nueva cancion:");
-//				video.setId((long) sc.nextInt());
-//			} catch (Exception e) {
-//				System.out.println("Uppsss, Tienes que meter un numero, sin letras.");
-//				video.setId(VALOR_CHIVATO);
-//				sc.nextLine();
-//			}
-//
-//		} while (video.getId() == VALOR_CHIVATO);
-
-		
 		video.setId(ULTIMO_ID);
-		sc.nextLine().trim();
 
-		while(video.getTitulo()=="") {
-			
-			System.out.println("Introduce el titulo de la nueva cancion:");
-			video.setTitulo(sc.nextLine());
-			
-			if(video.getTitulo().trim().length()>=10 && video.getTitulo().trim().length()<=3) {
-				System.out.println("El nombre del titulo tiene que estar entre 3 y 254 caracteres.");
-				video.setTitulo("");
-			}
+		String titulo = "";
+
+		while (titulo == "") {
+			System.out.println("Introduce el titulo de la nueva cancion::");
+			titulo = sc.nextLine();
+			titulo = comprobarTitulo(titulo);
 		}
-		
 
-		System.out.println("Introduce el codigo de la nueva cancion:");
-		video.setCodigo(sc.nextLine());
+		video.setTitulo(titulo);
 
-//		dao.insert(video);
+		String codigo = "";
+
+		while (codigo == "") {
+			System.out.println("Introduce el codigo de la nueva cancion::");
+			codigo = sc.nextLine();
+			codigo = comprobarTitulo(codigo);
+		}
+
+		video.setCodigo(codigo);
 
 		System.out.println((dao.insert(video) == true) ? "El video se ha añadido correctamente."
 				: "UPSS, no se ha podido añadir el video.");
-		
-		ULTIMO_ID = dao.getAll().size()+1;
+
+		ULTIMO_ID = dao.getAll().size() + 1;
+	}
+
+	/**
+	 * comprueba el titulo
+	 * 
+	 * @param titulo
+	 * @return devuelve cadena vacia si no cumple el limite de 3 y 254
+	 */
+	private static String comprobarTitulo(String titulo) {
+		if (titulo.trim().length() >= MAX_TITULO || titulo.trim().length() <= MIN_TITULO) {
+			System.out.println("El nombre del titulo tiene que estar entre 3 y 254 caracteres.");
+			titulo = "";
+		}
+		return titulo;
+	}
+
+	/**
+	 * comprueba el codigo
+	 * 
+	 * @param codigo
+	 * @return devuelve cadena vacia si no cumple el tamaño de 11
+	 */
+	private static String comprobarCodigo(String codigo) {
+		if (codigo.trim().length() != TAMANO_CODIGO) {
+			System.out.println("El codigo tiene que tener 11 digitos.");
+			codigo = "";
+		}
+		return codigo;
+	}
+
+	/**
+	 * comprueba que el id sea un numero, coge la excepcion
+	 * 
+	 * @param metodo para reutilizarlo en borrar y modificar
+	 * @return el id en formato long
+	 */
+	private static long pedirID(String metodo) {
+		long id = VALOR_CHIVATO;
+		do {
+
+			try {
+				System.out.println("Introduce el ID de la cancion a " + metodo);
+				id = (long) sc.nextInt();
+			} catch (Exception e) {
+				System.out.println("Uppsss, Tienes que meter un numero, sin letras.");
+				id = VALOR_CHIVATO;
+				sc.nextLine();
+			}
+
+		} while (id == VALOR_CHIVATO);
+
+		return id;
 	}
 }
