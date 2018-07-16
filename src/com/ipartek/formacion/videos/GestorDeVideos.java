@@ -2,116 +2,127 @@ package com.ipartek.formacion.videos;
 
 import java.util.Scanner;
 
+import com.ipartek.formacion.model.VideoYoutubeArrayDAO;
 import com.ipartek.formacion.pojo.VideoYoutube;
 
 public class GestorDeVideos {
-	static Scanner sc = new Scanner(System.in);
-	static VideoYoutube[] videos = new VideoYoutube[5];
+
+	static private VideoYoutubeArrayDAO dao;
+	static private int opcionSeleccionada = 0;
+	static Scanner sc = null;
+
+	static private final int OPCION_SALIR = 0;
+	static private final int OPCION_LISTAR = 1;
+	static private final int OPCION_ANADIR = 2;
+	static private final int OPCION_ELIMINAR = 3;
 
 	public static void main(String[] args) {
 
-		cargarVideo(videos);
+		sc = new Scanner(System.in);
+
+		dao = VideoYoutubeArrayDAO.getInstance();
+
+		cargarVideos();
+
 		pintarMenu();
+
+		switch (opcionSeleccionada) {
+		case OPCION_LISTAR:
+			listar();
+			break;
+
+		case OPCION_ANADIR:
+
+			break;
+
+		case OPCION_ELIMINAR:
+
+			break;
+
+		case OPCION_SALIR:
+			salir();
+			break;
+
+		default:
+			noOption();
+			break;
+		}
+
+		sc.close();
+	}
+
+	private static void salir() {
+		System.out.println("");
+		System.out.println("");
+		System.out.println("");
+		System.out.println("");
+		System.out.println("");
+		System.out.println("AGUR VENUR, esperamos verte pronto");
 
 	}
 
-	private static void cargarVideo(VideoYoutube[] videos) {
+	private static void noOption() {
+		System.out.println("Lo sentimos No existe esa opcion");
+		try {
+			pintarMenu();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 
-		videos[0] = new VideoYoutube(0, "Manifiesto", "3A2KtOXRpOo");
-		videos[1] = new VideoYoutube(1, "Vivir para contarlo", "brwIP1wI-FA");
-		videos[2] = new VideoYoutube(2, "Hero of the day", "XkfO8c8MlKU");
-		videos[3] = new VideoYoutube(3, "Welcome to the jungle", "o1tj2zJ2Wvg");
-		videos[4] = new VideoYoutube(4, "Para los mios", "fp47VcTlwWQ");
+	}
+
+	private static void listar() {
+
+		for (VideoYoutube video : dao.getAll()) {
+			System.out.println("    " + video);
+		}
+
+		System.out.println("");
+		System.out.println("");
+		System.out.println("");
+
+		try {
+			pintarMenu();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+	}
+
+	private static void cargarVideos() {
+		VideoYoutube video = new VideoYoutube(12650, "Nightmares On Wax Boiler Room London DJ Set", "Q692lHFaLVM");
+		dao.insert(video);
+
+		video = new VideoYoutube(701, "The Skatalites - Rock Fort Rock", "6bLVdKbPHHY");
+		dao.insert(video);
 
 	}
 
 	private static void pintarMenu() {
 
-		int opcion = 0;
-		System.out.println("----------------------------------");
-		System.out.println("--------------youtube-------------");
-		System.out.println("----------------------------------");
-		System.out.println("    1.Listar                      ");
-		System.out.println("    2.Añadir                      ");
-		System.out.println("    3.Eliminar                    ");
-		System.out.println("    4.Salir                       ");
-		System.out.println("----------------------------------");
-		System.out.println("Elige una opcion");
-		opcion = sc.nextInt();
-		switch (opcion) {
-		case 1:
-			listarVideos();
-			pintarMenu();
-			break;
+		System.out.println("------------------------------------");
+		System.out.println("--          youtube               --");
+		System.out.println("------------------------------------");
+		System.out.println("-    1. Listar                     -");
+		System.out.println("-    2. Añadir Nuevo               -");
+		System.out.println("-    3. Eliminar                   -");
+		System.out.println("-                                  -");
+		System.out.println("-    0 - salir                     -");
+		System.out.println("------------------------------------");
+		System.out.println("");
+		System.out.println("Dime una opcion por favor");
 
-		case 2:
-			añadirVideo();
-			pintarMenu();
-			break;
+		opcionSeleccionada = sc.nextInt();
 
-		case 3:
-			eliminarVideo();
-			pintarMenu();
-			break;
+		try {
+			opcionSeleccionada = sc.nextInt();
+		} catch (Exception e) {
+			System.out.println("OPCION NO VALIDA, Por favor introduce un número del menú");
+			sc.nextLine(); // e.printStackTrace(); pintarMenu(); }
 
-		case 4:
-
-			break;
-
-		default:
-			break;
-		}
-	}
-
-	private static void eliminarVideo() {
-		// TODO eliminar el video de la lista
-		int codElim;
-		listarVideos();
-		System.out.println("introduce el codigo de video a eliminar");
-		codElim = sc.nextInt();
-		videos[codElim] = new VideoYoutube(codElim, "", "");
-
-	}
-
-	private static void listarVideos() {
-		for (int i = 0; i < videos.length; i++) {
-			System.out.println("." + videos[i].toString());
 		}
 
 	}
-
-	private static void añadirVideo() {
-
-		int cont = 0;
-		for (int i = 0; i < videos.length; i++) {
-			if (videos[i].getTitulo().equalsIgnoreCase("")) {
-				cont++;
-				String cod;
-				String tit = "";
-
-				System.out.println("Introduce el codigo del video");
-				cod = sc.next();
-
-				System.out.println("Introduce el titulo del video");
-				tit = sc.next();
-
-				for (int j = 0; j < videos.length; j++) {
-					if (videos[j].getTitulo().equalsIgnoreCase("")) {
-						videos[j] = new VideoYoutube(j, tit, cod);
-					}
-				}
-				cont--;
-				System.out.println("Video añadido a la lista.");
-				System.out.println("Quedan " + cont + "huecos en la lista");
-
-			} else {
-
-				System.out.println("Lo siento, pero no hay espacio en la lista.");
-			}
-		}
-
-		pintarMenu();
-
-	}
-
 }
