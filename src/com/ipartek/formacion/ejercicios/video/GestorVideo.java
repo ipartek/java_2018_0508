@@ -35,7 +35,7 @@ public class GestorVideo {
 				ytDAO.insert(nuevoVideo);
 				break;
 			case 3:
-				System.out.println("Introdice el ID del video que quieres borrar");
+				System.out.println("Ingrese el ID del video que quieres borrar");
 
 				long id = p.nextLong();
 
@@ -43,10 +43,10 @@ public class GestorVideo {
 
 				break;
 			case 0:
-				System.out.println("Gracias por utilizar esta aplicacion. Hasta la vista Baby");
+				System.out.println("Gracias ");
 				break;
 			default:
-				System.out.println("Has metido un numero ERRONEO");
+				System.out.println("Has ingresado un numero ERRONEO");
 			}
 		} while (opcion != 0);
 
