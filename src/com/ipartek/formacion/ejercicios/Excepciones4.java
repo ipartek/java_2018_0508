@@ -40,7 +40,7 @@ public class Excepciones4 {
 			Object o = null;
 			o.toString();
 		} catch (Exception e) {
-			// System.out.println("Recogida excepcion nullPoint");
+			System.out.println("********* Excepcion captura");
 		}
 
 		System.out.println("salgo del metodoC");

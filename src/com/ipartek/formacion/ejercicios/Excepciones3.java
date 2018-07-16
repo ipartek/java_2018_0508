@@ -1,17 +1,22 @@
 package com.ipartek.formacion.ejercicios;
 
 /**
- * el metodoB lanzar una excepcion con throws ...se lanza siempre para arriba.
+ * el metodoC lanzar una excepcion con throws ...se lanza siempre para arriba.
  * 
  * @author andreaPerez
  *
  */
 public class Excepciones3 {
 
-	public static void main(String[] args) throws Exception {
+	public static void main(String[] args) {
 
 		System.out.println("Dentro del main");
-		metodoA();
+		try {
+			metodoA();
+		} catch (Exception e) {
+
+			e.printStackTrace();
+		}
 
 		System.out.println("salgo del main");
 	}
