@@ -27,7 +27,13 @@ public class Ejercicio1 {
 		double a = 4.56;
 		char c = 'a';
 		
+		System.out.println("n = "+ n);
+		System.out.println("a = "+ a);
+		System.out.println("c = "+ c);
 		
+		System.out.println("Suma N+A: " +(n+a));
+		System.out.println("Diferencia de A-N: "+ (a-n));
+		System.out.println("Valor numerico de "+ c +": "+ (int)c);
 	}
 
 }
