@@ -37,6 +37,7 @@ public class VideoYoutubeArrayDao implements CrudAble {
 		boolean resul = false;
 		if (video != null) {
 			resul = lista.add(video);
+			//resul = lista.set(video.getId(), video)
 		}
 
 		return resul;

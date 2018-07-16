@@ -36,7 +36,7 @@ public class Ejercicio3 {
 		
 		for (int j = 0; j < alumnos;j++) {
 			if (notas[j] > suma) {
-				System.out.println("Alumno nº: "+ j +" Con nota: "+ notas[j]);
+				System.out.println("Alumno : "+ j +" Con nota: "+ notas[j]);
 			}
 		}
 		
