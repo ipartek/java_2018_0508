@@ -37,8 +37,8 @@ public class Excepciones4 {
 
 		System.out.println("dentro del metodoC");
 		try {
-			Object o = null;
-			o.toString();
+//			Object o = null;
+//			o.toString();
 		} catch (Exception e) {
 			System.out.println("********* Excepcion captura");
 		}

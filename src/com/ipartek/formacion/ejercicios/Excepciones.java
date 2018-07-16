@@ -1,8 +1,5 @@
 package com.ipartek.formacion.ejercicios;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-
 public class Excepciones {
 
 	public static void main(String[] args) {
@@ -14,13 +11,7 @@ public class Excepciones {
 			 * Object o = null; o.toString();
 			 */
 
-			// TODO capturar y conseguir que entre en un catch de ArrayIndexOfBoundException
-
-			// TODO crear una nueva clase Excepciones2 con metodo main, metodoA y metodoB y
-			// metodoC
-			// l a llama al b, el b al c y el c produce la excepcion.
-
-			// Declaración el ArrayList
+			// Declaraciï¿½n el ArrayList
 			int[] array = new int[5];
 			int exceptionArray = array[5];
 		} catch (ArrayIndexOutOfBoundsException a) {

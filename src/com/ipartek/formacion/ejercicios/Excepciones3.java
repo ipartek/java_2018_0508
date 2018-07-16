@@ -41,8 +41,8 @@ public class Excepciones3 {
 
 		System.out.println("dentro del metodoC");
 
-		Object o = null;
-		o.toString();
+//		Object o = null;
+//		o.toString();
 
 		System.out.println("salgo del metodoC");
 	}
