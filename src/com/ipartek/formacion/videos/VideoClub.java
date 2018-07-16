@@ -1,12 +1,18 @@
 package com.ipartek.formacion.videos;
 
-//TODO el titulo tiene que tener al menos 3 caracteres y como mucho 254.
-//TOdo el codigo tiene que tener 11 caracteres alfanumericos de el 0 al 9 y de la A a la Z y tambien valen minusculas
 import java.util.Scanner;
 
 import com.ipartek.formacion.model.VideoYoutubeArrayDAO;
 import com.ipartek.formacion.pojo.VideoYoutube;
 import com.sun.corba.se.impl.io.TypeMismatchException;
+
+/**
+ * Clase que presenta un menu en el cual se puede realizar las acciones basicas
+ * en una lista de videos de youtube
+ * 
+ * @author Asier Cornejo
+ *
+ */
 
 public class VideoClub {
 	static private VideoYoutubeArrayDAO dao;
@@ -16,9 +22,12 @@ public class VideoClub {
 	static private final int OPCION_LISTAR = 1;
 	static private final int OPCION_ANADIR = 2;
 	static private final int OPCION_ELIMINAR = 3;
-	static private final int OPCION_SALIR = 4;
+	static private final int OPCION_SALIR = 0;
+	static private final int TAM_MIN_TITULO = 3;
+	static private final int TAM_MAX_TITULO = 254;
+	static private final int TAM_CODIGO = 11;
 
-	static int cont = 1;
+	static int cont = 0;
 
 	public static void main(String[] args) {
 		sc = new Scanner(System.in);
@@ -36,7 +45,8 @@ public class VideoClub {
 		dao.insert(new VideoYoutube(2, "Para los mios", "fp47VcTlwWQ"));
 		dao.insert(new VideoYoutube(3, "Paquito el chocolatero", "3A2KtOXRpOo"));
 		dao.insert(new VideoYoutube(4, "Marijaia", "fp67VcT1wWQ"));
-		cont = dao.getAll().size();
+		cont = dao.getAll().size();// Utilizaremos cont para determinar el id de
+									// los videos
 
 	}
 
@@ -48,7 +58,7 @@ public class VideoClub {
 		System.out.println("    1.Listar                      ");
 		System.out.println("    2.Añadir                      ");
 		System.out.println("    3.Eliminar                    ");
-		System.out.println("    4.Salir                       ");
+		System.out.println("    0.Salir                       ");
 		System.out.println("----------------------------------");
 		System.out.println("Elige una opcion");
 		try {
@@ -59,12 +69,12 @@ public class VideoClub {
 			pintarMenu();
 
 		} catch (Exception e) {
-			System.out.println("Lo siento pero no has introducido una opcion correcta");
-			System.out.println("Introduzca una numero entre 1 y 4 por favor");
+			System.out.println("Lo sentimoss pero no has introducido una opcion correcta");
+			System.out.println("Introduzca una numero entre 0 y 3 por favor");
 			sc.next();
 			pintarMenu();
 		}
-		sc.reset();
+		sc.nextLine();
 		switch (opcionSeleccionada) {
 		case OPCION_LISTAR:
 			listarVideos();
@@ -86,8 +96,8 @@ public class VideoClub {
 			break;
 
 		default:
-			System.out.println("Lo siento pero no has introducido una opcion correcta");
-			System.out.println("Introduzca una numero entre 1 y 4 por favor");
+			System.out.println("Lo sentimos pero no has introducido una opcion correcta");
+			System.out.println("Introduzca una numero entre 0 y 3 por favor");
 			pintarMenu();
 			break;
 		}
@@ -95,16 +105,15 @@ public class VideoClub {
 
 	private static void eliminarVideo() {
 		int codElim = 0;
-		VideoYoutube videoElim;
 		listarVideos();
-		System.out.println("Introduce el id del video que desea  eliminar");
+		System.out.println("Introduce el id del video que deseas eliminar");
 		try {
 
 			codElim = sc.nextInt();
 
 		} catch (ArrayIndexOutOfBoundsException e) {
 
-			System.out.println("Lo sentimos pero debe introducir un numero entre 0");
+			System.out.println("Lo sentimos pero debe introducir un numero correcto");
 
 		} catch (TypeMismatchException e) {
 
@@ -120,17 +129,16 @@ public class VideoClub {
 			dao.delete(codElim);
 		} catch (ArrayIndexOutOfBoundsException e) {
 
-			System.out.println("Lo sentimos pero debe introducir un numero entre 0 y ");
+			System.out.println("Lo sentimos pero debe introducir un numero correcto");
 
 		}
 		System.out.println("El video seleccionado ha sido eliminado");
-		cont++;
 
 	}
 
 	private static void listarVideos() {
-		for (int i = 0; i < dao.getAll().size(); i++) {
-			System.out.println("." + dao.getById(i).toString());
+		for (VideoYoutube video : dao.getAll()) {
+			System.out.println("." + video.toString());
 		}
 
 	}
@@ -139,7 +147,7 @@ public class VideoClub {
 		String cod = "";
 		String tit = "";
 
-		System.out.println("Introduce el codigo del video");
+		System.out.println("Introduzca el codigo del video");
 		try {
 
 			cod = sc.next();
@@ -147,10 +155,14 @@ public class VideoClub {
 				System.out.println("Introduzca el titulo del video");
 				tit = sc.next();
 				if (VideoClub.controlarTitulo(tit)) {
-					cont++;
-					dao.insert(new VideoYoutube(cont, tit, cod));
 
+					dao.insert(new VideoYoutube(cont, tit, cod));
+					cont++;
 					System.out.println("Video añadido a la lista.");
+				} else {
+					System.out.println("Lo sentimos pero el titulo debe tener al menos 3 caracteres.");
+					System.out.println("El video NO se añadio a la lista");
+
 				}
 			}
 
@@ -169,24 +181,48 @@ public class VideoClub {
 
 	}
 
+	/**
+	 * Metodo que controla si el usuario introduce un titulo para el video<br>
+	 * correcto. Para que sea así debe tener al menos 3 caracteres, y como<br>
+	 * maximo 254.
+	 * 
+	 * @param tit
+	 *            el titulo introducido por el usuario.
+	 * 
+	 * @return false si el titulo no tiene entre 3 y 254 caracteres.
+	 */
 	private static boolean controlarTitulo(String tit) {
 		boolean result = false;
-		if (tit.length() >= 3 || tit.length() <= 254) {
+		if (tit.length() >= TAM_MIN_TITULO && tit.length() <= TAM_MAX_TITULO) {
 			result = true;
 		}
 		return result;
 	}
 
+	/**
+	 * Metodo que controla si el codigo introducido por el usuario es
+	 * correcto.<br>
+	 * Para ello debe cumplir las siguientes pautas:<br>
+	 * 
+	 * Tiene que tener 11 caracteres El valor de cada caracter tiene que ser
+	 * alfanumerico(entre 0 y 9, o, entre A y z
+	 * 
+	 * @param codigo
+	 *            el codigo introducido por el usuario
+	 * @return false si no cumple las reglas arriba descritas.
+	 */
 	private static boolean controlarCodigo(String codigo) {
 		boolean result = false;
 		try {
 
-			if (codigo.length() == 11) {
+			if (codigo.length() == TAM_CODIGO) {
 				for (int i = 0; i < codigo.length(); i++) {
-					if (codigo.charAt(i) >= 48 || codigo.charAt(i) <= 122) {
+					if (codigo.charAt(i) >= 45 && codigo.charAt(i) <= 122) {
 						result = true;
 					} else {
 						System.out.println("El codigo contiene caracteres no permitidos");
+						System.out.println("El codigo debe contener numeros entre 0 y 9");
+						System.out.println("o caracteres entre A y Z o a y z");
 
 					}
 
