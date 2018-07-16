@@ -5,12 +5,11 @@ import java.util.Scanner;
 import com.ipartek.formacion.model.VideoYoutubeArrayDAO;
 import com.ipartek.formacion.pojo.VideoYoutube;
 
-public class GestorVideos {
+public class GestorVideos2 {
 
 	static private VideoYoutubeArrayDAO dao;
 	static private int opcionSeleccionada = 0;
 	static Scanner sc = null;
-	static private long IdCounter = 0;
 	
 	static private final int OPCION_SALIR = 0;
 	static private final int OPCION_LISTAR = 1;
@@ -26,58 +25,27 @@ public class GestorVideos {
 		
 		cargarVideos();
 		
-		do {
-			pintarMenu();
+		pintarMenu();
 		
-			switch (opcionSeleccionada) {
-			case OPCION_LISTAR:
-				listar();
-				break;
+		
+		switch (opcionSeleccionada) {
+		case OPCION_LISTAR:
+			listar();
+			break;
 
-			case OPCION_SALIR:
-				salir();
-				break;	
+		case OPCION_SALIR:
+			salir();
+			break;	
 			
-			case OPCION_ANADIR:
-				anadir();
-				
-			default:
-				noOption();
-				break;
-			}
-
-		} while (opcionSeleccionada!=OPCION_SALIR);
-		
-		sc.close();
-	}
-	
-	private static void anadir() {
-		
-		Scanner sc = new Scanner(System.in);
-		
-		long id;
-		String titulo;
-		String codigo;
-		
-		try {
-			System.out.println("Introduce la id del video");
-			id = sc.nextLong();
-		} catch (Exception e){
-			sc.nextLine();
-			System.out.println("OPCION NO VALIDA. Por favor introduce una ID correcta (solo numeros)");
+		default:
+			noOption();
+			break;
 		}
 		
-		System.out.println("Introduce el título del video");
-		titulo = sc.next();
-		
-		System.out.println("Introduce el código del video");
-		codigo = sc.next();
-		
-		//videos[i] = new VideoYoutube(id, titulo, codigo);
 		
 		sc.close();
-		
 	}
+
 	
 	private static void salir() {
 		System.out.println("");
@@ -85,7 +53,7 @@ public class GestorVideos {
 		System.out.println("");
 		System.out.println("");
 		System.out.println("");
-		System.out.println("AGUR BEN HUR, esperamos verte pronto");
+		System.out.println("AGUR VENUR, esperamos verte pronto");
 		
 	}
 
@@ -113,13 +81,12 @@ public class GestorVideos {
 
 
 	private static void cargarVideos() {
-		VideoYoutube video = new VideoYoutube(1, "Nightmares On Wax Boiler Room London DJ Set", "Q692lHFaLVM");
+		VideoYoutube video = new VideoYoutube(12650, "Nightmares On Wax Boiler Room London DJ Set", "Q692lHFaLVM");
 		dao.insert(video);
-		++IdCounter;
 		
-		video = new VideoYoutube(2, "The Skatalites - Rock Fort Rock", "6bLVdKbPHHY");
+		video = new VideoYoutube(701, "The Skatalites - Rock Fort Rock", "6bLVdKbPHHY");
 		dao.insert(video);
-		++IdCounter;
+		
 		
 	}
 
@@ -138,14 +105,9 @@ public class GestorVideos {
 		System.out.println("");
 		System.out.println("Dime una opcion por favor");
 		
-		try {
-			opcionSeleccionada = sc.nextInt();
-		} catch (Exception e) {
-			//e.printStackTrace(); pinta la pila de excepciones
-			sc.nextLine();
-			System.out.println("OPCION NO VALIDA. Por favor introduce un numero del menu");
-			pintarMenu();
-		}
+		
+		opcionSeleccionada = sc.nextInt();
+		
 		
 	}
 	

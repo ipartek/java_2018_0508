@@ -32,9 +32,7 @@ public class Ejercicio9 {
 		num2 = sc.nextInt();
 		System.out.print("Introduce segundos: ");
 		num3 = sc.nextInt();
-		
-
-		
+			
 		
 		sc.close();
 	}
