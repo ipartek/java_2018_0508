@@ -1,5 +1,7 @@
 package com.ipartek.formacion.model;
-
+/**
+ * Gestor de videos que Lista, Añade y Elimina videos
+ */
 import java.io.IOException;
 import java.util.Scanner;
 
@@ -128,11 +130,15 @@ public class GestorVideos {
 				System.out.println("Introduce el TITULO del video que deseas añadir:");
 				titulo = sc.nextLine();
 			} while (titulo.getBytes().length > 24 || titulo.getBytes().length < 3);
+			
+			titulo.trim();
+
 
 			do {
 				System.out.println("Introduce el CODIGO del video que deseas añadir(11 caracteres):");
 				codigo = sc.nextLine();
-			} while (codigo.getBytes().length != 11); //codigo.isEmpty() == true
+			} while (codigo.getBytes().length != 11); // codigo.isEmpty() == true
+
 			id++;
 
 			VideoYoutube video = new VideoYoutube(id, titulo, codigo);
