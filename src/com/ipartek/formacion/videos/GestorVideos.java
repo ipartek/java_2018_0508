@@ -1,5 +1,6 @@
 package com.ipartek.formacion.videos;
 
+//import java.lang.reflect.Method;
 import java.util.Scanner;
 
 import com.ipartek.formacion.model.VideoYoutubeArrayDAO;
@@ -23,12 +24,19 @@ public class GestorVideos {
 		dao = VideoYoutubeArrayDAO.getInstance();
 
 		cargarVideos();
-
 		pintarMenu();
 
 		switch (opcionSeleccionada) {
 		case OPCION_LISTAR:
 			listar();
+			break;
+
+		case OPCION_ANADIR:
+			add();
+			break;
+
+		case OPCION_ELIMINAR:
+			borrarVideo();
 			break;
 
 		case OPCION_SALIR:
@@ -80,6 +88,9 @@ public class GestorVideos {
 		video = new VideoYoutube(701, "The Skatalites - Rock Fort Rock", "6bLVdKbPHHY");
 		dao.insert(video);
 
+		video = new VideoYoutube(401, "The sdfad - Rock Fort Rock", "fgfgdf");
+		dao.insert(video);
+
 	}
 
 	private static void pintarMenu() {
@@ -96,16 +107,103 @@ public class GestorVideos {
 		System.out.println("");
 		System.out.print("Dime una opcion por favor: ");
 
+		opcionSeleccionada = sc.nextInt();
+
+	}
+
+	public static void add() {
+
+		System.out.print("Introduce los datos del nuevo video");
+
+		long id = 1;
+		String titulo = "";
+		String codigo = "";
+		boolean correcto = false;
+		while (!correcto) {
+			System.out.print("Titulo (minimo 11 caracteres): ");
+			titulo = sc.next();
+			if (titulo.length() <= 11) {
+				System.out.println("ERROR, El titulo debe tener al menos 11 caracteres");
+
+			} else {
+				correcto = true;
+			}
+		}
+
+		while (!correcto) {
+			System.out.print("Codigo: ");
+			codigo = sc.next();
+			if (codigo.length() < 3) {
+				System.out.println("ERROR, El codigo debe ser mayor que 254");
+
+			} else {
+				correcto = true;
+			}
+		}
+
+		// if(254> titulo && titulo.length()==3 )
+		// 11caracteres ||->no hace falta ....0-9 - a-A z-Z y _
+
+
+		
 		try {
-			opcionSeleccionada = sc.nextInt();
-		} catch (Exception e) {
-			e.printStackTrace();
-			System.out.println("OPCION NO VALIDA, Por favor introduce un numero del menu");
-			sc.nextLine();
+			
+			VideoYoutube newVideo = new VideoYoutube(id, titulo, codigo);
+			dao.insert(newVideo);
 			pintarMenu();
 
+		} catch (Exception e) {
+			System.out.println("ERROR, los datos no son correctos");
+			add();
 		}
 
 	}
+
+	private static String setAttributeString(String atr) {
+		System.out.print(atr + ": ");
+		return sc.next();
+
+	}
+
+	private static int setAttributeInt(String atr) {
+		System.out.print(atr + ": ");
+		return sc.nextInt();
+
+	}
+
+	public static void borrarVideo() {
+
+		System.out.print("Introduce un id: ");
+		long id = sc.nextLong();
+		try {
+			dao.delete(id);
+		} catch (Exception e) {
+			System.out.println("ERROR, los datos introducidos no son correctos");
+			borrarVideo();
+
+			/*
+			 * PRUEBAS FUNCION ERROR try { Class<?> classRef =
+			 * Class.forName("com.ipartek.formacion.videos"); // Object instance =
+			 * classRef.newInstance(); Method method = //
+			 * classRef.getDeclaredMethod("validate" + "error"); error(e, method, instance);
+			 * error(e, classRef.getDeclaredMethod("validate" + "error"),
+			 * classRef.newInstance());
+			 * 
+			 * } catch (Exception e2) { // TODO: handle exception }
+			 */
+
+		}
+		pintarMenu();
+
+	}
+
+	/*
+	 * private static void error(Exception e, Method method, Object instance) { //
+	 * TODO Auto-generated method stub try { method.invoke(instance);
+	 * System.out.println("ERROR"); } catch (Exception e2) { // TODO: handle
+	 * exception }
+	 * 
+	 * }
+	 */
 
 }
