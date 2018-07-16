@@ -44,6 +44,6 @@ public class Youtube {
 	}
 
 	public String toString() {
-		return "VideoYoutube [id=" + id + ", codigo=" + codigo + ", titulo=" + titulo + "]";
+		return "Youtube [id=" + id + ", codigo=" + codigo + ", titulo=" + titulo + "]";
 	}
 }
