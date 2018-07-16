@@ -60,7 +60,6 @@ public class Ejercicio9 {
 
 		Random rnd = new Random();
 		int[] aAleatorio = new int[tam];
-		int n = 0;
 
 		for (int i = 0; i < aAleatorio.length; i++) {
 
