@@ -64,32 +64,27 @@ public class VideoClub {
 
 	private static void pintarMenu() {
 
-		int[] vInt;
-		do {
+		System.out.println("|------------------------------------|");
+		System.out.println("|           youtube                  |");
+		System.out.println("|------------------------------------|");
+		System.out.println("|    	1. Listar		     |");
+		System.out.println("|------------------------------------|");
+		System.out.println("|    	2. Agregar	             |");
+		System.out.println("|------------------------------------|");
+		System.out.println("|    	3. Eliminar		     |");
+		System.out.println("|------------------------------------|");
+		System.out.println("|    	0. salir	             |");
+		System.out.println("|------------------------------------|\n");
 
-			System.out.println("|------------------------------------|");
-			System.out.println("|           youtube                  |");
-			System.out.println("|------------------------------------|");
-			System.out.println("|    	1. Listar		     |");
-			System.out.println("|------------------------------------|");
-			System.out.println("|    	2. Agregar	             |");
-			System.out.println("|------------------------------------|");
-			System.out.println("|    	3. Eliminar		     |");
-			System.out.println("|------------------------------------|");
-			System.out.println("|    	0. salir	             |");
-			System.out.println("|------------------------------------|");
+		System.out.print("Inserta opcion deseada:");
+		try {
+			opcionSeleccionada = sc.nextInt();
 
-			System.out.print("Inserta opcion deseada:");
-
-			vInt = isNumeric(sc.next());
-
-			if (vInt[0] == 1) {
-				opcionSeleccionada = vInt[1];
-			} else {
-				System.out.println("Error:Debes introducir el numero de alguna opcion...");
-			}
-		} while (vInt[0] == 0);
-
+		} catch (Exception e) {
+			System.out.println("OPCION NO VALIDAD, Por favor introduce un numero del menu");
+			sc.nextLine();
+			pintarMenu();
+		}
 	}
 
 	public static void cargarVideos() {
@@ -169,37 +164,12 @@ public class VideoClub {
 
 					listarVideo(videos);
 
-					System.out.println("Â¿Deseas eliminar mas videos? \"s\" si \"n\"no");
+					System.out.println("¿Deseas seguir eliminando ? \"s\" si \"n\"no");
 					continuar = sc.next();
 					resul = validarContinuar(continuar);
 				}
 			}
 		} while (!"n".equalsIgnoreCase(continuar));
-
-	}
-
-	private static int[] isNumeric(String cadena) {
-
-		int correcto = 1;
-		int incorrecto = 0;
-		int num = 0;
-		int[] validarOpcion = { incorrecto, num };
-
-		try {
-
-			num = Integer.parseInt(cadena);
-
-			if (num == 1 || num == 2 || num == 3 || num == 0) {
-				validarOpcion[0] = correcto;
-				validarOpcion[1] = num;
-			} else {
-				validarOpcion[0] = incorrecto;
-			}
-
-		} catch (NumberFormatException nfe) {
-			validarOpcion[0] = incorrecto;
-		}
-		return validarOpcion;
 
 	}
 
