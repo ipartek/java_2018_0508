@@ -17,8 +17,8 @@ public class Ejercicio1 {
 		Scanner sc = new Scanner(System.in);
 		
 		int numeros[] = new int[10];
-		int mediaPositivos = 0;
-		int mediaNegativos = 0;
+		double mediaPositivos = 0;
+		double mediaNegativos = 0;
 		int contadorPositivos = 0;
 		int contadorNegativos = 0;
 		
@@ -48,7 +48,7 @@ public class Ejercicio1 {
 			System.out.println("La media de los numeros negativos es " + mediaNegativos/contadorNegativos);
 		}
 		else {
-			System.out.println("No has introducido números positivos");
+			System.out.println("No has introducido números negativos");
 		}
 		
 		sc.close();

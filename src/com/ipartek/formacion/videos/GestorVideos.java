@@ -14,6 +14,7 @@ public class GestorVideos {
 	static private final int OPCION_LISTAR = 1;
 	static private final int OPCION_ANADIR = 2;
 	static private final int OPCION_ELIMINAR = 3;
+	static private int CONTADOR = 2;
 	
 	
 	public static void main(String[] args) {
@@ -70,15 +71,19 @@ public class GestorVideos {
 	private static void anadir() {
 		
 		VideoYoutube video = new VideoYoutube();
+		long id = ++CONTADOR;
 		String titulo;
 		String codigo;
+		
+		video.setId(id);
 				
 		do {
 			System.out.println("Introduce un título (de 3 a 254 caracteres)");
-			titulo = sc.next();
+			sc.nextLine();
+			titulo = sc.nextLine();
 		} while (titulo.length() <= 3 || titulo.length() >= 254);
 		
-		
+		video.setTitulo(titulo);		
 		
 		do {
 			System.out.println("Introduce un código (de 11 caracteres)");
@@ -88,6 +93,10 @@ public class GestorVideos {
 		video.setCodigo(codigo);		
 		
 		dao.insert(video);
+		
+		if(dao.getAll().size() == CONTADOR) {
+			System.out.println("\nVideo introducido correctamente\n");
+		}
 
 		pintarMenu();
 		opcionElegida();
@@ -96,9 +105,16 @@ public class GestorVideos {
 	
 	private static void eliminar() {
 		
-		System.out.println("Introduce la id del video que quieres eliminar");
+		System.out.println("Introduce la id del video a eliminar");
+		try {
+			dao.delete(sc.nextLong());
+		} catch (Exception e) {
+			System.out.println("La id debe ser un número entero");
+		}
 		
-		dao.delete(sc.nextLong());
+		if(CONTADOR - 1 == dao.getAll().size()) {
+			System.out.println("Video eliminado correctamente");
+		}
 		
 		pintarMenu();
 		opcionElegida();
@@ -142,7 +158,6 @@ public class GestorVideos {
 			opcionElegida();
 			
 		}
-		
 		
 	}
 
