@@ -1,7 +1,5 @@
 package com.ipartek.formacion.ejercicios.bucles.anidados;
 
-import java.util.Scanner;
-
 /**
  * Mostrar los números perfectos entre 1 y 1000.
  * 
