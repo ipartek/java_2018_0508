@@ -46,7 +46,18 @@ public class PruebasTest {
 		assertTrue ( 6 == v.getId() );
 		assertTrue ( referencia == v );
 		
-		// VideoYoutube clon = (VideoYoutube) v.clone();
+		try {
+			VideoYoutube clon = (VideoYoutube) v.clone();
+			
+			assertTrue( clon != v );
+			assertTrue( clon.equals(v));
+			
+		} catch (CloneNotSupportedException e) {
+			fail("deberia poder clonarse");
+		}
+		
+		
+		
 		
 	}
 

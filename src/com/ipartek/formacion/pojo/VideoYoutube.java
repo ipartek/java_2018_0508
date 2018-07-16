@@ -2,8 +2,6 @@ package com.ipartek.formacion.pojo;
 
 public class VideoYoutube implements Cloneable {
 
-	
-
 	private long id;
 	private String codigo;
 	private String titulo;
@@ -19,7 +17,7 @@ public class VideoYoutube implements Cloneable {
 		this();
 		this.id = id;
 		this.titulo = titulo;
-		this.codigo = codigo;		
+		this.codigo = codigo;
 	}
 
 	public long getId() {
@@ -50,7 +48,7 @@ public class VideoYoutube implements Cloneable {
 	public String toString() {
 		return "VideoYoutube [id=" + id + ", codigo=" + codigo + ", titulo=" + titulo + "]";
 	}
-	
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -83,6 +81,11 @@ public class VideoYoutube implements Cloneable {
 		} else if (!titulo.equals(other.titulo))
 			return false;
 		return true;
+	}
+
+	@Override
+	public Object clone() throws CloneNotSupportedException {
+		return super.clone();
 	}
 
 }
