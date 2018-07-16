@@ -107,6 +107,7 @@ public class VideoClub {
 
 	private static void agregarVideo() {
 
+		sc.nextLine();
 		String continuar = "n";
 		boolean resul = false;
 		System.out.println("\n");
@@ -120,7 +121,7 @@ public class VideoClub {
 
 			do {
 				System.out.print("inserte titulo : ");
-				v.setTitulo(sc.next());
+				v.setTitulo(sc.nextLine().trim());
 
 				if (v.getTitulo().length() < 3) {
 					System.out.println("La longitud del titulo es corta");
@@ -161,6 +162,8 @@ public class VideoClub {
 
 	private static void eliminaElement() {
 
+		long r = 0;
+		long aux = 0;
 		if (dao.getALl().isEmpty()) {
 			System.out.println("\n No hay videos que mostrar \n");
 			pintarMenu();
@@ -168,18 +171,30 @@ public class VideoClub {
 			System.out.println(" \n Listado de videos :    ");
 			listarVideo(videos);
 
-			System.out.print("Ingrese el numero del video a eliminar:");
-			try {
-				long r = sc.nextLong();
-				dao.delete(r);
-			} catch (Exception e) {
+			do {
+				try {
 
-				System.out.println("El codigo es incorrecto..");
-				sc.nextLine();
+					System.out.print("Ingrese el numero del video a eliminar:");
+					r = sc.nextLong();
+					aux = r;
 
-				eliminaElement();
-			}
+					if (dao.getById(r).getId() == r) {
+						dao.delete(r);
+						System.out.println("\n Lista actualizada....");
+						listarVideo(videos);
+					} else {
+						System.out.println("Video no encontrado");
+					}
 
+				} catch (Exception e) {
+
+					System.out.println("El codigo es incorrecto..");
+					sc.nextLine();
+
+					eliminaElement();
+
+				} // end catch
+			} while (aux != r);
 		}
 
 	}
