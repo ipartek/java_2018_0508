@@ -1,13 +1,13 @@
 package com.ipartek.formacion.model;
 
 import static org.junit.Assert.assertNull;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.Assert.*;
 
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import org.junit.Test;
 
 import com.ipartek.formacion.pojo.VideoYoutube;
 
@@ -83,33 +83,33 @@ class VideoYoutubeArrayDAOTest {
 	@Test
 	void testGetById() {
 
-		VideoYoutube video = dao.getById(MOCK1_ID);	// Caso existente
+		VideoYoutube video = dao.getById(MOCK1_ID); // Caso existente
 
 		assertEquals(MOCK1_ID, video.getId());
 		assertEquals(MOCK1_TITULO, video.getTitulo());
 		assertEquals(MOCK1_COD, video.getCodigo());
 
-		assertNull("No existe este ID: -1.", dao.getById(-1));	// Comprobamos un caso inexistente
+		assertNull("No existe este ID: -1.", dao.getById(-1)); // Comprobamos un caso inexistente
 	}
 
 	@Test
 	void testUpdate() {
 
-		assertFalse(dao.update(null));	// Update para null como primer caso 
-		
+		assertFalse(dao.update(null)); // Update para null como primer caso
+
 		VideoYoutube vModificarConID = new VideoYoutube(MOCK1_ID, MOCK3_TITULO, MOCK3_COD);
-		
-		assertTrue(dao.update(vModificarConID));	// Update de video existente
-		
-		VideoYoutube vModificado = dao.getById(MOCK1_ID);	//Recuperamos video
-		
+
+		assertTrue(dao.update(vModificarConID)); // Update de video existente
+
+		VideoYoutube vModificado = dao.getById(MOCK1_ID); // Recuperamos video
+
 		assertEquals(MOCK1_ID, vModificado.getId());
 		assertEquals(MOCK3_TITULO, vModificado.getTitulo());
 		assertEquals(MOCK3_COD, vModificado.getCodigo());
-		
+
 		VideoYoutube vModificarSinID = new VideoYoutube(1234, MOCK3_TITULO, MOCK3_COD);
-		
-		assertFalse(dao.update(vModificarSinID));	// Update de video inexistente
+
+		assertFalse(dao.update(vModificarSinID)); // Update de video inexistente
 	}
 
 	@Test

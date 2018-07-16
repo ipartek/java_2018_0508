@@ -1,58 +1,59 @@
 package com.ipartek.formacion.pojo;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.Assert.*;
 
-import org.junit.jupiter.api.Test;
+import org.junit.Test;
 
 class PersonTest {
 
 	Person p = new Person();
-	
+
 	@Test
 	void testPersonNombreApellidoSexo() {
 		Person p2 = new Person("Elisabet", "Ribes", 'M');
 		assertTrue("Elisabet".equals(p2.getNombre()));
 		assertTrue("Ribes".equals(p2.getApellido()));
 		assertTrue(Person.SEXO_MUJER == p2.getSexo());
-		
+
 		p2 = new Person("Elisabet", "Ribes", 'H');
 		assertTrue("Elisabet".equals(p2.getNombre()));
 		assertTrue("Ribes".equals(p2.getApellido()));
 		assertTrue(Person.SEXO_HOMBRE == p2.getSexo());
 		assertTrue("Elisabet".equals(p2.getNombre()));
 		assertTrue("Ribes".equals(p2.getApellido()));
-		
+
 		p2 = new Person("Elisabet", "Ribes", 'I');
 		assertTrue("Elisabet".equals(p2.getNombre()));
 		assertTrue("Ribes".equals(p2.getApellido()));
 		assertTrue(Person.SEXO_INDEFINIDO == p2.getSexo());
-		
+
 		p2 = new Person("Elisabet", "Ribes", 'm');
 		assertTrue("Elisabet".equals(p2.getNombre()));
 		assertTrue("Ribes".equals(p2.getApellido()));
 		assertTrue(Person.SEXO_MUJER == p2.getSexo());
-		
+
 		p2 = new Person("Elisabet", "Ribes", 'h');
 		assertTrue("Elisabet".equals(p2.getNombre()));
 		assertTrue("Ribes".equals(p2.getApellido()));
 		assertTrue(Person.SEXO_HOMBRE == p2.getSexo());
-		
+
 		p2 = new Person("Elisabet", "Ribes", 'i');
 		assertTrue("Elisabet".equals(p2.getNombre()));
 		assertTrue("Ribes".equals(p2.getApellido()));
 		assertTrue(Person.SEXO_INDEFINIDO == p2.getSexo());
-	
+
 		p2 = new Person(null, null, 'O');
 		assertTrue("".equals(p2.getNombre()));
 		assertTrue("" == p2.getApellido());
 		assertTrue(Person.SEXO_INDEFINIDO == p2.getSexo());
-		
+
 		p2 = new Person("", "", 'o');
 		assertTrue("".equals(p2.getNombre()));
 		assertTrue("".equals(p2.getApellido()));
 		assertTrue(Person.SEXO_INDEFINIDO == p2.getSexo());
-		
+
 	}
+
 	@Test
 	void testSetSexo() {
 		assertTrue(Person.SEXO_INDEFINIDO == p.getSexo());
@@ -69,22 +70,22 @@ class PersonTest {
 		p.setSexo('Z');
 		assertTrue(Person.SEXO_INDEFINIDO == p.getSexo());
 	}
-	
+
 	@Test
 	void testSetNota() {
-		assertEquals(Person.NOTA_MINIMA, p.getNota());
+		assertEquals(Person.NOTA_MINIMA, p.getNota(), 0);
 		p.setNota(0.0f);
-		assertEquals(Person.NOTA_MINIMA, p.getNota());
+		assertEquals(Person.NOTA_MINIMA, p.getNota(), 0);
 		p.setNota(10f);
-		assertEquals(Person.NOTA_MAXIMA, p.getNota());
+		assertEquals(Person.NOTA_MAXIMA, p.getNota(), 0);
 		p.setNota(6.2f);
 		assertTrue(p.getNota() > Person.NOTA_MINIMA && p.getNota() < Person.NOTA_MAXIMA);
 		p.setNota(-2.2f);
-		assertEquals(Person.NOTA_MINIMA, p.getNota());
+		assertEquals(Person.NOTA_MINIMA, p.getNota(), 0);
 		p.setNota(101.2f);
-		assertEquals(Person.NOTA_MAXIMA, p.getNota());
+		assertEquals(Person.NOTA_MAXIMA, p.getNota(), 0);
 	}
-	
+
 	@Test
 	void testSetEdad() {
 		assertEquals(Person.EDAD_MINIMA, p.getEdad());

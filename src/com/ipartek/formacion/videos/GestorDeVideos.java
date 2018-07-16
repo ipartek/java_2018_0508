@@ -50,6 +50,7 @@ public class GestorDeVideos {
 
 			case OPCION_ELIMINAR:
 				eliminar();
+				pintarMenu();
 				break;
 
 			default:
@@ -79,12 +80,16 @@ public class GestorDeVideos {
 
 	private static void listar() {
 
-		for (VideoYoutube video : dao.getAll()) {
-			System.out.println("    " + video);
+		if (dao.getAll() != null) {
+			for (VideoYoutube video : dao.getAll()) {
+				System.out.println("    " + video);
+			}
+			System.out.println("");
+			System.out.println("");
+			System.out.println("");
+		} else {
+			System.out.println("No hay videos en la lista. Pulse 3 para añadir.");
 		}
-		System.out.println("");
-		System.out.println("");
-		System.out.println("");
 
 	} // FIN listar();
 
@@ -105,19 +110,28 @@ public class GestorDeVideos {
 		String cod;
 
 		System.out.print("Teclea un id: ");
-		id = sc.nextLong();
-		sc.nextLine(); // El método nextLong no salta de línea, debemos hacerlo nosotros
+		try {
+			id = sc.nextLong();
+			sc.nextLine();
 
-		System.out.print("Teclea un título: ");
-		tit = sc.nextLine();
+			System.out.print("Teclea un título: ");
+			tit = sc.nextLine();
 
-		System.out.print("Teclea un código: ");
-		cod = sc.nextLine();
+			System.out.print("Teclea un código: ");
+			cod = sc.nextLine();
 
-		VideoYoutube v = new VideoYoutube(id, tit, cod);
-		System.out.println(dao.insert(v) ? "Video insertado con éxito." : "Error durante la insersción.");
+			VideoYoutube v = new VideoYoutube(id, tit, cod);
+			System.out.println(dao.insert(v) ? "Video insertado con éxito."
+					: "Lo sentimos, ha ocurrido un error durante la insersción.");
 
-		pintarMenu();
+		} catch (Exception e) {
+
+			System.out.println("ID NO VÁLIDA. Por favor, teclea un ID númerico correcto.");
+			anadir();
+		} finally {
+			sc.nextLine();
+			pintarMenu();
+		}
 
 	} // FIN anadir();
 
@@ -125,18 +139,24 @@ public class GestorDeVideos {
 		long id;
 
 		listar();
+		System.out.println("Por favor, teclea el id del video que deseas eliminar : ");
+		try {
 
-		System.out.println("Teclea el id del video que deseas eliminar : ");
-		id = sc.nextLong();
+			id = sc.nextLong();
+			System.out.println(dao.delete(id) ? "Video eliminado con éxito." : "No existe ese video.");
 
-		System.out.println(dao.delete(id) ? "Video eliminado con éxito." : "No existe ese video.");
+		} catch (Exception e) {
+			System.out.println("ID NO VÁLIDA. Por favor, teclea un ID númerico correcto.");
+			sc.nextLine();
+			eliminar();
+		}
 
 		pintarMenu();
 
 	} // FIN eliminar();
 
 	private static void pintarMenu() {
-
+		opcionSeleccionada = -1;
 		System.out.println("------------------------------------");
 		System.out.println("--          YOUTUBE               --");
 		System.out.println("------------------------------------");
@@ -148,7 +168,16 @@ public class GestorDeVideos {
 		System.out.println("");
 		System.out.print("Selecciona una opción: ");
 
-		opcionSeleccionada = sc.nextInt();
+		try {
+			opcionSeleccionada = sc.nextInt();
+			sc.nextLine();
+		} catch (Exception e) {
+
+			System.out.println("OPCIÓN NO VÁLIDA, Por favor, teclea una opción correcta.");
+			sc.nextLine();
+			opcionSeleccionada = -1;
+			pintarMenu();
+		}
 
 	} // FIN pintarMenu();
 
