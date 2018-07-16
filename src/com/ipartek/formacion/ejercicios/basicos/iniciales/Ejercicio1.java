@@ -1,7 +1,5 @@
 package com.ipartek.formacion.ejercicios.basicos.iniciales;
 
-;
-
 /**
  * 
  * Programa java que realice lo siguiente: declarar una variable <b>n</b> de
