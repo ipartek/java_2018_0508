@@ -2,6 +2,25 @@ package com.ipartek.formacion.ejercicios.generales;
 
 import java.util.Scanner;
 
+
+/**
+ * Programa para intercambiar el valor de dos variables. Los valores iniciales
+ * se leen por teclado.
+ * 
+ * Por ejemplo, suponiendo que las variables se llaman A y B, si A contiene 3 y
+ * B contiene 5, después del intercambio A contendrá 5 y B 3.
+ * 
+ * En este ejemplo, para intercambiar el valor entre dos variables utilizaremos
+ * una avariable auxiliar donde guardar el valor de una de ellas. Después
+ * veremos la forma de hacerlo sin usar una variable auxiliar para el
+ * intercambio.
+ * 
+ * Las instrucciones a realizar son:
+ * 
+ * AUX = A; A = B; B = AUX;
+ * 
+ * @author Curso
+=======
 import com.sun.org.apache.xerces.internal.util.SynchronizedSymbolTable;
 
 /**
@@ -21,6 +40,7 @@ import com.sun.org.apache.xerces.internal.util.SynchronizedSymbolTable;
  * AUX = A; A = B; B = AUX;
  * 
  * @author valen
+>>>>>>> branch 'valeriaValencia' of https://github.com/ipartek/java_2018_0508.git
  *
  */
 
@@ -44,4 +64,5 @@ public class Ejercicio1 {
 
 	}
 
+	
 }
