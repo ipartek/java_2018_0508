@@ -94,8 +94,8 @@ public class GestorVideos {
 
 		do {
 
-			System.out.println("Selecciona un video a ELIMINAR(0 para no eliminar mas videos): ");
-			
+			System.out.println("Selecciona un video a ELIMINAR(0 para NO eliminar mas videos): ");
+
 			try {
 				idVideo = sc.nextInt();
 			} catch (Exception e) {
@@ -104,14 +104,13 @@ public class GestorVideos {
 				eliminarVideos();
 			}
 
-			if (idVideo != 0) {
-				System.out.println("Eliminando video seleccionado...");
-				dao.delete(idVideo);
-			}
+			System.out.println("Eliminando video seleccionado...");
+			dao.delete(idVideo);
 
 			mostrar();
 
 		} while (idVideo != 0);
+
 		pintarMenu();
 	}
 
@@ -132,7 +131,7 @@ public class GestorVideos {
 			System.out.println("Introduce el CODIGO del video que deseas añadir:");
 			codigo = sc.nextLine();
 			id++;
-			
+
 			VideoYoutube video = new VideoYoutube(id, titulo, codigo);
 			dao.insert(video);
 
