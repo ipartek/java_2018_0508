@@ -89,31 +89,49 @@ public class GestorVideos {
 	
 	private static void anadirVideo() {
 		
-		String video;
+		String titulo;
 		int codigo;
 		int id;
 		
 		// titulo: 3-254 de longitud, codigo: max 11 caracteres 
-		System.out.println("Introduce el nombre del video que deseas añadir");
-		video= sc.nextLine();
+		System.out.println("Introduce el nombre del video que deseas añadir: ");
+		titulo= sc.nextLine();
 		
-		if(video.getBytes().length < 3 && video.getBytes().length > 254 ) {
-			System.out.println("Por favor, introduzca un nombre de entre 3 y 245 caracteres de longitud");	
+		if(titulo.getBytes().length < 3 && titulo.getBytes().length > 254 ) {
+			System.out.println("Por favor, introduzca un nombre de entre 3 y 245 caracteres de longitud: ");
+			titulo= sc.nextLine();
 		}
 		
-		else {
-		
-		System.out.println("Introduce un codigo");
+		if((titulo.getBytes().length) > 3 && (titulo.getBytes().length < 254 )){
+			
+	
+		System.out.println("Introduce un codigo de maximo 11 caracteres: ");
 		codigo= sc.nextInt();
 		
+		
+	    System.out.println("Introduce la id: ");
+		id= sc.nextInt();
+		
+		
+		VideoYoutube video= new VideoYoutube();
+		dao.insert(video);	
+		
+		System.out.println("Su video ha sido añadido");
+		
 		}
-		
-		
-		
-		
+	
 	}
 	
 	private static void eliminarVideo() {
+		
+		int id;
+		
+		System.out.println("Introduzca la id del video que desea eliminar");
+		id= sc.nextInt();
+		
+		dao.delete(id);
+		
+		System.out.println("Su video ha sido eliminado");
 		
 	}
 
