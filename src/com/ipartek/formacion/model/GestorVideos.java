@@ -83,20 +83,33 @@ public class GestorVideos {
 
 	}
 
+	private static void mostrar() {
+		for (VideoYoutube video : dao.getAll()) {
+			System.out.println("    " + video);
+		}
+	}
+
 	private static void eliminarVideos() {
 		int idVideo = 0;
 
 		do {
 
 			System.out.println("Selecciona un video a ELIMINAR(0 para no eliminar mas videos): ");
-			idVideo = sc.nextInt();
+			
+			try {
+				idVideo = sc.nextInt();
+			} catch (Exception e) {
+				sc.nextLine();
+				System.out.println("¡OPCION NO VALIDA! Porfavor introduce un numero!!");
+				eliminarVideos();
+			}
 
 			if (idVideo != 0) {
 				System.out.println("Eliminando video seleccionado...");
 				dao.delete(idVideo);
 			}
 
-			listar();
+			mostrar();
 
 		} while (idVideo != 0);
 		pintarMenu();
@@ -105,26 +118,32 @@ public class GestorVideos {
 	private static void anadirVideos() throws IOException {
 
 		char seguir;
+		int id = 2;
 
 		do {
 
 			String titulo = "";
 			String codigo = "";
-			int id = 3;
 
 			System.out.println("Introduce el TITULO del video que deseas añadir:");
 			titulo = sc.nextLine();
+			titulo = sc.nextLine();
+
 			System.out.println("Introduce el CODIGO del video que deseas añadir:");
 			codigo = sc.nextLine();
-
+			id++;
+			
 			VideoYoutube video = new VideoYoutube(id, titulo, codigo);
 			dao.insert(video);
-			id++;
+
+			System.out.println("Tu video ha sido añadido");
+			mostrar();
 
 			System.out.println("Deseas AÑADIR algun video mas(s/n)");
 			seguir = (char) System.in.read();
 
 		} while (seguir != 'n');
+		pintarMenu();
 
 	}
 
@@ -151,7 +170,14 @@ public class GestorVideos {
 		System.out.println("");
 		System.out.println("Dime una opcion por favor");
 
-		opcionSeleccionada = sc.nextInt();
+		try {
+			opcionSeleccionada = sc.nextInt();
+		} catch (Exception e) {
+			// e.printStackTrace();
+			sc.nextLine();
+			System.out.println("¡OPCION NO VALIDA! Porfavor introduce un numero del menu");
+			pintarMenu();
+		}
 
 	}
 
