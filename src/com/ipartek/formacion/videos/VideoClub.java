@@ -9,13 +9,15 @@ public class VideoClub {
 
 	static VideoYoutubeArrayDAO dao;
 
-	private static final int OPC_MINIMA = 0;
-	private static final int OPC_MAXIMA = 4;
+	static private final int OPC_MINIMA = 0;
+	static private final int OPC_MAXIMA = 4;
 	static private final int OPCION_SALIR = 0;
 	static private final int OPCION_LISTAR = 1;
 	static private final int OPCION_ELIMINAR = 2;
 	static private final int OPCION_MODIFICAR = 3;
 	static private final int OPCION_ANADIR = 4;
+	static private final int VALOR_CHIVATO = -1;
+	static private int ULTIMO_ID = 0;
 
 	private static Scanner sc = new Scanner(System.in);
 
@@ -24,10 +26,12 @@ public class VideoClub {
 		dao = VideoYoutubeArrayDAO.getInstance();
 
 		cargarVideos();
+		
+		ULTIMO_ID = dao.getAll().size()+1;
 
-		int opc = -1;
+		int opc = VALOR_CHIVATO;
 
-		while (opc!=0) {
+		while (opc != OPCION_SALIR) {
 			opc = opcion();
 			switch (opc) {
 			case OPCION_LISTAR:
@@ -47,16 +51,21 @@ public class VideoClub {
 				break;
 
 			case OPCION_SALIR:
+				System.out.println("Adios!!!! Vuelva pronto.");
+				break;
 			default:
-				System.out.println("Adios!!!!");
+				// System.out.println("Adios!!!!");
 				break;
 			}
 
 		}
-		
+
 		sc.close();
 	}
 
+	/**
+	 * Ya que no tenemos una BBDD, cargamos en memoria unos videos.
+	 */
 	private static void cargarVideos() {
 
 		VideoYoutube video = new VideoYoutube(1, "yuFI5KSPAt4",
@@ -86,11 +95,16 @@ public class VideoClub {
 		System.out.println("---------------------------------------");
 	}
 
+	/**
+	 * Funcion que pinta el menu, trata el numero/valor que nos introduzca el usuario.
+	 * Se tiene en cuenta, que nos introduzca un entero, se trata la excepcion si nos introduce 
+	 * @return
+	 */
 	private static int opcion() {
-		
+
 		pintarMenu();
-		
-		int opc = -1;
+
+		int opc = VALOR_CHIVATO;
 		try {
 			do {
 
@@ -169,22 +183,45 @@ public class VideoClub {
 
 	private static void altaVideo() {
 
-		sc.nextLine();
 		VideoYoutube video = new VideoYoutube();
 
-		System.out.println("Introduce el ID de la nueva cancion:");
-		video.setId((long) sc.nextInt());
+//		do {
+//
+//			try {
+//				System.out.println("Introduce el ID de la nueva cancion:");
+//				video.setId((long) sc.nextInt());
+//			} catch (Exception e) {
+//				System.out.println("Uppsss, Tienes que meter un numero, sin letras.");
+//				video.setId(VALOR_CHIVATO);
+//				sc.nextLine();
+//			}
+//
+//		} while (video.getId() == VALOR_CHIVATO);
 
-		sc.nextLine();
 		
-		System.out.println("Introduce el titulo de la nueva cancion:");
-		video.setTitulo(sc.nextLine());
+		video.setId(ULTIMO_ID);
+		sc.nextLine().trim();
+
+		while(video.getTitulo()=="") {
+			
+			System.out.println("Introduce el titulo de la nueva cancion:");
+			video.setTitulo(sc.nextLine());
+			
+			if(video.getTitulo().trim().length()>=10 && video.getTitulo().trim().length()<=3) {
+				System.out.println("El nombre del titulo tiene que estar entre 3 y 254 caracteres.");
+				video.setTitulo("");
+			}
+		}
+		
 
 		System.out.println("Introduce el codigo de la nueva cancion:");
 		video.setCodigo(sc.nextLine());
 
-		dao.insert(video);
+//		dao.insert(video);
 
-		listarVideos();
+		System.out.println((dao.insert(video) == true) ? "El video se ha añadido correctamente."
+				: "UPSS, no se ha podido añadir el video.");
+		
+		ULTIMO_ID = dao.getAll().size()+1;
 	}
 }
