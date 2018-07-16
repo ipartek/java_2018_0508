@@ -6,6 +6,11 @@ import com.ipartek.formacion.pojo.VideoYoutube;
 import java.util.Scanner;
 
 public class GestorVideos {
+	
+    private static String listar = "1";
+	private static String modificar = "2";
+	private static String guardar = "3";
+	private static String finalizar = "finalizar";
 
 	public static void main(String[] args) {
 		Scanner sc = new Scanner(System.in);
