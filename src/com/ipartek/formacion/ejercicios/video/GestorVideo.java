@@ -71,6 +71,7 @@ public class GestorVideo {
 	}
 
 	private static Youtube crearNuevoYoutube() {
+		
 		System.out.println("Ingresa un titulo:");
 		String titulo = p.nextLine();
 		System.out.println("Ingresa un codigo:");
