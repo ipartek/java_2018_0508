@@ -1,6 +1,7 @@
 package com.ipartek.formacion.videos;
 
 import java.io.IOException;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 import com.ipartek.formacion.model.VideoYoutubeArrayDAO;
@@ -18,6 +19,9 @@ public class VideoClub {
 	static private final int OPCION_ELIMINAR = 3;
 
 	static private char contest;
+	static private int id;
+	static private String codigo;
+	static private String titulo;
 
 	public static void main(String[] args) throws IOException {
 
@@ -28,11 +32,10 @@ public class VideoClub {
 		cargarVideos();
 
 		pintarMenu();
-		
-		
+
 		do {
 			switch (opcionSeleccionada) {
-			
+
 			case OPCION_LISTAR:
 				listar();
 				break;
@@ -54,9 +57,8 @@ public class VideoClub {
 				break;
 			}
 
-		}while (opcionSeleccionada!=0);
-		
-		
+		} while (opcionSeleccionada != 0);
+
 		sc.close();
 	}
 
@@ -91,49 +93,54 @@ public class VideoClub {
 	}
 
 	private static void anadir() throws IOException {
-		int num;
-		int id;
-		String codigo;
-		String titulo;
-
 		do {
-			do {
-				System.out.print("¿Cuantos canciones quieres meter? ");
-				num = sc.nextInt();
-			} while (num <= 0);
-			for (int i = 0; i < num; i++) {
+			
 			System.out.println("Introduce el código: ");
 			codigo = sc.next();
+			if (codigo.length()<11) {
+				System.out.println("El código es corto. Tiene contener 11 caracteres");
+			} else if(codigo.length()>11){
+				System.out.println("El código es grande. Tiene contener 11 caracteres");
+			}
 			System.out.println("Introduce el titulo: ");
 			titulo = sc.next();
-			
-			VideoYoutube video = new VideoYoutube(id, titulo, codigo);
-			dao.insert(video);
-			}
-			
 
-			System.out.println("¿Quieres introducir otra cancion");
+			
+				VideoYoutube video = new VideoYoutube(id, titulo, codigo);
+				dao.insert(video);
+
+			System.out.println("¿Quieres introducir otra cancion?(S/N)");
 			contest = (char) System.in.read();
-
 		} while (contest != 'n' && contest != 'N');
-		
+
 		for (VideoYoutube video : dao.getAll()) {
 			System.out.println("    " + video);
 		}
+		pintarMenu();
 
 	}
 
-
 	private static void eliminar() throws IOException {
-
-		int id;
-
+		try {
+			System.out.println("Introduce el identificador que deseas eliminar: ");
+			id = sc.nextInt();
+		} catch (InputMismatchException e) {
+			sc.nextLine();
+			System.out.println("OPCIÓN NO VALIDA. Por favor introduce un número de identificador.\n");
+			eliminar();
+		}
 		System.out.println("Introduce el código que deseas eliminar: ");
 		id = sc.nextInt();
-		do {
-			System.out.println("¿Estas seguro de que deseas borrar la cancion " + dao.getById(id) + "?");
-			contest = (char) System.in.read();
+		while (dao.getById(id) == null) {
 
+			System.out.println("Ese código no existe.\n");
+			System.out.println("Introduce el código que deseas eliminar: ");
+			id = sc.nextInt();
+
+		}
+		do {
+			System.out.println("¿Estas seguro de que deseas borrar la cancion " + dao.getById(id) + " (S/N)?");
+			contest = (char) System.in.read();
 		} while (contest != 's' && contest != 'S');
 
 		VideoYoutube video = new VideoYoutube();
@@ -170,6 +177,7 @@ public class VideoClub {
 
 		try {
 			opcionSeleccionada = sc.nextInt();
+			
 		} catch (Exception e) {
 			// e.printStackTrace(); -->pinta la pila de excepcion
 			sc.nextLine();
