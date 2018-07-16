@@ -24,7 +24,7 @@ public class GestorVideos {
 		System.out.println("-------Youtube---------");
 		System.out.println("-------Opciones--------");
 		System.out.println("------1: Listar--------");
-		System.out.println("------2: A�adirr--------");
+		System.out.println("------2: Añadirr--------");
 		System.out.println("------3: Eliminar------");
 		System.out.println("------4: Salir------");
 		System.out.println("------Seleccione una opcion------");
@@ -49,9 +49,6 @@ public class GestorVideos {
 
 	private static void Anadir() throws Exception {
 		char agregarMas;
-		/*
-		 * videoYoutube test = new videoYoutube(); videos[0] = test;
-		 */
 		long id = 0;
 		String cancion;
 		String codigo;
@@ -59,19 +56,7 @@ public class GestorVideos {
 
 		do {
 			BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-			System.out.println("------Opcion a�adir------");
-			/*try {
-				System.out.println("------Introduzca el id de la cancion------");
-				id = Long.parseLong(br.readLine());
-			} catch (Exception e) {
-				System.out.println("Id incorrecto");
-				try {
-					Anadir();
-				} catch (Exception e2) {
-					System.out.println("Ha vuelto a introducir mal el id");
-				}
-			}
-*/
+			System.out.println("------Opcion añadir------");
 			System.out.println(
 					"------Introduzca el nombre de la cancion de mas de 3 caracteres y menos de 256 caracteres------");
 			cancion = br.readLine();
@@ -103,7 +88,7 @@ public class GestorVideos {
 
 			dao.insert(test1);
 
-			System.out.println("------Quiere añadir otra cancion------");
+			System.out.println("------Quiere aÃ±adir otra cancion------");
 			agregarMas = (char) br.read();
 
 		} while (agregarMas == 'S' || agregarMas == 's');
@@ -123,7 +108,7 @@ public class GestorVideos {
 			}
 
 			System.out.println(
-					"Menu principal pulse 1.Para A�adir canciones: Pulsar 2. Para Eliminar canciones Pulsar 3. ");
+					"Menu principal pulse 1.Para Añadir canciones: Pulsar 2. Para Eliminar canciones Pulsar 3. ");
 
 			BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 			opcion = Integer.parseInt(br.readLine());
@@ -131,7 +116,7 @@ public class GestorVideos {
 			System.out.println("Por favor introduzca una opcion correcta");
 			try {
 				System.out.println(
-						"Menu principal pulse 1.Para A�adir canciones ? (Pulsar 2).Para Eliminar canciones ? (Pulsar 3). ");
+						"Menu principal pulse 1.Para Añadir canciones ? (Pulsar 2).Para Eliminar canciones ? (Pulsar 3). ");
 				BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 				opcion = Integer.parseInt(br.readLine());
 			} catch (Exception e2) {
@@ -147,17 +132,19 @@ public class GestorVideos {
 			Anadir();
 		} else {
 			if (opcion == 3) {
-				eliminarMenu();
+				eliminarCancion();
 			}
 
 		}
 	}
 
-	private static void eliminarMenu() throws Exception {
+	private static void eliminarCancion() throws Exception {
 		long userDelete;
 		int opcion;
 		VideoYoutubeArrayDao videoArrayBorrar;
-
+		try {
+			
+		
 		System.out.println("Menu elimina canciones");
 		System.out.println("introduce el id de la cancion que quieres borrar");
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
@@ -182,12 +169,17 @@ public class GestorVideos {
 				Anadir();
 			} else {
 				if (opcion == 3) {
-					eliminarMenu();
+					eliminarCancion();
 				}
 			}
 
+		}}catch(Exception e) {
+
+			System.out.println("Ha introducido un id incorrecto");
+			eliminarCancion();
 		}
 	}
+	
 
 	private static VideoYoutubeArrayDao cargarCanciones() {
 		if (dao.getAll().size() == 0) {
