@@ -10,7 +10,6 @@ public class Utilidades {
 	 * @return array ordenado de menor a mayor
 	 */
 	
-	//TODO Generar un libreria.jar, crear un nuevo javaproyect, importar esa librería y en ese proyecto importar el método bubbleSort, por ejemplo
 	public static int[] bubbleSort(int[] array) {
 		int temp;
 		for (int i = 0; i < array.length; i++) {

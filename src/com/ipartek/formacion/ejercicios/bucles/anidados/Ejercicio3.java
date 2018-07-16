@@ -3,10 +3,10 @@ package com.ipartek.formacion.ejercicios.bucles.anidados;
 import java.util.Scanner;
 
 /**
- * Leer un número N y calcular el factorial de los números desde 0 hasta N.
+ * Leer un número N y calcular la suma de los factoriales de los números desde 0 hasta N.
  *
  */
-public class Ejercicio2 {
+public class Ejercicio3 {
 
 	public static void main(String[] args) {
 		
@@ -14,6 +14,7 @@ public class Ejercicio2 {
 		
 		int n;
 		int factorial;
+		int suma = 0;
 		
 		do {
 			System.out.println("Introduce un número");
@@ -31,10 +32,15 @@ public class Ejercicio2 {
 			}
 			
 			System.out.println(i + "! = " + factorial);
+			
+			suma += factorial;
+			
 		}
 		
-		sc.close();
+		System.out.println("La suma de los factoriales de 0 a " + n + " es " + suma);
 		
+		sc.close();
+
 	}
 
 }
