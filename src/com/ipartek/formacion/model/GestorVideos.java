@@ -88,7 +88,7 @@ public class GestorVideos {
 
 		do {
 
-			System.out.println("Selecciona un video a ELIMINAR(negativo para no eliminar mas videos): ");
+			System.out.println("Selecciona un video a ELIMINAR(0 para no eliminar mas videos): ");
 			idVideo = sc.nextInt();
 
 			if (idVideo != 0) {
@@ -96,21 +96,35 @@ public class GestorVideos {
 				dao.delete(idVideo);
 			}
 
-			for (VideoYoutube video : dao.getAll()) {
-				System.out.println("    " + video);
-			}
+			listar();
 
 		} while (idVideo != 0);
 		pintarMenu();
 	}
 
-	private static void anadirVideos() {
+	private static void anadirVideos() throws IOException {
 
-		String titulo = "";
-		String codigo = "";
+		char seguir;
 
-		VideoYoutube video = new VideoYoutube(1, "Nightmares On Wax Boiler Room London DJ Set", "Q692lHFaLVM");
-		dao.insert(video);
+		do {
+
+			String titulo = "";
+			String codigo = "";
+			int id = 3;
+
+			System.out.println("Introduce el TITULO del video que deseas añadir:");
+			titulo = sc.nextLine();
+			System.out.println("Introduce el CODIGO del video que deseas añadir:");
+			codigo = sc.nextLine();
+
+			VideoYoutube video = new VideoYoutube(id, titulo, codigo);
+			dao.insert(video);
+			id++;
+
+			System.out.println("Deseas AÑADIR algun video mas(s/n)");
+			seguir = (char) System.in.read();
+
+		} while (seguir != 'n');
 
 	}
 
