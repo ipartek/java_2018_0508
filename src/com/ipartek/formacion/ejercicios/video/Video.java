@@ -43,6 +43,8 @@ public class Video {
 				eliminarVideo(idBorrar);
 				break;
 			}
+		
+			
 		}else {
 			System.out.println("Error");
 		}
@@ -50,10 +52,12 @@ public class Video {
 	}
 	
 	private static void mostrarMenu() {
-		System.out.println("Selecciona una opción:");
-		System.out.println("1 - Listar");
-		System.out.println("2 - Añadir");
-		System.out.println("3 - Eliminar");
+		System.out.println("------------------------------------");
+		System.out.println("------Selecciona una opción:--------");
+		System.out.println("   1 - Listar");
+		System.out.println("   2 - Añadir");
+		System.out.println("   3 - Eliminar");
+		
 	}
 	
 	private static boolean comprobarOpcion(int opcion) {
