@@ -58,7 +58,7 @@ public class GestorVideo {
 		System.out.println("2 - Añadir");
 		System.out.println("3 - Eliminar");
 		System.out.println("0 - Salir");
-		
+
 	}
 
 	private static void mostrarLista(List<Youtube> videos) {
@@ -69,7 +69,6 @@ public class GestorVideo {
 		}
 
 	}
-	//sdfdsf
 
 	private static Youtube crearNuevoYoutube() {
 		System.out.println("Ingresa un titulo:");
