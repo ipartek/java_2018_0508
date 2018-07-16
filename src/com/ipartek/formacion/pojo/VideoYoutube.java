@@ -14,9 +14,9 @@ public class VideoYoutube {
 		
 	}
 	
-	public VideoYoutube(long id, String titulo, String codigo) {
+	public VideoYoutube(String titulo, String codigo) {
 		this();
-		this.setId(id);
+		
 		this.setCodigo(codigo);
 		this.setTitulo(titulo);
 		

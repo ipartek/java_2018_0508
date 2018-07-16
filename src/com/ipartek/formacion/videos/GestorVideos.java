@@ -26,27 +26,7 @@ public class GestorVideos {
 		cargarVideos();
 		pintarMenu();
 
-		switch (opcionSeleccionada) {
-		case OPCION_LISTAR:
-			listar();
-			break;
-
-		case OPCION_ANADIR:
-			add();
-			break;
-
-		case OPCION_ELIMINAR:
-			borrarVideo();
-			break;
-
-		case OPCION_SALIR:
-			salir();
-			break;
-
-		default:
-			noOption();
-			break;
-		}
+		
 
 		sc.close();
 	}
@@ -76,19 +56,23 @@ public class GestorVideos {
 		System.out.println("");
 		System.out.println("");
 		System.out.println("");
+		
+		do {
+			pintarMenu();
+		} while (opcionSeleccionada>0 && opcionSeleccionada<4);
 
-		pintarMenu();
+		
 
 	}
 
 	private static void cargarVideos() {
-		VideoYoutube video = new VideoYoutube(12650, "Nightmares On Wax Boiler Room London DJ Set", "Q692lHFaLVM");
+		VideoYoutube video = new VideoYoutube("Nightmares On Wax Boiler Room London DJ Set", "Q692lHFaLVM");
 		dao.insert(video);
 
-		video = new VideoYoutube(701, "The Skatalites - Rock Fort Rock", "6bLVdKbPHHY");
+		video = new VideoYoutube("The Skatalites - Rock Fort Rock", "6bLVdKbPHHY");
 		dao.insert(video);
 
-		video = new VideoYoutube(401, "The sdfad - Rock Fort Rock", "fgfgdf");
+		video = new VideoYoutube("The sdfad - Rock Fort Rock", "fgfgdf");
 		dao.insert(video);
 
 	}
@@ -108,47 +92,65 @@ public class GestorVideos {
 		System.out.print("Dime una opcion por favor: ");
 
 		opcionSeleccionada = sc.nextInt();
+		
+		switch (opcionSeleccionada) {
+		case OPCION_LISTAR:
+			listar();
+			break;
+
+		case OPCION_ANADIR:
+			add();
+			break;
+
+		case OPCION_ELIMINAR:
+			borrarVideo();
+			break;
+
+		case OPCION_SALIR:
+			salir();
+			break;
+
+		default:
+			noOption();
+			break;
+		}
 
 	}
 
 	public static void add() {
 
-		System.out.print("Introduce los datos del nuevo video");
-
-		long id = 1;
+		System.out.println("Introduce los datos del nuevo video");
+		System.out.println("-----------------------------------");
 		String titulo = "";
 		String codigo = "";
 		boolean correcto = false;
 		while (!correcto) {
-			System.out.print("Titulo (minimo 11 caracteres): ");
+			System.out.print("Titulo (entre 3 y 254 caracteres): ");
 			titulo = sc.next();
-			if (titulo.length() <= 11) {
-				System.out.println("ERROR, El titulo debe tener al menos 11 caracteres");
+			if (titulo.length() > 3 && titulo.length() < 254) {
+				correcto = true;
 
 			} else {
-				correcto = true;
+				System.out.println("ERROR, El titulo debe contener entre 3 y 254 caracteres");
+
 			}
 		}
+		correcto =false;
 
 		while (!correcto) {
-			System.out.print("Codigo: ");
+			System.out.print("Codigo (minimo 11 caracteres): ");
 			codigo = sc.next();
-			if (codigo.length() < 3) {
-				System.out.println("ERROR, El codigo debe ser mayor que 254");
+			if (codigo.length() < 11) {
+				System.out.println("ERROR, El codigo debe tener al menos 11 caracteres");
 
 			} else {
 				correcto = true;
 			}
 		}
 
-		// if(254> titulo && titulo.length()==3 )
-		// 11caracteres ||->no hace falta ....0-9 - a-A z-Z y _
-
-
-		
 		try {
-			
-			VideoYoutube newVideo = new VideoYoutube(id, titulo, codigo);
+
+			VideoYoutube newVideo = new VideoYoutube(titulo, codigo);
 			dao.insert(newVideo);
 			pintarMenu();
 
@@ -156,18 +158,6 @@ public class GestorVideos {
 			System.out.println("ERROR, los datos no son correctos");
 			add();
 		}
-
-	}
-
-	private static String setAttributeString(String atr) {
-		System.out.print(atr + ": ");
-		return sc.next();
-
-	}
-
-	private static int setAttributeInt(String atr) {
-		System.out.print(atr + ": ");
-		return sc.nextInt();
 
 	}
 

@@ -17,6 +17,8 @@ public class VideoYoutubeArrayDAO implements CrudAble {
 
 	private static VideoYoutubeArrayDAO INSTANCE = null;
 	private static List<VideoYoutube> lista = null;
+	private static final int ID_MIN_VALUE = 1;
+	private static int idCounter = ID_MIN_VALUE;
 
 	private VideoYoutubeArrayDAO() {
 		lista = new ArrayList<VideoYoutube>();
@@ -35,6 +37,7 @@ public class VideoYoutubeArrayDAO implements CrudAble {
 
 		boolean result = false;
 		if (video != null) {
+			video.setId(idCounter++);
 			result = lista.add(video);
 		}
 
@@ -92,5 +95,7 @@ public class VideoYoutubeArrayDAO implements CrudAble {
 
 		return eliminado;
 	}
+	
+	
 
 }
