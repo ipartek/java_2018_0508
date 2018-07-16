@@ -124,12 +124,15 @@ public class GestorVideos {
 			String titulo = "";
 			String codigo = "";
 
-			System.out.println("Introduce el TITULO del video que deseas añadir:");
-			titulo = sc.nextLine();
-			titulo = sc.nextLine();
+			do {
+				System.out.println("Introduce el TITULO del video que deseas añadir:");
+				titulo = sc.nextLine();
+			} while (titulo.getBytes().length > 24 || titulo.getBytes().length < 3);
 
-			System.out.println("Introduce el CODIGO del video que deseas añadir:");
-			codigo = sc.nextLine();
+			do {
+				System.out.println("Introduce el CODIGO del video que deseas añadir(11 caracteres):");
+				codigo = sc.nextLine();
+			} while (codigo.getBytes().length != 11); //codigo.isEmpty() == true
 			id++;
 
 			VideoYoutube video = new VideoYoutube(id, titulo, codigo);
