@@ -6,7 +6,7 @@ import java.util.Scanner;
 import com.ipartek.formacion.model.VideoYoutubeArrayDAO;
 import com.ipartek.formacion.pojo.VideoYoutube;
 
-public class GestorVideos {
+public class VideoClub {
 
 	static private VideoYoutubeArrayDAO dao;
 	static private int opcionSeleccionada = 0;
@@ -17,7 +17,9 @@ public class GestorVideos {
 	static private final int OPCION_ANADIR = 2;
 	static private final int OPCION_ELIMINAR = 3;
 
-	public static void main(String[] args) {
+	static private char contest;
+
+	public static void main(String[] args) throws IOException {
 
 		sc = new Scanner(System.in);
 
@@ -26,21 +28,35 @@ public class GestorVideos {
 		cargarVideos();
 
 		pintarMenu();
+		
+		
+		do {
+			switch (opcionSeleccionada) {
+			
+			case OPCION_LISTAR:
+				listar();
+				break;
 
-		switch (opcionSeleccionada) {
-		case OPCION_LISTAR:
-			listar();
-			break;
+			case OPCION_SALIR:
+				salir();
+				break;
 
-		case OPCION_SALIR:
-			salir();
-			break;
+			case OPCION_ANADIR:
+				anadir();
+				break;
 
-		default:
-			noOption();
-			break;
-		}
+			case OPCION_ELIMINAR:
+				eliminar();
+				break;
 
+			default:
+				noOption();
+				break;
+			}
+
+		}while (opcionSeleccionada!=0);
+		
+		
 		sc.close();
 	}
 
@@ -50,12 +66,12 @@ public class GestorVideos {
 		System.out.println("");
 		System.out.println("");
 		System.out.println("");
-		System.out.println("AGUR VENUR, esperamos verte pronto");
+		System.out.println("Hasta luego");
 
 	}
 
 	private static void noOption() {
-		System.out.println("Lo sentimos No existe esa opcion");
+		System.out.println("Lo sentimos. No existe esa opcion");
 		pintarMenu();
 
 	}
@@ -69,6 +85,61 @@ public class GestorVideos {
 		System.out.println("");
 		System.out.println("");
 		System.out.println("");
+
+		pintarMenu();
+
+	}
+
+	private static void anadir() throws IOException {
+		int num;
+		int id;
+		String codigo;
+		String titulo;
+
+		do {
+			do {
+				System.out.print("¿Cuantos canciones quieres meter? ");
+				num = sc.nextInt();
+			} while (num <= 0);
+			for (int i = 0; i < num; i++) {
+			System.out.println("Introduce el código: ");
+			codigo = sc.next();
+			System.out.println("Introduce el titulo: ");
+			titulo = sc.next();
+			
+			VideoYoutube video = new VideoYoutube(id, titulo, codigo);
+			dao.insert(video);
+			}
+			
+
+			System.out.println("¿Quieres introducir otra cancion");
+			contest = (char) System.in.read();
+
+		} while (contest != 'n' && contest != 'N');
+		
+		for (VideoYoutube video : dao.getAll()) {
+			System.out.println("    " + video);
+		}
+
+	}
+
+
+	private static void eliminar() throws IOException {
+
+		int id;
+
+		System.out.println("Introduce el código que deseas eliminar: ");
+		id = sc.nextInt();
+		do {
+			System.out.println("¿Estas seguro de que deseas borrar la cancion " + dao.getById(id) + "?");
+			contest = (char) System.in.read();
+
+		} while (contest != 's' && contest != 'S');
+
+		VideoYoutube video = new VideoYoutube();
+		dao.delete(id);
+
+		listar();
 
 		pintarMenu();
 
@@ -99,13 +170,13 @@ public class GestorVideos {
 
 		try {
 			opcionSeleccionada = sc.nextInt();
-
 		} catch (Exception e) {
 			// e.printStackTrace(); -->pinta la pila de excepcion
 			sc.nextLine();
-			System.out.println("OPCIÓN NO VALIDA. Por favor introduce un número del menú.\n");
+			System.out.println("OPCIÓN NO VALIDA. Por favor introduce un número del 0 al 1.\n");
 			pintarMenu();
 		}
+
 
 	}
 
