@@ -12,8 +12,6 @@ public class Person {
 
 	// Atributos
 
-	// TODO nueva atributo edad => 16 y 100
-
 	private String nombre;
 
 	private String apellido;

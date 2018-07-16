@@ -1,6 +1,5 @@
 package com.ipartek.formacion.videos;
 
-import java.io.IOException;
 import java.util.Scanner;
 
 import com.ipartek.formacion.model.VideoYoutubeArrayDAO;
@@ -10,46 +9,51 @@ public class VideoClub {
 
 	static VideoYoutubeArrayDAO dao;
 
-	private static final int opcMinima = 1;
-	private static final int opcMaxima = 4;
+	private static final int OPC_MINIMA = 0;
+	private static final int OPC_MAXIMA = 4;
 	static private final int OPCION_SALIR = 0;
 	static private final int OPCION_LISTAR = 1;
-	static private final int OPCION_ANADIR = 2;
-	static private final int OPCION_ELIMINAR = 3;
+	static private final int OPCION_ELIMINAR = 2;
+	static private final int OPCION_MODIFICAR = 3;
+	static private final int OPCION_ANADIR = 4;
+
 	private static Scanner sc = new Scanner(System.in);
 
-	public static void main(String[] args) throws IOException {
+	public static void main(String[] args) {
 
 		dao = VideoYoutubeArrayDAO.getInstance();
 
 		cargarVideos();
 
-		pintarMenu();
+		int opc = -1;
 
-		int opc = opcion();
+		while (opc!=0) {
+			opc = opcion();
+			switch (opc) {
+			case OPCION_LISTAR:
+				listarVideos();
+				break;
 
-		switch (opc) {
-		case 1:
-			listarVideos();
-			break;
+			case OPCION_ELIMINAR:
+				eliminarVideo();
+				break;
 
-		case 2:
-			eliminarVideo();
-			break;
+			case OPCION_MODIFICAR:
+				modficarVideo();
+				break;
 
-		case 3:
-			modficarVideo();
-			break;
+			case OPCION_ANADIR:
+				altaVideo();
+				break;
 
-		case 4:
-			altaVideo();
-			break;
+			case OPCION_SALIR:
+			default:
+				System.out.println("Adios!!!!");
+				break;
+			}
 
-		default:
-			System.out.println("Adios!!!!");
-			break;
 		}
-
+		
 		sc.close();
 	}
 
@@ -62,6 +66,7 @@ public class VideoClub {
 		dao.insert(new VideoYoutube(3, "iywaBOMvYLI", "System Of A Down - Toxicity"));
 		dao.insert(new VideoYoutube(4, "1V_xRb0x9aw", "Gorillaz - Clint Eastwood (Official Video)"));
 		dao.insert(new VideoYoutube(5, "LPHJLB1ZeAc", "BODY COUNT - Raining In Blood (OFFICIAL VIDEO)"));
+
 	}
 
 	private static void pintarMenu() {
@@ -77,25 +82,33 @@ public class VideoClub {
 		System.out.println("---------------------------------------");
 		System.out.println("-------------4. Alta-------------------");
 		System.out.println("---------------------------------------");
+		System.out.println("-------------0. Salir------------------");
+		System.out.println("---------------------------------------");
 	}
 
-	private static int opcion() throws IOException {
+	private static int opcion() {
+		
+		pintarMenu();
+		
+		int opc = -1;
+		try {
+			do {
 
-		int opc;
+				System.out.println("Elige una opcion:");
+				opc = sc.nextInt();
+				sc.nextLine();
 
-		do {
+				if (opc > OPC_MAXIMA || opc < OPC_MINIMA) {
+					System.out.println("No existe la opcion, vuelve a probar.");
+				}
 
-			System.out.println("Elige una opcion:");
-			opc = sc.nextInt();
+			} while (opc > OPC_MAXIMA || opc < OPC_MINIMA);
 
-			if (opc > opcMaxima || opc < opcMinima) {
-				System.out.println("No existe la opcion, vuelve a probar.");
-			}
-			System.in.read();
-		} while (opc > opcMaxima || opc < opcMinima);
-
+		} catch (Exception e) {
+			System.out.println("OPCION NO VALIDA, introduce numeros por favor.");
+			sc.nextLine();
+		}
 		return opc;
-
 	}
 
 	private static void listarVideos() {
@@ -104,12 +117,10 @@ public class VideoClub {
 
 	}
 
-	private static void eliminarVideo() throws IOException {
+	private static void eliminarVideo() {
 
+		sc.nextLine();
 		long id;
-
-		System.in.read();
-		System.in.read();
 
 		System.out.println("Dime el id de una cancion para borrarla...");
 		id = (long) sc.nextInt();
@@ -121,6 +132,8 @@ public class VideoClub {
 	}
 
 	private static void modficarVideo() {
+
+		sc.nextLine();
 
 		System.out.println("Dime el video a modificar:");
 		long id = (long) sc.nextInt();
@@ -134,13 +147,13 @@ public class VideoClub {
 		switch (opc) {
 		case 1:
 			System.out.println("Escribe el nuevo titulo:");
-			String titulo = sc.next();
+			String titulo = sc.nextLine();
 			video.setTitulo(titulo);
 			break;
 
 		case 2:
 			System.out.println("Escribe el nuevo codigo:");
-			String codigo = sc.next();
+			String codigo = sc.nextLine();
 			video.setTitulo(codigo);
 			break;
 		default:
@@ -154,15 +167,16 @@ public class VideoClub {
 
 	}
 
-	private static void altaVideo() throws IOException {
+	private static void altaVideo() {
+
+		sc.nextLine();
 		VideoYoutube video = new VideoYoutube();
 
 		System.out.println("Introduce el ID de la nueva cancion:");
 		video.setId((long) sc.nextInt());
 
-		System.in.read();
-		System.in.read();
-
+		sc.nextLine();
+		
 		System.out.println("Introduce el titulo de la nueva cancion:");
 		video.setTitulo(sc.nextLine());
 
