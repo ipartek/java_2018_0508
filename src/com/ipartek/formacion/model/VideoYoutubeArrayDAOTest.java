@@ -36,10 +36,8 @@ public class VideoYoutubeArrayDAOTest {
 
 	@Before
 	public void setUp() throws Exception {
-		mock1 = new VideoYoutube( MOCK1_TITULO, MOCK1_CODIGO);
-		mock2 = new VideoYoutube( MOCK2_TITULO, MOCK2_CODIGO);
-		mock1.setId(MOCK1_ID);
-		mock2.setId(MOCK2_ID);
+		mock1 = new VideoYoutube(MOCK1_ID, MOCK1_TITULO, MOCK1_CODIGO);
+		mock2 = new VideoYoutube(MOCK2_ID, MOCK2_TITULO, MOCK2_CODIGO);
 
 		assertTrue(dao.insert(mock1));
 		assertTrue(dao.insert(mock2));
@@ -82,8 +80,7 @@ public class VideoYoutubeArrayDAOTest {
 	@Test
 	public void testUpdate() {
 
-		VideoYoutube video = new VideoYoutube( "test_titulo", "test_code");
-		video.setId(MOCK1_ID);
+		VideoYoutube video = new VideoYoutube(MOCK1_ID, "test_titulo", "test_code");
 		assertFalse(dao.update(null));
 		assertTrue(dao.update(video));
 
@@ -92,8 +89,7 @@ public class VideoYoutubeArrayDAOTest {
 		assertEquals("test_titulo", videoMod.getTitulo());
 		assertEquals("test_code", videoMod.getCodigo());
 
-		video = new VideoYoutube("test_titulo", "test_code");
-		video.setId(ID_INEXISTENTE);
+		video = new VideoYoutube(ID_INEXISTENTE, "test_titulo", "test_code");
 		assertFalse(dao.update(video));
 
 	}

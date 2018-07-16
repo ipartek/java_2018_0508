@@ -16,6 +16,8 @@ public class GestorVideos {
 	static private final int OPCION_LISTAR = 1;
 	static private final int OPCION_ANADIR = 2;
 	static private final int OPCION_ELIMINAR = 3;
+	static private final int ID_MIN_VALUE= 1;
+	static private int idCounter = ID_MIN_VALUE;
 
 	public static void main(String[] args) {
 
@@ -25,8 +27,6 @@ public class GestorVideos {
 
 		cargarVideos();
 		pintarMenu();
-
-		
 
 		sc.close();
 	}
@@ -66,13 +66,13 @@ public class GestorVideos {
 	}
 
 	private static void cargarVideos() {
-		VideoYoutube video = new VideoYoutube("Nightmares On Wax Boiler Room London DJ Set", "Q692lHFaLVM");
+		VideoYoutube video = new VideoYoutube(idCounter++,"Nightmares On Wax Boiler Room London DJ Set", "Q692lHFaLVM");
 		dao.insert(video);
 
-		video = new VideoYoutube("The Skatalites - Rock Fort Rock", "6bLVdKbPHHY");
+		video = new VideoYoutube(idCounter++,"The Skatalites - Rock Fort Rock", "6bLVdKbPHHY");
 		dao.insert(video);
 
-		video = new VideoYoutube("The sdfad - Rock Fort Rock", "fgfgdf");
+		video = new VideoYoutube(idCounter++,"The sdfad - Rock Fort Rock", "fgfgdf");
 		dao.insert(video);
 
 	}
@@ -150,12 +150,13 @@ public class GestorVideos {
 
 		try {
 
-			VideoYoutube newVideo = new VideoYoutube(titulo, codigo);
+			VideoYoutube newVideo = new VideoYoutube(idCounter++,titulo, codigo);
 			dao.insert(newVideo);
 			pintarMenu();
 
 		} catch (Exception e) {
 			System.out.println("ERROR, los datos no son correctos");
+			idCounter--;
 			add();
 		}
 

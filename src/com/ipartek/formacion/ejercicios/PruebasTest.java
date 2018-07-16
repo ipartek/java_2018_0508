@@ -33,8 +33,7 @@ public class PruebasTest {
 		assertTrue(i1 != i2); // Compara posiciones de memoria
 		assertTrue(i1.equals(i2)); // Compara valor interno
 
-		VideoYoutube v1 = new VideoYoutube("test", "test");
-		v1.setId(5);
+		VideoYoutube v1 = new VideoYoutube(5,"test", "test");
 		VideoYoutube v2 = sumarUno(v1);
 
 		assertTrue(6 == v1.getId());
