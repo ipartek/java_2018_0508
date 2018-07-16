@@ -24,7 +24,7 @@ public class GestorVideos {
 		System.out.println("-------Youtube---------");
 		System.out.println("-------Opciones--------");
 		System.out.println("------1: Listar--------");
-		System.out.println("------2: Añadir--------");
+		System.out.println("------2: A�adirr--------");
 		System.out.println("------3: Eliminar------");
 		System.out.println("------4: Salir------");
 		System.out.println("------Seleccione una opcion------");
@@ -48,47 +48,54 @@ public class GestorVideos {
 	}
 
 	private static void Anadir() throws Exception {
-		char agregarMas ;
+		char agregarMas;
 		/*
 		 * videoYoutube test = new videoYoutube(); videos[0] = test;
 		 */
-		long id ;
+		long id =0;
 		String cancion;
 		String codigo;
 		char sobreEscribir;
-		
+
 		do {
 			BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-			System.out.println("------Opcion añadir------");
+			System.out.println("------Opcion a�adir------");
+			try {
+				System.out.println("------Introduzca el id de la cancion------");
+				id = Long.parseLong(br.readLine());
+			} catch (Exception e) {
+				System.out.println("Id incorrecto");
+				try {
+					Anadir();
+				} catch (Exception e2) {
+					System.out.println("Ha vuelto a introducir mal el codigo");
+				}
+			}
+			try {
+				System.out.println("------Introduzca el nombre de la cancion------");
+				cancion = br.readLine();
+				comprobarTitulo(cancion);
+			}catch(Exception e){
+				System.out.println("error");
+			}
 
-			System.out.println("------Introduzca el id de la cancion------");
-			id = Long.parseLong(br.readLine());
-			
-			System.out.println("------Introduzca el nombre de la cancion------");
-			cancion = br.readLine();
-					
 			System.out.println("------Introduzca el codigo de la cancion------");
 			codigo = br.readLine();
 
-			// Con los datos de la cancion deberiamos crear un objeto videoYoutube para insertarlo en el dao
 			videoYoutube test1 = new videoYoutube(id, cancion, codigo);
-			/*if (id == dao.getById(id).getId()) {
-				System.out.println("Atencion el registro que esta intentado añadir ya se encuentra en la bd. Quiere sobre escribir (s)/(n) ?");
-				sobreEscribir = br.readLine().charAt(0);
-				if (sobreEscribir != 's') {
-					Anadir();
-				}else {
-					sobreEscribir(id,test1);
-				}
-			}*/
+			/*
+			 * if (id == dao.getById(id).getId()) { System.out.
+			 * println("Atencion el registro que esta intentado añadir ya se encuentra en la bd. Quiere sobre escribir (s)/(n) ?"
+			 * ); sobreEscribir = br.readLine().charAt(0); if (sobreEscribir != 's') {
+			 * Anadir(); }else { sobreEscribir(id,test1); } }
+			 */
 			dao.insert(test1);
-			
 
 			System.out.println("------Quiere añadir otra cancion------");
 			agregarMas = (char) br.read();
 
 		} while (agregarMas == 'S' || agregarMas == 's');
-		if (agregarMas !='S' || agregarMas != 's' ) {
+		if (agregarMas != 'S' || agregarMas != 's') {
 			pintarMenu();
 		}
 
@@ -98,13 +105,32 @@ public class GestorVideos {
 		int opcion = 0;
 		VideoYoutubeArrayDao videoarray = cargarCanciones();
 		System.out.println("------Listar Menu------");
-		for (videoYoutube video : videoarray.getAll()) {
-			System.out.println("Id: "+video.getId()+ "-" + video.getCodigo() + "-" + video.getTitulo());
+		try {
+			for (videoYoutube video : videoarray.getAll()) {
+				System.out.println("Id: " + video.getId() + "-" + video.getCodigo() + "-" + video.getTitulo());
+			}
+
+			System.out.println(
+					"Menu principal pulse 1.Para A�adir canciones: Pulsar 2. Para Eliminar canciones Pulsar 3. ");
+
+			BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+			opcion = Integer.parseInt(br.readLine());
+		} catch (Exception e) {
+			System.out.println("Por favor introduzca una opcion correcta");
+			try {
+				System.out.println(
+						"Menu principal pulse 1.Para A�adir canciones ? (Pulsar 2).Para Eliminar canciones ? (Pulsar 3). ");
+				BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+				opcion = Integer.parseInt(br.readLine());
+			} catch (Exception e2) {
+				System.out.println(("Empezemos de nuevo...."));
+				listarCanciones();
+			}
 		}
-		System.out.println(
-				"Añadir canciones ? (Pulsar 2), Eliminar canciones ? (Pulsar 3)");
-		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-		opcion = Integer.parseInt(br.readLine());
+		if (opcion == 1) {
+			pintarMenu();
+		} else {
+		}
 		if (opcion == 2) {
 			Anadir();
 		} else {
@@ -123,25 +149,26 @@ public class GestorVideos {
 		System.out.println("Menu elimina canciones");
 		System.out.println("introduce el id de la cancion que quieres borrar");
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-		userDelete =(long)Integer.parseInt(br.readLine());
-		videoB[0] =dao.getById(userDelete);
+		userDelete = (long) Integer.parseInt(br.readLine());
+		videoB[0] = dao.getById(userDelete);
 		if (videoB[0] != null) {
-			if (videoB[0].getId()== userDelete) {
+			if (videoB[0].getId() == userDelete) {
 				dao.delete(userDelete);
-				System.out.println("Registro "+ userDelete +" eliminado correctamente");
+				System.out.println("Registro " + userDelete + " eliminado correctamente");
 			}
-			
-		}else {
-			System.out.println("Registro no encontrado intentalo de nuevo, si necesitas recordar las canciones, puedes listarlas");
+
+		} else {
+			System.out.println(
+					"Registro no encontrado intentalo de nuevo, si necesitas recordar las canciones, puedes listarlas");
 		}
 		System.out.println("Que quieres hacer ahora ? 1-listar. 2-Añadir. 3- Eliminar. 4 Salir");
-		opcion =Integer.parseInt(br.readLine());
+		opcion = Integer.parseInt(br.readLine());
 		if (opcion == 1) {
 			listarCanciones();
 		} else {
 			if (opcion == 2) {
 				Anadir();
-			}else {
+			} else {
 				if (opcion == 3) {
 					eliminarMenu();
 				}
@@ -163,20 +190,27 @@ public class GestorVideos {
 			dao.insert(vInicial4);
 			dao.insert(vInicial5);
 		}
-		
+
 		return dao;
-		}
-		
+	}
+
 	private static void Salir() {
 		System.out.println("Gracias por su consulta");
 		System.exit(0);
 	}
-	
-	private static void sobreEscribir(long id, videoYoutube test) {
+
+	/*private static void sobreEscribir(long id, videoYoutube test) {
 		System.out.println("Sobre Escribiendo...");
 		VideoYoutubeArrayDao videoArraySobreescribir;
 		videoYoutube test1;
 		videoArraySobreescribir.set
+		}*/
+	
+	private static boolean comprobarTitulo(String titulo) {
+		if (titulo.length() > 3 && titulo.length() < 256) {
+			return true;
+		}
+		return false;
 		}
 
 }
