@@ -52,7 +52,7 @@ public class GestorVideos {
 		/*
 		 * videoYoutube test = new videoYoutube(); videos[0] = test;
 		 */
-		long id =0;
+		long id = 0;
 		String cancion;
 		String codigo;
 		char sobreEscribir;
@@ -60,7 +60,7 @@ public class GestorVideos {
 		do {
 			BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 			System.out.println("------Opcion a�adir------");
-			try {
+			/*try {
 				System.out.println("------Introduzca el id de la cancion------");
 				id = Long.parseLong(br.readLine());
 			} catch (Exception e) {
@@ -68,27 +68,39 @@ public class GestorVideos {
 				try {
 					Anadir();
 				} catch (Exception e2) {
-					System.out.println("Ha vuelto a introducir mal el codigo");
+					System.out.println("Ha vuelto a introducir mal el id");
 				}
 			}
-			try {
-				System.out.println("------Introduzca el nombre de la cancion------");
-				cancion = br.readLine();
-				comprobarTitulo(cancion);
-			}catch(Exception e){
-				System.out.println("error");
+*/
+			System.out.println(
+					"------Introduzca el nombre de la cancion de mas de 3 caracteres y menos de 256 caracteres------");
+			cancion = br.readLine();
+			if (!comprobarTitulo(cancion)) {
+				try {
+					System.out.println("Ha introducido un titulo de menos de 3 caracteres o mas de 256 caracteres");
+					System.out.println("Vuelva a introducir nuevamente el titulo de la cancion");
+					cancion = br.readLine();
+					if (!comprobarTitulo(cancion)) {
+						System.out.println("Titulo introducido incorrectamente , comenzamos de nuevo");
+						Anadir();
+					}
+				} catch (Exception e) {
+					try {
+						System.out.println("Comenzamos de nuevo...");
+						Anadir();
+					} catch (Exception e2) {
+						System.out.println("ha vuelto a introducir mal el titulo de la cancion");
+					}
+
+				}
 			}
 
 			System.out.println("------Introduzca el codigo de la cancion------");
 			codigo = br.readLine();
-
+			id = dao.getAll().size();
+			id++;
 			videoYoutube test1 = new videoYoutube(id, cancion, codigo);
-			/*
-			 * if (id == dao.getById(id).getId()) { System.out.
-			 * println("Atencion el registro que esta intentado añadir ya se encuentra en la bd. Quiere sobre escribir (s)/(n) ?"
-			 * ); sobreEscribir = br.readLine().charAt(0); if (sobreEscribir != 's') {
-			 * Anadir(); }else { sobreEscribir(id,test1); } }
-			 */
+
 			dao.insert(test1);
 
 			System.out.println("------Quiere añadir otra cancion------");
@@ -183,7 +195,7 @@ public class GestorVideos {
 			videoYoutube vInicial2 = new videoYoutube(2, "Repartiendo arte", "rap2");
 			videoYoutube vInicial3 = new videoYoutube(3, "Cancion3", "rap3");
 			videoYoutube vInicial4 = new videoYoutube(4, "Cancion4", "rap4");
-			videoYoutube vInicial5 = new videoYoutube(6, "Cancion5", "raps5");
+			videoYoutube vInicial5 = new videoYoutube(5, "Cancion5", "raps5");
 			dao.insert(vInicial1);
 			dao.insert(vInicial2);
 			dao.insert(vInicial3);
@@ -199,18 +211,18 @@ public class GestorVideos {
 		System.exit(0);
 	}
 
-	/*private static void sobreEscribir(long id, videoYoutube test) {
-		System.out.println("Sobre Escribiendo...");
-		VideoYoutubeArrayDao videoArraySobreescribir;
-		videoYoutube test1;
-		videoArraySobreescribir.set
-		}*/
-	
 	private static boolean comprobarTitulo(String titulo) {
 		if (titulo.length() > 3 && titulo.length() < 256) {
 			return true;
 		}
 		return false;
+	}
+
+	private static boolean comprobarCodigo(String codigo) {
+		if (codigo.length() != 11 ) {
+			return true;
 		}
+		return false;
+	}
 
 }
