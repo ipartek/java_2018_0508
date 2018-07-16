@@ -12,7 +12,7 @@ import com.ipartek.formacion.pojo.VideoYoutube;
  *
  */
 
-public class GestorVideos {
+public class VideoClub {
 
 	static private VideoYoutubeArrayDAO dao;
 	static private int opcionSeleccionada = 0;
