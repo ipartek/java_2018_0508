@@ -4,9 +4,9 @@ import java.util.logging.Logger;
 
 import com.ipartek.formacion.pojo.Person;
 
-public class Listado_Personas {
+public class ListadoPersonas {
 	
-	static Logger log = Logger.getLogger(Listado_Personas.class.getName().toString());
+	static Logger log = Logger.getLogger(ListadoPersonas.class.getName().toString());
 
 	public static void main(String[] args) {
 

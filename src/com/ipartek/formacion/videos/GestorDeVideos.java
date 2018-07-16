@@ -16,8 +16,11 @@ import com.ipartek.formacion.pojo.VideoYoutube;
 public class GestorDeVideos {
 
 	static private VideoYoutubeArrayDAO dao;
+
+	private static int cont = 0;
+
 	static private int opcionSeleccionada = 0;
-	static Scanner sc = null;
+	static Scanner sc = new Scanner(System.in);
 
 	static private final int OPCION_SALIR = 0;
 	static private final int OPCION_LISTAR = 1;
@@ -26,12 +29,9 @@ public class GestorDeVideos {
 
 	public static void main(String args[]) {
 
-		sc = new Scanner(System.in);
-
 		dao = VideoYoutubeArrayDAO.getInstance();
 
 		cargarVideos();
-
 		pintarMenu();
 
 		do {
@@ -57,23 +57,24 @@ public class GestorDeVideos {
 				noOption();
 				break;
 			}
+			pintarMenu();
 		} while (opcionSeleccionada != OPCION_SALIR);
 
 	}
 
 	private static void noOption() {
 
-		System.out.println("La opción seleccionada no existe.");
+		System.out.println("LO SENTIMOS. La opción seleccionada no existe.");
 		pintarMenu();
 
 	} // FIN noOption();
 
 	private static void cargarVideos() {
 
-		VideoYoutube video = new VideoYoutube(12650, "Crystallion - Crystal Clear", "qllRVZnpttM");
+		VideoYoutube video = new VideoYoutube(++cont, "Crystallion - Crystal Clear", "qllRVZnpttM");
 		dao.insert(video);
 
-		video = new VideoYoutube(701, "Crystallion - Burning Bridges", "MSRvZ-YSlZI");
+		video = new VideoYoutube(++cont, "Crystallion - Burning Bridges", "MSRvZ-YSlZI");
 		dao.insert(video);
 
 	} // FIN cargarVideos();
@@ -88,7 +89,7 @@ public class GestorDeVideos {
 			System.out.println("");
 			System.out.println("");
 		} else {
-			System.out.println("No hay videos en la lista. Pulse 3 para añadir.");
+			System.out.println("LO SENTIMOS. No hay videos en la lista.");
 		}
 
 	} // FIN listar();
@@ -105,32 +106,23 @@ public class GestorDeVideos {
 
 	private static void anadir() {
 
-		long id;
 		String tit;
 		String cod;
 
-		System.out.print("Teclea un id: ");
-		try {
-			id = sc.nextLong();
-			sc.nextLine();
+		System.out.print("Por favor, introduce un título de 3 a 254 caracteres para el video: ");
+		tit = sc.nextLine();
 
-			System.out.print("Teclea un título: ");
-			tit = sc.nextLine();
-
-			System.out.print("Teclea un código: ");
-			cod = sc.nextLine();
-
-			VideoYoutube v = new VideoYoutube(id, tit, cod);
+		System.out.print("Por favor, introduce un código de 11 caracteres para el video: ");
+		cod = sc.nextLine();
+		if (tit.length() < 3 || tit.length() > 254) {
+			System.out.println("LO SENTIMOS. El título introducido no es válido.");
+		} else if (cod.length() != 11) {
+			System.out.println("LO SENTIMOS. El código introducido no es válido.");
+		} else {
+			VideoYoutube v = new VideoYoutube(++cont, tit, cod);
 			System.out.println(dao.insert(v) ? "Video insertado con éxito."
 					: "Lo sentimos, ha ocurrido un error durante la insersción.");
 
-		} catch (Exception e) {
-
-			System.out.println("ID NO VÁLIDA. Por favor, teclea un ID númerico correcto.");
-			anadir();
-		} finally {
-			sc.nextLine();
-			pintarMenu();
 		}
 
 	} // FIN anadir();
@@ -147,36 +139,35 @@ public class GestorDeVideos {
 
 		} catch (Exception e) {
 			System.out.println("ID NO VÁLIDA. Por favor, teclea un ID númerico correcto.");
-			sc.nextLine();
 			eliminar();
+		} finally {
+			sc.nextLine();
 		}
-
-		pintarMenu();
 
 	} // FIN eliminar();
 
 	private static void pintarMenu() {
-		opcionSeleccionada = -1;
+
 		System.out.println("------------------------------------");
 		System.out.println("--          YOUTUBE               --");
 		System.out.println("------------------------------------");
 		System.out.println("-    1. Listar                     -");
 		System.out.println("-    2. Añadir Nuevo               -");
 		System.out.println("-    3. Eliminar                   -");
-		System.out.println("-    0. Salir                     -");
+		System.out.println("-    0. Salir                      -");
 		System.out.println("------------------------------------");
 		System.out.println("");
 		System.out.print("Selecciona una opción: ");
 
 		try {
 			opcionSeleccionada = sc.nextInt();
-			sc.nextLine();
+
 		} catch (Exception e) {
 
 			System.out.println("OPCIÓN NO VÁLIDA, Por favor, teclea una opción correcta.");
-			sc.nextLine();
-			opcionSeleccionada = -1;
 			pintarMenu();
+		} finally {
+			sc.nextLine();
 		}
 
 	} // FIN pintarMenu();

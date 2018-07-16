@@ -1,20 +1,16 @@
 package com.ipartek.formacion.ejercicios;
 
-public class Excepciones {
+public class Excepciones2 {
 
 	public static void main(String[] args) {
 
 		System.out.println("Comenzando main...");
-		try {
-			metodoA();
-		} catch (Exception e) {
-			System.out.println(e);
-		}
+		metodoA();
 		System.out.println("Saliendo main...");
 
 	}
 
-	private static void metodoA() throws Exception {
+	private static void metodoA() {
 
 		System.out.println("Entrando A...");
 		metodoB();
@@ -22,7 +18,7 @@ public class Excepciones {
 
 	}
 
-	private static void metodoB() throws Exception {
+	private static void metodoB() {
 
 		System.out.println("Entrando B...");
 		metodoC();
@@ -30,10 +26,16 @@ public class Excepciones {
 
 	}
 
-	private static void metodoC() throws Exception {
+	private static void metodoC() {
 		System.out.println("Entrando C...");
-		throw new Exception("Excepción capturada.");
-		// System.out.println("Saliendo C...");
+
+		try {
+			Object o = null;
+			o.toString();
+		} catch (Exception e) {
+			// NO hacer nada
+		}
+		System.out.println("Saliendo C...");
 
 	}
 
