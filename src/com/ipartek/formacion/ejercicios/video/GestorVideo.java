@@ -53,12 +53,12 @@ public class GestorVideo {
 	}
 
 	private static void mostrarMenu() {
-	
+		System.out.println("Selecciona una opción:");
 		System.out.println("1 - Listar");
 		System.out.println("2 - Añadir");
 		System.out.println("3 - Eliminar");
 		System.out.println("0 - Salir");
-		System.out.println("Selecciona una opción:");
+		
 	}
 
 	private static void mostrarLista(List<Youtube> videos) {
