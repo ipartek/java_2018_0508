@@ -6,8 +6,6 @@ package com.ipartek.formacion.model;
 import java.io.IOException;
 import java.util.Scanner;
 
-import com.ipartek.formacion.model.VideoYoutubeArrayDAO;
-
 public class GestorVideos {
 
 	static private VideoYoutubeArrayDAO dao;
@@ -18,6 +16,10 @@ public class GestorVideos {
 	static private final int OPCION_LISTAR = 1;
 	static private final int OPCION_ANADIR = 2;
 	static private final int OPCION_ELIMINAR = 3;
+
+	static public final int MAXLIM_TITULO = 254;
+	static public final int MINLIM_TITULO = 3;
+	static public final int LIM_CODIGO = 11;
 
 	public static void main(String[] args) throws IOException {
 
@@ -44,7 +46,7 @@ public class GestorVideos {
 				break;
 
 			case OPCION_SALIR:
-				salir();
+				System.out.println("AGUR VENUR, esperamos verte pronto");
 				break;
 
 			default:
@@ -53,16 +55,6 @@ public class GestorVideos {
 			}
 
 		} while (opcionSeleccionada != OPCION_SALIR);
-
-	}
-
-	private static void salir() {
-		System.out.println("");
-		System.out.println("");
-		System.out.println("");
-		System.out.println("");
-		System.out.println("");
-		System.out.println("AGUR VENUR, esperamos verte pronto");
 
 	}
 
@@ -124,11 +116,11 @@ public class GestorVideos {
 						mostrar();
 					}
 
-				}else {
+				} else {
 					System.out.println("LO SENTIMOS NO HAY NINGUN VIDEO EN LA LISTA AÑADE UNO NUEVO");
 					pintarMenu();
 				}
-			}//(s/n)
+			} // (s/n)
 
 		} while (seguir != 'n');
 
@@ -138,7 +130,6 @@ public class GestorVideos {
 	private static void anadirVideos() throws IOException {
 
 		char seguir;
-		int id = 2;
 
 		do {
 
@@ -146,18 +137,18 @@ public class GestorVideos {
 			String codigo = "";
 
 			do {
-				System.out.println("Introduce el TITULO del video que deseas añadir:");
+				System.out.println("Introduce el TITULO del video que deseas añadir(3 caracteres como minimo):");
 				titulo = sc.nextLine();
-			} while (titulo.getBytes().length > 24 || titulo.getBytes().length < 3);
+			} while (titulo.getBytes().length > MAXLIM_TITULO || titulo.getBytes().length < MINLIM_TITULO);
 
 			titulo.trim();
 
 			do {
 				System.out.println("Introduce el CODIGO del video que deseas añadir(11 caracteres):");
 				codigo = sc.nextLine();
-			} while (codigo.getBytes().length != 11); // codigo.isEmpty() == true
+			} while (codigo.getBytes().length != LIM_CODIGO); // codigo.isEmpty() == true
 
-			id++;
+			int id = dao.getAll().size() + 1;
 
 			VideoYoutube video = new VideoYoutube(id, titulo, codigo);
 			dao.insert(video);
