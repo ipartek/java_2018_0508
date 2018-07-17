@@ -21,7 +21,7 @@ public class GestorVideos {
 	static private final int TITULO_MINIMO = 3;
 	static private final int TITULO_MAXIMO = 254;
 	static private final int CARACTERES_CODIGO = 11;
-	static private int CONTADOR = 2;
+	static private int CONTADOR = 0;
 	
 	
 	public static void main(String[] args) {
@@ -44,7 +44,11 @@ public class GestorVideos {
 		}		
 		
 		finally {
-			sc.close();
+			
+			if (sc != null) {
+				sc.close();
+			}
+			dao = null;
 		}
 		
 	}
@@ -72,7 +76,7 @@ public class GestorVideos {
 	private static void listar() {
 		
 		if(dao.getAll().size() == 0) {
-			System.out.println("No hay videos para listar, por favor añade uno nuevo");
+			System.out.println("No hay videos para listar, por favor aï¿½ade uno nuevo");
 			pintarMenu();
 			opcionElegida();
 		}
@@ -93,7 +97,7 @@ public class GestorVideos {
 		
 	}
 	
-	//Título mayor que 3 y menor que 254 caracteres, el código 11 caracteres.
+	//Tï¿½tulo mayor que 3 y menor que 254 caracteres, el cï¿½digo 11 caracteres.
 	private static void anadir() {
 		
 		VideoYoutube video = new VideoYoutube();
@@ -104,7 +108,7 @@ public class GestorVideos {
 		video.setId(id);
 		
 		do {
-			System.out.println("Introduce un título (de 3 a 254 caracteres)");
+			System.out.println("Introduce un tï¿½tulo (de 3 a 254 caracteres)");
 			try {
 				titulo = br.readLine();
 			} catch (IOException e) {
@@ -115,7 +119,7 @@ public class GestorVideos {
 		video.setTitulo(titulo);		
 		
 		do {
-			System.out.println("Introduce un código (de 11 caracteres)");
+			System.out.println("Introduce un cï¿½digo (de 11 caracteres)");
 			codigo = sc.next();
 		} while (codigo.length() != CARACTERES_CODIGO);
 		
@@ -137,7 +141,7 @@ public class GestorVideos {
 		long id;
 		
 		if(dao.getAll().size() == 0) {
-			System.out.println("No hay videos en la lista, por favor añade uno nuevo");
+			System.out.println("No hay videos en la lista, por favor aï¿½ade uno nuevo");
 			pintarMenu();
 			opcionElegida();
 		}
@@ -157,7 +161,7 @@ public class GestorVideos {
 				dao.delete(id);
 				
 			} catch (Exception e) {
-				System.out.println("La id debe ser un número entero");
+				System.out.println("La id debe ser un nï¿½mero entero");
 			}
 			
 			if(CONTADOR - 1 == dao.getAll().size()) {
@@ -173,10 +177,10 @@ public class GestorVideos {
 
 
 	private static void cargarVideos() {
-		VideoYoutube video = new VideoYoutube(1, "Nightmares On Wax Boiler Room London DJ Set", "Q692lHFaLVM");
+		VideoYoutube video = new VideoYoutube(++CONTADOR, "Nightmares On Wax Boiler Room London DJ Set", "Q692lHFaLVM");
 		dao.insert(video);
 		
-		video = new VideoYoutube(2, "The Skatalites - Rock Fort Rock", "6bLVdKbPHHY");
+		video = new VideoYoutube(++CONTADOR, "The Skatalites - Rock Fort Rock", "6bLVdKbPHHY");
 		dao.insert(video);
 				
 	}
@@ -188,7 +192,7 @@ public class GestorVideos {
 		System.out.println("--          youtube               --");
 		System.out.println("------------------------------------");
 		System.out.println("-    1. Listar                     -");
-		System.out.println("-    2. Añadir Nuevo               -");
+		System.out.println("-    2. Aï¿½adir Nuevo               -");
 		System.out.println("-    3. Eliminar                   -");
 		System.out.println("-                                  -");
 		System.out.println("-    0 - salir                     -");
@@ -199,10 +203,10 @@ public class GestorVideos {
 		try {
 			opcionSeleccionada = sc.nextInt();
 		}catch (Exception e) {
-			//e.printStackTrace(); Pinta la fila de excepción
+			//e.printStackTrace(); Pinta la fila de excepciï¿½n
 			
 			sc.nextLine();
-			System.out.println("OPCIÓN NO VÁLIDA, Por favor, introduzca un número del menú");
+			System.out.println("OPCIï¿½N NO Vï¿½LIDA, Por favor, introduzca un nï¿½mero del menï¿½");
 			
 			pintarMenu();
 			opcionElegida();

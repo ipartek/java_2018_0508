@@ -22,7 +22,7 @@ public class Ejercicio1 {
 		double media;
 		
 		do {
-			System.out.println("¿Cuántos alumnos hay en la clase?");
+			System.out.println("Â¿CuÃ¡ntos alumnos hay en la clase?");
 			cantidadAlumnos = sc.nextInt();
 		} while (cantidadAlumnos <= 0);
 		

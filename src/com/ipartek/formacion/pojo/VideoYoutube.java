@@ -5,8 +5,8 @@ public class VideoYoutube implements Cloneable{
 	
 
 	private long id;
-	private String titulo;
-	private String codigo;
+	private String titulo; // de 3 a 254 caracteres
+	private String codigo; //11 caracteres
 	
 	public VideoYoutube() {
 		super();
