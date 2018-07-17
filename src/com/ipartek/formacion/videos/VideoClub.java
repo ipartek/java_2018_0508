@@ -72,9 +72,11 @@ public class VideoClub {
 			System.out.println("Disculpen las molestias pero hemos tenido un problema tecnico.");
 
 		} finally {
-			
-			sc.close();
-			
+
+			if (sc != null) {
+				sc.close();
+			}
+			dao = null;
 		}
 	}
 
@@ -148,7 +150,7 @@ public class VideoClub {
 	private static void listarVideos() {
 
 		if (dao.getAll().size() == 0) {
-			System.out.println("No hay musica :( \n Empieza a añadir.");
+			System.out.println("No hay musica :( \n Empieza a aï¿½adir.");
 		} else {
 			System.out.println(dao.getAll());
 		}
@@ -247,8 +249,8 @@ public class VideoClub {
 
 		video.setCodigo(codigo);
 
-		System.out.println((dao.insert(video) == true) ? "El video se ha añadido correctamente."
-				: "UPSS, no se ha podido añadir el video.");
+		System.out.println((dao.insert(video) == true) ? "El video se ha aï¿½adido correctamente."
+				: "UPSS, no se ha podido aï¿½adir el video.");
 
 		ULTIMO_ID = dao.getAll().size() + 1;
 	}
@@ -271,7 +273,7 @@ public class VideoClub {
 	 * comprueba el codigo
 	 * 
 	 * @param codigo
-	 * @return devuelve cadena vacia si no cumple el tamaño de 11
+	 * @return devuelve cadena vacia si no cumple el tamaï¿½o de 11
 	 */
 	private static String comprobarCodigo(String codigo) {
 		if (codigo.trim().length() != TAMANO_CODIGO) {

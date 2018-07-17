@@ -15,15 +15,22 @@ public class Ejercicio1 {
 	public static void main(String[] args) {
 
 		int n;
-		List<Integer> alturas = new ArrayList<Integer>(10);
+		List<Integer> alturas = new ArrayList<Integer>();
 		int media = 0;
 		Scanner sc = new Scanner(System.in);
-		
-		for (Integer altura : alturas) {
-			
-			
-			
+
+		for (int i = 0; i < 10; i++) {
+
+			System.out.println("Introduce la altura");
+			n = sc.nextInt();
+			alturas.add(n);
+			media += n;
+
 		}
+
+		System.out.println("La media es de " + (media / alturas.size()));
+
+		sc.close();
 
 	}
 
