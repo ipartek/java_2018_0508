@@ -12,11 +12,13 @@ public class GestorVideos {
 	static videoYoutube[] videoB ;
 	static VideoYoutubeArrayDao dao;
 	int contador = 0;
+	static boolean contador2 ;
 
 	public static void main(String[] args) throws Exception {
 		//La inicializacion es mas correcta hacerla aqui
 		videos = new videoYoutube[5];
 		videoB = new videoYoutube[1];
+		contador2 = false;
 		cargarMenu();
 	}
 
@@ -40,21 +42,7 @@ public class GestorVideos {
 		dao = VideoYoutubeArrayDao.getInstance();
 		//quito las opciones para ser llamadas desde una funcion
 		opcionesMenu(opcion);
-		/*if (opcion == LISTAR) {
-			listarCanciones();
-		} else {
-			if (opcion == AÑADIR) {
-				Anadir();
-			}else {
-				if(opcion == ELIMINAR) {
-					eliminarCancion();
-				}else {
-					if(opcion == salir) {
-						salir();
-					}
-				}
-			}
-		}*/
+		
 		} catch (Exception e) {
 			System.out.println("Opcion incorrecta");
 			pintarMenu();
@@ -133,7 +121,7 @@ public class GestorVideos {
 	private static void listarCanciones() throws Exception {
 		
 		int opcion = 0;
-		VideoYoutubeArrayDao videoarray = cargarCanciones();
+		VideoYoutubeArrayDao videoarray = cargarInicialCanciones();
 		System.out.println("------Listar Menu------");
 		
 		try {
@@ -142,7 +130,7 @@ public class GestorVideos {
 			}
 
 			System.out.println(
-					"pulse 1 Menu principal. pulse 2.Para Añadir canciones: Pulsar 3. Para Eliminar canciones Pulsar 3. Pulsar 4 para salir ");
+					"pulse 1 Listar. pulse 2.Para Añadir canciones: Pulsar 3. Para Eliminar canciones. Pulsar 4 para salir ");
 
 			BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 			opcion = Integer.parseInt(br.readLine());
@@ -151,7 +139,7 @@ public class GestorVideos {
 			
 			try {
 				System.out.println(
-						"pulse 1 Menu principal. pulse 2.Para Añadir canciones: Pulsar 3. Para Eliminar canciones Pulsar 3. Pulsar 4 para salir ");
+						"pulse 1 Menu principal. pulse 2.Para Añadir canciones: Pulsar 3. Para Eliminar canciones . Pulsar 4 para salir ");
 				BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 				opcion = Integer.parseInt(br.readLine());
 			} catch (Exception e2) {
@@ -208,7 +196,7 @@ public class GestorVideos {
 
 	private static VideoYoutubeArrayDao cargarCanciones() {
 		
-		if (dao.getAll().size() == 0) {
+		if (dao.getAll().size() == 0 && contador2== false) {
 			videoYoutube vInicial1 = new videoYoutube(1, "Agua de marzo", "rap1");
 			videoYoutube vInicial2 = new videoYoutube(2, "Repartiendo arte", "rap2");
 			videoYoutube vInicial3 = new videoYoutube(3, "Cancion3", "rap3");
@@ -219,8 +207,10 @@ public class GestorVideos {
 			dao.insert(vInicial3);
 			dao.insert(vInicial4);
 			dao.insert(vInicial5);
+		}else {
+			System.out.println("No hay canciones que mostrar");
 		}
-
+		contador2 = true;
 		return dao;
 	}
 
@@ -268,6 +258,23 @@ public class GestorVideos {
 			}
 		}
 	}
+private static VideoYoutubeArrayDao cargarInicialCanciones() {
+			if(contador2 ==false) {
+				videoYoutube vInicial1 = new videoYoutube(1, "Agua de marzo", "rap1");
+				videoYoutube vInicial2 = new videoYoutube(2, "Repartiendo arte", "rap2");
+				videoYoutube vInicial3 = new videoYoutube(3, "Cancion3", "rap3");
+				videoYoutube vInicial4 = new videoYoutube(4, "Cancion4", "rap4");
+				videoYoutube vInicial5 = new videoYoutube(5, "Cancion5", "raps5");
+				dao.insert(vInicial1);
+				dao.insert(vInicial2);
+				dao.insert(vInicial3);
+				dao.insert(vInicial4);
+				dao.insert(vInicial5);
+				
+			}
+			contador2 = true;
+			return dao;
+			
+		}	
+	}
 
-
-}
