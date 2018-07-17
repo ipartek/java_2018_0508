@@ -12,6 +12,12 @@ public class Youtube {
 		this.titulo = titulo;
 		this.codigo = codigo;
 	}
+	
+	public Youtube(String titulo, String codigo) {
+		super();
+		this.titulo = titulo;
+		this.codigo = codigo;
+	}
 
 	public long getId() {
 		return id;

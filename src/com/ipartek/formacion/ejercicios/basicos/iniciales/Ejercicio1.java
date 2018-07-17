@@ -1,5 +1,7 @@
 package com.ipartek.formacion.ejercicios.basicos.iniciales;
 
+import com.ipartek.formacion.pojo.Youtube;
+
 /**
  * Escribe un programa Java que realice lo siguiente: declarar una variable N de
  * tipo int, una variable A de tipo double y una variable C de tipo char y

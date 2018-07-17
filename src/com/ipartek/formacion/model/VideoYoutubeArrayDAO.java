@@ -16,6 +16,7 @@ import com.ipartek.formacion.pojo.Youtube;
 public class VideoYoutubeArrayDAO implements CrudAble {
 	private static VideoYoutubeArrayDAO INSTANCE = null;
 	private static List<Youtube> Lista = null;
+	private static long id = 1;
 
 	private VideoYoutubeArrayDAO() {
 		Lista = new ArrayList<Youtube>();
@@ -33,7 +34,17 @@ public class VideoYoutubeArrayDAO implements CrudAble {
 	public boolean insert(Youtube video) {
 		boolean result = false;
 		if (video != null) {
-			result = Lista.add(video);
+			video.setId(id);
+			if (video.getTitulo().length() > 3 && video.getTitulo().length() < 255) {
+				if (video.getCodigo().length() == 11) {
+				} else {
+					System.out.println("El codigo debe ser de 11 caracteres");
+				}
+				result = Lista.add(video);
+				id++;
+			} else {
+				System.out.println("El titulo tiene que ser entre 3 y 255 caracteres ");
+			}
 
 		}
 
