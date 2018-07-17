@@ -2,8 +2,6 @@ package com.ipartek.formacion.model;
 
 import java.util.List;
 
-import com.ipartek.formacion.pojo.VideoYoutube;
-
 /**
  * Interfaz para determinar o especificar los metodos de <b>CRUD</b>:
  * 
@@ -19,17 +17,17 @@ import com.ipartek.formacion.pojo.VideoYoutube;
  *
  */
 
-public interface CrudAble {
+public interface CrudAble<P> {
 
-	boolean insert(VideoYoutube video);
+	boolean insert(P pojo);
 
 	/**
-	 * Recupera todos los VideoYoutube
+	 * Recupera todos los pojo
 	 * 
 	 * @return si no existe resultado retorna lista vacia, no null
 	 */
 
-	List<VideoYoutube> getAll();// conseguir todos los videos
+	List<P> getAll();// conseguir todos los videos
 
 	/**
 	 * Buscamos un VideoYoutube por su identificador
@@ -37,9 +35,10 @@ public interface CrudAble {
 	 * @param id long identificador
 	 * @return VideoYoutube si lo encuentra, null si no encuentra
 	 */
-	VideoYoutube getById(long id);
+	
+	P getById(long id);
 
-	boolean update(VideoYoutube video);
+	boolean update(P pojo);
 
 	boolean delete(long id);
 

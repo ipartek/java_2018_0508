@@ -15,7 +15,7 @@ import com.ipartek.formacion.pojo.VideoYoutube;
  *
  */
 
-public class VideoYoutubeArrayDAO implements CrudAble {
+public class VideoYoutubeArrayDAO implements CrudAble<VideoYoutube> {
 
 	private static VideoYoutubeArrayDAO INSTANCE = null;
 	private static List<VideoYoutube> lista = null;
@@ -36,23 +36,23 @@ public class VideoYoutubeArrayDAO implements CrudAble {
 	@Override
 	public boolean insert(VideoYoutube video) {
 		boolean resul = false;
-		if ( video != null ) {
-			resul = lista.add(video);			
-		}			
+		if (video != null) {
+			resul = lista.add(video);
+		}
 		return resul;
 	}
 
 	@Override
-	public List<VideoYoutube> getAll() {		
+	public List<VideoYoutube> getAll() {
 		return lista;
 	}
 
 	@Override
 	public VideoYoutube getById(long id) {
 		VideoYoutube resul = null;
-		//foreach
+		// foreach
 		for (VideoYoutube videoIteracion : lista) {
-			if ( id == videoIteracion.getId() ) {
+			if (id == videoIteracion.getId()) {
 				resul = videoIteracion;
 				break;
 			}
@@ -65,39 +65,39 @@ public class VideoYoutubeArrayDAO implements CrudAble {
 		boolean resul = false;
 		VideoYoutube videoIteracion = null;
 		int i = 0;
-		if ( videoUpdate != null ) {
-			//Iterator		
+		if (videoUpdate != null) {
+			// Iterator
 			Iterator<VideoYoutube> it = lista.iterator();
-			while( it.hasNext() ) {
+			while (it.hasNext()) {
 				videoIteracion = it.next();
-				if ( videoIteracion.getId() == videoUpdate.getId() ) {
+				if (videoIteracion.getId() == videoUpdate.getId()) {
 					lista.set(i, videoUpdate);
 					resul = true;
-					break;					
-				}	
+					break;
+				}
 				i++;
-			}		
-		}	
+			}
+		}
 		return resul;
 	}
 
 	@Override
-	public boolean delete(long id) {		
+	public boolean delete(long id) {
 		boolean resul = false;
-		
+
 		VideoYoutube vIteracion = null;
-		
-		//buscar video a eliminar
+
+		// buscar video a eliminar
 		for (int i = 0; i < lista.size(); i++) {
-			
-			vIteracion = lista.get(i);   //video sobre el que iteramos
-			
-			if ( id == vIteracion.getId() ) {    // video encontrado
+
+			vIteracion = lista.get(i); // video sobre el que iteramos
+
+			if (id == vIteracion.getId()) { // video encontrado
 				resul = lista.remove(vIteracion);
 				break;
 			}
 		}
-		
+
 		return resul;
 	}
 
