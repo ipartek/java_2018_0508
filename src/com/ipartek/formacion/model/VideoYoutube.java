@@ -17,7 +17,7 @@ public class VideoYoutube {
 		this();
 		this.id = id;
 		this.titulo = titulo;
-		this.codigo = codigo;		
+		this.codigo = codigo;
 	}
 
 	public long getId() {
@@ -32,16 +32,26 @@ public class VideoYoutube {
 		return codigo;
 	}
 
-	public void setCodigo(String codigo) {
-		this.codigo = codigo;
+	public void setCodigo(String codigo) throws Exception {
+		if (codigo != null) {
+			codigo = codigo.trim();
+			this.codigo = codigo;
+		} else {
+			throw new Exception();
+		}
 	}
 
 	public String getTitulo() {
 		return titulo;
 	}
 
-	public void setTitulo(String titulo) {
-		this.titulo = titulo;
+	public void setTitulo(String titulo) throws Exception {
+		if (titulo != null) {
+			titulo = titulo.trim();
+			this.titulo = titulo;
+		} else {
+			throw new Exception();
+		}
 	}
 
 	@Override
