@@ -17,6 +17,10 @@ public class GestorVideos {
 	static private final int OPCION_ANADIR = 2;
 	static private final int OPCION_ELIMINAR = 3;
 	static private final int ID_MIN_VALUE = 1;
+	static private final int TITULO_MIN_SIZE = 3;
+	static private final int TITULO_MAX_SIZE = 254;
+	static private final int CODIGO_MIN_SIZE = 11;
+
 	static private int idCounter = ID_MIN_VALUE;
 
 	public static void main(String[] args) {
@@ -85,7 +89,7 @@ public class GestorVideos {
 		video = new VideoYoutube(idCounter++, "The Skatalites - Rock Fort Rock", "6bLVdKbPHHY");
 		dao.insert(video);
 
-		video = new VideoYoutube(idCounter++, "The sdfad - Rock Fort Rock", "fgfgdf");
+		video = new VideoYoutube(idCounter++, "The sdfad - Rock Fort Rock", "fgfgDSFSsddf");
 		dao.insert(video);
 
 	}
@@ -104,28 +108,35 @@ public class GestorVideos {
 		System.out.println("");
 		System.out.print("Dime una opcion por favor: ");
 
-		opcionSeleccionada = sc.nextInt();
+		try {
+			opcionSeleccionada = sc.nextInt();
 
-		switch (opcionSeleccionada) {
-		case OPCION_LISTAR:
-			listar();
-			break;
+			switch (opcionSeleccionada) {
+			case OPCION_LISTAR:
+				listar();
+				break;
 
-		case OPCION_ANADIR:
-			add();
-			break;
+			case OPCION_ANADIR:
+				add();
+				break;
 
-		case OPCION_ELIMINAR:
-			borrarVideo();
-			break;
+			case OPCION_ELIMINAR:
+				borrarVideo();
+				break;
 
-		case OPCION_SALIR:
-			salir();
-			break;
+			case OPCION_SALIR:
+				salir();
+				break;
 
-		default:
-			noOption();
-			break;
+			default:
+				noOption();
+				break;
+			}
+			
+		} catch (Exception e) {
+			System.out.println("Error el valor introducido no es correcto");
+			pintarMenu();
+
 		}
 
 	}
@@ -140,9 +151,9 @@ public class GestorVideos {
 
 		// TITULO
 		while (!correcto) {
-			System.out.print("Titulo (entre 3 y 254 caracteres): ");
+			System.out.print("Titulo (entre "+TITULO_MIN_SIZE+" y "+TITULO_MAX_SIZE+" caracteres): ");
 			titulo = sc.next();
-			if (titulo.length() > 3 && titulo.length() < 254) {
+			if (titulo.length() > TITULO_MIN_SIZE && titulo.length() < TITULO_MAX_SIZE) {
 				correcto = true;
 
 			} else {
@@ -154,9 +165,9 @@ public class GestorVideos {
 
 		// CODIGO
 		while (!correcto) {
-			System.out.print("Codigo (minimo 11 caracteres): ");
+			System.out.print("Codigo (minimo "+CODIGO_MIN_SIZE+" caracteres): ");
 			codigo = sc.next();
-			if (codigo.length() < 11) {
+			if (codigo.length() < CODIGO_MIN_SIZE) {
 				System.out.println("ERROR, El codigo debe tener al menos 11 caracteres");
 
 			} else {
@@ -189,7 +200,7 @@ public class GestorVideos {
 	public static void borrarVideo() {
 
 		System.out.print("Introduce un id: ");
-		long id =-1;
+		long id = -1;
 		try {
 			id = sc.nextLong();
 			if (dao.getAll().size() > 0) {

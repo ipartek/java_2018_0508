@@ -2,14 +2,20 @@ package com.ipartek.formacion.enumeracion;
 
 public class Bebida {
 
-	
+	private final int MEDIDA = 100; //cc
 	private Vaso vaso;
 	private PrecioBebida precioBebida;
-	
+
 	public Bebida() {
 		super();
 		this.vaso = Vaso.KATXI;
 		this.precioBebida = PrecioBebida.KALIMOTXO;
+	}
+
+	public Bebida(Vaso v, PrecioBebida p) {
+		this();
+		this.setVaso(v);
+		this.setPrecioBebida(p);
 	}
 
 	public Vaso getVaso() {
@@ -17,7 +23,9 @@ public class Bebida {
 	}
 
 	public void setVaso(Vaso vaso) {
-		this.vaso = vaso;
+		if (vaso == Vaso.VASO || vaso == Vaso.KATXI) {
+			this.vaso = vaso;
+		}
 	}
 
 	public PrecioBebida getPrecioBebida() {
@@ -25,14 +33,14 @@ public class Bebida {
 	}
 
 	public void setPrecioBebida(PrecioBebida precioBebida) {
-		this.precioBebida = precioBebida;
+		if (precioBebida == PrecioBebida.CERVEZA || precioBebida == PrecioBebida.KALIMOTXO) {
+			this.precioBebida = precioBebida;
+		}
 	}
-	
+
 	float calcularPrecio() {
-		return this.precioBebida.getPrecio()* ((float)this.vaso.getCC()/100);
-		
+		return this.precioBebida.getPrecio() * ((float) this.vaso.getCC() / MEDIDA);
+
 	}
-	
-	
-	
+
 }
