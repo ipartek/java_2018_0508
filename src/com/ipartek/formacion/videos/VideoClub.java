@@ -23,42 +23,50 @@ public class VideoClub {
 	static private final int OPCION_ANADIR = 2;
 	static private final int OPCION_ELIMINAR = 3;
 
-	static ArrayList<VideoYoutube> videos = new ArrayList<VideoYoutube>();
+	static private final int TITULO_MIN = 3;
+	static private final int TITULO_MAX = 254;
+	static private final int LONGCODIGO = 11;
+	static private final String TERMINAR = "n";
+	static private final int VACIO = 0;
 
 	public static void main(String[] args) {
+		try {
+			sc = new Scanner(System.in);
 
-		sc = new Scanner(System.in);
+			dao = VideoYoutubeArrayDAO.getInstance();
 
-		dao = VideoYoutubeArrayDAO.getInstance();
+			cargarVideos();
 
-		cargarVideos();
+			do {
 
-		do {
+				pintarMenu();
 
-			pintarMenu();
+				switch (opcionSeleccionada) {
+				case OPCION_LISTAR:
+					listarVideo();
+					break;
 
-			switch (opcionSeleccionada) {
-			case OPCION_LISTAR:
-				listarVideo(videos);
-				break;
+				case OPCION_ANADIR:
+					agregarVideo();
+					break;
 
-			case OPCION_ANADIR:
-				agregarVideo();
-				break;
+				case OPCION_ELIMINAR:
+					eliminaElement();
+					break;
 
-			case OPCION_ELIMINAR:
-				eliminaElement();
-				break;
+				case OPCION_SALIR:
+					System.out.println(" ADIOS!! ");
+					break;
 
-			case OPCION_SALIR:
-				System.out.println(" ADIOS!! ");
-				break;
+				}
 
-			}
+			} while (opcionSeleccionada != OPCION_SALIR);
 
-		} while (opcionSeleccionada != 0);
-
-		sc.close();
+		} catch (Exception e) {
+			System.out.println("Lo sentimos, no se puede usar la aplicacion por problemas tecnicos");
+		} finally {
+			sc.close();
+		}
 
 	}
 
@@ -97,10 +105,18 @@ public class VideoClub {
 
 	}
 
-	private static void listarVideo(ArrayList<VideoYoutube> videos) {
+	private static void listarVideo() {
 
-		for (VideoYoutube listVideos : dao.getALl()) {
-			System.out.println("  " + listVideos + " \n");
+		ArrayList<VideoYoutube> videos = (ArrayList<VideoYoutube>) dao.getALl();
+
+		if (videos.size() <= VACIO) {
+			System.out.println("No hay videos para mostrar.");
+		} else {
+			System.out.println("Listado de " + videos.size() + " videos");
+
+			for (VideoYoutube listVideos : videos) {
+				System.out.println("  " + listVideos + " \n");
+			}
 		}
 
 	}
@@ -110,6 +126,8 @@ public class VideoClub {
 		sc.nextLine();
 		String continuar = "n";
 		boolean resul = false;
+		int cont = 2;
+
 		System.out.println("\n");
 		System.out.println(" - INSERTANDO VIDEOS - ");
 
@@ -117,31 +135,28 @@ public class VideoClub {
 
 			VideoYoutube v = new VideoYoutube();
 
-			v.setId(dao.getALl().size() + 1);
-
 			do {
 				System.out.print("inserte titulo : ");
 				v.setTitulo(sc.nextLine().trim());
-
-				if (v.getTitulo().length() < 3) {
-					System.out.println("La longitud del titulo es corta");
-
-				} else if (v.getTitulo().length() > 254) {
-					System.out.println("La longitud del titulo es demasiado largo");
-
+				
+				if (v.getTitulo().length() < TITULO_MIN || v.getTitulo().length() > TITULO_MAX) {
+					System.out.println("ERROR...La longitud del titulo debe de ser entre 3 y 254 caracteres");
 				}
-			} while (v.getTitulo().length() < 3 || v.getTitulo().length() > 254);
+			} while (v.getTitulo().length() < TITULO_MIN || v.getTitulo().length() > TITULO_MAX);
 
 			do {
 				System.out.print("inserte codigo: ");
 				v.setCodigo(sc.next());
-				if (v.getCodigo().length() < 11) {
-					System.out.println("La longitud del codigo es corta");
+				sc.nextLine();
+				if (v.getCodigo().length() != LONGCODIGO) {
+					System.out.println("ERROR...La longitud del codigo debe ser de 11 caracteres.");
 				}
-				if (v.getCodigo().length() > 11) {
-					System.out.println("La longitud del codigo es larga");
-				}
-			} while (v.getCodigo().length() < 11 || v.getCodigo().length() > 11);
+
+			} while (v.getCodigo().length() < LONGCODIGO || v.getCodigo().length() > LONGCODIGO);
+
+			cont++;
+
+			v.setId(cont);
 
 			System.out.println("guardado registro....");
 			dao.insert(v);
@@ -157,32 +172,35 @@ public class VideoClub {
 				sc.nextLine();
 			}
 
-		} while (!"n".equalsIgnoreCase(continuar));
+		} while (!TERMINAR.equalsIgnoreCase(continuar));
 
 	}
 
 	private static void eliminaElement() {
 
+		ArrayList<VideoYoutube> videos = (ArrayList<VideoYoutube>) dao.getALl();
+
 		long r = 0;
 		long aux = 0;
-		if (dao.getALl().isEmpty()) {
+
+		if (videos.size() <= VACIO) {
 			System.out.println("\n No hay videos que mostrar \n");
 			pintarMenu();
 		} else {
 			System.out.println(" \n Listado de videos :    ");
-			listarVideo(videos);
+			listarVideo();
 
 			do {
 				try {
 
-					System.out.print("Ingrese el numero del video a eliminar:");
+					System.out.print("Ingrese el id del video a eliminar:");
 					r = sc.nextLong();
 					aux = r;
 
 					if (dao.getById(r).getId() == r) {
 						dao.delete(r);
 						System.out.println("\n Lista actualizada....");
-						listarVideo(videos);
+						listarVideo();
 					} else {
 						System.out.println("Video no encontrado");
 					}
