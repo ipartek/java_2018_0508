@@ -1,5 +1,8 @@
 package com.ipartek.formacion.videos;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.Scanner;
 
 import com.ipartek.formacion.model.VideoYoutubeArrayDAO;
@@ -18,6 +21,7 @@ public class VideoClub {
 	static private VideoYoutubeArrayDAO dao;
 	static private int opcionSeleccionada = 0;
 	static Scanner sc = null;
+	static BufferedReader bf;
 
 	static private final int OPCION_LISTAR = 1;
 	static private final int OPCION_ANADIR = 2;
@@ -26,15 +30,23 @@ public class VideoClub {
 	static private final int TAM_MIN_TITULO = 3;
 	static private final int TAM_MAX_TITULO = 254;
 	static private final int TAM_CODIGO = 11;
+	static private final int OPCION_ELIMINAR_LISTA_COMPLETA = 1;
+	static private final int OPCION_ELIMINAR_VIDEO = 2;
 
 	static int cont = 0;
 
 	public static void main(String[] args) {
-		sc = new Scanner(System.in);
+		try {
+			bf = new BufferedReader(new InputStreamReader(System.in));
 
-		dao = VideoYoutubeArrayDAO.getInstance();
-		cargarVideo();
-		pintarMenu();
+			dao = VideoYoutubeArrayDAO.getInstance();
+			cargarVideo();
+			pintarMenu();
+		} catch (Exception e) {
+			System.out.println("Lo sentimos pero ha ocurrido un fallo");
+		} finally {
+
+		}
 
 	}
 
@@ -45,127 +57,193 @@ public class VideoClub {
 		dao.insert(new VideoYoutube(2, "Para los mios", "fp47VcTlwWQ"));
 		dao.insert(new VideoYoutube(3, "Paquito el chocolatero", "3A2KtOXRpOo"));
 		dao.insert(new VideoYoutube(4, "Marijaia", "fp67VcT1wWQ"));
-		cont = dao.getAll().size();// Utilizaremos cont para determinar el id de
-									// los videos
+		cont = dao.getAll().size();// Utilizaremos cont para determinar el id de // los videos
 
 	}
 
 	private static void pintarMenu() {
+		do {
+			System.out.println("----------------------------------");
+			System.out.println("--------------youtube-------------");
+			System.out.println("----------------------------------");
+			System.out.println("    1.Listar                      ");
+			System.out.println("    2.Añadir                      ");
+			System.out.println("    3.Eliminar                    ");
+			System.out.println("    0.Salir                       ");
+			System.out.println("----------------------------------");
+			System.out.println("Elige una opcion");
+			try {
 
-		System.out.println("----------------------------------");
-		System.out.println("--------------youtube-------------");
-		System.out.println("----------------------------------");
-		System.out.println("    1.Listar                      ");
-		System.out.println("    2.Añadir                      ");
-		System.out.println("    3.Eliminar                    ");
-		System.out.println("    0.Salir                       ");
-		System.out.println("----------------------------------");
-		System.out.println("Elige una opcion");
-		try {
-			opcionSeleccionada = sc.nextInt();
-		} catch (TypeMismatchException e) {
-			System.out.println("Lo sentimos pero debe introducir un numero de la lista");
-			sc.next();
-			pintarMenu();
+				opcionSeleccionada = Integer.parseInt(bf.readLine());
 
-		} catch (Exception e) {
-			System.out.println("Lo sentimoss pero no has introducido una opcion correcta");
-			System.out.println("Introduzca una numero entre 0 y 3 por favor");
-			sc.next();
-			pintarMenu();
-		}
-		sc.nextLine();
-		switch (opcionSeleccionada) {
-		case OPCION_LISTAR:
-			listarVideos();
-			pintarMenu();
-			break;
+			} catch (TypeMismatchException e) {
+				System.out.println("Lo sentimos pero debe introducir un numero de la lista");
 
-		case OPCION_ANADIR:
-			añadirVideo();
-			pintarMenu();
-			break;
+			} catch (Exception e) {
+				System.out.println("Lo sentimoss pero no has introducido una opcion correcta");
+				System.out.println("Introduzca una numero entre 0 y 3 por favor");
 
-		case OPCION_ELIMINAR:
-			eliminarVideo();
-			pintarMenu();
-			break;
+			}
 
-		case OPCION_SALIR:
-			System.exit(0);
-			break;
+			switch (opcionSeleccionada) {
+			case OPCION_LISTAR:
+				listarVideos();
+				pintarMenu();
+				break;
 
-		default:
-			System.out.println("Lo sentimos pero no has introducido una opcion correcta");
-			System.out.println("Introduzca una numero entre 0 y 3 por favor");
-			pintarMenu();
-			break;
-		}
+			case OPCION_ANADIR:
+				anadirVideo();
+				pintarMenu();
+
+				break;
+
+			case OPCION_ELIMINAR:
+				eliminarVideo();
+				pintarMenu();
+
+				break;
+
+			case OPCION_SALIR:
+				System.exit(0);
+				break;
+
+			default:
+				System.out.println("Lo sentimos pero no has introducido una opcion correcta");
+				System.out.println("Introduzca una numero entre 0 y 3 por favor");
+
+				break;
+			}
+		} while (opcionSeleccionada < 0 || opcionSeleccionada > 3);
+
 	}
 
 	private static void eliminarVideo() {
-		int codElim = 0;
-		listarVideos();
-		System.out.println("Introduce el id del video que deseas eliminar");
-		try {
 
-			codElim = sc.nextInt();
+		if (dao.getAll().isEmpty()) {
 
-		} catch (ArrayIndexOutOfBoundsException e) {
+			System.out.println("Lo sentimos pero no hay ningún video que eliminar");
 
-			System.out.println("Lo sentimos pero debe introducir un numero correcto");
+		} else {
+			int opcionElim = 0;
+			System.out.println("¿Que desea eliminar?");
+			pintarMenuEliminar();
+			try {
+				opcionElim = Integer.parseInt(bf.readLine());
+			} catch (NumberFormatException e1) {
 
-		} catch (TypeMismatchException e) {
+				System.out.println("Lo sentimos pero tiene que introducir 1 o 2");
 
-			System.out.println("Lo sentimos pero debe introducir un numero");
+			} catch (IOException e1) {
+				System.out.println("La opcion introducida no es correcta");
+			}
 
-		} catch (Exception e) {
+			switch (opcionElim) {
+			case OPCION_ELIMINAR_LISTA_COMPLETA:
 
-			System.out.println("Lo sentimos pero ha ocurrido un error, por favor intentelo de nuevo");
-			pintarMenu();
+				if (dao.deleteAll(dao.getAll())) {
+					System.out.println("La lista ha sido borrada por completo.");
+					pintarMenu();
+					break;
+				} else {
+
+					System.out.println("La lista ya estaba vacia.");
+					pintarMenu();
+					break;
+				}
+
+			case OPCION_ELIMINAR_VIDEO:
+				boolean videoElim = false;
+				int idElim = 0;
+				do {
+
+					listarVideos();
+					System.out.println("Introduce el id del video que deseas eliminar");
+
+					try {
+						idElim = Integer.parseInt(bf.readLine());
+						videoElim = dao.delete(idElim);
+						if (videoElim) {
+							System.out.println("El video seleccionado ha sido eliminado");
+						} else {
+							System.out.println("El video seleccionado no existe.");
+						}
+
+					} catch (ArrayIndexOutOfBoundsException e) {
+
+						System.out.println("Lo sentimos pero la opcion seleccionada no existe");
+
+					} catch (TypeMismatchException e) {
+
+						System.out.println("Lo sentimos pero debe introducir un numero");
+
+					} catch (Exception e) {
+
+						System.out.println("Lo sentimos pero ha ocurrido un error, por favor intentelo de nuevo");
+						System.out.println("Asegurese de introducir un id valido.");
+						pintarMenu();
+					}
+				} while (!videoElim);
+				break;
+
+			default:
+
+				System.out.println("lo sentimos pero debe introducir un 1 o un 2");
+				pintarMenuEliminar();
+				try {
+					opcionElim = Integer.parseInt(bf.readLine());
+				} catch (NumberFormatException | IOException e) {
+					System.out.println("No ha introducido un numero correcto");
+					System.out.println("Introduzca 1 o 2");
+				}
+				dao.deleteAll(dao.getAll());
+				System.out.println("La lista ha sido elimnada");
+				break;
+			}
+
 		}
-		sc.nextLine();
-		try {
-			dao.delete(codElim);
-		} catch (ArrayIndexOutOfBoundsException e) {
 
-			System.out.println("Lo sentimos pero debe introducir un numero correcto");
+	}
 
-		}
-		System.out.println("El video seleccionado ha sido eliminado");
-
+	private static void pintarMenuEliminar() {
+		System.out.println("----------------------------------");
+		System.out.println("--------------youtube-------------");
+		System.out.println("----------------------------------");
+		System.out.println("    1.Eliminar lista completa     ");
+		System.out.println("    2.Eliminar un video           ");
+		System.out.println("----------------------------------");
+		System.out.println("Elige una opcion");
 	}
 
 	private static void listarVideos() {
-		for (VideoYoutube video : dao.getAll()) {
-			System.out.println("." + video.toString());
+		if (dao.getAll().isEmpty()) {
+			System.out.println("La lista esta vacia, no hay videos que mostrar");
+		} else {
+			for (VideoYoutube video : dao.getAll()) {
+				System.out.println("." + video.toString());
+			}
 		}
 
 	}
 
-	private static void añadirVideo() {
+	private static void anadirVideo() {
 		String cod = "";
 		String tit = "";
 
-		System.out.println("Introduzca el codigo del video");
 		try {
+			do {
 
-			cod = sc.next();
-			if (VideoClub.controlarCodigo(cod)) {
+				System.out.println("Introduzca el codigo del video");
+
+				cod = bf.readLine();
+
+			} while (!VideoClub.controlarCodigo(cod));
+
+			do {
+
 				System.out.println("Introduzca el titulo del video");
-				sc.nextLine();
-				tit = sc.nextLine();
-				if (VideoClub.controlarTitulo(tit)) {
+				tit = bf.readLine();
 
-					dao.insert(new VideoYoutube(cont, tit, cod));
-					cont++;
-					System.out.println("Video añadido a la lista.");
-				} else {
-					System.out.println("Lo sentimos pero el titulo debe tener al menos 3 caracteres.");
-					System.out.println("El video NO se añadio a la lista");
-
-				}
-			}
+			} while (!VideoClub.controlarTitulo(tit));
 
 		} catch (TypeMismatchException e) {
 
@@ -174,9 +252,37 @@ public class VideoClub {
 		} catch (Exception e) {
 
 			System.out.println("Lo sentimos pero ha ocurrido un error, por favor intentelo de nuevo");
-
-			pintarMenu();
 		}
+		dao.insert(new VideoYoutube(cont, tit, cod));
+		cont++;
+		System.out.println("Video añadido a la lista.");
+
+		/*
+		 * try {
+		 * 
+		 * cod = sc.next(); if (VideoClub.controlarCodigo(cod)) {
+		 * System.out.println("Introduzca el titulo del video"); sc.nextLine(); tit =
+		 * sc.nextLine(); if (VideoClub.controlarTitulo(tit)) {
+		 * 
+		 * dao.insert(new VideoYoutube(cont, tit, cod)); cont++;
+		 * System.out.println("Video añadido a la lista."); } else { System.out.
+		 * println("Lo sentimos pero el titulo debe tener al menos 3 caracteres.");
+		 * System.out.println("El video NO se añadio a la lista");
+		 * 
+		 * } }
+		 * 
+		 * } catch (TypeMismatchException e) {
+		 * 
+		 * System.out.println("Lo sentimos pero debe introducir un numero");
+		 * 
+		 * } catch (Exception e) {
+		 * 
+		 * System.out.
+		 * println("Lo sentimos pero ha ocurrido un error, por favor intentelo de nuevo"
+		 * );
+		 * 
+		 * pintarMenu(); }
+		 */
 
 		pintarMenu();
 

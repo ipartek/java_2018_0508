@@ -14,31 +14,33 @@ import com.ipartek.formacion.pojo.VideoYoutube;
  * <li>Delete</li>
  * </ul>
  * 
- * @author Curso
+ * @author Asier Cornejo
  *
  *
  */
-public interface CrudAble {
+public interface CrudAble<P> {
 
-	boolean insert(VideoYoutube video);
+	boolean insert(P pojo);
 
 	/**
-	 * Recupera todos los VideoYoutube
+	 * Recupera todos los pojos
 	 * 
 	 * @return si no existen retorna Lista vacia, no null
 	 */
-	List<VideoYoutube> getAll();
+	List<P> getAll();
 
 	/**
-	 * Buscamos un VideoYoutube por su identificador
+	 * Buscamos un P por su identificador
 	 * 
 	 * @param id long identificador
-	 * @return VideoYoutube si lo encuentra, null si no lo encuentra
+	 * @return si lo encuentra, null si no lo encuentra
 	 */
 
-	VideoYoutube getById(long id);
+	P getById(long id);
 
-	boolean update(VideoYoutube video);
+	boolean update(P pojo);
 
 	boolean delete(long id);
+
+	boolean deleteAll(List<VideoYoutube> list);
 }

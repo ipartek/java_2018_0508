@@ -17,7 +17,7 @@ import com.ipartek.formacion.pojo.VideoYoutube;
  * @see https://es.wikipedia.org/wiki/Singleton
  *
  */
-public class VideoYoutubeArrayDAO implements CrudAble {
+public class VideoYoutubeArrayDAO implements CrudAble<VideoYoutube> {
 
 	private static VideoYoutubeArrayDAO INSTANCE = null;
 	private static List<VideoYoutube> lista = null;
@@ -102,8 +102,8 @@ public class VideoYoutubeArrayDAO implements CrudAble {
 
 		if (id >= 0) {
 
-			for (int i = 0; i < lista.size(); i++) {
-				aux = lista.get(i);
+			for (VideoYoutube video : lista) {
+				aux = lista.get((int) video.getId());
 				if (aux.getId() == id) {
 					result = lista.remove(aux);
 					break;
@@ -111,6 +111,16 @@ public class VideoYoutubeArrayDAO implements CrudAble {
 
 			}
 		}
+		return result;
+	}
+
+	public boolean deleteAll(List<VideoYoutube> list) {
+		boolean result = false;
+		if (!list.isEmpty()) {
+			list.clear();
+			result = true;
+		}
+
 		return result;
 	}
 
