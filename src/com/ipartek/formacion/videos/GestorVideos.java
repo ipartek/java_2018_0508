@@ -28,13 +28,14 @@ public class GestorVideos {
 
 			cargarVideos();
 			pintarMenu();
-			
-		}catch(Exception e) {
-			System.out.println("Estamos teniendo errors");
-			
-		}finally {
+
+		} catch (Exception e) {
+			System.out.println(
+					"Estamos teniendo errores. Por favor contacta con el servicio de asistencia para más información.");
+
+		} finally {
 			sc.close();
-			
+
 		}
 	}
 
@@ -188,9 +189,9 @@ public class GestorVideos {
 	public static void borrarVideo() {
 
 		System.out.print("Introduce un id: ");
-		long id = sc.nextLong();
+		long id =-1;
 		try {
-
+			id = sc.nextLong();
 			if (dao.getAll().size() > 0) {
 				if (dao.delete(id)) {
 					System.out.println("Video eliminado correctamente");
@@ -207,6 +208,7 @@ public class GestorVideos {
 
 		} catch (Exception e) {
 			System.out.println("ERROR, los datos introducidos no son correctos");
+			sc.nextLine();
 			borrarVideo();
 
 			/*
