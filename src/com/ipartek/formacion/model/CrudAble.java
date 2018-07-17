@@ -20,6 +20,7 @@ public interface CrudAble<P> {
 	 * recupera todos los VideoYoutube
 	 * 
 	 * @return si no existen resultados retorna lista vacia , no null
+	 * tambien llamados prototipos
 	 */
 	//leer
 	List<P> getAll();
