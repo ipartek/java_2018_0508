@@ -8,18 +8,18 @@ public class VideoYoutube {
 	String codigo;
 
 	// CONSTRUCTOR(es)
-	public VideoYoutube() { // Por defecto, todo vacío
+	public VideoYoutube() { // Por defecto, todo vacï¿½o
 		super();
 		this.id = -1;
 		this.codigo = "";
 		this.titulo = "";
 	}
 
-	public VideoYoutube(long id, String titulo, String codigo) { // Con parámetros
+	public VideoYoutube(long id, String titulo, String codigo) { // Con parï¿½metros
 		this();
 		this.id = id;
-		this.titulo = titulo;
-		this.codigo = codigo;
+		this.titulo = titulo.trim();
+		this.codigo = codigo.trim();
 
 	}
 
@@ -37,7 +37,7 @@ public class VideoYoutube {
 	}
 
 	public void setTitulo(String titulo) {
-		this.titulo = titulo;
+		this.titulo = titulo.trim();
 	}
 
 	public String getCodigo() {
@@ -45,7 +45,7 @@ public class VideoYoutube {
 	}
 
 	public void setCodigo(String codigo) {
-		this.codigo = codigo;
+		this.codigo = codigo.trim();
 	}
 
 	@Override

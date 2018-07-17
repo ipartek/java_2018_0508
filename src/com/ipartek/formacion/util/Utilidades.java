@@ -4,20 +4,20 @@ import java.util.Scanner;
 
 public class Utilidades {
 
-	// PARA TESTEAR EL CÓDIGO
+	// PARA TESTEAR EL Cï¿½DIGO
 	public static void main(String[] args) {
 
 		int[] array = { 0, 3, 1, 8, 7, 2, 5, 4, 6, 9 };
 		int[] res;
 
-		res = bubbleSort(array, true); // Llamada a la función bubbleShort en orden ascendente
+		res = bubbleSort(array, true); // Llamada a la la funcion bubbleSort en orden ascendente
 		for (int i = 0; i < res.length; i++) {
 			System.out.print(res[i] + " ");
 		}
 
 		System.out.println();
 
-		res = bubbleSort(array, false); // Llamada a la función bubbleShort en orden descendente
+		res = bubbleSort(array, false); // Llamada a la funcion bubbleSort en orden descendente
 		for (int i = 0; i < res.length; i++) {
 			System.out.print(res[i] + " ");
 		}
@@ -28,7 +28,7 @@ public class Utilidades {
 	// UTILIDADES PARA LOS ARRAYS DE ENTEROS
 	// --------------------------------------
 	/**
-	 * Función que ordena un array de enteros según el algoritmo bubbleSort.
+	 * Funciï¿½n que ordena un array de enteros segï¿½n el algoritmo bubbleSort.
 	 * 
 	 * @param nums, array de enteros con valores numericos
 	 * @param asc, boolean que indica si es ascendente
@@ -60,7 +60,7 @@ public class Utilidades {
 	}
 
 	/**
-	 * Función que devuelve un String con la representación de los valores del
+	 * Funciï¿½n que devuelve un String con la representaciï¿½n de los valores del
 	 * array.
 	 * 
 	 * @param array, con valores enteros
@@ -79,7 +79,7 @@ public class Utilidades {
 	// FUNCIONES DE LECTURA DE DATOS EN CONSOLA
 	// -----------------------------------------
 	/**
-	 * Pide y Lee un número entero introducido por consola.
+	 * Pide y Lee un nï¿½mero entero introducido por consola.
 	 * 
 	 * @param sc, Scanner
 	 * @return int, con el valor introducido en consola.
@@ -88,7 +88,7 @@ public class Utilidades {
 
 		int n;
 
-		System.out.println("Introduce un valor númerico entero: ");
+		System.out.println("Introduce un valor nï¿½merico entero: ");
 		n = sc.nextInt();
 		sc.nextLine();
 
@@ -96,10 +96,10 @@ public class Utilidades {
 	}
 
 	/**
-	 * Pide y Lee una línea introducida en consola.
+	 * Pide y Lee una lï¿½nea introducida en consola.
 	 * 
 	 * @param sc, Scanner
-	 * @return String, con la línea introducida en consola.
+	 * @return String, con la lï¿½nea introducida en consola.
 	 */
 	public static String leerString(Scanner sc) {
 

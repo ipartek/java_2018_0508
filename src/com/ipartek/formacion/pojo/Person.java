@@ -76,7 +76,7 @@ public class Person {
 
 	/**
 	 * Establece el sexo de la persona, H = hombre, M = mujer, I = Indefinido,
-	 * admite mayúsculas y minúsculas. Por defecto, el sexo es I.
+	 * admite mayusculas y minusculas. Por defecto, el sexo es I.
 	 * 
 	 * @see constantes SEXO_INDEFINIDO, SEXO_HOMBRE, SEXO_MUJER
 	 * @param sexo char, character que indica el sexo de Person

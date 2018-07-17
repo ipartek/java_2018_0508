@@ -4,7 +4,7 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
-class UtilidadesTest {
+public class UtilidadesTest {
 
 	@Test
 	public void testBubbleSort() {

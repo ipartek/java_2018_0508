@@ -21,8 +21,8 @@ public class Txozna {
 
 		} while (!esOpcionValida(c, true));
 
-		precio = dimePrecio(c);
-		pedido.setPrecioBebida(precio);
+		precio = creaPreciobebida(c);
+		pedido.setPrecioBebida(precio); // Ponemos en pedido la bebida creada
 
 		do { // Pedimos tamaño del vaso
 
@@ -32,13 +32,13 @@ public class Txozna {
 		} while (!esOpcionValida(c, false));
 
 		vaso = creaVaso(c);
-		pedido.setVaso(vaso);
+		pedido.setVaso(vaso); // Ponemos en pedido el vaso creado
 
 		System.out.println("Son " + pedido.calcularPrecio() + " euros");
 
 	} // FIN main();
 
-	private static PrecioBebida dimePrecio(char c) {
+	private static PrecioBebida creaPreciobebida(char c) {
 		PrecioBebida precio = null;
 
 		if (c == 'K' || c == 'k') {
@@ -48,7 +48,7 @@ public class Txozna {
 		}
 		return precio;
 
-	} // FIN dimePrecio();
+	} // FIN creaPreciobebida();
 
 	private static Vaso creaVaso(char c) {
 		Vaso vaso = null;

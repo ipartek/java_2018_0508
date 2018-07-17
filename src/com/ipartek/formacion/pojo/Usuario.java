@@ -52,7 +52,7 @@ public class Usuario {
 
 	public void setNombre(String nombre) {
 		if (nombre != null) {
-			this.nombre = nombre;
+			this.nombre = nombre.trim();
 		}
 	}
 
@@ -62,7 +62,7 @@ public class Usuario {
 
 	public void setMail(String mail) {
 		if (mail != null) {
-			this.mail = mail;
+			this.mail = mail.trim();
 		}
 	}
 
@@ -72,11 +72,11 @@ public class Usuario {
 
 	public void setPsw(String psw) {
 		if (psw != null) {
-			this.psw = psw;
+			this.psw = psw.trim();
 		}
 	}
 
-	// OTROS MÉTODOS Y FUNCIONES
+	// OTROS Mï¿½TODOS Y FUNCIONES
 
 	@Override
 	public int hashCode() {
