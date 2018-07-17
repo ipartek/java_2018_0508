@@ -8,7 +8,7 @@ import com.ipartek.formacion.pojo.Youtube;
 
 public class GestorVideo {
 
-	private static Scanner p = new Scanner(System.in);
+	private static Scanner sr = new Scanner(System.in);
 
 	static private final int OPCION_SALIR = 0;
 	static private final int OPCION_LISTAR = 1;
@@ -17,7 +17,7 @@ public class GestorVideo {
 
 	public static void main(String[] args) {
 
-		VideoYoutubeArrayDAO ytDAO = VideoYoutubeArrayDAO.getIntance();
+		VideoYoutubeArrayDAO dao = VideoYoutubeArrayDAO.getIntance();
 
 		int opcion = 0;
 
@@ -25,46 +25,46 @@ public class GestorVideo {
 
 			mostrarMenu();
 
-			opcion = p.nextInt();
-			p.nextLine();
+			opcion = sr.nextInt();
+			sr.nextLine();
 
 			switch (opcion) {
 			case OPCION_LISTAR:
 
-				List<Youtube> videos = ytDAO.getAll();
+				List<Youtube> videos = dao.getAll();
 				mostrarLista(videos);
 				break;
-				
+
 			case OPCION_ANADIR:
-				
+
 				Youtube nuevoVideo = crearNuevoYoutube();
-				ytDAO.insert(nuevoVideo);
+				dao.insert(nuevoVideo);
 				break;
-				
+
 			case OPCION_ELIMINAR:
-				
-				System.out.println("Ingrese el ID del video que quieres borrar");
-				long id = p.nextLong();
-				ytDAO.delete(id);
+
+				System.out.println("Ingrese por favor el ID del video que quieres borrar");
+				long id = sr.nextLong();
+				dao.delete(id);
 				break;
-				
+
 			case OPCION_SALIR:
-				
-				System.out.println("Gracias ");
+
+				System.out.println("Gracias por tu visita a nuestra aplicacion ");
 				break;
-				
+
 			default:
 				System.out.println("Has ingresado un numero ERRONEO");
 			}
-			
+
 		} while (opcion != OPCION_SALIR);
 
 	}
 
 	private static void mostrarMenu() {
-		System.out.println("Selecciona una opción:");
+		System.out.println("Selecciona una opciï¿½n:");
 		System.out.println("1 - Listar");
-		System.out.println("2 - Añadir");
+		System.out.println("2 - Anadir");
 		System.out.println("3 - Eliminar");
 		System.out.println("0 - Salir");
 
@@ -82,13 +82,14 @@ public class GestorVideo {
 	private static Youtube crearNuevoYoutube() {
 
 		System.out.println("Ingresa un titulo:");
-		String titulo = p.nextLine();
+		String titulo = sr.nextLine();
 		System.out.println("Ingresa un codigo:");
-		String codigo = p.nextLine();
+		String codigo = sr.nextLine();
 
 		Youtube nuevoVideo = new Youtube(titulo, codigo);
 
 		return nuevoVideo;
+		
 	}
 
 }
