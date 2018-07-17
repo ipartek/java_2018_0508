@@ -195,7 +195,7 @@ public class GestorVideos {
 	}
 
 	private static VideoYoutubeArrayDao cargarCanciones() {
-		
+		//Solo se ejecuta una vez al iniciarlizar la ejecucion
 		if (dao.getAll().size() == 0 && contador2== false) {
 			videoYoutube vInicial1 = new videoYoutube(1, "Agua de marzo", "rap1");
 			videoYoutube vInicial2 = new videoYoutube(2, "Repartiendo arte", "rap2");
