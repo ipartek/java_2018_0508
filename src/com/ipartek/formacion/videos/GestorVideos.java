@@ -15,6 +15,7 @@ public class GestorVideos {
 	static long id;
 	static String codigo;
 	static VideoYoutube video;
+	static long cont = 0;
 
 	static private final int OPCION_SALIR = 0;
 	static private final int OPCION_LISTAR = 1;
@@ -116,11 +117,13 @@ public class GestorVideos {
 					sc.nextLine();
 				}else {
 					video = new VideoYoutube();
-					video.setId((long)dao.length()+1);
+					video.setId(cont);
 					video.setTitulo(titulo);
 					video.setCodigo(codigo);
 
 					dao.insert(video);
+					
+					cont++;
 
 					System.out.println("Video añadido. "+ video.toString());
 
