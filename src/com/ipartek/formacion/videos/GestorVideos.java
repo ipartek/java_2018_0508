@@ -16,7 +16,7 @@ public class GestorVideos {
 	static private final int OPCION_LISTAR = 1;
 	static private final int OPCION_ANADIR = 2;
 	static private final int OPCION_ELIMINAR = 3;
-	static private final int ID_MIN_VALUE= 1;
+	static private final int ID_MIN_VALUE = 1;
 	static private int idCounter = ID_MIN_VALUE;
 
 	public static void main(String[] args) {
@@ -49,30 +49,35 @@ public class GestorVideos {
 
 	private static void listar() {
 
-		for (VideoYoutube video : dao.getAll()) {
-			System.out.println("    " + video);
+		if (dao.getAll().size() > 0) {
+			for (VideoYoutube video : dao.getAll()) {
+				System.out.println("    " + video);
+			}
+
+		} else {
+			System.out.println("La lista de videos esta vacia!");
+
 		}
 
 		System.out.println("");
 		System.out.println("");
 		System.out.println("");
-		
+
 		do {
 			pintarMenu();
-		} while (opcionSeleccionada>0 && opcionSeleccionada<4);
-
-		
+		} while (opcionSeleccionada > 0 && opcionSeleccionada < 4);
 
 	}
 
 	private static void cargarVideos() {
-		VideoYoutube video = new VideoYoutube(idCounter++,"Nightmares On Wax Boiler Room London DJ Set", "Q692lHFaLVM");
+		VideoYoutube video = new VideoYoutube(idCounter++, "Nightmares On Wax Boiler Room London DJ Set",
+				"Q692lHFaLVM");
 		dao.insert(video);
 
-		video = new VideoYoutube(idCounter++,"The Skatalites - Rock Fort Rock", "6bLVdKbPHHY");
+		video = new VideoYoutube(idCounter++, "The Skatalites - Rock Fort Rock", "6bLVdKbPHHY");
 		dao.insert(video);
 
-		video = new VideoYoutube(idCounter++,"The sdfad - Rock Fort Rock", "fgfgdf");
+		video = new VideoYoutube(idCounter++, "The sdfad - Rock Fort Rock", "fgfgdf");
 		dao.insert(video);
 
 	}
@@ -83,7 +88,7 @@ public class GestorVideos {
 		System.out.println("--          youtube               --");
 		System.out.println("------------------------------------");
 		System.out.println("-    1. Listar                     -");
-		System.out.println("-    2. A�adir Nuevo               -");
+		System.out.println("-    2. Añadir nuevo               -");
 		System.out.println("-    3. Eliminar                   -");
 		System.out.println("-                                  -");
 		System.out.println("-    0 - salir                     -");
@@ -92,7 +97,7 @@ public class GestorVideos {
 		System.out.print("Dime una opcion por favor: ");
 
 		opcionSeleccionada = sc.nextInt();
-		
+
 		switch (opcionSeleccionada) {
 		case OPCION_LISTAR:
 			listar();
@@ -124,6 +129,8 @@ public class GestorVideos {
 		String titulo = "";
 		String codigo = "";
 		boolean correcto = false;
+
+		// TITULO
 		while (!correcto) {
 			System.out.print("Titulo (entre 3 y 254 caracteres): ");
 			titulo = sc.next();
@@ -135,8 +142,9 @@ public class GestorVideos {
 
 			}
 		}
-		correcto =false;
+		correcto = false;
 
+		// CODIGO
 		while (!correcto) {
 			System.out.print("Codigo (minimo 11 caracteres): ");
 			codigo = sc.next();
@@ -150,8 +158,16 @@ public class GestorVideos {
 
 		try {
 
-			VideoYoutube newVideo = new VideoYoutube(idCounter++,titulo, codigo);
-			dao.insert(newVideo);
+			VideoYoutube newVideo = new VideoYoutube(idCounter++, titulo, codigo);
+			if (dao.insert(newVideo)) {
+				System.out.println("Video añadido correctamente");
+
+			} else {
+				System.out.println("ERROR al añadir el video. Por favor intentelo de nuevo.");
+				add();
+
+			}
+
 			pintarMenu();
 
 		} catch (Exception e) {
@@ -167,7 +183,21 @@ public class GestorVideos {
 		System.out.print("Introduce un id: ");
 		long id = sc.nextLong();
 		try {
-			dao.delete(id);
+
+			if (dao.getAll().size() > 0) {
+				if (dao.delete(id)) {
+					System.out.println("Video eliminado correctamente");
+
+				} else {
+					System.out.println("ERROR al eliminar el video. El video que se quiere eliminar no existe");
+
+				}
+
+			} else {
+				System.out.println("No hay mas videos para borrar");
+
+			}
+
 		} catch (Exception e) {
 			System.out.println("ERROR, los datos introducidos no son correctos");
 			borrarVideo();
