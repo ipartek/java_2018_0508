@@ -28,6 +28,9 @@ public class GestorVideos {
 		System.out.println("------3: Eliminar------");
 		System.out.println("------4: Salir------");
 		System.out.println("------Seleccione una opcion------");
+		try {
+			
+		
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		opcion = Integer.parseInt(br.readLine());
 		dao = VideoYoutubeArrayDao.getInstance();
@@ -36,7 +39,15 @@ public class GestorVideos {
 		} else {
 			if (opcion == 2) {
 				Anadir();
+			}else {
+				if(opcion == 3) {
+					eliminarCancion();
+				}
 			}
+		}
+		} catch (Exception e) {
+			System.out.println("Opcion incorrecta");
+			pintarMenu();
 		}
 
 	}
