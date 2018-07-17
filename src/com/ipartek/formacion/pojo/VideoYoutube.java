@@ -50,8 +50,8 @@ public class VideoYoutube {
 	@Override
 	public String toString() {
 
-		String aDevolver = this.id+"--"+this.titulo;
-		aDevolver+="\nCodigo: "+this.codigo+"\n";
+		String aDevolver = this.id+" -- "+this.titulo;
+		aDevolver+=" -- Codigo: "+this.codigo+"\n";
 		return aDevolver;
 	}
 

@@ -22,11 +22,14 @@ public class VideoClub {
 	static private final int MIN_TITULO = 3;
 	static private final int TAMANO_CODIGO = 11;
 
-	private static Scanner sc = new Scanner(System.in);
+	private static Scanner sc = null;
 
 	public static void main(String[] args) {
 
 		try {
+
+			sc = new Scanner(System.in);
+
 			dao = VideoYoutubeArrayDAO.getInstance();
 
 			cargarVideos();
@@ -36,6 +39,7 @@ public class VideoClub {
 			int opc = VALOR_CHIVATO;
 
 			while (opc != OPCION_SALIR) {
+
 				opc = opcion();
 				switch (opc) {
 				case OPCION_LISTAR:
@@ -64,9 +68,13 @@ public class VideoClub {
 
 			}
 		} catch (Exception e) {
+
 			System.out.println("Disculpen las molestias pero hemos tenido un problema tecnico.");
+
 		} finally {
+			
 			sc.close();
+			
 		}
 	}
 
@@ -87,19 +95,22 @@ public class VideoClub {
 
 	private static void pintarMenu() {
 
-		System.out.println("---------------------------------------");
+		System.out.println("***************************************");
 		System.out.println("----------------Youtube----------------");
-		System.out.println("---------------------------------------");
+		System.out.println("***************************************");
 		System.out.println("-------------1. Listar-----------------");
-		System.out.println("---------------------------------------");
+		System.out.println("***************************************");
 		System.out.println("-------------2. Eliminar---------------");
-		System.out.println("---------------------------------------");
+		System.out.println("***************************************");
 		System.out.println("-------------3. Modificar--------------");
-		System.out.println("---------------------------------------");
+		System.out.println("***************************************");
 		System.out.println("-------------4. Alta-------------------");
-		System.out.println("---------------------------------------");
+		System.out.println("***************************************");
+		System.out.println("***************************************");
+		System.out.println("***************************************");
 		System.out.println("-------------0. Salir------------------");
-		System.out.println("---------------------------------------");
+		System.out.println("***************************************");
+
 	}
 
 	/**
@@ -136,7 +147,11 @@ public class VideoClub {
 
 	private static void listarVideos() {
 
-		System.out.println(dao.getAll());
+		if (dao.getAll().size() == 0) {
+			System.out.println("No hay musica :( \n Empieza a añadir.");
+		} else {
+			System.out.println(dao.getAll());
+		}
 
 	}
 

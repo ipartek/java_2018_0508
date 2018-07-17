@@ -33,6 +33,7 @@ public class Ejercicio8 {
 				sueldoMaximo = sueldos[i];
 				posicionSMaximo = i;
 			}
+			sc.nextLine();
 		}
 
 		System.out.println("El empleado " + empleados[posicionSMaximo] + " es el que tiene mayor sueldo:"
