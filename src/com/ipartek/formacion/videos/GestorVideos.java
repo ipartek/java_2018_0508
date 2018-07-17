@@ -6,11 +6,27 @@ import com.ipartek.formacion.pojo.VideoYoutube;
 
 public class GestorVideos {
 
+	//Constantes
+	private final static int OPCION0 = 0;
+	private final static int OPCION4 = 4;
+	
 	static VideoYoutube[] videos = new VideoYoutube[5];
+	static Scanner teclado;
 
 	public static void main(String[] args) {
-		cargarVideos();
-		pintarMenu();
+		try {
+			
+			teclado = new Scanner(System.in);
+			cargarVideos();
+			pintarMenu();
+			
+		}catch(Exception e){
+			
+			System.out.println("Lo sentimos, hemos tenido un error.");
+			
+		}finally{
+			teclado.close();
+		}
 	}
 
 	/**
@@ -22,28 +38,34 @@ public class GestorVideos {
 		System.out.println("--               YOUTUBE                --");
 		System.out.println("------------------------------------------");
 		System.out.println("-   1. Listar                            -");
-		System.out.println("-   2. Añadir                            -");
+		System.out.println("-   2. AÃ±adir                            -");
 		System.out.println("-   3. Modificar                         -");
 		System.out.println("-   4. Eliminar                          -");
 		System.out.println("------------------------------------------");
 		System.out.println("-   0. Salir                             -");
 
 		try {
-			Scanner teclado = new Scanner(System.in);
-			int opcion = 0;
+			int opcion = -1;
 
 			do {
-				System.out.println();
-				System.out.println("Elige una opcion del menu:");
-				opcion = teclado.nextInt();
-			} while (opcion < 0 || opcion > 4);
+				try {
+					System.out.println();
+					System.out.println("Elige una opcion del menu:");
+					opcion = teclado.nextInt();
+					
+				} catch (Exception e) {
+					System.out.println();
+					System.out.println("Por favor, introduzca un valor correcto.");
+				}
+				
+			} while (opcion < OPCION0 && opcion > OPCION4);
 
 			switch (opcion) {
 			case 1:
 				listarVideos();
 				break;
 			case 2:
-				añadirVideos();
+				anadirVideos();
 				break;
 			case 3:
 				modificarVideos();
@@ -53,10 +75,9 @@ public class GestorVideos {
 				break;
 			case 0:
 				System.out.println();
-				System.out.println("¡Hasta la proxima!");
+				System.out.println("Â¡Hasta la proxima!");
 			}
 
-			teclado.close();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -82,13 +103,11 @@ public class GestorVideos {
 	 * Metodo para listar un video concreto o toda la lista
 	 */
 	private static void listarVideos() {
-		//TODO Terminar listado de videos
 		try {
-			Scanner teclado = new Scanner(System.in);
 			char opcion;
 			do {
 				System.out.println();
-				System.out.println("¿Quieres listar un video en concreto? S/N");
+				System.out.println("Â¿Quieres listar un video en concreto? S/N");
 				opcion = teclado.next().charAt(0);
 				opcion = Character.toUpperCase(opcion);
 
@@ -113,22 +132,19 @@ public class GestorVideos {
 				}
 			}
 
-			teclado.close();
-
 			System.out.println();
 			pintarMenu();
 		} catch (Exception e) {
-			e.printStackTrace();
+			System.out.println("Lo sentimos, se ha producido un error y no se han encontrado videos.");
 		}
 	}
 
 	/**
-	 * Metodo para añadir un video nuevo a la lista
+	 * Metodo para aï¿½adir un video nuevo a la lista
 	 */
-	private static void añadirVideos() {
-		// TODO Terminar añadir nuevo video
+	private static void anadirVideos() {
+		// TODO Terminar aï¿½adir nuevo video
 		try {
-			Scanner teclado = new Scanner(System.in);
 
 			long id = (videos.length+1);
 			String nombre;
@@ -136,6 +152,7 @@ public class GestorVideos {
 
 			System.out.println("Introduce el nombre del video:");
 			nombre = teclado.nextLine();
+			teclado.nextLine();
 			System.out.println();
 			System.out.println("Introduce el codigo del video:");
 			codigo = teclado.nextLine();
@@ -143,7 +160,6 @@ public class GestorVideos {
 			VideoYoutube video = new VideoYoutube(id, codigo, nombre);
 			videos[(int) id] = video;
 			
-			teclado.close();
 			pintarMenu();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -156,7 +172,6 @@ public class GestorVideos {
 	private static void modificarVideos() {
 		// TODO Terminar modificar video
 		try {
-			Scanner teclado = new Scanner(System.in);
 			long id;
 			String nombre;
 			String codigo;
@@ -178,7 +193,6 @@ public class GestorVideos {
 				}
 			}
 
-			teclado.close();
 			pintarMenu();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -191,11 +205,10 @@ public class GestorVideos {
 	private static void eliminarVideos() {
 		//TODO Terminar eliminar video
 		try {
-			Scanner teclado = new Scanner(System.in);
 			char opcion;
 			do {
 				System.out.println();
-				System.out.println("¿Quieres eliminar todos los videos? S/N");
+				System.out.println("Â¿Quieres eliminar todos los videos? S/N");
 				opcion = teclado.next().charAt(0);
 				opcion = Character.toUpperCase(opcion);
 
@@ -219,7 +232,6 @@ public class GestorVideos {
 				System.out.println("Todos los videos se han eliminado.");
 			}
 
-			teclado.close();
 			pintarMenu();
 		} catch (Exception e) {
 			e.printStackTrace();
