@@ -43,6 +43,10 @@ public class GestorVideos {
 				anadir();
 				break;
 				
+			case OPCION_ELIMINAR:
+				eliminar();
+				break;
+				
 			default:
 				noOption();
 				break;
@@ -85,7 +89,6 @@ public class GestorVideos {
 		
 		sc2.close();
 			
-		//pintarMenu();
 	}
 	
 	private static void salir() {
@@ -101,8 +104,7 @@ public class GestorVideos {
 
 	private static void noOption() {
 		System.out.println("Lo sentimos No existe esa opcion");
-		pintarMenu();
-		
+
 	}
 
 
@@ -115,9 +117,7 @@ public class GestorVideos {
 		System.out.println("");
 		System.out.println("");
 		System.out.println("");
-		
-		pintarMenu();
-		
+				
 	}
 
 
@@ -131,18 +131,37 @@ public class GestorVideos {
 		++idCounter;
 		
 	}
+	private static void eliminar() {
+		long id;
 
+		System.out.println("Por favor, teclea el id del video que deseas eliminar : ");
+		try {
+
+			id = sc.nextLong();
+			System.out.println(dao.delete(id) ? "Video eliminado con exito." : "No existe ese video.");
+
+		} catch (Exception e) {
+
+			System.out.println("ID NO VALIDA. Por favor, teclea un ID numerico correcto.");
+			sc.nextLine();
+			eliminar();
+
+		} finally {
+			sc.nextLine();
+		}
+
+}
 
 	private static void pintarMenu() {
 		
 		System.out.println("------------------------------------");
 		System.out.println("--          youtube               --");
 		System.out.println("------------------------------------");
-		System.out.println("-    1. Listar                     -");
-		System.out.println("-    2. Añadir Nuevo               -");
-		System.out.println("-    3. Eliminar                   -");
-		System.out.println("-                                  -");
-		System.out.println("-    0 - salir                     -");
+		System.out.println("--    1. Listar                   --");
+		System.out.println("--    2. Añadir Nuevo             --");
+		System.out.println("--    3. Eliminar                 --");
+		System.out.println("--                                --");
+		System.out.println("--    0 - salir                   --");
 		System.out.println("------------------------------------");
 		System.out.println("");
 		System.out.println("Dime una opcion por favor");

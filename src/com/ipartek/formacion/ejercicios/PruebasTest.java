@@ -1,37 +1,93 @@
 package com.ipartek.formacion.ejercicios;
 
-import org.junit.Assert.*;
+import static org.junit.Assert.*;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+
+import org.junit.After;
+import org.junit.AfterClass;
+import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Test;
+
+import com.ipartek.formacion.pojo.VideoYoutube;
+
+
 
 public class PruebasTest {
 
-	public static void main(String[] args) {
-
+	@Test
+	public void testPasoPorValor() {
+		
 		int i1 = 5;
 		int i2 = 5;
-		
-		assertTrue (i1==i2);
-		
+
+		assertTrue(i1 == i2);
+
 		int suma = sumaUno(i1);
-		
-
-
-		
+		assertTrue(i1 == 5);
+		assertTrue(suma == 6);
 	}
-	
+
 	private int sumaUno(int i1) {
 		return ++i1;
 	}
 
 	@Test
-	public void testPasoPorReferencia() {
+	public void testPasoPorRerefencia() {
+
+		Integer i1 = new Integer(5);
+		Integer i2 = new Integer(5);
+
+		assertTrue(i1 != i2); // compara posicion de memoria
+		assertTrue( i1.equals(i2) ); // compara valor interno
+
 		
-		Integer i1 = new Integer (5);
-		Integer i2 = new Integer (5);
+		VideoYoutube v = new VideoYoutube();
+		v.setId(5);
+		VideoYoutube referencia = sumarUno(v);
 		
-		assertFalse(i1==i2); /// compara posicion de memoria
-		assertEquals(i1==i2); // compara el valor 
+		assertTrue ( 6 == v.getId() );
+		assertTrue ( referencia == v );
+		
+		try {
+			VideoYoutube clon = (VideoYoutube) v.clone();
+			
+			assertTrue( clon != v );
+			assertTrue( clon.equals(v));
+			
+		} catch (CloneNotSupportedException e) {
+			fail("deberia poder clonarse");
+		}
+		
+		
+		
+		
+	}
+
+	private VideoYoutube sumarUno(VideoYoutube video) {
+		video.setId(6);
+		return video;
 	}
 	
+	
+	
+	@Test
+	public void testEqualsVideo() {
+		
+		
+		VideoYoutube v1 = new VideoYoutube();
+		VideoYoutube v2 = new VideoYoutube();
+		
+		
+		assertTrue ( v1 != v2 );
+		assertTrue ( v1.equals(v2) );
+		
+	}
+	
+	
+	
+
 }
