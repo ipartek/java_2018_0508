@@ -4,9 +4,9 @@ import java.util.List;
 
 import com.ipartek.formacion.pojo.Youtube;
 
-public interface CrudAble {
+public interface CrudAble<P> {
 
-	boolean insert(Youtube video);
+	boolean insert(P pojo);
 
 	/**
 	 * recupera todos los videos de Youtube
@@ -14,7 +14,7 @@ public interface CrudAble {
 	 * @return si no existe resultados retorna una lista vacua , no null
 	 */
 
-	List<Youtube> getAll();
+	List<P> getAll();
 
 	/**
 	 * Buscamos un Youtube por su identificador
@@ -23,9 +23,9 @@ public interface CrudAble {
 	 * @return si lo encuentra null si no esta
 	 */
 
-	Youtube getByID(long id);
+	P getByID(long id);
 
-	boolean update(Youtube video);
+	boolean update(P pojo);
 
 	boolean delete(long id);
 

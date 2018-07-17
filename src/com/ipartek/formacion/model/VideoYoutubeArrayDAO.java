@@ -13,7 +13,7 @@ import com.ipartek.formacion.pojo.Youtube;
  * @see https://es.wikipedia.org/wiki/Singleton#Java
  */
 
-public class VideoYoutubeArrayDAO implements CrudAble {
+public class VideoYoutubeArrayDAO implements CrudAble<Youtube> {
 	private static VideoYoutubeArrayDAO INSTANCE = null;
 	private static List<Youtube> Lista = null;
 	private static long id = 1;
@@ -39,11 +39,13 @@ public class VideoYoutubeArrayDAO implements CrudAble {
 				if (video.getCodigo().length() == 11) {
 				} else {
 					System.out.println("El codigo debe ser de 11 caracteres");
+					return false;
 				}
 				result = Lista.add(video);
 				id++;
 			} else {
 				System.out.println("El titulo tiene que ser entre 3 y 255 caracteres ");
+				return false;
 			}
 
 		}
