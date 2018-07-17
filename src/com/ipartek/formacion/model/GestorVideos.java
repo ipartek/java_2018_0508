@@ -1,4 +1,5 @@
 package com.ipartek.formacion.model;
+
 /**
  * Gestor de videos que Lista, Añade y Elimina videos
  */
@@ -86,32 +87,50 @@ public class GestorVideos {
 	}
 
 	private static void mostrar() {
+
 		for (VideoYoutube video : dao.getAll()) {
 			System.out.println("    " + video);
 		}
 	}
 
-	private static void eliminarVideos() {
+	private static void eliminarVideos() throws IOException {
 		int idVideo = 0;
+		char seguir;
 
 		do {
 
-			System.out.println("Selecciona un video a ELIMINAR(0 para NO eliminar mas videos): ");
+			System.out.println("Deseas ELIMINAR algun video?(s/n)");
+			seguir = (char) System.in.read();
 
-			try {
-				idVideo = sc.nextInt();
-			} catch (Exception e) {
-				sc.nextLine();
-				System.out.println("¡OPCION NO VALIDA! Porfavor introduce un numero!!");
-				eliminarVideos();
-			}
+			if (seguir != 'n') {
+				if (dao.getAll().size() > 0) {
 
-			System.out.println("Eliminando video seleccionado...");
-			dao.delete(idVideo);
+					System.out.println("Selecciona un video a ELIMINAR(Introduce su id): ");
+					mostrar();
 
-			mostrar();
+					try {
+						idVideo = sc.nextInt();
+					} catch (Exception e) {
+						sc.nextLine();
+						System.out.println("¡OPCION NO VALIDA! Porfavor introduce un numero!!");
+						eliminarVideos();
+					}
 
-		} while (idVideo != 0);
+					if (dao.getAll().size() <= 0) {
+						System.out.println("LO SENTIMOS NO HAY NINGUN VIDEO EN LA LISTA AÑADE UNO NUEVO");
+					} else {
+						System.out.println("Eliminando video seleccionado...");
+						dao.delete(idVideo);
+						mostrar();
+					}
+
+				}else {
+					System.out.println("LO SENTIMOS NO HAY NINGUN VIDEO EN LA LISTA AÑADE UNO NUEVO");
+					pintarMenu();
+				}
+			}//(s/n)
+
+		} while (seguir != 'n');
 
 		pintarMenu();
 	}
@@ -130,9 +149,8 @@ public class GestorVideos {
 				System.out.println("Introduce el TITULO del video que deseas añadir:");
 				titulo = sc.nextLine();
 			} while (titulo.getBytes().length > 24 || titulo.getBytes().length < 3);
-			
-			titulo.trim();
 
+			titulo.trim();
 
 			do {
 				System.out.println("Introduce el CODIGO del video que deseas añadir(11 caracteres):");

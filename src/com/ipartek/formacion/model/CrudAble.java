@@ -15,16 +15,16 @@ import java.util.List;
  * @author Curso
  *
  */
-public interface CrudAble {
+public interface CrudAble<P> {
 
-	boolean insert(VideoYoutube video);
+	boolean insert(P pojo);
 
 	/**
 	 * Recupera todos los VideoYoutube
 	 * 
 	 * @return si no exiten resultados retorna Lista vacia, no null
 	 */
-	List<VideoYoutube> getAll();
+	List<P> getAll();
 
 	/**
 	 * Buscamos un VideoYoutube por su identificador
@@ -32,9 +32,9 @@ public interface CrudAble {
 	 * @param id long indentificador
 	 * @return VideoYoutube si lo encuentra, null si no encuentra
 	 */
-	VideoYoutube getById(long id);
+	P getById(long id);
 
-	boolean update(VideoYoutube video);
+	boolean update(P pojo);
 
 	boolean delete(long id);
 }
