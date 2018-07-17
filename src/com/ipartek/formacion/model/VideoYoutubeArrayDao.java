@@ -15,7 +15,7 @@ import com.ipartek.formacion.pojo.videoYoutube;
  *
  */
 
-public class VideoYoutubeArrayDao implements CrudAble {
+public class VideoYoutubeArrayDao implements CrudAble<videoYoutube> {
 
 	private static VideoYoutubeArrayDao INSTANCE = null;
 	private static List<videoYoutube> lista = null;
@@ -37,7 +37,7 @@ public class VideoYoutubeArrayDao implements CrudAble {
 		boolean resul = false;
 		if (video != null) {
 			resul = lista.add(video);
-			//resul = lista.set(video.getId(), video)
+			// resul = lista.set(video.getId(), video)
 		}
 
 		return resul;
@@ -64,10 +64,9 @@ public class VideoYoutubeArrayDao implements CrudAble {
 		}
 		return resul;
 		// foreach
-		/*for (videoYoutube videoIteracion : lista) {
-			resul = true;
-		}*/
-		
+		/*
+		 * for (videoYoutube videoIteracion : lista) { resul = true; }
+		 */
 
 	}
 

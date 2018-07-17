@@ -7,44 +7,54 @@ import com.ipartek.formacion.model.VideoYoutubeArrayDao;
 import com.ipartek.formacion.pojo.videoYoutube;
 
 public class GestorVideos {
-	static videoYoutube[] videos = new videoYoutube[5];
-	static videoYoutube[] videoB = new videoYoutube[1];
+	//La declaracion se puede hacer aqui
+	static videoYoutube[] videos ;
+	static videoYoutube[] videoB ;
 	static VideoYoutubeArrayDao dao;
 	int contador = 0;
 
 	public static void main(String[] args) throws Exception {
-
+		//La inicializacion es mas correcta hacerla aqui
+		videos = new videoYoutube[5];
+		videoB = new videoYoutube[1];
 		cargarMenu();
 	}
 
 	private static void pintarMenu() throws Exception {
+		
 		int opcion;
-		int contador;
 		System.out.println("-----------------------");
 		System.out.println("-------Youtube---------");
 		System.out.println("-------Opciones--------");
 		System.out.println("------1: Listar--------");
 		System.out.println("------2: Añadirr--------");
 		System.out.println("------3: Eliminar------");
-		System.out.println("------4: Salir------");
+		System.out.println("------4: salir------");
 		System.out.println("------Seleccione una opcion------");
 		try {
 			
 		
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		opcion = Integer.parseInt(br.readLine());
+		
 		dao = VideoYoutubeArrayDao.getInstance();
-		if (opcion == 1) {
+		//quito las opciones para ser llamadas desde una funcion
+		opcionesMenu(opcion);
+		/*if (opcion == LISTAR) {
 			listarCanciones();
 		} else {
-			if (opcion == 2) {
+			if (opcion == AÑADIR) {
 				Anadir();
 			}else {
-				if(opcion == 3) {
+				if(opcion == ELIMINAR) {
 					eliminarCancion();
+				}else {
+					if(opcion == salir) {
+						salir();
+					}
 				}
 			}
-		}
+		}*/
 		} catch (Exception e) {
 			System.out.println("Opcion incorrecta");
 			pintarMenu();
@@ -59,11 +69,11 @@ public class GestorVideos {
 	}
 
 	private static void Anadir() throws Exception {
+		
 		char agregarMas;
 		long id = 0;
 		String cancion;
-		String codigo;
-		char sobreEscribir;
+		String codigo="";
 
 		do {
 			BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
@@ -71,6 +81,7 @@ public class GestorVideos {
 			System.out.println(
 					"------Introduzca el nombre de la cancion de mas de 3 caracteres y menos de 256 caracteres------");
 			cancion = br.readLine();
+			
 			if (!comprobarTitulo(cancion)) {
 				try {
 					System.out.println("Ha introducido un titulo de menos de 3 caracteres o mas de 256 caracteres");
@@ -90,13 +101,23 @@ public class GestorVideos {
 
 				}
 			}
-
-			System.out.println("------Introduzca el codigo de la cancion------");
-			codigo = br.readLine();
+			try {
+				System.out.println("------Introduzca el codigo de la cancion------");
+				codigo = br.readLine();
+			} catch (Exception e) {
+				System.out.println("Ha introducido un codigo incorrecto");
+				try {
+					
+				} catch (Exception e2) {
+					System.out.println("------ERROR.Introduzca el codigo de la cancion de 11 caracteres------");
+					codigo = br.readLine();
+				}
+			}
+			
+			comprobarCodigo(codigo);
 			id = dao.getAll().size();
 			id++;
 			videoYoutube test1 = new videoYoutube(id, cancion, codigo);
-
 			dao.insert(test1);
 
 			System.out.println("------Quiere aÃ±adir otra cancion------");
@@ -110,24 +131,27 @@ public class GestorVideos {
 	}
 
 	private static void listarCanciones() throws Exception {
+		
 		int opcion = 0;
 		VideoYoutubeArrayDao videoarray = cargarCanciones();
 		System.out.println("------Listar Menu------");
+		
 		try {
 			for (videoYoutube video : videoarray.getAll()) {
 				System.out.println("Id: " + video.getId() + "-" + video.getCodigo() + "-" + video.getTitulo());
 			}
 
 			System.out.println(
-					"Menu principal pulse 1.Para Añadir canciones: Pulsar 2. Para Eliminar canciones Pulsar 3. ");
+					"pulse 1 Menu principal. pulse 2.Para Añadir canciones: Pulsar 3. Para Eliminar canciones Pulsar 3. Pulsar 4 para salir ");
 
 			BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 			opcion = Integer.parseInt(br.readLine());
 		} catch (Exception e) {
 			System.out.println("Por favor introduzca una opcion correcta");
+			
 			try {
 				System.out.println(
-						"Menu principal pulse 1.Para Añadir canciones ? (Pulsar 2).Para Eliminar canciones ? (Pulsar 3). ");
+						"pulse 1 Menu principal. pulse 2.Para Añadir canciones: Pulsar 3. Para Eliminar canciones Pulsar 3. Pulsar 4 para salir ");
 				BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 				opcion = Integer.parseInt(br.readLine());
 			} catch (Exception e2) {
@@ -135,24 +159,14 @@ public class GestorVideos {
 				listarCanciones();
 			}
 		}
-		if (opcion == 1) {
-			pintarMenu();
-		} else {
-		}
-		if (opcion == 2) {
-			Anadir();
-		} else {
-			if (opcion == 3) {
-				eliminarCancion();
-			}
-
-		}
+		opcionesMenu(opcion);
 	}
 
 	private static void eliminarCancion() throws Exception {
+		
 		long userDelete;
 		int opcion;
-		VideoYoutubeArrayDao videoArrayBorrar;
+		
 		try {
 
 			System.out.println("Menu elimina canciones");
@@ -170,9 +184,10 @@ public class GestorVideos {
 				System.out.println(
 						"Registro no encontrado intentalo de nuevo, si necesitas recordar las canciones, puedes listarlas");
 			}
-			System.out.println("Que quieres hacer ahora ? 1-listar. 2-Añadir. 3- Eliminar. 4 Salir");
+			System.out.println("pulse 1 Menu principal. pulse 2.Para Añadir canciones: Pulsar 3. Para Eliminar canciones Pulsar 3. Pulsar 4 para salir ");
 			opcion = Integer.parseInt(br.readLine());
-			if (opcion == 1) {
+			opcionesMenu(opcion);
+			/*if (opcion == 1) {
 				listarCanciones();
 			} else {
 				if (opcion == 2) {
@@ -183,7 +198,7 @@ public class GestorVideos {
 					}
 				}
 
-			}
+			}*/
 		} catch (Exception e) {
 
 			System.out.println("Ha introducido un id incorrecto");
@@ -192,6 +207,7 @@ public class GestorVideos {
 	}
 
 	private static VideoYoutubeArrayDao cargarCanciones() {
+		
 		if (dao.getAll().size() == 0) {
 			videoYoutube vInicial1 = new videoYoutube(1, "Agua de marzo", "rap1");
 			videoYoutube vInicial2 = new videoYoutube(2, "Repartiendo arte", "rap2");
@@ -208,12 +224,14 @@ public class GestorVideos {
 		return dao;
 	}
 
-	private static void Salir() {
+	private static void salir() {
+		
 		System.out.println("Gracias por su consulta");
 		System.exit(0);
 	}
 
 	private static boolean comprobarTitulo(String titulo) {
+		
 		if (titulo.length() > 3 && titulo.length() < 256) {
 			return true;
 		}
@@ -226,5 +244,30 @@ public class GestorVideos {
 		}
 		return false;
 	}
+	
+	private static void opcionesMenu(int opcion) throws Exception {
+		
+		//constantes
+		final int LISTAR = 1;
+		final int AÑADIR= 2;
+		final int ELIMINAR = 3;
+		final int salir = 4;
+		if (opcion == LISTAR) {
+			listarCanciones();
+		} else {
+			if (opcion == AÑADIR) {
+				Anadir();
+			}else {
+				if(opcion == ELIMINAR) {
+					eliminarCancion();
+				}else {
+					if(opcion == salir) {
+						salir();
+					}
+				}
+			}
+		}
+	}
+
 
 }
