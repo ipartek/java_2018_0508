@@ -84,12 +84,15 @@ public class VideoClub {
 
 	private static void listar() {
 		System.out.println("------------------------------------");
-		System.out.println("--         MENÚ LISTAR            --");
+		System.out.println("--         MENï¿½ LISTAR            --");
 		System.out.println("------------------------------------\n");
+		
+
 		for (VideoYoutube video : dao.getAll()) {
-			System.out.println("Identificador: " + video.getId() + " - Código: " + video.getCodigo() + " - Título: "
+			System.out.println("Identificador: " + video.getId() + " - Cï¿½digo: " + video.getCodigo() + " - Tï¿½tulo: "
 					+ video.getTitulo() + "");
 		}
+
 		System.out.println("");
 		System.out.println("");
 		System.out.println("");
@@ -101,7 +104,7 @@ public class VideoClub {
 	private static void anadir() throws IOException {
 		sc.nextLine();
 		System.out.println("------------------------------------");
-		System.out.println("--         MENÚ AÑADIR            --");
+		System.out.println("--         MENï¿½ Aï¿½ADIR            --");
 		System.out.println("------------------------------------");
 		do {
 			VideoYoutube video = new VideoYoutube();
@@ -109,24 +112,24 @@ public class VideoClub {
 			video.setId(dao.getAll().size() + 1);
 
 			do {
-				System.out.print("Inserte un código: ");
+				System.out.print("Inserte un cï¿½digo de 11 caracteres: ");
 				video.setCodigo(sc.next());
 				if (video.getCodigo().length() < LONGITUD_CODIGO) {
-					System.out.println("La longitud del código es corta. Debe de ser de 11 caracteres.");
+					System.out.println("La longitud del cï¿½digo es corta. Debe de ser de 11 caracteres.");
 				}
 				if (video.getCodigo().length() > LONGITUD_CODIGO) {
-					System.out.println("La longitud del código es larga. Debe de ser de 11 caracteres.");
+					System.out.println("La longitud del cï¿½digo es larga. Debe de ser de 11 caracteres.");
 				}
 			} while (video.getCodigo().length() < LONGITUD_CODIGO || video.getCodigo().length() > LONGITUD_CODIGO);
 
 			do {
-				System.out.print("Inserte titulo : ");
+				System.out.print("Inserte titulo que sea entre 3 y 244 caracteres: ");
 				video.setTitulo(sc.next().trim());
 				if (video.getTitulo().length() < LONGITUD_MINIMA_TITULO) {
-					System.out.println("La longitud del titulo es corta");
+					System.out.println("La longitud del titulo es corta. Como minimo debe tener 3 caracteres.");
 
 				} else if (video.getTitulo().length() > LONGITUD_MAXIMA_TITULO) {
-					System.out.println("La longitud del titulo es demasiado largo");
+					System.out.println("La longitud del titulo es demasiado largo. Como mÃ¡ximo debe tener 244 caracteres.");
 
 				}
 			} while (video.getTitulo().length() < LONGITUD_MINIMA_TITULO
@@ -134,7 +137,7 @@ public class VideoClub {
 
 			dao.insert(video);
 			System.out.println("Video guardado.\n");
-			System.out.println("¿Quieres introducir otra canción?(S/N)");
+			System.out.println("ï¿½Quieres introducir otra canciï¿½n?(S/N)");
 			contest = Character.toUpperCase((char) System.in.read());
 
 		} while (contest != 'N');
@@ -146,11 +149,11 @@ public class VideoClub {
 	private static void eliminar() throws IOException {
 		try {
 			System.out.println("------------------------------------");
-			System.out.println("--        MENÚ ELIMINA            --");
+			System.out.println("--        MENï¿½ ELIMINA            --");
 			System.out.println("------------------------------------");
 			if (dao.getAll().size() == 0) {
-				System.out.println("No existe ninguna canción.\n");
-				System.out.println("Debes introducir una nueva canción.");
+				System.out.println("No existe ninguna canciï¿½n.\n");
+				System.out.println("Debes introducir una nueva canciï¿½n.");
 				anadir();
 			} else {
 				System.out.println("Introduce el identificador que deseas eliminar: ");
@@ -158,19 +161,19 @@ public class VideoClub {
 			}
 		} catch (InputMismatchException e) {
 			sc.nextLine();
-			System.out.println("IDENTIFICADOR INCORRECTO. Por favor introduce un valor númerico.\n");
+			System.out.println("IDENTIFICADOR INCORRECTO. Por favor introduce un valor nï¿½merico.\n");
 			eliminar();
 		}
 
 		while (dao.getById(id) == null) {
 
-			System.out.println("Ese código no existe.\n");
-			System.out.println("Introduce el código que deseas eliminar: ");
+			System.out.println("Ese cï¿½digo no existe.\n");
+			System.out.println("Introduce el cï¿½digo que deseas eliminar: ");
 			id = sc.nextInt();
 
 		}
 		do {
-			System.out.println("¿Estas seguro de que deseas borrar la cancion " + dao.getById(id) + " (S/N)?");
+			System.out.println("ï¿½Estas seguro de que deseas borrar la cancion " + dao.getById(id) + " (S/N)?");
 			contest = Character.toUpperCase((char) System.in.read());
 
 		} while (contest != 'S');
@@ -178,8 +181,8 @@ public class VideoClub {
 		dao.delete(id);
 
 		if (dao.getAll().size() == 0) {
-			System.out.println("No existe ninguna canción.\n");
-			System.out.println("Deberas introducir alguna canción.");
+			System.out.println("No existe ninguna canciï¿½n.\n");
+			System.out.println("Deberas introducir alguna canciï¿½n.");
 		}
 
 		pintarMenu();
@@ -201,7 +204,7 @@ public class VideoClub {
 		System.out.println("--          youtube               --");
 		System.out.println("------------------------------------");
 		System.out.println("-    1. Listar                     -");
-		System.out.println("-    2. Añadir Nuevo               -");
+		System.out.println("-    2. Aï¿½adir Nuevo               -");
 		System.out.println("-    3. Eliminar                   -");
 		System.out.println("-                                  -");
 		System.out.println("-    0 - salir                     -");
@@ -215,7 +218,7 @@ public class VideoClub {
 		} catch (Exception e) {
 			// e.printStackTrace(); -->pinta la pila de excepcion
 			sc.nextLine();
-			System.out.println("OPCIÓN NO VALIDA. Por favor introduce un número del 0 al 1.\n");
+			System.out.println("OPCIï¿½N NO VALIDA. Por favor introduce un nï¿½mero del 0 al 1.\n");
 			pintarMenu();
 		}
 

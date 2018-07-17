@@ -1,6 +1,5 @@
 package com.ipartek.formacion.videos;
 
-import java.io.IOException;
 import java.util.Scanner;
 
 import com.ipartek.formacion.model.VideoYoutubeArrayDAO;
