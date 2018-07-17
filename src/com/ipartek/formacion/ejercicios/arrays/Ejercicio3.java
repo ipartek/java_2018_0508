@@ -25,7 +25,7 @@ public class Ejercicio3 {
 		System.out.println("Introduce el numero de alumnos: ");
 		alumnos = Integer.parseInt(br.readLine());
 		for (int i = 0; i < alumnos; i++) {
-			System.out.print("Introduce una nota");
+			System.out.print("Introduce una nota: ");
 			notas[i] = Integer.parseInt(br.readLine());
 		}
 		for (int x = 0; x < notas.length;x++) {
@@ -33,10 +33,11 @@ public class Ejercicio3 {
 			
 		}
 		media = suma / alumnos;
+		System.out.println("La media de clase esta en: " + media);
 		
 		for (int j = 0; j < alumnos;j++) {
-			if (notas[j] > suma) {
-				System.out.println("Alumno : "+ j +" Con nota: "+ notas[j]);
+			if (notas[j] > media) {
+				System.out.println("el alumno : "+ (j+1) +" Con nota: "+ notas[j]+ " esta por encima de la media.");
 			}
 		}
 		

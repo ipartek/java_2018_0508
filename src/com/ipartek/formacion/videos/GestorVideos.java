@@ -210,7 +210,7 @@ public class GestorVideos {
 	}
 
 	private static boolean comprobarCodigo(String codigo) {
-		if (codigo.length() != 11) {
+		if (codigo.length() == 11) {
 			return true;
 		}
 		return false;
