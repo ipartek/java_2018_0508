@@ -1,5 +1,8 @@
 package com.ipartek.formacion.videos;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.Scanner;
 import com.ipartek.formacion.model.VideoYoutubeArrayDAO;
 import com.ipartek.formacion.pojo.VideoYoutube;
@@ -9,27 +12,41 @@ public class GestorVideos {
 	static private VideoYoutubeArrayDAO dao;
 	static private int opcionSeleccionada = 0;
 	static Scanner sc = null;
+	static BufferedReader br = null;
 	
 	static private final int OPCION_SALIR = 0;
 	static private final int OPCION_LISTAR = 1;
 	static private final int OPCION_ANADIR = 2;
 	static private final int OPCION_ELIMINAR = 3;
+	static private final int TITULO_MINIMO = 3;
+	static private final int TITULO_MAXIMO = 254;
+	static private final int CARACTERES_CODIGO = 11;
 	static private int CONTADOR = 2;
 	
 	
 	public static void main(String[] args) {
 				
-		sc = new Scanner(System.in);
-		
-		dao = VideoYoutubeArrayDAO.getInstance();
-		
-		cargarVideos();
-		
-		pintarMenu();
+		try {
+			sc = new Scanner(System.in);
+			
+			br = new BufferedReader(new InputStreamReader(System.in));
+			
+			dao = VideoYoutubeArrayDAO.getInstance();
+			
+			cargarVideos();
+			
+			pintarMenu();
 
-		opcionElegida();		
+			opcionElegida();
+			
+		} catch (Exception e) {
+			System.out.println("Lo sentimos, ha habido un error.");
+		}		
 		
-		sc.close();
+		finally {
+			sc.close();
+		}
+		
 	}
 
 	
@@ -54,43 +71,55 @@ public class GestorVideos {
 
 	private static void listar() {
 		
-		for ( VideoYoutube video : dao.getAll() ) {
-			System.out.println("    " + video);
+		if(dao.getAll().size() == 0) {
+			System.out.println("No hay videos para listar, por favor añade uno nuevo");
+			pintarMenu();
+			opcionElegida();
 		}
+		else {
 		
-		System.out.println("");
-		System.out.println("");
-		System.out.println("");
+			for ( VideoYoutube video : dao.getAll() ) {
+				System.out.println("    " + video);
+			}
+			
+			System.out.println("");
+			System.out.println("");
+			System.out.println("");
+			
+			pintarMenu();
+			opcionElegida();
 		
-		pintarMenu();
-		opcionElegida();
+		}
 		
 	}
 	
-	//TODO Título mayor que 3 y menor que 254 caracteres, el código 11 caracteres.
+	//Título mayor que 3 y menor que 254 caracteres, el código 11 caracteres.
 	private static void anadir() {
 		
 		VideoYoutube video = new VideoYoutube();
 		long id = ++CONTADOR;
-		String titulo;
+		String titulo = "";
 		String codigo;
 		
 		video.setId(id);
-				
+		
 		do {
 			System.out.println("Introduce un título (de 3 a 254 caracteres)");
-			sc.nextLine();
-			titulo = sc.nextLine();
-		} while (titulo.length() <= 3 || titulo.length() >= 254);
+			try {
+				titulo = br.readLine();
+			} catch (IOException e) {
+				System.out.println("Lo sentimos, ha sucedido un error inesperado.");
+			}
+		} while (titulo.length() <= TITULO_MINIMO || titulo.length() >= TITULO_MAXIMO);
 		
 		video.setTitulo(titulo);		
 		
 		do {
 			System.out.println("Introduce un código (de 11 caracteres)");
 			codigo = sc.next();
-		} while (codigo.length() != 11);
+		} while (codigo.length() != CARACTERES_CODIGO);
 		
-		video.setCodigo(codigo);		
+		video.setCodigo(codigo);
 		
 		dao.insert(video);
 		
@@ -105,19 +134,40 @@ public class GestorVideos {
 	
 	private static void eliminar() {
 		
-		System.out.println("Introduce la id del video a eliminar");
-		try {
-			dao.delete(sc.nextLong());
-		} catch (Exception e) {
-			System.out.println("La id debe ser un número entero");
-		}
+		long id;
 		
-		if(CONTADOR - 1 == dao.getAll().size()) {
-			System.out.println("Video eliminado correctamente");
+		if(dao.getAll().size() == 0) {
+			System.out.println("No hay videos en la lista, por favor añade uno nuevo");
+			pintarMenu();
+			opcionElegida();
 		}
+		else {
 		
-		pintarMenu();
-		opcionElegida();
+			System.out.println("Introduce la id del video a eliminar");
+			try {
+				//dao.delete(sc.nextLong());
+				id = sc.nextLong();
+				
+				while(dao.getById(id) == null) {
+					System.out.println("No puede eliminar algo que no existe");
+					System.out.println("Introduzca otra id");
+					id = sc.nextLong();
+				}
+				
+				dao.delete(id);
+				
+			} catch (Exception e) {
+				System.out.println("La id debe ser un número entero");
+			}
+			
+			if(CONTADOR - 1 == dao.getAll().size()) {
+				System.out.println("Video eliminado correctamente");
+			}
+			
+			pintarMenu();
+			opcionElegida();
+		
+		}
 		
 	}
 
