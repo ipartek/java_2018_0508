@@ -1,6 +1,5 @@
 package com.ipartek.formacion.ejercicios.arrayList;
 
-import java.sql.Array;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -8,15 +7,15 @@ import java.util.Scanner;
  * Programa Java para calcular el String de mayor longitud de todos los
  * contenidos en un ArrayList de String.
  * 
- * El programa utilizará los siguientes métodos además del método main:
+ * El programa utilizarï¿½ los siguientes mï¿½todos ademï¿½s del mï¿½todo main:
  * 
- * Método leerArray(): este método recibe como parámetro el arrayList de Strings
- * vacío. El método pide por teclado cadenas de caracteres y las añade al
+ * Mï¿½todo leerArray(): este mï¿½todo recibe como parï¿½metro el arrayList de Strings
+ * vacï¿½o. El mï¿½todo pide por teclado cadenas de caracteres y las aï¿½ade al
  * ArrayList. La lectura de cadenas termina cuando se introduce la palabra
- * “FIN”.
+ * ï¿½FINï¿½.
  * 
- * Método cadenaMasLarga():este método recibe como parámetro el ArrayList de
- * Strings con todas las cadenas leídas anteriormente y devuelve el String de
+ * Mï¿½todo cadenaMasLarga():este mï¿½todo recibe como parï¿½metro el ArrayList de
+ * Strings con todas las cadenas leï¿½das anteriormente y devuelve el String de
  * mayor longitud.
  * 
  * @author andreaPerez
@@ -31,7 +30,7 @@ public class Ejercicio4 {
 			leerArray(aString);
 
 		} catch (Exception e) {
-			System.out.println("Uppss...Algo falló inesperadamente...");
+			System.out.println("Uppss...Algo fallï¿½ inesperadamente...");
 		}
 
 	}
@@ -55,6 +54,7 @@ public class Ejercicio4 {
 		} while (resul == false);
 
 		cadenaMasLarga(lista);
+		sc.close();
 
 	}
 
