@@ -68,8 +68,11 @@ public class GestorDeVideos {
 				}
 
 			} while (opcionSeleccionada != OPCION_SALIR);
+			
 		} catch (Exception e) {
+			
 			System.out.println("Sentimos las molestias, ha ocurrido un error inesperado.");
+		
 		} finally {
 			if (sc != null) {
 				sc.close();
