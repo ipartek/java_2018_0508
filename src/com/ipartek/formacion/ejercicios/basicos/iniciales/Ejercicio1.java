@@ -23,7 +23,7 @@ public class Ejercicio1 {
 	
 	public static void main(String[] args) {
 		
-		int n = 5;
+		int n = 5;   
 		double a = 4.56;
 		char c = 'a';
 		
