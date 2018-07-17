@@ -94,7 +94,7 @@ public class VideoYoutubeArrayDAOTest {
 
 	
 	@Test
-	public void testUpdate() {
+	public void testUpdate() throws Exception {
 
 		assertFalse( dao.update(null) );
 		

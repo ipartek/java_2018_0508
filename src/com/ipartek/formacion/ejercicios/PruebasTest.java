@@ -2,6 +2,10 @@ package com.ipartek.formacion.ejercicios;
 
 import static org.junit.Assert.*;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -10,11 +14,13 @@ import org.junit.Test;
 
 import com.ipartek.formacion.pojo.VideoYoutube;
 
+
+
 public class PruebasTest {
 
 	@Test
 	public void testPasoPorValor() {
-
+		
 		int i1 = 5;
 		int i2 = 5;
 

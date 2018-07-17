@@ -2,8 +2,11 @@ package com.ipartek.formacion.pojo;
 
 public class VideoYoutube implements Cloneable {
 
+	
+	private static String MENSAJE_EXCEPTION_CODIGO = "El codigo debe ser de 11 caracteres";
+	
 	private long id;
-	private String codigo;
+	private String codigo; //11 caracteres
 	private String titulo;
 
 	public VideoYoutube() {
@@ -13,11 +16,12 @@ public class VideoYoutube implements Cloneable {
 		this.titulo = "";
 	}
 
-	public VideoYoutube(long id, String titulo, String codigo) {
+	public VideoYoutube(long id, String titulo, String codigo) throws Exception  {
 		this();
 		this.id = id;
 		this.titulo = titulo;
-		this.codigo = codigo;
+		//this.codigo = codigo;
+		setCodigo(codigo);
 	}
 
 	public long getId() {
@@ -32,8 +36,25 @@ public class VideoYoutube implements Cloneable {
 		return codigo;
 	}
 
-	public void setCodigo(String codigo) {
-		this.codigo = codigo;
+	/**
+	 * 
+	 * @param codigo
+	 * @throws Exception
+	 */
+	public void setCodigo(String codigo) throws Exception {
+		
+		if ( codigo != null ) {
+			codigo = codigo.trim();				
+			if ( codigo.length() != 11) {
+				throw new Exception( MENSAJE_EXCEPTION_CODIGO );
+			}else {
+				this.codigo = codigo;				
+			}
+		} else {
+			throw new Exception( MENSAJE_EXCEPTION_CODIGO );
+		}	
+		
+		
 	}
 
 	public String getTitulo() {
