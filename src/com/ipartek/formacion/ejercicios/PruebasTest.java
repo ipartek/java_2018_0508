@@ -1,15 +1,8 @@
 package com.ipartek.formacion.ejercicios;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
-
-import org.junit.After;
-import org.junit.AfterClass;
-import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 
 import com.ipartek.formacion.pojo.VideoYoutube;
@@ -51,7 +44,7 @@ public class PruebasTest {
 		
 		assertTrue ( 6 == v.getId() );
 		assertTrue ( referencia == v );
-		
+/*		
 		try {
 			VideoYoutube clon = (VideoYoutube) v.clone();
 			
@@ -61,7 +54,7 @@ public class PruebasTest {
 		} catch (CloneNotSupportedException e) {
 			fail("deberia poder clonarse");
 		}
-		
+*/		
 		
 		
 		
