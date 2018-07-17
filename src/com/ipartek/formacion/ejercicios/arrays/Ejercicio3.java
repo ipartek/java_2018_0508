@@ -3,16 +3,16 @@ package com.ipartek.formacion.ejercicios.arrays;
 import java.util.Scanner;
 
 /**
- * 3. Programa que lee por teclado la nota de los alumnos de una clase y calcula
- * la nota media del grupo. También muestra los alumnos con notas superiores a
- * la media. El número de alumnos se lee por teclado. Este programa utiliza un
- * array de elementos de tipo double que contendrá las notas de los alumnos. El
- * tamaño del array será el número de alumnos de la clase, por lo tanto primero
- * se pedirá por teclado el número de alumnos y a continuación se creará el
- * array. Se realizan 3 recorridos sobre el array, el primero para asignar a
- * cada elemento las notas introducidas por teclado, el segundo para sumarlas y
- * calcular la media y el tercero para mostrar los alumnos con notas superiores
- * a la media.
+ * 3. Programa que lee por teclado la nota de los alumnos de una clase y calcula<br>
+ * la nota media del grupo. También muestra los alumnos con notas superiores a<br>
+ * la media. El número de alumnos se lee por teclado. Este programa utiliza un<br>
+ * array de elementos de tipo double que contendrá las notas de los alumnos. El<br>
+ * tamaño del array será el número de alumnos de la clase, por lo tanto primero<br>
+ * se pedirá por teclado el número de alumnos y a continuación se creará el<br>
+ * array. Se realizan 3 recorridos sobre el array, el primero para asignar a<br>
+ * cada elemento las notas introducidas por teclado, el segundo para sumarlas y<br>
+ * calcular la media y el tercero para mostrar los alumnos con notas superiores<br>
+ * a la media.<br>
  * 
  * @author Ainara
  *

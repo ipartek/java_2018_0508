@@ -3,11 +3,11 @@ package com.ipartek.formacion.ejercicios.arrays;
 import java.util.Scanner;
 
 /**
- * 2. Programa Java que lea 10 números enteros por teclado y los guarde en un
- * array. Calcula y muestra la media de los números que estén en las posiciones
- * pares del array.
+ * 2. Programa Java que lea 10 números enteros por teclado y los guarde en un<br>
+ * array. Calcula y muestra la media de los números que estén en las posiciones<br>
+ * pares del array.<br>
  * 
- * Considera la primera posición del array (posición 0) como par.
+ * Considera la primera posición del array (posición 0) como par.<br>
  * 
  * @author Ainara
  *
