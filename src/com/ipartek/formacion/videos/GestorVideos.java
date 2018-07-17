@@ -14,7 +14,7 @@ public class GestorVideos {
 	static String titulo;
 	static long id;
 	static String codigo;
-	static VideoYoutube video = new VideoYoutube();
+	static VideoYoutube video;
 
 	static private final int OPCION_SALIR = 0;
 	static private final int OPCION_LISTAR = 1;
@@ -58,7 +58,9 @@ public class GestorVideos {
 		sc.close();
 	}
 
-
+	/***
+	 * Cierra la aplicacion
+	 */
 	private static void salir() {
 		System.out.println("");
 		System.out.println("");
@@ -75,6 +77,9 @@ public class GestorVideos {
 
 	}
 
+	/***
+	 * Muestra por consola todos los videos de la lista
+	 */
 	private static void listar() {
 
 		for ( VideoYoutube video : dao.getAll() ) {
@@ -88,35 +93,29 @@ public class GestorVideos {
 		pintarMenu();
 	}
 
-	/*titulo mayor que 3 y menor que 254 caracteres
-	 * codigo 11 caracteres*/
+	/***
+	 * Añade un video a la lista de videos
+	 * El titulo del video debe ser mayor de 3 caracteres y menor de 254
+	 * El codigo debe ser de 11 caracteres
+	 */
 	private static void anadir() {
-		//sc.nextLine();
 		do {
 			System.out.println("Introduce el titulo del video a añadir: ");
 			titulo = sc.nextLine().trim();
-			/*String[] tituloCompuesto = new String[10];
-			tituloCompuesto =  sc.nextLine().split(" ");
-			for(int i = 0; i<tituloCompuesto.length; i++) {
-				if(!tituloCompuesto[i].isEmpty())
-					if(titulo != null)
-						titulo = titulo + tituloCompuesto[i] + " ";
-					else
-						titulo = tituloCompuesto[i] + " ";
-			}*/
 
 			if(titulo.length() < 3 || titulo.length() > 254) {
 				System.out.println("ERROR. El titulo tiene que ser mayor de 3 caracteres y menor de 254.");
 				System.out.println("");
 			}else{
 				System.out.println("Introduce el codigo del video a añadir: ");
-
 				codigo = sc.next();
 
 				if(codigo.length() != 11) {
 					System.out.println("ERROR. El codigo tiene que ser de 11 caracteres");
 					System.out.println("");
+					sc.nextLine();
 				}else {
+					video = new VideoYoutube();
 					video.setId((long)dao.length()+1);
 					video.setTitulo(titulo);
 					video.setCodigo(codigo);
@@ -132,6 +131,9 @@ public class GestorVideos {
 		}while(titulo.length() < 3 || titulo.length() > 254 || codigo.length() != 11);
 	}
 
+	/***
+	 * Borra un video de la lista de videos a traves del ID
+	 */
 	private static void eliminar() {
 		do {
 			System.out.println("Introduzca el ID del video que desea borrar: ");
@@ -149,6 +151,9 @@ public class GestorVideos {
 		}while(video == null);		
 	}
 
+	/***
+	 * Carga manual de la lista de videos de prueba
+	 */
 	private static void cargarVideos() {
 		VideoYoutube video = new VideoYoutube(12650, "Nightmares On Wax Boiler Room London DJ Set", "Q692lHFaLVM");
 		dao.insert(video);
@@ -157,7 +162,9 @@ public class GestorVideos {
 		dao.insert(video);
 	}
 
-
+	/***
+ 	* Dibuja en la consola el menu de opciones
+ 	*/
 	private static void pintarMenu() /*throws Exception*/{
 
 		System.out.println("------------------------------------");
