@@ -112,11 +112,12 @@ public class VideoClub {
 		if (videos.size() <= VACIO) {
 			System.out.println("No hay videos para mostrar.");
 		} else {
-			System.out.println("Listado de " + videos.size() + " videos");
+			System.out.println("\n Listado de " + videos.size() + " videos:");
 
 			for (VideoYoutube listVideos : videos) {
 				System.out.println("  " + listVideos + " \n");
 			}
+			
 		}
 
 	}
@@ -136,16 +137,16 @@ public class VideoClub {
 			VideoYoutube v = new VideoYoutube();
 
 			do {
-				System.out.print("inserte titulo : ");
+				System.out.print("inserte entre 3 y 254 caracteres para el titulo : ");
 				v.setTitulo(sc.nextLine().trim());
-				
+
 				if (v.getTitulo().length() < TITULO_MIN || v.getTitulo().length() > TITULO_MAX) {
 					System.out.println("ERROR...La longitud del titulo debe de ser entre 3 y 254 caracteres");
 				}
 			} while (v.getTitulo().length() < TITULO_MIN || v.getTitulo().length() > TITULO_MAX);
 
 			do {
-				System.out.print("inserte codigo: ");
+				System.out.print("inserte 11 caracteres para el codigo: ");
 				v.setCodigo(sc.next());
 				sc.nextLine();
 				if (v.getCodigo().length() != LONGCODIGO) {
@@ -161,7 +162,7 @@ public class VideoClub {
 			System.out.println("guardado registro....");
 			dao.insert(v);
 
-			System.out.println("¿Deseas agregar mas videos? \"s\" si \"n\"no");
+			System.out.println("ï¿½Deseas agregar mas videos? \"s\" si \"n\"no");
 			continuar = sc.next();
 			resul = validarContinuar(continuar);
 
@@ -171,6 +172,7 @@ public class VideoClub {
 				resul = validarContinuar(continuar);
 				sc.nextLine();
 			}
+			sc.nextLine();
 
 		} while (!TERMINAR.equalsIgnoreCase(continuar));
 
@@ -184,10 +186,10 @@ public class VideoClub {
 		long aux = 0;
 
 		if (videos.size() <= VACIO) {
-			System.out.println("\n No hay videos que mostrar \n");
+			System.out.println("\n No hay videos para mostrar \n");
 			pintarMenu();
 		} else {
-			System.out.println(" \n Listado de videos :    ");
+			
 			listarVideo();
 
 			do {
@@ -201,13 +203,11 @@ public class VideoClub {
 						dao.delete(r);
 						System.out.println("\n Lista actualizada....");
 						listarVideo();
-					} else {
-						System.out.println("Video no encontrado");
-					}
+					} 
 
 				} catch (Exception e) {
 
-					System.out.println("El codigo es incorrecto..");
+					System.out.println("El codigo no corresponde a ningun video..");
 					sc.nextLine();
 
 					eliminaElement();

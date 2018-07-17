@@ -49,9 +49,10 @@ public class Ejercicio4 {
 				resul = false;
 			} else {
 				lista.add(texto);
+				resul = true;
 			}
 			sc.nextLine();
-		} while (resul == false);
+		} while (resul == true);
 
 		cadenaMasLarga(lista);
 		sc.close();
@@ -63,11 +64,13 @@ public class Ejercicio4 {
 		String textoMax = lista.get(0);
 
 		for (int i = 0; i < lista.size(); i++) {
-//			if (textoMax < lista.get(i).length()) {
-//
-//			}
+			if (lista.get(i).length() > textoMax.length()) {
+				textoMax = lista.get(i);
+			}
 
 		}
+
+		System.out.println("La palabra mas larga es : " + textoMax + " con " + textoMax.length() + " caracteres");
 	}
 
 }
