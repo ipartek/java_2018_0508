@@ -21,6 +21,12 @@ public class GestorVideos {
 	static public final int MINLIM_TITULO = 3;
 	static public final int LIM_CODIGO = 11;
 
+	static public boolean SALIR = false;
+
+	static public int CONTADOR_VIDEOS;
+
+	static public final char NO = 'n';
+
 	public static void main(String[] args) throws IOException {
 
 		sc = new Scanner(System.in);
@@ -46,7 +52,7 @@ public class GestorVideos {
 				break;
 
 			case OPCION_SALIR:
-				System.out.println("AGUR VENUR, esperamos verte pronto");
+				salir();
 				break;
 
 			default:
@@ -54,7 +60,16 @@ public class GestorVideos {
 				break;
 			}
 
-		} while (opcionSeleccionada != OPCION_SALIR);
+		} while (SALIR == false);
+
+	}
+
+	private static void salir() {
+		System.out.println(" ");
+		System.out.println(" ");
+
+		System.out.println("AGUR VENUR ETA JAN YOGUR");
+		SALIR = true;
 
 	}
 
@@ -94,7 +109,7 @@ public class GestorVideos {
 			System.out.println("Deseas ELIMINAR algun video?(s/n)");
 			seguir = (char) System.in.read();
 
-			if (seguir != 'n') {
+			if (seguir != NO) {
 				if (dao.getAll().size() > 0) {
 
 					System.out.println("Selecciona un video a ELIMINAR(Introduce su id): ");
@@ -122,7 +137,7 @@ public class GestorVideos {
 				}
 			} // (s/n)
 
-		} while (seguir != 'n');
+		} while (seguir != NO);
 
 		pintarMenu();
 	}
@@ -148,9 +163,9 @@ public class GestorVideos {
 				codigo = sc.nextLine();
 			} while (codigo.getBytes().length != LIM_CODIGO); // codigo.isEmpty() == true
 
-			int id = dao.getAll().size() + 1;
+			CONTADOR_VIDEOS = CONTADOR_VIDEOS + 1;
 
-			VideoYoutube video = new VideoYoutube(id, titulo, codigo);
+			VideoYoutube video = new VideoYoutube(CONTADOR_VIDEOS, titulo, codigo);
 			dao.insert(video);
 
 			System.out.println("Tu video ha sido añadido");
@@ -159,7 +174,7 @@ public class GestorVideos {
 			System.out.println("Deseas AÑADIR algun video mas(s/n)");
 			seguir = (char) System.in.read();
 
-		} while (seguir != 'n');
+		} while (seguir != NO);
 		pintarMenu();
 
 	}
@@ -170,6 +185,8 @@ public class GestorVideos {
 
 		video = new VideoYoutube(2, "The Skatalites - Rock Fort Rock", "6bLVdKbPHHY");
 		dao.insert(video);
+
+		CONTADOR_VIDEOS = CONTADOR_VIDEOS + 2;
 
 	}
 
