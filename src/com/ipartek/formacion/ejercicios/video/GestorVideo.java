@@ -1,5 +1,6 @@
 package com.ipartek.formacion.ejercicios.video;
 
+import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
 
@@ -14,55 +15,72 @@ public class GestorVideo {
 	static private final int OPCION_LISTAR = 1;
 	static private final int OPCION_ANADIR = 2;
 	static private final int OPCION_ELIMINAR = 3;
+	private static VideoYoutubeArrayDAO dao = VideoYoutubeArrayDAO.getIntance();
 
 	public static void main(String[] args) {
-
-		VideoYoutubeArrayDAO dao = VideoYoutubeArrayDAO.getIntance();
 
 		int opcion = 0;
 
 		do {
 
-			mostrarMenu();
+			try {
+				mostrarMenu();
 
-			opcion = sr.nextInt();
-			sr.nextLine();
+				opcion = sr.nextInt();
+				sr.nextLine();
 
-			switch (opcion) {
-			case OPCION_LISTAR:
+				switch (opcion) {
+				case OPCION_LISTAR:
 
-				List<Youtube> videos = dao.getAll();
-				mostrarLista(videos);
-				break;
+					List<Youtube> videos = dao.getAll();
+					mostrarLista(videos);
+					break;
 
-			case OPCION_ANADIR:
+				case OPCION_ANADIR:
 
-				Youtube nuevoVideo = crearNuevoYoutube();
-				dao.insert(nuevoVideo);
-				break;
+					Youtube nuevoVideo = crearNuevoYoutube();
+					dao.insert(nuevoVideo);
+					break;
 
-			case OPCION_ELIMINAR:
+				case OPCION_ELIMINAR:
 
-				System.out.println("Ingrese por favor el ID del video que quieres borrar");
-				long id = sr.nextLong();
-				dao.delete(id);
-				break;
+					borrarVideo();
+					break;
 
-			case OPCION_SALIR:
+				case OPCION_SALIR:
 
-				System.out.println("Gracias por tu visita a nuestra aplicacion ");
-				break;
+					System.out.println("Gracias por tu visita a nuestra aplicacion ");
+					break;
 
-			default:
-				System.out.println("Has ingresado un numero ERRONEO");
+				default:
+					System.out.println("Has ingresado un numero ERRONEO");
+				}
+			} catch (InputMismatchException ex) {
+				System.out.println("No has introducido un numero valido");
 			}
 
 		} while (opcion != OPCION_SALIR);
 
 	}
 
+	private static void borrarVideo() {
+		long id;
+		boolean borrado = false;
+		do {
+			System.out.println("Ingrese por favor el ID del video que quieres borrar");
+			id = sr.nextLong();
+			borrado = dao.delete(id);
+			if (borrado == false) {
+				System.out.println("El Id ingresado es el incorrecto ");
+			} else {
+				System.out.println(" Borrado el Id ingresado ");
+			}
+		} while (borrado != true);
+
+	}
+
 	private static void mostrarMenu() {
-		System.out.println("Selecciona una opciï¿½n:");
+		System.out.println("Selecciona una opción:");
 		System.out.println("1 - Listar");
 		System.out.println("2 - Anadir");
 		System.out.println("3 - Eliminar");
@@ -71,25 +89,51 @@ public class GestorVideo {
 	}
 
 	private static void mostrarLista(List<Youtube> videos) {
+		if (videos.size() == 0) {
+			System.out.println("No hay canciones ");
+		} else {
+			for (int i = 0; i < videos.size(); i++) {
+				Youtube vid = videos.get(i);
+				System.out.println(vid.toString());
+			}
 
-		for (int i = 0; i < videos.size(); i++) {
-			Youtube vid = videos.get(i);
-			System.out.println(vid.toString());
 		}
 
 	}
 
 	private static Youtube crearNuevoYoutube() {
 
-		System.out.println("Ingresa un titulo:");
-		String titulo = sr.nextLine();
-		System.out.println("Ingresa un codigo:");
-		String codigo = sr.nextLine();
+		String titulo = "";
+		boolean tituloCorrecto = false;
+
+		do {
+			System.out.println("Ingresa un titulo:");
+			titulo = sr.nextLine();
+
+			if (titulo.length() > 3 && titulo.length() < 255) {
+				tituloCorrecto = true;
+			} else {
+				System.out.println("El titulo tiene que ser entre 3 y 255 caracteres ");
+			}
+		} while (tituloCorrecto != true);
+
+		String codigo = "";
+		boolean codigoCorrecto = false;
+
+		do {
+			System.out.println("Ingrese un codigo por favor : ");
+			codigo = sr.nextLine();
+			if (codigo.length() == 11) {
+				codigoCorrecto = true;
+			} else {
+				System.out.println("El codigo tiene que ser de 11 caracters ");
+			}
+		} while (codigoCorrecto != true);
 
 		Youtube nuevoVideo = new Youtube(titulo, codigo);
 
 		return nuevoVideo;
-		
+
 	}
 
 }

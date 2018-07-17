@@ -35,19 +35,8 @@ public class VideoYoutubeArrayDAO implements CrudAble<Youtube> {
 		boolean result = false;
 		if (video != null) {
 			video.setId(id);
-			if (video.getTitulo().length() > 3 && video.getTitulo().length() < 255) {
-				if (video.getCodigo().length() == 11) {
-				} else {
-					System.out.println("El codigo debe ser de 11 caracteres");
-					return false;
-				}
-				result = Lista.add(video);
-				id++;
-			} else {
-				System.out.println("El titulo tiene que ser entre 3 y 255 caracteres ");
-				return false;
-			}
-
+			result = Lista.add(video);
+			id++;
 		}
 
 		return result;
