@@ -16,18 +16,18 @@ public class Ejercicio4 {
 		int c = 5;
 		int d = 7;
 		int copiaA;
-		
+
 		System.out.println("Valor inicial de a: " + a);
 		System.out.println("Valor inicial de b: " + b);
 		System.out.println("Valor inicial de c: " + c);
 		System.out.println("Valor inicial de d: " + d);
-		
+
 		copiaA = a;
 		a = d;
 		d = b;
 		b = c;
 		c = copiaA;
-		
+
 		System.out.println("Valor final de a: " + a);
 		System.out.println("Valor final de b: " + b);
 		System.out.println("Valor final de c: " + c);
