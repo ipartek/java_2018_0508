@@ -10,6 +10,11 @@ public class GestorVideo {
 
 	private static Scanner p = new Scanner(System.in);
 
+	static private final int OPCION_SALIR = 0;
+	static private final int OPCION_LISTAR = 1;
+	static private final int OPCION_ANADIR = 2;
+	static private final int OPCION_ELIMINAR = 3;
+
 	public static void main(String[] args) {
 
 		VideoYoutubeArrayDAO ytDAO = VideoYoutubeArrayDAO.getIntance();
@@ -24,31 +29,35 @@ public class GestorVideo {
 			p.nextLine();
 
 			switch (opcion) {
-			case 1:
+			case OPCION_LISTAR:
 
 				List<Youtube> videos = ytDAO.getAll();
-
 				mostrarLista(videos);
 				break;
-			case 2:
+				
+			case OPCION_ANADIR:
+				
 				Youtube nuevoVideo = crearNuevoYoutube();
 				ytDAO.insert(nuevoVideo);
 				break;
-			case 3:
+				
+			case OPCION_ELIMINAR:
+				
 				System.out.println("Ingrese el ID del video que quieres borrar");
-
 				long id = p.nextLong();
-
 				ytDAO.delete(id);
-
 				break;
-			case 0:
+				
+			case OPCION_SALIR:
+				
 				System.out.println("Gracias ");
 				break;
+				
 			default:
 				System.out.println("Has ingresado un numero ERRONEO");
 			}
-		} while (opcion != 0);
+			
+		} while (opcion != OPCION_SALIR);
 
 	}
 
@@ -71,7 +80,7 @@ public class GestorVideo {
 	}
 
 	private static Youtube crearNuevoYoutube() {
-		
+
 		System.out.println("Ingresa un titulo:");
 		String titulo = p.nextLine();
 		System.out.println("Ingresa un codigo:");
