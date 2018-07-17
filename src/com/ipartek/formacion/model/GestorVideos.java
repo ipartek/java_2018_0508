@@ -119,7 +119,7 @@ public class GestorVideos {
 						idVideo = sc.nextInt();
 					} catch (Exception e) {
 						sc.nextLine();
-						System.out.println("¡OPCION NO VALIDA! Porfavor introduce un numero!!");
+						System.out.println("¡VIDEO NO ENCONTRADO! Porfavor introduce un numero!!");
 						eliminarVideos();
 					}
 
