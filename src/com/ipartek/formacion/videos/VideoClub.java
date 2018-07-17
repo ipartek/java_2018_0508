@@ -3,7 +3,6 @@ package com.ipartek.formacion.videos;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.Scanner;
 
 import com.ipartek.formacion.model.VideoYoutubeArrayDAO;
 import com.ipartek.formacion.pojo.VideoYoutube;
@@ -20,13 +19,12 @@ import com.sun.corba.se.impl.io.TypeMismatchException;
 public class VideoClub {
 	static private VideoYoutubeArrayDAO dao;
 	static private int opcionSeleccionada = 0;
-	static Scanner sc = null;
 	static BufferedReader bf;
 
 	static private final int OPCION_LISTAR = 1;
 	static private final int OPCION_ANADIR = 2;
 	static private final int OPCION_ELIMINAR = 3;
-	static private final int OPCION_SALIR = 0;
+	static private final int OPCION_SALIR = 4;
 	static private final int TAM_MIN_TITULO = 3;
 	static private final int TAM_MAX_TITULO = 254;
 	static private final int TAM_CODIGO = 11;
@@ -36,6 +34,7 @@ public class VideoClub {
 	static int cont = 0;
 
 	public static void main(String[] args) {
+
 		try {
 			bf = new BufferedReader(new InputStreamReader(System.in));
 
@@ -67,9 +66,9 @@ public class VideoClub {
 			System.out.println("--------------youtube-------------");
 			System.out.println("----------------------------------");
 			System.out.println("    1.Listar                      ");
-			System.out.println("    2.Añadir                      ");
+			System.out.println("    2.AÃ±adir                      ");
 			System.out.println("    3.Eliminar                    ");
-			System.out.println("    0.Salir                       ");
+			System.out.println("    4.Salir                       ");
 			System.out.println("----------------------------------");
 			System.out.println("Elige una opcion");
 			try {
@@ -81,39 +80,39 @@ public class VideoClub {
 
 			} catch (Exception e) {
 				System.out.println("Lo sentimoss pero no has introducido una opcion correcta");
-				System.out.println("Introduzca una numero entre 0 y 3 por favor");
+				System.out.println("Introduzca una numero entre 1 y 4 por favor");
 
 			}
+		} while (opcionSeleccionada != OPCION_SALIR);
 
-			switch (opcionSeleccionada) {
-			case OPCION_LISTAR:
-				listarVideos();
-				pintarMenu();
-				break;
+		switch (opcionSeleccionada) {
+		case OPCION_LISTAR:
+			listarVideos();
+			pintarMenu();
+			break;
 
-			case OPCION_ANADIR:
-				anadirVideo();
-				pintarMenu();
+		case OPCION_ANADIR:
+			anadirVideo();
+			pintarMenu();
 
-				break;
+			break;
 
-			case OPCION_ELIMINAR:
-				eliminarVideo();
-				pintarMenu();
+		case OPCION_ELIMINAR:
+			eliminarVideo();
+			pintarMenu();
 
-				break;
+			break;
 
-			case OPCION_SALIR:
-				System.exit(0);
-				break;
+		case OPCION_SALIR:
+			System.out.println("Hasta la prÃ³xima.");
+			System.exit(0);
+			break;
 
-			default:
-				System.out.println("Lo sentimos pero no has introducido una opcion correcta");
-				System.out.println("Introduzca una numero entre 0 y 3 por favor");
-
-				break;
-			}
-		} while (opcionSeleccionada < 0 || opcionSeleccionada > 3);
+		default:
+			System.out.println("Lo sentimos pero no has introducido una opcion correcta");
+			System.out.println("Introduzca una numero entre 0 y 3 por favor");
+			break;
+		}
 
 	}
 
@@ -121,21 +120,24 @@ public class VideoClub {
 
 		if (dao.getAll().isEmpty()) {
 
-			System.out.println("Lo sentimos pero no hay ningún video que eliminar");
+			System.out.println("Lo sentimos pero no hay ningÃºn video que eliminar");
 
 		} else {
+
 			int opcionElim = 0;
-			System.out.println("¿Que desea eliminar?");
-			pintarMenuEliminar();
-			try {
-				opcionElim = Integer.parseInt(bf.readLine());
-			} catch (NumberFormatException e1) {
+			do {
+				System.out.println("Â¿Que desea eliminar?");
+				pintarMenuEliminar();
+				try {
+					opcionElim = Integer.parseInt(bf.readLine());
+				} catch (NumberFormatException e1) {
 
-				System.out.println("Lo sentimos pero tiene que introducir 1 o 2");
+					System.out.println("Lo sentimos pero tiene que introducir 1 o 2");
 
-			} catch (IOException e1) {
-				System.out.println("La opcion introducida no es correcta");
-			}
+				} catch (IOException e1) {
+					System.out.println("La opcion introducida no es correcta");
+				}
+			} while (opcionElim != OPCION_ELIMINAR_LISTA_COMPLETA && opcionElim != OPCION_ELIMINAR_VIDEO);
 
 			switch (opcionElim) {
 			case OPCION_ELIMINAR_LISTA_COMPLETA:
@@ -183,20 +185,17 @@ public class VideoClub {
 						pintarMenu();
 					}
 				} while (!videoElim);
-				break;
 
-			default:
-
-				System.out.println("lo sentimos pero debe introducir un 1 o un 2");
-				pintarMenuEliminar();
 				try {
+
+					pintarMenu();
 					opcionElim = Integer.parseInt(bf.readLine());
+					dao.delete(opcionElim);
 				} catch (NumberFormatException | IOException e) {
 					System.out.println("No ha introducido un numero correcto");
 					System.out.println("Introduzca 1 o 2");
 				}
-				dao.deleteAll(dao.getAll());
-				System.out.println("La lista ha sido elimnada");
+
 				break;
 			}
 
@@ -255,42 +254,14 @@ public class VideoClub {
 		}
 		dao.insert(new VideoYoutube(cont, tit, cod));
 		cont++;
-		System.out.println("Video añadido a la lista.");
-
-		/*
-		 * try {
-		 * 
-		 * cod = sc.next(); if (VideoClub.controlarCodigo(cod)) {
-		 * System.out.println("Introduzca el titulo del video"); sc.nextLine(); tit =
-		 * sc.nextLine(); if (VideoClub.controlarTitulo(tit)) {
-		 * 
-		 * dao.insert(new VideoYoutube(cont, tit, cod)); cont++;
-		 * System.out.println("Video añadido a la lista."); } else { System.out.
-		 * println("Lo sentimos pero el titulo debe tener al menos 3 caracteres.");
-		 * System.out.println("El video NO se añadio a la lista");
-		 * 
-		 * } }
-		 * 
-		 * } catch (TypeMismatchException e) {
-		 * 
-		 * System.out.println("Lo sentimos pero debe introducir un numero");
-		 * 
-		 * } catch (Exception e) {
-		 * 
-		 * System.out.
-		 * println("Lo sentimos pero ha ocurrido un error, por favor intentelo de nuevo"
-		 * );
-		 * 
-		 * pintarMenu(); }
-		 */
-
+		System.out.println("Video aï¿½adido a la lista.");
 		pintarMenu();
 
 	}
 
 	/**
 	 * Metodo que controla si el usuario introduce un titulo para el video<br>
-	 * correcto. Para que sea así debe tener al menos 3 caracteres, y como<br>
+	 * correcto. Para que sea asï¿½ debe tener al menos 3 caracteres, y como<br>
 	 * maximo 254.
 	 * 
 	 * @param tit el titulo introducido por el usuario.
