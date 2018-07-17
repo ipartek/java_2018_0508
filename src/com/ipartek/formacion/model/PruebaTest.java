@@ -51,12 +51,12 @@ public class PruebaTest {
 		assertEquals(i2, i1); //compara valor interno
 		
 		
-		Youtube v = new Youtube();
-		v.setId(5);
-		Youtube referencia = sumaUno(v);
+		//Youtube v = new Youtube();
+		//v.setId(5);
+		//Youtube referencia = sumaUno(v);
 		
-		assertTrue(6 == v.getId());
-		assertTrue(referencia == v);
+		//assertTrue(6 == v.getId());
+		//assertTrue(referencia == v);
 		
 	}
 
