@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import com.ipartek.formacion.enumeracion.DiasSemana;
 import com.ipartek.formacion.pojo.VideoYoutube;
 
 /**
@@ -14,6 +15,8 @@ import com.ipartek.formacion.pojo.VideoYoutube;
  * 
  */
 public class VideoYoutubeArrayDAO implements CrudAble<VideoYoutube> {
+	
+	
 
 	private static VideoYoutubeArrayDAO INSTANCE = null;
 	private static List<VideoYoutube> lista = null;
@@ -33,7 +36,8 @@ public class VideoYoutubeArrayDAO implements CrudAble<VideoYoutube> {
 
 	@Override
 	public boolean insert(VideoYoutube video) {
-		boolean resul = false;
+		boolean resul = false;		
+
 		if ( video != null ) {
 			resul = lista.add(video);			
 		}			
