@@ -14,6 +14,7 @@ public class Ejercicio9 {
 
 		for (int i = 0; i < numeros.length; i++) {
 			numAle = (int) (Math.random() * 10);
+			numeros[i] = numAle;
 		}
 		for (int i = 0; i < numeros.length; i++) {
 			System.out.println(numeros[i]);

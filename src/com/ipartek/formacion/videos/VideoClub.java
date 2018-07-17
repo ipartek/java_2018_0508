@@ -153,7 +153,8 @@ public class VideoClub {
 			cod = sc.next();
 			if (VideoClub.controlarCodigo(cod)) {
 				System.out.println("Introduzca el titulo del video");
-				tit = sc.next();
+				sc.nextLine();
+				tit = sc.nextLine();
 				if (VideoClub.controlarTitulo(tit)) {
 
 					dao.insert(new VideoYoutube(cont, tit, cod));
@@ -186,8 +187,7 @@ public class VideoClub {
 	 * correcto. Para que sea así debe tener al menos 3 caracteres, y como<br>
 	 * maximo 254.
 	 * 
-	 * @param tit
-	 *            el titulo introducido por el usuario.
+	 * @param tit el titulo introducido por el usuario.
 	 * 
 	 * @return false si el titulo no tiene entre 3 y 254 caracteres.
 	 */
@@ -200,15 +200,13 @@ public class VideoClub {
 	}
 
 	/**
-	 * Metodo que controla si el codigo introducido por el usuario es
-	 * correcto.<br>
+	 * Metodo que controla si el codigo introducido por el usuario es correcto.<br>
 	 * Para ello debe cumplir las siguientes pautas:<br>
 	 * 
 	 * Tiene que tener 11 caracteres El valor de cada caracter tiene que ser
 	 * alfanumerico(entre 0 y 9, o, entre A y z
 	 * 
-	 * @param codigo
-	 *            el codigo introducido por el usuario
+	 * @param codigo el codigo introducido por el usuario
 	 * @return false si no cumple las reglas arriba descritas.
 	 */
 	private static boolean controlarCodigo(String codigo) {
