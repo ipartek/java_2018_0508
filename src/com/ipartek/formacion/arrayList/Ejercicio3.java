@@ -15,7 +15,15 @@ public class Ejercicio3 {
 
 		ArrayList<Integer> valores = new ArrayList<Integer>();
 
+		for (int i = 0; i < 10; i++) {
+			valores.add(i);
+		}
+
+		System.out.println(valores);
+
 		desplazarDerechaClasico(valores); // Solución 1
+
+		System.out.println(valores);
 
 		desplazarDerechaRapido(valores); // Solución 2
 
@@ -23,7 +31,9 @@ public class Ejercicio3 {
 
 	public static void desplazarDerechaClasico(ArrayList<Integer> valores) {
 		int i;
+
 		int aux = valores.get(valores.size() - 1); // Guardamos el último elemento
+
 		for (i = valores.size() - 1; i > 0; i--) { // Desplazamos los demás elementos
 			valores.set(i, valores.get(i - 1));
 		}
