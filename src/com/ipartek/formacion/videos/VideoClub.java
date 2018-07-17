@@ -9,8 +9,8 @@ public class VideoClub {
 
 	static VideoYoutubeArrayDAO dao;
 
-	static private final int OPC_MINIMA = 0;
-	static private final int OPC_MAXIMA = 4;
+	static private final int OPCION_MINIMA = 0;
+	static private final int OPCION_MAXIMA = 4;
 	static private final int OPCION_SALIR = 0;
 	static private final int OPCION_LISTAR = 1;
 	static private final int OPCION_ELIMINAR = 2;
@@ -26,44 +26,48 @@ public class VideoClub {
 
 	public static void main(String[] args) {
 
-		dao = VideoYoutubeArrayDAO.getInstance();
+		try {
+			dao = VideoYoutubeArrayDAO.getInstance();
 
-		cargarVideos();
+			cargarVideos();
 
-		ULTIMO_ID = dao.getAll().size() + 1;
+			ULTIMO_ID = dao.getAll().size() + 1;
 
-		int opc = VALOR_CHIVATO;
+			int opc = VALOR_CHIVATO;
 
-		while (opc != OPCION_SALIR) {
-			opc = opcion();
-			switch (opc) {
-			case OPCION_LISTAR:
-				listarVideos();
-				break;
+			while (opc != OPCION_SALIR) {
+				opc = opcion();
+				switch (opc) {
+				case OPCION_LISTAR:
+					listarVideos();
+					break;
 
-			case OPCION_ELIMINAR:
-				eliminarVideo();
-				break;
+				case OPCION_ELIMINAR:
+					eliminarVideo();
+					break;
 
-			case OPCION_MODIFICAR:
-				modficarVideo();
-				break;
+				case OPCION_MODIFICAR:
+					modficarVideo();
+					break;
 
-			case OPCION_ANADIR:
-				altaVideo();
-				break;
+				case OPCION_ANADIR:
+					altaVideo();
+					break;
 
-			case OPCION_SALIR:
-				System.out.println("Adios!!!! Vuelva pronto.");
-				break;
-			default:
-				// System.out.println("Adios!!!!");
-				break;
+				case OPCION_SALIR:
+					System.out.println("Adios!!!! Vuelva pronto.");
+					break;
+				default:
+
+					break;
+				}
+
 			}
-
+		} catch (Exception e) {
+			System.out.println("Disculpen las molestias pero hemos tenido un problema tecnico.");
+		} finally {
+			sc.close();
 		}
-
-		sc.close();
 	}
 
 	/**
@@ -117,11 +121,11 @@ public class VideoClub {
 				opc = sc.nextInt();
 				sc.nextLine();
 
-				if (opc > OPC_MAXIMA || opc < OPC_MINIMA) {
+				if (opc > OPCION_MAXIMA || opc < OPCION_MINIMA) {
 					System.out.println("No existe la opcion, vuelve a probar.");
 				}
 
-			} while (opc > OPC_MAXIMA || opc < OPC_MINIMA);
+			} while (opc > OPCION_MAXIMA || opc < OPCION_MINIMA);
 
 		} catch (Exception e) {
 			System.out.println("OPCION NO VALIDA, introduce numeros por favor.");
@@ -223,7 +227,7 @@ public class VideoClub {
 		while (codigo == "") {
 			System.out.println("Introduce el codigo de la nueva cancion::");
 			codigo = sc.nextLine();
-			codigo = comprobarTitulo(codigo);
+			codigo = comprobarCodigo(codigo);
 		}
 
 		video.setCodigo(codigo);

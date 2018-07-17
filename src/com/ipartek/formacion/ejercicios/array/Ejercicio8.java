@@ -10,22 +10,35 @@ import java.util.Scanner;
  *
  */
 public class Ejercicio8 {
-	
+
 	static final int N_EMPLEADOS = 20;
 
 	public static void main(String[] args) {
-		
+
 		int[] sueldos = new int[N_EMPLEADOS];
 		String[] empleados = new String[N_EMPLEADOS];
 		int sueldoMaximo = 0;
-		int posicion;
+		int posicionSMaximo = 0;
 		Scanner sc = new Scanner(System.in);
-		
-		for (int i = 0; i < sueldos.length; i++) {
-			
+
+		for (int i = 0; i < N_EMPLEADOS; i++) {
+
+			System.out.println("Introduce el nombre del empleado:");
+			empleados[i] = sc.nextLine();
+
+			System.out.println("Introduce el sueldo:");
+			sueldos[i] = sc.nextInt();
+
+			if (sueldoMaximo < sueldos[i]) {
+				sueldoMaximo = sueldos[i];
+				posicionSMaximo = i;
+			}
 		}
+
+		System.out.println("El empleado " + empleados[posicionSMaximo] + " es el que tiene mayor sueldo:"
+				+ sueldos[posicionSMaximo]);
 		
-		
+		sc.close();
 
 	}
 

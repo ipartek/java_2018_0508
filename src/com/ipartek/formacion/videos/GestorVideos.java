@@ -35,6 +35,8 @@ public class GestorVideos {
 			salir();
 			break;
 
+		case OPCION_ANADIR:
+		case OPCION_ELIMINAR:
 		default:
 			noOption();
 			break;
