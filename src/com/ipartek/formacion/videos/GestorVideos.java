@@ -21,14 +21,21 @@ public class GestorVideos {
 
 	public static void main(String[] args) {
 
-		sc = new Scanner(System.in);
+		try {
+			sc = new Scanner(System.in);
 
-		dao = VideoYoutubeArrayDAO.getInstance();
+			dao = VideoYoutubeArrayDAO.getInstance();
 
-		cargarVideos();
-		pintarMenu();
-
-		sc.close();
+			cargarVideos();
+			pintarMenu();
+			
+		}catch(Exception e) {
+			System.out.println("Estamos teniendo errors");
+			
+		}finally {
+			sc.close();
+			
+		}
 	}
 
 	private static void salir() {
