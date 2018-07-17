@@ -1,12 +1,11 @@
 package com.ipartek.formacion.model;
 
-import static org.junit.Assert.assertNull;
 import static org.junit.Assert.*;
 
-import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.BeforeEach;
+import org.junit.After;
+import org.junit.AfterClass;
+import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Test;
 
 import com.ipartek.formacion.pojo.VideoYoutube;
@@ -30,17 +29,17 @@ class VideoYoutubeArrayDAOTest {
 	static final String MOCK3_TITULO = "El destino";
 	static final String MOCK3_COD = "4BpHyMJKECA";
 
-	@BeforeAll
+	@BeforeClass
 	static void setUpBeforeClass() throws Exception {
 		dao = VideoYoutubeArrayDAO.getInstance(); // Creamos la instancia
 	}
 
-	@AfterAll
+	@AfterClass
 	static void tearDownAfterClass() throws Exception {
 		dao = null; // Eliminamos la instancia
 	}
 
-	@BeforeEach
+	@Before
 	void setUp() throws Exception { // Creamos los objetos MOCK
 
 		mock1 = new VideoYoutube(MOCK1_ID, MOCK1_TITULO, MOCK1_COD);
@@ -52,7 +51,7 @@ class VideoYoutubeArrayDAOTest {
 
 	}
 
-	@AfterEach
+	@After
 	void tearDown() throws Exception {
 
 		dao.delete(MOCK1_ID); // Eliminamos mock1 de la lista

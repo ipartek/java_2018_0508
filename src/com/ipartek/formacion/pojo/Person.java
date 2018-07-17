@@ -1,5 +1,12 @@
 package com.ipartek.formacion.pojo;
 
+/**
+ * Clase POJO para gestionar Personas.
+ * 
+ * @see package-info.java
+ * @author Curso
+ *
+ */
 public class Person {
 
 	// CONSTANTES
@@ -9,7 +16,7 @@ public class Person {
 
 	public static final float NOTA_MINIMA = 0.0F;
 	public static final float NOTA_MAXIMA = 10.0F;
-	
+
 	public static final int EDAD_MINIMA = 18;
 	public static final int EDAD_MAXIMA = 65;
 
@@ -35,9 +42,9 @@ public class Person {
 		this.nombre = nombre;
 		this.setNombre(nombre);
 		this.setApellido(apellido);
-		
+
 	}
-	
+
 	public Person(String nombre, String apellido, char sexo) {
 		this();
 		this.setNombre(nombre);
@@ -51,7 +58,7 @@ public class Person {
 	}
 
 	public void setNombre(String nombre) {
-		this.nombre = (nombre==null) ? "" : nombre.trim();	
+		this.nombre = (nombre == null) ? "" : nombre.trim();
 	}
 
 	public String getApellido() {
@@ -59,8 +66,8 @@ public class Person {
 	}
 
 	public void setApellido(String apellido) {
-		this.apellido = (apellido==null) ? "" : apellido.trim();
-		
+		this.apellido = (apellido == null) ? "" : apellido.trim();
+
 	}
 
 	public char getSexo() {
@@ -95,6 +102,7 @@ public class Person {
 	 * Establece la edad de la persona. Si edad es menor que EDAD_MINIMA, entonces
 	 * edad es igual a EDAD_MINIMA. Si edad es mayor que EDAD_MAXIMA, entonces nota
 	 * vale EDAD_MAXIMA. Por defecto, nota vale EDAD_MINIMA
+	 * 
 	 * @see constantes EDAD_MINIMA, EDAD_MAXIMA
 	 * @param edad, int que refleja la edad de la persona
 	 */

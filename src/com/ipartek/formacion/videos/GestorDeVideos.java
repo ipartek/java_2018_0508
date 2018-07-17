@@ -27,42 +27,55 @@ public class GestorDeVideos {
 	static private final int OPCION_ANADIR = 2;
 	static private final int OPCION_ELIMINAR = 3;
 
+	static private final int MIN_LONG_TITULO = 3;
+	static private final int MAX_LONG_TITULO = 256;
+	static private final int LONG_CODIGO = 11;
+
 	public static void main(String args[]) {
 
-		System.out.println("------------------------------------");
-		System.out.println("--        BIENVENIDO/A            --");
+		try {
+			System.out.println("------------------------------------");
+			System.out.println("--        BIENVENIDO/A            --");
 
-		dao = VideoYoutubeArrayDAO.getInstance();
+			dao = VideoYoutubeArrayDAO.getInstance();
 
-		cargarVideos();
+			cargarVideos();
 
-		do {
+			do {
 
-			pintarMenu();
+				pintarMenu();
 
-			switch (opcionSeleccionada) {
-			case OPCION_LISTAR:
-				listar();
-				break;
+				switch (opcionSeleccionada) {
+				case OPCION_LISTAR:
+					listar();
+					break;
 
-			case OPCION_SALIR:
-				salir();
-				break;
+				case OPCION_SALIR:
+					salir();
+					break;
 
-			case OPCION_ANADIR:
-				anadir();
-				break;
+				case OPCION_ANADIR:
+					anadir();
+					break;
 
-			case OPCION_ELIMINAR:
-				eliminar();
-				break;
+				case OPCION_ELIMINAR:
+					eliminar();
+					break;
 
-			default:
-				noOption();
-				break;
+				default:
+					noOption();
+					break;
+				}
+
+			} while (opcionSeleccionada != OPCION_SALIR);
+		} catch (Exception e) {
+			System.out.println("Sentimos las molestias, ha ocurrido un error inesperado.");
+		} finally {
+			if (sc != null) {
+				sc.close();
 			}
+		}
 
-		} while (opcionSeleccionada != OPCION_SALIR);
 	}
 
 	private static void noOption() {
@@ -83,14 +96,12 @@ public class GestorDeVideos {
 
 	private static void listar() {
 
-		if (dao.getAll() != null) {
+		if (dao.getAll().size() > 0) {
+			System.out.println("Lista de videos: \n\n");
 			for (VideoYoutube video : dao.getAll()) {
 				System.out.println("    " + video);
 			}
-			System.out.println("");
-			System.out.println("");
-			System.out.println("");
-
+			System.out.println("\n\n\n");
 		} else {
 			System.out.println("LO SENTIMOS. No hay videos en la lista.");
 		}
@@ -112,23 +123,29 @@ public class GestorDeVideos {
 		String tit;
 		String cod;
 
-		do {
+		do { // Pedimos título mientras no sea correcto
+
 			System.out.println("Por favor, introduce un título de 3 a 254 caracteres para el video: ");
 			tit = sc.nextLine();
+
+			if (tit.length() < MIN_LONG_TITULO || tit.length() > MAX_LONG_TITULO) { // Título incorrecto, avisamos
+				System.out.println("LO SENTIMOS. El título introducido no es válido.");
+
+			}
+		} while (tit.length() < MIN_LONG_TITULO || tit.length() > MAX_LONG_TITULO);
+
+		do { // Pedimos código mientras no sea correcto
 
 			System.out.println("Por favor, introduce un código de 11 caracteres para el video: ");
 			cod = sc.nextLine();
 
-			if (tit.length() < 3 || tit.length() > 254) {
-				System.out.println("LO SENTIMOS. El título introducido no es válido.");
+			if (cod.length() != LONG_CODIGO) { // Código incorrecto, avisamos
 
-			} else if (cod.length() != 11) {
 				System.out.println("LO SENTIMOS. El código introducido no es válido.");
-
 			}
-		} while (tit.length() < 3 || tit.length() > 254 || cod.length() != 11);
+		} while (cod.length() != LONG_CODIGO);
 
-		VideoYoutube v = new VideoYoutube(++cont, tit, cod);
+		VideoYoutube v = new VideoYoutube(++cont, tit, cod); // Cremos el video con los datos recogidos
 
 		System.out.println(dao.insert(v) ? "Video insertado con éxito."
 				: "Lo sentimos, ha ocurrido un error durante la insersción.");

@@ -13,7 +13,7 @@ import com.ipartek.formacion.pojo.VideoYoutube;
  * @author Curso
  *
  */
-public class VideoYoutubeArrayDAO implements CrudAble {
+public class VideoYoutubeArrayDAO implements CrudAble<VideoYoutube> {
 
 	private static VideoYoutubeArrayDAO INSTANCE = null;
 	private static ArrayList<VideoYoutube> lista;
@@ -55,7 +55,6 @@ public class VideoYoutubeArrayDAO implements CrudAble {
 		return v;
 	}
 
-	
 	@Override
 	public boolean update(VideoYoutube video) {
 		boolean result = false;

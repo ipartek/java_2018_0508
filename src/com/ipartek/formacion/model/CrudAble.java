@@ -17,37 +17,45 @@ import com.ipartek.formacion.pojo.VideoYoutube;
  * @author Curso
  *
  */
-public interface CrudAble {
+public interface CrudAble<P> {
 
-	boolean insert(VideoYoutube video); // Create
+	boolean insert(P pojo); // Create
 
 	/**
-	 * Recupera todos los VideoYoutube de la lista.
+	 * Recupera todos los objetos
+	 * <P>
+	 * de la lista.
 	 * 
 	 * @return lista, vacía si no existen resultados.
 	 */
-	List<VideoYoutube> getAll(); // Read
+	List<P> getAll(); // Read
 
 	/**
-	 * Función que devuelve el video con el id pasado por parámetro.
+	 * Función que devuelve el
+	 * <P>
+	 * con el id pasado por parámetro.
 	 * 
 	 * @param id, tipo long, que representa el identificador del video
 	 * @return v, objeto VideoYoutube Si no encuentra el <b>id</b>, devuelve
 	 *         <b>null</b>
 	 */
-	VideoYoutube getById(long id); // Read
+	P getById(long id); // Read
 
 	/**
-	 * Función que modifica el video pasado por parámetro.
+	 * Función que modifica el
+	 * <P>
+	 * pasado por parámetro.
 	 * 
 	 * @param video, objeto de clase VideoYoutube, que representa un video
 	 * @see VideoYoutube
 	 * @return result, boolean Si no encuentra el video, devuelve <b>false</b>
 	 */
-	boolean update(VideoYoutube v); // Update
+	boolean update(P pojo); // Update
 
 	/**
-	 * Función que elimina el video con el id pasado por parámetro.
+	 * Función que elimina el
+	 * <P>
+	 * con el id pasado por parámetro.
 	 * 
 	 * @param id, tipo long, que representa el identificador del video
 	 * @return result, boolean Si no encuentra el <b>id</b>, devuelve <b>false</b>
