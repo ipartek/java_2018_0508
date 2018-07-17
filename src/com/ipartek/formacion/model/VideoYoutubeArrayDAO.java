@@ -48,13 +48,15 @@ public class VideoYoutubeArrayDAO implements CrudAble {
 
 	@Override
 	public Youtube getByID(long id) {
-		for (int i = 0; i < Lista.size(); i++) {
-			Youtube video = Lista.get(i);
-			if (video.getId() == id) {
-				return video;
+		Youtube aux = null;
+
+		for (Youtube videoIteracion : Lista) {
+			if (id == videoIteracion.getId()) {
+				aux = videoIteracion;
+				break;
 			}
 		}
-		return null;
+		return aux;
 	}
 
 	@Override

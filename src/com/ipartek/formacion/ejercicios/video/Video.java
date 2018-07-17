@@ -27,8 +27,9 @@ public class Video {
 				System.out.println("Ingresa un ID:");
 				long id = p.nextLong();
 				p.nextLine();
-				System.out.println("Ingresa un titulo:");
+				System.out.println("Ingresa un titulo:" );
 				String titulo = p.nextLine();
+				
 				System.out.println("Ingresa un codigo:");
 				String codigo = p.nextLine();
 				
@@ -37,6 +38,7 @@ public class Video {
 				anadirVideo(nuevoVideo);
 				
 				break;
+				
 			case 3:
 				System.out.println("Ingresa el ID para borrar:");
 				long idBorrar = p.nextLong();
@@ -72,11 +74,15 @@ public class Video {
 		for(int i=0; i<videos.length;i++) {
 			if(videos[i]!=null) {
 				System.out.println(videos[i].toString());
+				
 			}
 		}
 	}
 	
 	private static void anadirVideo(Youtube video) {
+	
+
+		
 		for(int i=0;i<videos.length;i++) {
 			if(videos[i]==null) {
 				videos[i] = video;
@@ -85,6 +91,7 @@ public class Video {
 		}
 		
 		listarVideos();
+
 	}
 	
 	private static void eliminarVideo(long id) {

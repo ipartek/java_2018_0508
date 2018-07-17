@@ -27,7 +27,7 @@ public class VideoYoutube {
 		
 		switch (opcionSeleccionada) {
 		case OPCION_LISTAR:
-			listar();
+			listarVideos();
 			break;
 
 		case OPCION_SALIR:
@@ -60,7 +60,7 @@ public class VideoYoutube {
 	}
 
 
-	private static void listar() {
+	private static void listarVideos() {
 		
 		for ( Youtube video : dao.getAll() ) {
 			System.out.println("    " + video);
@@ -117,7 +117,6 @@ public class VideoYoutube {
 		
 		
 	}
-	
 
 	
 		
