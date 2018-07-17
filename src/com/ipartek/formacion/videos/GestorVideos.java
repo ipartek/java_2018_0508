@@ -30,7 +30,7 @@ public class GestorVideos {
 
 		try {
 			Scanner teclado = new Scanner(System.in);
-			int opcion;
+			int opcion = 0;
 
 			do {
 				System.out.println();
@@ -82,6 +82,7 @@ public class GestorVideos {
 	 * Metodo para listar un video concreto o toda la lista
 	 */
 	private static void listarVideos() {
+		//TODO Terminar listado de videos
 		try {
 			Scanner teclado = new Scanner(System.in);
 			char opcion;
@@ -188,6 +189,7 @@ public class GestorVideos {
 	 * Metodo para eliminar videos de la lista
 	 */
 	private static void eliminarVideos() {
+		//TODO Terminar eliminar video
 		try {
 			Scanner teclado = new Scanner(System.in);
 			char opcion;
@@ -209,10 +211,12 @@ public class GestorVideos {
 				for (int i = 0; i < videos.length; i++) {
 					if (i == id) {
 						videos[i] = null;
+						System.out.println("El video con id " + id + " se ha eliminado.");
 					}
 				}
 			} else {
 				videos = null;
+				System.out.println("Todos los videos se han eliminado.");
 			}
 
 			teclado.close();
