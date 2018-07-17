@@ -13,7 +13,7 @@ import com.ipartek.formacion.pojo.VideoYoutube;
  * @author Curso
  *
  */
-public class VideoYoutubeArrayDAO implements CrudAble{
+public class VideoYoutubeArrayDAO implements CrudAble<VideoYoutube>{
 	
 	private static VideoYoutubeArrayDAO INSTANCE = null;
 	private static List<VideoYoutube> lista = null;
