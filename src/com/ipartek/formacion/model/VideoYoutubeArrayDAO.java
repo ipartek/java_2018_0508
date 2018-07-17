@@ -78,8 +78,7 @@ public class VideoYoutubeArrayDAO implements CrudAble<VideoYoutube> {
 
 		boolean resul = false;
 		VideoYoutube vIteracion;
-		int i = 0;
-
+		
 		if (videoUpdate != null) {
 
 			Iterator<VideoYoutube> it = lista.iterator();
@@ -90,7 +89,7 @@ public class VideoYoutubeArrayDAO implements CrudAble<VideoYoutube> {
 					resul = true;
 					break;
 				}
-				i++;
+				
 			}
 		}
 		return resul;
