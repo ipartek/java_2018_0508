@@ -10,13 +10,16 @@ public class GestorVideos {
 	static private VideoYoutubeArrayDAO dao;
 	static private int opcionSeleccionada = 0;
 	static Scanner sc = null;
-	static private long idCounter = 0;
+	static private long idCounter = 1;
 	
 	static private final int OPCION_SALIR = 0;
 	static private final int OPCION_LISTAR = 1;
 	static private final int OPCION_ANADIR = 2;
 	static private final int OPCION_ELIMINAR = 3;
 	
+	static private final int LONG_MAX_TITULO = 3;
+	static private final int LONG_MIN_TITULO = 254;
+
 	
 	public static void main(String[] args) {
 				
@@ -42,6 +45,10 @@ public class GestorVideos {
 			case OPCION_ANADIR:
 				anadir();
 				break;
+
+			case OPCION_ELIMINAR:
+				eliminar();
+				break;
 				
 			default:
 				noOption();
@@ -55,8 +62,9 @@ public class GestorVideos {
 	
 	private static void anadir() {
 		
-		Scanner sc2 = new Scanner(System.in);
+		// Scanner sc =new Scanner(System.in);
 		
+		sc.nextLine();
 		long id;
 		String titulo;
 		String codigo;
@@ -65,15 +73,15 @@ public class GestorVideos {
 		
 		do {
 			System.out.println("Introduce el titulo del video");
-			titulo = sc2.next();
-			if ( (titulo.length()<3) || (titulo.length()>254) ) {
+			titulo = sc.nextLine();
+			if ( (titulo.length()>=LONG_MIN_TITULO) || (titulo.length()<=LONG_MAX_TITULO) ) {
 				System.out.println("Titulo no valido (debe introducir de 3 a 254 caracdteres alfanumericos)");
 			}
 		} while ( (titulo.length()<3) || (titulo.length()>254) );
 			
 		do {
 			System.out.println("Introduce el codigo del video");
-			codigo = sc2.next();
+			codigo = sc.next();
 			if (codigo.length()!=11)
 				System.out.println("Codigo no valido (debe introducir 11 caracteres alfanumericos");
 		} while (codigo.length()!=11);
@@ -83,7 +91,7 @@ public class GestorVideos {
 		if (dao.insert(nuevoVideo))
 			idCounter++;
 		
-		sc2.close();
+		// sc.close();
 			
 		//pintarMenu();
 	}
@@ -115,8 +123,10 @@ public class GestorVideos {
 		System.out.println("");
 		System.out.println("");
 		System.out.println("");
-		
-		pintarMenu();
+				
+	}
+	
+	private static void eliminar() {
 		
 	}
 
