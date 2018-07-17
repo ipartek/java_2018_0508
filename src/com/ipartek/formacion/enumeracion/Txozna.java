@@ -8,8 +8,6 @@ public class Txozna {
 
 		Scanner sc = new Scanner(System.in);
 
-		PrecioBebida liquido = null;
-		Vaso recipiente = null;
 		String texto = "";
 		boolean avanzar = false;
 		Bebida drink = new Bebida();
@@ -20,10 +18,10 @@ public class Txozna {
 			texto = sc.next();
 
 			if ("K".equalsIgnoreCase(texto)) {
-				drink.setPrecioBebida(liquido.KALIMOTXO);
+				drink.setPrecioBebida(PrecioBebida.KALIMOTXO);
 				avanzar = true;
 			} else if ("C".equalsIgnoreCase(texto)) {
-				drink.setPrecioBebida(liquido.CERVEZA);
+				drink.setPrecioBebida(PrecioBebida.CERVEZA);
 				avanzar = true;
 			} else {
 				System.out.println("Lo siento pero solo me queda Kalimotxo o cerveza");
@@ -38,10 +36,10 @@ public class Txozna {
 			texto = sc.next();
 
 			if ("K".equalsIgnoreCase(texto)) {
-				drink.setVaso(recipiente.KATXI);
+				drink.setVaso(Vaso.KATXI);
 				avanzar = true;
 			} else if ("V".equalsIgnoreCase(texto)) {
-				drink.setVaso(recipiente.VASO);
+				drink.setVaso(Vaso.VASO);
 				avanzar = true;
 			} else {
 				System.out.println("Lo siento pero solo tienes de opcion vaso o katxi");
@@ -50,7 +48,7 @@ public class Txozna {
 
 		} while (avanzar == false/* !"K".equalsIgnoreCase(texto) || !"V".equalsIgnoreCase(texto) */);
 
-		float total = drink.calcularPrecio();
+		String total = String.valueOf(drink.calcularPrecio());
 
 		System.out.println("Son " + total + "€ el total");
 

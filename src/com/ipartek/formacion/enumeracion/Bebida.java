@@ -29,7 +29,10 @@ public class Bebida {
 
 	float calcularPrecio() {
 
-		float aPagar = this.getVaso().getCC() / 1000 * this.getPrecioBebida().getPrecio();
+		// Paso de cc a L
+		float litros = (float) this.getVaso().getCC() / 100;
+
+		float aPagar = litros * this.getPrecioBebida().getPrecio();
 		return aPagar;
 	}
 

@@ -3,7 +3,7 @@ package com.ipartek.formacion.enumeracion;
 public enum Vaso {
 
 	//Tipos de Vasos disponibles
-	KATXI(1000), VASO(333);
+	KATXI(100), VASO(33);
 	
 	private int cc;   //centimetros cubicos
 	

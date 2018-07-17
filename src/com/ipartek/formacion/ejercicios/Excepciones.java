@@ -12,8 +12,8 @@ public class Excepciones {
 			 */
 
 			// Declaraci�n el ArrayList
-			int[] array = new int[5];
-			int exceptionArray = array[5];
+			//int[] array = new int[5];
+			//int exceptionArray = array[5];
 		} catch (ArrayIndexOutOfBoundsException a) {
 			System.out.println("ArrayIndexOutOfBoundsException");
 
