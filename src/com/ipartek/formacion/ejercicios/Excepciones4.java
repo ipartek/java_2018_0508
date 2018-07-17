@@ -42,8 +42,6 @@ public class Excepciones4 {
 
 			metodoC();
 			System.out.println("Salgo del metodo b");
-					
-			
 			
 			System.out.println("salgo Metodo B");
 		}
