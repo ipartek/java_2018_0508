@@ -1,0 +1,20 @@
+package com.ipartek.formacion.ejercicios.basicos.estructura.iterativa;
+
+/***
+ * Programa Java que muestre los números del 1 al 100 utilizando la instrucción
+ * do..while
+ * 
+ * @author user
+ *
+ */
+public class Ejercicio2 {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		int i = 1;
+		do {
+			System.out.println(i++);
+		} while (i <= 100);
+	}
+
+}
