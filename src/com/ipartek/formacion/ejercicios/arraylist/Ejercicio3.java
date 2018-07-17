@@ -121,29 +121,8 @@ public class Ejercicio3 {
 		imprimirSecuencia(miArrayList);
 	}
 	private static void rotarIzquierda(ArrayList<Integer> miArrayList, int nPosiciones) throws Exception {
-		System.out.println("Originalmente la secuencia es :");
-		imprimirSecuencia(miArrayList);
-		//creo un array con la longitud del nPosiciones
-		int [] arrayTemporal = new int[nPosiciones];
-		int cont = 0;
-		//aqui se desde que punto del arraylist he de extraer para pera insertar posteriormente al inicio del array
-		int nextraido = miArrayList.size()-nPosiciones;
-		int contador = 0;
-		//extraigo los numeros finales que pasaran a formar el inicio del arraylist
-		for(int x=nextraido; x < miArrayList.size();x++) {
-			
-			arrayTemporal[contador]=miArrayList.get(x);
-					contador ++;
-		}
-		//roto los elementos que no pasan al inicio del arraylist
-		cont = nextraido-1;
-		for (int x= cont;x >= 0;x--) {
-			miArrayList.set(x+nPosiciones, miArrayList.get(x).intValue());
-		}
-		for(int x = 0;x<arrayTemporal.length;x++ ) {
-			miArrayList.set(x, arrayTemporal[x]);
-		}
-		imprimirSecuencia(miArrayList);
+		System.out.println("En proceso");
+		
 	}
 
 }
