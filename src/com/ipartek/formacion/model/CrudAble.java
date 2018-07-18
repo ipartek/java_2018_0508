@@ -29,7 +29,7 @@ public interface CrudAble<P> {// <P> Necesita ser casteada a un tipo generico
 	 * Buscamos un P por su identificador
 	 * 
 	 * @param id long identificador
-	 * @return VideoYoutube si lo encuentra, null si no encuentra
+	 * @return P si lo encuentra, null si no encuentra
 	 */
 	P getById(long id);
 
