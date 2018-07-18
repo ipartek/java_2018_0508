@@ -12,7 +12,7 @@ public class Person {
 
 	// Atributos
 
-	// TODO nueva atributo edad => 16 y 100
+	// nueva atributo edad => 16 y 100
 
 	private String nombre;
 
@@ -73,7 +73,7 @@ public class Person {
 
 	/**
 	 * Setear el sexo de la persona, podemos usar 'h' hombre, 'm' mujer ( tanto
-	 * mayusculas como minusculas). * En caso de no pasar pasar esos valores será
+	 * mayusculas como minusculas). * En caso de no pasar pasar esos valores serï¿½
 	 * 'i' indefinido.
 	 * 
 	 * @see constnates: SEXO_INDEFINIDO, SEXO_MUJER, SEXO_HOMBRE

@@ -14,7 +14,7 @@ public class Excepciones3 {
 		try {
 			metodoA();
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
+			
 			e.printStackTrace();
 		}
 	
