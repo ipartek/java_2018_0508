@@ -74,9 +74,7 @@ public class Libro {
 	}
 
 	/**
-	 * Método que establece el ISBN del libro. Lanza una excepción si este es menor
-	 * que 5.
-	 * 
+	 * Método que establece el ISBN del libro. 
 	 * @param isbn, String
 	 * @throws Exception si ISBN == null || ISBN.lenght() < 5
 	 */
