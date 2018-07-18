@@ -1,8 +1,10 @@
 package com.ipartek.formacion.pojo;
 
-public class VideoYoutube {
+public class VideoYoutube implements Cloneable {
 
-	//Atributos encapsulados.
+	private static String MENSAJE_EXCEPTION_CODIGO = "El codigo debe ser de 11 caracteres";
+
+	// Atributos encapsulados.
 	private long id;
 	private String codigo;
 	private String titulo;
@@ -14,11 +16,11 @@ public class VideoYoutube {
 		this.titulo = "";
 	}
 
-	public VideoYoutube(long id, String titulo, String codigo) {
+	public VideoYoutube(long id, String titulo, String codigo) throws Exception {
 		this();
 		this.id = id;
 		this.titulo = titulo;
-		this.codigo = codigo;
+		setCodigo(codigo);
 	}
 
 	public long getId() {
@@ -33,8 +35,19 @@ public class VideoYoutube {
 		return codigo;
 	}
 
-	public void setCodigo(String codigo) {
-		this.codigo = codigo;
+	public void setCodigo(String codigo) throws Exception {
+
+		if (codigo != null) {
+			codigo = codigo.trim();
+			if (codigo.length() != 11) {
+				throw new Exception(MENSAJE_EXCEPTION_CODIGO);
+			} else {
+				this.codigo = codigo;
+			}
+		} else {
+			throw new Exception(MENSAJE_EXCEPTION_CODIGO);
+		}
+
 	}
 
 	public String getTitulo() {
@@ -49,7 +62,7 @@ public class VideoYoutube {
 	public String toString() {
 		return "VideoYoutube [id=" + id + ", codigo=" + codigo + ", titulo=" + titulo + "]";
 	}
-	
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -82,6 +95,11 @@ public class VideoYoutube {
 		} else if (!titulo.equals(other.titulo))
 			return false;
 		return true;
+	}
+
+	@Override
+	public Object clone() throws CloneNotSupportedException {
+		return super.clone();
 	}
 
 }

@@ -30,10 +30,9 @@ public interface CrudAble<P> {
 	List<P> getAll();// conseguir todos los videos
 
 	/**
-	 * Buscamos un VideoYoutube por su identificador
-	 * 
+	 * Buscamos un Pojo por su identificador
 	 * @param id long identificador
-	 * @return VideoYoutube si lo encuentra, null si no encuentra
+	 * @return P pojo si lo encuentra, null si no encuentra
 	 */
 	
 	P getById(long id);

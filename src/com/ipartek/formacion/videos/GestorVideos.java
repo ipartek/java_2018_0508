@@ -13,10 +13,10 @@ public class GestorVideos {
 
 	static private final int OPCION_SALIR = 0;
 	static private final int OPCION_LISTAR = 1;
-	static private final int OPCION_ANADIR = 2;
-	static private final int OPCION_ELIMINAR = 3;
+	//static private final int OPCION_ANADIR = 2;
+	//static private final int OPCION_ELIMINAR = 3;
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws Exception {
 
 		sc = new Scanner(System.in);
 
@@ -73,7 +73,7 @@ public class GestorVideos {
 
 	}
 
-	private static void cargarVideos() {
+	private static void cargarVideos() throws Exception {
 		VideoYoutube video = new VideoYoutube(12650, "Nightmares On Wax Boiler Room London DJ Set", "Q692lHFaLVM");
 		dao.insert(video);
 
@@ -88,7 +88,7 @@ public class GestorVideos {
 		System.out.println("--          youtube               --");
 		System.out.println("------------------------------------");
 		System.out.println("-    1. Listar                     -");
-		System.out.println("-    2. Añadir Nuevo               -");
+		System.out.println("-    2. Aï¿½adir Nuevo               -");
 		System.out.println("-    3. Eliminar                   -");
 		System.out.println("-                                  -");
 		System.out.println("-    0 - salir                     -");
@@ -102,7 +102,7 @@ public class GestorVideos {
 		} catch (Exception e) {
 			// e.printStackTrace(); -->pinta la pila de excepcion
 			sc.nextLine();
-			System.out.println("OPCIÓN NO VALIDA. Por favor introduce un número del menú.\n");
+			System.out.println("OPCIï¿½N NO VALIDA. Por favor introduce un nï¿½mero del menï¿½.\n");
 			pintarMenu();
 		}
 
