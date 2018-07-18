@@ -1,11 +1,16 @@
 package com.ipartek.formacion.pojo;
 
-public class VideoYoutube implements Cloneable {
+import java.io.Serializable;
 
+public class VideoYoutube implements Cloneable, Serializable {
+
+	// Atributos
+	private static final long serialVersionUID = -3674003955297656544L;
 	private long id;
 	private String titulo;
 	private String codigo;
 
+	// Constructores
 	public VideoYoutube() {
 		super();
 		this.id = 1;
@@ -19,6 +24,8 @@ public class VideoYoutube implements Cloneable {
 		this.titulo = titulo;
 		this.codigo = codigo;
 	}
+
+	// Getters y Setters
 
 	public long getId() {
 		return id;
@@ -44,11 +51,12 @@ public class VideoYoutube implements Cloneable {
 		this.codigo = codigo;
 	}
 
+	// Metodos
+
 	@Override
 	public String toString() {
 		return "VideoYoutube [id=" + id + ", titulo=" + titulo + ", codigo=" + codigo + "]";
 	}
-	
 
 	@Override
 	public int hashCode() {
@@ -83,6 +91,5 @@ public class VideoYoutube implements Cloneable {
 			return false;
 		return true;
 	}
-
 
 }

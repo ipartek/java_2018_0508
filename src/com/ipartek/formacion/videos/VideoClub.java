@@ -83,7 +83,7 @@ public class VideoClub {
 				System.out.println("Introduzca una numero entre 1 y 4 por favor");
 
 			}
-		} while (opcionSeleccionada != OPCION_SALIR);
+		} while (opcionSeleccionada == OPCION_SALIR);
 
 		switch (opcionSeleccionada) {
 		case OPCION_LISTAR:
@@ -197,9 +197,9 @@ public class VideoClub {
 				}
 
 				break;
-			}
+			}// switch
 
-		}
+		} // 1er else
 
 	}
 
