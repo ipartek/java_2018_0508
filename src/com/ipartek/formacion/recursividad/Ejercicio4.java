@@ -3,7 +3,7 @@ package com.ipartek.formacion.recursividad;
 import java.util.Scanner;
 
 /**
- * Programa java que calcula el número de cifras de un número entero de forma
+ * Programa java que calcula el nï¿½mero de cifras de un nï¿½mero entero de forma
  * recursiva.
  * 
  * @see package-info.java
@@ -20,18 +20,18 @@ public class Ejercicio4 {
 
 		do {
 
-			System.out.print("Introduce un número positivo: ");
+			System.out.print("Introduce un nï¿½mero positivo: ");
 			num = scConsola.nextInt();
 
 		} while (num <= 0);
 
-		System.out.print("Número de cifras de " + num + ": ");
+		System.out.print("Nï¿½mero de cifras de " + num + ": ");
 
 		System.out.print(numDigitos(num));
 
 		scConsola.close();
 
-	} // FIN main();
+	} 
 
 	private static int numDigitos(int num) {
 
@@ -43,6 +43,6 @@ public class Ejercicio4 {
 
 			return 1 + numDigitos(num / 10);
 		}
-	} // FIN numDigitos();
+	} 
 
-} // FIN Ejercicio4
+} 

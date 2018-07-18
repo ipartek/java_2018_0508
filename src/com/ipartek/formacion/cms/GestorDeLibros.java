@@ -155,7 +155,6 @@ public class GestorDeLibros {
 		System.out.println("-    4. Buscar                     -");
 		System.out.println("-    0. Salir                      -");
 		System.out.println("------------------------------------");
-		System.out.println("");
 		System.out.print("Por favor, selecciona una opcion: ");
 
 		try {

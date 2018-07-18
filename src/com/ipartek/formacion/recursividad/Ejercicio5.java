@@ -3,7 +3,7 @@ package com.ipartek.formacion.recursividad;
 import java.util.Scanner;
 
 /**
- * Programa recursivo que calcula la suma desde 1 hasta un número entero N leído
+ * Programa recursivo que calcula la suma desde 1 hasta un nï¿½mero entero N leï¿½do
  * por teclado.
  * 
  * @see package-info.java
@@ -20,7 +20,7 @@ public class Ejercicio5 {
 
 		do {
 
-			System.out.print("Introduce un número positivo: ");
+			System.out.print("Introduce un nï¿½mero positivo: ");
 			num = scConsola.nextInt();
 
 		} while (num <= 0);
@@ -31,7 +31,7 @@ public class Ejercicio5 {
 
 		scConsola.close();
 
-	} // FIN main();
+	} 
 
 	private static int sumaDesde1HastaN(int num) {
 
@@ -43,6 +43,5 @@ public class Ejercicio5 {
 
 			return num + sumaDesde1HastaN(num - 1);
 		}
-	} // FIN sumaDesde1HastaN();
-
-} // FIN Ejercicio5
+	} 
+} 

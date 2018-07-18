@@ -4,7 +4,7 @@ import java.util.Scanner;
 
 /**
  * Programa Java recursivo para calcular 2 elevado a n de forma recursiva,
- * siendo n un número entero mayor o igual que 0.
+ * siendo n un nï¿½mero entero mayor o igual que 0.
  * 
  * @see package-info.java
  * @author Luis
@@ -20,7 +20,7 @@ public class Ejercicio3 {
 
 		do {
 			
-			System.out.print("Introduce un número: ");
+			System.out.print("Introduce un nÃºmero: ");
 			num = scConsola.nextInt();
 			
 		} while (num <= 0);
@@ -31,7 +31,7 @@ public class Ejercicio3 {
 
 		scConsola.close();
 
-	} // FIN main();
+	}
 
 	private static int potencia2N(int num) {
 
@@ -43,6 +43,6 @@ public class Ejercicio3 {
 
 			return 2 * potencia2N(num - 1);
 		}
-	} // FIN potencia2N();
+	} 
 
-} // FIN Ejercicio3
+}

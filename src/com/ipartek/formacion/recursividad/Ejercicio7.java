@@ -3,7 +3,7 @@ package com.ipartek.formacion.recursividad;
 import java.util.Scanner;
 
 /**
- * Programa que calcula el resto de la división de dos números enteros de forma
+ * Programa que calcula el resto de la divisiï¿½n de dos nï¿½meros enteros de forma
  * recursiva.
  * 
  * @see package-info.java
@@ -32,7 +32,7 @@ public class Ejercicio7 {
 		System.out.printf("Resto de %d/%d = %d %n", dividendo, divisor, resto(dividendo, divisor));
 		scConsola.close();
 
-	} // FIN main();
+	}
 
 	private static int resto(int num, int div) {
 
@@ -41,6 +41,6 @@ public class Ejercicio7 {
 		} else {
 			return resto(num - div, div);
 		}
-	} // FIN resto();
+	} 
 
-} // FIN Ejercicio1
+} 

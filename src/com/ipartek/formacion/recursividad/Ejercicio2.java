@@ -3,7 +3,7 @@ package com.ipartek.formacion.recursividad;
 import java.util.Scanner;
 
 /**
- * Programa que lea un número entero entero mayor o igual que cero en base
+ * Programa que lea un nï¿½mero entero entero mayor o igual que cero en base
  * decimal y muestre su equivalente en binario de forma recursiva.
  * 
  * @see package-info.java
@@ -18,7 +18,7 @@ public class Ejercicio2 {
 
 		int num;
 
-		System.out.print("Introduce un número: ");
+		System.out.print("Introduce un nÃºmero: ");
 		num = scConsola.nextInt();
 		System.out.println("Decimal: " + num);
 
@@ -27,7 +27,7 @@ public class Ejercicio2 {
 
 		scConsola.close();
 
-	} // FIN main();
+	} 
 
 	private static void decimalBinario(int num) {
 
@@ -41,6 +41,6 @@ public class Ejercicio2 {
 			return;
 
 		}
-	} // FIN decimalBinario();
+	} 
 
-} // FIN Ejercicio2
+}
