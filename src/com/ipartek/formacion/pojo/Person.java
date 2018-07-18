@@ -1,6 +1,8 @@
 package com.ipartek.formacion.pojo;
 
-public class Person {
+import java.io.Serializable;
+
+public class Person  implements Cloneable, Serializable{
 
 	// constantes
 	public final static char SEXO_INDEFINIDO = 'i';
@@ -73,7 +75,7 @@ public class Person {
 
 	/**
 	 * Setear el sexo de la persona, podemos usar 'h' hombre, 'm' mujer ( tanto
-	 * mayusculas como minusculas). * En caso de no pasar pasar esos valores será
+	 * mayusculas como minusculas). * En caso de no pasar pasar esos valores serï¿½
 	 * 'i' indefinido.
 	 * 
 	 * @see constnates: SEXO_INDEFINIDO, SEXO_MUJER, SEXO_HOMBRE
