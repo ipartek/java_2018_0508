@@ -61,7 +61,6 @@ public class GestorDeLibros {
 					noOption();
 					break;
 				}
-				opcionSeleccionada = -1;
 
 			} while (opcionSeleccionada != OPCION_SALIR);
 
@@ -90,7 +89,7 @@ public class GestorDeLibros {
 		busqueda = sc.nextLine().trim();
 
 		if (dao.getAll().size() > 0) {
-			System.out.println("Libros de la categoría " + busqueda + ":");
+			System.out.println("Libros con la palabra " + busqueda + ":");
 			for (Libro libro : dao.getAll()) {
 				if (libro.getTitulo().toLowerCase().contains(busqueda.toLowerCase().trim())) {
 					hay = true;
@@ -148,10 +147,9 @@ public class GestorDeLibros {
 			opcionSeleccionada = sc.nextInt();
 
 		} catch (Exception e) {
-			// LOGGER
-		} finally {
-
+			System.out.println("ERROR: " + "La opción introducida no es un número.");
 			sc.nextLine();
+			pintarMenu();
 		}
 	}
 
@@ -166,9 +164,8 @@ public class GestorDeLibros {
 		System.out.println("");
 		System.out.println("");
 		System.out.println("");
-		if (sc != null) {
-			sc.close(); // Cerramos el Scanner
-		}
+		sc.close(); // Cerramos el Scanner
+
 		System.out.println("HASTA OTRA. Esperamos volver a verte!!! =)");
 
 	}
@@ -191,7 +188,7 @@ public class GestorDeLibros {
 
 		if (dao.getAll().size() > 0) {
 			if (prestados) {
-				System.out.println("Lista de préstamos: ");
+				System.out.println("Lista de libros prestados: ");
 			} else {
 				System.out.println("Lista de libros disponibles: ");
 			}
