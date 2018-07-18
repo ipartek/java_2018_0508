@@ -4,4 +4,4 @@
  * @author Curso
  *
  */
-package com.impartek.formacion.ejercicios.arrayList;
+package com.ipartek.formacion.ejercicios.arrayList;

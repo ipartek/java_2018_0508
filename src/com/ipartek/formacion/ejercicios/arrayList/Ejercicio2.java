@@ -1,4 +1,4 @@
-package com.impartek.formacion.ejercicios.arrayList;
+package com.ipartek.formacion.ejercicios.arrayList;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -6,8 +6,8 @@ import java.util.Scanner;
 
 /**
  * 
- * 2. Leer números por teclado hasta introducir -99. Calcular la suma, la media
- * y cuántos son mayores que la media.
+ * 2. Leer nï¿½meros por teclado hasta introducir -99. Calcular la suma, la media
+ * y cuï¿½ntos son mayores que la media.
  * 
  * @author Curso
  *

@@ -1,4 +1,4 @@
-package com.impartek.formacion.ejercicios.arrayList;
+package com.ipartek.formacion.ejercicios.arrayList;
 
 public class Ejericicio5 {
 

@@ -1,12 +1,12 @@
 package com.ipartek.formacion.ejercicios.cadenasDeCaracteres;
 
 /**
- * 2. Eliminar la última palabra de una frase.
+ * 3. Contar el número de veces que aparece un carácter en un texto.
  * 
  * @author Curso
  *
  */
-public class Ejercicio2 {
+public class Ejercicio3 {
 
 	public static void main(String[] args) {
 
@@ -14,16 +14,14 @@ public class Ejercicio2 {
 
 		System.out.println("La frase: " + frase);
 
-		int palabras = 0;
+		int veces = 0;
 		for (int i = 0; i < frase.length(); i++) {
-			if (frase.charAt(i) == ' ') {
-				palabras = i;
+			if (frase.charAt(i) == 'o') {
+				veces++;
 			}
 		}
 
-		frase = frase.substring(0, palabras);
-		
-		System.out.println("Si quitamos la ultima palabra, la frase queda: " + frase);
+		System.out.println("Tiene " + veces + "veces la letra o.");
 
 	}
 

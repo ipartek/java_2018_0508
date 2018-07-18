@@ -1,10 +1,10 @@
-package com.impartek.formacion.ejercicios.arrayList;
+package com.ipartek.formacion.ejercicios.arrayList;
 
 import java.util.ArrayList;
 import java.util.List;
 
 /**
- * 4. Cadena más larga contenida en un ArrayList de Strings.
+ * 4. Cadena mï¿½s larga contenida en un ArrayList de Strings.
  * 
  * @author Curso
  *
