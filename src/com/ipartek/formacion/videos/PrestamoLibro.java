@@ -19,11 +19,6 @@ public class PrestamoLibro {
 	static private final int OPCION_LISTAR_PRESTADOS = 2;
 	static private final int OPCION_LISTAR_NO_PRESTADOS = 3;
 	static private final int OPCION_LISTAR_BUSQUEDA = 4;
-	// static private final int OPCION_LISTAR_DE_UNA_LETRA_A_OTRA = 5;
-
-	// static private final int MIN_LONG_TITULO = 3;
-	// static private final int MAX_LONG_TITULO = 256;
-	// static private final int LONG_CODIGO = 11;
 
 	public static void main(String args[]) {
 
@@ -180,7 +175,8 @@ public class PrestamoLibro {
 		System.out.println("------------------------------------\n");
 
 		for (Libro libro : dao.getAll()) {
-			/*/if (libro.isPrestado()) {
+			/*MIRAR
+			 * if (libro.isPrestado()) {
 				prestado = "SI";
 			} else {
 				prestado = "NO";
