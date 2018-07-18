@@ -1,7 +1,7 @@
 package com.ipartek.formacion.model;
 
 /**
- * Gestor de videos que Lista, Añade y Elimina videos
+ * Gestor de videos que Lista, Aï¿½ade y Elimina videos
  */
 import java.io.IOException;
 import java.util.Scanner;
@@ -119,12 +119,12 @@ public class GestorVideos {
 						idVideo = sc.nextInt();
 					} catch (Exception e) {
 						sc.nextLine();
-						System.out.println("¡VIDEO NO ENCONTRADO! Porfavor introduce un numero!!");
+						System.out.println("Â¡VIDEO NO ENCONTRADO! Porfavor introduce un numero!!");
 						eliminarVideos();
 					}
 
 					if (dao.getAll().size() <= 0) {
-						System.out.println("LO SENTIMOS NO HAY NINGUN VIDEO EN LA LISTA AÑADE UNO NUEVO");
+						System.out.println("LO SENTIMOS NO HAY NINGUN VIDEO EN LA LISTA AÃ‘ADE UNO NUEVO");
 					} else {
 						System.out.println("Eliminando video seleccionado...");
 						dao.delete(idVideo);
@@ -132,7 +132,7 @@ public class GestorVideos {
 					}
 
 				} else {
-					System.out.println("LO SENTIMOS NO HAY NINGUN VIDEO EN LA LISTA AÑADE UNO NUEVO");
+					System.out.println("LO SENTIMOS NO HAY NINGUN VIDEO EN LA LISTA AÃ‘ADE UNO NUEVO");
 					pintarMenu();
 				}
 			} // (s/n)
@@ -152,14 +152,14 @@ public class GestorVideos {
 			String codigo = "";
 
 			do {
-				System.out.println("Introduce el TITULO del video que deseas añadir(3 caracteres como minimo):");
+				System.out.println("Introduce el TITULO del video que deseas aÃ±adir(3 caracteres como minimo):");
 				titulo = sc.nextLine();
 			} while (titulo.getBytes().length > MAXLIM_TITULO || titulo.getBytes().length < MINLIM_TITULO);
 
 			titulo.trim();
 
 			do {
-				System.out.println("Introduce el CODIGO del video que deseas añadir(11 caracteres):");
+				System.out.println("Introduce el CODIGO del video que deseas aÃ±adir(11 caracteres):");
 				codigo = sc.nextLine();
 			} while (codigo.getBytes().length != LIM_CODIGO); // codigo.isEmpty() == true
 
@@ -168,10 +168,10 @@ public class GestorVideos {
 			VideoYoutube video = new VideoYoutube(CONTADOR_VIDEOS, titulo, codigo);
 			dao.insert(video);
 
-			System.out.println("Tu video ha sido añadido");
+			System.out.println("Tu video ha sido aï¿½adido");
 			mostrar();
 
-			System.out.println("Deseas AÑADIR algun video mas(s/n)");
+			System.out.println("Deseas AÃ‘ADIR algun video mas(s/n)");
 			seguir = (char) System.in.read();
 
 		} while (seguir != NO);
@@ -196,7 +196,7 @@ public class GestorVideos {
 		System.out.println("--          youtube               --");
 		System.out.println("------------------------------------");
 		System.out.println("-    1. Listar                     -");
-		System.out.println("-    2. Añadir Nuevo               -");
+		System.out.println("-    2. AÃ±adir Nuevo               -");
 		System.out.println("-    3. Eliminar                   -");
 		System.out.println("-                                  -");
 		System.out.println("-    0 - salir                     -");
@@ -209,7 +209,7 @@ public class GestorVideos {
 		} catch (Exception e) {
 			// e.printStackTrace();
 			sc.nextLine();
-			System.out.println("¡OPCION NO VALIDA! Porfavor introduce un numero del menu");
+			System.out.println("!OPCION NO VALIDA! Porfavor introduce un numero del menu");
 			pintarMenu();
 		}
 
