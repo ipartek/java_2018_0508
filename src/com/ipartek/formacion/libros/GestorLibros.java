@@ -1,5 +1,6 @@
 package com.ipartek.formacion.libros;
 
+//import java.util.List;
 import java.util.Scanner;
 
 import com.ipartek.formacion.model.LibroDAO;
@@ -20,7 +21,7 @@ public class GestorLibros {
 
 			dao = LibroDAO.getInstance(0, null, null, null, false);
 			teclado = new Scanner(System.in);
-			//cargarLibros();
+			cargarLibros();
 			pintarMenu();
 
 		} catch (Exception e) {
@@ -112,6 +113,7 @@ public class GestorLibros {
 	 */
 	private static void buscar() {
 		try {
+			//List<Libro> libros = dao.getAll();
 			String busqueda = null;
 
 			teclado.nextLine();
@@ -133,8 +135,8 @@ public class GestorLibros {
 				int cont = 0;
 				System.out.println("Estas son las coincidencias de lo que estabas buscando:");
 				System.out.println("-----------------------------------------------------------");
-				/*for (int i = 0; i < libros.length; i++) {
-					String titulo = libros[i].getTitulo();
+				/*for (int i = 0; i < libros.size(); i++) {
+					String titulo = libro(i).getTitulo();
 					boolean contiene = titulo.contains(busqueda);
 					if (contiene == true) {
 						System.out.println(libros[i]);
