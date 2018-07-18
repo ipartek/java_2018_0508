@@ -33,7 +33,6 @@ public class GestorVideos {
 	 * Metodo para pinta el menu y seleccionar la operacion
 	 */
 	private static void pintarMenu() {
-		// TODO Corregir error scanner
 		System.out.println("------------------------------------------");
 		System.out.println("--               YOUTUBE                --");
 		System.out.println("------------------------------------------");
