@@ -1,7 +1,10 @@
 package com.ipartek.formacion.pojo;
 
-public class VideoYoutube {
+import java.io.Serializable;
 
+public class VideoYoutube implements Cloneable, Serializable {
+
+	private static final long serialVersionUID = 1L;
 	private long id;
 	private String codigo;
 	private String titulo;
