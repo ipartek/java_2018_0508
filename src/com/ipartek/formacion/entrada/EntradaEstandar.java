@@ -7,17 +7,17 @@ import java.io.Reader;
 
 public class EntradaEstandar {
 
-	static Reader entrada; // Leemos carácter a carácter
+	static Reader entrada; // Leemos caracter a caracter
 
 	static BufferedReader bf; // Leemos String
 
-	static String linea; // Iremos guardando línea a línea
+	static String linea; // Iremos guardando lÃ­nea a lÃ­nea
 
 	public static void main(String args[]) {
 
-		entrada = new InputStreamReader(System.in); // Leemos carácter a carácter
+		entrada = new InputStreamReader(System.in); // Leemos caracter a caracter
 
-		bf = new BufferedReader(entrada); // Leemos String y no carácteres
+		bf = new BufferedReader(entrada); // Leemos String y no caracteres
 
 		int n1 = -1;
 		int n2 = -1;
@@ -34,6 +34,10 @@ public class EntradaEstandar {
 
 				System.out.print("Operando Entero 1: ");
 				n1 = leerInt(bf.readLine());
+				
+				if (n1 < 0) {
+					System.out.println("Por favor, introduce un valor positivo.");
+				}
 
 			} while (n1 < 0);
 
@@ -41,6 +45,10 @@ public class EntradaEstandar {
 
 				System.out.print("Operando Entero 2: ");
 				n2 = leerInt(bf.readLine());
+				
+				if (n2 < 0) {
+					System.out.println("Por favor, introduce un valor positivo.");
+				}
 
 			} while (n2 < 0);
 
@@ -51,6 +59,10 @@ public class EntradaEstandar {
 
 				System.out.print("Operando flotante 1: ");
 				f1 = leerFloat(bf.readLine());
+				
+				if (f1 < 0) {
+					System.out.println("Por favor, introduce un valor positivo.");
+				}
 
 			} while (f1 < 0f);
 
@@ -58,6 +70,10 @@ public class EntradaEstandar {
 
 				System.out.print("Operando flotante 2: ");
 				f2 = leerFloat(bf.readLine());
+				
+				if (f2 < 0) {
+					System.out.println("Por favor, introduce un valor positivo.");
+				}
 
 			} while (f2 < 0f);
 
@@ -67,7 +83,7 @@ public class EntradaEstandar {
 			System.out.print("Introduzca su nombre: ");
 			nombre = leerString(bf.readLine()); // Leer nombre
 
-			System.out.println("¡Hola " + nombre + ", bienvenido a Java!");
+			System.out.println("ï¿½Hola " + nombre + ", bienvenido a Java!");
 
 		} catch (IOException e1) {
 

@@ -1,5 +1,6 @@
 package com.ipartek.formacion.cms;
 
+import java.util.List;
 import java.util.Scanner;
 
 import com.ipartek.formacion.model.LibroDAO;
@@ -83,15 +84,21 @@ public class GestorDeLibros {
 
 	private static void buscarLibro() {
 
+		List<Libro> libros = dao.getAll();
 		String busqueda = null;
 		boolean hay = false;
 
-		System.out.println("Por favor, introduce una palabra o título que quieras buscar: ");
-		busqueda = sc.nextLine().trim();
+		do {
+			sc.nextLine();
+			System.out.println("Por favor, introduce una palabra o título que quieras buscar: ");
+			busqueda = sc.nextLine();
+			
+		} while (busqueda.isEmpty());
+		
 
-		if (dao.getAll().size() > 0) {
+		if (libros.size() > 0) {
 			System.out.println("Libros con la palabra " + busqueda + ":");
-			for (Libro libro : dao.getAll()) {
+			for (Libro libro : libros) {
 				if (libro.getTitulo().toLowerCase().contains(busqueda.toLowerCase().trim())) {
 					hay = true;
 					System.out.println(libro);
@@ -180,16 +187,15 @@ public class GestorDeLibros {
 	}
 
 	private static void listarLibros() {
+		List<Libro> libros = dao.getAll();
 
-		if (dao.getAll().size() > 0) {
+		if (libros.size() > 0) {
 			
-			for (Libro libro : dao.getAll()) {
+			for (Libro libro : libros) {
 				
 				System.out.println("    " + libro);
 				System.out.println();
 			}
-			
-			System.out.println("\n");
 		} else {
 			System.out.println("LO SENTIMOS. No hay libros en la lista.");
 		}
@@ -198,14 +204,16 @@ public class GestorDeLibros {
 
 	private static void mostrarPrestamos(boolean prestados) {
 
-		if (dao.getAll().size() > 0) {
+		List<Libro> libros = dao.getAll();
+		
+		if (libros.size() > 0) {
 			if (prestados) {
 				System.out.println("Lista de libros prestados: ");
 			} else {
 				System.out.println("Lista de libros disponibles: ");
 			}
 
-			for (Libro libro : dao.getAll()) {
+			for (Libro libro : libros) {
 				if (prestados) {
 					if (libro.isPrestado()) {
 						System.out.println("    " + libro);
@@ -215,9 +223,7 @@ public class GestorDeLibros {
 						System.out.println("    " + libro);
 					}
 				}
-				System.out.println();
 			}
-			System.out.println("\n\n\n");
 		} else {
 			System.out.println("LO SENTIMOS. No hay libros prestados.");
 		}
