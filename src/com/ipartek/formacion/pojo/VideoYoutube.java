@@ -1,8 +1,11 @@
 package com.ipartek.formacion.pojo;
 
-public class VideoYoutube implements Cloneable {
+import java.io.Serializable;
 
-	
+public class VideoYoutube implements Cloneable, Serializable {
+
+	private static final long serialVersionUID = 3427309974850390851L;
+
 	private static String MENSAJE_EXCEPTION_CODIGO = "El codigo debe ser de 11 caracteres";
 	
 	private long id;
