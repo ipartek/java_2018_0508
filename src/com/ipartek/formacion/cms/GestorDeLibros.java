@@ -224,6 +224,7 @@ public class GestorDeLibros {
 				}
 			}
 		} else {
+			
 			System.out.println("LO SENTIMOS. No hay libros prestados.");
 		}
 
