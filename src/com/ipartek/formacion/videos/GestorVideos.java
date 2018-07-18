@@ -228,7 +228,7 @@ public class GestorVideos {
 		final int LISTAR = 1;
 		final int AÑADIR = 2;
 		final int ELIMINAR = 3;
-		final int salir = 4;
+		final int SALIR = 4;
 		if (opcion == LISTAR) {
 			listarCanciones();
 		} else {
@@ -238,7 +238,7 @@ public class GestorVideos {
 				if (opcion == ELIMINAR) {
 					eliminarCancion();
 				} else {
-					if (opcion == salir) {
+					if (opcion == SALIR) {
 						salir();
 					}
 				}

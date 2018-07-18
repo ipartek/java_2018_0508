@@ -11,24 +11,40 @@ import java.util.ArrayList;
  */
 public class Ejercicio4 {
 
-	public static void main(String[] args) {
-		ArrayList<String> miStringArrayList = new ArrayList();
-		String opcion;
-		
-		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-		System.out.println("Introduzca palabras hasta que introduzca");
-		opcion = br.readLine();
-		do {
-			miStringArrayList = br.readLine();
-		}while()
+	static ArrayList<String> miStringArrayList;
+
+	public static void main(String[] args) throws Exception {
+		miStringArrayList = new ArrayList<String>();
+		String resul;
+		leerArray(miStringArrayList);
+		resul = sacarStringMayor(miStringArrayList);
+		System.out
+				.println("La mayor cadena de texto introducida es " + resul + " con una longitud de " + resul.length()+" caracteres");
 	}
-	private static void leerArray(ArrayList<Integer> miArrayList,int nPosiciones, char opcionRotacion) throws Exception {
-		if (opcionRotacion == 'D' || opcionRotacion == 'd') {
-			rotarDerecha(miArrayList,nPosiciones);
-		}else {
-			if (opcionRotacion == 'I' || opcionRotacion == 'i') {
-				rotarIzquierda(miArrayList,nPosiciones);
+
+	private static void leerArray(ArrayList<String> miStringArrayList) throws Exception {
+		String opcion;
+		int contador;
+
+		contador = 0;
+		do {
+			BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+			System.out.println("Introduzca palabras (Para finalizar  escribir FIN)");
+			opcion = br.readLine();
+			miStringArrayList.add(contador, opcion);
+			contador++;
+		} while (!opcion.equalsIgnoreCase("FIN"));
+
+	}
+
+	private static String sacarStringMayor(ArrayList<String> miStringArrayList) throws Exception {
+		String cademaM = "";
+		for (int x = 0; x < miStringArrayList.size(); x++) {
+			if (miStringArrayList.get(x).length() > cademaM.length()) {
+				cademaM = miStringArrayList.get(x);
 			}
 		}
+		return cademaM;
+
 	}
 }
