@@ -16,7 +16,6 @@ import com.ipartek.formacion.pojo.Usuario;
 public class UsuarioDAO implements CrudAble<Usuario> {
 
 	private static UsuarioDAO INSTANCE = null;
-
 	private static ArrayList<Usuario> lista;
 
 	private UsuarioDAO() { // CONSTRUCTOR MEDIANTE SINGLETON PATTERN

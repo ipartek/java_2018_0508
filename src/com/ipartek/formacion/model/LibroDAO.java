@@ -16,7 +16,6 @@ import com.ipartek.formacion.pojo.Libro;
 public class LibroDAO implements CrudAble<Libro> {
 
 	private static LibroDAO INSTANCE = null;
-
 	private static ArrayList<Libro> lista;
 
 	private LibroDAO() { // CONSTRUCTOR MEDIANTE SINGLETON PATTERN

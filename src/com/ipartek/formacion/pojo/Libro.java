@@ -3,6 +3,7 @@ package com.ipartek.formacion.pojo;
 public class Libro {
 
 	private static final int MIN_LONG_ISBN = 5;
+	private static final String MENSAJE_ERROR_ISBN = "La longitud del ISBN debe ser mayor que " + MIN_LONG_ISBN;
 
 	long id;
 	String titulo;
@@ -17,14 +18,14 @@ public class Libro {
 		super();
 	}
 
-	public Libro(long id, String titulo, String autor, String editorial, String isbn, int numPaginas,
-			boolean prestado) {
+	public Libro(long id, String titulo, String autor, String editorial, String isbn, int numPaginas, boolean prestado)
+			throws Exception {
 		this();
 		this.id = id;
-		this.titulo = titulo;
+		this.titulo = titulo.trim();
 		this.autor = autor;
-		this.editorial = editorial;
-		this.isbn = isbn;
+		this.editorial = editorial.trim();
+		setIsbn(isbn);
 		this.numPaginas = numPaginas;
 		this.prestado = prestado;
 	}
@@ -64,7 +65,7 @@ public class Libro {
 
 	public void setEditorial(String editorial) {
 		if (editorial != null && !editorial.trim().isEmpty()) {
-			this.editorial = editorial;
+			this.editorial = editorial.trim();
 		}
 	}
 
@@ -77,15 +78,23 @@ public class Libro {
 	 * que 5.
 	 * 
 	 * @param isbn, String
-	 * @throws Exception
+	 * @throws Exception si ISBN == null || ISBN.lenght() < 5
 	 */
 	public void setIsbn(String isbn) throws Exception {
-		if (isbn != null && isbn.trim().length() > MIN_LONG_ISBN) {
+		if (isbn != null && isbn.trim().length() >= MIN_LONG_ISBN) {
 			this.isbn = isbn.trim();
 		} else {
-			throw new Exception("La longitud del ISBN debe ser mayor que 5");
+			throw new Exception(MENSAJE_ERROR_ISBN);
 		}
 
+	}
+
+	public int getNumPaginas() {
+		return numPaginas;
+	}
+
+	public void setNumPaginas(int numPaginas) {
+		this.numPaginas = numPaginas;
 	}
 
 	public boolean isPrestado() {
@@ -98,8 +107,7 @@ public class Libro {
 
 	@Override
 	public String toString() {
-		return "Libro [id=" + id + ", titulo=" + titulo + ", autor=" + autor + ", editorial=" + editorial + ", isbn="
-				+ isbn + ", prestado=" + prestado + "]";
+		return this.titulo + " - " + this.autor + " - " + "\n\tEditorial: " + this.editorial + "\tISBN: " + this.isbn;
 	}
 
 }
