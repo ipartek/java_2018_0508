@@ -1,5 +1,6 @@
 package com.ipartek.formacion.libreria;
 
+import java.io.IOException;
 import java.util.Scanner;
 
 public class GestorLibros {
@@ -53,7 +54,24 @@ public class GestorLibros {
 
 	}
 
-	private static void buscarPorTitulo() {
+	private static void buscarPorTitulo() throws IOException {
+		String busqueda;
+		char seguir;
+		do {
+			System.out.println("Introduce aquello que desees buscar: ");
+			busqueda = sc.nextLine();
+			for (Libro libro : dao.getAll()) {
+				if (libro.getTitulo().contains(busqueda)) {
+					System.out.println("    " + libro);
+				}
+			}
+			System.out.println("");
+			System.out.println("");
+			System.out.println("¿Deseas buscar algo mas?");
+			seguir = (char) System.in.read();
+		} while (seguir != NO);
+
+		pintarMenu();
 
 	}
 
