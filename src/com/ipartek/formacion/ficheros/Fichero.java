@@ -3,56 +3,74 @@ package com.ipartek.formacion.ficheros;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.Serializable;
 
-public class Fichero implements Serializable {
-
-	private static final long serialVersionUID = 301109299599011815L;// Quitar warning serializable
+public class Fichero {
 
 	public static void main(String[] args) {
 
 		crearFichero();
-		// leerFicheroCaracter(); NO FUNCIONA
-		leerFicheroLinea();
-		buscarTesoro("ficheros", "TESORO");
+
+		leerFichero();
+
+		buscarMiTesoro();
+
 		listarUnidadesPc();
+
 	}
 
 	private static void listarUnidadesPc() {
 
-		File[] unidades = File.listRoots();
-
+		System.out.println("-----------------------------------------");
 		System.out.println("Listar Unidades Disco Duro:   ");
+		System.out.println("-----------------------------------------");
+
+		File[] unidades = File.listRoots();
 		for (int i = 0; i < unidades.length; i++) {
 			System.out.println(unidades[i].getAbsolutePath());
 		}
 
 	}
 
-	private static boolean buscarTesoro(String ruta, String palabra) {
-		boolean resul = false;
-		File f = new File(ruta);
+	/**
+	 * Recorrer de forma recursiva en el directorio "ficheros", todos los ficheros
+	 * "lorem.txt" y buscar dentro de ellos la palabra "tesoro"
+	 * 
+	 */
+	private static void buscarMiTesoro() {
+		System.out.println("-----------------------------------------");
+		System.out.println("Buscar Tesoro");
+		System.out.println("-----------------------------------------");
 
+		searchFile(new File("ficheros"), "tesoro");
+
+	}
+
+	/**
+	 * Busca de forma recursiva dentro de un sistema de ficheros una "palabra"
+	 * 
+	 * @param f       File fichero a leer
+	 * @param palabra String a buscar dentro del fichero
+	 * @return
+	 */
+	private static boolean searchFile(File f, String palabra) {
+		boolean resul = false;
 		// Si es un directorio seguir buscando
 		if (f.isDirectory()) {
 
 			for (File fichero : f.listFiles()) {
-				buscarTesoro(ruta, palabra);
+				searchFile(fichero, palabra);
 			}
 
 		} else {
 
 			try {
 				FileReader fr = new FileReader(f);
-				BufferedReader br = new BufferedReader(fr);
+				BufferedReader bf = new BufferedReader(fr);
 				String linea;
-				while ((linea = br.readLine()) != null) {
+				while ((linea = bf.readLine()) != null) {
 
 					if (linea.contains(palabra)) { // encontrado
 						System.out.println("Encontrada palabra en " + f.getAbsolutePath());
@@ -62,7 +80,7 @@ public class Fichero implements Serializable {
 
 				}
 
-				br.close();
+				bf.close();
 				fr.close();
 
 			} catch (Exception e) {
@@ -72,55 +90,6 @@ public class Fichero implements Serializable {
 		}
 
 		return resul;
-	}
-
-	private static void leerFicheroCaracter() {
-
-		StringBuilder sb = new StringBuilder();
-		try {
-			// usamos los Stream para mejorar la lectura o escritura
-			InputStream inputStream = new FileInputStream(new File("Hola.txt"));
-			InputStreamReader reader = new InputStreamReader(inputStream);
-			try {
-				int c = reader.read();
-				while (c != -1) {
-					sb.append(c);
-				}
-			} finally {
-				reader.close();
-			}
-		} catch (IOException e) {
-			System.out.println("Caught exception while processing file: " + e.getMessage());
-		}
-	}
-
-	private static void leerFicheroLinea() {
-		System.out.println("-----------------------------------------");
-		System.out.println("Leer Fichero");
-		System.out.println("-----------------------------------------");
-
-		File f = new File("ficheros/Hola.txt");
-		System.out.println("vamos a comenzar a leer fichero " + f.getAbsolutePath());
-		try {
-
-			FileReader fr = new FileReader(f);
-			BufferedReader br = new BufferedReader(fr);
-			try {
-				String linea;
-				while ((linea = br.readLine()) != null) {
-					System.out.println(linea);
-				}
-
-			} finally {
-				br.close();
-				fr.close();
-			}
-		} catch (IOException e) {
-			System.out.println("Caught exception while processing file: " + e.getMessage());
-		}
-
-		System.out.println("Terminada lectura fichero");
-
 	}
 
 	private static void crearFichero() {
@@ -160,4 +129,35 @@ public class Fichero implements Serializable {
 		}
 
 	}
+
+	private static void leerFichero() {
+
+		System.out.println("-----------------------------------------");
+		System.out.println("Leer Fichero");
+		System.out.println("-----------------------------------------");
+
+		File f = new File("ficheros/hola.txt");
+		System.out.println("vamos a comenzar a leer fichero " + f.getAbsolutePath());
+		try {
+
+			FileReader fr = new FileReader(f);
+			BufferedReader bf = new BufferedReader(fr);
+			try {
+				String linea;
+				while ((linea = bf.readLine()) != null) {
+					System.out.println(linea);
+				}
+
+			} finally {
+				bf.close();
+				fr.close();
+			}
+		} catch (IOException e) {
+			System.out.println("Caught exception while processing file: " + e.getMessage());
+		}
+
+		System.out.println("Terminada lectura fichero");
+
+	}
+
 }
