@@ -28,6 +28,7 @@ public class VideoClub {
 	static private final int LONGCODIGO = 11;
 	static private final String TERMINAR = "n";
 	static private final int VACIO = 0;
+	private static int cont = 0;
 
 	public static void main(String[] args) {
 		try {
@@ -97,10 +98,10 @@ public class VideoClub {
 
 	public static void cargarVideos() {
 
-		VideoYoutube video = new VideoYoutube(12650, "Uno X Uno", "6bLVdKbPHHY");
+		VideoYoutube video = new VideoYoutube(cont++, "Uno X Uno", "6bLVdKbPHHY");
 		dao.insert(video);
 
-		video = new VideoYoutube(701, "Clandestino", "RgULjdsjiLQ");
+		video = new VideoYoutube(cont++, "Clandestino", "RgULjdsjiLQ");
 		dao.insert(video);
 
 	}
@@ -117,7 +118,7 @@ public class VideoClub {
 			for (VideoYoutube listVideos : videos) {
 				System.out.println("  " + listVideos + " \n");
 			}
-			
+
 		}
 
 	}
@@ -127,7 +128,6 @@ public class VideoClub {
 		sc.nextLine();
 		String continuar = "n";
 		boolean resul = false;
-		int cont = 2;
 
 		System.out.println("\n");
 		System.out.println(" - INSERTANDO VIDEOS - ");
@@ -155,9 +155,7 @@ public class VideoClub {
 
 			} while (v.getCodigo().length() < LONGCODIGO || v.getCodigo().length() > LONGCODIGO);
 
-			cont++;
-
-			v.setId(cont);
+			v.setId(cont++);
 
 			System.out.println("guardado registro....");
 			dao.insert(v);
@@ -189,7 +187,7 @@ public class VideoClub {
 			System.out.println("\n No hay videos para mostrar \n");
 			pintarMenu();
 		} else {
-			
+
 			listarVideo();
 
 			do {
@@ -203,7 +201,7 @@ public class VideoClub {
 						dao.delete(r);
 						System.out.println("\n Lista actualizada....");
 						listarVideo();
-					} 
+					}
 
 				} catch (Exception e) {
 
