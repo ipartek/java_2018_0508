@@ -203,10 +203,10 @@ public class GestorVideos {
 		try {
 			opcionSeleccionada = sc.nextInt();
 		}catch (Exception e) {
-			//e.printStackTrace(); Pinta la fila de excepci�n
+			//e.printStackTrace(); Pinta la fila de excepción
 			
 			sc.nextLine();
-			System.out.println("OPCI�N NO V�LIDA, Por favor, introduzca un n�mero del men�");
+			System.out.println("OPCIÓN NO VÁLIDA, Por favor, introduzca un número del menú");
 			
 			pintarMenu();
 			opcionElegida();

@@ -2,8 +2,6 @@ package com.ipartek.formacion.pojo;
  
 public class VideoYoutube implements Cloneable{
 	
-	
-
 	private long id;
 	private String titulo; // de 3 a 254 caracteres
 	private String codigo; //11 caracteres

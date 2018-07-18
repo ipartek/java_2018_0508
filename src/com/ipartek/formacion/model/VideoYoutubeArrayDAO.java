@@ -8,7 +8,7 @@ import com.ipartek.formacion.pojo.VideoYoutube;
 
 /**
  * Clase DAO para gestionar los VideoYoutube con ArrayList
- * Usamos patrón singleton
+ * Usamos patrÃ³n singleton
  * @see https://es.wikipedia.org/wiki/Singleton
  * @author Adrian Garcia
  *

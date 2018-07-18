@@ -3,7 +3,7 @@ package com.ipartek.formacion.model;
 import java.util.List;
 
 /**
- * Interfaz para especficar los métodos de <b>Crud</b>:
+ * Interfaz para especficar los mÃ©todos de <b>Crud</b>:
  *
  * <ul>
  *     <li>Create</li>
@@ -20,7 +20,7 @@ public interface CrudAble<P> {
 	
 	/**
 	 * Recupera todos los pojos
-	 * @return si no existen resultados retorna lista vacía, no null
+	 * @return si no existen resultados retorna lista vacÃ­a, no null
 	 */
 	List<P> getAll();
 	

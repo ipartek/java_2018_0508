@@ -1,9 +1,12 @@
 package com.ipartek.formacion.pojo;
 
-public class Person {
+import java.io.Serializable;
+
+public class Person implements Serializable{
 	
 	//Constantes
 	
+	private static final long serialVersionUID = 1L;
 	public final static char SEXO_INDEFINIDO = 'i';
 	public final static char SEXO_MUJER = 'm';
 	public final static char SEXO_HOMBRE = 'h';
@@ -30,10 +33,10 @@ public class Person {
 		this.setApellido("");
 		this.setSexo(SEXO_INDEFINIDO);
 		this.setEdad(EDAD_MINIMA);
-		this.setNota(NOTA_MINIMA); // Se puede castear a float poniendo f detrás o (float) por delante.
+		this.setNota(NOTA_MINIMA); // Se puede castear a float poniendo f detrï¿½s o (float) por delante.
 	}
 	
-	//Constructor sobrecargado, mismo nombre pero diferentes prámetros y mismo return
+	//Constructor sobrecargado, mismo nombre pero diferentes prï¿½metros y mismo return
 	public Person(String nombre) {
 		this();
 		this.setNombre(nombre);
@@ -75,8 +78,8 @@ public class Person {
 	}
 
 	/**
-	 * Setea el sexo de la persona, podemos usar 'h' hombre, 'm' mujer, tanto mayúsculas como minúsculas.
-	 * En caso de no pasar esos valores será una 'i' de indefinido.
+	 * Setea el sexo de la persona, podemos usar 'h' hombre, 'm' mujer, tanto mayï¿½sculas como minï¿½sculas.
+	 * En caso de no pasar esos valores serï¿½ una 'i' de indefinido.
 	 * @see constantes: SEXO_HOMBRE, SEXO_MUJER, SEXO_INDEFINIDO
 	 * @param sexo char caracter que indica el sexo de Person.
 	 */
