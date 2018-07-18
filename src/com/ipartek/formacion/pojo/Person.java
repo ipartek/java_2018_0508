@@ -1,7 +1,14 @@
 package com.ipartek.formacion.pojo;
 
-public class Person {
+import java.io.Serializable;
 
+public class Person implements Serializable {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	
 	// Constantes
 	public final static char SEXO_INDEFINIDO = 'I';
 	public final static char SEXO_MUJER = 'M';
