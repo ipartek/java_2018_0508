@@ -66,4 +66,18 @@ public class LibroDAO implements CrudAble<Libro> {
 		return false;
 	}
 
+	public Libro getByTitulo(String titulo) {
+		Libro resul = null;
+
+		for (Libro libroIteracion : lista) {
+			if (titulo == libroIteracion.getTitulo()) {
+				resul = libroIteracion;
+				break;
+			}
+
+		}
+
+		return resul;
+
+	}
 }
