@@ -5,9 +5,7 @@ import java.util.List;
 import java.util.Scanner;
 
 import com.ipartek.formacion.model.LibroDAO;
-
 import com.ipartek.formacion.pojo.Libro;
-import com.ipartek.formacion.pojo.Youtube;
 
 public class GestorLibros {
 
