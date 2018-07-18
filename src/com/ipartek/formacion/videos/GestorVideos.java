@@ -45,7 +45,7 @@ public class GestorVideos {
 			case OPCION_ANADIR:
 				anadir();
 				break;
-
+				
 			case OPCION_ELIMINAR:
 				eliminar();
 				break;
@@ -93,7 +93,6 @@ public class GestorVideos {
 		
 		// sc.close();
 			
-		//pintarMenu();
 	}
 	
 	private static void salir() {
@@ -109,15 +108,14 @@ public class GestorVideos {
 
 	private static void noOption() {
 		System.out.println("Lo sentimos No existe esa opcion");
-		pintarMenu();
-		
+
 	}
 
 
 	private static void listar() {
 		
 		for ( VideoYoutube video : dao.getAll() ) {
-			System.out.println("    " + video);
+			System.out.println("    " + video.toString());
 		}
 		
 		System.out.println("");
@@ -126,10 +124,6 @@ public class GestorVideos {
 				
 	}
 	
-	private static void eliminar() {
-		
-	}
-
 
 	private static void cargarVideos() {
 		VideoYoutube video = new VideoYoutube(1, "Nightmares On Wax Boiler Room London DJ Set", "Q692lHFaLVM");
@@ -141,18 +135,37 @@ public class GestorVideos {
 		++idCounter;
 		
 	}
+	private static void eliminar() {
+		long id;
 
+		System.out.println("Por favor, teclea el id del video que deseas eliminar : ");
+		try {
+
+			id = sc.nextLong();
+			System.out.println(dao.delete(id) ? "Video eliminado con exito." : "No existe ese video.");
+
+		} catch (Exception e) {
+
+			System.out.println("ID NO VALIDA. Por favor, teclea un ID numerico correcto.");
+			sc.nextLine();
+			eliminar();
+
+		} finally {
+			sc.nextLine();
+		}
+
+}
 
 	private static void pintarMenu() {
 		
 		System.out.println("------------------------------------");
 		System.out.println("--          youtube               --");
 		System.out.println("------------------------------------");
-		System.out.println("-    1. Listar                     -");
-		System.out.println("-    2. Añadir Nuevo               -");
-		System.out.println("-    3. Eliminar                   -");
-		System.out.println("-                                  -");
-		System.out.println("-    0 - salir                     -");
+		System.out.println("--    1. Listar                   --");
+		System.out.println("--    2. Aï¿½adir Nuevo             --");
+		System.out.println("--    3. Eliminar                 --");
+		System.out.println("--                                --");
+		System.out.println("--    0 - salir                   --");
 		System.out.println("------------------------------------");
 		System.out.println("");
 		System.out.println("Dime una opcion por favor");

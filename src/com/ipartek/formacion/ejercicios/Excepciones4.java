@@ -1,13 +1,10 @@
 package com.ipartek.formacion.ejercicios;
 
 /**
- * Capturar excepciones para que se ejecuten todos los metos como si no hubiera
- * excepciones
- * 
- * @author Curso
+ * Capturar excepciones para que se ejecuten todos los metodos, como si no hubiera excepcion
+ * @author ur00
  *
  */
-
 public class Excepciones4 {
 
 	public static void main(String[] args) {
