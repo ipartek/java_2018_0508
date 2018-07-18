@@ -45,7 +45,6 @@ public class GestorLibros {
 					break;
 
 				case OPCION_LISTAR_PRESTADOS:
-				
 
 					listaNoPrestados();
 					break;
@@ -58,9 +57,6 @@ public class GestorLibros {
 				case OPCION_BUSCAR:
 
 					buscarLibro();
-					// Libro nuevoLibro = crearNuevoLibro();
-					// dao.insert(nuevoLibro);
-
 					break;
 
 				case OPCION_SALIR:
@@ -81,22 +77,25 @@ public class GestorLibros {
 	}
 
 	private static void listaSiPrestados() {
-	
-		
-			boolean prestamo = false ;
-			
-			if (prestamo == false) {
-				System.out.println("El libro no es prestado ");
-			} else {
-				System.out.println(" El libro esta prestado ");
+		List<Libro> lib = dao.getAll();
+		for (int i = 0; i < lib.size(); i++) {
+			Libro l = lib.get(i);
+			if (l.isPrestado() == true) {
+				System.out.println(l.toString());
 			}
-		} 
 
-	
-	
+		}
+	}
 
 	private static void listaNoPrestados() {
-		// TODO Auto-generated method stub
+		List<Libro> lib = dao.getAll();
+		for (int i = 0; i < lib.size(); i++) {
+			Libro l = lib.get(i);
+			if (l.isPrestado() == false) {
+				System.out.println(l.toString());
+			}
+
+		}
 
 	}
 
@@ -108,23 +107,35 @@ public class GestorLibros {
 		lib = new Libro("9788467575057", "LENGUA TRIMESTRAL 2º EDUCACION PRIMARIA SAVIA ED 2015 ", "EDICIONES SM",
 				true);
 		dao.insert(lib);
-		lib = new Libro(" 9788467575071", "MATEMÁTICAS TRIMESTRAL SAVIA-15", "EDICIONES SM", false);
+		lib = new Libro(" 9788467575071", "MATEMÃ�TICAS TRIMESTRAL SAVIA-15", "EDICIONES SM", false);
 		dao.insert(lib);
-		lib = new Libro(" 9788461716098", "LA VOZ DE TU ALMA", "AUTOR-EDITOR", false);
+		lib = new Libro(" 9788461716098", "LA VOZ DE TU ALMA", "AUTOR-EDITOR", true);
 		dao.insert(lib);
 		lib = new Libro("  9788467569957",
-				"LENGUA CASTELLANA 3º EDUCACION PRIMARIA TRIMESTRES SAVIA CASTELLA NO ED 2014 ", "EDICIONES SM", false);
+				"LENGUA CASTELLANA 3Âº EDUCACION PRIMARIA TRIMESTRES SAVIA CASTELLA NO ED 2014 ", "EDICIONES SM",
+				false);
 		dao.insert(lib);
 		lib = new Libro(" 9781380013835", "NEW HIGH FIVE 1 PUPILS BOOK PACK", "MACMILLAN CHILDRENS ", false);
 		dao.insert(lib);
-		lib = new Libro(" 9781380011718", "NEW HIGH FIVE 3 PUPILS BOOK", "MACMILLAN CHILDRENS ", false);
+		lib = new Libro(" 9781380011718", "NEW HIGH FIVE 3 PUPILS BOOK", "MACMILLAN CHILDRENS ", true);
 		dao.insert(lib);
 
 	}
 
 	private static void buscarLibro() {
-		// TODO Auto-generated method stub
 
+		List<Libro> lib = dao.getAll();
+		String titulo;
+		System.out.println("Ingrese el libro que desea buscar por favor : ");
+		titulo = sr.nextLine();
+
+		for (int i = 0; i < lib.size(); i++) {
+			Libro l = lib.get(i);
+			if (l.getTitulo().toLowerCase().contains(titulo.toLowerCase())) {
+				System.out.println(l.toString());
+			}
+
+		}
 	}
 
 	private static void mostrarLista(List<Libro> lib) {
@@ -140,14 +151,12 @@ public class GestorLibros {
 	}
 
 	private static void mostrarMenu() {
-		System.out.println("Selecciona una opci�n:");
-		System.out.println("1 - Lista");
-		System.out.println("2 - Lista no prestado");
-		System.out.println("3 - Lista prestados");
+		System.out.println("Selecciona una opcion:");
+		System.out.println("1 - Listado");
+		System.out.println("2 - Listado no prestados");
+		System.out.println("3 - Listado prestados");
 		System.out.println("4 - Buscar");
 		System.out.println("0 - Salir");
-
-		// TODO Auto-generated method stub
 
 	}
 
