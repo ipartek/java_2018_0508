@@ -2,6 +2,7 @@ package com.ipartek.formacion.libros;
 
 import java.util.Scanner;
 
+import com.ipartek.formacion.model.LibroDAO;
 import com.ipartek.formacion.pojo.Libro;
 
 public class GestorLibros {
@@ -10,13 +11,14 @@ public class GestorLibros {
 	private final static int OPCION0 = 0;
 	private final static int OPCION3 = 3;
 
-	static Libro[] libros = new Libro[7];
+	static private LibroDAO dao;
 	static Scanner teclado;
 
 	public static void main(String[] args) {
 
 		try {
 
+			dao = LibroDAO.getInstance(0, null, null, null, false);
 			teclado = new Scanner(System.in);
 			//cargarLibros();
 			pintarMenu();
@@ -87,23 +89,23 @@ public class GestorLibros {
 	 * 
 	 * @throws Exception
 	 */
-	/*private static void cargarLibros() throws Exception {
+	private static void cargarLibros() throws Exception {
 		//TODO Hay que hacerlo mediante el DAO no con esto
 		Libro libro1 = new Libro(1, "9788416001460", "FARIÑA", "LIBROS DEL K.O", true);
-		libros[0] = libro1;
+		dao.insert(libro1);
 		Libro libro2 = new Libro(2, "9788467575057", "LENGUA TRIMESTRAL 2º", "EDICIONES SM", false);
-		libros[1] = libro2;
+		dao.insert(libro2);
 		Libro libro3 = new Libro(3, "9788467575071", "MATEMÁTICAS TRIMESTRAL", "EDICIONES SM", false);
-		libros[2] = libro3;
+		dao.insert(libro3);
 		Libro libro4 = new Libro(4, "9788461716098", "LA VOZ DE TU ALMA", "AUTOR-EDITOR", true);
-		libros[3] = libro4;
+		dao.insert(libro4);
 		Libro libro5 = new Libro(5, "9788467569957", "LENGUA CASTELLANA 3º", "EDICIONES SM", false);
-		libros[4] = libro5;
+		dao.insert(libro5);
 		Libro libro6 = new Libro(6, "9781380013835", "NEW HIGH FIVE 1", "MACMILLAN CHILDRENS BOOKS", false);
-		libros[5] = libro6;
+		dao.insert(libro6);
 		Libro libro7 = new Libro(7, "9781380011718", "NEW HIGH FIVE 3", "MACMILLAN CHILDRENS BOOKS", false);
-		libros[6] = libro7;
-	}*/
+		dao.insert(libro7);
+	}
 
 	/**
 	 * Metodo para listar un libro concreto por titulo
@@ -131,14 +133,14 @@ public class GestorLibros {
 				int cont = 0;
 				System.out.println("Estas son las coincidencias de lo que estabas buscando:");
 				System.out.println("-----------------------------------------------------------");
-				for (int i = 0; i < libros.length; i++) {
+				/*for (int i = 0; i < libros.length; i++) {
 					String titulo = libros[i].getTitulo();
 					boolean contiene = titulo.contains(busqueda);
 					if (contiene == true) {
 						System.out.println(libros[i]);
 						cont++;
 					}
-				}
+				}*/
 				if (cont == 0) {
 					System.out.println("No hay libros relacionados con tu busqueda.");
 					System.out.println();
@@ -165,12 +167,12 @@ public class GestorLibros {
 		try {
 			System.out.println("Estos son los libros que estan bajo prestamo:");
 			System.out.println("-----------------------------------------------------------");
-			for (int i = 0; i < libros.length; i++) {
+			/*for (int i = 0; i < libros.length; i++) {
 				if (libros[i].isPrestado() == true) {
 					System.out.println(libros[i]);
 					contPres++;
 				}
-			}
+			}*/
 
 			if (contPres == 0) {
 				System.out.println("No hay libros bajo prestamo.");
@@ -193,12 +195,12 @@ public class GestorLibros {
 		try {
 			System.out.println("Estos son los libros que no estan bajo prestamo:");
 			System.out.println("-----------------------------------------------------------");
-			for (int i = 0; i < libros.length; i++) {
+			/*for (int i = 0; i < libros.length; i++) {
 				if (libros[i].isPrestado() == false) {
 					System.out.println(libros[i]);
 					contNoPres++;
 				}
-			}
+			}*/
 			if (contNoPres == 0) {
 				System.out.println("No hay libros que no esten bajo prestamo.");
 			}
