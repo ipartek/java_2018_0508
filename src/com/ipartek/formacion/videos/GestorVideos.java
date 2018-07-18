@@ -6,7 +6,7 @@ import com.ipartek.formacion.model.VideoYoutubeArrayDAO;
 import com.ipartek.formacion.pojo.VideoYoutube;
 
 public class GestorVideos {
-/*PRUEBAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA*/
+
 	static private VideoYoutubeArrayDAO dao;
 	static private int opcionSeleccionada = 0;
 	static Scanner sc = null;
