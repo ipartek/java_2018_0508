@@ -6,12 +6,12 @@ import java.util.Scanner;
 import java.util.StringTokenizer;
 
 /**
- * Disponemos de un fichero de texto llamado enteros.txt que contiene números
+ * Disponemos de un fichero de texto llamado enteros.txt que contiene nï¿½meros
  * enteros separados por comas, espacios en blanco y tabulaciones. El siguiente
- * programa lee los números usando la clase Scanner y los muestra. Muestra
- * también la cantidad de números leídos y su suma. El programa lee líneas
+ * programa lee los nï¿½meros usando la clase Scanner y los muestra. Muestra
+ * tambiï¿½n la cantidad de nï¿½meros leï¿½dos y su suma. El programa lee lï¿½neas
  * completas del fichero y las pasa a un StringTokenizer del que se extraen los
- * números.
+ * nï¿½meros.
  * 
  * @see Scanner, StringTokenizer
  * 
@@ -20,7 +20,7 @@ import java.util.StringTokenizer;
  */
 public class Ejercicio6 {
 
-	static Scanner scConsola = new Scanner(System.in); // Scanner que leerá la consola
+	static Scanner scConsola = new Scanner(System.in); // Scanner que leerï¿½ la consola
 
 	static final String DELIM = " ,\t";
 
@@ -39,7 +39,7 @@ public class Ejercicio6 {
 		try {
 
 			leerFichero(ruta);
-			System.out.println("Fichero leído con éxito.");
+			System.out.println("Fichero leï¿½do con ï¿½xito.");
 
 		} catch (FileNotFoundException e) { // No existe el fichero en esa ruta
 
@@ -53,22 +53,22 @@ public class Ejercicio6 {
 
 	private static void mostrarResultados() {
 
-		System.out.println("La suma de los números es:" + suma);
+		System.out.println("La suma de los nï¿½meros es:" + suma);
 
-		System.out.println("Leidos " + cont + " números del fichero.");
+		System.out.println("Leidos " + cont + " nï¿½meros del fichero.");
 
 	} // FIN mostrarResultados();
 
 	/**
 	 * Procedimiento que lee los enteros de un fichero. La lectura acaba cuando no
-	 * quedan más líneas.
+	 * quedan mÃ¡s lÃ­neas.
 	 * 
 	 * @param ruta, String con la ruta del fichero
 	 * @throws FileNotFoundException
 	 */
 	private static void leerFichero(String ruta) throws FileNotFoundException {
 
-		Scanner scFichero = null; // Scanner que leerá el fichero
+		Scanner scFichero = null; // Scanner que leerÃ¡ el fichero
 
 		String linea;
 
@@ -76,9 +76,9 @@ public class Ejercicio6 {
 
 		scFichero = new Scanner(fichero);
 
-		while (scFichero.hasNext()) { // Mientras haya más contenido
+		while (scFichero.hasNext()) { // Mientras haya mÃ¡s contenido
 
-			linea = scFichero.nextLine(); // Lemmos la siguiente línea
+			linea = scFichero.nextLine(); // Lemmos la siguiente lï¿½nea
 
 			contarNumeros(linea);
 
@@ -89,7 +89,7 @@ public class Ejercicio6 {
 
 	private static void contarNumeros(String linea) {
 
-		int num; // En esta variable iremos leyendo cada número de la línea
+		int num; // En esta variable iremos leyendo cada nÃºmero de la lÃ­nea
 
 		tokens = new StringTokenizer(linea, DELIM);
 
@@ -101,7 +101,7 @@ public class Ejercicio6 {
 
 			suma += num; // Lo sumamos a suma
 
-			cont++; // Lo sumamos al contador de número
+			cont++; // Lo sumamos al contador de nÃºmero
 		}
 
 	} // FIN contarNumeros();

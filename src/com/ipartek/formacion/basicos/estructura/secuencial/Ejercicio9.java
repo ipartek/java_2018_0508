@@ -3,7 +3,7 @@ package com.ipartek.formacion.basicos.estructura.secuencial;
 import java.util.Scanner;
 
 /**
- * Programa que calcula el área de un triángulo a partir de la longitud de sus
+ * Programa que calcula el Ã¡rea de un triÃ¡ngulo a partir de la longitud de sus
  * lados.
  * 
  * @author Curso
@@ -26,7 +26,7 @@ public class Ejercicio9 {
 		h = sc.nextInt();
 
 		res = b * h / 2f;
-		System.out.println("El área del triángulo es: " + res);
+		System.out.println("El ï¿½rea del triï¿½ngulo es: " + res);
 
 	}
 

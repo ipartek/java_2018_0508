@@ -1,8 +1,8 @@
 package com.ipartek.formacion.basicos.iniciales;
 
 /**
- * Programa Java que declare una variable entera N y asígnale un valor. A
- * continuación escribe las instrucciones que realicen lo siguiente:
+ * Programa Java que declare una variable entera N y asignale un valor. A
+ * continuacion escribe las instrucciones que realicen lo siguiente:
  * --Incrementar N en 77 --Decrementarla en 3 --Duplicar su valor.
  * 
  * @author Curso

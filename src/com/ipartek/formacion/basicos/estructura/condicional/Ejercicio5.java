@@ -3,7 +3,7 @@ package com.ipartek.formacion.basicos.estructura.condicional;
 import java.util.Scanner;
 
 /**
- * Programa Java que lea 2 caracteres y compruebe si son minúsculas.
+ * Programa Java que lea 2 caracteres y compruebe si son minÃºsculas.
  * 
  * @author Curso
  *
@@ -17,13 +17,13 @@ public class Ejercicio5 {
 	        char c = leerCaracter().charAt(0);
 	        char c2 = leerCaracter().charAt(0);
 	        
-	        System.out.println(Character.isLowerCase(c) ? "'" + c + "' es minúscula" : "'" + c + "' no es minúscula"); 
-	        System.out.println(Character.isLowerCase(c2) ? "'" + c2 + "' es minúscula" : "'" + c2 + "' no es minúscula"); 
+	        System.out.println(Character.isLowerCase(c) ? "'" + c + "' es minÃºscula" : "'" + c + "' no es minÃºscula"); 
+	        System.out.println(Character.isLowerCase(c2) ? "'" + c2 + "' es minÃºscula" : "'" + c2 + "' no es minÃºscula"); 
 	    }
 	    
 	    private static String leerCaracter() {
 	        
-	        System.out.println("Introduce un carácter: ");
+	        System.out.println("Introduce un caracter: ");
 	        return sc.next();
 	    }
 

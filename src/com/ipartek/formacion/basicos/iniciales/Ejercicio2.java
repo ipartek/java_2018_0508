@@ -3,7 +3,7 @@ package com.ipartek.formacion.basicos.iniciales;
 /**
  * Programa java que realice lo siguiente: declarar dos variables X e Y de tipo
  * int, dos variables N y M de tipo double y asigna a cada una un valor. A
- * continuación realiza y muestra muestra por pantalla una serie de operaciones
+ * continuaciÃ³n realiza y muestra muestra por pantalla una serie de operaciones
  * entre ellas.
  * 
  * @author Curso
@@ -17,7 +17,7 @@ public class Ejercicio2 {
 	static double m = 6.8685;
 
 	public static void main(String[] args) {
-		
+
 		System.out.println("Operaciones con enteros");
 		System.out.println("X + Y = " + (x + y));
 		System.out.println("X - Y = " + (x - y));

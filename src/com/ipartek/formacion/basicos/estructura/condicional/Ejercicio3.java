@@ -5,7 +5,7 @@ import java.util.Scanner;
 import com.ipartek.formacion.util.Utilidades;
 
 /**
- * Programa Java que lea un carácter y diga si es mayúscula.
+ * Programa Java que lea un caracter y diga si es mayÃºscula.
  * 
  * @author Curso
  *
@@ -19,7 +19,7 @@ public class Ejercicio3 {
 		char c;
 
 		c =  Utilidades.leerString(sc).charAt(0);
-		System.out.println(esMayusc(c) ? c + " es mayúscula" : c + " no es mayúscula");
+		System.out.println(esMayusc(c) ? c + " es mayÃºscula" : c + " no es mayÃºscula");
 
 	}
 

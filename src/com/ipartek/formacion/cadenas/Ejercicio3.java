@@ -3,7 +3,7 @@ package com.ipartek.formacion.cadenas;
 import java.util.Scanner;
 
 /**
- * Clase java que cuenta cuántas veces aparece un carácter dentro de un texto.
+ * Clase java que cuenta cuÃ¡ntas veces aparece un caracter dentro de un texto.
  * Ambos se piden por teclado.
  * 
  * @author Luis
@@ -23,7 +23,7 @@ public class Ejercicio3 {
 		leerTexto();
 
 		int n = contarCaracteres();
-		System.out.println("Número de veces que aparece '" + Character.toString(c) + "' en el texto: " + n);
+		System.out.println("NÃºmero de veces que aparece '" + Character.toString(c) + "' en el texto: " + n);
 
 	}
 
@@ -38,21 +38,21 @@ public class Ejercicio3 {
 		}
 		return cont;
 
-	} // FIN contarCaracteres();
+	} 
 
 	private static void leerCaracter() {
 
-		System.out.println("Introduce un carácter: ");
+		System.out.println("Introduce un carï¿½cter: ");
 
-		c = sc.nextLine().charAt(0); // Como sólo queremos leer un carácter, cogemos la primera posición de la línea
+		c = sc.nextLine().charAt(0); // Como sÃ³lo queremos leer un caracter, cogemos la primera posiciÃ³n de la lÃ­nea
 
-	} // FIN leerCaracter();
+	} 
 
 	private static void leerTexto() {
 
 		System.out.println("Introduce el texto: ");
 		texto = sc.nextLine();
 
-	} // FIN leerTexto();
+	}
 
-} // FIN Ejercicio3
+}

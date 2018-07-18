@@ -1,7 +1,7 @@
 package com.ipartek.formacion.basicos.estructura.iterativa;
 
 /**
- * Programa Java que muestre los números del 100 al 1 utilizando la instrucción
+ * Programa Java que muestre los nÃºmeros del 100 al 1 utilizando la instrucciÃ³n
  * for.
  * 
  * @author Curso

@@ -4,7 +4,7 @@ import java.io.File;
 
 /**
  * Programa que muestre todas las unidades de disco del ordenador indicando para
- * cada una de ellas el tamaño disponible y el tamaño total.
+ * cada una de ellas el tamaï¿½o disponible y el tamaï¿½o total.
  * 
  * @author Luis
  *
@@ -21,19 +21,19 @@ public class Ejercicio1 {
 
 		mostrarResultados();
 		
-		System.out.println("Finalizado con éxito");
+		System.out.println("Finalizado con Ã©xito");
 
 	} // FIN main();
 
 	private static void cargarUnidades() {
 
-		unidades = File.listRoots(); // Leemos las unidades del SO con el método listRoots de la clase File
+		unidades = File.listRoots(); // Leemos las unidades del SO con el mï¿½todo listRoots de la clase File
 
 	} // FIN cargarUnidades();
 
 	private static void mostrarResultados() {
 
-		System.out.printf("   %20s %20s %n", "Tamaño Total", "Tamaño disponible");
+		System.out.printf("   %20s %20s %n", "TamaÃ±o Total", "TamaÃ±o disponible");
 		for (File file : unidades) {
 			System.out.print(file);
 			System.out.printf("   %20s %20s %n", file.getTotalSpace(), file.getFreeSpace());

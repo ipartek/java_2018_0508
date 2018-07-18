@@ -3,8 +3,8 @@ package com.ipartek.formacion.basicos.estructura.secuencial;
 import java.util.Scanner;
 
 /**
- * Programa Java que lee un número entero por teclado y obtiene y muestra por
- * pantalla el doble y el triple de ese número.
+ * Programa Java que lee un Ãºï¿½mero entero por teclado y obtiene y muestra por
+ * pantalla el doble y el triple de ese nÃºmero.
  * 
  * @author Curso
  *
@@ -17,10 +17,10 @@ public class Ejercicio3 {
 
 	public static void main(String[] args) {
 
-		System.out.println("Introduzca un número por teclado:");
+		System.out.println("Introduzca un nÃºmero por teclado:");
 		n = sc.nextInt();
 
-		System.out.println("El número introducido es: " + n);
+		System.out.println("El nÃºmero introducido es: " + n);
 		System.out.println("-------------------------------");
 
 		System.out.println("El doble de " + n + " es: ");

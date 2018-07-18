@@ -1,9 +1,9 @@
 package com.ipartek.formacion.basicos.iniciales;
 
 /**
- * Programa Java que declare una variable C de tipo entero y asígnale un valor.
- * A continuación muestra un mensaje indicando si el valor de C es positivo o
- * negativo, si es par o impar, si es múltiplo de 5, si es múltiplo de 10 y si
+ * Programa Java que declare una variable C de tipo entero y asÃ­gnale un valor.
+ * A continuaciÃ³n muestra un mensaje indicando si el valor de C es positivo o
+ * negativo, si es par o impar, si es mÃºltiplo de 5, si es mÃºltiplo de 10 y si
  * es mayor o menor que 100. Consideraremos el 0 como positivo. Utiliza el
  * operador condicional ( ? : ) dentro del println para resolverlo.
  * 
@@ -16,11 +16,11 @@ public class Ejercicio7 {
 
 	public static void main(String[] args) {
 
-		System.out.println(c < 0 ? "El número es negativo." : "El número es positivo.");
-		System.out.println(c % 2 == 0 ? "El número es par." : "El número es impar.");
-		System.out.println(c % 5 == 0 ? "El número es múltiplo de 5." : "El número no es múltiplo de 5.");
-		System.out.println(c % 10 == 0 ? "El número es múltiplo de 10." : "El número no es múltiplo de 10.");
-		System.out.println(c > 100 ? "El número es mayor que 100." : "El número es menor que 100.");
+		System.out.println(c < 0 ? "El nÃºmero es negativo." : "El nÃºmero es positivo.");
+		System.out.println(c % 2 == 0 ? "El nÃºmero es par." : "El nÃºmero es impar.");
+		System.out.println(c % 5 == 0 ? "El nÃºmero es mÃºltiplo de 5." : "El nÃºmero no es mÃºltiplo de 5.");
+		System.out.println(c % 10 == 0 ? "El nÃºmero es mÃºltiplo de 10." : "El nÃºmero no es mÃºltiplo de 10.");
+		System.out.println(c > 100 ? "El nÃºmero es mayor que 100." : "El nÃºmero es menor que 100.");
 	}
 
 }

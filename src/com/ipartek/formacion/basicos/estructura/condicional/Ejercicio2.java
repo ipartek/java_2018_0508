@@ -5,7 +5,7 @@ import java.util.Scanner;
 import com.ipartek.formacion.util.Utilidades;
 
 /**
- * Programa Java que lea un número entero y calcule si es par o impar.
+ * Programa Java que lea un nÃºmero entero y calcule si es par o impar.
  * 
  * @author Curso
  *
@@ -19,7 +19,7 @@ public class Ejercicio2 {
 		int n;
 
 		n = Utilidades.leerInt(sc);
-		System.out.println(esMultiploDe10(n) ? n + " es múltiplo de 10" : n + " no es múltiplo de 10");
+		System.out.println(esMultiploDe10(n) ? n + " es mÃºltiplo de 10" : n + " no es mÃºltiplo de 10");
 
 	}
 

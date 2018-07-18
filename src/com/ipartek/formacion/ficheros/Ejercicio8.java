@@ -9,12 +9,12 @@ import javax.swing.JFileChooser;
 /**
  * Programa Java para buscar una palabra o una cadena en un fichero de texto.
  * 
- * El programa pedirá que se introduzca una palabra o un texto por teclado y
- * realizará su búsqueda por todo el archivo. Se mostrará por pantalla el número
- * de línea y el contenido de la línea del fichero que contiene la cadena
- * buscada. Si la cadena buscada aparece en varias líneas se mostrarán todas
- * ellas. Si el fichero no contiene el texto buscado se mostrará un mensaje
- * indicándolo.
+ * El programa pedirÃ¡ que se introduzca una palabra o un texto por teclado y
+ * realizarï¿½ su bï¿½squeda por todo el archivo. Se mostrarï¿½ por pantalla el nï¿½mero
+ * de lï¿½nea y el contenido de la lÃ­nea del fichero que contiene la cadena
+ * buscada. Si la cadena buscada aparece en varias lï¿½neas se mostrarÃ¡n todas
+ * ellas. Si el fichero no contiene el texto buscado se mostrarÃ¡ un mensaje
+ * indicÃ¡ndolo.
  * 
  * @see Scanner
  * 
@@ -51,7 +51,7 @@ public class Ejercicio8 {
 
 			leerFichero();
 
-			if (!contiene) { // si el archivo no contienen el texto se muestra un mensaje indicándolo
+			if (!contiene) { // si el archivo no contienen el texto se muestra un mensaje indicï¿½ndolo
 
 				System.out.println(busqueda + " no se ha encontrado en el archivo.");
 			}
@@ -59,8 +59,8 @@ public class Ejercicio8 {
 		} catch (FileNotFoundException e) { // No se ha encontrado el archivo
 			System.out.println(e.toString());
 
-		} catch (NullPointerException e) { // No se ha seleccionado ningún archivo
-			System.out.println(e.toString() + "No ha seleccionado ningún archivo");
+		} catch (NullPointerException e) { // No se ha seleccionado ningï¿½n archivo
+			System.out.println(e.toString() + "No ha seleccionado ningï¿½n archivo");
 
 		} catch (Exception e) { // Ha sucedido cualquier otro error
 			System.out.println(e.toString());
@@ -68,7 +68,7 @@ public class Ejercicio8 {
 		} finally {
 			if (scFichero != null) { // Si todo ha ido bien y ya hemos leido el fichero
 				scFichero.close();
-				System.out.println("Fichero cerrado con éxito.");
+				System.out.println("Fichero cerrado con ï¿½xito.");
 			}
 		}
 
@@ -84,7 +84,7 @@ public class Ejercicio8 {
 
 		scFichero = new Scanner(fichero);
 
-		System.out.println("Fichero abierto con éxito.");
+		System.out.println("Fichero abierto con ï¿½xito.");
 
 	} // FIN abrirFichero():
 
@@ -109,11 +109,11 @@ public class Ejercicio8 {
 
 		String linea;
 
-		while (scFichero.hasNext()) { // Por cada línea del fichero
+		while (scFichero.hasNext()) { // Por cada lï¿½nea del fichero
 
 			linea = scFichero.nextLine();
-			buscarTexto(linea); // Llamamos a la función buscarTexto
-			numLinea++; // Aumentamos en contador de líneas
+			buscarTexto(linea); // Llamamos a la funciï¿½n buscarTexto
+			numLinea++; // Aumentamos en contador de lï¿½neas
 		}
 
 	} // FIN leerFichero();

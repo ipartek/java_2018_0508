@@ -7,14 +7,14 @@ import java.util.Scanner;
 import javax.swing.JFileChooser;
 
 /**
- * Programa que obtiene la línea de mayor tamaño y la de menor tamaño dentro de
+ * Programa que obtiene la lï¿½nea de mayor tamaï¿½o y la de menor tamaï¿½o dentro de
  * un fichero de texto. Para resolver este ejercicio se utiliza la clase Scanner
- * para leer el fichero. La lectura se realiza línea a línea hasta que se
- * alcance el final del fichero. Para determinar cuál es la de mayor longitud y
- * cuál es la menor, se lee la primera línea del fichero y se toma como la línea
- * mayor y la menor. A continuación se leen el resto de líneas y para cada una
- * se compara su tamaño con la mayor y menor actuales. El nombre del fichero se
- * selecciona de forma gráfica utilizando la clase JFileChooser.
+ * para leer el fichero. La lectura se realiza lï¿½nea a lï¿½nea hasta que se
+ * alcance el final del fichero. Para determinar cuï¿½l es la de mayor longitud y
+ * cuï¿½l es la menor, se lee la primera lï¿½nea del fichero y se toma como la lï¿½nea
+ * mayor y la menor. A continuaciï¿½n se leen el resto de lï¿½neas y para cada una
+ * se compara su tamaï¿½o con la mayor y menor actuales. El nombre del fichero se
+ * selecciona de forma grï¿½fica utilizando la clase JFileChooser.
  * 
  * @see Scanner, JFileChooser
  * @author Luis
@@ -31,8 +31,8 @@ public class Ejercicio7 {
 	static String mayor = "";
 	static String menor = "";
 
-	static Scanner scFichero; // Scanner que leerá el fichero;
-	static Scanner scConsola; // Scanner que mostrarrá por consola
+	static Scanner scFichero; // Scanner que leerÃ¡ el fichero;
+	static Scanner scConsola; // Scanner que mostrarÃ¡ por consola
 
 	public static void main(String[] args) {
 
@@ -46,7 +46,7 @@ public class Ejercicio7 {
 
 			leerFichero(ruta);
 
-			System.out.println("Fichero leído con éxito.");
+			System.out.println("Fichero leï¿½do con ï¿½xito.");
 
 		} catch (Exception e) {
 
@@ -59,9 +59,9 @@ public class Ejercicio7 {
 
 	private static void mostrarResultados() {
 
-		System.out.println("La línea más larga es: " + mayor);
+		System.out.println("La lÃ­nea mÃ¡s larga es: " + mayor);
 
-		System.out.println("La línea más corta es: " + menor);
+		System.out.println("La lÃ­nea mÃ¡s corta es: " + menor);
 
 	}
 
@@ -88,18 +88,18 @@ public class Ejercicio7 {
 
 		if (scFichero.hasNext()) {// Fichero abierto y con contenido
 
-			mayor = menor = scFichero.nextLine(); // Leemos la primera línea
+			mayor = menor = scFichero.nextLine(); // Leemos la primera lï¿½nea
 		}
 
-		while (scFichero.hasNext()) { // Mientras haya más líneas
+		while (scFichero.hasNext()) { // Mientras haya  lï¿½neas
 
-			linea = scFichero.nextLine(); // Lemmos la siguiente línea
+			linea = scFichero.nextLine(); // Leemos
 
-			if (mayor.length() < linea.length()) { // La línea es más larga que mayor
+			if (mayor.length() < linea.length()) { // LÃ­nea mÃ¡s larga que mayor
 
 				mayor = linea;
 
-			} else if (menor.length() > linea.length()) { // La línea es más corta que menor
+			} else if (menor.length() > linea.length()) { // LÃ­nea mÃ¡s corta que menor
 
 				menor = linea;
 			}

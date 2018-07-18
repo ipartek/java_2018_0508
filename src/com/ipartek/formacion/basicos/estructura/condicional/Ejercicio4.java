@@ -21,7 +21,7 @@ public class Ejercicio4 {
 	    
 	    private static String leerCaracter() {
 	        
-	        System.out.println("Introduce un carácter: ");
+	        System.out.println("Introduce un caracter: ");
 	        return sc.next();
 	    }
 

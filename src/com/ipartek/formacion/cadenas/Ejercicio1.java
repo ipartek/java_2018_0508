@@ -4,7 +4,7 @@ import java.util.Scanner;
 import java.util.StringTokenizer;
 
 /**
- * Clase que cuenta el número de palabras de una frase con el uso de la clase
+ * Clase que cuenta el nÃºmero de palabras de una frase con el uso de la clase
  * StringTokenizer.
  * 
  * @see StringTokenizer
@@ -20,7 +20,7 @@ public class Ejercicio1 {
 
 	static StringTokenizer st = null;
 
-	final static String DELIM = " \t"; // Los delimitadores son espacio y tabulación
+	final static String DELIM = " \t"; // Los delimitadores son espacio y tabulaciï¿½n
 
 	public static void main(String[] args) {
 
@@ -29,7 +29,7 @@ public class Ejercicio1 {
 
 		st = new StringTokenizer(texto, DELIM); // Creamos el StringTokenizer con los delimitadores indicados
 
-		System.out.println("Número de palabras: " + st.countTokens());
+		System.out.println("NÃºmero de palabras: " + st.countTokens());
 
 	} // FIN main();
 

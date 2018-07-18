@@ -8,10 +8,10 @@ import java.util.Scanner;
 import javax.swing.JFileChooser;
 
 /**
- * Programa Java que lee un archivo de texto que contiene números de tipo int y
- * double. El archivo a leer está formado por dos líneas. La primera línea del
- * fichero contiene números enteros separados por espacios en blanco. La segunda
- * línea contiene números de tipo double separados también por espacios en
+ * Programa Java que lee un archivo de texto que contiene nï¿½meros de tipo int y
+ * double. El archivo a leer estï¿½ formado por dos lï¿½neas. La primera lï¿½nea del
+ * fichero contiene nï¿½meros enteros separados por espacios en blanco. La segunda
+ * lï¿½nea contiene nï¿½meros de tipo double separados tambiï¿½n por espacios en
  * blanco.
  * 
  * @see Scanner
@@ -58,10 +58,10 @@ public class Ejercicio9 {
 
 	private static void mostrarResultados() {
 		
-		System.out.println("Número de enteros: " + contInt);
+		System.out.println("NÃºmero de enteros: " + contInt);
 		System.out.println("Suma de los enteros: " + sumaInt);
 		
-		System.out.println("Número de Doubles: " + contDouble);
+		System.out.println("NÃºmero de Doubles: " + contDouble);
 		System.out.println("Suma de los Double: " + sumaDouble);
 		
 	} // FIN mostrarResultados();
@@ -70,14 +70,14 @@ public class Ejercicio9 {
 
 		scFichero = new Scanner(fichero); // Creamos el Scanner con el fichero seleccionado
 
-		while (scFichero.hasNextInt()) { // Mientras haya más enteros
+		while (scFichero.hasNextInt()) { // Mientras haya mÃ¡s enteros
 
 			contar(true);
 			System.out.print(" ");
 		}
 		System.out.println();
 		
-		while (scFichero.hasNextDouble()) { // Mientras haya más doubles
+		while (scFichero.hasNextDouble()) { // Mientras haya mÃ¡s doubles
 
 			contar(false);
 			System.out.print(" ");

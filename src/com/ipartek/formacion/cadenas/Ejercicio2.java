@@ -16,7 +16,7 @@ public class Ejercicio2 {
 
 	static StringTokenizer st = null;
 
-	final static String DELIM = " \t"; // Los delimitadores son espacio y tabulación
+	final static String DELIM = " \t"; // Los delimitadores son espacio y tabulaciÃ³n
 
 	public static void main(String[] args) {
 		
@@ -30,23 +30,23 @@ public class Ejercicio2 {
 		System.out.println("El nuevo texto es: ");
 		System.out.println(nuevoTxt);
 
-	} // FIN main();
+	} 
 
 	private static String eliminarUltimaPalabra(String s) {
 		StringBuilder sb = new StringBuilder();
 
 		st = new StringTokenizer(texto, DELIM); // Creamos el StringTokenizer con los delimitadores indicados
 
-		int tam = st.countTokens(); // Guardamos el número de tokens para hacer una sola llamada a la función
+		int tam = st.countTokens(); // Guardamos el nï¿½mero de tokens para hacer una sola llamada a la funciÃ³n
 
-		for (int i = 0; i < tam - 1; i++) { // En la condición eliminamos la última palabra
+		for (int i = 0; i < tam - 1; i++) { // En la condiciÃ³n eliminamos la Ãºltima palabra
 
-			sb.append(st.nextToken() + " "); // Leemos cada elemento del StringTokenizer y añadimos los espacios
+			sb.append(st.nextToken() + " "); // Leemos cada elemento del StringTokenizer y aÃ±adimos los espacios
 
 		}
 
 		return sb.toString();
 
-	} // FIN eliminarUltimaPalabra();
+	} 
 
-} // FIN Ejercicio2
+} 

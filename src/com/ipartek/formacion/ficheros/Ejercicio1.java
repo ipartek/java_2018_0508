@@ -7,7 +7,7 @@ import java.util.Scanner;
 
 /**
  * Programa Java que lee texto por teclado y lo escribe en un fichero de texto
- * llamado datos.txt. El proceso consiste en leer una línea de texto por teclado
+ * llamado datos.txt. El proceso consiste en leer una lÃ­nea de texto por teclado
  * y escribirla en el fichero. Este proceso se repite hasta que se introduce por
  * teclado la cadena FIN. La cadena FIN que indica el final de lectura no se
  * debe escribir en el fichero.
@@ -31,9 +31,9 @@ public class Ejercicio1 {
 		try {
 			crearFichero();
 
-			System.out.println("Fichero creado con éxito.");
+			System.out.println("Fichero creado con ï¿½xito.");
 
-		} catch (IOException e) { // Capturamos cualquier excepción y la mostramos
+		} catch (IOException e) { // Capturamos cualquier excepciÃ³n y la mostramos
 
 			System.out.println(e.getMessage());
 
@@ -43,18 +43,18 @@ public class Ejercicio1 {
 				if (null != fichero) {
 					fichero.close();
 				}
-				System.out.println("Fichero cerrado con éxito.");
+				System.out.println("Fichero cerrado con ï¿½xito.");
 
 			} catch (Exception e2) {
 
 				System.out.println(e2.getMessage());
 			}
-		} // FIN finally
+		} 
 
 		sc.close(); // Cerramos el Scanner
 
-	} // FIN main
-
+	} 
+	
 	private static void crearFichero() throws IOException {
 
 		String linea;
@@ -64,15 +64,15 @@ public class Ejercicio1 {
 		pw = new PrintWriter(fichero); // Usamos PrintWriter para escribir sobre fichero
 
 		System.out.println("Introduce texto. Para acabar introduce la cadena FIN:");
-		linea = sc.nextLine(); // Leemos la primera línea de la consola
+		linea = sc.nextLine(); // Leemos la primera lÃ­nea de la consola
 
 		while (!FIN.equalsIgnoreCase(linea)) { // Escribimos sobre el fichero
 
 			pw.println(linea);
-			linea = sc.nextLine(); // Seguimos leyendo líneas
+			linea = sc.nextLine(); // Seguimos leyendo lÃ­neas
 		}
-		pw.flush(); // Obligamos a PrintWriter a volcar toda la información que queda
+		pw.flush(); // Obligamos a PrintWriter a volcar toda la informaciÃ³n que queda
 
-	} // FIN crearFichero();
+	} 
 
-} // FIN Ejercicio1
+}
