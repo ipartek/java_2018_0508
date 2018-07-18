@@ -1,4 +1,4 @@
-package com.ipartek.formacion.videos;
+package com.ipartek.formacion.cms;
 
 import java.util.Scanner;
 
@@ -94,7 +94,7 @@ public class GestorDeVideos {
 
 		System.out.println("LO SENTIMOS. La opcion seleccionada no existe.");
 
-	} // FIN noOption();
+	}
 
 	private static void cargarVideos() {
 
@@ -157,10 +157,10 @@ public class GestorDeVideos {
 			}
 		} while (cod.length() != LONG_CODIGO);
 
-		VideoYoutube v = new VideoYoutube(++cont, tit, cod); // Cremos el video con los datos recogidos
+		VideoYoutube v = new VideoYoutube(++cont, tit, cod); // Creamos el video con los datos recogidos
 
 		System.out.println(dao.insert(v) ? "Video insertado con exito."
-				: "Lo sentimos, ha ocurrido un error durante la inserscion.");
+				: "Lo sentimos, ha ocurrido un error durante la insercion.");
 
 	}
 
@@ -171,7 +171,7 @@ public class GestorDeVideos {
 		try {
 
 			id = sc.nextLong();
-			System.out.println(dao.delete(id) ? "Video eliminado con exito." : "No existe ese video.");
+			System.out.println(dao.delete(id) ? "Video eliminado con exito.\n" : "No existe ese video.\n");
 
 		} catch (Exception e) {
 
@@ -191,7 +191,7 @@ public class GestorDeVideos {
 		System.out.println("--          YOUTUBE               --");
 		System.out.println("------------------------------------");
 		System.out.println("-    1. Listar                     -");
-		System.out.println("-    2. A�adir Nuevo               -");
+		System.out.println("-    2. Añadir Nuevo               -");
 		System.out.println("-    3. Eliminar                   -");
 		System.out.println("-    0. Salir                      -");
 		System.out.println("------------------------------------");
@@ -210,4 +210,4 @@ public class GestorDeVideos {
 
 	}
 
-} // FIN GestorDeVideos
+}

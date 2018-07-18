@@ -6,7 +6,7 @@ import java.util.List;
 import com.ipartek.formacion.pojo.Usuario;
 
 /**
- * Clase DAO para gestionar la clase Usuario con ArrayList. Usamos el Patrón
+ * Clase DAO para gestionar la clase Usuario con ArrayList. Usamos el PatrÃ³n
  * Singleton
  * 
  * @see https://es.wikipedia.org/wiki/Singleton#Java
