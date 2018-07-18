@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-import com.ipartek.formacion.enumeracion.DiasSemana;
 import com.ipartek.formacion.pojo.VideoYoutube;
 
 /**
