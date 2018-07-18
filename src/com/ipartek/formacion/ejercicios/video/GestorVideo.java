@@ -15,6 +15,7 @@ public class GestorVideo {
 	static private final int OPCION_LISTAR = 1;
 	static private final int OPCION_ANADIR = 2;
 	static private final int OPCION_ELIMINAR = 3;
+	
 	private static VideoYoutubeArrayDAO dao = VideoYoutubeArrayDAO.getIntance();
 
 	public static void main(String[] args) {
@@ -80,7 +81,7 @@ public class GestorVideo {
 	}
 
 	private static void mostrarMenu() {
-		System.out.println("Selecciona una opción:");
+		System.out.println("Selecciona una opciï¿½n:");
 		System.out.println("1 - Listar");
 		System.out.println("2 - Anadir");
 		System.out.println("3 - Eliminar");
@@ -90,7 +91,7 @@ public class GestorVideo {
 
 	private static void mostrarLista(List<Youtube> videos) {
 		if (videos.size() == 0) {
-			System.out.println("No hay canciones ");
+			System.out.println("No hay caciones ");
 		} else {
 			for (int i = 0; i < videos.size(); i++) {
 				Youtube vid = videos.get(i);
