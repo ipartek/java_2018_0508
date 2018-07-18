@@ -4,6 +4,10 @@ import java.io.Serializable;
 
 public class Person implements Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	// constantes
 	public final static char SEXO_INDEFINIDO = 'i';
 	public final static char SEXO_MUJER = 'm';
