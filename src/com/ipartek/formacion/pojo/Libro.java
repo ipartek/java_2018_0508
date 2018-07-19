@@ -7,12 +7,14 @@ public class Libro {
 
 	private long id;
 	private String titulo;
+	private String editorial;
 	private String isbn;
 	private boolean prestado;
 	
 	public Libro() {
 		super();
 		this.id = -1;
+		this.editorial = "";
 		this.titulo = "";
 		this.isbn = "";
 		this.prestado = false;
@@ -20,9 +22,11 @@ public class Libro {
 	
 	
 
-	public Libro(String titulo, String isbn, boolean prestado) throws Exception {
+	public Libro(long id, String isbn ,String titulo, String editorial, boolean prestado) throws Exception {
 		this();
-		this.titulo = titulo;		
+		this.id = id;
+		this.titulo = titulo;
+		this.editorial = editorial;
 		this.prestado = prestado;
 		setIsbn(isbn);
 	}
@@ -71,13 +75,28 @@ public class Libro {
 	public void setPrestado(boolean prestado) {
 		this.prestado = prestado;
 	}
+	
+	
+
+	public String getEditorial() {
+		return editorial;
+	}
+
+
+
+	public void setEditorial(String editorial) {
+		this.editorial = editorial;
+	}
+
+
 
 	@Override
 	public String toString() {
-		return "Libro [id=" + id + ", titulo=" + titulo + ", isbn=" + isbn + ", prestado=" + prestado + "]";
+		return "Libro [id=" + id + ", titulo=" + titulo + ", editorial=" + editorial + ", isbn=" + isbn + ", prestado="
+				+ prestado + "]";
 	}
-	
-	
-	
+
+
+
 	
 }
