@@ -13,8 +13,6 @@ import com.ipartek.formacion.pojo.Libro;
 public class LibroDAOTest {
 
 	private static LibroDAO dao = null;
-	// private static List<Libro>libros = null;
-	private static int COUNTER_ID = 0;
 
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {

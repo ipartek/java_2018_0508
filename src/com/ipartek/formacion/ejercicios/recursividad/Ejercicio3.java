@@ -14,7 +14,7 @@ public class Ejercicio3 {
 			sc = new Scanner(System.in);
 			System.out.print("Introduce un numero: ");
 			int exp = sc.nextInt();
-			nPow(exp);
+			System.out.println(nPow(exp));
 
 		} catch (Exception e) {
 			System.out.println("ERROR al introducir los datos");
@@ -27,14 +27,12 @@ public class Ejercicio3 {
 	}
 
 	private static int nPow(int num) {
-		//TODO terminar
 
+		int result = 1;
 		if (num > 0) {
-			return (2 * nPow(--num));
+			result = (2 * nPow(--num));
 		}
-		else{
-			return 1;
-		}
+		return result;
 
 	}
 
