@@ -42,6 +42,20 @@ public class LibroDAO implements CrudAble<Libro> {
 		return lista;
 	}
 
+	public List<Libro> getAllPrestados(boolean isPrestado) {
+
+		ArrayList<Libro> librosEncontrados = new ArrayList<Libro>();
+		if (lista.size() > 0) {
+
+			for (Libro libro : lista) {
+				if (libro.isPrestado() == isPrestado) {
+					librosEncontrados.add(libro);
+				}
+			}
+		}
+		return librosEncontrados;
+	}
+
 	@Override
 	public Libro getById(long id) {
 		Libro libro = null;
@@ -53,6 +67,34 @@ public class LibroDAO implements CrudAble<Libro> {
 			}
 		}
 		return libro;
+	}
+
+	/**
+	 * Busca,ps ñibros que coincida el título. Es ignoreCase y nos sirve cualquier
+	 * coincidencia
+	 * 
+	 * @param texto
+	 * @return
+	 */
+	public ArrayList<Libro> busqueda(String texto) {
+		ArrayList<Libro> libros = new ArrayList<Libro>();
+		if (texto != null) {
+			for (Libro libro : lista) {
+				if (libro.getTitulo().toLowerCase().contains(texto.toLowerCase().trim())) { // Coincide título
+
+					libros.add(libro);
+				} else if (libro.getAutor().toLowerCase().contains(texto.toLowerCase().trim())) { // Coincide autor
+
+					libros.add(libro);
+				} else if (libro.getEditorial().toLowerCase().contains(texto.toLowerCase().trim())) { // Coincide
+																										// editorial
+
+					libros.add(libro);
+				}
+			}
+		}
+		return libros;
+
 	}
 
 	@Override

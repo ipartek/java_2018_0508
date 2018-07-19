@@ -5,17 +5,24 @@ public class Libro {
 	private static final int MIN_LONG_ISBN = 5;
 	private static final String MENSAJE_ERROR_ISBN = "La longitud del ISBN debe ser mayor que " + MIN_LONG_ISBN;
 
-	long id;
-	String titulo;
-	String autor;
-	String editorial;
-	String isbn;
-	int numPaginas;
-	boolean prestado;
+	private long id;
+	private String titulo;
+	private String autor;
+	private String editorial;
+	private String isbn;
+	private int numPaginas;
+	private boolean prestado;
 
 	// CONSTRUCTORES
 	public Libro() {
 		super();
+		this.id = -1;
+		this.titulo = "";
+		this.autor = "";
+		this.editorial = "";
+		this.isbn = "";
+		this.numPaginas = 0;
+		this.prestado = false;
 	}
 
 	public Libro(long id, String titulo, String autor, String editorial, String isbn, int numPaginas, boolean prestado)
@@ -74,7 +81,8 @@ public class Libro {
 	}
 
 	/**
-	 * Método que establece el ISBN del libro. 
+	 * Método que establece el ISBN del libro.
+	 * 
 	 * @param isbn, String
 	 * @throws Exception si ISBN == null || ISBN.lenght() < 5
 	 */
@@ -105,7 +113,10 @@ public class Libro {
 
 	@Override
 	public String toString() {
-		return this.titulo + " - " + this.autor + " - " + "\n\tEditorial: " + this.editorial + "\tISBN: " + this.isbn;
+		return "Libro [id=" + id + ", titulo=" + titulo + ", autor=" + autor + ", editorial=" + editorial + ", isbn="
+				+ isbn + ", numPaginas=" + numPaginas + ", prestado=" + prestado + "]";
 	}
+
+	
 
 }

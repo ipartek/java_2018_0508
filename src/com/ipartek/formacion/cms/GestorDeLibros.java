@@ -1,5 +1,6 @@
 package com.ipartek.formacion.cms;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
@@ -84,31 +85,26 @@ public class GestorDeLibros {
 
 	private static void buscarLibro() {
 
-		List<Libro> libros = dao.getAll();
+		ArrayList<Libro> librosEncontrados;
 		String busqueda = null;
-		boolean hay = false;
-
 		do {
 			sc.nextLine();
 			System.out.println("Por favor, introduce una palabra o título que quieras buscar: ");
 			busqueda = sc.nextLine();
-			
-		} while (busqueda.isEmpty());
-		
 
-		if (libros.size() > 0) {
+		} while (busqueda.isEmpty());
+
+		librosEncontrados = dao.busqueda(busqueda);
+
+		if (librosEncontrados.size() > 0) {
+
 			System.out.println("Libros con la palabra " + busqueda + ":");
-			for (Libro libro : libros) {
-				if (libro.getTitulo().toLowerCase().contains(busqueda.toLowerCase().trim())) {
-					hay = true;
-					System.out.println(libro);
-				}
-			}
-			if (!hay) {
-				System.out.println("LO SENTIMOS. No hay libros que contengan la plabra " + busqueda + ".");
+
+			for (Libro libro : librosEncontrados) {
+				System.out.println(libro);
 			}
 		} else {
-			System.out.println("LO SENTIMOS. La lista de libros está vacía.");
+			System.out.println("LO SENTIMOS. No hay libros que contengan la plabra " + busqueda + ".");
 		}
 
 	}
@@ -189,9 +185,9 @@ public class GestorDeLibros {
 		List<Libro> libros = dao.getAll();
 
 		if (libros.size() > 0) {
-			
+
 			for (Libro libro : libros) {
-				
+
 				System.out.println("    " + libro);
 				System.out.println();
 			}
@@ -201,33 +197,25 @@ public class GestorDeLibros {
 
 	}
 
-	private static void mostrarPrestamos(boolean prestados) {
+	private static void mostrarPrestamos(boolean isPrestado) {
 
-		List<Libro> libros = dao.getAll();
-		
-		if (libros.size() > 0) {
-			if (prestados) {
-				System.out.println("Lista de libros prestados: ");
-			} else {
-				System.out.println("Lista de libros disponibles: ");
-			}
+		List<Libro> librosEncontrados;
+		if (dao.getAll().size() > 0) {
 
-			for (Libro libro : libros) {
-				if (prestados) {
-					if (libro.isPrestado()) {
-						System.out.println("    " + libro);
-					}
-				} else {
-					if (!libro.isPrestado()) {
-						System.out.println("    " + libro);
-					}
+			librosEncontrados = dao.getAllPrestados(isPrestado);
+			if (!librosEncontrados.isEmpty()) {
+
+				for (Libro libro : librosEncontrados) {
+					System.out.println(libro);
 				}
+			} else {
+				System.out.println(
+						isPrestado ? "No hay ningún libro prestado" : "LO SENTIMOS. No hay ningún libro disponible");
 			}
 		} else {
-			
-			System.out.println("LO SENTIMOS. No hay libros prestados.");
-		}
 
+			System.out.println("LO SENTIMOS. No hay libros en la lista.");
+		}
 	}
 
 }

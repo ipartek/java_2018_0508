@@ -10,9 +10,9 @@ import org.junit.Test;
 
 import com.ipartek.formacion.pojo.VideoYoutube;
 
-class VideoYoutubeArrayDAOTest {
+public class VideoYoutubeArrayDAOTest {
 
-	static VideoYoutubeArrayDAO dao; // Objeto de única instancia
+	static VideoYoutubeArrayDAO dao; // Objeto de Ãºnica instancia
 
 	static VideoYoutube mock1; // Un mock es un objeto de prueba
 	static final long MOCK1_ID = 325;
@@ -30,17 +30,17 @@ class VideoYoutubeArrayDAOTest {
 	static final String MOCK3_COD = "4BpHyMJKECA";
 
 	@BeforeClass
-	static void setUpBeforeClass() throws Exception {
+	public static void setUpBeforeClass() throws Exception {
 		dao = VideoYoutubeArrayDAO.getInstance(); // Creamos la instancia
 	}
 
 	@AfterClass
-	static void tearDownAfterClass() throws Exception {
+	public static void tearDownAfterClass() throws Exception {
 		dao = null; // Eliminamos la instancia
 	}
 
 	@Before
-	void setUp() throws Exception { // Creamos los objetos MOCK
+	public void setUp() throws Exception { // Creamos los objetos Mock
 
 		mock1 = new VideoYoutube(MOCK1_ID, MOCK1_TITULO, MOCK1_COD);
 		mock2 = new VideoYoutube(MOCK2_ID, MOCK2_TITULO, MOCK2_COD);
@@ -52,7 +52,7 @@ class VideoYoutubeArrayDAOTest {
 	}
 
 	@After
-	void tearDown() throws Exception {
+	public void tearDown() throws Exception {
 
 		dao.delete(MOCK1_ID); // Eliminamos mock1 de la lista
 		dao.delete(MOCK2_ID); // Eliminamos mock2 de la lista
@@ -64,7 +64,7 @@ class VideoYoutubeArrayDAOTest {
 	}
 
 	@Test
-	void testInsert() {
+	public void testInsert() {
 		int totalVideos = dao.getAll().size();
 
 		assertFalse(dao.insert(null)); // Comprobamos si se inserta NULL como primer caso
@@ -75,12 +75,12 @@ class VideoYoutubeArrayDAOTest {
 	}
 
 	@Test
-	void testGetAll() {
+	public void testGetAll() {
 		assertNotNull(dao.getAll());
 	}
 
 	@Test
-	void testGetById() {
+	public void testGetById() {
 
 		VideoYoutube video = dao.getById(MOCK1_ID); // Caso existente
 
@@ -92,7 +92,7 @@ class VideoYoutubeArrayDAOTest {
 	}
 
 	@Test
-	void testUpdate() {
+	public void testUpdate() {
 
 		assertFalse(dao.update(null)); // Update para null como primer caso
 
@@ -112,7 +112,7 @@ class VideoYoutubeArrayDAOTest {
 	}
 
 	@Test
-	void testDelete() {
+	public void testDelete() {
 
 		assertTrue(dao.delete(MOCK1_ID)); // Video existente
 		assertEquals(1, dao.getAll().size());
