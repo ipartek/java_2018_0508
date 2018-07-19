@@ -94,10 +94,10 @@ public class GestorLibros {
 			Date date = new Date();
 			libro.setFechaDevolucion(date);
 			String dateFormat = DateFormat.getInstance().format(date);
-			// dao.update(libro);
+			dao.update(libro);
 			System.out.println(libro.getTitulo() + " devuelto a fecha de: " + dateFormat);
 		}
-		
+
 		System.out.println("");
 		System.out.println("");
 		System.out.println("");
@@ -115,23 +115,23 @@ public class GestorLibros {
 			System.out.println("No se encuentra el libro que desea alquilar.");
 		} else if (listaLibros.size() > 1) {
 			System.out.println("No puede alquilar mas de un libro a la vez");
-		}
+		} else {
+			for (Libro libro : listaLibros) {
+				if (libro.isPrestado()) {
+					System.out.println("El libro seleccionado esta alquilado.");
+					break;
+				}
 
-		for (Libro libro : listaLibros) {
-			if (libro.isPrestado()) {
-				System.out.println("El libro seleccionado esta alquilado.");
-				break;
+				libro.setPrestado(true);
+				Date date = new Date();
+				libro.setFechaPrestado(date);
+				String dateFormat = DateFormat.getInstance().format(date);
+				dao.update(libro);
+				System.out.println(libro.getTitulo() + " alquilado a fecha de: " + dateFormat);
 			}
 
-			libro.setPrestado(true);
-			Date date = new Date();
-			libro.setFechaPrestado(date);
-			String dateFormat = DateFormat.getInstance().format(date);
-			// dao.update(libro);
-			System.out.println(libro.getTitulo() + " alquilado a fecha de: " + dateFormat);
-
 		}
-		
+
 		System.out.println("");
 		System.out.println("");
 		System.out.println("");
@@ -247,7 +247,7 @@ public class GestorLibros {
 		System.out.println("Dime una opcion por favor");
 
 		try {
-
+			
 			opcionSeleccionada = sc.nextInt();
 
 		} catch (Exception e) {
@@ -269,11 +269,11 @@ public class GestorLibros {
 				"LIBROS DEL K.O", true, null, null);
 		dao.insert(libro);
 
-		libro = new Libro(345, "9788467575057", "LENGUA TRIMESTRAL 2º EDUCACION PRIMARIA SAVIA ED 2015", "EDICIONES SM",
-				false, null, null);
+		libro = new Libro(345, "9788467575057", "LENGUA TRIMESTRAL 2º EDUCACION PRIMARIA SAVIA ED 2015",
+				"EDICIONES SM", false, null, null);
 		dao.insert(libro);
 
-		libro = new Libro(345, "9788467575071", "MATEMÁTICAS TRIMESTRAL SAVIA-15", "EDICIONES SM", false, null, null);
+		libro = new Libro(346, "9788467575071", "MATEMÁTICAS TRIMESTRAL SAVIA-15", "EDICIONES SM", false, null, null);
 		dao.insert(libro);
 
 		libro = new Libro(678, "9788461716098", "LA VOZ DE TU ALMA", "AUTOR-EDITOR", true, null, null);
