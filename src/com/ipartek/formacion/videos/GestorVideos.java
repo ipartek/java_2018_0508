@@ -1,223 +1,211 @@
 package com.ipartek.formacion.videos;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Scanner;
 
 import com.ipartek.formacion.model.VideoYoutubeArrayDAO;
 import com.ipartek.formacion.pojo.VideoYoutube;
 
+/**
+ * Clase GestorDeVideos para gestionar videos utilizando el model
+ * VideoYoutubeArrayDAO
+ * 
+ * @see VideoYoutubeArrayDAO
+ * @author Luis
+ *
+ */
 public class GestorVideos {
 
-	//Constantes
-	private final static int OPCION0 = 0;
-	private final static int OPCION4 = 4;
-	
 	static private VideoYoutubeArrayDAO dao;
-	static Scanner teclado;
 
-	public static void main(String[] args) {
+	private static int cont = 0;
+
+	static private int opcionSeleccionada = -1;
+	static Scanner sc;
+
+	static private final int OPCION_SALIR = 0;
+	static private final int OPCION_LISTAR = 1;
+	static private final int OPCION_ANADIR = 2;
+	static private final int OPCION_ELIMINAR = 3;
+
+	static private final int MIN_LONG_TITULO = 3;
+	static private final int MAX_LONG_TITULO = 256;
+	static private final int LONG_CODIGO = 11;
+
+	public static void main(String args[]) {
+
+		boolean esFin = false;
+
 		try {
-			
+			sc = new Scanner(System.in);
 			dao = VideoYoutubeArrayDAO.getInstance();
-			teclado = new Scanner(System.in);
+			
 			cargarVideos();
-			pintarMenu();
-			
-		}catch(Exception e){
-			
-			System.out.println("Lo sentimos, hemos tenido un error.");
-			
-		}finally{
-			teclado.close();
-		}
-	}
-
-	/**
-	 * Metodo para pinta el menu y seleccionar la operacion
-	 */
-	private static void pintarMenu() {
-		System.out.println("------------------------------------------");
-		System.out.println("--               YOUTUBE                --");
-		System.out.println("------------------------------------------");
-		System.out.println("-   1. Listar                            -");
-		System.out.println("-   2. Añadir                            -");
-		System.out.println("-   3. Modificar                         -");
-		System.out.println("-   4. Eliminar                          -");
-		System.out.println("------------------------------------------");
-		System.out.println("-   0. Salir                             -");
-
-		try {
-			int opcion = -1;
 
 			do {
-				try {
-					System.out.println();
-					System.out.println("Elige una opcion del menu:");
-					opcion = teclado.nextInt();
-					
-				} catch (Exception e) {
-					System.out.println();
-					System.out.println("Por favor, introduzca un valor correcto.");
-					teclado.nextLine();
-				}
-				
-			} while (opcion < OPCION0 || opcion > OPCION4);
 
-			switch (opcion) {
-			case 1:
-				listarVideos();
-				break;
-			case 2:
-				anadirVideos();
-				break;
-			case 3:
-				modificarVideos();
-				break;
-			case 4:
-				eliminarVideos();
-				break;
-			case 0:
-				System.out.println();
-				System.out.println("¡Hasta la proxima!");
-			}
+				pintarMenu();
+
+				switch (opcionSeleccionada) {
+				case OPCION_LISTAR:
+					listar();
+					break;
+
+				case OPCION_SALIR:
+					esFin = true;
+					salir();
+					break;
+
+				case OPCION_ANADIR:
+					anadir();
+					break;
+
+				case OPCION_ELIMINAR:
+					eliminar();
+					break;
+
+				default:
+					noOption();
+					break;
+				}
+
+			} while (opcionSeleccionada != OPCION_SALIR);
 
 		} catch (Exception e) {
-			System.out.println("Se ha producido un error, lo sentimos.");
-			e.printStackTrace();
+
+			System.out.println("Sentimos las molestias, ha ocurrido un error inesperado.");
+
+		} finally {
+			if (sc != null) {
+				sc.close();
+			}
+			dao = null;
+			if (!esFin) {
+				salir();
+			}
 		}
+
 	}
 
-	/**
-	 * Metodo que carga la lista de videos
-	 */
+	private static void noOption() {
+
+		System.out.println("LO SENTIMOS. La opcion seleccionada no existe.");
+
+	}
+
 	private static void cargarVideos() {
-		VideoYoutube video1 = new VideoYoutube(1, "v2AC41dglnM", "Video1");
-		dao.insert(video1);
-		VideoYoutube video2 = new VideoYoutube(2, "vx2u5uUu3DE", "Video2");
-		dao.insert(video2);
-		VideoYoutube video3 = new VideoYoutube(3, "X2SJkEDw1E8", "Video3");
-		dao.insert(video3);
-		VideoYoutube video4 = new VideoYoutube(4, "kXYiU_JCYtU", "Video4");
-		dao.insert(video4);
-		VideoYoutube video5 = new VideoYoutube(5, "6fVE8kSM43I", "Video5");
-		dao.insert(video5);
+
+		VideoYoutube video = new VideoYoutube(++cont, "Crystallion - Crystal Clear", "qllRVZnpttM");
+		dao.insert(video);
+
+		video = new VideoYoutube(++cont, "Crystallion - Burning Bridges", "MSRvZ-YSlZI");
+		dao.insert(video);
+
 	}
 
-	/**
-	 * Metodo para listar un video concreto o toda la lista
-	 */
-	private static void listarVideos() {
-		try {
-			List<VideoYoutube> listados = new ArrayList<VideoYoutube>();
-			listados = dao.getAll();
-			System.out.println("CODIGO -------- TITULO");
-			System.out.println("----------------------");
-			for (int i = 0; i < listados.size(); i++) {
-				System.out.print(listados.get(i).getCodigo());
-				System.out.println(listados.get(i).getNombre());
+	private static void listar() {
+
+		if (dao.getAll().size() > 0) {
+			System.out.println("Lista de videos: \n\n");
+			for (VideoYoutube video : dao.getAll()) {
+				System.out.println("    " + video);
 			}
-		} catch (Exception e) {
-			System.out.println("Lo sentimos, se ha producido un error y no se han encontrado videos.");
-			e.printStackTrace();
-		} finally {
-			System.out.println();
-			pintarMenu();
+			System.out.println("\n\n\n");
+		} else {
+			System.out.println("LO SENTIMOS. No hay videos en la lista.");
 		}
+
 	}
 
-	/**
-	 * Metodo para a�adir un video nuevo a la lista
-	 */
-	private static void anadirVideos() {
-		// TODO Terminar a�adir nuevo video
-		try {
-			long id = dao.getAll().size();
-			String nombre;
-			String codigo;
+	private static void salir() {
 
-			System.out.println("Introduce el nombre del video:");
-			nombre = teclado.nextLine();
-			teclado.nextLine();
-			System.out.println();
-			System.out.println("Introduce el codigo del video:");
-			codigo = teclado.nextLine();
+		System.out.println("");
+		System.out.println("");
+		System.out.println("");
+		sc.close(); // Cerramos el Scanner
+		System.out.println("AGUR BEN-HUR. Esperamos volver a verte!!! =)");
 
-			VideoYoutube videoNuevo = new VideoYoutube(id++, codigo, nombre);
-			dao.insert(videoNuevo);
-			
-		} catch (Exception e) {
-			System.out.println("Lo sentimos, se ha producido un error.");
-			e.printStackTrace();
-		} finally {
-			System.out.println();
-			pintarMenu();
-		}
 	}
 
-	/**
-	 * Metodo para modificar un video de la lista
-	 */
-	private static void modificarVideos() {
-		// TODO Terminar modificar video
-		try {
-			List<VideoYoutube> listados = new ArrayList<VideoYoutube>();
-			listados = dao.getAll();
-			long idBusqueda;
-			String nombre;
-			String codigo;
+	private static void anadir() {
 
-			System.out.println("Introduce el ID del video que quieres modificar:");
-			idBusqueda = teclado.nextLong();
+		String tit;
+		String cod;
 
-			for (int i = 0; i < listados.size(); i++) {
-				if(listados.get(i).getId() == idBusqueda) {
-					System.out.println("Introduce el nuevo nombre del video:");
-					nombre = teclado.nextLine();
-					teclado.nextLine();
-					System.out.println();
-					System.out.println("Introduce el nuevo codigo del video:");
-					codigo = teclado.nextLine();
-					
-					VideoYoutube videoModificado = new VideoYoutube(idBusqueda, codigo, nombre);
-					dao.update(videoModificado);
-				}
-			}	
-		} catch (Exception e) {
-			e.printStackTrace();
-		} finally {
-			System.out.println();
-			pintarMenu();
-		}
+		do { // Pedimos titulo mientras no sea correcto
+
+			System.out.println("Por favor, introduce un t�tulo de 3 a 254 caracteres para el video: ");
+			tit = sc.nextLine();
+
+			if (tit.length() < MIN_LONG_TITULO || tit.length() > MAX_LONG_TITULO) { // T�tulo incorrecto, avisamos
+				System.out.println("LO SENTIMOS. El titulo introducido no es valido.");
+
+			}
+		} while (tit.length() < MIN_LONG_TITULO || tit.length() > MAX_LONG_TITULO);
+
+		do { // Pedimos codigo mientras no sea correcto
+
+			System.out.println("Por favor, introduce un codigo de 11 caracteres para el video: ");
+			cod = sc.nextLine();
+
+			if (cod.length() != LONG_CODIGO) { // Codigo incorrecto, avisamos
+
+				System.out.println("LO SENTIMOS. El codigo introducido no es valido.");
+			}
+		} while (cod.length() != LONG_CODIGO);
+
+		VideoYoutube v = new VideoYoutube(++cont, cod, tit); // Creamos el video con los datos recogidos
+
+		System.out.println(dao.insert(v) ? "Video insertado con exito."
+				: "Lo sentimos, ha ocurrido un error durante la insercion.");
+
 	}
 
-	/**
-	 * Metodo para eliminar videos de la lista
-	 */
-	private static void eliminarVideos() {
-		//TODO Terminar eliminar video
+	private static void eliminar() {
+		long id;
+
+		System.out.println("Por favor, teclea el id del video que deseas eliminar : ");
 		try {
-			List<VideoYoutube> listados = new ArrayList<VideoYoutube>();
-			listados = dao.getAll();
-			long idEliminar = -1;
-			do {
+
+			id = sc.nextLong();
+			System.out.println(dao.delete(id) ? "Video eliminado con exito.\n" : "No existe ese video.\n");
+
+		} catch (Exception e) {
+
+			System.out.println("ID NO VALIDA. Por favor, teclea un ID numerico correcto.");
+			sc.nextLine();
+			eliminar();
+
+		} finally {
+			sc.nextLine();
+		}
+
+	}
+
+	private static void pintarMenu() {
+
+		System.out.println("------------------------------------");
+		System.out.println("--          YOUTUBE               --");
+		System.out.println("------------------------------------");
+		System.out.println("-    1. Listar                     -");
+		System.out.println("-    2. Añadir Nuevo               -");
+		System.out.println("-    3. Eliminar                   -");
+		System.out.println("-    0. Salir                      -");
+		System.out.println("------------------------------------");
+		System.out.println("");
+		System.out.print("Por favor, selecciona una opcion: ");
+
+		do{
 			try {
-				System.out.println("Introduce el ID del video que quieres eliminar:");
-				idEliminar = teclado.nextLong();
+				opcionSeleccionada = sc.nextInt();
+	
 			} catch (Exception e) {
-				System.out.println("Introduce una ID correcta, por favor");
-				e.printStackTrace();
+				System.out.println("Introduce una opcion del menu, por favor.");
+			} finally {
+				System.out.println("Selecciona una");
+				sc.nextLine();
 			}
-			
-			}while(idEliminar < 0);
-			
-		} catch (Exception e) {
-			System.out.println();
-			e.printStackTrace();
-		} finally {
-			System.out.println();
-			pintarMenu();
-		}
+		}while(opcionSeleccionada < 0 || opcionSeleccionada > 3);
+
 	}
 
 }
