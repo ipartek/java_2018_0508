@@ -1,5 +1,7 @@
 package com.ipartek.formacion.libros;
 
+import java.text.DateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.Scanner;
 
@@ -19,6 +21,8 @@ public class GestorLibros {
 	static private final int OPCION_LISTAPRESTADOS = 1;
 	static private final int OPCION_LISTANOPRESTADOS = 2;
 	static private final int OPCION_BUSCAR = 3;
+	static private final int OPCION_ALQUILAR = 4;
+	static private final int OPCION_DEVOLVER = 5;
 
 	public static void main(String[] args) {
 
@@ -48,6 +52,14 @@ public class GestorLibros {
 				buscar();
 				break;
 
+			case OPCION_ALQUILAR:
+				alquilar();
+				break;
+
+			case OPCION_DEVOLVER:
+				devolver();
+				break;
+
 			case OPCION_SALIR:
 				salir();
 				break;
@@ -58,6 +70,73 @@ public class GestorLibros {
 			}
 		} while (opcionSeleccionada != OPCION_SALIR);
 		sc.close();
+	}
+
+	private static void devolver() {
+		System.out.println("Introduce el titulo del libro a devolver: ");
+		titulo = sc.nextLine();
+
+		List<Libro> listaLibros = dao.getByTitle(titulo);
+
+		if (listaLibros.size() < 1) {
+			System.out.println("No se encuentra el libro que desea devolver.");
+		} else if (listaLibros.size() > 1) {
+			System.out.println("No puede devolver mas de un libro a la vez");
+		}
+
+		for (Libro libro : listaLibros) {
+			if (!libro.isPrestado()) {
+				System.out.println("El libro seleccionado no esta alquilado.");
+				break;
+			}
+
+			libro.setPrestado(false);
+			Date date = new Date();
+			libro.setFechaDevolucion(date);
+			String dateFormat = DateFormat.getInstance().format(date);
+			// dao.update(libro);
+			System.out.println(libro.getTitulo() + " devuelto a fecha de: " + dateFormat);
+		}
+		
+		System.out.println("");
+		System.out.println("");
+		System.out.println("");
+
+		pintarMenu();
+	}
+
+	private static void alquilar() {
+		System.out.println("Introduce el titulo del libro a alquilar: ");
+		titulo = sc.nextLine();
+
+		List<Libro> listaLibros = dao.getByTitle(titulo);
+
+		if (listaLibros.size() < 1) {
+			System.out.println("No se encuentra el libro que desea alquilar.");
+		} else if (listaLibros.size() > 1) {
+			System.out.println("No puede alquilar mas de un libro a la vez");
+		}
+
+		for (Libro libro : listaLibros) {
+			if (libro.isPrestado()) {
+				System.out.println("El libro seleccionado esta alquilado.");
+				break;
+			}
+
+			libro.setPrestado(true);
+			Date date = new Date();
+			libro.setFechaPrestado(date);
+			String dateFormat = DateFormat.getInstance().format(date);
+			// dao.update(libro);
+			System.out.println(libro.getTitulo() + " alquilado a fecha de: " + dateFormat);
+
+		}
+		
+		System.out.println("");
+		System.out.println("");
+		System.out.println("");
+
+		pintarMenu();
 	}
 
 	/**
@@ -159,6 +238,8 @@ public class GestorLibros {
 		System.out.println("-    1. Listar prestados           -");
 		System.out.println("-    2. Libros no prestados			");
 		System.out.println("-    3. Buscar        	           -");
+		System.out.println("-    4. Alquilar       	           -");
+		System.out.println("-    5. Devolver       	           -");
 		System.out.println("-                                  -");
 		System.out.println("-    0 - Salir                     -");
 		System.out.println("------------------------------------");
@@ -185,27 +266,30 @@ public class GestorLibros {
 	private static void cargarLibros() throws Exception {
 		Libro libro;
 		libro = new Libro(123, "9788416001460", "FARIÑA: HISTORIA E INDISCRECIONES DEL NARCOTRAFICO EN GALICIA",
-				"LIBROS DEL K.O", true);
+				"LIBROS DEL K.O", true, null, null);
 		dao.insert(libro);
 
 		libro = new Libro(345, "9788467575057", "LENGUA TRIMESTRAL 2º EDUCACION PRIMARIA SAVIA ED 2015", "EDICIONES SM",
-				false);
+				false, null, null);
 		dao.insert(libro);
 
-		libro = new Libro(345, "9788467575071", "MATEMÁTICAS TRIMESTRAL SAVIA-15", "EDICIONES SM", false);
+		libro = new Libro(345, "9788467575071", "MATEMÁTICAS TRIMESTRAL SAVIA-15", "EDICIONES SM", false, null, null);
 		dao.insert(libro);
 
-		libro = new Libro(678, "9788461716098", "LA VOZ DE TU ALMA", "AUTOR-EDITOR", true);
+		libro = new Libro(678, "9788461716098", "LA VOZ DE TU ALMA", "AUTOR-EDITOR", true, null, null);
 		dao.insert(libro);
 
 		libro = new Libro(901, "9788467569957",
-				"LENGUA CASTELLANA 3º EDUCACION PRIMARIA TRIMESTRES SAVIA CASTELLA NO ED 2014", "EDICIONES SM", false);
+				"LENGUA CASTELLANA 3º EDUCACION PRIMARIA TRIMESTRES SAVIA CASTELLA NO ED 2014", "EDICIONES SM", false,
+				null, null);
 		dao.insert(libro);
 
-		libro = new Libro(234, "9781380013835", "NEW HIGH FIVE 1 PUPILS BOOK PACK", "MACMILLAN CHILDRENS BOOKS", false);
+		libro = new Libro(234, "9781380013835", "NEW HIGH FIVE 1 PUPILS BOOK PACK", "MACMILLAN CHILDRENS BOOKS", false,
+				null, null);
 		dao.insert(libro);
 
-		libro = new Libro(567, "9781380011718", "NEW HIGH FIVE 3 PUPILS BOOK", "MACMILLAN CHILDRENS BOOKS", false);
+		libro = new Libro(567, "9781380011718", "NEW HIGH FIVE 3 PUPILS BOOK", "MACMILLAN CHILDRENS BOOKS", false, null,
+				null);
 		dao.insert(libro);
 	}
 

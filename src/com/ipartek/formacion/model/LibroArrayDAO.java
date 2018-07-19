@@ -1,6 +1,7 @@
 package com.ipartek.formacion.model;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import com.ipartek.formacion.pojo.Libro;
@@ -73,8 +74,24 @@ public class LibroArrayDAO implements CrudAble<Libro> {
 	}
 
 	@Override
-	public boolean update(Libro libro) {
-		return false;
+	public boolean update(Libro libroUpdate) {
+		boolean resul = false;
+		Libro libroIteracion = null;
+		int i = 0;
+		if ( libroUpdate != null ) {
+			//Iterator		
+			Iterator<Libro> it = lista.iterator();
+			while( it.hasNext() ) {
+				libroIteracion = it.next();
+				if ( libroIteracion.getId() == libroUpdate.getId() ) {
+					lista.set(i, libroUpdate);
+					resul = true;
+					break;					
+				}	
+				i++;
+			}		
+		}	
+		return resul;
 	}
 
 	@Override

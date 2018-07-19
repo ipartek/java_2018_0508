@@ -2,7 +2,10 @@ package com.ipartek.formacion.pojo;
 
 import java.util.Date;
 
-public class Libro {
+import com.ipartek.formacion.herencia.Imprimible;
+import com.ipartek.formacion.herencia.Serializable;
+
+public class Libro implements Serializable, Imprimible{
 
 	public static final int ISBN_MIN_LENGTH = 5;
 	public static final String ISBN_MIN_EXCEPTION = "La longitud minima del ISBN tiene que ser " + ISBN_MIN_LENGTH;
@@ -27,7 +30,8 @@ public class Libro {
 	}
 
 	public Libro(long id, String isbn, String titulo, String editorial, boolean prestado) throws Exception {
-		super();
+		//Cuando en un constructor con param no se añaden todas las variables que existen
+		this();
 		this.id = id;
 		setIsbn(isbn);
 		this.titulo = titulo;
@@ -41,6 +45,18 @@ public class Libro {
 		this.titulo = titulo;
 		this.editorial = editorial;
 		this.prestado = prestado;
+	}
+
+	public Libro(long id, String isbn, String titulo, String editorial, boolean prestado, Date fechaPrestado,
+			Date fechaDevolucion) {
+		this();
+		this.id = id;
+		this.isbn = isbn;
+		this.titulo = titulo;
+		this.editorial = editorial;
+		this.prestado = prestado;
+		this.fechaPrestado = fechaPrestado;
+		this.fechaDevolucion = fechaDevolucion;
 	}
 
 	public long getId() {
@@ -113,6 +129,12 @@ public class Libro {
 	public String toString() {
 		return "Libro [id=" + id + ", isbn=" + isbn + ", titulo=" + titulo + ", editorial=" + editorial + ", prestado="
 				+ prestado + "]";
+	}
+
+	@Override
+	public void imprimir() {
+		// TODO Auto-generated method stub
+		
 	}
 
 }
