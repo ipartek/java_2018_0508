@@ -1,9 +1,15 @@
 package com.ipartek.formacion.pojo;
 
+import java.io.Serializable;
 import java.util.Calendar;
 import java.util.Date;
 
-public class Libro {
+public class Libro implements Serializable, Imprimible {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -6855267207744112078L;
 	private static final int ISBN_LENGHT = 5;
 	private static final String MENSAJE_EXCEPTION_ISBN = "El ISBN DE ESTE LIBRO NO ES CORRECTO";
 	private static final int DIAS_PRESTAMO = 10;
@@ -106,6 +112,12 @@ public class Libro {
 		calendar.add(Calendar.DAY_OF_YEAR, DIAS_PRESTAMO);
 		fechaEntrega = calendar.getTime();
 		return fechaEntrega;
+
+	}
+
+	@Override
+	public void imprimir() {
+		// TODO Auto-generated method stub
 
 	}
 }
