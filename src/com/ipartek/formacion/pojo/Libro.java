@@ -1,19 +1,11 @@
 package com.ipartek.formacion.pojo;
 
-public class Libro {
+import java.io.Serializable;
 
-	// TODO HAcer DAO, y hacer una APP de Consola, listar libros, y decir si esta
-	// prestado o no
+public class Libro implements Serializable, Imprimible {
 
-	// TODO dos listas, prestados y no prestados, y buscador por titulo
+	private static final int LONG_ISBN = 5;
 
-	// TODO libros: fariña, lengua trimestral, matematicas trimestral, la voz del
-	// alma
-
-	// TODO lengua
-
-	private static final int LONG_ISBN = 5; 
-	
 	// Atributos
 	private long id;
 	private String titulo;
@@ -25,6 +17,11 @@ public class Libro {
 	// Cronstructores
 	public Libro() {
 		super();
+		this.id = -1;
+		this.titulo = " ";
+		this.editorial = " ";
+		this.isbn = " ";
+		this.prestado = false;
 	}
 
 	public Libro(long id, String titulo, String isbn, String editorial, boolean prestado) throws Exception {
@@ -95,6 +92,12 @@ public class Libro {
 	public String toString() {
 		return "Libro: id=" + id + ", titulo=" + titulo + ", isbn=" + isbn + ", editorial=" + editorial + ", "
 				+ ((prestado) ? "Esta prestado" : "No esta prestado") + "\n";
+	}
+
+	@Override
+	public void imprimir() {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

@@ -1,6 +1,8 @@
 package com.ipartek.formacion.ejercicios;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -18,7 +20,7 @@ public class ArrayListTest {
 		assertTrue(paises.isEmpty());
 		assertNotNull(paises);
 
-		paises.add("España");
+		paises.add("Espaï¿½a");
 		assertEquals("Deberia tener solo un pais", 1, paises.size());
 
 		paises.add("Italia");
