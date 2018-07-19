@@ -62,19 +62,19 @@ public class GestorLibros {
 	
 	public static void cargarLibros() throws Exception {
 
-		Libro libro = new Libro(123456, "9788416001460","FARIÑA: HISTORIA E INDISCRECIONES DEL NARCOTRAFICO EN GALICIA", "LIBROS DEL K.O", true);
+		Libro libro = new Libro(123456, "9788416001460","FARIÃ‘A: HISTORIA E INDISCRECIONES DEL NARCOTRAFICO EN GALICIA", "LIBROS DEL K.O", true);
 		dao.insert(libro);
 
-		libro = new Libro(456456456, "9788467575057", "LENGUA TRIMESTRAL 2º EDUCACION PRIMARIA SAVIA ED","EDICIONES SM", false);
+		libro = new Libro(456456456, "9788467575057", "LENGUA TRIMESTRAL 2Âº EDUCACION PRIMARIA SAVIA ED","EDICIONES SM", false);
 		dao.insert(libro);
 
-		libro = new Libro(789679855, "9788467575071", "MATEMÁTICAS TRIMESTRAL SAVIA-15", "EDICIONES SM", false);
+		libro = new Libro(789679855, "9788467575071", "MATEMÃ�TICAS TRIMESTRAL SAVIA-15", "EDICIONES SM", false);
 		dao.insert(libro);
 
 		libro = new Libro(235423423, "9788461716098", "LA VOZ DE TU ALMA", "AUTOR-EDITOR", true);
 		dao.insert(libro);
 
-		libro = new Libro(456457456, "9788467569957","LENGUA CASTELLANA 3º EDUCACION PRIMARIA TRIMESTRES SAVIA CASTELLA NO ED 2014 ", "EDICIONES SM", false);
+		libro = new Libro(456457456, "9788467569957","LENGUA CASTELLANA 3Âº EDUCACION PRIMARIA TRIMESTRES SAVIA CASTELLA NO ED 2014 ", "EDICIONES SM", false);
 		dao.insert(libro);
 
 		libro = new Libro(12312312, "9781380013835", "NEW HIGH FIVE 1 PUPILS BOOK PACK ", " MACMILLAN CHILDRENS BOOKS",false);
@@ -132,7 +132,11 @@ public class GestorLibros {
 		
 		System.out.println("Introduce el titulo del nombre a buscar:");
 		buscar=sc.nextLine();
-		List<Libro> resul =dao.buscarPorTitulo(buscar);
+		List<Libro> listaLibros =dao.buscarPorTitulo(buscar);
+		if (listaLibros.size() == 0) {
+			System.out.println("No se encuentran libros con ese titulo.");
+		}
+			
 		
 		
 	}
