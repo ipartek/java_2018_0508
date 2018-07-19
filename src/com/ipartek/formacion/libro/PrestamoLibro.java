@@ -1,24 +1,28 @@
-package com.ipartek.formacion.videos;
+package com.ipartek.formacion.libro;
 
+import java.util.List;
 import java.util.Scanner;
 
-import com.ipartek.formacion.model.LibrosDAO;
+import com.ipartek.formacion.model.LibroArrayDAO;
 import com.ipartek.formacion.pojo.Libro;
 
 public class PrestamoLibro {
 
-	static private LibrosDAO dao;
+	static private LibroArrayDAO dao;
 
 	private static int cont = 0;
-
+	
+	static String titulo;
 	static private int opcionSeleccionada = -1;
 	static Scanner sc = null;
 
 	static private final int OPCION_SALIR = 0;
-	static private final int OPCION_LISTAR_TODOS = 1;
-	static private final int OPCION_LISTAR_PRESTADOS = 2;
-	static private final int OPCION_LISTAR_NO_PRESTADOS = 3;
-	static private final int OPCION_LISTAR_BUSQUEDA = 4;
+	static private final int OPCION_ANADIR = 1;
+	static private final int OPCION_ELIMINAR = 3;
+	static private final int OPCION_LISTAR_TODOS = 4;
+	static private final int OPCION_LISTAR_PRESTADOS = 5;
+	static private final int OPCION_LISTAR_NO_PRESTADOS = 6;
+	static private final int OPCION_LISTAR_BUSQUEDA = 7;
 
 	public static void main(String args[]) {
 
@@ -26,7 +30,7 @@ public class PrestamoLibro {
 			System.out.println("-----------------------------------------------------");
 			System.out.println("--  BIENVENIDO/A AL PRESTAMO DE LIBROS DE IPARTEK  --");
 
-			dao = LibrosDAO.getInstance();
+			dao = LibroArrayDAO.getInstance();
 			sc = new Scanner(System.in);
 
 			cargarLibros();
@@ -35,6 +39,14 @@ public class PrestamoLibro {
 
 			do {
 				switch (opcionSeleccionada) {
+				
+				case OPCION_ANADIR:
+					anadir();
+					break;
+
+				case OPCION_ELIMINAR:
+					eliminar();
+					break;
 
 				case OPCION_LISTAR_TODOS:
 					listar();
@@ -65,45 +77,57 @@ public class PrestamoLibro {
 		} catch (Exception e) {
 			System.out.println("Ha sucedido un error que intentaremos arreglar cuanto antes.\n");
 			System.out.println("Disculpen las molestias.");
+		} finally {
+			if (sc != null) {
+				sc.close();
+			}
+
+			dao = null;
 		}
 
 	}
 
+	private static void eliminar() {
+		//TODO opcion añadir
+		
+		
+	}
+
+	private static void anadir() throws Exception {
+		//TODO opcion añadir
+		
+		
+	}
+
 	private static void listarPorTitulo() {
-		String titulo;
-
-		System.out.println("------------------------------------");
-		System.out.println("- MENÚ LISTAR POR TÍTULO          --");
-		System.out.println("------------------------------------\n");
-
-		System.out.println("Introduce un libro a buscar: ");
+		System.out.println("Introduce el titulo del libro a buscar: ");
 		titulo = sc.next();
 
-		for (Libro libro : dao.getAll()) {
+		List<Libro> listaLibros = dao.buscarPorTitulo(titulo);
 
-			if (libro.getTitulo().toLowerCase().contains(titulo.toLowerCase())) {
-				System.out.println("    " + libro);
-			}
+		System.out.println("Resultados de la busqueda de: " + titulo);
+		System.out.println("------------------------------------------------------");
+
+		for (Libro libro : listaLibros) {
+			System.out.println(libro);
 		}
 
 		System.out.println("");
-		System.out.println("");
-		System.out.println("");
+
+		if (listaLibros.size() == 0)
+			System.out.println("No se encuentran libros con ese titulo.");
 
 		pintarMenu();
-
 	}
 
 	private static void listarNoPrestados() {
 		System.out.println("------------------------------------");
-		System.out.println("--       MENÚ LISTAR PRESTADO     --");
+		System.out.println("--    MENÚ LISTAR NO PRESTADO     --");
 		System.out.println("------------------------------------\n");
 
-		for (Libro libro : dao.getAll()) {
+		for (Libro libro : dao.getAllPrestados(false)) {
 
-			if (libro.isPrestado() == false) {
-				System.out.println("    " + libro);
-			}
+			System.out.println("    " +libro);
 		}
 
 		System.out.println("");
@@ -119,12 +143,9 @@ public class PrestamoLibro {
 		System.out.println("--       MENÚ LISTAR PRESTADO     --");
 		System.out.println("------------------------------------\n");
 
-		for (Libro libro : dao.getAll()) {
+		for (Libro libro : dao.getAllPrestados(true)) {
 
-			if (libro.isPrestado() == true) {
-				System.out.println("    " + libro);
-			}
-
+			System.out.println("    " +libro);
 		}
 
 		System.out.println("");
@@ -167,20 +188,13 @@ public class PrestamoLibro {
 
 	}
 
-
 	private static void listar() {
-	
+
 		System.out.println("------------------------------------");
 		System.out.println("--         MENÚ LISTAR            --");
 		System.out.println("------------------------------------\n");
 
 		for (Libro libro : dao.getAll()) {
-			/*MIRAR
-			 * if (libro.isPrestado()) {
-				prestado = "SI";
-			} else {
-				prestado = "NO";
-			}*/
 			System.out.println("    " + libro);
 		}
 
@@ -194,7 +208,7 @@ public class PrestamoLibro {
 
 	private static void salir() {
 
-		System.out.println("Vuelve pronto.");
+		System.out.println("Vuelve pronto");
 		sc.close();
 
 	}
@@ -204,10 +218,16 @@ public class PrestamoLibro {
 		System.out.println("------------------------------------");
 		System.out.println("-       PRESTAMO DE LIBROS        --");
 		System.out.println("------------------------------------");
-		System.out.println("-    1. Listar todos               -");
-		System.out.println("-    2. Listar prestados           -");
-		System.out.println("-    3. Listar no prestados        -");
-		System.out.println("-    4. Listar por título          -");
+		System.out.println("-    1. AÑADIR LIBRO               -");
+		System.out.println("-    2. MODIFICAR LIBRO            -");
+		System.out.println("-    3. ELIMINAR LIBRO             -");
+		System.out.println("------------------------------------");
+		System.out.println("-    LISTAR                        -");
+		System.out.println("------------------------------------");
+		System.out.println("-    4. Listar todos               -");
+		System.out.println("-    5. Listar prestados           -");
+		System.out.println("-    6. Listar no prestados        -");
+		System.out.println("-    7. Listar por título          -");
 		System.out.println("-                                  -");
 		System.out.println("-    0. Salir                      -");
 		System.out.println("------------------------------------");
@@ -219,7 +239,7 @@ public class PrestamoLibro {
 
 		} catch (Exception e) {
 			// e.printStackTrace(); -->pinta la pila de excepcion
-
+			sc.nextLine();
 			System.out.println("OPCIÓN NO VALIDA. Por favor introduce un número del 0 al 4.\n");
 			pintarMenu();
 		}

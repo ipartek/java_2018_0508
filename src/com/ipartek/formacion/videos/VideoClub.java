@@ -64,8 +64,12 @@ public class VideoClub {
 		} catch (Exception e) {
 			System.out.println("Ha sucedido un error que intentaremos arreglar cuanto antes.\n");
 			System.out.println("Disculpen las molestias.");
-		} finally {
-			sc.close();
+		}  finally {
+			if (sc != null) {
+				sc.close();
+			}
+			
+			dao = null;
 		}
 
 	}

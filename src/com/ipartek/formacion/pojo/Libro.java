@@ -22,7 +22,7 @@ package com.ipartek.formacion.pojo;
  *
  */
 
-public class Libro implements Cloneable {
+public class Libro {
 
 	private static final int ISBN_MIN_LENGTH = 5;
 	private static String ISBN_MIN_EXCEPTION = "La longitud mínima debe de ser " + ISBN_MIN_LENGTH;
@@ -103,18 +103,14 @@ public class Libro implements Cloneable {
 	}
 
 	public void setPrestado(boolean prestado) {
-		this.prestado = prestado;
+		String.valueOf(prestado);
+		this.prestado = prestado; 
 	}
 
 	@Override
 	public String toString() {
 		return "Identificador: " + id + "\t" + " ISBN: " + isbn + "\t" + " Título: " + titulo + "\t" + " Editorial: "
 				+ editorial + "\t" + " Prestado: " + prestado + "\t" + "";
-	}
-
-	@Override
-	public Object clone() throws CloneNotSupportedException {
-		return super.clone();
 	}
 
 }
