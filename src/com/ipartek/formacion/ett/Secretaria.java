@@ -9,12 +9,13 @@ public class Secretaria extends Persona {
 	public Secretaria() {
 		super();
 	}
-
-	// GETTERS AND SETTERS
-	public Secretaria(int edad) {
-		this();
+	
+	public Secretaria(String nombre, String dni, float salario, int edad) {
+		super(nombre, dni, salario);
 		this.edad = edad;
 	}
+
+	// GETTERS AND SETTERS
 
 	public int getEdad() {
 		return edad;

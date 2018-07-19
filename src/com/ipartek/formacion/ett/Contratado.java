@@ -2,18 +2,20 @@ package com.ipartek.formacion.ett;
 
 public class Contratado extends Persona {
 
+	//	VARIABLES DE CLASE
 	private String nss;
-	
+
+	// CONSTRUCTORES
 	public Contratado() {
 		super();
 	}
-	
-	public Contratado(String nss) {
-		this();
+
+	public Contratado(String nombre, String dni, float salario, String nss) {
+		super(nombre, dni, salario);
 		this.nss = nss;
 	}
 
-	//	GETTERS AND SETTERS
+	// GETTERS AND SETTERS
 	public String getNss() {
 		return nss;
 	}
@@ -22,7 +24,7 @@ public class Contratado extends Persona {
 		this.nss = nss;
 	}
 
-	//	OTROS MÉTODOS
+	// OTROS MÉTODOS
 	@Override
 	float calcularSalario() {
 		// TODO Auto-generated method stub

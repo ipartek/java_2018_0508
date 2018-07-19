@@ -3,7 +3,7 @@
   associations="true" dependencies="false" nesting-relationships="true" router="FAN">  
   <class id="1" language="java" name="com.ipartek.formacion.ett.Secretaria" project="java_2018_0508" 
     file="/java_2018_0508/src/com/ipartek/formacion/ett/Secretaria.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="255" y="428"/>    
+    <position height="-1" width="-1" x="130" y="419"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -12,7 +12,7 @@
   </class>  
   <class id="2" language="java" name="com.ipartek.formacion.ett.SocioFundador" project="java_2018_0508" 
     file="/java_2018_0508/src/com/ipartek/formacion/ett/SocioFundador.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="424" y="392"/>    
+    <position height="-1" width="-1" x="443" y="438"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -21,7 +21,7 @@
   </class>  
   <class id="3" language="java" name="com.ipartek.formacion.ett.Contratado" project="java_2018_0508" 
     file="/java_2018_0508/src/com/ipartek/formacion/ett/Contratado.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="593" y="428"/>    
+    <position height="-1" width="-1" x="807" y="420"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
