@@ -27,6 +27,7 @@ public class Excepciones3 {
 		System.out.println("    metodoA salgo");
 	}
 	
+	@SuppressWarnings("null")
 	static void metodoB() throws Exception {
 		System.out.println("        metodoB entro");
 		

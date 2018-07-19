@@ -16,6 +16,7 @@ public class Excepciones2 {
 		System.out.println("    metodoA salgo");
 	}
 	
+	@SuppressWarnings("null")
 	static void metodoB() {
 		System.out.println("        metodoB entro");
 		
