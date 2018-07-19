@@ -3,25 +3,27 @@ package com.ipartek.formacion.ejercicios;
 public class Excepciones2 {
 
 	public static void main(String[] args) {
+		System.out.println("Main comenzamos");
 
+		metodoA();
+
+		System.out.println("Main Terminamos");
 	}
-	
-	//metodo get excepiones 3 en el ejericio 3 copiamos en 2 y indicar que le metodo 2 puede sacar una excepcion 
-	//y el ejercicio 3 se va a lanzar para arriba 
-	
+
 	static void metodoA() {
-		System.out.println("    Metodo A entro ");
+		System.out.println("    metodoA entro");
 		metodoB();
-		System.out.println("    Salgo A salgo ");
+		System.out.println("    metodoA salgo");
 	}
 
+	@SuppressWarnings("null")
 	static void metodoB() {
-		System.out.println("         Metodo B entro ");
-		
+		System.out.println("        metodoB entro");
+
 		Object o = null;
 		o.toString();
-		
-		System.out.println("         Salgo B salgo ");
+
+		System.out.println("        metodoB salgo");
 	}
 
 }
