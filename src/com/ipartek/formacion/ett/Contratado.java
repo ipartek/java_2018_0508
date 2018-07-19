@@ -12,7 +12,7 @@ public class Contratado extends Persona {
 		nSS = 0;
 	}
 
-	public Contratado(String nombre, long dni) {
+	public Contratado(String nombre, long dni, long nSS) {
 		super(nombre, dni);
 		this.setnSS(nSS);
 	}
@@ -21,8 +21,8 @@ public class Contratado extends Persona {
 		return nSS;
 	}
 
-	public void setnSS(int nSS) {
-		this.nSS = nSS;
+	public void setnSS(long nSS2) {
+		this.nSS = nSS2;
 	}
 
 

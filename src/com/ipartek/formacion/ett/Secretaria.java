@@ -6,13 +6,13 @@ public class Secretaria extends Persona{
 	
 
 
-	public Secretaria(String nombre, long dni) {
-		super(nombre, dni);
+	public Secretaria() {
+		super();
 		edad = 0;
 	}
 
 	public Secretaria(String nombre, long dni, int edad) {
-		this(nombre, dni);
+		super(nombre, dni);
 		this.setEdad(edad);
 	}
 
