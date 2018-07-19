@@ -1,5 +1,10 @@
 package com.ipartek.formacion.pojo;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.util.Date;
+
 public class Libro {
 
 	public static final int ISBN_MIN_LENGTH = 5;
@@ -10,6 +15,8 @@ public class Libro {
 	private String titulo;
 	private String editorial;
 	private boolean prestado;
+	private Date fechaPrestamo;
+	private Date fechaDevolucion;
 
 	public Libro() {
 		super();
@@ -94,7 +101,23 @@ public class Libro {
 
 	@Override
 	public String toString() {
-		return "Libro [id=" + id + ", isbn=" + isbn + ", titulo=" + titulo + ", editorial=" + editorial + "]";
+		return "Libro [id=" + id + ", isbn=" + isbn + ", titulo=" + titulo + ", editorial=" + editorial + ", prestado="
+				+ prestado + ", fechaPrestamo=" + fechaPrestamo + ", fechaDevolucion=" + fechaDevolucion + "]";
+	}
+
+	public Date getFechaPrestamo() {
+		return fechaPrestamo;
+	}
+
+	/**
+	 * obtener hora y fecha con formato:
+	 * 
+	 * @param fechaPrestamo
+	 */
+	public void setFechaPrestamo(Date fechaPrestamo) {
+
+		this.fechaPrestamo = fechaPrestamo;
+
 	}
 
 }
