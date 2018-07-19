@@ -56,21 +56,25 @@ public class GestorLibros {
 
 	private static void buscarPorTitulo() throws IOException {
 		String busqueda;
+
 		char seguir;
 		do {
+			sc.nextLine();
 			System.out.println("Introduce aquello que desees buscar: ");
 			busqueda = sc.nextLine();
-			for (Libro libro : dao.getAll()) {
-				if (libro.getTitulo().contains(busqueda)) {
-					System.out.println("    " + libro);
-				}
-			}
-			System.out.println("");
-			System.out.println("");
-			System.out.println("¿Deseas buscar algo mas?");
-			seguir = (char) System.in.read();
-		} while (seguir != NO);
 
+			for (Libro libro : dao.buscarPorTitulo(busqueda)) {
+				// if (!dao.buscarPorTitulo(busqueda).isEmpty()) {
+				System.out.println("  " + libro);
+				// } else {
+				// System.out.println("Lo siento, no se ha encontrado ningun nombre con ese titulo..");
+				// }
+			}
+
+			System.out.println("Deseas realizar otra busqueda?(s/n)");
+			seguir = (char) System.in.read();
+
+		} while (seguir != NO);
 		pintarMenu();
 
 	}

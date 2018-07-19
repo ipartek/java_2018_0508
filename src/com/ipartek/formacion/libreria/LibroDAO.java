@@ -37,11 +37,33 @@ public class LibroDAO implements CrudAble<Libro> {
 		return lista;
 	}
 
+	public List<Libro> getAllPrestados(boolean isPrestado) {
+		ArrayList<Libro> resul = new ArrayList<Libro>();
+		for (Libro libro : lista) {
+			if (libro.isPrestado() == isPrestado) {
+				resul.add(libro);
+			}
+		}
+		return resul;
+	}
+
 	@Override
 	public Libro getById(long id) {
 		Libro resul = null;
 		for (Libro libroIteracion : lista) {
 			if (id == libroIteracion.getId()) {
+				resul = libroIteracion;
+				break;
+			}
+		}
+
+		return resul;
+	}
+
+	public Libro getByTitulo(String titulo) {
+		Libro resul = null;
+		for (Libro libroIteracion : lista) {
+			if (titulo == libroIteracion.getTitulo()) {
 				resul = libroIteracion;
 				break;
 			}
@@ -81,6 +103,18 @@ public class LibroDAO implements CrudAble<Libro> {
 			if (id == libroIteracion.getId()) {
 				resul = lista.remove(libroIteracion);
 				break;
+			}
+		}
+		return resul;
+	}
+
+	public List<Libro> buscarPorTitulo(String busqueda) {
+		ArrayList<Libro> resul = new ArrayList<Libro>();
+		if (busqueda != null) {
+			for (Libro libro : lista) {
+				if (libro.getTitulo().toLowerCase().contains(busqueda.toLowerCase())) {
+					resul.add(libro);
+				}
 			}
 		}
 		return resul;
