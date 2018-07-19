@@ -14,7 +14,6 @@ public class GestorLibros {
 
 	static long id;
 	static String titulo;
-	static long cont = 0;
 
 	static private final int OPCION_SALIR = 0;
 	static private final int OPCION_LISTAPRESTADOS = 1;
@@ -22,7 +21,6 @@ public class GestorLibros {
 	static private final int OPCION_BUSCAR = 3;
 
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
 
 		sc = new Scanner(System.in);
 
@@ -31,7 +29,6 @@ public class GestorLibros {
 		try {
 			cargarLibros();
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
@@ -67,7 +64,6 @@ public class GestorLibros {
 	 * Muestra la lista de libros prestados
 	 */
 	private static void listarPrestados() {
-		// TODO Auto-generated method stub
 
 		List<Libro> listaLibros = dao.getAllPrestados(true);
 
@@ -77,11 +73,6 @@ public class GestorLibros {
 		for (Libro libro : listaLibros) {
 			System.out.println(libro);
 		}
-
-		/*
-		 * for (int i = 0; i < dao.length(); i++) { if (listaLibros.get(i).isPrestado())
-		 * { System.out.println(listaLibros.get(i)); } }
-		 */
 
 		System.out.println("");
 		System.out.println("");
@@ -94,7 +85,6 @@ public class GestorLibros {
 	 * Muestra la lista de libros no prestados
 	 */
 	private static void listarNoPrestados() {
-		// TODO Auto-generated method stub
 		List<Libro> listaLibros = dao.getAllPrestados(false);
 
 		System.out.println("		Libros no Prestados		");
@@ -108,11 +98,6 @@ public class GestorLibros {
 		System.out.println("");
 		System.out.println("");
 
-		/*
-		 * for (int i = 0; i < dao.length(); i++) { if
-		 * (!listaLibros.get(i).isPrestado()) { System.out.println(listaLibros.get(i));
-		 * } }
-		 */
 		pintarMenu();
 	}
 
@@ -120,19 +105,11 @@ public class GestorLibros {
 	 * Busca en la lista de libros por su titulo
 	 */
 	private static void buscar() {
-		// TODO Auto-generated method stub
-		// int cont = 0;
 
 		System.out.println("Introduce el titulo del libro a buscar: ");
 		titulo = sc.nextLine();
 
 		List<Libro> listaLibros = dao.getByTitle(titulo);
-
-		/*
-		 * for (int i = 0; i < dao.length(); i++) { if
-		 * (listaLibros.get(i).getTitulo().toLowerCase().contains(titulo.toLowerCase().
-		 * trim())) { System.out.println(listaLibros.get(i)); cont++; } }
-		 */
 
 		System.out.println("Resultados de la busqueda de: " + titulo);
 		System.out.println("------------------------------------------------------");
@@ -155,7 +132,6 @@ public class GestorLibros {
 	 * Cierra la aplicacion
 	 */
 	private static void salir() {
-		// TODO Auto-generated method stub
 		System.out.println("");
 		System.out.println("");
 		System.out.println("");
@@ -169,7 +145,6 @@ public class GestorLibros {
 	 * menu
 	 */
 	private static void noOption() {
-		// TODO Auto-generated method stub
 		System.out.println("Lo sentimos No existe esa opcion");
 		pintarMenu();
 	}
@@ -178,7 +153,6 @@ public class GestorLibros {
 	 * Muestra por consola el menu de opciones de la app
 	 */
 	private static void pintarMenu() {
-		// TODO Auto-generated method stub
 		System.out.println("------------------------------------");
 		System.out.println("--        Casa del Libro          --");
 		System.out.println("------------------------------------");
@@ -206,10 +180,9 @@ public class GestorLibros {
 	/**
 	 * Carga manual de libros de prueba
 	 * 
-	 * @throws Exception
+	 * @throws Exception Si el ISBN es nulo o < 5
 	 */
 	private static void cargarLibros() throws Exception {
-		// TODO Auto-generated method stub
 		Libro libro;
 		libro = new Libro(123, "9788416001460", "FARIÑA: HISTORIA E INDISCRECIONES DEL NARCOTRAFICO EN GALICIA",
 				"LIBROS DEL K.O", true);

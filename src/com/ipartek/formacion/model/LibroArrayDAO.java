@@ -26,7 +26,6 @@ public class LibroArrayDAO implements CrudAble<Libro> {
 
 	@Override
 	public boolean insert(Libro libro) {
-		// TODO Auto-generated method stub
 		boolean resul = false;
 		if (libro != null) {
 			resul = lista.add(libro);
@@ -36,13 +35,11 @@ public class LibroArrayDAO implements CrudAble<Libro> {
 
 	@Override
 	public List<Libro> getAll() {
-		// TODO Auto-generated method stub
 		return lista;
 	}
 
 	@Override
 	public Libro getById(long id) {
-		// TODO Auto-generated method stub
 		Libro resul = null;
 		// foreach
 		for (Libro libro : lista) {
@@ -62,7 +59,6 @@ public class LibroArrayDAO implements CrudAble<Libro> {
 	 * @return listado que coincida con la busqueda
 	 */
 	public List<Libro> getByTitle(String busqueda) {
-		// TODO Auto-generated method stub
 		ArrayList<Libro> resul = new ArrayList<Libro>();
 		// foreach
 		if (busqueda != null) {
@@ -78,22 +74,20 @@ public class LibroArrayDAO implements CrudAble<Libro> {
 
 	@Override
 	public boolean update(Libro libro) {
-		// TODO Auto-generated method stub
 		return false;
 	}
 
 	@Override
 	public boolean delete(long id) {
-		// TODO Auto-generated method stub
 		return false;
 	}
 
 	/**
-	 * retorna los libros prestados o no prestados
+	 * Retorna los libros prestados o no prestados
 	 * 
 	 * @param isPrestados boolean => true listado prestados, false => lista No
 	 *                    prestados
-	 * @return listado de libros
+	 * @return Listado de libros
 	 */
 	public List<Libro> getAllPrestados(boolean isPrestado) {
 		ArrayList<Libro> resul = new ArrayList<Libro>();

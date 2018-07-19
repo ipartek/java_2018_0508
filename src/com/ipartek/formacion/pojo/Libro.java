@@ -1,5 +1,7 @@
 package com.ipartek.formacion.pojo;
 
+import java.util.Date;
+
 public class Libro {
 
 	public static final int ISBN_MIN_LENGTH = 5;
@@ -10,6 +12,8 @@ public class Libro {
 	private String titulo;
 	private String editorial;
 	private boolean prestado;
+	private Date fechaPrestado;
+	private Date fechaDevolucion;
 
 	public Libro() {
 		super();
@@ -18,6 +22,8 @@ public class Libro {
 		this.titulo = "";
 		this.editorial = "";
 		this.prestado = false;
+		this.fechaPrestado = null;
+		this.fechaDevolucion = null;
 	}
 
 	public Libro(long id, String isbn, String titulo, String editorial, boolean prestado) throws Exception {
@@ -85,6 +91,22 @@ public class Libro {
 
 	public void setPrestado(boolean prestado) {
 		this.prestado = prestado;
+	}
+	
+	public Date getFechaPrestado() {
+		return fechaPrestado;
+	}
+
+	public void setFechaPrestado(Date fechaPrestado) {
+		this.fechaPrestado = fechaPrestado;
+	}
+
+	public Date getFechaDevolucion() {
+		return fechaDevolucion;
+	}
+
+	public void setFechaDevolucion(Date fechaDevolucion) {
+		this.fechaDevolucion = fechaDevolucion;
 	}
 
 	@Override
