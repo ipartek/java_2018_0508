@@ -63,6 +63,7 @@ public class Libro {
 		this.editorial = editorial;
 		this.prestado = prestado;
 	}
+	
 
 	public long getId() {
 		return id;
