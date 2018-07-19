@@ -11,19 +11,21 @@ public class LibrosArrayDAO implements CrudAble<Libro> {
 		private static LibrosArrayDAO INSTANCE = null;
 		private static List<Libro> lista = null;
 		
+	//PATRON SINGLETON
+		//Constructor Privado para que nadie pueda hacer un  new
 		private LibrosArrayDAO() {
 			lista = new ArrayList<Libro>();
 		}
-
-		public static synchronized LibrosArrayDAO getInstance() {
-			if (INSTANCE == null) {
-				INSTANCE = new LibrosArrayDAO();
+		//Para construir un contructor privado y poder utilizarlo publicamente
+		public static synchronized LibrosArrayDAO getInstance() { 
+			if (INSTANCE == null) { 
+				INSTANCE = new LibrosArrayDAO(); //Así solo tenemos un objeto LibrosArrayDao
 			}
-			return INSTANCE;
+			return INSTANCE; //Devuelve un objeto de la propia clase
 		}
 		
 		
-		//Todo lo que hereda de CrudAble
+	//Todos los metodos que implementa la interfaz crudable - EN ESTE CASO NO SON IMPORTANTES
 		
 		@Override
 		public boolean insert(Libro nuevo_libro) {
@@ -87,6 +89,40 @@ public class LibrosArrayDAO implements CrudAble<Libro> {
 			return false;
 		}
 
+
 		
-		
+/**
+ * Retorna los libros prestados o no prestados		
+ * @param isPrestado boolena true=>listado prestado, false=>listado no prestado
+ * @return listado de libros
+ */
+		public List<Libro> getAllPrestados(boolean isPrestado){
+			ArrayList<Libro> resul =new ArrayList<Libro>();
+			//Recorrer el listado
+			for(Libro libro:lista) {
+				if(libro.isPrestado()==isPrestado) {
+					resul.add(libro);
+				}
+			}
+			
+			return resul;
+		}
+/**
+ * Buscamos Libros que coincida el titulo, es ignoreCase, nos sirve cualquier coincidencia	
+ * @param  Busqueda String termino a buscar 
+ * @return lostado de Libros que coincidan con la "busqueda"
+ */
+		public List<Libro> buscarPorTitulo(String busqueda){
+			ArrayList<Libro> resul =new ArrayList<Libro>();
+			if(busqueda!=null){
+				//Recorrer el listado
+				for(Libro libroIteracion:lista) {
+					if(libroIteracion.getTitulo().toLowerCase().contains(busqueda.toLowerCase())) {
+						resul.add(libroIteracion);
+					}
+				}
+			}
+			return resul;
+			
+		}
 }

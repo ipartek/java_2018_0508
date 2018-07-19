@@ -2,7 +2,8 @@ package com.ipartek.formacion.pojo;
 
 //POJO
 
-public class Libro {
+public  class Libro {
+	
 	//Constantes
 	public static final int ISBN_MIN_LENGTH=5;
 	public static final String ISBN_MIN_EXCEPTION="La longitud minima del ISBN debe ser " + ISBN_MIN_LENGTH; //El mensaje que lanzara la excepcion
@@ -16,15 +17,16 @@ public class Libro {
 	
 	//Constructor
 	public Libro() {
-		super();
+		super();//Llama al object
+		//this hace referencia a si mismo
 		this.id=-1;
 		this.titulo="";
 		this.isbn="";
 		this.prestado=false;
 		
 	}
-	public Libro(String titulo, String editoral, String isbn, long id, boolean prestado) throws Exception {
-		super();
+	public Libro(long id,String isbn,String titulo, String editoral,  boolean prestado) throws Exception {
+		this();/*importante*/
 		this.titulo = titulo;
 		this.editoral = editoral;
 		//this.isbn=isbn;
@@ -85,9 +87,15 @@ public class Libro {
 	}
 	@Override
 	public String toString() {
-		return "Libro [titulo=" + titulo + ", editoral=" + editoral + ", isbn=" + isbn + ", id=" + id + ", prestado="
-				+ prestado + "]";
+
+		return "\n -Libro-" + 
+				"\n\t Titulo: " + titulo +
+				"\n\t Editoral: " + editoral + 
+				"\n\t ISBN:  " + isbn + 
+				"\n\t ID: " + id +"\n";
+	
 	}
+	
 
 
 	
