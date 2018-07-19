@@ -147,6 +147,7 @@ public class Biblioteca {
 			sc.nextLine();
 		}
 		return opc;
+		
 	}
 
 	private static void listarLibros() {
