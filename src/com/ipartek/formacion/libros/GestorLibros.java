@@ -18,15 +18,16 @@ public class GestorLibros {
 			dao = LibroDAO.getInstance();
 			sc = new Scanner(System.in);
 			cargarLibros();
-			
+
 			do {
 				menu();
-				
+
 			} while (opcionSeleccionada != 4);
 
 		} catch (Exception e) {
 			System.out.println("Estamos teniendo errores con el programa. Disculpe las molestias.");
-		}finally {
+
+		} finally {
 			sc.close();
 		}
 	}
@@ -57,14 +58,14 @@ public class GestorLibros {
 				break;
 
 			default:
-				throw new Exception("ERRORRR");
+				throw new Exception("ERROR");
 			}
 
 		} catch (Exception e) {
 			System.out.println("ERROR la opcion elegida no es correcta");
 			sc.nextLine();
-			menu();
 			System.out.println();
+			menu();
 		}
 
 	}
@@ -80,18 +81,16 @@ public class GestorLibros {
 		try {
 			System.out.print("Introduce el titulo de un libro: ");
 			String titulo = sc.next();
-			titulo.trim();
 			if (dao.getAll().isEmpty()) {
 				System.out.println("No hay libros.");
 
 			} else {
 				System.out.println("Libros con el titulo: " + titulo);
 				boolean encontrado = false;
-				for (Libro libro : dao.getAll()) {
-					if (libro.getTitulo().contains(titulo.toUpperCase())) {
-						System.out.println(libro.toString());
-						encontrado = true;
-					}
+				for (Libro libro : dao.buscarPorTitulo(titulo)) {
+					System.out.println(libro.toString());
+					encontrado = true;
+
 				}
 				if (!encontrado) {
 					System.out.println("No existen coincidencias");
@@ -99,28 +98,30 @@ public class GestorLibros {
 				}
 
 			}
+			System.out.println();
+
 		} catch (Exception e) {
 			System.out.println("ERROR, el titulo no es correcto.");
 			sc.nextLine();
 			buscarPorTitulo();
 
 		}
-		
+
 	}
 
 	private static void listarLibros(boolean prestado) {
 		System.out.println();
 		System.out.println((prestado) ? "Libros prestados: " : "Libros no prestados: ");
 		if (dao.getAll().isEmpty()) {
-			System.out.print((prestado) ? "No es hay libros prestados " : "No hay liros o estan todos prestados");
+			System.out.print((prestado) ? "No es hay libros prestados " : "No hay libros o están todos prestados");
 
 		}
-		for (Libro libro : dao.getAll()) {
-			if (libro.isPrestado() == prestado) {
-				System.out.println(libro.toString());
-			}
+		/*
+		 * for (Libro libro : dao.getAllPrestados(prestado)) {
+		 * System.out.println(libro.toString()); }
+		 */
+		dao.getAllPrestados(prestado).forEach((libro) -> System.out.println(libro));
 
-		}
 		System.out.println();
 
 	}

@@ -9,7 +9,7 @@ public class LibroDAO implements CrudAble<Libro> {
 	private static LibroDAO INSTANCE = null;
 	private static List<Libro> lista = null;
 
-	public LibroDAO() {
+	private LibroDAO() {
 		lista = new ArrayList<Libro>();
 
 	}
@@ -27,8 +27,7 @@ public class LibroDAO implements CrudAble<Libro> {
 
 		boolean correcto = false;
 		if (libro != null) {
-			lista.add(libro);
-			correcto = true;
+			correcto = lista.add(libro);
 		}
 		return correcto;
 	}
@@ -69,16 +68,57 @@ public class LibroDAO implements CrudAble<Libro> {
 
 	@Override
 	public boolean delete(long id) {
-		
+
 		boolean eliminado = false;
 		for (int i = 0; i < lista.size(); i++) {
-			if(lista.get(i).getId() == id) {
-				lista.remove(i);		
-				eliminado= true;
+			if (lista.get(i).getId() == id) {
+				lista.remove(i);
+				eliminado = true;
 			}
 		}
 
 		return eliminado;
+	}
+
+	/**
+	 * Retorna los libros prestados o no prestados
+	 * 
+	 * @param isPrestado boolean true => listado prestados, false => listado no
+	 *                   prestados
+	 * @return listado de libros
+	 */
+	public List<Libro> getAllPrestados(boolean isPrestado) {
+
+		ArrayList<Libro> result = new ArrayList<>();
+		for (Libro libro : lista) {
+			if (libro.isPrestado() == isPrestado) {
+				result.add(libro);
+			}
+		}
+
+		return result;
+
+	}
+
+	/**
+	 * Buscamos libros que coincida el titulo, es ignoreCase, nos sirve cualquier
+	 * coincidencia
+	 * 
+	 * @param busqueda String termino a buscar
+	 * @return listado de Libros
+	 */
+
+	public List<Libro> buscarPorTitulo(String busqueda) {
+
+		ArrayList<Libro> result = new ArrayList<>();
+		if (busqueda != null) {
+			for (Libro libro : lista) {
+				if (libro.getTitulo().toLowerCase().contains(busqueda.toLowerCase())) {
+					result.add(libro);
+				}
+			}
+		}
+		return result;
 	}
 
 }
