@@ -27,14 +27,14 @@ public class Libro {
 		super();
 	}
 
-	public Libro(long id, String titulo, String isbn, String editorial) throws Exception {
+	public Libro(long id, String titulo, String isbn, String editorial, boolean prestado) throws Exception {
 
 		this();
 		this.id = id;
 		this.titulo = titulo;
 		this.editorial = editorial;
 		setIsbn(isbn);
-		this.prestado = false;
+		this.prestado = prestado;
 
 	}
 

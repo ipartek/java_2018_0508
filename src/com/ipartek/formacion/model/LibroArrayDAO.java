@@ -7,7 +7,7 @@ import java.util.List;
 import com.ipartek.formacion.pojo.Libro;
 
 /**
- * Clase DAO para gestionar los videos de youtube con ArrayList<> Usamos patron
+ * Clase DAO para gestionar los libros de Ipartek con ArrayList<> Usamos patron
  * Singleton
  * 
  * @see https://es.wikipedia.org/wiki/Singleton
@@ -112,19 +112,33 @@ public class LibroArrayDAO implements CrudAble<Libro> {
 		return resul;
 	}
 
-	public Libro getByTitulo(String titulo) {
-		Libro resul = null;
+	public ArrayList<Libro> getByTitulo(String busqueda) {
+
+		ArrayList<Libro> resul = new ArrayList<Libro>();
 
 		// foreach
 		for (Libro libroIteracion : lista) {
 
-			if (titulo == libroIteracion.getTitulo()) {
-				resul = libroIteracion;
-				break;
+			if (libroIteracion.getTitulo().toLowerCase().contains(busqueda.toLowerCase())) {
+				resul.add(libroIteracion);
 			}
 
 		}
 		return resul;
 	}
-	
+
+	public ArrayList<Libro> listarLibrosPrestados(boolean prestamo) {
+
+		ArrayList<Libro> l = new ArrayList<Libro>();
+
+		for (Libro libroIteracion : lista) {
+
+			if (libroIteracion.isPrestado() == prestamo) {
+				l.add(libroIteracion);
+			}
+
+		}
+		return l;
+
+	}
 }

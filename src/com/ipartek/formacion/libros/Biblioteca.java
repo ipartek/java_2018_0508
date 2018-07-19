@@ -1,5 +1,6 @@
 package com.ipartek.formacion.libros;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 import com.ipartek.formacion.model.LibroArrayDAO;
@@ -17,7 +18,7 @@ public class Biblioteca {
 	static private final int OPCION_LISTAR_TODOS = 3;
 	static private final int OPCION_BUSCAR = 4;
 	static private final int VALOR_CHIVATO = -1;
-	static private int ULTIMO_ID = 0;
+	static private int ULTIMO_ID = 1;
 
 	private static Scanner sc = null;
 
@@ -41,11 +42,11 @@ public class Biblioteca {
 				switch (opc) {
 
 				case OPCION_LISTAR_PRESTADOS:
-//					eliminarVideo();
+					listarPrestados(true);
 					break;
 
 				case OPCION_LISTAR_NO_PRESTADOS:
-//					modficarVideo();
+					listarPrestados(false);
 					break;
 
 				case OPCION_LISTAR_TODOS:
@@ -53,7 +54,7 @@ public class Biblioteca {
 					break;
 
 				case OPCION_BUSCAR:
-//					altaVideo();
+					buscador();
 					break;
 
 				case OPCION_SALIR:
@@ -79,22 +80,30 @@ public class Biblioteca {
 
 	}
 
-
-
 	private static void cargarLibros() throws Exception {
 
-		dao.insert(new Libro(ULTIMO_ID, "Fariña", "123456789", "231456978"));
+		dao.insert(new Libro(ULTIMO_ID, "FARIÑA: HISTORIA E INDISCRECIONES DEL NARCOTRAFICO EN GALICIA",
+				"9788416001460", "LIBROS DEL K.O", true));
 		ULTIMO_ID++;
-		dao.insert(new Libro(ULTIMO_ID, "Fariña", "123456789", "231456978"));
+		dao.insert(new Libro(ULTIMO_ID, "LENGUA TRIMESTRAL 2º EDUCACION PRIMARIA SAVIA ED", "9788467575057",
+				"EDICIONES SM", false));
 		ULTIMO_ID++;
-		dao.insert(new Libro(ULTIMO_ID, "Fariña", "123456789", "231456978"));
+		dao.insert(new Libro(ULTIMO_ID, "MATEMÁTICAS TRIMESTRAL SAVIA-15", "9788467575071", "EDICIONES SM", false));
 		ULTIMO_ID++;
-		dao.insert(new Libro(ULTIMO_ID, "Fariña", "123456789", "231456978"));
+		dao.insert(new Libro(ULTIMO_ID, "LA VOZ DE TU ALMA", "9788461716098", "AUTOR-EDITOR", true));
 		ULTIMO_ID++;
-		dao.insert(new Libro(ULTIMO_ID, "Fariña", "123456789", "231456978"));
+		dao.insert(new Libro(ULTIMO_ID, "LENGUA CASTELLANA 3º EDUCACION PRIMARIA TRIMESTRES SAVIA CASTELLA NO ED 2014 ",
+				"9788467569957", "EDICIONES SM", false));
 		ULTIMO_ID++;
+		dao.insert(new Libro(ULTIMO_ID, "NEW HIGH FIVE 1 PUPILS BOOK PACK", "9781380013835",
+				"MACMILLAN CHILDRENS BOOKS", false));
+		ULTIMO_ID++;
+		dao.insert(new Libro(ULTIMO_ID, "NEW HIGH FIVE 3 PUPILS BOOK", "9781380011718", "MACMILLAN CHILDRENS BOOKS",
+				false));
+		ULTIMO_ID++;
+
 	}
-	
+
 	private static void pintarMenu() {
 
 		System.out.println("**************************************************");
@@ -114,7 +123,7 @@ public class Biblioteca {
 		System.out.println("**************************************************");
 
 	}
-	
+
 	private static int opcion() {
 
 		pintarMenu();
@@ -139,7 +148,6 @@ public class Biblioteca {
 		}
 		return opc;
 	}
-	
 
 	private static void listarLibros() {
 
@@ -148,7 +156,34 @@ public class Biblioteca {
 		} else {
 			System.out.println(dao.getAll());
 		}
-		
+
 	}
-	
+
+	private static void listarPrestados(boolean prestamo) {
+
+		ArrayList<Libro> l = dao.listarLibrosPrestados(prestamo);
+
+		if (l.size() != 0) {
+			System.out.println(l);
+		} else {
+			System.out.println((prestamo) ? "No hay libro prestados." : "No hay libros sin prestar.");
+		}
+
+	}
+
+	private static void buscador() {
+
+		String busqueda;
+
+		System.out.println("Introduce lo que quieres buscar:");
+		busqueda = sc.nextLine();
+
+		ArrayList<Libro> l = dao.getByTitulo(busqueda);
+
+		if (l.size() != 0) {
+			System.out.println(l);
+		} else {
+			System.out.println("No hay libros que coincidan con la busqueda.");
+		}
+	}
 }
