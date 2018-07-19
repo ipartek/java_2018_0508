@@ -16,12 +16,12 @@ public class Hello {
 		log.info("Listado Alumnos-----------------");
 
 		 
-		//String[] alumnos = { "Eneko Muñoz", "joseba", "Adrian P","Ainara", "Asier", "Adrian G", " Raul", "Luis", "Guillermo", "Carlos",
+		//String[] alumnos = { "Eneko Muï¿½oz", "joseba", "Adrian P","Ainara", "Asier", "Adrian G", " Raul", "Luis", "Guillermo", "Carlos",
 		//		"Eneko Sanchez","Adriana", "Andrea", "Valeria", "Alain" };
 
 		Person[] alumnos = new Person[15];
 		
-		Person p = new Person("Eneko" , "Muñoz", Person.SEXO_HOMBRE );
+		Person p = new Person("Eneko" , "Muï¿½oz", Person.SEXO_HOMBRE );
 		alumnos[0] = p;
 		
 		p = new Person("Joseba" , "Ramirez", Person.SEXO_HOMBRE );
@@ -63,12 +63,9 @@ public class Hello {
 		p = new Person("Valeria" , "Valencia", Person.SEXO_MUJER);
 		alumnos[13] = p;
 		
-		p = new Person("Alain" , "Muñoz", Person.SEXO_HOMBRE );
+		p = new Person("Alain" , "Muï¿½oz", Person.SEXO_HOMBRE );
 		alumnos[13] = p;
-		
-		
 				
-		
 		// for clasico
 		for (int i = 0; i < alumnos.length; i++) {
 			log.info(i + " " + alumnos[i]);
@@ -79,9 +76,7 @@ public class Hello {
 		int numero = (int) ((Math.random() * alumnos.length));
 
 		log.info("Voluntario es " + alumnos[numero].toString() );
-
-	
-
+		
 	}
 
 }
