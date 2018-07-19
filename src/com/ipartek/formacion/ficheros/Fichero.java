@@ -13,15 +13,15 @@ public class Fichero {
 	public static void main(String[] args) {
 		String path = "\\\\192.168.1.201\\java\\0508\\ficheros";
 
-		// crearFichero();
+		crearFichero();
 
-		// leerFichero();
+		leerFichero();
 
-		// escribirFichero();
+		escribirFichero();
 
-		 buscarMiTesoro(path);
+		buscarMiTesoro(path);
 
-		// listarUnidadesPc();
+		listarUnidadesPc();
 	}
 
 	private static void listarUnidadesPc() {

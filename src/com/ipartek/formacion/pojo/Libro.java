@@ -1,8 +1,12 @@
 package com.ipartek.formacion.pojo;
 
+import java.util.Calendar;
+import java.util.Date;
+
 public class Libro {
 	private static final int ISBN_LENGHT = 5;
 	private static final String MENSAJE_EXCEPTION_ISBN = "El ISBN DE ESTE LIBRO NO ES CORRECTO";
+	private static final int DIAS_PRESTAMO = 10;
 
 	private long id;
 	private String isbn;
@@ -18,9 +22,12 @@ public class Libro {
 		this.titulo = "";
 		this.editorial = "";
 		this.prestado = true;
+
 	}
 
-	public Libro(long id, String isbn, String titulo, String editorial, boolean prestado) throws Exception {
+	public Libro(long id, String isbn, String titulo, String editorial, boolean prestado)
+
+			throws Exception {
 		this();
 		this.setId(id);
 		this.setIsbn(isbn);
@@ -90,5 +97,15 @@ public class Libro {
 	public String toString() {
 		return "Libro [id=" + id + ", isbn=" + isbn + ", titulo=" + titulo + ", editorial=" + editorial + ", prestado="
 				+ prestado + "]";
+	}
+
+	public Date calcularPrestamo(Date fechaActual) {
+		Date fechaEntrega = null;
+		Calendar calendar = Calendar.getInstance();
+		calendar.setTime(fechaActual);
+		calendar.add(Calendar.DAY_OF_YEAR, DIAS_PRESTAMO);
+		fechaEntrega = calendar.getTime();
+		return fechaEntrega;
+
 	}
 }
