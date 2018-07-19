@@ -3,176 +3,210 @@ package com.ipartek.formacion.videos;
 import java.util.Scanner;
 
 import com.ipartek.formacion.model.VideoYoutubeArrayDAO;
+
 import com.ipartek.formacion.pojo.VideoYoutube;
 
+/**
+ * Clase GestorDeVideos para gestionar videos utilizando el model
+ * VideoYoutubeArrayDAO
+ * 
+ * @see VideoYoutubeArrayDAO
+ * @author Luis
+ *
+ */
 public class GestorVideos {
 
 	static private VideoYoutubeArrayDAO dao;
-	static private int opcionSeleccionada = 0;
-	static Scanner sc = null;
-	
+
+	private static int cont = 0;
+
+	static private int opcionSeleccionada = -1;
+	static Scanner sc; 
+
 	static private final int OPCION_SALIR = 0;
 	static private final int OPCION_LISTAR = 1;
 	static private final int OPCION_ANADIR = 2;
 	static private final int OPCION_ELIMINAR = 3;
-	
-	
-	public static void main(String[] args) {
-				
-		sc = new Scanner(System.in);
-		
-		dao = VideoYoutubeArrayDAO.getInstance();
-		
-		cargarVideos();
-		
-		pintarMenu();
-		
-		
-		switch (opcionSeleccionada) {
-		case OPCION_LISTAR:
-			listar();
-			break;
-			
-		case OPCION_ANADIR:
-			anadirVideo();
-			break;
-			
-		case OPCION_ELIMINAR:
-			eliminarVideo();
-			break;
 
-		case OPCION_SALIR:
-			salir();
-			break;	
+	static private final int MIN_LONG_TITULO = 3;
+	static private final int MAX_LONG_TITULO = 256;
+	static private final int LONG_CODIGO = 11;
+
+	public static void main(String args[]) {
+
+		try {
+			System.out.println("------------------------------------");
+			System.out.println("--        BIENVENIDO/A            --");
+
+			dao = VideoYoutubeArrayDAO.getInstance();
+			sc = new Scanner(System.in);
+
+			cargarVideos();
+
 			
-		default:
-			noOption();
-			break;
+			do {
+
+				pintarMenu();
+
+				switch (opcionSeleccionada) {
+				case OPCION_LISTAR:
+					listar();
+					break;
+
+				case OPCION_SALIR:
+					salir();
+					break;
+
+				case OPCION_ANADIR:
+					anadir();
+					break;
+
+				case OPCION_ELIMINAR:
+					eliminar();
+					break;
+
+				default:
+					noOption();
+					break;
+				}
+
+			} while (opcionSeleccionada != OPCION_SALIR);
+			
+		} catch (Exception e) {
+			
+			System.out.println("Sentimos las molestias, ha ocurrido un error inesperado.");
+		
+		} finally {
+			if (sc != null) {
+				sc.close();
+			}
+			
+			dao = null;
+			
 		}
-		
-		
-		sc.close();
+
 	}
 
 	
-	private static void salir() {
-		System.out.println("");
-		System.out.println("");
-		System.out.println("");
-		System.out.println("");
-		System.out.println("");
-		System.out.println("AGUR VENUR, esperamos verte pronto");
-		
-	}
-
-
 	private static void noOption() {
-		System.out.println("Lo sentimos No existe esa opcion");
-		pintarMenu();
-		
+
+		System.out.println("LO SENTIMOS. La opción seleccionada no existe.");
+
 	}
 
+	private static void cargarVideos() throws Exception {
+
+		VideoYoutube video = new VideoYoutube(++cont, "Crystallion - Crystal Clear", "qllRVZnpttM");
+		dao.insert(video);
+
+		video = new VideoYoutube(++cont, "Crystallion - Burning Bridges", "MSRvZ-YSlZI");
+		dao.insert(video);
+
+	}
 
 	private static void listar() {
-		
-		for ( VideoYoutube video : dao.getAll() ) {
-			System.out.println("    " + video);
+
+		if (dao.getAll().size() > 0) {
+			System.out.println("Lista de videos: \n\n");
+			for (VideoYoutube video : dao.getAll()) {
+				System.out.println("    " + video);
+			}
+			System.out.println("\n\n\n");
+		} else {
+			System.out.println("LO SENTIMOS. No hay videos en la lista.");
 		}
-		
+
+	}
+
+	private static void salir() {
+
 		System.out.println("");
 		System.out.println("");
-		System.out.println("");
-		
-		pintarMenu();
-		
+		System.out.println("");	
+		System.out.println("AGUR BEN-HUR. Esperamos volver a verte!!! =)");
+
 	}
-	
-	private static void anadirVideo() {
-		
-		String titulo;
-		int codigo;
-		int id;
-		
-		// titulo: 3-254 de longitud, codigo: max 11 caracteres 
-		System.out.println("Introduce el nombre del video que deseas a�adir: ");
-		titulo= sc.nextLine();
-		
-		if(titulo.getBytes().length < 3 && titulo.getBytes().length > 254 ) {
-			System.out.println("Por favor, introduzca un nombre de entre 3 y 245 caracteres de longitud: ");
-			titulo= sc.nextLine();
+
+	private static void anadir() throws Exception {
+
+		String tit;
+		String cod;
+
+		do { // Pedimos t�tulo mientras no sea correcto
+
+			System.out.println("Por favor, introduce un t�tulo de 3 a 254 caracteres para el video: ");
+			tit = sc.nextLine();
+
+			if (tit.length() < MIN_LONG_TITULO || tit.length() > MAX_LONG_TITULO) { // T�tulo incorrecto, avisamos
+				System.out.println("LO SENTIMOS. El título introducido no es válido.");
+
+			}
+		} while (tit.length() < MIN_LONG_TITULO || tit.length() > MAX_LONG_TITULO);
+
+		do { // Pedimos c�digo mientras no sea correcto
+
+			System.out.println("Por favor, introduce un c�digo de 11 caracteres para el video: ");
+			cod = sc.nextLine();
+
+			if (cod.length() != LONG_CODIGO) { // Código incorrecto, avisamos
+
+				System.out.println("LO SENTIMOS. El código introducido no es válido.");
+			}
+		} while (cod.length() != LONG_CODIGO);
+
+		VideoYoutube v = new VideoYoutube(++cont, tit, cod); // Cremos el video con los datos recogidos
+
+		System.out.println(dao.insert(v) ? "Video insertado con �xito."
+				: "Lo sentimos, ha ocurrido un error durante la insersción.");
+
+	}
+
+	private static void eliminar() {
+		long id;
+
+		//listar();
+
+		System.out.println("Por favor, teclea el id del video que deseas eliminar : ");
+		try {
+
+			id = sc.nextLong();
+			System.out.println(dao.delete(id) ? "Video eliminado con Exito." : "No existe ese video.");
+
+		} catch (Exception e) {
+
+			System.out.println("ID NO VÁLIDA. Por favor, teclea un ID númerico correcto.");
+			sc.nextLine();
+			eliminar();
+
+		} finally {
+			sc.nextLine();
 		}
-		
-		if((titulo.getBytes().length) > 3 && (titulo.getBytes().length < 254 )){
-			
-	
-		System.out.println("Introduce un codigo de maximo 11 caracteres: ");
-		codigo= sc.nextInt();
-		
-		
-	    System.out.println("Introduce la id: ");
-		id= sc.nextInt();
-		
-		
-		VideoYoutube video= new VideoYoutube();
-		dao.insert(video);	
-		
-		System.out.println("Su video ha sido a�adido");
-		
-		}
-	
-	}
-	
-	private static void eliminarVideo() {
-		
-		int id;
-		
-		System.out.println("Introduzca la id del video que desea eliminar");
-		id= sc.nextInt();
-		
-		dao.delete(id);
-		
-		System.out.println("Su video ha sido eliminado");
-		
-	}
 
+	} // FIN eliminar();
 
-	private static void cargarVideos() {
-		VideoYoutube video = new VideoYoutube(12650, "Nightmares On Wax Boiler Room London DJ Set", "Q692lHFaLVM");
-		dao.insert(video);
-		
-		video = new VideoYoutube(701, "The Skatalites - Rock Fort Rock", "6bLVdKbPHHY");
-		dao.insert(video);
-		
-		
-	}
+	private static void pintarMenu() {
 
-
-	private static void pintarMenu() { //throws Exception
-		
 		System.out.println("------------------------------------");
-		System.out.println("--          youtube               --");
+		System.out.println("--          YOUTUBE               --");
 		System.out.println("------------------------------------");
 		System.out.println("-    1. Listar                     -");
-		System.out.println("-    2. A�adir Nuevo               -");
+		System.out.println("-    2. Añadir Nuevo               -");
 		System.out.println("-    3. Eliminar                   -");
-		System.out.println("-                                  -");
-		System.out.println("-    0 - salir                     -");
+		System.out.println("-    0. Salir                      -");
 		System.out.println("------------------------------------");
 		System.out.println("");
-		System.out.println("Dime una opcion por favor");
-		
-		
+		System.out.print("Por favor, selecciona una opción: ");
+
 		try {
-			
-		opcionSeleccionada = sc.nextInt(); //puede que el usuario meta texto en vez de numeros
-		}                                  //por ello hacemos un try and catch 
-		catch(Exception e) {
-			//e.printStackTrace(); pinta la pila de excepcion
+			opcionSeleccionada = sc.nextInt();
+
+		} catch (Exception e) {
+			//LOGGER
+		} finally {
+
 			sc.nextLine();
-			System.out.println("OPCION NO VALIDA. Por favor introduce un numero del menu");
-			pintarMenu();
 		}
-		
+
 	}
-	
+
 }

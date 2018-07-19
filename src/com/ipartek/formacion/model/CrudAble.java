@@ -1,8 +1,9 @@
 package com.ipartek.formacion.model;
 
-import com.ipartek.formacion.pojo.VideoYoutube;
 import java.util.List;
 
+//pojo (contructor, getters, setters y to String que se llame usuario y que va a tener un id que es un login y un password y email. Los atributos seran private
+//Y una clase usuario DAO, que implementa la interfaz CrudAble
 /**
  * Interfaz para determinar o especificar los metodos de <b>CRUD<b>:
  * <ul>
@@ -16,15 +17,26 @@ import java.util.List;
  *
  */
 
-public interface CrudAble {
+public interface CrudAble<P> {
 	
-	boolean insert(VideoYoutube video);
+	boolean insert(P pojo);
 	
-	List<VideoYoutube> getAll();
+	/**
+	 * recupera todos los VideoYoutube
+	 * @return si no existen resultados retorna lista vacia, no null
+	 */
 	
-	VideoYoutube getById(long id);
+	List<P> getAll();
 	
-	boolean update(VideoYoutube video);
+	/**
+	 * Buscamos un VideYoutube por su identificador
+	 * @param id long identificador
+	 * @return VideoYoutube si lo encuentra, null si no lo encuentra
+	 */
+	
+	P getById(long id);
+	
+	boolean update(P pojo);
 	
 	boolean delete(long id);
 
