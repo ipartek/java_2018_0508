@@ -3,6 +3,7 @@ package com.ipartek.formacion.libreria;
 import java.io.IOException;
 import java.util.Scanner;
 
+
 public class GestorLibros {
 
 	static private LibroDAO dao;
@@ -64,7 +65,7 @@ public class GestorLibros {
 			busqueda = sc.nextLine();
 
 			for (Libro libro : dao.buscarPorTitulo(busqueda)) {
-				// if (!dao.buscarPorTitulo(busqueda).isEmpty()) {
+				//if (!dao.buscarPorTitulo(busqueda).isEmpty()) {
 				System.out.println("  " + libro);
 				// } else {
 				// System.out.println("Lo siento, no se ha encontrado ningun nombre con ese titulo..");
@@ -77,6 +78,7 @@ public class GestorLibros {
 		} while (seguir != NO);
 		pintarMenu();
 
+	
 	}
 
 	private static void listarNoPrestados() {
