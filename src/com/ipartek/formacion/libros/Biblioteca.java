@@ -5,6 +5,7 @@ import java.util.Scanner;
 
 import com.ipartek.formacion.model.LibroDAO;
 import com.ipartek.formacion.pojo.Libro;
+import com.sun.xml.internal.ws.api.streaming.XMLStreamReaderFactory.Default;
 
 public class Biblioteca {
 
@@ -46,6 +47,11 @@ public class Biblioteca {
 					break;
 				case OPCION_SALIR:
 					System.out.println("Saliendo de la aplicacion...Hasta la proxima");
+					break;
+				default:
+					System.out
+							.println("Lo sentimos pero la opcion seleccionada no pertenece a ninguna opcion del menu.");
+
 					break;
 				}
 
@@ -160,7 +166,7 @@ public class Biblioteca {
 		System.out.println("|    	0. salir	             |");
 		System.out.println("|------------------------------------|\n");
 
-		System.out.print("Inserta opcion deseada:");
+		System.out.print("Inserta opcion deseada de 0 al 3:");
 		try {
 			opcionSeleccionada = sc.nextInt();
 
