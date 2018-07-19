@@ -56,7 +56,6 @@ public class LibroArrayDAO implements CrudAble<Libro> {
 
 		Libro resul = null;
 
-		// foreach
 		for (Libro libroIteracion : lista) {
 
 			if (id == libroIteracion.getId()) {
@@ -76,7 +75,7 @@ public class LibroArrayDAO implements CrudAble<Libro> {
 		int i = 0;
 
 		if (libroUpdate != null) {
-			// iterator
+			
 			Iterator<Libro> it = lista.iterator();
 			while (it.hasNext()) {
 

@@ -109,7 +109,7 @@ public class Biblioteca {
 		System.out.println("**************************************************");
 		System.out.println("----------------Biblioteca Ipartek----------------");
 		System.out.println("**************************************************");
-		System.out.println("----------1. Listar Libros Prestados--------------");
+		System.out.println("-------------1. Listar Libros Prestados-----------");
 		System.out.println("**************************************************");
 		System.out.println("-------------2. Listar Libros Libres--------------");
 		System.out.println("**************************************************");
@@ -119,7 +119,7 @@ public class Biblioteca {
 		System.out.println("**************************************************");
 		System.out.println("**************************************************");
 		System.out.println("**************************************************");
-		System.out.println("--------------0. Salir----------------------------");
+		System.out.println("----------------0. Salir -------------------------");
 		System.out.println("**************************************************");
 
 	}
