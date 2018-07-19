@@ -2,15 +2,14 @@ package com.ipartek.formacion.model;
 
 import java.util.*;
 import com.ipartek.formacion.pojo.Libro;
-import com.ipartek.formacion.pojo.VideoYoutube;
 
 public class LibroArrayDAO implements CrudAble<Libro>{
 
 	private static LibroArrayDAO INSTANCE = null;
-	private static List<Libro> lista = null;
+	private List<Libro> libros = null;
 	
 	private LibroArrayDAO() {
-		lista = new ArrayList<Libro>();
+		libros = new ArrayList<Libro>();
 	}
 
 	public static synchronized LibroArrayDAO getInstance() {
@@ -23,10 +22,10 @@ public class LibroArrayDAO implements CrudAble<Libro>{
 	}
 
 	@Override
-	public boolean insert(Libro libro) {
+	public boolean insert(Libro pojo) {
 		boolean resul = false;
-		if (libro != null) {
-			resul = lista.add(libro);
+		if (pojo != null) {
+			resul = libros.add(pojo);
 		}
 		return resul;
 	}
@@ -34,14 +33,14 @@ public class LibroArrayDAO implements CrudAble<Libro>{
 	@Override
 	public List<Libro> getAll() {
 		// TODO Auto-generated method stub
-		return lista;
+		return libros;
 	}
 
 	@Override
 	public Libro getById(long id) {
 		Libro resul = null;
 		//foreach
-		for (Libro libroIteracion : lista) {
+		for (Libro libroIteracion : libros) {
 			if ( id == libroIteracion.getId() ) {
 				resul = libroIteracion;
 				break;
@@ -57,11 +56,11 @@ public class LibroArrayDAO implements CrudAble<Libro>{
 		int i = 0;
 		if ( libroUpdate != null ) {
 			//Iterator		
-			Iterator<Libro> it = lista.iterator();
+			Iterator<Libro> it = libros.iterator();
 			while( it.hasNext() ) {
 				libroIteracion = it.next();
 				if ( libroIteracion.getId() == libroUpdate.getId() ) {
-					lista.set(i, libroUpdate);
+					libros.set(i, libroUpdate);
 					resul = true;
 					break;					
 				}	
@@ -78,17 +77,49 @@ public class LibroArrayDAO implements CrudAble<Libro>{
 		Libro lIteracion = null;
 		
 		//buscar video a eliminar
-		for (int i = 0; i < lista.size(); i++) {
+		for (int i = 0; i < libros.size(); i++) {
 			
-			lIteracion = lista.get(i);   //libro sobre el que iteramos
+			lIteracion = libros.get(i);   //libro sobre el que iteramos
 			
 			if ( id == lIteracion.getId() ) {    // libro encontrado
-				resul = lista.remove(lIteracion);
+				resul = libros.remove(lIteracion);
 				break;
 			}
 		}
 		
 		return resul;
 	}
+/**
+ * retorna los libros prestados o no prestados
+ * @param isPrestado boolean true => lista prestados
+ * @return listado libros
+ */
+	public List<Libro> getAllPrestados(boolean isPrestado) {
 
+		ArrayList<Libro> resul = new ArrayList<Libro>();
+		for (Libro libro : libros) {
+			if (libro.isPrestado() == isPrestado ) {
+				resul.add(libro);
+			}
+		}
+		
+		return resul;
+	}
+/**
+ * Buscamos libros que contengan titulo
+ * @param titulo String termino a buscar
+ * @return listado de Libros que coincidan con la busqueda
+ */
+	public List<Libro> buscarPorTitulo (String busqueda) {	
+		ArrayList<Libro> resul = new ArrayList<Libro>();
+		if (busqueda != null) {
+			for (Libro libro : libros) {
+				if (libro.getTitulo().toLowerCase().contains(busqueda.toLowerCase()) ) {
+					resul.add(libro);
+				}
+			}
+		}
+		return null;
+	}
+	
 }
