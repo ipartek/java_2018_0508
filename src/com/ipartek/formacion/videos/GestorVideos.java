@@ -1,5 +1,7 @@
 package com.ipartek.formacion.videos;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 import com.ipartek.formacion.model.VideoYoutubeArrayDAO;
@@ -25,7 +27,8 @@ public class GestorVideos {
 	static private final int OPCION_SALIR = 0;
 	static private final int OPCION_LISTAR = 1;
 	static private final int OPCION_ANADIR = 2;
-	static private final int OPCION_ELIMINAR = 3;
+	static private final int OPCION_MODIFICAR = 3;
+	static private final int OPCION_ELIMINAR = 4;
 
 	static private final int MIN_LONG_TITULO = 3;
 	static private final int MAX_LONG_TITULO = 256;
@@ -57,6 +60,10 @@ public class GestorVideos {
 
 				case OPCION_ANADIR:
 					anadir();
+					break;
+					
+				case OPCION_MODIFICAR:
+					modificar();
 					break;
 
 				case OPCION_ELIMINAR:
@@ -94,10 +101,10 @@ public class GestorVideos {
 
 	private static void cargarVideos() {
 
-		VideoYoutube video = new VideoYoutube(++cont, "Crystallion - Crystal Clear", "qllRVZnpttM");
+		VideoYoutube video = new VideoYoutube(++cont, "qllRVZnpttM", "Crystallion - Crystal Clear");
 		dao.insert(video);
 
-		video = new VideoYoutube(++cont, "Crystallion - Burning Bridges", "MSRvZ-YSlZI");
+		video = new VideoYoutube(++cont, "MSRvZ-YSlZI", "Crystallion - Burning Bridges");
 		dao.insert(video);
 
 	}
@@ -181,6 +188,51 @@ public class GestorVideos {
 
 	}
 
+	private static void modificar() {
+		long id;
+		String titulo = null;
+		String codigo = null;
+
+		System.out.println("Por favor, teclea el id del video que deseas modificar : ");
+		try {
+			id = sc.nextLong();
+			do{
+				try {
+					System.out.println("Introduce un titulo nuevo:");
+					titulo = sc.nextLine();
+				} catch (Exception e) {
+					System.out.println("Introduce un titulo valido por favor.");
+				}
+			}while(titulo == null);
+			sc.nextLine();
+			do{
+				try {
+					System.out.println("Introduce un codigo nuevo:");
+					codigo = sc.nextLine();
+				} catch (Exception e) {
+					System.out.println("Introduce un titulo valido por favor.");
+				}
+			}while(codigo == null);
+			List<VideoYoutube> todos = new ArrayList<VideoYoutube>();
+			todos = dao.getAll();
+			for (int i = 0; i < todos.size(); i++) {
+				if(todos.get(i).getId() == id){
+					todos.get(i).setCodigo(codigo);
+					todos.get(i).setNombre(titulo);
+					System.out.println("Video modificado correctamente.");
+				}
+			}
+		} catch (Exception e) {
+
+			System.out.println("ID NO VALIDA. Por favor, teclea un ID numerico correcto.");
+			sc.nextLine();
+			modificar();
+
+		} finally {
+
+		}
+	}
+	
 	private static void pintarMenu() {
 
 		System.out.println("------------------------------------");
@@ -188,7 +240,8 @@ public class GestorVideos {
 		System.out.println("------------------------------------");
 		System.out.println("-    1. Listar                     -");
 		System.out.println("-    2. Añadir Nuevo               -");
-		System.out.println("-    3. Eliminar                   -");
+		System.out.println("-    3. Modificar                  -");
+		System.out.println("-    4. Eliminar                   -");
 		System.out.println("-    0. Salir                      -");
 		System.out.println("------------------------------------");
 		System.out.println("");
@@ -201,10 +254,9 @@ public class GestorVideos {
 			} catch (Exception e) {
 				System.out.println("Introduce una opcion del menu, por favor.");
 			} finally {
-				System.out.println("Selecciona una");
 				sc.nextLine();
 			}
-		}while(opcionSeleccionada < 0 || opcionSeleccionada > 3);
+		}while(opcionSeleccionada < 0 || opcionSeleccionada > 4);
 
 	}
 
