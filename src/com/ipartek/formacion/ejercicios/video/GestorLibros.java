@@ -6,6 +6,7 @@ import java.util.Scanner;
 
 import com.ipartek.formacion.model.LibroDAO;
 import com.ipartek.formacion.pojo.Libro;
+import com.ipartek.formacion.pojo.Youtube;
 
 public class GestorLibros {
 
@@ -16,6 +17,7 @@ public class GestorLibros {
 	static private final int OPCION_LISTAR_PRESTADOS = 2;
 	static private final int OPCION_LISTAR_NOPRESTADOS = 3;
 	static private final int OPCION_BUSCAR = 4;
+
 
 	private static LibroDAO dao = LibroDAO.getIntance();
 
@@ -68,6 +70,7 @@ public class GestorLibros {
 				}
 			} catch (InputMismatchException ex) {
 				System.out.println("No has introducido un numero valido");
+				System.out.println("Debe ser un numero entero ");
 			}
 
 		} while (opcion != OPCION_SALIR);
@@ -103,7 +106,7 @@ public class GestorLibros {
 				"LIBROS DEL K.O", false);
 		dao.insert(lib);
 		lib = new Libro("9788467575057", "LENGUA TRIMESTRAL 2º EDUCACION PRIMARIA SAVIA ED 2015 ", "EDICIONES SM",
-				true);
+				false);
 		dao.insert(lib);
 		lib = new Libro(" 9788467575071", "MATEMÃ�TICAS TRIMESTRAL SAVIA-15", "EDICIONES SM", false);
 		dao.insert(lib);
@@ -124,6 +127,7 @@ public class GestorLibros {
 
 		List<Libro> lib = dao.getAll();
 		String titulo;
+
 		System.out.println("Ingrese el libro que desea buscar por favor : ");
 		titulo = sr.nextLine();
 
@@ -134,6 +138,7 @@ public class GestorLibros {
 			}
 
 		}
+
 	}
 
 	private static void mostrarLista(List<Libro> lib) {
@@ -157,5 +162,4 @@ public class GestorLibros {
 		System.out.println("0 - Salir");
 
 	}
-
 }
