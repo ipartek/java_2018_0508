@@ -133,7 +133,6 @@ public class Libro implements Serializable, Imprimible{
 
 	@Override
 	public void imprimir() {
-		// TODO Auto-generated method stub
 		
 	}
 
