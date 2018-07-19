@@ -11,7 +11,7 @@ public class LibroDAO implements CrudAble<Libro> {
 	private static List<Libro> lista = null;
 
 	/**
-	 * inicializa el array
+	 * Constructor inicializa el array
 	 */
 	private LibroDAO() {
 
@@ -19,9 +19,10 @@ public class LibroDAO implements CrudAble<Libro> {
 	}
 
 	/**
-	 * metodo de acceso al DAO
+	 * PAtron singlenton---metodo sincronizado de acceso al DAO desde fuera para que
+	 * solo hay uno accediendo
 	 * 
-	 * @return INSTANCE
+	 * @return INSTANCE la propia clase
 	 */
 	public static synchronized LibroDAO getInstance() {
 
@@ -66,13 +67,22 @@ public class LibroDAO implements CrudAble<Libro> {
 		return false;
 	}
 
-	public Libro getByTitulo(String titulo) {
-		Libro resul = null;
+	/**
+	 * Buscamos libros donde coincida el texto,es ignoreCase, nos sirve cualquier
+	 * coincidencia, no tiene porque ser el titulo exacto
+	 * 
+	 * @param texto String que puede ser completo o parcial
+	 * @return listado de libros que coincidan con el texto a buscar
+	 */
+	public List<Libro> getByTitulo(String texto) {
+		ArrayList<Libro> resul = new ArrayList<Libro>();
 
-		for (Libro libroIteracion : lista) {
-			if (titulo == libroIteracion.getTitulo()) {
-				resul = libroIteracion;
-				break;
+		if (texto != null) {
+			for (Libro libroIteracion : lista) {
+				if (libroIteracion.getTitulo().toLowerCase().trim().contains(texto.toLowerCase().trim())) {
+					resul.add(libroIteracion);
+
+				}
 			}
 
 		}
@@ -80,4 +90,24 @@ public class LibroDAO implements CrudAble<Libro> {
 		return resul;
 
 	}
+
+	/**
+	 * Retorna los libros prestados o no prestados
+	 * 
+	 * @param isPrestado boolean true ==> listado de prestados, false==> listado no
+	 *                   prestados
+	 * @return lista de libros
+	 */
+	public List<Libro> getALlPrestados(boolean isPrestado) {
+
+		ArrayList<Libro> resul = new ArrayList<Libro>();
+
+		for (Libro libro : lista) {
+			if (libro.isPrestado() == isPrestado) {
+				resul.add(libro);
+			}
+		}
+		return resul;
+	}
+
 }

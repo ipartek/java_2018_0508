@@ -19,6 +19,9 @@ public class Biblioteca {
 	static private final int OPCION_BUSCAR = 3;
 	static private final int VACIO = 0;
 
+	static private final boolean OPCION_NOPRESTADO = false;
+	static private final boolean OPCION_PRESTADO = true;
+
 	public static void main(String[] args) {
 
 		try {
@@ -59,16 +62,15 @@ public class Biblioteca {
 		sc = new Scanner(System.in);
 		String texto = "";
 
-		ArrayList<Libro> libro = (ArrayList<Libro>) dao.getALl();
-
 		System.out.println("Introduzca texto del titulo a buscar:");
 		texto = sc.next();
 
+		ArrayList<Libro> libro = (ArrayList<Libro>) dao.getByTitulo(texto);
+
 		for (Libro l : libro) {
-			if (l.getTitulo().toLowerCase().trim().contains(texto.toLowerCase().trim())) {
-				System.out.println(l);
-				contBuscar++;
-			}
+			System.out.println(l);
+			contBuscar++;
+
 		}
 		if (contBuscar == VACIO) {
 			System.out.println("El libro que buscas, no esta en nuestra base de datos.");
@@ -86,22 +88,26 @@ public class Biblioteca {
 	 */
 	private static void listarPrestados(int opcionListar) {
 		try {
-			ArrayList<Libro> libro = (ArrayList<Libro>) dao.getALl();
+			if (opcionListar == OPCION_LISTARPRESTADOS) {
+				ArrayList<Libro> libro = (ArrayList<Libro>) dao.getALlPrestados(OPCION_PRESTADO);
+				for (Libro l : libro) {
+					System.out.println(l);
+					contBuscar++;
 
-			if (libro.size() <= VACIO) {
-				System.out.println("No hay libros para mostrar.");
-			} else if (opcionListar == OPCION_LISTARPRESTADOS) {
-				for (Libro l : libro) {
-					if (l.isPrestado()) {
-						System.out.println("  " + l + " \n");
-					}
 				}
-			} else if (opcionListar == OPCION_LISTARNOPRESTADOS) {
+			} else {
+				System.out.println("Actualmente no hay libros en prestamos");
+			}
+
+			if (opcionListar == OPCION_LISTARNOPRESTADOS) {
+				ArrayList<Libro> libro = (ArrayList<Libro>) dao.getALlPrestados(OPCION_NOPRESTADO);
 				for (Libro l : libro) {
-					if (!l.isPrestado()) {
-						System.out.println("  " + l + " \n");
-					}
+					System.out.println(l);
+					contBuscar++;
+
 				}
+			} else {
+				System.out.println("Actualmente estan todos prestados");
 			}
 
 		} catch (Exception e) {
