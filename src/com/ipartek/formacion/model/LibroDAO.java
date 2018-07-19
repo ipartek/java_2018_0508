@@ -19,7 +19,7 @@ public class LibroDAO implements CrudAble<Libro>{
 		lista = new ArrayList<Libro>();
 	}
 	
-	public static synchronized LibroDAO getInstance(long mock1Id, String mock1Isbn, String mock1Titulo, String mock1Editorial, boolean mock1Prestado) {
+	public static synchronized LibroDAO getInstance() {
 		if(INSTANCE == null) {
 			INSTANCE = new LibroDAO();
 		}
@@ -29,8 +29,11 @@ public class LibroDAO implements CrudAble<Libro>{
 
 	@Override
 	public boolean insert(Libro pojo) {
-		
-		return false;
+		boolean resul = false;
+		if(pojo != null) {
+			resul = lista.add(pojo);
+		}
+		return resul;
 	}
 
 	@Override
@@ -59,6 +62,40 @@ public class LibroDAO implements CrudAble<Libro>{
 	@Override
 	public boolean delete(long id) {
 		return false;
+	}
+	
+	/**
+	 * Retorna los libros prestados o No prestados
+	 * @param isPrestado boolean true => listado de prestados, false => listado No prestados
+	 * @return listado de libros
+	 */
+	public List<Libro> getAllPrestados(boolean isPrestado) {
+		ArrayList<Libro> resul = new ArrayList<Libro>();
+		for (Libro libro : lista) {
+			if(libro.isPrestado() == isPrestado) {
+				resul.add(libro);
+			}
+		}
+		
+		return resul;
+	}
+	
+	/**
+	 * Buscamos libros que coincidan con la busqueda, es ignoreCase, nos sirve cualquier coincidencia no tiene porque ser el titulo exacto
+	 * @param busqueda String termino a buscar
+	 * @return listado de Libros que coincidan con la busqueda
+	 */
+	public List<Libro> buscarPorTitulo(String busqueda){
+		ArrayList<Libro> resul = new ArrayList<Libro>();
+		if(busqueda != null) {
+			for (Libro libro : lista) {
+				if(libro.getTitulo().toUpperCase().contains(busqueda.toUpperCase())) {
+					resul.add(libro);
+				}
+			}
+		}
+		
+		return resul;
 	}
 
 }

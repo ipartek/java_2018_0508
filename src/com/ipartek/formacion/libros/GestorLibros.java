@@ -19,7 +19,7 @@ public class GestorLibros {
 
 		try {
 
-			dao = LibroDAO.getInstance(0, null, null, null, false);
+			dao = LibroDAO.getInstance();
 			teclado = new Scanner(System.in);
 			cargarLibros();
 			pintarMenu();
@@ -91,7 +91,6 @@ public class GestorLibros {
 	 * @throws Exception
 	 */
 	private static void cargarLibros() throws Exception {
-		//TODO Hay que hacerlo mediante el DAO no con esto
 		Libro libro1 = new Libro(1, "9788416001460", "FARIÑA", "LIBROS DEL K.O", true);
 		dao.insert(libro1);
 		Libro libro2 = new Libro(2, "9788467575057", "LENGUA TRIMESTRAL 2º", "EDICIONES SM", false);
@@ -113,7 +112,6 @@ public class GestorLibros {
 	 */
 	private static void buscar() {
 		try {
-			//List<Libro> libros = dao.getAll();
 			String busqueda = null;
 
 			teclado.nextLine();
@@ -132,28 +130,21 @@ public class GestorLibros {
 
 			System.out.println();
 			try {
-				int cont = 0;
+				//int cont = 0;
 				System.out.println("Estas son las coincidencias de lo que estabas buscando:");
 				System.out.println("-----------------------------------------------------------");
-				/*for (int i = 0; i < libros.size(); i++) {
-					String titulo = libro(i).getTitulo();
-					boolean contiene = titulo.contains(busqueda);
-					if (contiene == true) {
-						System.out.println(libros[i]);
-						cont++;
-					}
-				}*/
-				if (cont == 0) {
+				System.out.println(dao.buscarPorTitulo(busqueda));
+				/*if (cont == 0) {
 					System.out.println("No hay libros relacionados con tu busqueda.");
 					System.out.println();
-				}
+				}*/
 			} catch (Exception e) {
-				System.out.println("No se han encontrado libros.");
+				System.out.println("Se ha producido un error al listar tu busqueda, lo sentimos.");
 				e.printStackTrace();
 			}
 
 		} catch (Exception e) {
-			System.out.println("Lo sentimos, se ha producido un error.");
+			System.out.println("Se ha producido un error al listar tu busqueda, lo sentimos.");
 			e.printStackTrace();
 		} finally {
 			pintarMenu();
@@ -165,22 +156,16 @@ public class GestorLibros {
 	 */
 	private static void listarLibrosPrestados() {
 		System.out.println();
-		int contPres = 0;
+		//int contPres = 0;
 		try {
 			System.out.println("Estos son los libros que estan bajo prestamo:");
 			System.out.println("-----------------------------------------------------------");
-			/*for (int i = 0; i < libros.length; i++) {
-				if (libros[i].isPrestado() == true) {
-					System.out.println(libros[i]);
-					contPres++;
-				}
-			}*/
-
-			if (contPres == 0) {
+			System.out.println(dao.getAllPrestados(true));
+			/*if (contPres == 0) {
 				System.out.println("No hay libros bajo prestamo.");
-			}
+			}*/
 		} catch (Exception e) {
-			System.out.println("Error al listar todos los libros.");
+			System.out.println("Error al listar libros prestados, lo sentimos.");
 			e.printStackTrace();
 		} finally {
 			System.out.println();
@@ -193,21 +178,16 @@ public class GestorLibros {
 	 */
 	private static void listarLibrosNoPrestados() {
 		System.out.println();
-		int contNoPres = 0;
+		//int contNoPres = 0;
 		try {
 			System.out.println("Estos son los libros que no estan bajo prestamo:");
 			System.out.println("-----------------------------------------------------------");
-			/*for (int i = 0; i < libros.length; i++) {
-				if (libros[i].isPrestado() == false) {
-					System.out.println(libros[i]);
-					contNoPres++;
-				}
-			}*/
-			if (contNoPres == 0) {
+			System.out.println(dao.getAllPrestados(false));
+			/*if (contNoPres == 0) {
 				System.out.println("No hay libros que no esten bajo prestamo.");
-			}
+			}*/
 		} catch (Exception e) {
-			System.out.println("Error al listar todos los libros.");
+			System.out.println("Error al listar libros no prestados, lo sentimos.");
 			e.printStackTrace();
 		} finally {
 			System.out.println();
