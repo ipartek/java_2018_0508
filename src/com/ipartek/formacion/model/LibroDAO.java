@@ -45,6 +45,22 @@ public class LibroDAO implements CrudAble<Libro>{
 		
 		return lista;
 	}
+	
+	/**
+	 * Retorna los libros prestados o no prestados
+	 * @param isPrestado boolean true -> listado de prestados.  false -> listado de no prestados
+	 * @return Listado de libros
+	 */
+	public List<Libro> getAllPrestados(boolean isPrestado) {
+		
+		ArrayList<Libro> resultado = new ArrayList<Libro>(); 
+		for(Libro libro : lista) {
+			if( libro.isPrestado() == isPrestado ) {
+				resultado.add(libro);
+			}
+		}		
+		return resultado; 
+	}
 
 	@Override
 	public Libro getById(long id) {
@@ -62,18 +78,21 @@ public class LibroDAO implements CrudAble<Libro>{
 		return resultado;
 	}
 	
-	public Libro getByTitulo(String titulo) {
+	/**
+	 * Buscamos libros que coincida el título, es ignoreCase, nos sirve cualquier coincidencia
+	 * @param titulo String completo o parcial
+	 * @return listado de libros que coincidan con la 'busqueda'
+	 */
+	public List<Libro> getByTitulo(String busqueda) {
 		
-		Libro resultado = null;
-		
-		//foreach
-		for (Libro libroIteracion : lista) {
-			if(titulo == libroIteracion.getTitulo()) {
-				resultado = libroIteracion;
-				break;
-			}
+		ArrayList<Libro> resultado = new ArrayList<Libro>();
+		if ( busqueda != null ) {
+			for(Libro libro : lista) {
+				if( libro.getTitulo().toLowerCase().contains(busqueda.toLowerCase()) ) {
+					resultado.add(libro);
+				}
+			}		
 		}
-		
 		return resultado;
 	}
 
@@ -86,7 +105,22 @@ public class LibroDAO implements CrudAble<Libro>{
 	@Override
 	public boolean delete(long id) {
 		
-		return false;
+		boolean resultado = false;
+		
+		Libro libro = null;
+		
+		//Buscar libro a eliminar por su id.
+		for (int i = 0; i < lista.size(); i++) {
+			
+			libro = lista.get(i); //Libro sobre el que iteramos
+			
+			if (id == libro.getId()) { //Libro encontrado.
+				resultado = lista.remove(libro);
+				break;
+			}
+		}
+		
+		return resultado;
 	}
 	
 }

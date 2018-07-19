@@ -2,7 +2,7 @@ package com.ipartek.formacion.pojo;
 
 import java.util.Calendar;
 
-public class Libro {
+public class Libro implements Serializable, Imprimible{
 	
 	public static final int ISBN_MIN_LENGTH = 5;
 	public static final String ISBN_MENSAJE_EXCEPTION = "La longitud mínima del ISBN debe ser " + ISBN_MIN_LENGTH;

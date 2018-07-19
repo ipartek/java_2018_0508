@@ -75,8 +75,8 @@ public class GestorVideos {
 
 	private static void listar() {
 		
-		if(dao.getAll().size() == 0) {
-			System.out.println("No hay videos para listar, por favor a�ade uno nuevo");
+		if(dao.getAll().isEmpty()) {
+			System.out.println("No hay videos para listar, por favor añade uno nuevo");
 			pintarMenu();
 			opcionElegida();
 		}
@@ -140,8 +140,8 @@ public class GestorVideos {
 		
 		long id;
 		
-		if(dao.getAll().size() == 0) {
-			System.out.println("No hay videos en la lista, por favor a�ade uno nuevo");
+		if(dao.getAll().isEmpty()) {
+			System.out.println("No hay videos en la lista, por favor añade uno nuevo");
 			pintarMenu();
 			opcionElegida();
 		}

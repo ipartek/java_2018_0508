@@ -11,7 +11,7 @@ import com.ipartek.formacion.pojo.Libro;
 public class GestorLibros {
 
 		static private LibroDAO dao;
-		static private int opcionSeleccionada = 0;
+		static private int opcionSeleccionada = -1;
 		static Scanner sc = null;
 		static BufferedReader br = null;
 		
@@ -20,6 +20,8 @@ public class GestorLibros {
 		static private final int OPCION_LISTAR_PRESTADOS = 2;
 		static private final int OPCION_LISTAR_NO_PRESTADOS = 3;
 		static private final int OPCION_BUSCAR = 4;
+		static private final int OPCION_ANADIR = 5;
+		static private final int OPCION_ELIMINAR = 6;
 		static private int CONTADOR = 0;
 
 	public static void main(String[] args) {
@@ -35,8 +37,6 @@ public class GestorLibros {
 			cargarVideos();
 			
 			pintarMenu();
-
-			opcionElegida();
 			
 		} catch (Exception e) {
 			System.out.println("Lo sentimos, ha habido un error.");
@@ -77,16 +77,18 @@ public class GestorLibros {
 
 	private static void pintarMenu() {//throws Exception{
 		
-		System.out.println("---------------------------------------");
-		System.out.println("--          Libros                -----");
-		System.out.println("---------------------------------------");
-		System.out.println("-    1. Listar todos los libros    ----");
-		System.out.println("-    2. Listar libros prestados    ----");
-		System.out.println("-    3. Listar libros no prestados ----");
-		System.out.println("-    4. Buscar por título          ----");
-		System.out.println("-                                  ----");
-		System.out.println("-    0 - salir                     ----");
-		System.out.println("---------------------------------------");
+		System.out.println("----------------------------------------");
+		System.out.println("---          Libros                  ---");
+		System.out.println("----------------------------------------");
+		System.out.println("---    1. Listar todos los libros    ---");
+		System.out.println("---    2. Listar libros prestados    ---");
+		System.out.println("---    3. Listar libros no prestados ---");
+		System.out.println("---    4. Buscar por título          ---");
+		System.out.println("---    5. Añadir libro               ---");
+		System.out.println("---    6. Eliminar libro             ---");
+		System.out.println("---                                  ---");
+		System.out.println("---    0 - salir                     ---");
+		System.out.println("----------------------------------------");
 		System.out.println("");
 		System.out.println("Dime una opcion por favor");
 		
@@ -99,9 +101,10 @@ public class GestorLibros {
 			System.out.println("\nOPCIÓN NO VÁLIDA, Por favor, introduzca un número del menú\n");
 			
 			pintarMenu();
-			opcionElegida();
 			
 		}
+
+		opcionElegida();
 		
 	}
 
@@ -125,6 +128,14 @@ public class GestorLibros {
 			buscarPorTitulo();
 			break;
 
+		case OPCION_ANADIR:
+			anadirLibro();
+			break;
+
+		case OPCION_ELIMINAR:
+			eliminarLibro();
+			break;
+
 		case OPCION_SALIR:
 			salir();
 			break;	
@@ -142,55 +153,44 @@ public class GestorLibros {
 		}
 
 		pintarMenu();
-		opcionElegida();
 		
 	}
 
 	private static void listarPrestados() {
-		
-		int contadorPrestados = 0;
 			
-		for ( Libro libro : dao.getAll() ) {
+		for ( Libro libro : dao.getAllPrestados(true) ) {
 			
-			if(libro.isPrestado()) {
 				System.out.println("   " + libro);
-				contadorPrestados++;
-			}
+			
 		}
 		
-		if(contadorPrestados == 0) {
+		if(dao.getAll().isEmpty()) {
 			System.out.println("\nEn estos momentos no hay ningún libro prestado\n");
-		}
+		}	
 		
 		pintarMenu();
-		opcionElegida();
 		
 	}
 
 	private static void listarNoPrestados() {
-
-		int contadorNoPrestados = 0;
 			
-		for ( Libro libro : dao.getAll() ) {
-			if(libro.isPrestado() == false) {
+		for ( Libro libro : dao.getAllPrestados(false) ) {
+			
 				System.out.println("   " + libro);
-				contadorNoPrestados++;
-			}
+			
 		}
 		
-		if(contadorNoPrestados == 0) {
+		if(dao.getAll().isEmpty()) {
 			System.out.println("\nEn estos momentos todos los libros están prestados\n");
 		}
 		
 		pintarMenu();
-		opcionElegida();
 		
 	}
 
 	private static void buscarPorTitulo() {
 		
 		String titulo = "";
-		int librosEncontrados = 0;
 		
 		System.out.println("Introduce el título del libro que deseas buscar");
 		try {
@@ -199,28 +199,93 @@ public class GestorLibros {
 			System.out.println("Lo sentimos, ha ocurrido un error inesperado");
 		}
 		
-		for (Libro libro : dao.getAll()) {
-			if(libro.getTitulo().contains(titulo.toUpperCase())) {
-				System.out.println(libro);
-				librosEncontrados++;
-			}
+		for (Libro libro : dao.getByTitulo(titulo)) {
+			
+			System.out.println(libro);
 		}
 		
-		if(librosEncontrados == 0) {
+		if(dao.getByTitulo(titulo).isEmpty()) {
 			System.out.println("\nNo hemos encontrado ninún libro con ese titulo\n");
 			buscarPorTitulo();
 		}
 		
 		pintarMenu();
-		opcionElegida();
+		
+	}
+	
+	private static void anadirLibro() {
+		
+		Libro libro =  new Libro();
+		long id = ++CONTADOR;
+		String isbn = "";
+		String titulo = "";
+		String editorial = "";
+		char prestado = 'n';
+		
+		libro.setId(id);
+		
+		do {
+			System.out.println("¿Cuál es el ISBN del libro?");
+			isbn = sc.next();
+			try {
+				libro.setIsbn(isbn);
+			} catch (Exception e1) {
+				System.out.println("El ISBN debe contener 5 caracteres como mínimo");
+			} 
+		} while (isbn.trim().length() < 5);
+		
+		System.out.println("¿Cuál es el título del libro?");
+		try {
+			titulo = br.readLine();
+		} catch (IOException e) {
+			System.out.println("Lo sentimos, ha ocurrido un error inesperado");
+		}
+		libro.setTitulo(titulo);
+
+		System.out.println("¿Cuál es la editorial del libro?");
+		try {
+			editorial = br.readLine();
+		} catch (IOException e) {
+			System.out.println("Lo sentimos, ha ocurrido un error inesperado");
+		}
+		libro.setEditorial(editorial);
+		
+		System.out.println("¿El libro está prestado(s/n)?");
+		prestado = sc.next().charAt(0);
+		Character.toLowerCase(prestado);
+		
+		if(prestado == 's') {
+			libro.setPrestado(true);
+		}else {
+			libro.setPrestado(false);
+		}
+		
+		dao.insert(libro);
+		
+		if(dao.getAll().size() == CONTADOR) {
+			System.out.println("\nLibro insertado correctamente\n");
+		}
+		
+		pintarMenu();
 		
 	}
 
-	private static void noOption() {
+	private static void eliminarLibro() {
 		
-		System.out.println("Lo sentimos, no existe esa opcion");
+		long id;
+
+		System.out.println("Introduce la id del libro a eliminar");
+		id = sc.nextLong();
+		
+		while(dao.getById(id) == null) {
+			System.out.println("No puede eliminar algo que no existe");
+			System.out.println("Introduzca otra id");
+			id = sc.nextLong();
+		}
+		
+		dao.delete(id);
+		
 		pintarMenu();
-		opcionElegida();
 		
 	}
 
@@ -232,6 +297,13 @@ public class GestorLibros {
 		System.out.println("");
 		System.out.println("");
 		System.out.println("AGUR VENUR, esperamos verte pronto");
+		
+	}
+
+	private static void noOption() {
+		
+		System.out.println("Lo sentimos, no existe esa opcion");
+		pintarMenu();
 		
 	}
 
