@@ -1,12 +1,9 @@
 package com.ipartek.formacion.ejercicios;
 
-//TODO crear una nueva clase Excepciones2 con un metodo main, metodoA, metodoB y metodoC
 /*main llama a metodoA, metodoA a metodoB, B a C, C casca*/
-
 public class Excepciones2 {
 
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
 		System.out.println("Main empezamos");
 		MetodoA();
 		System.out.println("Main terminamos");

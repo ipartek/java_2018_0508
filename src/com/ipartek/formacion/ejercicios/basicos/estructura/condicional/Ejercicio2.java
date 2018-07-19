@@ -3,7 +3,7 @@ package com.ipartek.formacion.ejercicios.basicos.estructura.condicional;
 import java.util.Scanner;
 
 /***
- * Programa que lea un número entero y muestre si el número es múltiplo de 10.
+ * Programa que lea un nï¿½mero entero y muestre si el nï¿½mero es mï¿½ltiplo de 10.
  * 
  * @author Curso
  *
@@ -11,7 +11,6 @@ import java.util.Scanner;
 public class Ejercicio2 {
 
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
 		int num;
 
 		Scanner sc = new Scanner(System.in);

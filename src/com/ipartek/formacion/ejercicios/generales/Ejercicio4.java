@@ -3,7 +3,7 @@ package com.ipartek.formacion.ejercicios.generales;
 import java.util.Scanner;
 
 /***
- * Mostrar la tabla de multiplicar de un número.
+ * Mostrar la tabla de multiplicar de un nï¿½mero.
  * 
  * @author user
  *
@@ -11,7 +11,6 @@ import java.util.Scanner;
 public class Ejercicio4 {
 
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
 		int num;
 
 		Scanner sc = new Scanner(System.in);

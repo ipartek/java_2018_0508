@@ -3,8 +3,8 @@ package com.ipartek.formacion.ejercicios.basicos.estructura.condicional;
 import java.util.Scanner;
 
 /***
- * Programa que lea dos números por teclado y muestre el resultado de la
- * división del primero por el segundo. Se debe comprobar que el divisor no
+ * Programa que lea dos nï¿½meros por teclado y muestre el resultado de la
+ * divisiï¿½n del primero por el segundo. Se debe comprobar que el divisor no
  * puede ser cero.
  * 
  * @author Curso
@@ -13,7 +13,6 @@ import java.util.Scanner;
 public class Ejercicio7 {
 
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
 		double num1, num2;
 
 		Scanner sc = new Scanner(System.in);

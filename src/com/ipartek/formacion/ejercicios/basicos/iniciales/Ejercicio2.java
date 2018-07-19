@@ -3,9 +3,9 @@ package com.ipartek.formacion.ejercicios.basicos.iniciales;
 /**
  * Programa java que realice lo siguiente: declarar dos variables X e Y de tipo
  * int, dos variables N y M de tipo double y asigna a cada una un valor. A
- * continuación reliza y muestra por pantalla: El valor de cada variable. La
- * suma X + Y La diferencia X – Y El producto X * Y El cociente X / Y El resto X
- * % Y La suma N + M La diferencia N – M El producto N * M El cociente N / M El
+ * continuaciï¿½n reliza y muestra por pantalla: El valor de cada variable. La
+ * suma X + Y La diferencia X ï¿½ Y El producto X * Y El cociente X / Y El resto X
+ * % Y La suma N + M La diferencia N ï¿½ M El producto N * M El cociente N / M El
  * resto N % M La suma X + N El cociente Y / M El resto Y % M El doble de cada
  * variable La suma de todas las variables El producto de todas las variables
  * 
@@ -15,7 +15,6 @@ package com.ipartek.formacion.ejercicios.basicos.iniciales;
 public class Ejercicio2 {
 
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
 		int x = 15;
 		int y = 20;
 		double n = 2.5;

@@ -4,9 +4,9 @@ import java.util.Scanner;
 
 /***
  * 
- * Calcular el mayor de tres números enteros en Java.
+ * Calcular el mayor de tres nï¿½meros enteros en Java.
  * 
- * El programa lee por teclado tres números enteros y calcula y muestra el mayor
+ * El programa lee por teclado tres nï¿½meros enteros y calcula y muestra el mayor
  * de los tres.
  * 
  * @author Curso
@@ -15,7 +15,6 @@ import java.util.Scanner;
 public class Ejercicio8 {
 
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
 		int num1, num2, num3;
 
 		Scanner sc = new Scanner(System.in);

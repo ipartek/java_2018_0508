@@ -3,7 +3,7 @@ package com.ipartek.formacion.ejercicios.generales;
 import java.util.Scanner;
 
 /***
- * Calcular el número de cifras de un número entero
+ * Calcular el nï¿½mero de cifras de un nï¿½mero entero
  * 
  * @author user
  *
@@ -11,7 +11,6 @@ import java.util.Scanner;
 public class Ejercicio2 {
 
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
 		int num;
 		String numT;
 		char opc;

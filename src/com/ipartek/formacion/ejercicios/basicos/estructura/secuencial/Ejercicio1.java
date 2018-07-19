@@ -3,7 +3,7 @@ package com.ipartek.formacion.ejercicios.basicos.estructura.secuencial;
 import java.util.Scanner;
 
 /***
- * Programa Java que lea dos números enteros por teclado y los muestre por
+ * Programa Java que lea dos nï¿½meros enteros por teclado y los muestre por
  * pantalla.
  * 
  * @author user
@@ -12,7 +12,6 @@ import java.util.Scanner;
 public class Ejercicio1 {
 
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
 		int num1;
 		int num2;
 

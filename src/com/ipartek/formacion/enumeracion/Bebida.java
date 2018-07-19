@@ -29,7 +29,6 @@ public class Bebida {
 	}
 	
 	float calcularPrecio(PrecioBebida p, Vaso v) {
-		//TODO implementar
 		float total, ccToL;
 		ccToL = (float) v.getCC()/1000;
 		total = p.getPrecio() * ccToL;

@@ -3,11 +3,11 @@ package com.ipartek.formacion.ejercicios.basicos.estructura.secuencial;
 import java.util.Scanner;
 
 /***
- * Programa que calcula el área de un triángulo a partir de la longitud de sus
+ * Programa que calcula el ï¿½rea de un triï¿½ngulo a partir de la longitud de sus
  * lados.
  * 
  * Area = RaizCuadrada(p*(p-a)*(p-b)*(p-c)) donde p = (a+b+c)/2 Para calcular la
- * raíz cuadrada se utiliza el método Math.sqrt()
+ * raï¿½z cuadrada se utiliza el mï¿½todo Math.sqrt()
  * 
  * @author Curso
  *
@@ -15,7 +15,6 @@ import java.util.Scanner;
 public class Ejercicio9 {
 
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
 		double lado1;
 		double lado2;
 		double lado3;

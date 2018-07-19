@@ -10,7 +10,6 @@ import java.io.IOException;
 public class Fichero {
 
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
 		crearFichero();
 
 		leerFichero();
@@ -21,7 +20,6 @@ public class Fichero {
 	}
 
 	private static void crearFichero() {
-		// TODO Auto-generated method stub
 		System.out.println("Crear fichero");
 		File f = new File("temp.txt");
 		System.out.println(f.getAbsolutePath());
@@ -51,14 +49,12 @@ public class Fichero {
 				f.createNewFile();
 				System.out.println("Creando fichero...");
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
 				System.out.println("Error al crear el fichero.");
 			}
 		}
 	}
 
 	private static void leerFichero() {
-		// TODO Auto-generated method stub
 
 		// StringBuilder sb = new StringBuilder(); //Para strings largos
 
@@ -94,8 +90,7 @@ public class Fichero {
 		System.out.println("Terminada lectura de fichero.");
 	}
 
-	private static void buscarMiTesoro() {
-		// TODO Auto-generated method stub		
+	private static void buscarMiTesoro() {	
 		String tesoro = "MiTesoro";
 
 		File dir = new File("C:/Desarrollo/Eclipse_Workspace/java_2018_0508/ficheros");
@@ -121,7 +116,6 @@ public class Fichero {
 						}
 
 					} catch (Exception e) {
-						// TODO Auto-generated catch block
 						System.out.println("Error al leer fichero.");
 					}
 				}
@@ -138,8 +132,6 @@ public class Fichero {
 	 * @return
 	 */
 	private static void searchFile(File dir, String tesoro) {
-		// TODO Auto-generated method stub
-		//boolean resul = false;
 		
 		if (dir.isDirectory()) {
 			File[] subcarpetas = dir.listFiles();
@@ -157,7 +149,6 @@ public class Fichero {
 						while ((linea = bf.readLine()) != null) {
 							if(linea.contains(tesoro)) {
 								System.out.println("Tesoro encontrado en: " + subcarpetas[i].getAbsolutePath());
-								//resul = true;
 								break;
 							}
 						}
@@ -165,7 +156,6 @@ public class Fichero {
 						fr.close();
 
 					} catch (Exception e) {
-						// TODO Auto-generated catch block
 						System.out.println("Error al leer fichero.");
 					}
 				}
@@ -176,7 +166,6 @@ public class Fichero {
 	}
 
 	private static void listarUnidadesPc() {
-		// TODO Auto-generated method stub
 		System.out.println("Listar unidades disco duro");
 
 		File[] unidades = File.listRoots();

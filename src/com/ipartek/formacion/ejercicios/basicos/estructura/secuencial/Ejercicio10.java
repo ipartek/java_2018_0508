@@ -3,7 +3,7 @@ package com.ipartek.formacion.ejercicios.basicos.estructura.secuencial;
 import java.util.Scanner;
 
 /***
- * Programa que lee un número de 3 cifras y muestra sus cifras por separado.
+ * Programa que lee un nï¿½mero de 3 cifras y muestra sus cifras por separado.
  * 
  * @author Curso
  *
@@ -11,7 +11,6 @@ import java.util.Scanner;
 public class Ejercicio10 {
 
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
 		int n;
 		Scanner sc = new Scanner(System.in);
 

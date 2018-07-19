@@ -3,8 +3,8 @@ package com.ipartek.formacion.ejercicios.basicos.estructura.secuencial;
 import java.util.Scanner;
 
 /***
- * Programa Java que lee un número entero por teclado y obtiene y muestra por
- * pantalla el doble y el triple de ese número.
+ * Programa Java que lee un nï¿½mero entero por teclado y obtiene y muestra por
+ * pantalla el doble y el triple de ese nï¿½mero.
  * 
  * @author user
  *
@@ -12,7 +12,6 @@ import java.util.Scanner;
 public class Ejercicio3 {
 
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
 		int numero;
 
 		Scanner sc = new Scanner(System.in);

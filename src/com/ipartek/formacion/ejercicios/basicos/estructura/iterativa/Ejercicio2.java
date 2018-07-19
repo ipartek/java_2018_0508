@@ -1,7 +1,7 @@
 package com.ipartek.formacion.ejercicios.basicos.estructura.iterativa;
 
 /***
- * Programa Java que muestre los números del 1 al 100 utilizando la instrucción
+ * Programa Java que muestre los nï¿½meros del 1 al 100 utilizando la instrucciï¿½n
  * do..while
  * 
  * @author user
@@ -10,7 +10,6 @@ package com.ipartek.formacion.ejercicios.basicos.estructura.iterativa;
 public class Ejercicio2 {
 
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
 		int i = 1;
 		do {
 			System.out.println(i++);

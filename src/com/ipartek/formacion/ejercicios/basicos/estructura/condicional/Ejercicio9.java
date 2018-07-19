@@ -3,9 +3,9 @@ package com.ipartek.formacion.ejercicios.basicos.estructura.condicional;
 import java.util.Scanner;
 
 /***
- * Programa que lea tres números enteros H, M, S que contienen hora, minutos y
+ * Programa que lea tres nï¿½meros enteros H, M, S que contienen hora, minutos y
  * segundos respectivamente, y comprueba si la hora que indican es una hora
- * válida.
+ * vï¿½lida.
  * 
  * @author Curso
  *
@@ -13,7 +13,6 @@ import java.util.Scanner;
 public class Ejercicio9 {
 
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
 		int h, m, s;
 
 		Scanner sc = new Scanner(System.in);

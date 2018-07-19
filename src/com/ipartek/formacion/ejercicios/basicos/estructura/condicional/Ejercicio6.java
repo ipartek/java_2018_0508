@@ -3,7 +3,7 @@ package com.ipartek.formacion.ejercicios.basicos.estructura.condicional;
 import java.util.Scanner;
 
 /***
- * Programa que lea un carácter y compruebe si es un número (Carácter entre '0'
+ * Programa que lea un carï¿½cter y compruebe si es un nï¿½mero (Carï¿½cter entre '0'
  * y '9').
  * 
  * @author Curso
@@ -12,7 +12,6 @@ import java.util.Scanner;
 public class Ejercicio6 {
 
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
 		char c1;
 
 		Scanner sc = new Scanner(System.in);

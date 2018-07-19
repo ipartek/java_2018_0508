@@ -3,8 +3,8 @@ package com.ipartek.formacion.ejercicios.basicos.estructura.secuencial;
 import java.util.Scanner;
 
 /***
- * Programa que lea una cantidad de grados centígrados y la pase a grados
- * Fahrenheit. La fórmula correspondiente es: F = 32 + ( 9 * C / 5)
+ * Programa que lea una cantidad de grados centï¿½grados y la pase a grados
+ * Fahrenheit. La fï¿½rmula correspondiente es: F = 32 + ( 9 * C / 5)
  * 
  * @author user
  *
@@ -12,7 +12,6 @@ import java.util.Scanner;
 public class Ejercicio4 {
 
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
 
 		double centigrados;
 		double fahrenheit;
@@ -24,7 +23,7 @@ public class Ejercicio4 {
 
 		fahrenheit = 32 + (9 * centigrados / 5);
 
-		System.out.println(centigrados + " ºC son " + fahrenheit + " grados Fahrenheit.");
+		System.out.println(centigrados + " ï¿½C son " + fahrenheit + " grados Fahrenheit.");
 
 		sc.close();
 	}

@@ -3,8 +3,8 @@ package com.ipartek.formacion.ejercicios.basicos.estructura.secuencial;
 import java.util.Scanner;
 
 /***
- * Programa Java que lea un nombre y muestre por pantalla: “Buenos dias
- * nombre_introducido”.
+ * Programa Java que lea un nombre y muestre por pantalla: ï¿½Buenos dias
+ * nombre_introducidoï¿½.
  * 
  * @author user
  *
@@ -12,7 +12,6 @@ import java.util.Scanner;
 public class Ejercicio2 {
 
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
 		String nombre;
 		Scanner sc = new Scanner(System.in);
 		System.out.println("Introduzca su nombre: ");

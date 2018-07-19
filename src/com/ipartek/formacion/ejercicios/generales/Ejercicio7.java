@@ -11,7 +11,6 @@ import java.util.Scanner;
 public class Ejercicio7 {
 
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
 		int num1, num2;
 		int totalDivisores1 = 0, totalDivisores2 = 0;
 

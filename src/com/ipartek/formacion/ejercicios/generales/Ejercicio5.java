@@ -3,7 +3,7 @@ package com.ipartek.formacion.ejercicios.generales;
 import java.util.Scanner;
 
 /***
- * Leer números y contar cuántos acaban en 2.
+ * Leer nï¿½meros y contar cuï¿½ntos acaban en 2.
  * 
  * @author user
  *
@@ -11,7 +11,6 @@ import java.util.Scanner;
 public class Ejercicio5 {
 
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
 		int num, cont = 0;
 
 		Scanner sc = new Scanner(System.in);

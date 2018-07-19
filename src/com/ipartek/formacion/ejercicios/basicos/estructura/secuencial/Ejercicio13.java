@@ -3,9 +3,9 @@ package com.ipartek.formacion.ejercicios.basicos.estructura.secuencial;
 import java.util.Scanner;
 
 /***
- * Programa que calcula el número de la suerte de una persona a partir de su
+ * Programa que calcula el nï¿½mero de la suerte de una persona a partir de su
  * fecha de nacimiento. Por ejemplo: Si la fecha de nacimiento es 12/07/1980
- * Calculamos el número de la suerte así: 12+7+1980 = 1999 1+9+9+9 = 28 Número
+ * Calculamos el nï¿½mero de la suerte asï¿½: 12+7+1980 = 1999 1+9+9+9 = 28 Nï¿½mero
  * de la suerte: 28
  * 
  * @author Curso
@@ -14,7 +14,6 @@ import java.util.Scanner;
 public class Ejercicio13 {
 
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
 		int dia;
 		int mes;
 		int anyo;
@@ -24,11 +23,11 @@ public class Ejercicio13 {
 		Scanner sc = new Scanner(System.in);
 
 		System.out.println("Introduce tu fecha de nacimiento");
-		System.out.println("Día: ");
+		System.out.println("Dï¿½a: ");
 		dia = sc.nextInt();
 		System.out.println("Mes: ");
 		mes = sc.nextInt();
-		System.out.println("Año: ");
+		System.out.println("Aï¿½o: ");
 		anyo = sc.nextInt();
 
 		total = dia + mes + anyo;

@@ -3,7 +3,7 @@ package com.ipartek.formacion.ejercicios.basicos.estructura.condicional;
 import java.util.Scanner;
 
 /***
- * Programa que lea dos caracteres y compruebe si son dos letras minúsculas.
+ * Programa que lea dos caracteres y compruebe si son dos letras minï¿½sculas.
  * 
  * @author Curso
  *
@@ -11,7 +11,6 @@ import java.util.Scanner;
 public class Ejercicio5 {
 
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
 		char c1, c2;
 
 		Scanner sc = new Scanner(System.in);
