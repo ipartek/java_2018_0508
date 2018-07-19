@@ -1,6 +1,9 @@
 package com.ipartek.formacion.pojo;
 
-public class Libro {
+import com.ipartek.formacion.herencia.Imprimible;
+import com.ipartek.formacion.herencia.Serializable;
+
+public class Libro implements Serializable, Imprimible {
 
 	private static final String EXCEPTION_MESSAGE_ISBN = "ERROR tiene que contener al menos 5 caracteres de tamaño";
 	private static final int ISBN_MIN_SIZE = 5;
@@ -27,7 +30,7 @@ public class Libro {
 		setTitulo(titulo);
 		setEditorial(editorial);
 		setPrestado(prestado);
-		
+
 	}
 
 	public long getId() {
@@ -44,6 +47,7 @@ public class Libro {
 
 	/**
 	 * Guardamos el valor del ISBN
+	 * 
 	 * @param isbn String identificador del libro
 	 * @throws Exception si ISBN == null or ISBN < ISBN_MIN_SIZE
 	 */
@@ -84,6 +88,11 @@ public class Libro {
 	public String toString() {
 		return "Libro [id=" + id + ", isbn=" + isbn + ", titulo=" + titulo + ", editorial=" + editorial + ", prestado="
 				+ prestado + "]";
+	}
+
+	@Override
+	public void imprimible() {
+		System.out.println("PRINT");
 	}
 
 }

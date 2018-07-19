@@ -1,5 +1,7 @@
 package com.ipartek.formacion.libros;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 import com.ipartek.formacion.model.LibroDAO;
@@ -112,7 +114,9 @@ public class GestorLibros {
 	private static void listarLibros(boolean prestado) {
 		System.out.println();
 		System.out.println((prestado) ? "Libros prestados: " : "Libros no prestados: ");
-		if (dao.getAll().isEmpty()) {
+		List<Libro>libros = dao.getAllPrestados(prestado);
+		
+		if (libros.isEmpty()) {
 			System.out.print((prestado) ? "No es hay libros prestados " : "No hay libros o están todos prestados");
 
 		}
@@ -120,7 +124,9 @@ public class GestorLibros {
 		 * for (Libro libro : dao.getAllPrestados(prestado)) {
 		 * System.out.println(libro.toString()); }
 		 */
-		dao.getAllPrestados(prestado).forEach((libro) -> System.out.println(libro));
+		
+		libros.forEach((libro) ->System.out.println(libro));
+	
 
 		System.out.println();
 
