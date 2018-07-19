@@ -13,8 +13,17 @@ public class Coche {
 	long km;
 	String matricula;
 	
-	public Coche(long id, String marca, String modelo, long km, String matricula) {
+	public Coche() {
 		super();
+		this.id = -1;
+		this.marca = "";
+		this.modelo = "";
+		this.km = 0;
+		this.matricula = "";
+	}
+	
+	public Coche(long id, String marca, String modelo, long km, String matricula) {
+		this();
 		this.id = id;
 		this.marca = marca;
 		this.modelo = modelo;

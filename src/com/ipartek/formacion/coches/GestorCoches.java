@@ -8,15 +8,16 @@ import java.io.InputStreamReader;
  */
 import com.ipartek.formacion.model.CocheDao;
 import com.ipartek.formacion.pojo.Coche;
+import com.ipartek.formacion.pojo.videoYoutube;
 
 public class GestorCoches {
 	// La declaracion se puede hacer aqui
-	static Coche[] Coches;
-	static CocheDao CocheDao;
+	static Coche coches;
+	static CocheDao cocheDao;
 
 	public static void main(String[] args) throws Exception {
 		// La inicializacion es mas correcta hacerla aqui
-		Coches = new Coche[5];
+		cocheDao = CocheDao.getInstance();
 		cargarMenu();
 	}
 
@@ -25,22 +26,21 @@ public class GestorCoches {
 		pintarMenu();
 	}
 
-	public static CocheDao PrecargarCochesDemo() {
+	public static void PrecargarCochesDemo() {
 		/**
 		 * long id, String marca, String modelo, long km, String matricula
 		 */
-		CocheDao = CocheDao.getInstance();
-		Coche coche1 = new Coche(1, "Audi", "A3", 12000, "xa-1234-asd");
-		Coche coche2 = new Coche(2, "Seat", "Ibiza", 12000, "xa-1234-asd");
-		Coche coche3 = new Coche(3, "Mercedes", "i 320", 12000, "xa-1234-asd");
-		Coche coche4 = new Coche(4, "wolsvagen", "Golf", 12000, "xa-1234-asd");
-		Coche coche5 = new Coche(5, "Ferrari", "Rosa", 12000, "xa-1234-asd");
-		CocheDao.insert(coche1);
-		CocheDao.insert(coche2);
-		CocheDao.insert(coche3);
-		CocheDao.insert(coche4);
-		CocheDao.insert(coche5);
-		return CocheDao;
+		Coche coche1 = new Coche(1, "Audi", "A3", 15000, "xa-1234-asd");
+		Coche coche2 = new Coche(2, "Seat", "Ibiza", 17899, "xa-1234-asd");
+		Coche coche3 = new Coche(3, "Mercedes", "i 320", 145674, "xa-1234-asd");
+		Coche coche4 = new Coche(4, "wolsvagen", "Golf", 127489, "xa-1234-asd");
+		Coche coche5 = new Coche(5, "Ferrari", "Rosa", 120789, "xa-1234-asd");
+		cocheDao.insert(coche1);
+		cocheDao.insert(coche2);
+		cocheDao.insert(coche3);
+		cocheDao.insert(coche4);
+		cocheDao.insert(coche5);
+
 	}
 
 	public static void pintarMenu() throws Exception {
@@ -53,7 +53,7 @@ public class GestorCoches {
 		System.out.println("-----2: Listar todos los coches------");
 		System.out.println("-----3: Listar todos los coches por marca------");
 		System.out.println("-----4: Listar todos los coches con Km por debajo de------");
-		System.out.println("-----5: Listar el coche con mas Km-----");
+		System.out.println("-----5: Listar todos los coches con mas de... Km");
 		System.out.println("-----6: Listar por km ------");
 		System.out.println("-----7: Salir ------");
 		;
@@ -81,7 +81,7 @@ public class GestorCoches {
 		final int LISTAR_TODOS_MARCA = 3;
 		final int LISTAR_TODOS_KM_ABAJO = 4;
 		final int LISTAR_TODOS_KM_ARRIBA = 5;
-		final int LISTAR_TODOS_KM = 6;
+		final int LISTAR_MAYOR_KM = 6;
 		final int SALIR = 7;
 		switch (opcion) {
 		case (ANADIR):
@@ -99,8 +99,8 @@ public class GestorCoches {
 		case (LISTAR_TODOS_KM_ARRIBA):
 			listarTodoskmArriba();
 			break;
-		case (LISTAR_TODOS_KM):
-			listarTodoskm();
+		case (LISTAR_MAYOR_KM):
+			listarkmMayor();
 			break;
 		case (SALIR):
 			salir();
@@ -114,31 +114,107 @@ public class GestorCoches {
 	private static void salir() {
 		System.out.println("Gracias por su consulta");
 		System.exit(0);
-		
+
 	}
 
-	private static void listarTodoskm() {
-		// TODO Auto-generated method stub
+	private static void listarkmMayor() {
+		long cocheRodado = 0;
+		long id = 0;
+		try {
+			for (Coche cocheIterador : cocheDao.getAll()) {
+				if (cocheIterador.getKm() >= cocheRodado) {
+					cocheRodado = cocheIterador.getKm();
+					id = cocheIterador.getId();
+				}
+			}
+			System.out.println("El coche con mas km es: " + cocheDao.getById(id));
+
+		}
+
+		catch (Exception e) {
+			System.out.println("Se ha producido un problema, introduzca de nuevo los km");
+			listarkmMayor();
+		}
 
 	}
 
 	private static void listarTodoskmArriba() {
-		// TODO Auto-generated method stub
+		long kmUsuario;
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		System.out.println("Listados de todos los coches de la marca $");
+		try {
 
+			System.out.println("Introduza kilometros minimos: ");
+			kmUsuario = Integer.parseInt(br.readLine());
+			for (Coche coche : cocheDao.getAll()) {
+				if (coche.getKm() <= kmUsuario) {
+					System.out.println(coche.toString());
+				}
+			}
+
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
 	}
 
 	private static void listarTodoskmAbajo() {
-		// TODO Auto-generated method stub
+		long kmUsuario;
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		System.out.println("Listados de todos los coches de la marca $");
+		try {
+
+			System.out.println("Tope de km: ");
+			kmUsuario = Integer.parseInt(br.readLine());
+			for (Coche coche : cocheDao.getAll()) {
+				if (coche.getKm() <= kmUsuario) {
+					System.out.println(coche.toString());
+				}
+			}
+			pintarMenu();
+
+		} catch (Exception e) {
+			System.out.println("Error. Intentenlo de nuevo ");
+			listarTodoskmAbajo();
+		}
 
 	}
 
 	private static void listarTodosMarca() {
-		// TODO Auto-generated method stub
+		String marcaUsuario;
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		System.out.println("Listados de todos los coches de la marca $");
+		try {
+
+			System.out.println("Introduzca una marca");
+			marcaUsuario = br.readLine();
+			marcaUsuario = marcaUsuario.trim();
+
+			for (Coche coche : cocheDao.getAll()) {
+				if (coche.getMarca().toLowerCase().contains(marcaUsuario.toLowerCase())) {
+					System.out.println(coche.toString());
+				}
+			}
+			pintarMenu();
+
+		} catch (Exception e) {
+			System.out.println("Error. Intentenlo de nuevo ");
+			listarTodosMarca();
+		}
 
 	}
 
 	private static void listarTodos() {
-		// TODO Auto-generated method stub
+		System.out.println("Listado de todos los coches");
+		try {
+			for (Coche coche : cocheDao.getAll()) {
+				System.out.println(coche.toString());
+
+			}
+			pintarMenu();
+		} catch (Exception e) {
+			System.out.println("Se ha producido un error");
+			listarTodos();
+		}
 
 	}
 

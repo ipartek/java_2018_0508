@@ -1,4 +1,4 @@
-package com.ipartek.formacion.gestorvideos;
+package com.ipartek.formacion.gestorlibros;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -13,7 +13,7 @@ import com.ipartek.formacion.pojo.Libro;
  */
 public class GestorLibros {
 
-	static Libro[] libro;
+	static Libro libro;
 	static LibroDao libroDao;
 
 	public static void main(String[] args) {
@@ -22,7 +22,7 @@ public class GestorLibros {
 
 		cargarLibros();
 		pintarMenu();
-		
+
 	}
 
 	public static LibroDao cargarLibros() {
@@ -51,15 +51,15 @@ public class GestorLibros {
 	private static void pintarMenu() {
 		int opcion;
 
-		System.out.println("-------------------------------------");
-		System.out.println("-------Registro de libros---------");
-		System.out.println("-------------Opciones----------------");
-		System.out.println("-------------1: Añadir---------------");
-		System.out.println("-----2: Listar prestados------");
-		System.out.println("-----3: Listar no prestados------");
-		System.out.println("-----4: Listar por titulos------");
-		System.out.println("-----5: Salir ------");
-		System.out.println("-----Seleccione una opcion------");
+		System.out.println("-----------------------------");
+		System.out.println("-----Registro de libros------");
+		System.out.println("-----Opciones----------------");
+		System.out.println("-----1: Añadir---------------");
+		System.out.println("-----2: Listar prestados-----");
+		System.out.println("-----3: Listar no prestados--");
+		System.out.println("-----4: Listar por titulos---");
+		System.out.println("-----5: Salir ---------------");
+		System.out.println("-----Seleccione una opcion---");
 
 		try {
 			BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
@@ -78,7 +78,8 @@ public class GestorLibros {
 		final int LISTAR_PRESTADOS = 2;
 		final int LISTAR_NO_PRESTADOS = 3;
 		final int LISTAR_POR_TITULO = 4;
-		final int SALIR = 7;
+		final int SALIR = 5;
+		final int PRINCIPAL = 0;
 		switch (opcion) {
 		case (ANADIR):
 			anadirLibro();
@@ -92,12 +93,16 @@ public class GestorLibros {
 		case (LISTAR_POR_TITULO):
 			listarPorTitulo();
 			break;
+		case (PRINCIPAL):
+			listarPorTitulo();
+			break;
 
 		case (SALIR):
 			salir();
 			break;
 
 		default:
+			eleccionUsuario();
 			break;
 		}
 	}
@@ -111,28 +116,29 @@ public class GestorLibros {
 	private static void listarPorTitulo() throws Exception {
 		String aBuscar = "";
 		do {
-			
-		
-		try {
-			System.out.println("Introduzca el nombre del titulo");
-			List<Libro> libroTemportal = libroDao.getAll();
-			
-			BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-			aBuscar = br.readLine();
-			aBuscar = aBuscar.trim();
-			for (int x = 0; x < libroTemportal.size(); x++) {
-				if( libroTemportal.get(x).getTitulo().contains(aBuscar.toUpperCase()) ) {
-					System.out.println(libroTemportal.get(x).getTitulo());
+
+			try {
+				System.out.println("Introduzca el nombre del titulo");
+				List<Libro> libroTemportal = libroDao.getAll();
+
+				BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+				aBuscar = br.readLine();
+				aBuscar = aBuscar.trim();
+				for (int x = 0; x < libroTemportal.size(); x++) {
+					if (libroTemportal.get(x).getTitulo().contains(aBuscar.toUpperCase())) {
+						System.out.println("");
+						System.out.println(libroTemportal.get(x).toString());
+						
+					}
 				}
+
+			} catch (Exception e) {
+				System.out.println("Se ha producido un error, vuelva a introducir un titulo");
+				listarPorTitulo();
 			}
-		} catch (Exception e) {
-			System.out.println("Se ha producido un error, vuelva a introducir un titulo");
-			listarPorTitulo();
-		}
-		}while(aBuscar.isEmpty() && aBuscar!= null) ;
-		/*}while(aBuscar.isEmpty() && aBuscar!= null || aBuscar == "exit");*/
-		
-		
+		} while (aBuscar != null && aBuscar.isEmpty());
+		eleccionUsuario();
+
 	}
 
 	private static void listarNoPrestados() {
@@ -141,20 +147,53 @@ public class GestorLibros {
 
 		for (int x = 0; x < libroTemportal.size(); x++) {
 			if (!libroTemportal.get(x).isPrestado()) {
-				System.out.println(libroTemportal.get(x).getTitulo());
+				System.out.println("");
+				System.out.println(libroTemportal.get(x).toString());
 			}
 		}
+		eleccionUsuario();
 
 	}
 
 	private static void listarPrestados() {
+		/**
+		 * final int ANADIR = 1; final int LISTAR_PRESTADOS = 2; final int
+		 * LISTAR_NO_PRESTADOS = 3; final int LISTAR_POR_TITULO = 4; final int SALIR =
+		 * 5;
+		 */
 		System.out.println("Libros prestados");
 		List<Libro> libroTemportal = libroDao.getAll();
 
 		for (int x = 0; x < libroTemportal.size(); x++) {
 			if (libroTemportal.get(x).isPrestado()) {
-				System.out.println(libroTemportal.get(x).getTitulo());
+				System.out.println("");
+				System.out.println(libroTemportal.get(x).toString());
 			}
+		}
+		eleccionUsuario();
+
+	}
+
+	private static void eleccionUsuario() {
+		int opcion = 0;
+		try {
+			BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+			System.out.println("");
+			System.out.println(
+					"¿ Que desea hacer ahora ? Pulsa 1 para añadir un libro. Pulsa 2 para Listar los prestados  ");
+			System.out.println(
+					" Pulsa 3 para listar los no prestados. Pulsa 4 para buscar por titulo. Pulsa 5 para salir . Pulsa 0 para volver al menu principal ");
+			opcion = Integer.parseInt(br.readLine());
+			if (opcion < 7 ) {
+				opcionesMenu(opcion);
+			}else {
+				System.out.println("Se produjo un error al tratar su respuesta,introduzca opcion numerica del 0 al 6");
+				eleccionUsuario();
+			}
+			
+		} catch (Exception e) {
+			System.out.println("Se produjo un error al tratar su respuesta,introduzca opcion numerica del 0 al 6");
+			eleccionUsuario();
 		}
 
 	}
@@ -164,7 +203,7 @@ public class GestorLibros {
 		/**
 		 * Necesitamos los siguientes datos menos el id que lo autogeneraremos long
 		 * id,<br>
-		 * String marca, String modelo, long km, String matricula<br>
+		 * <br>
 		 */
 
 		String isbn;
@@ -191,7 +230,11 @@ public class GestorLibros {
 			} catch (Exception e) {
 				editorial = preguntarEditorial();
 			}
-
+			id = calculeId();
+			libro = new Libro(id, isbn, titulo, editorial, false);
+			libroDao.insert(libro);
+			System.out.println("Libro dado de alta satisfactoriamente");
+			eleccionUsuario();
 		} catch (Exception e) {
 			System.out.println("Se ha producido un error, lamentablemente tendre que comenzar de nuevo");
 			anadirLibro();
@@ -233,12 +276,24 @@ public class GestorLibros {
 		try {
 			BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
-			System.out.println("Introduce el isb del libro");
+			System.out.println("Introduce un codigo isbn del libro de 11 caracteres :");
 			isbn = br.readLine();
+			if (isbn.length() == 11) {
+				
+			}else {
+				System.out.println("Codigo isbn incorrecto, introduza un codigo isbn de 11 caracteres:");
+				preguntarIsbn();
+			}
 		} catch (Exception e) {
 			preguntarIsbn();
 		}
 		return isbn;
 
+	}
+
+	private static long calculeId() {
+		long id;
+		id = libroDao.getAll().size() + 1;
+		return id;
 	}
 }

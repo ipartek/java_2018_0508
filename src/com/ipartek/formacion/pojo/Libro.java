@@ -1,4 +1,7 @@
 package com.ipartek.formacion.pojo;
+
+import java.sql.Date;
+
 /**
  * 
  * @author Curso
@@ -14,11 +17,38 @@ public class Libro {
 	private String titulo;
 	private String editorial;
 	private boolean prestado;
+	private Date fInicio;
+	private Date fFin;
+	private int diasPrestamo;
 
 	
+	public Date getfInicio() {
+		return fInicio;
+	}
+
+	public void setfInicio(Date fInicio) {
+		this.fInicio = fInicio;
+	}
+
+	public Date getfFin() {
+		return fFin;
+	}
+
+	public void setfFin(Date fFin) {
+		this.fFin = fFin;
+	}
+
+	public int getDiasPrestamo() {
+		return diasPrestamo;
+	}
+
+	public void setDiasPrestamo(int diasPrestamo) {
+		this.diasPrestamo = diasPrestamo;
+	}
+
 	public Libro() {
 		super();
-		this.id = id;
+		this.id = -1;
 		this.isbn = "";
 		this.titulo = "";
 		this.editorial = "";
@@ -82,6 +112,11 @@ public class Libro {
 
 	public void setPrestado(boolean prestado) {
 		this.prestado = prestado;
+	}
+	@Override
+	public String toString() {
+		return "Libro [id=" + id + ", isbn=" + isbn + ", titulo=" + titulo + ", editorial=" + editorial + ", prestado="
+				+ prestado + "]";
 	}
 
 }
