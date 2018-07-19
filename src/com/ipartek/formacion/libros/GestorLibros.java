@@ -69,16 +69,23 @@ public class GestorLibros {
 	private static void listarPrestados() {
 		// TODO Auto-generated method stub
 
-		List<Libro> listaLibros = dao.getAll();
+		List<Libro> listaLibros = dao.getAllPrestados(true);
 
 		System.out.println("		Libros Prestados		");
-		System.out.println("--------------------------------");
+		System.out.println("------------------------------------------------");
 
-		for (int i = 0; i < dao.length(); i++) {
-			if (listaLibros.get(i).isPrestado()) {
-				System.out.println(listaLibros.get(i));
-			}
+		for (Libro libro : listaLibros) {
+			System.out.println(libro);
 		}
+
+		/*
+		 * for (int i = 0; i < dao.length(); i++) { if (listaLibros.get(i).isPrestado())
+		 * { System.out.println(listaLibros.get(i)); } }
+		 */
+
+		System.out.println("");
+		System.out.println("");
+		System.out.println("");
 
 		pintarMenu();
 	}
@@ -88,16 +95,24 @@ public class GestorLibros {
 	 */
 	private static void listarNoPrestados() {
 		// TODO Auto-generated method stub
-		List<Libro> listaLibros = dao.getAll();
+		List<Libro> listaLibros = dao.getAllPrestados(false);
 
 		System.out.println("		Libros no Prestados		");
-		System.out.println("--------------------------------");
+		System.out.println("------------------------------------------------");
 
-		for (int i = 0; i < dao.length(); i++) {
-			if (!listaLibros.get(i).isPrestado()) {
-				System.out.println(listaLibros.get(i));
-			}
+		for (Libro libro : listaLibros) {
+			System.out.println(libro);
 		}
+
+		System.out.println("");
+		System.out.println("");
+		System.out.println("");
+
+		/*
+		 * for (int i = 0; i < dao.length(); i++) { if
+		 * (!listaLibros.get(i).isPrestado()) { System.out.println(listaLibros.get(i));
+		 * } }
+		 */
 		pintarMenu();
 	}
 
@@ -106,21 +121,31 @@ public class GestorLibros {
 	 */
 	private static void buscar() {
 		// TODO Auto-generated method stub
-
-		List<Libro> listaLibros = dao.getAll();
-		int cont = 0;
+		// int cont = 0;
 
 		System.out.println("Introduce el titulo del libro a buscar: ");
 		titulo = sc.nextLine();
 
-		for (int i = 0; i < dao.length(); i++) {
-			if (listaLibros.get(i).getTitulo().toLowerCase().contains(titulo.toLowerCase().trim())) {
-				System.out.println(listaLibros.get(i));
-				cont++;
-			}
+		List<Libro> listaLibros = dao.getByTitle(titulo);
+
+		/*
+		 * for (int i = 0; i < dao.length(); i++) { if
+		 * (listaLibros.get(i).getTitulo().toLowerCase().contains(titulo.toLowerCase().
+		 * trim())) { System.out.println(listaLibros.get(i)); cont++; } }
+		 */
+
+		System.out.println("Resultados de la busqueda de: " + titulo);
+		System.out.println("------------------------------------------------------");
+
+		for (Libro libro : listaLibros) {
+			System.out.println(libro);
 		}
 
-		if (cont == 0)
+		System.out.println("");
+		System.out.println("");
+		System.out.println("");
+
+		if (listaLibros.size() == 0)
 			System.out.println("No se encuentran libros con ese titulo.");
 
 		pintarMenu();

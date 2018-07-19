@@ -30,7 +30,6 @@ public class Libro {
 	}
 
 	public Libro(String isbn, String titulo, String editorial, boolean prestado) throws Exception {
-		//preguntar mañana
 		this();
 		setIsbn(isbn);
 		this.titulo = titulo;
@@ -52,12 +51,13 @@ public class Libro {
 
 	/**
 	 * Guardamos el valor del ISBN
+	 * 
 	 * @param isbn String identificador de libro
 	 * @throws Exception si ISBN == null || ISBN.length() < ISBN_MIN_LENGTH
 	 */
 	public void setIsbn(String isbn) throws Exception {
-		//if (isbn.length() < ISBN_MIN_LENGTH || isbn == null)
-		if(isbn != null && isbn.trim().length() >= ISBN_MIN_LENGTH)
+		// if (isbn.length() < ISBN_MIN_LENGTH || isbn == null)
+		if (isbn != null && isbn.trim().length() >= ISBN_MIN_LENGTH)
 			this.isbn = isbn;
 		else
 			throw new Exception(ISBN_MIN_EXCEPTION);

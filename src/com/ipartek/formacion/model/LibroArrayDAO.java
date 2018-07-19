@@ -7,6 +7,7 @@ import com.ipartek.formacion.pojo.Libro;
 
 public class LibroArrayDAO implements CrudAble<Libro> {
 
+	// Singleton
 	private static LibroArrayDAO INSTANCE = null;
 	private static List<Libro> lista = null;
 
@@ -52,17 +53,26 @@ public class LibroArrayDAO implements CrudAble<Libro> {
 		}
 		return resul;
 	}
-	
-	public Libro getByTitle(String titulo) {
+
+	/**
+	 * Buscamos libros que coincida el titulo, es ignoreCase, nos sirve cualquiera
+	 * sin necesidad de ser el titulo exacto
+	 * 
+	 * @param busqueda termino a buscar
+	 * @return listado que coincida con la busqueda
+	 */
+	public List<Libro> getByTitle(String busqueda) {
 		// TODO Auto-generated method stub
-		Libro resul = null;
+		ArrayList<Libro> resul = new ArrayList<Libro>();
 		// foreach
-		for (Libro libro : lista) {
-			if (titulo == libro.getTitulo()) {
-				resul = libro;
-				break;
+		if (busqueda != null) {
+			for (Libro libro : lista) {
+				if (libro.getTitulo().toLowerCase().contains(busqueda.toLowerCase().trim())) {
+					resul.add(libro);
+				}
 			}
 		}
+
 		return resul;
 	}
 
@@ -76,6 +86,23 @@ public class LibroArrayDAO implements CrudAble<Libro> {
 	public boolean delete(long id) {
 		// TODO Auto-generated method stub
 		return false;
+	}
+
+	/**
+	 * retorna los libros prestados o no prestados
+	 * 
+	 * @param isPrestados boolean => true listado prestados, false => lista No
+	 *                    prestados
+	 * @return listado de libros
+	 */
+	public List<Libro> getAllPrestados(boolean isPrestado) {
+		ArrayList<Libro> resul = new ArrayList<Libro>();
+
+		for (Libro libro : lista) {
+			if (libro.isPrestado() == isPrestado)
+				resul.add(libro);
+		}
+		return resul;
 	}
 
 	public int length() {
