@@ -1,6 +1,7 @@
 package com.ipartek.formacion.libros;
 
-//import java.util.List;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 import com.ipartek.formacion.model.LibroDAO;
@@ -10,6 +11,8 @@ public class GestorLibros {
 
 	// Constantes
 	private final static int OPCION0 = 0;
+	//private final static int OPCION1 = 1;
+	//private final static int OPCION2 = 2;
 	private final static int OPCION3 = 3;
 
 	static private LibroDAO dao;
@@ -116,6 +119,7 @@ public class GestorLibros {
 
 			teclado.nextLine();
 			System.out.println();
+			List<Libro> buscados = new ArrayList<Libro>();
 
 			do {
 				try {
@@ -130,14 +134,20 @@ public class GestorLibros {
 
 			System.out.println();
 			try {
-				//int cont = 0;
 				System.out.println("Estas son las coincidencias de lo que estabas buscando:");
 				System.out.println("-----------------------------------------------------------");
-				System.out.println(dao.buscarPorTitulo(busqueda));
-				/*if (cont == 0) {
+				buscados = dao.buscarPorTitulo(busqueda);
+				if(buscados.isEmpty()) {
 					System.out.println("No hay libros relacionados con tu busqueda.");
 					System.out.println();
-				}*/
+				}else {
+					System.out.println("ISBN ---------- TITULO");
+					System.out.println("----------------------");
+					for (int i = 0; i < buscados.size(); i++) {
+						System.out.print(buscados.get(i).getIsbn() + " - ");
+						System.out.println(buscados.get(i).getTitulo());
+					}
+				}
 			} catch (Exception e) {
 				System.out.println("Se ha producido un error al listar tu busqueda, lo sentimos.");
 				e.printStackTrace();
@@ -147,6 +157,7 @@ public class GestorLibros {
 			System.out.println("Se ha producido un error al listar tu busqueda, lo sentimos.");
 			e.printStackTrace();
 		} finally {
+			System.out.println();
 			pintarMenu();
 		}
 	}
@@ -156,14 +167,22 @@ public class GestorLibros {
 	 */
 	private static void listarLibrosPrestados() {
 		System.out.println();
-		//int contPres = 0;
+		List<Libro> prestados = new ArrayList<Libro>();
 		try {
 			System.out.println("Estos son los libros que estan bajo prestamo:");
 			System.out.println("-----------------------------------------------------------");
-			System.out.println(dao.getAllPrestados(true));
-			/*if (contPres == 0) {
-				System.out.println("No hay libros bajo prestamo.");
-			}*/
+			prestados = dao.getAllPrestados(true);
+			if(prestados.isEmpty()) {
+				System.out.println("No hay libros que esten bajo prestamo.");
+				System.out.println();
+			}else {
+				System.out.println("ISBN ---------- TITULO");
+				System.out.println("----------------------");
+				for (int i = 0; i < prestados.size(); i++) {
+					System.out.print(prestados.get(i).getIsbn() + " - ");
+					System.out.println(prestados.get(i).getTitulo());
+				}
+			}
 		} catch (Exception e) {
 			System.out.println("Error al listar libros prestados, lo sentimos.");
 			e.printStackTrace();
@@ -178,14 +197,22 @@ public class GestorLibros {
 	 */
 	private static void listarLibrosNoPrestados() {
 		System.out.println();
-		//int contNoPres = 0;
+		List<Libro> noPrestados = new ArrayList<Libro>();
 		try {
 			System.out.println("Estos son los libros que no estan bajo prestamo:");
 			System.out.println("-----------------------------------------------------------");
-			System.out.println(dao.getAllPrestados(false));
-			/*if (contNoPres == 0) {
-				System.out.println("No hay libros que no esten bajo prestamo.");
-			}*/
+			noPrestados = dao.getAllPrestados(false);
+			if(noPrestados.isEmpty()) {
+				System.out.println("No hay libros disponibles para prestar.");
+				System.out.println();
+			}else {
+				System.out.println("ISBN ---------- TITULO");
+				System.out.println("----------------------");
+				for (int i = 0; i < noPrestados.size(); i++) {
+					System.out.print(noPrestados.get(i).getIsbn() + " - ");
+					System.out.println(noPrestados.get(i).getTitulo());
+				}
+			}
 		} catch (Exception e) {
 			System.out.println("Error al listar libros no prestados, lo sentimos.");
 			e.printStackTrace();
