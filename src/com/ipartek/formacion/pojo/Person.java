@@ -15,15 +15,12 @@ public class Person {
 	// TODO nueva atributo edad => 16 y 100
 
 	private String nombre;
-
 	private String apellido;
-
 	private char sexo;
-
 	private int edad;
-
 	private float nota;
 
+	//Constructores
 	public Person() {
 		super();
 		this.nombre = "";
@@ -51,6 +48,7 @@ public class Person {
 		this.setSexo(sexo);
 	}
 
+	//getters and setters
 	public String getNombre() {
 		return nombre;
 	}
@@ -73,7 +71,7 @@ public class Person {
 
 	/**
 	 * Setear el sexo de la persona, podemos usar 'h' hombre, 'm' mujer ( tanto
-	 * mayusculas como minusculas). * En caso de no pasar pasar esos valores será
+	 * mayusculas como minusculas). * En caso de no pasar pasar esos valores serï¿½
 	 * 'i' indefinido.
 	 * 
 	 * @see constnates: SEXO_INDEFINIDO, SEXO_MUJER, SEXO_HOMBRE
