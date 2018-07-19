@@ -2,6 +2,7 @@ package com.ipartek.formacion.gestorlibros;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
 import java.util.List;
 
 import com.ipartek.formacion.model.LibroDao;
@@ -119,19 +120,16 @@ public class GestorLibros {
 
 			try {
 				System.out.println("Introduzca el nombre del titulo");
-				List<Libro> libroTemportal = libroDao.getAll();
+				List<Libro> libroTemporal = libroDao.getAll();
 
 				BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 				aBuscar = br.readLine();
 				aBuscar = aBuscar.trim();
-				for (int x = 0; x < libroTemportal.size(); x++) {
-					if (libroTemportal.get(x).getTitulo().contains(aBuscar.toUpperCase())) {
-						System.out.println("");
-						System.out.println(libroTemportal.get(x).toString());
-						
-					}
+				//printeo del resultado
+				libroTemporal =libroDao.listarTodosTitulo(aBuscar);
+				for(Libro libroN : libroTemporal) {
+					System.out.println(libroN.toString());
 				}
-
 			} catch (Exception e) {
 				System.out.println("Se ha producido un error, vuelva a introducir un titulo");
 				listarPorTitulo();
@@ -142,39 +140,29 @@ public class GestorLibros {
 	}
 
 	private static void listarNoPrestados() {
-		System.out.println("Libros no prestados");
-		List<Libro> libroTemportal = libroDao.getAll();
-
-		for (int x = 0; x < libroTemportal.size(); x++) {
-			if (!libroTemportal.get(x).isPrestado()) {
-				System.out.println("");
-				System.out.println(libroTemportal.get(x).toString());
-			}
+		
+		List<Libro> resul = libroDao.listarNoPrestados(false);
+		//printeo del resultado
+		for (Libro libroN : resul) {
+			System.out.println(libroN.toString());
 		}
 		eleccionUsuario();
 
 	}
 
 	private static void listarPrestados() {
-		/**
-		 * final int ANADIR = 1; final int LISTAR_PRESTADOS = 2; final int
-		 * LISTAR_NO_PRESTADOS = 3; final int LISTAR_POR_TITULO = 4; final int SALIR =
-		 * 5;
-		 */
-		System.out.println("Libros prestados");
-		List<Libro> libroTemportal = libroDao.getAll();
-
-		for (int x = 0; x < libroTemportal.size(); x++) {
-			if (libroTemportal.get(x).isPrestado()) {
-				System.out.println("");
-				System.out.println(libroTemportal.get(x).toString());
-			}
+		
+		List<Libro> resul = libroDao.listarNoPrestados(true);
+		//printeo del resultado
+		for (Libro libroN : resul) {
+			System.out.println(libroN.toString());
 		}
 		eleccionUsuario();
 
 	}
 
 	private static void eleccionUsuario() {
+		
 		int opcion = 0;
 		try {
 			BufferedReader br = new BufferedReader(new InputStreamReader(System.in));

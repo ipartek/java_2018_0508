@@ -6,12 +6,11 @@ import java.util.List;
 
 import com.ipartek.formacion.pojo.Libro;
 
-public class LibroDao {
-	
+public class LibroDao implements CrudAble<Libro> {
+
 	private static LibroDao INSTANCE = null;
 	private static List<Libro> libro = null;
-	
-	
+
 	public static synchronized LibroDao getInstance() {
 		if (INSTANCE == null) {
 			INSTANCE = new LibroDao();
@@ -23,6 +22,7 @@ public class LibroDao {
 		libro = new ArrayList<Libro>();
 
 	}
+
 	public boolean insert(Libro pojo) {
 		boolean resul = false;
 		if (pojo != null) {
@@ -30,6 +30,7 @@ public class LibroDao {
 		}
 		return resul;
 	}
+
 	public List<Libro> getAll() {
 
 		return libro;
@@ -82,5 +83,52 @@ public class LibroDao {
 
 		return resul;
 	}
-	
+
+	// metodo migrado desde la vista
+	public List<Libro> listarPrestados(boolean isPrestado) {
+		ArrayList<Libro> resul = new ArrayList<Libro>();
+		for (Libro lib : libro) {
+			if (lib.isPrestado() == isPrestado) {
+				resul.add(lib);
+			}
+		}
+		return resul;
+	}
+
+	// metodo migrado desde la vista
+	public List<Libro> listarNoPrestados(boolean isPrestado) {
+		/*
+		 * ArrayList<Libro> resul= new ArrayList<Libro>(); for (Libro libro : resul ) {
+		 * if(libro.isPrestado()== isPrestado) { resul.add(libro); } }
+		 * 
+		 * return resul;
+		 */
+		ArrayList<Libro> resul = new ArrayList<Libro>();
+		for (Libro lib : libro) {
+			if (lib.isPrestado() == isPrestado) {
+				resul.add(lib);
+			}
+		}
+		return resul;
+	}
+
+	/**
+	 * coincidencias por titulo usaremos ignorecasen para hacer busquedas indisti
+	 * 
+	 * @param titulo
+	 * @return
+	 */
+	// migrado desde gestor de libro
+	public List<Libro> listarTodosTitulo(String busqueda) {
+		ArrayList<Libro> resul = new ArrayList<Libro>();
+
+		for (Libro lib : libro) {
+			if (lib.getTitulo().contains(busqueda.toUpperCase())) {
+				resul.add(lib);
+			}
+		}
+		return resul;
+
+	}
+
 }
