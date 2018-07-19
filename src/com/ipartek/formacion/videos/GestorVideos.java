@@ -1,7 +1,10 @@
 package com.ipartek.formacion.videos;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
+import com.ipartek.formacion.model.VideoYoutubeArrayDAO;
 import com.ipartek.formacion.pojo.VideoYoutube;
 
 public class GestorVideos {
@@ -10,12 +13,13 @@ public class GestorVideos {
 	private final static int OPCION0 = 0;
 	private final static int OPCION4 = 4;
 	
-	static VideoYoutube[] videos = new VideoYoutube[5];
+	static private VideoYoutubeArrayDAO dao;
 	static Scanner teclado;
 
 	public static void main(String[] args) {
 		try {
 			
+			dao = VideoYoutubeArrayDAO.getInstance();
 			teclado = new Scanner(System.in);
 			cargarVideos();
 			pintarMenu();
@@ -55,9 +59,10 @@ public class GestorVideos {
 				} catch (Exception e) {
 					System.out.println();
 					System.out.println("Por favor, introduzca un valor correcto.");
+					teclado.nextLine();
 				}
 				
-			} while (opcion < OPCION0 && opcion > OPCION4);
+			} while (opcion < OPCION0 || opcion > OPCION4);
 
 			switch (opcion) {
 			case 1:
@@ -78,6 +83,7 @@ public class GestorVideos {
 			}
 
 		} catch (Exception e) {
+			System.out.println("Se ha producido un error, lo sentimos.");
 			e.printStackTrace();
 		}
 	}
@@ -87,15 +93,15 @@ public class GestorVideos {
 	 */
 	private static void cargarVideos() {
 		VideoYoutube video1 = new VideoYoutube(1, "v2AC41dglnM", "Video1");
-		videos[0] = video1;
+		dao.insert(video1);
 		VideoYoutube video2 = new VideoYoutube(2, "vx2u5uUu3DE", "Video2");
-		videos[1] = video2;
+		dao.insert(video2);
 		VideoYoutube video3 = new VideoYoutube(3, "X2SJkEDw1E8", "Video3");
-		videos[2] = video3;
+		dao.insert(video3);
 		VideoYoutube video4 = new VideoYoutube(4, "kXYiU_JCYtU", "Video4");
-		videos[3] = video4;
+		dao.insert(video4);
 		VideoYoutube video5 = new VideoYoutube(5, "6fVE8kSM43I", "Video5");
-		videos[4] = video5;
+		dao.insert(video5);
 	}
 
 	/**
@@ -103,38 +109,20 @@ public class GestorVideos {
 	 */
 	private static void listarVideos() {
 		try {
-			char opcion;
-			do {
-				System.out.println();
-				System.out.println("¿Quieres listar un video en concreto? S/N");
-				opcion = teclado.next().charAt(0);
-				opcion = Character.toUpperCase(opcion);
-
-			} while (opcion != 'S' && opcion != 'N');
-			System.out.println();
-			if (opcion == 'S') {
-				long id;
-				System.out.println("Introduce el ID del video que estas buscando:");
-				id = teclado.nextLong();
-				id--;
-
-				System.out.println();
-				for (int i = 0; i < videos.length; i++) {
-					if (i == id) {
-						System.out.println(videos[i]);
-					}
-				}
-			} else {
-				System.out.println();
-				for (int i = 0; i < videos.length; i++) {
-					System.out.println(videos[i]);
-				}
+			List<VideoYoutube> listados = new ArrayList<VideoYoutube>();
+			listados = dao.getAll();
+			System.out.println("CODIGO -------- TITULO");
+			System.out.println("----------------------");
+			for (int i = 0; i < listados.size(); i++) {
+				System.out.print(listados.get(i).getCodigo());
+				System.out.println(listados.get(i).getNombre());
 			}
-
-			System.out.println();
-			pintarMenu();
 		} catch (Exception e) {
 			System.out.println("Lo sentimos, se ha producido un error y no se han encontrado videos.");
+			e.printStackTrace();
+		} finally {
+			System.out.println();
+			pintarMenu();
 		}
 	}
 
@@ -144,8 +132,7 @@ public class GestorVideos {
 	private static void anadirVideos() {
 		// TODO Terminar a�adir nuevo video
 		try {
-
-			long id = (videos.length+1);
+			long id = dao.getAll().size();
 			String nombre;
 			String codigo;
 
@@ -156,12 +143,15 @@ public class GestorVideos {
 			System.out.println("Introduce el codigo del video:");
 			codigo = teclado.nextLine();
 
-			VideoYoutube video = new VideoYoutube(id, codigo, nombre);
-			videos[(int) id] = video;
+			VideoYoutube videoNuevo = new VideoYoutube(id++, codigo, nombre);
+			dao.insert(videoNuevo);
 			
-			pintarMenu();
 		} catch (Exception e) {
+			System.out.println("Lo sentimos, se ha producido un error.");
 			e.printStackTrace();
+		} finally {
+			System.out.println();
+			pintarMenu();
 		}
 	}
 
@@ -171,30 +161,33 @@ public class GestorVideos {
 	private static void modificarVideos() {
 		// TODO Terminar modificar video
 		try {
-			long id;
+			List<VideoYoutube> listados = new ArrayList<VideoYoutube>();
+			listados = dao.getAll();
+			long idBusqueda;
 			String nombre;
 			String codigo;
 
 			System.out.println("Introduce el ID del video que quieres modificar:");
-			id = teclado.nextLong();
-			id--;
+			idBusqueda = teclado.nextLong();
 
-			for (int i = 0; i < videos.length; i++) {
-				if (id == i) {
-					System.out.println("Introduce el nombre del video:");
+			for (int i = 0; i < listados.size(); i++) {
+				if(listados.get(i).getId() == idBusqueda) {
+					System.out.println("Introduce el nuevo nombre del video:");
 					nombre = teclado.nextLine();
 					teclado.nextLine();
-					System.out.println("Introduce el codigo del video:");
+					System.out.println();
+					System.out.println("Introduce el nuevo codigo del video:");
 					codigo = teclado.nextLine();
-
-					videos[i].setNombre(nombre);
-					videos[i].setCodigo(codigo);
+					
+					VideoYoutube videoModificado = new VideoYoutube(idBusqueda, codigo, nombre);
+					dao.update(videoModificado);
 				}
-			}
-
-			pintarMenu();
+			}	
 		} catch (Exception e) {
 			e.printStackTrace();
+		} finally {
+			System.out.println();
+			pintarMenu();
 		}
 	}
 
@@ -204,36 +197,26 @@ public class GestorVideos {
 	private static void eliminarVideos() {
 		//TODO Terminar eliminar video
 		try {
-			char opcion;
+			List<VideoYoutube> listados = new ArrayList<VideoYoutube>();
+			listados = dao.getAll();
+			long idEliminar = -1;
 			do {
-				System.out.println();
-				System.out.println("¿Quieres eliminar todos los videos? S/N");
-				opcion = teclado.next().charAt(0);
-				opcion = Character.toUpperCase(opcion);
-
-			} while (opcion != 'S' && opcion != 'N');
-
-			if (opcion == 'N') {
-				long id;
-				System.out.println();
-				System.out.println("Introduce el ID del video que quieres borrar:");
-				id = teclado.nextLong();
-				id--;
-
-				for (int i = 0; i < videos.length; i++) {
-					if (i == id) {
-						videos[i] = null;
-						System.out.println("El video con id " + id + " se ha eliminado.");
-					}
-				}
-			} else {
-				videos = null;
-				System.out.println("Todos los videos se han eliminado.");
+			try {
+				System.out.println("Introduce el ID del video que quieres eliminar:");
+				idEliminar = teclado.nextLong();
+			} catch (Exception e) {
+				System.out.println("Introduce una ID correcta, por favor");
+				e.printStackTrace();
 			}
-
-			pintarMenu();
+			
+			}while(idEliminar < 0);
+			
 		} catch (Exception e) {
+			System.out.println();
 			e.printStackTrace();
+		} finally {
+			System.out.println();
+			pintarMenu();
 		}
 	}
 

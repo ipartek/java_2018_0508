@@ -21,7 +21,7 @@ public class VideoYoutubeArrayDAO implements CrudAble<VideoYoutube>{
 		lista = new ArrayList<VideoYoutube>();
 	}
 	
-	public static synchronized VideoYoutubeArrayDAO getInstance(long mock1Id, String mock1Codigo, String mock1Nombre) {
+	public static synchronized VideoYoutubeArrayDAO getInstance() {
 		if(INSTANCE == null) {
 			INSTANCE = new VideoYoutubeArrayDAO();
 		}

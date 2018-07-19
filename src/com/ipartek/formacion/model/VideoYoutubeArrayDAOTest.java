@@ -30,7 +30,7 @@ public class VideoYoutubeArrayDAOTest {
 
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
-		dao = VideoYoutubeArrayDAO.getInstance(MOCK1_ID, MOCK1_CODIGO, MOCK1_NOMBRE);
+		dao = VideoYoutubeArrayDAO.getInstance();
 	}
 
 	@AfterClass
