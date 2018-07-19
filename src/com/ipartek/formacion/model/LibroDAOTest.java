@@ -81,6 +81,14 @@ public class LibroDAOTest {
 	}
 
 	@Test
+	public void insertTest() throws Exception {
+
+		assertFalse(dao.insert(null));
+		assertEquals(7, dao.getAll().size());
+		
+	}
+
+	@Test
 	public void buscarPorTituloTest() {
 
 		assertNotNull(dao.buscarPorTitulo(null));
