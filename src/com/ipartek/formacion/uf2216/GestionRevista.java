@@ -1,5 +1,10 @@
 package com.ipartek.formacion.uf2216;
 
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -15,6 +20,8 @@ public class GestionRevista {
 	static private final int OPCION_SALIR = 0;
 	static private final int OPCION_LISTAR = 1;
 	static private final int OPCION_ANADIR = 2;
+	static private final int OPCION_FICHERO = 3;
+	static private final int OPCION_FICHERO_LEER = 4;
 
 	static private final int LONGITUD_MINIMA_TITULO = 3;
 	static private final int LONGITUD_MAXIMA_TITULO = 150;
@@ -24,9 +31,9 @@ public class GestionRevista {
 	static private final int NUM_PAGINAS = 1;
 
 	static private char contest;
-	static private char formato;
+	static private String formato = "";
 
-	static ArrayList<Revista> videos = new ArrayList<Revista>();
+	static ArrayList<Revista> revista = new ArrayList<Revista>();
 
 	public static void main(String[] args) throws IOException {
 
@@ -53,6 +60,14 @@ public class GestionRevista {
 					anadir();
 					break;
 
+				case OPCION_FICHERO:
+					crearFichero();
+					break;
+
+				case OPCION_FICHERO_LEER:
+					leerFichero();
+					break;
+
 				default:
 					noOption();
 					break;
@@ -62,7 +77,82 @@ public class GestionRevista {
 		} catch (Exception e) {
 			System.out.println("Ha sucedido un error que intentaremos arreglar cuanto antes.\n");
 			System.out.println("Disculpen las molestias.");
+		} finally {
+			sc.close();
 		}
+
+	}
+
+	@SuppressWarnings("unused")
+	private static void crearFichero() throws IOException {
+
+		File f = new File("ficheros/revista.txt");
+
+		if (f.exists()) { // Si Existe
+			// System.out.println("Existe el fichero");
+
+			BufferedWriter bw = null;
+
+			try {
+				bw = new BufferedWriter(new FileWriter(f));
+
+				for (Revista revista : dao.getAll()) {
+					bw.write(String.valueOf(revista.toString()));
+					bw.newLine();
+				}
+
+				System.out.println("Terminamos de escribir en el fichero");
+
+			} catch (Exception e) {
+				System.out.println("Exception escribiendo fichero: " + e.getMessage());
+			}
+
+			bw.close();
+
+		} else { // crear fichero
+
+			try {
+				f.createNewFile();
+				System.out.println("Creamos fichero");
+
+			} catch (IOException e) {
+
+				System.out.println("Error al crear fichero");
+				e.printStackTrace();
+			}
+		}
+
+		pintarMenu();
+	}
+
+	private static void leerFichero() {
+
+		System.out.println("-----------------------------------------");
+		System.out.println("Leer Fichero");
+		System.out.println("-----------------------------------------");
+
+		File f = new File("ficheros/revista.txt");
+		System.out.println("vamos a comenzar a leer fichero " + f.getAbsolutePath());
+		try {
+
+			FileReader fr = new FileReader(f);
+			BufferedReader bf = new BufferedReader(fr);
+			try {
+				String linea;
+				while ((linea = bf.readLine()) != null) {
+					System.out.println(linea);
+				}
+
+			} finally {
+				bf.close();
+				fr.close();
+			}
+		} catch (IOException e) {
+			System.out.println("Caught exception while processing file: " + e.getMessage());
+		}
+
+		System.out.println("Terminada lectura fichero");
+		pintarMenu();
 
 	}
 
@@ -98,6 +188,7 @@ public class GestionRevista {
 		System.out.println("------------------------------------");
 		System.out.println("--         AÑADIR REVISTAS        --");
 		System.out.println("------------------------------------\n");
+
 		Revista revista = new Revista();
 
 		revista.setId(dao.getAll().size() + 1);
@@ -136,24 +227,19 @@ public class GestionRevista {
 				}
 			} while (revista.getPaginas() < NUM_PAGINAS);
 
-			/*
-			 * System.out.print("Formato de la revista (digital(D) o papel(P)): ");
-			 * formato=Character.toUpperCase((char) System.in.read());
-			 * 
-			 * if(formato=='D') { revista.setFormato(true); }else if (formato=='P') {
-			 * revista.setFormato(false); }else { System.out.
-			 * println("El formato debe de ser para digital un D y para papel una P");
-			 * 
-			 * System.out.print("Formato de la revista (digital(D) o papel(P)): ");
-			 * sc.nextLine(); formato=Character.toUpperCase((char) System.in.read()); }
-			 */
+			System.out.println("Introduzca formato (digital o papel): ");
+			formato = sc.next();
 
-			System.out.println("Inserte formato.\n El formato debe de ser para digital un D y para papel una P");
-			revista.setFormato(formato);
+			if (formato.equals("digital")) {
+				revista.setFormato(true);
+			} else {
+				revista.setFormato(false);
+			}
 
 			System.out.println("¿Quieres guardar la revista con los siguientes datos?");
-			System.out.println(
-					revista.getTitulo() + " " + revista.getIsbn() + " " + revista.getPaginas() + " " + revista.isFormato(););
+			System.out.println(revista.getTitulo() + " " + revista.getIsbn() + " " + revista.getPaginas() + " "
+					+ revista.isFormato());
+
 			sc.nextLine();
 			System.out.println("S/N");
 			contest = Character.toUpperCase((char) System.in.read());
@@ -162,11 +248,22 @@ public class GestionRevista {
 
 		dao.insert(revista);
 		System.out.println("Video guardado.\n");
-		pintarMenu();
+
+		System.out.println("¿Quieres guardar la revista en el fichero?");
+		sc.nextLine();
+		contest = Character.toUpperCase((char) System.in.read());
+		if (contest == 'S') {
+			crearFichero();
+		} else {
+			System.out.println("No se guarda la revista en fichero. Gracias");
+			pintarMenu();
+		}
+		sc.nextLine();
 
 	}
 
 	private static void cargarRevista() throws Exception {
+
 		Revista revista = new Revista(++cont, "Pronto", "1234567890", 120, true);
 		dao.insert(revista);
 
@@ -191,6 +288,8 @@ public class GestionRevista {
 		System.out.println("------------------------------------");
 		System.out.println("-    1. Listar                     -");
 		System.out.println("-    2. Añadir revista             -");
+		System.out.println("-    3. Escribir en fichero        -");
+		System.out.println("-    4. Leer en fichero            -");
 		System.out.println("-                                  -");
 		System.out.println("-    0 - salir                     -");
 		System.out.println("------------------------------------");
