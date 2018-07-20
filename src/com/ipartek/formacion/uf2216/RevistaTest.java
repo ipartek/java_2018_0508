@@ -53,7 +53,7 @@ public class RevistaTest {
 		revista2.setTitulo("21");
 		revista2.setTitulo(null);
 
-		revista2.setTitulo("titulo correcto");
+		revista2.setTitulo("  titulo correcto");
 		assertEquals("titulo correcto", revista2.getTitulo());
 
 	}
