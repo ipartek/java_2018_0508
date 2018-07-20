@@ -143,7 +143,9 @@ public class Revista {
 		
 		
 		if (this.formato) {
-			sb.append(".EPUB");
+			sb.append("Formato .EPUB");
+		} else {
+			sb.append("Formato Papel");
 		}
 		
 		
