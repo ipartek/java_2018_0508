@@ -134,9 +134,7 @@ public class GestorRevistas {
 			
 			System.out.println(Revista.TITULO_MENSAJE_EXCEPTION);
 		}
-		
-		
-		
+				
 		do {
 			
 			System.out.println("¿Cuál es el ISBN de la revista? (debe ser de " +  Revista.ISBN_LENGTH + " caracteres)");
@@ -298,7 +296,7 @@ public class GestorRevistas {
 
 	private static void noOption() {
 		
-		System.out.println("Lo sentimos, no existe esa opcion");
+		System.out.println("Lo sentimos, no existe esa opcion, elija un NÚMERO del menú");
 		pintarMenu();
 		
 	}
