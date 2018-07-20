@@ -3,7 +3,6 @@ package com.ipartek.formacion.uf2216;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
 
@@ -58,7 +57,6 @@ public class GestorRevistas {
 			switch (opcionSeleccionada) {
 			case OPCION_LISTAR_REVISTAS:
 				listarRevistas();
-				pintarMenu();
 				break;
 
 			case ANADIR_REVISTA:
@@ -78,7 +76,9 @@ public class GestorRevistas {
 				break;
 			}
 		} while (opcionSeleccionada != OPCION_SALIR);
+		salir();
 		sc.close();
+		dao = null;
 	}
 
 	/**
@@ -132,73 +132,97 @@ public class GestorRevistas {
 				System.out.println(rev.toString());
 			}
 		}
+		pintarMenu();
 	}
 
 	private static void anadir() {
-		String continuar = "";
 
 		do {
 
 			titulo = "";
-			isbn = "0000000000";
-			numPag = 0;
+			isbn = "";
+			numPag = -1;
 			formato = false;
 
-			do {
+			while (titulo == "") {
 				System.out.println(
 						"Introduce el título de la revista que deseas añadir(3 caracteres como minimo y 150 como máximo):");
 				titulo = sc.nextLine();
-			} while (titulo.length() > MAX_TITULO || titulo.length() < MIN_TITULO);
-
-			do {
+				titulo = comprobarTitulo(titulo);
+			}
+			while (isbn.length() != LONG_ISBN) {
 				System.out.println("Introduce el ISBN de la revista que deseas añadir(10 caracteres):");
 				isbn = sc.nextLine();
-			} while (isbn.length() != LONG_ISBN);
+				isbn = comprobarIsbn(isbn);
+			}
 
-			do {
-				System.out.println("Introduce el número de página de la revista que deseas añadir(1 como minimo):");
+			while (numPag < MIN_PAGINAS) {
+				System.out.println("Introduce el número de páginas de la revista que deseas añadir(1 como minimo):");
 				try {
-					numPag = sc.nextInt();
-				} catch (InputMismatchException e) {
-					System.out.println("Lo sentimos debes introducir un numero.");
+					numPag = Integer.parseInt(sc.nextLine());
+				} catch (NumberFormatException e) {
+					System.out.println("Lo sentimos pero no has introudcido un numero, por favor vuelve a intentarlo");
 				}
-			} while (numPag == MIN_PAGINAS);
-
-			do {
+				numPag = comprobarPaginas(numPag);
+			}
+			opcionSeleccionada = 0;
+			while (opcionSeleccionada != FORMATO_PAPEL && opcionSeleccionada != FORMATO_DIGITAL) {
 				System.out.println("Introduce el número del formato de la revista que deseas añadir");
 				System.out.println("1.Digital");
 				System.out.println("2.Papel");
 				opcionSeleccionada = sc.nextInt();
-
-			} while (opcionSeleccionada != FORMATO_PAPEL && opcionSeleccionada != FORMATO_DIGITAL);
-			if (opcionSeleccionada == 1) {
-				formato = true;
-			}
-			do {
-				System.out.println("¿Desea guardar la revista introducida? (s/n)");
-				continuar = sc.nextLine();
-
-				if (continuar.startsWith("s")) {
-					Revista revista = new Revista(titulo, isbn, numPag, formato);
-					if (dao.insert(revista)) {
-						cont++;
-						System.out.println("La revista ha sido añadida");
-						System.out.println(revista.toString());
-					} else {
-						System.out.println("Lo sentimos pero ha ocurrido un error, vuelva a intentarlo por favor.");
-					}
+				if (opcionSeleccionada == FORMATO_PAPEL) {
+					formato = true;
 				}
-			} while (continuar != 'n' || continuar != 'N');
+			}
+			opcionSeleccionada = -1;
+			char continuar = ' ';
+			System.out.println("La revista nueva==> " + "Titulo=> " + titulo + ", ISBN=> " + isbn
+					+ ", Numero de paginas=> " + numPag + ", Formato=> " + formato);
+			while (continuar == ' ') {
+				System.out.println("¿Desea guardar la revista introducida? (s/n)");
+				continuar = sc.next().trim().toLowerCase().charAt(0);
 
-			System.out.println("¿Deseas añadir otra revista?(s/n)");
-			try {
-				continuar = (char) System.in.read();
-			} catch (IOException e) {
-				System.out.println("Lo sentimos ha ocurrido un error");
 			}
 
-		} while (continuar != 'n' && continuar != 'N');
-		pintarMenu();
+			if (continuar == 's') {
+				Revista revista = new Revista(titulo, isbn, numPag, formato);
+				if (dao.insert(revista)) {
+					cont++;
+					System.out.println("La revista ha sido añadida");
+
+				} else {
+					System.out.println("Lo sentimos pero ha ocurrido un error, vuelva a intentarlo por favor.");
+				}
+			}
+			pintarMenu();
+		} while (opcionSeleccionada < OPCION_SALIR || opcionSeleccionada > OPCION_ESCRIBIR_FICHERO); // Primer Do
+
+	}
+
+	private static int comprobarPaginas(int numPag) {
+		if (numPag < MIN_PAGINAS) {
+			System.out.println("Lo sentimos. la revista tiene que tener al menos " + MIN_PAGINAS + " pagina.");
+			numPag = -1;
+		}
+		return numPag;
+	}
+
+	private static String comprobarTitulo(String titulo) {
+		if (titulo.length() < MIN_TITULO || titulo.length() > MAX_TITULO) {
+			System.out.println("Lo sentimos pero el nombre del titulo tiene que tener como minimo " + MIN_TITULO
+					+ " y como maximo " + MAX_TITULO + " caracteres.");
+			titulo = "";
+		}
+		return titulo;
+	}
+
+	private static String comprobarIsbn(String isbn) {
+		if (isbn.length() != LONG_ISBN) {
+			System.out.println("Lo sentimos pero el ISBN debe tener " + LONG_ISBN + " caracteres");
+			isbn = "";
+		}
+		return isbn;
 	}
 
 	private static void escribibrFichero(List<Revista> listaRevistas) {
@@ -248,7 +272,7 @@ public class GestorRevistas {
 		System.out.println("");
 		System.out.println("");
 		System.out.println("");
-		System.out.println("Hasta la proxima, esperamos verte pronto");
+		System.out.println("Hasta la proxima.");
 	}
 
 	/**
