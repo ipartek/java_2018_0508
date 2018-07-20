@@ -106,8 +106,9 @@ public class GestorRevistas {
 
 	/**
 	 * Metodo para cargar una lista de revistas
+	 * @throws Exception 
 	 */
-	private static void cargarRevistas() {
+	private static void cargarRevistas() throws Exception{
 		Revista revista1 = new Revista("Revista1", "1234567890", 15, false);
 		dao.insert(revista1);
 		Revista revista2 = new Revista("Revista2", "1029384756", 30, true);
