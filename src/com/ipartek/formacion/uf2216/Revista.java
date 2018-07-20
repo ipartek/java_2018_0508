@@ -38,9 +38,11 @@ public class Revista {
 		this.setnPaginas(nPaginas);
 		this.setFormato(formato);
 	}
+	
 	public String getTitulo() {
 		return titulo;
 	}
+	
 	public void setTitulo(String titulo) throws Exception {
 		
 		if(titulo != null && titulo.trim().length() >= TITULO_MIN_LENGTH && 
@@ -54,9 +56,11 @@ public class Revista {
 		
 		
 	}
+	
 	public String getIsbn() {
 		return isbn;
 	}
+	
 	public void setIsbn(String isbn) throws Exception {
 		
 		if(isbn != null && isbn.trim().length() == ISBN_LENGTH) {
@@ -68,9 +72,11 @@ public class Revista {
 		
 		
 	}
+	
 	public int getnPaginas() {
 		return nPaginas;
 	}
+	
 	public void setnPaginas(int nPaginas) throws Exception {
 
 		if(nPaginas >= PAGINAS_MIN_LENGTH) {
@@ -81,11 +87,18 @@ public class Revista {
 		}
 		
 	}
+	
 	public boolean isFormato() {
 		return formato;
 	}
+	
 	public void setFormato(boolean formato) {
 		this.formato = formato;
+	}
+
+	@Override
+	public String toString() {
+		return "Revista [titulo=" + titulo + ", isbn=" + isbn + ", nPaginas=" + nPaginas + ", formato=" + formato + "]";
 	}
 
 }
