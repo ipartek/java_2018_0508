@@ -28,11 +28,11 @@ public class Revistas {
 
 	}
 
-	public Revistas(String titulo, String isbn, int paginas, boolean formato) {
+	public Revistas(String titulo, String isbn, int paginas, boolean formato) throws Exception {
 		this();
-		this.titulo = titulo;
-		this.isbn = isbn;
-		this.paginas = paginas;
+		setTitulo(titulo);
+		setIsbn(isbn);
+		setPaginas(paginas);
 		this.formato = formato;
 
 	}

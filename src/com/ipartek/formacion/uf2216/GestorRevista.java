@@ -39,10 +39,10 @@ public class GestorRevista {
 				case OPCION_ANADIR:
 
 					Revistas nuevaRevista = crearNuevaRevista();
-					//dao.insert(nuevaRevista);
+					// dao.insert(nuevaRevista);
 					boolean respuestaCorrecta = false;
 					do {
-						System.out.println("Desea añadir el libro (S/N)");
+						System.out.println("Desea añadir la revista (S/N)");
 						String respuesta = sc.nextLine();
 						if (respuesta.toUpperCase().equals("S")) {
 							dao.insert(nuevaRevista);
@@ -50,6 +50,7 @@ public class GestorRevista {
 							System.out.println("Revista creada");
 						} else if (respuesta.toUpperCase().equals("N")) {
 							respuestaCorrecta = true;
+							System.out.println("Revista No creada");
 						}
 
 					} while (respuestaCorrecta != true);
@@ -62,7 +63,7 @@ public class GestorRevista {
 					break;
 
 				default:
-					System.out.println("Has ingresado un numero ERRONEO");
+					System.out.println("Has ingresado un numero ERRONEO por favor vuelve a intentarlo");
 				}
 			} catch (InputMismatchException ex) {
 				System.out.println("No has introducido un numero valido");
@@ -114,31 +115,40 @@ public class GestorRevista {
 			if (paginas >= Revistas.PAGINAS_MIN_LENGTH) {
 				paginasCorrecta = true;
 			} else {
-				System.out.println("El numero de paginas debe tener las una pagina por favor intertalo otra vez");
+				System.out.println("El numero de paginas debe tener mas de una pagina por favor vuelve a intentarlo");
 			}
 		} while (paginasCorrecta != true);
 
-		boolean formato = false;
+		boolean formato = true;
 		boolean formatoCorrecto = false;
 
 		do {
 			System.out.println("Por favor ingrese el formato digital o papel ?  ");
-			String f = sc.nextLine();
+			String frmt = sc.nextLine();
 
-			if (f.equals("digital")) {
+			if (frmt.equals("digital")) {
 				formato = true;
 				formatoCorrecto = true;
-			} else if (f.equals("papel")) {
+			} else if (frmt.equals("papel")) {
 				formato = false;
 				formatoCorrecto = true;
 			} else {
-				System.out.println(" No has metido un formato correcto, por favor vuelve a insertalo");
+				System.out.println(" El formato es incorrecto debe ser digital o papel,  por favor vuelve a insertalo");
 			}
 		} while (formatoCorrecto != true);
 
-		Revistas nuevaRevista = new Revistas(titulo, isbn, paginas, true);
+		Revistas nuevaRevista;
 
-		return nuevaRevista;
+		try {
+			nuevaRevista = new Revistas(titulo, isbn, paginas, formato);
+			return nuevaRevista;
+
+		} catch (Exception e) {
+			System.out.println("Error al ingresar la lista ");
+			e.printStackTrace();
+		}
+
+		return null;
 
 	}
 
