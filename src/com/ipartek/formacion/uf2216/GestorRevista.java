@@ -12,24 +12,21 @@ public class GestorRevista {
 	static private RevistaDAO dao;
 	static private int opcionSeleccionada = 0;
 	static Scanner sc = null;
+	static private final String TERMINAR = "n";
+	static private final int VACIO = 0;
+	private static int cont = 0;
 
+	// OPCIONES MENU
 	static private final int OPCION_SALIR = 0;
 	static private final int OPCION_LISTAR = 1;
 	static private final int OPCION_ANADIR = 2;
 	static private final int OPCION_GUARDAR = 3;
-	static private final int TITULO_MIN = 3;
-	static private final int TITULO_MAX = 150;
-	static private final int LONGISBN = 10;
-	static private final int MIN_NUMPAG = 1;
 
+	// VARIABLES AGREGAR
+
+	static private final int MIN_NUMPAG = 1;
 	static private final boolean DIGITAL = true;
 	static private final boolean PAPEL = false;
-	static private final String FORMATODIG = "Digital";
-	static private final String FORMATOPAPEL = "Papel";
-
-	static private final String TERMINAR = "n";
-	static private final int VACIO = 0;
-	private static int cont = 0;
 
 	public static void main(String[] args) {
 
@@ -80,40 +77,43 @@ public class GestorRevista {
 
 		sc.nextLine();
 		boolean resul = false;
+		String continuar = "n";
+
+		// Variables temp para guardar la entrada por teclado antes de guardar en el
+		// objeto.
 		int numPagRevista = 0;
 		String titulo = "";
 		String isbn = "";
 		String formatoRevista = "";
 		boolean formate = false;
-		String FormatoMostrar = "";
-		String guardar = "";
 
-		String continuar = "n";
 		System.out.println("\n");
 
 		do {
 
-			// Titulo
 			do {
 				System.out.print("inserte entre 3 y 150 caracteres para el titulo : ");
-				titulo = sc.next();
+				titulo = sc.nextLine().trim();
 
-				if (titulo.length() < TITULO_MIN || titulo.length() > TITULO_MAX) {
-					System.out
-							.println("Repita por favor...La longitud del titulo debe de ser entre 3 y 150 caracteres");
+				resul = dao.insertTitulo(titulo);
+				if (resul == false) {
+					System.out.println(" por favor...el titulo debe tener entre 3 y 150 caracteres");
 				}
-			} while (titulo.length() < TITULO_MIN || titulo.length() > TITULO_MAX);
+
+			} while (resul == false);
 
 			// ISBN
 			do {
 				System.out.print("inserte 10 caracteres para el ISBN: ");
-				isbn = sc.next();
+				isbn = sc.nextLine().trim();
 				sc.nextLine();
-				if (isbn.length() != LONGISBN) {
+				resul = dao.insertISBN(isbn);
+
+				if (resul == false) {
 					System.out.println("ERROR...La longitud del ISBN debe ser de 10 caracteres.");
 				}
 
-			} while (isbn.length() != LONGISBN);
+			} while (resul == false);
 
 			// NUMPAG
 			do {
@@ -139,11 +139,10 @@ public class GestorRevista {
 
 					if ("P".equalsIgnoreCase(formatoRevista)) {
 						formate = PAPEL;
-						FormatoMostrar = FORMATOPAPEL;
 
 					} else if ("D".equalsIgnoreCase(formatoRevista)) {
 						formate = DIGITAL;
-						FormatoMostrar = FORMATODIG;
+
 					} else {
 						System.out.println("Formato no valido...eliga entre (D)igital o (P)apel");
 					}
@@ -154,35 +153,11 @@ public class GestorRevista {
 				}
 
 			} while (!"P".equalsIgnoreCase(formatoRevista) && !"D".equalsIgnoreCase(formatoRevista));
-
-			// Mostrar antes de guardar
-			System.out.println("_____________________________");
-			System.out.println("Datos de la revista a crear:");
-			System.out.println("_____________________________");
-			System.out.println("Titulo: " + titulo + "\n ISBN: " + isbn + "\n Numero Paginas: " + numPagRevista
-					+ " \n Formato: " + FormatoMostrar);
-
-			System.out.println("¿Deseas guardar la revista a la lista? \"s\" si \"n\"no");
-			guardar = sc.next();
-
-			// Guarda revista
-			if ("s".equalsIgnoreCase(guardar)) {
-				Revista r = new Revista();
-
-				r.setId(cont++);
-				r.setTitulo(titulo.trim());
-				r.setIsbn(isbn);
-				r.setNumPag(numPagRevista);
-				r.setFormato(formate);
-
-				dao.insert(r);
-
-				System.out.println("guardado registro....");
-
-			} else {
-				System.out.println("No se ha guardado en la lista.");
-
+			if ("P".equalsIgnoreCase(formatoRevista)) {
+				formatoRevista = "";
 			}
+
+			mostrarBorrador(titulo, isbn, numPagRevista, formate);
 
 			// Añadir mas revistas
 			System.out.println("¿Deseas agregar mas revistas? \"s\" si \"n\"no");
@@ -199,6 +174,46 @@ public class GestorRevista {
 
 		} while (!TERMINAR.equalsIgnoreCase(continuar));
 
+	}
+
+	private static void mostrarBorrador(String titulo, String isbn, int numPag, boolean formato) {
+
+		String guardar = "";
+		String aux = "";
+		if (formato) {
+			aux = "Digital";
+		} else {
+			aux = "Papel";
+		}
+
+		// Mostrar antes de guardar
+		System.out.println("_____________________________");
+		System.out.println("Datos de la revista a crear:");
+		System.out.println("_____________________________");
+		System.out.println(
+				"Titulo: " + titulo + "\n ISBN: " + isbn + "\n Numero Paginas: " + numPag + " \n Formato: " + aux);
+
+		System.out.println("¿Deseas guardar la revista a la lista? \"s\" si \"n\"no");
+		guardar = sc.next();
+
+		// Guarda revista
+		if ("s".equalsIgnoreCase(guardar)) {
+			Revista r = new Revista();
+
+			r.setId(cont++);
+			r.setTitulo(titulo.trim());
+			r.setIsbn(isbn);
+			r.setNumPag(numPag);
+			r.setFormato(formato);
+
+			dao.insert(r);
+
+			System.out.println("guardado registro....");
+
+		} else {
+			System.out.println("No se ha guardado en la lista.");
+
+		}
 	}
 
 	private static void listarRevista() {

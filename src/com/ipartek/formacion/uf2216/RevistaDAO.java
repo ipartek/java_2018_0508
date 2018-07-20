@@ -7,6 +7,10 @@ import com.ipartek.formacion.model.CrudAble;
 
 public class RevistaDAO implements CrudAble<Revista> {
 
+	static private final int TITULO_MIN = 3;
+	static private final int TITULO_MAX = 150;
+	static private final int LONG_ISBN = 10;
+
 	private static RevistaDAO INSTANCE = null;
 	private static List<Revista> lista = null;
 
@@ -65,6 +69,37 @@ public class RevistaDAO implements CrudAble<Revista> {
 	public boolean delete(long id) {
 		// TODO Auto-generated method stub
 		return false;
+	}
+
+	public boolean insertTitulo(String texto) {
+
+		boolean resul = false;
+
+		if (texto != null) {
+			if (texto.length() < TITULO_MIN || texto.length() > TITULO_MAX) {
+				resul = false;
+			} else {
+				resul = true;
+			}
+		}
+		return resul;
+
+	}
+
+	public boolean insertISBN(String texto) {
+
+		boolean resul = false;
+
+		if (texto != null) {
+			if (texto.length() != LONG_ISBN) {
+				resul = false;
+
+			} else {
+				resul = true;
+			}
+		}
+		return resul;
+
 	}
 
 }

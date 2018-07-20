@@ -18,13 +18,6 @@ public class RevistaDAOTest {
 	static final int MOCK1_NUMPAG = 1;
 	static final boolean MOCK1_FORMATO = true;
 
-	static Revista mock2;
-	static final long MOCK2_ID = 325;
-	static final String MOCK2_ISBN = "AY4QbN5PCx";
-	static final String MOCK2_TITULO = "Que me dices";
-	static final int MOCK2_NUMPAG = 1;
-	static final boolean MOCK2_FORMATO = true;
-
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
 
@@ -55,25 +48,27 @@ public class RevistaDAOTest {
 	@Test
 	public void testInsert() {
 
-		// recogemos num videos
+		// recogemos num revistas
 		int totalRevista = dao.getALl().size();
 
 		assertFalse(dao.insert(null));
 		assertEquals(totalRevista, dao.getALl().size());
 
 		assertTrue(dao.insert(mock1));
-		// saber si en realidad tengo los de antes +1
-		assertEquals(totalRevista + 1, dao.getALl().size());
 
 	}
 
-	// TODO termina test
 	@Test
 
 	public void testGetALl() {
 
 		// No devuelve null,sino uno vacio
 		assertNotNull(dao.getALl());
+
+	}
+
+	@Test
+	public void testInsertTitulo() {
 
 	}
 
