@@ -14,8 +14,6 @@ public class Revista {
 	
 	public static final String ISBN_MENSAJE_EXCEPTION = "El ISBN debe contener " + ISBN_LENGTH + " caracteres";
 	
-	public static final String PAGINAS_MENSAJE_EXCEPTION = "La revista debe tener al menos " + PAGINAS_MIN_LENGTH + " pagina/s";
-	
 	private String titulo;
 	private String isbn;
 	private int nPaginas;
@@ -26,7 +24,7 @@ public class Revista {
 		super();
 		this.titulo = "";
 		this.isbn = "";
-		this.nPaginas = 0;
+		this.nPaginas = PAGINAS_MIN_LENGTH;
 		this.formato = false;
 	}
 	
@@ -43,6 +41,11 @@ public class Revista {
 		return titulo;
 	}
 	
+	/**
+	 * Guardamos el valor del título de la revista
+	 * @param titulo String título de la revista
+	 * @throws Exception si el titulo es null, si es menor que 3 o si es mayor que 150 caracteres.
+	 */
 	public void setTitulo(String titulo) throws Exception {
 		
 		if(titulo != null && titulo.trim().length() >= TITULO_MIN_LENGTH && 
@@ -61,6 +64,11 @@ public class Revista {
 		return isbn;
 	}
 	
+	/**
+	 * Guardamos el valor del isbn de la revista
+	 * @param titulo String identificador de la revista
+	 * @throws Exception si el isbn es null o si no contiene 10 caracteres exactos.
+	 */
 	public void setIsbn(String isbn) throws Exception {
 		
 		if(isbn != null && isbn.trim().length() == ISBN_LENGTH) {
@@ -77,13 +85,13 @@ public class Revista {
 		return nPaginas;
 	}
 	
-	public void setnPaginas(int nPaginas) throws Exception {
+	public void setnPaginas(int nPaginas) {
 
 		if(nPaginas >= PAGINAS_MIN_LENGTH) {
 			this.nPaginas = nPaginas;
 			
 		}else {
-			throw new Exception(PAGINAS_MENSAJE_EXCEPTION);
+			this.nPaginas = PAGINAS_MIN_LENGTH;
 		}
 		
 	}

@@ -14,7 +14,7 @@ import java.util.List;
  * @author Adrian Garcia
  *
  */
-public interface CrudAble2<P> {
+public interface CrudAbleRevista<P> {
 	
 	boolean insert(P revista);
 	
@@ -31,7 +31,7 @@ public interface CrudAble2<P> {
 	 */
 	Revista getById(long id);
 	
-	boolean update(P pojo);
+	boolean update(P revista);
 	
 	boolean delete(long id);	
 	

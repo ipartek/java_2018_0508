@@ -65,7 +65,7 @@ public class LibroDAOTest {
 		assertEquals(2, dao.getAllPrestados(true).size());
 
 		assertEquals(5, dao.getAllPrestados(false).size());
-
+		
 	}
 
 	@Test

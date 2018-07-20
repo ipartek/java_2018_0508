@@ -10,7 +10,7 @@ import java.util.List;
  * @author Adrian Garcia
  *
  */
-public class RevistaArrayDAO implements CrudAble2<Revista> {
+public class RevistaArrayDAO implements CrudAbleRevista<Revista> {
 	
 	public static RevistaArrayDAO INSTANCE = null;
 	public static List<Revista> lista = null;
