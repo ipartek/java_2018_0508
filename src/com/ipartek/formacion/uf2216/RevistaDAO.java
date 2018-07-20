@@ -24,18 +24,6 @@ public class RevistaDAO implements Gestiones<Revista> {
 	}
 
 	@Override
-	public Revista getById(long id) {
-		Revista resul = null;
-		for (Revista r : lista) {
-			if (id == r.getId()) {
-				resul = r;
-				break;
-			}
-		}
-		return resul;
-	}
-
-	@Override
 	public boolean insert(Revista pojo) {
 		boolean resul = false;
 		if (pojo != null) {

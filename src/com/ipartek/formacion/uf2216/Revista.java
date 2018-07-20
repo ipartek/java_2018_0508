@@ -14,7 +14,6 @@ public class Revista {
 
 	public static final String NUM_PAGINAS_EXCEPTION = "La revista debe tener al menos " + NUM_PAGINAS_MIN + " pagina";
 
-	private long id;
 	private String titulo;
 	private String isbn;
 	private int numPaginas;
@@ -22,28 +21,18 @@ public class Revista {
 
 	public Revista() {
 		super();
-		this.id = -1;
 		this.titulo = "";
 		this.isbn = "";
 		this.numPaginas = 0;
 		this.esDigital = false;
 	}
 
-	public Revista(long id, String titulo, String isbn, int numPaginas, boolean esDigital) {
+	public Revista(String titulo, String isbn, int numPaginas, boolean esDigital) throws Exception{
 		this();
-		this.id = id;
 		this.titulo = titulo;
 		this.isbn = isbn;
 		this.numPaginas = numPaginas;
 		this.esDigital = esDigital;
-	}
-
-	public long getId() {
-		return id;
-	}
-
-	public void setId(long id) {
-		this.id = id;
 	}
 
 	public String getTitulo() {
@@ -89,11 +78,11 @@ public class Revista {
 
 	@Override
 	public String toString() {
-		String resul = "Revista [id=" + id + ", titulo=" + titulo + ", isbn=" + isbn + ", numPaginas=" + numPaginas;
+		String resul = "Revista con titulo: " + titulo + "\n ISBN: " + isbn + "\n Número de páginas: " + numPaginas;
 		if(esDigital == true)
-			resul += ", esDigital=Digital]";
+			resul += "\n Formato: Digital";
 		else
-			resul += ", esDigital=Papel]";
+			resul += "\n Formato: Papel";
 		
 		return resul;
 	}
