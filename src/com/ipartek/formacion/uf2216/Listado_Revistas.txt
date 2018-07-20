@@ -1,0 +1,3 @@
+Revista [titulo=Quo, isbn=1234567890, numPag=40, formato=false]
+Revista [titulo=Año Cero, isbn=1634517936, numPag=30, formato=false]
+Revista [titulo=Hobby consolas, isbn=2938456701, numPag=50, formato=true]
