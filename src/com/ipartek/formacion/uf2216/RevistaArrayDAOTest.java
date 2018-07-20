@@ -12,6 +12,7 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 public class RevistaArrayDAOTest {
+	
 	private static int cont = 0;
 
 	static Revista mock1;

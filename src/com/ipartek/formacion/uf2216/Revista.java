@@ -10,8 +10,11 @@ public class Revista {
 	private static String TITULO_EXCEPTION = "La longitud mínima debe de ser " + TITULO_MIN_LENGTH + " y la máxima de "
 			+ TITULO_MAX_LENGTH;
 
-/*	private static final int PAGINAS_MIN_EXCEPTION = 1;
-	private static String PAGINAS_EXCEPTION = "El número de páginas mínimo a de ser " + PAGINAS_MIN_EXCEPTION;*/
+	/*
+	 * private static final int PAGINAS_MIN_EXCEPTION = 1; private static String
+	 * PAGINAS_EXCEPTION = "El número de páginas mínimo a de ser " +
+	 * PAGINAS_MIN_EXCEPTION;
+	 */
 
 	private long id;
 	private String titulo;
@@ -50,8 +53,8 @@ public class Revista {
 	}
 
 	public void setIsbn(String isbn) throws Exception {
-		
-		if (isbn != null ) {
+
+		if (isbn != null) {
 			this.isbn = isbn;
 		} else {
 			throw new Exception(ISBN_LONG_EXCEPTION);
@@ -63,10 +66,10 @@ public class Revista {
 	}
 
 	public void setTitulo(String titulo) throws Exception {
-		
+
 		if (titulo != null) {
 			this.titulo = titulo;
-		}else {
+		} else {
 			throw new Exception(TITULO_EXCEPTION);
 		}
 	}
@@ -76,7 +79,7 @@ public class Revista {
 	}
 
 	public void setPaginas(int paginas) throws Exception {
-			this.paginas = paginas;
+		this.paginas = paginas;
 	}
 
 	public boolean isFormato() {

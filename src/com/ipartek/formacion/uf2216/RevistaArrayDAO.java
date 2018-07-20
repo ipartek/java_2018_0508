@@ -92,5 +92,4 @@ public class RevistaArrayDAO implements CrudAble<Revista> {
 		return resul;
 	}
 
-	
 }

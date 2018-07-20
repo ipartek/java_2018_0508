@@ -291,7 +291,7 @@ public class GestionRevista {
 		System.out.println("-    3. Escribir en fichero        -");
 		System.out.println("-    4. Leer en fichero            -");
 		System.out.println("-                                  -");
-		System.out.println("-    0 - salir                     -");
+		System.out.println("-    0 - Salir                     -");
 		System.out.println("------------------------------------");
 		System.out.println("");
 		System.out.println("Dime una opcion por favor");
