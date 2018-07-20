@@ -76,7 +76,7 @@ public class GestionRevistas {
 			System.out.println("¿Estas seguro de que deseas llamarlo " + nameTxt.trim() + "?(s/n)");
 			seguro = (char) System.in.read();
 		} while (seguro != SI);
-		File f = new File("Ficheros\\" + nameTxt.trim() + ".txt");
+		File f = new File("Revistas\\" + nameTxt.trim() + ".txt");
 
 		if (f.exists()) {
 			System.out.println("Ya existe un fichero con ese nombre");
