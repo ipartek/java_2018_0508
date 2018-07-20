@@ -17,14 +17,14 @@ public class Revista {
 	private String titulo;
 	private String isbn;
 	private int numPaginas;
-	private boolean esDigital;
+	private boolean digital;
 
 	public Revista() {
 		super();
 		this.titulo = "";
 		this.isbn = "";
 		this.numPaginas = 0;
-		this.esDigital = false;
+		this.digital = false;
 	}
 
 	public Revista(String titulo, String isbn, int numPaginas, boolean esDigital) throws Exception{
@@ -32,7 +32,7 @@ public class Revista {
 		this.titulo = titulo;
 		this.isbn = isbn;
 		this.numPaginas = numPaginas;
-		this.esDigital = esDigital;
+		this.digital = esDigital;
 	}
 
 	public String getTitulo() {
@@ -68,18 +68,18 @@ public class Revista {
 			throw new Exception(NUM_PAGINAS_EXCEPTION);
 	}
 
-	public boolean isEsDigital() {
-		return esDigital;
+	public boolean isDigital() {
+		return digital;
 	}
 
-	public void setEsDigital(boolean esDigital) {
-		this.esDigital = esDigital;
+	public void setDigital(boolean esDigital) {
+		this.digital = esDigital;
 	}
 
 	@Override
 	public String toString() {
-		String resul = "Revista con titulo: " + titulo + "\n ISBN: " + isbn + "\n Número de páginas: " + numPaginas;
-		if(esDigital == true)
+		String resul = "Revista con título: " + titulo + "\n ISBN: " + isbn + "\n Número de páginas: " + numPaginas;
+		if(digital == true)
 			resul += "\n Formato: Digital";
 		else
 			resul += "\n Formato: Papel";

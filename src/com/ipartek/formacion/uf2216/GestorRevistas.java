@@ -105,6 +105,13 @@ public class GestorRevistas {
 	private static void guardarEnFichero() {
 
 		File f = new File("Revistas.txt");
+		
+		try {
+			f.createNewFile();
+			System.out.println("Creando fichero...");
+		} catch (IOException e) {
+			System.out.println("Error al crear el fichero.");
+		}
 
 		if (f.exists()) {
 
@@ -153,9 +160,9 @@ public class GestorRevistas {
 		revista.setNumPaginas(numPaginas);
 
 		if (opcionDigitalPapel.equalsIgnoreCase("d")) {
-			revista.setEsDigital(true);
+			revista.setDigital(true);
 		} else if (opcionDigitalPapel.equalsIgnoreCase("p"))
-			revista.setEsDigital(false);
+			revista.setDigital(false);
 
 		System.out.println("Datos de la revista a guardar: ");
 		System.out.println(revista.toString());
