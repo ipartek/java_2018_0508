@@ -30,6 +30,10 @@ public class GestorLibros {
 		do {
 
 			try {
+				
+				System.out.println("------------------------------------");
+				System.out.println("--        BIENVENIDO/A            --");
+
 				mostrarMenu();
 
 				opcion = sr.nextInt();

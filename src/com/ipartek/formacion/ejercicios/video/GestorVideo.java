@@ -25,6 +25,8 @@ public class GestorVideo {
 		do {
 
 			try {
+				
+				
 				mostrarMenu();
 
 				opcion = sr.nextInt();
