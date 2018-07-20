@@ -11,7 +11,8 @@ public class Revista {
 		private String isbn;
 		private int numPaginas;
 		private boolean formato;
-		
+		private String formatoUsuario;
+		private long id;
 		
 		
 	//Constructor
@@ -21,21 +22,20 @@ public class Revista {
 			this.titulo="";
 			this.isbn="";
 			this.numPaginas=1;
-			this.id=-1;
 			this.formato=DIGITAL;
 			
 		}
-		public Revista(String titulo, String isbn, int numPaginas, long id,boolean formato) throws Exception {
+		public Revista(String titulo, String isbn, int numPaginas,boolean formato) throws Exception {
 			this();
 			this.titulo = titulo;
 			//this.isbn = isbn;
 			setIsbn(isbn);
 			this.numPaginas = numPaginas;
-			this.id=id;
 			this.formato = formato;
 		}
 	
 		
+	
 	
 		//GETTERS Y SETTERS
 		public String getTitulo() {
@@ -56,12 +56,6 @@ public class Revista {
 		 * @throws Exception si ISBN ES NULL O LA LONGITUD ES MAYOR QUE 10
 		 */
 		public void setIsbn(String isbn)  {
-			/*TODO QUE HAGO CON ESTO*/
-			/*if(isbn !=null && isbn.length() <= ISBN_MAX_LENGTH) {
-				this.isbn=isbn;
-			}else {
-				throw new Exception(ISBN_MAX_EXCEPTION);
-			}*/
 			this.isbn=isbn;
 		}
 		
@@ -73,12 +67,7 @@ public class Revista {
 			this.numPaginas = numPaginas;
 		}
 		
-		public long getId() {
-			return id;
-		}
-		public void setId(long id) {
-			this.id = id;
-		}
+		
 		
 		public boolean isFormato() {
 			return formato;
@@ -86,5 +75,21 @@ public class Revista {
 		
 		public void setFormato(boolean formato) {
 			this.formato = formato;
+		}
+		
+		@Override
+		public String toString() {
+			
+			if(formato==true) {
+				formatoUsuario="Digital";
+			}else{
+				formatoUsuario="Papel";
+			}
+			return "-Revista-" + 
+					"\n\t Titulo: " + titulo +
+					"\n\t ISBN:  " + isbn + 
+					"\n\t Numero de paginas: " + numPaginas +
+					"\n\t Formato: "+formatoUsuario;
+		
 		}
 }

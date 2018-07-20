@@ -1,0 +1,5 @@
+-Revista-
+	 Titulo: Titulo de prueba
+	 ISBN:  123456789
+	 Numero de paginas: 2
+	 Formato: Digital

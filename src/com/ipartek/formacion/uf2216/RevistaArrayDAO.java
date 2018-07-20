@@ -3,9 +3,7 @@ package com.ipartek.formacion.uf2216;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.ipartek.formacion.model.CrudAble;
-import com.ipartek.formacion.model.LibrosArrayDAO;
-import com.ipartek.formacion.pojo.Libro;
+import com.ipartek.formacion.uf2216.CrudAble;
 import com.ipartek.formacion.uf2216.RevistaArrayDAO;
 import com.ipartek.formacion.uf2216.Revista;
 
@@ -43,7 +41,9 @@ public class RevistaArrayDAO implements CrudAble<Revista>{
 				return lista;
 			}
 			
-			
+			/**
+			 * Al haber dicho que no importaba el id,no lo he creado como atributo
+			 */
 			@Override
 			public Revista getById(long id) {
 				Revista resul = null;
@@ -67,7 +67,7 @@ public class RevistaArrayDAO implements CrudAble<Revista>{
 					
 					rIteracion = lista.get(i);   //revista sobre el que iteramos
 					
-					if ( revista_modificada.getId() == rIteracion.getId() ) {    // revista encontrado
+					if ( revista_modificada.getid() == rIteracion.getId() ) {    // revista encontrado
 						lista.set(i, revista_modificada);
 						resul = true;
 					}
@@ -76,7 +76,7 @@ public class RevistaArrayDAO implements CrudAble<Revista>{
 			}
 			
 			
-			@Override
+			//@Override
 			public boolean delete(long id) {
 				boolean resul = false;
 				Revista rIteracion = null;
