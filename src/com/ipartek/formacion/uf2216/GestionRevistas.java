@@ -36,7 +36,6 @@ public class GestionRevistas {
 
 			cargarRevistas();
 
-			
 			do {
 
 				pintarMenu();
@@ -71,7 +70,6 @@ public class GestionRevistas {
 			
 		}
 	}
-
 
 	private static void anadir() {
 		

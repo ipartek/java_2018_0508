@@ -7,7 +7,6 @@ public class Revistas {
 	private int paginas;
 	private String formato; //si lo ponía boolean me daba problemas en el gestor de revistas...
                             // ...y al final he decidido ponerlo string para que funcionase bien	
-	
 	public Revistas() {
 		
 		super();

@@ -3,7 +3,6 @@ package com.ipartek.formacion.uf2216;
 import java.util.ArrayList;
 import java.util.List;
 
-
 public class RevistasArrayDAO implements CrudAble<Revistas> {
 	
 	private static RevistasArrayDAO INSTANCE=null;
