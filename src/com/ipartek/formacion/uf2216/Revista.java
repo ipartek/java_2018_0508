@@ -115,8 +115,15 @@ public class Revista {
 
 	@Override
 	public String toString() {
-		return "Revista [id=" + id + ", titulo=" + titulo + ", isbn=" + isbn + ", numeroPaginas=" + numeroPaginas
-				+ ", formato=" + formato + "]";
+		String str="";
+		str+="REVISTA " + this.getId()+"\n";
+		str+="TITULO     : " + this.getTitulo()+"\n";
+		str+="ISBN       : " + this.getIsbn()+"\n";
+		str+="Nº PAGINAS : " + this.getNumeroPaginas()+"\n";
+		str+="FORMATO    : " + ((this.isFormato()) ? "Digital" : "Papel")+"\n";
+		str+="\n";
+
+		return str;
 	}
 
 }

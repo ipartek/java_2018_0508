@@ -1,0 +1,6 @@
+REVISTA 1
+TITULO     : test
+ISBN       : 1234567890
+Nº PAGINAS : 23
+FORMATO    : Digital
+
