@@ -237,6 +237,7 @@ public class GestorRevistas {
 			System.out.println("Num. Paginas: " + numPaginas);
 			System.out.println("Formato: " + formatoTexto);
 			
+			boolean continuar = true;
 			do {//Pedir al usuario si desea guardar la nueva revista
 				try {
 					System.out.println();
@@ -247,7 +248,8 @@ public class GestorRevistas {
 					System.out.println("Introduce una opcion valida, por favor (s/n).");
 					e.printStackTrace();
 				}
-			}while(!(eleccion != OPCION_SI || eleccion != OPCION_NO));
+				continuar = eleccion == OPCION_SI || eleccion == OPCION_NO;
+			}while(!continuar);
 			
 			if(eleccion == OPCION_SI) {
 				Revista revistaNueva = new Revista(titulo, isbn, numPaginas, formato);
