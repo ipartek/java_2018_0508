@@ -21,14 +21,18 @@ public class GestorRevista {
 	static private final int TITULO_MAX = 150;
 	static private final int LONGISBN = 10;
 	static private final int MIN_NUMPAG = 1;
+
 	static private final boolean DIGITAL = true;
 	static private final boolean PAPEL = false;
+	static private final String FORMATODIG = "Digital";
+	static private final String FORMATOPAPEL = "Papel";
 
 	static private final String TERMINAR = "n";
 	static private final int VACIO = 0;
 	private static int cont = 0;
 
 	public static void main(String[] args) {
+
 		try {
 			sc = new Scanner(System.in);
 
@@ -48,13 +52,15 @@ public class GestorRevista {
 				case OPCION_ANADIR:
 					agregarRevista();
 					break;
+
 				case OPCION_GUARDAR:
-					guardarFichero();
+					guardarListaFichero();
 					break;
 
 				case OPCION_SALIR:
 					System.out.println(" Saliendo de la aplicacion...Hasta la proxima ");
 					break;
+
 				default:
 					System.out.println(" Opcion no valida, el menu va del 0 al 3...");
 					break;
@@ -70,12 +76,8 @@ public class GestorRevista {
 
 	}
 
-	private static void guardarFichero() {
-		crearFichero();
-
-	}
-
 	private static void agregarRevista() {
+
 		sc.nextLine();
 		boolean resul = false;
 		int numPagRevista = 0;
@@ -83,16 +85,15 @@ public class GestorRevista {
 		String isbn = "";
 		String formatoRevista = "";
 		boolean formate = false;
+		String FormatoMostrar = "";
 		String guardar = "";
 
 		String continuar = "n";
 		System.out.println("\n");
-		System.out.println(" - INSERTANDO VIDEOS - ");
 
 		do {
 
-			Revista r = new Revista();
-
+			// Titulo
 			do {
 				System.out.print("inserte entre 3 y 150 caracteres para el titulo : ");
 				titulo = sc.next();
@@ -103,6 +104,7 @@ public class GestorRevista {
 				}
 			} while (titulo.length() < TITULO_MIN || titulo.length() > TITULO_MAX);
 
+			// ISBN
 			do {
 				System.out.print("inserte 10 caracteres para el ISBN: ");
 				isbn = sc.next();
@@ -130,15 +132,18 @@ public class GestorRevista {
 			// FORMATO
 
 			do {
+
 				System.out.println("Indica el formato de la revista(digital(D) o papel(P)):");
 				try {
 					formatoRevista = sc.next();
 
 					if ("P".equalsIgnoreCase(formatoRevista)) {
 						formate = PAPEL;
+						FormatoMostrar = FORMATOPAPEL;
 
 					} else if ("D".equalsIgnoreCase(formatoRevista)) {
 						formate = DIGITAL;
+						FormatoMostrar = FORMATODIG;
 					} else {
 						System.out.println("Formato no valido...eliga entre (D)igital o (P)apel");
 					}
@@ -150,14 +155,20 @@ public class GestorRevista {
 
 			} while (!"P".equalsIgnoreCase(formatoRevista) && !"D".equalsIgnoreCase(formatoRevista));
 
+			// Mostrar antes de guardar
+			System.out.println("_____________________________");
 			System.out.println("Datos de la revista a crear:");
-			System.out.println("Titulo: " + titulo + " ISBN: " + isbn + " Numero Paginas: " + numPagRevista
-					+ " Formato: " + formatoRevista);
+			System.out.println("_____________________________");
+			System.out.println("Titulo: " + titulo + "\n ISBN: " + isbn + "\n Numero Paginas: " + numPagRevista
+					+ " \n Formato: " + FormatoMostrar);
 
-			System.out.println("¿Deseas agregar la revistas a la lista? \"s\" si \"n\"no");
+			System.out.println("¿Deseas guardar la revista a la lista? \"s\" si \"n\"no");
 			guardar = sc.next();
 
+			// Guarda revista
 			if ("s".equalsIgnoreCase(guardar)) {
+				Revista r = new Revista();
+
 				r.setId(cont++);
 				r.setTitulo(titulo.trim());
 				r.setIsbn(isbn);
@@ -169,16 +180,17 @@ public class GestorRevista {
 				System.out.println("guardado registro....");
 
 			} else {
-				System.out.println("No se ha guardado el borrador.");
+				System.out.println("No se ha guardado en la lista.");
 
 			}
 
+			// Añadir mas revistas
 			System.out.println("¿Deseas agregar mas revistas? \"s\" si \"n\"no");
 			continuar = sc.next();
 			resul = validarContinuar(continuar);
-
+			sc.nextLine();
 			while (resul == false) {
-				System.out.println("Marque \"s\" si \"n\"no");
+				System.out.println("Por favor inserte \"s\" si o \"n\"no");
 				continuar = sc.next();
 				resul = validarContinuar(continuar);
 				sc.nextLine();
@@ -229,9 +241,9 @@ public class GestorRevista {
 
 	private static void pintarMenu() {
 
-		System.out.println("|------------------------------------|");
-		System.out.println("|          Revistas                  |");
-		System.out.println("|------------------------------------|");
+		System.out.println("______________________________________");
+		System.out.println("|       Menu   Revistas              |");
+		System.out.println("|____________________________________|");
 		System.out.println("|    	1. Listar		     |");
 		System.out.println("|------------------------------------|");
 		System.out.println("|    	2. Agregar	             |");
@@ -239,7 +251,7 @@ public class GestorRevista {
 		System.out.println("|    	3.Guardar   	             |");
 		System.out.println("|------------------------------------|");
 		System.out.println("|    	0. salir	             |");
-		System.out.println("|------------------------------------|\n");
+		System.out.println("|____________________________________|\n");
 
 		System.out.print("Inserta opcion deseada:");
 		try {
@@ -252,42 +264,52 @@ public class GestorRevista {
 		}
 	}
 
-	private static void crearFichero() {
-
-		System.out.println("-----------------------------------------");
-		System.out.println("Crear Fichero");
-		System.out.println("-----------------------------------------");
+	/**
+	 * Metodo que guardao la lista de revistas en un fichero. si existe el
+	 * fichero.txt en la ruta C:\Desarrollo\Workspace\java_2018_0508\fichero.txt se
+	 * guarda.
+	 * 
+	 */
+	private static void guardarListaFichero() {
 
 		File f = new File("fichero.txt");
-		System.out.println("path: " + f.getAbsolutePath());
 
-		if (f.exists()) { // escribir en fichero
-			System.out.println("Existe el fichero");
-
-			String lorem = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam eget massa sed ligula elementum egestas. Praesent nec ex diam. Integer elementum, dolor non imperdiet finibus, massa eros viverra odio, a tincidunt sem nisi ac urna. Praesent a facilisis massa. Aliquam ligula leo, lobortis sed magna non, fringilla malesuada ex. Sed sit amet nisi sed dolor bibendum sodales. Sed in velit molestie, consectetur nunc vel, efficitur nisl. Aliquam nec nisi sit amet diam vulputate bibendum in id arcu. Vivamus at dignissim lorem. Pellentesque et magna nisl. Aliquam metus justo, dapibus dictum elit eget, pretium placerat sapien.";
-			BufferedWriter bw = null;
-			try {
-				bw = new BufferedWriter(new FileWriter(f));
-				bw.write(lorem);
-				bw.close();
-				System.out.println("Terminamos de escribir en el fichero");
-			} catch (Exception e) {
-				System.out.println("Exception escribiendo fichero: " + e.getMessage());
-			}
-
-		} else { // crear fichero
+		if (f.exists()) {
+			escribirFichero(f);
+			System.out.println("Se ha añadido los registros en el fichero " + f);
+		} else {
 
 			try {
 				f.createNewFile();
-				System.out.println("Creamos fichero");
-
+				System.out.println("Se ha creado el fichero " + f);
+				escribirFichero(f);
+				System.out.println("Se ha añadido los registros en el fichero " + f);
 			} catch (IOException e) {
 
 				System.out.println("Error al crear fichero");
 				e.printStackTrace();
 			}
 		}
+	}
 
+	private static void escribirFichero(File f) {
+		System.out.println("Escribiendo en el fichero ....");
+		ArrayList<Revista> listaRevista = (ArrayList<Revista>) dao.getALl();
+		BufferedWriter bw = null;
+
+		try {
+			bw = new BufferedWriter(new FileWriter(f));
+			for (int i = 0; i < listaRevista.size(); i++) {
+				bw.write(listaRevista.get(i).toString());
+				bw.newLine();
+			}
+
+			bw.close();
+			System.out.println("Terminamos de escribir en el fichero....\n");
+
+		} catch (Exception e) {
+			System.out.println("Exception escribiendo fichero: " + e.getMessage());
+		}
 	}
 
 }
