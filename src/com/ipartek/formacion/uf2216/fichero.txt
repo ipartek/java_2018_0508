@@ -1,0 +1,5 @@
+Revista [titulo=Revista1, isbn=1234567890, numPaginas=15, formato=false]
+Revista [titulo=Revista2, isbn=1029384756, numPaginas=30, formato=true]
+Revista [titulo=Revista3, isbn=1018273645, numPaginas=25, formato=true]
+Revista [titulo=Revista4, isbn=1342908765, numPaginas=50, formato=false]
+Revista [titulo=Revista5, isbn=1234567890, numPaginas=100, formato=true]
