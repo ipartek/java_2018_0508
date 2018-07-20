@@ -9,7 +9,7 @@ public class JugandoPadreHijo extends LibroElectronico {
 
 		public static void main(String[] args) throws Exception {
 			
-			LibroElectornico le = new LibroElectornico();
+			LibroElectronico le = new LibroElectornico();
 			
 			le.setTitulo("Lorem Ipsum");
 			

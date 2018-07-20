@@ -53,9 +53,7 @@ public class RevistasDao implements CrudAble<Revistas> {
 		boolean resul = false;
 		Revistas RevistaIteracion = null;
 		int i = 0;
-		// comprobamos si es null hacer comprobacion
 		if (pojo != null) {
-			// iterator
 			Iterator<Revistas> it = revista.iterator();
 			while (it.hasNext()) {
 				RevistaIteracion = it.next();
@@ -91,37 +89,29 @@ public class RevistasDao implements CrudAble<Revistas> {
 		long id;
 		id = revista.size() + 1;
 		return id;
-		
-		
+
 	}
 
-	public boolean resuelveFormato(int formato) {
-		/**
-		 * Input:Nos llega la eleccion del usuario en entero 1 para definir papel 2 para definir digital
-		 * Output: sale false con 1 sale true con 2
-		 */
-		boolean formatoFix = false;
-		if(formato == 1) {
-			formatoFix = false;
-		}else {
-			if(formato == 2) {
-				formatoFix = true;
-			}
-		}
-		return formatoFix;
-	}
+	/*
+	 * public boolean resuelveFormato(int formato) {
+	 *//**
+		 * Input:Nos llega la eleccion del usuario en entero 1 para definir papel 2 para
+		 * definir digital Output: sale false con 1 sale true con 2
+		 *//*
+			 * boolean formatoFix = false; if(formato == 1) { formatoFix = false; }else {
+			 * if(formato == 2) { formatoFix = true; } } return formatoFix; }
+			 */
 
 	public List<Libro> listarRevistas() {
-		
-		for(Revistas rev : revista) {
-			System.out.println(rev.toString());
+		if (revista.size() > 0) {
+			System.out.println("******Listado de revistas*******");
+			for (Revistas rev : revista) {
+				System.out.println(rev.toString());
+			}
+		} else {
+			System.out.println("No hay revistas para mostrar");
 		}
-		System.out.println("llege");
 		return null;
 	}
-
-	
-
-
 
 }

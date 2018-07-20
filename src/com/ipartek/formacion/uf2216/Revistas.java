@@ -17,41 +17,44 @@ public class Revistas {
 	private String titulo;
 	private int nPaginas;
 	boolean formatoPapel; // false = papel true = digital
+	String formatoPapel2;
 
 	public Revistas() {
 		super();
 		this.id = -1;
 		this.isbn = "";
 		this.titulo = "";
-		this.formatoPapel = false;
+		this.formatoPapel2 = "";
 		this.nPaginas = 1;
 	}
 
-	public Revistas(long id, String isbn, String titulo, boolean formatoPapel , int nPaginas) {
+	public Revistas(long id, String isbn, String titulo, String formatoPapel, int nPaginas) {
 		this();
 		this.id = id;
 		this.isbn = isbn;
 		this.titulo = titulo;
-		this.formatoPapel = formatoPapel;
+		this.formatoPapel2 = formatoPapel;
 		this.nPaginas = nPaginas;
 	}
-	
+
 	public boolean getFormatoPapel() {
 		return formatoPapel;
 	}
+
 	public void setFormatoPapel(boolean formatoPapel) {
-		
-			this.formatoPapel = formatoPapel;
-		
+
+		this.formatoPapel = formatoPapel;
+
 	}
-	
+
 	public int getnPaginas() {
 		return nPaginas;
 	}
+
 	public void setnPaginas(int nPaginas) {
 		if (nPaginas > 0) {
 			this.nPaginas = nPaginas;
-			
+
 		}
 	}
 
@@ -62,7 +65,6 @@ public class Revistas {
 	public void setId(long id) {
 		this.id = id;
 	}
-	
 
 	public String getIsbn() {
 		return isbn;
@@ -103,21 +105,7 @@ public class Revistas {
 
 	@Override
 	public String toString() {
-		return "Revistas [id=" + id + ", isbn=" + isbn + ", titulo=" + titulo + "]";
+		return "Revistas [id=" + id + ", isbn=" + isbn + ", titulo=" + titulo + ", nPaginas=" + nPaginas
+				+ ", formatoPapel2=" + formatoPapel2 + "]";
 	}
-
-	p/*ublic boolean compruebaTitulo(String titulo) throws Exception {
-		*//**
-		 * input -> Entra un string con el titulo
-		 * output-> sale true si el titulo cumple las condiciones sale false si el titulo no cumple las condciones
-		 *//*
-		boolean tituloOk = false;
-		if(titulo != null) {
-			if (titulo.length() > TITTLE_MIN_LENGTH && titulo.length() < TITTLE_MAX_LENGTH) {
-				tituloOk = true;
-			}		
-		}
-		return tituloOk;
-	}*/
-
 }
