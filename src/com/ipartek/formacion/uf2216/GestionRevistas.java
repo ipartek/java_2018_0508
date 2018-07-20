@@ -1,5 +1,13 @@
 package com.ipartek.formacion.uf2216;
 
+/**
+ * Programa que imprime un menu con 3 opciones:/n
+ * <ul>
+ * <li>Lista las revistas introducidas</li>
+ * <li>Añade nuevas revistas</li>
+ * <li>Genera un txt con una lista de las revistas introducidas</li>
+ * </ul>
+ */
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -30,6 +38,7 @@ public class GestionRevistas {
 	private static final char SI = 's';
 
 	public static void main(String[] args) throws Exception {
+
 		sc = new Scanner(System.in);
 
 		dao = RevistasArrayDAO.getInstance();
@@ -65,6 +74,13 @@ public class GestionRevistas {
 
 	}
 
+	/**
+	 * Genera un archivo con el nombre que el usuario desee a no ser que exista /n
+	 * un archivo con el mismo nombre./n Lo genera en la carpeta Revistas de este
+	 * mismo proyecto.
+	 * 
+	 * @throws IOException por lo que pueda pasar
+	 */
 	private static void generarTxt() throws IOException {
 		String nameTxt;
 		char seguro;
@@ -72,11 +88,12 @@ public class GestionRevistas {
 		do {
 			sc.nextLine();
 			System.out.println("¿Como deseas llamar al fichero?");
-			nameTxt = sc.nextLine();
-			System.out.println("¿Estas seguro de que deseas llamarlo " + nameTxt.trim() + "?(s/n)");
+			nameTxt = sc.nextLine().replaceAll("\\s", "");
+			System.out.println("¿Estas seguro de que deseas llamarlo " + nameTxt + "?(s/n)");
 			seguro = (char) System.in.read();
 		} while (seguro != SI);
-		File f = new File("Revistas\\" + nameTxt.trim() + ".txt");
+
+		File f = new File("Revistas\\" + nameTxt + ".txt");
 
 		if (f.exists()) {
 			System.out.println("Ya existe un fichero con ese nombre");
@@ -93,7 +110,10 @@ public class GestionRevistas {
 				PrintWriter pw = new PrintWriter(fw);
 
 				try {
-					pw.println(dao.getAll());
+
+					for (Revistas pojo : dao.getAll()) {
+						pw.println(pojo);
+					}
 
 				} finally {
 					pw.close();
@@ -110,6 +130,13 @@ public class GestionRevistas {
 
 	}
 
+	/**
+	 * Funcion que añade revistas al array con los datos introducidos por el
+	 * usuario.
+	 * 
+	 * @throws Exception Controlamos que introduzca numeros enteros en el numero de
+	 *                   paginas.
+	 */
 	private static void anadirRevista() throws Exception {
 		char seguir;
 		char esDigital;
@@ -133,8 +160,14 @@ public class GestionRevistas {
 			} while (isbn.getBytes().length != LIM_ISBN);
 
 			do { // PEDIMOS PAGINAS
-				System.out.println("Introduce las PAGINAS de la revista que deseas añadir(Minimo 1):");
-				numPaginas = sc.nextInt();
+				try {
+					System.out.println("Introduce las PAGINAS de la revista que deseas añadir(Minimo 1):");
+					numPaginas = sc.nextInt();
+				} catch (Exception e) {
+					sc.nextLine();
+					System.out.println("Introduce un numero entero porfavor");
+					// e.printStackTrace();
+				}
 			} while (numPaginas <= LIM_PAGINAS);
 
 			do { // PREGUNTAMOS SI ES DIGITAL O NO
@@ -169,6 +202,9 @@ public class GestionRevistas {
 
 	}
 
+	/**
+	 * Funcion para finalizar la ejecucion del programa.
+	 */
 	private static void salir() {
 		System.out.println(" ");
 		System.out.println(" ");
@@ -178,12 +214,19 @@ public class GestionRevistas {
 
 	}
 
+	/**
+	 * Funcion utilizada en caso de que el usuario introduzca una opcion que no
+	 * existe en el menu.
+	 */
 	private static void noOption() {
 		System.out.println("Lo sentimos, no existe esa opcion");
 		pintarMenu();
 
 	}
 
+	/**
+	 * Funcion que lista todas las revistas.
+	 */
 	private static void listar() {
 
 		for (Revistas pojo : dao.getAll()) {
@@ -198,6 +241,9 @@ public class GestionRevistas {
 
 	}
 
+	/**
+	 * Funcion que muestra las revistas por pantalla
+	 */
 	private static void mostrar() {
 
 		for (Revistas pojo : dao.getAll()) {
@@ -205,6 +251,11 @@ public class GestionRevistas {
 		}
 	}
 
+	/**
+	 * Funcion que carga 2 revistas por defecto en el array.
+	 * 
+	 * @throws Exception
+	 */
 	private static void cargarVideos() throws Exception {
 		Revistas pojo = new Revistas(1, "QUORE", "123456789a", 235, true);
 		dao.insert(pojo);
@@ -216,6 +267,9 @@ public class GestionRevistas {
 
 	}
 
+	/**
+	 * Funcion que imprime el menu por pantalla.
+	 */
 	private static void pintarMenu() {
 
 		System.out.println("------------------------------------");
