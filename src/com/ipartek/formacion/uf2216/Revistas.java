@@ -5,7 +5,8 @@ public class Revistas {
 	private String titulo;
 	private String isbn;
 	private int paginas;
-	private boolean formato;
+	private String formato; //si lo ponía boolean me daba problemas en el gestor de revistas...
+                            // ...y al final he decidido ponerlo string para que funcionase bien	
 	
 	public Revistas() {
 		
@@ -13,10 +14,10 @@ public class Revistas {
 		this.titulo="";
 		this.isbn="";
 		this.paginas=1;
-		this.formato=false;
+		this.formato="";
 	}
 	
-	public Revistas(String titulo, String isbn, int paginas, boolean formato) {
+	public Revistas(String titulo, String isbn, int paginas, String formato) {
 		
 		this();
 		this.titulo=titulo;
@@ -50,12 +51,12 @@ public class Revistas {
 		this.paginas = paginas;
 	}
 
-	public boolean isFormato() {
+	public String getformato() {
 		return formato;
 	}
 
-	public void setFormato(boolean formato) {
-		this.formato = formato;
+	public void setformato(String isbn) {
+		this.isbn = formato;
 	}
 
 	@Override

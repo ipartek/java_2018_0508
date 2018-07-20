@@ -158,6 +158,8 @@ public class GestorVideos {
 
 		System.out.println(dao.insert(v) ? "Video insertado con �xito."
 				: "Lo sentimos, ha ocurrido un error durante la insersción.");
+		
+		
 
 	}
 

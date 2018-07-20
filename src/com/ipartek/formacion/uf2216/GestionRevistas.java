@@ -1,5 +1,9 @@
 package com.ipartek.formacion.uf2216;
 
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.PrintWriter;
 import java.util.Scanner;
 
 public class GestionRevistas {
@@ -17,7 +21,9 @@ public class GestionRevistas {
 	static private final int MAX_LONG_TITULO = 150;
 	static private final int MIN_PAGINAS = 1;
 	
-	public static final int ISBN_MIN_LENGTH = 10;
+	public static final int ISBN_LONGITUD = 10;
+	
+	static private final int QUIERO_GUARDAR = 1;
 	
 	public static void main(String[] args) {
 		
@@ -72,9 +78,9 @@ public class GestionRevistas {
 		String titulo;
 		String isbn;
 		int paginas;
-		boolean formato1= Boolean.valueOf("digital");
-		boolean formato2= Boolean.valueOf("papel");
+		String formato;
 		
+		int guardar;
 		
 		do {
 			System.out.println("Introduce el titulo de la revista: ");
@@ -91,10 +97,10 @@ public class GestionRevistas {
 			System.out.println("Introduce el isbn: ");
 			isbn= sc.nextLine();
 			
-			if (isbn.trim().length() < ISBN_MIN_LENGTH) {
+			if (isbn.trim().length() != ISBN_LONGITUD) {
 				System.out.println("Introduce un isbn correcto: ");
 			}
-		}while(isbn.trim().length() < ISBN_MIN_LENGTH);
+		}while(isbn.trim().length() != ISBN_LONGITUD);
 		
 		do {
 			System.out.println("Introduce el numero de paginas: ");
@@ -104,6 +110,52 @@ public class GestionRevistas {
 				System.out.println("Introduzca un numero de paginas correcto: ");
 			}
 		}while(paginas < MIN_PAGINAS);
+		
+		System.out.println("Introduzca si el formato es digital o de papel: ");
+		formato= sc.next();
+			
+		Revistas r = new Revistas(titulo, isbn, paginas, formato);
+
+		System.out.println();
+		System.out.println(dao.insert(r) ? "SU REVISTA HA SIDO INSERTADA CON ÉXITO"
+				: "Lo sentimos, ha ocurrido un error durante la insersción.");
+		System.out.println();
+		
+		System.out.println("El resumen de su revista es: "+r);
+		System.out.println();
+		
+		System.out.println("¿Desea guardar la revista que acaba de insertar?");
+		System.out.println("Si es así, pulse 1; sino, pulse cualquier otra opción: ");
+		guardar= sc.nextInt();
+		
+		if(guardar==QUIERO_GUARDAR) {
+			
+			File f;
+			f= new File("revistas.txt");
+			
+			try {
+				FileWriter w= new FileWriter(f);
+				BufferedWriter bw= new BufferedWriter(w);
+				PrintWriter wr= new PrintWriter(bw);
+				
+				wr.write("Datos de la revista insertada: "+r);
+				wr.close();
+				bw.close();
+				
+			}catch(Exception e){};
+			
+			System.out.println();
+			System.out.println("Se ha creado un fichero con su revista insertada");
+			System.out.println();
+			
+		}
+		
+		else {
+			
+			System.out.println();
+			System.out.println("De acuerdo, no desea guardar la revista insertada");
+			System.out.println();
+		}
 		
 		
 		
@@ -157,10 +209,10 @@ public class GestionRevistas {
 		
 		Revistas revista;
 		
-		revista = new Revistas("National Geographic", "1234567899",150,true);
+		revista = new Revistas("National Geographic", "1234567899",150,"digital");
 		dao.insert(revista);
 		
-		revista = new Revistas("Motor Sport", "6374399118",128,false);
+		revista = new Revistas("Motor Sport", "6374399118",128,"papel");
 		dao.insert(revista);
 
 		
