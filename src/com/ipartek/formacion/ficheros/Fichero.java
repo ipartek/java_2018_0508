@@ -6,18 +6,17 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.io.Writer;
 
 public class Fichero {
 
 	public static void main(String[] args) {
 
-		// crearFichero();
+		 crearFichero();
 
 		leerFichero("Ficheros/hola.txt");
 	
 		buscarTesoro("Ficheros","tesoro");
-		//listarUnidadesPC();
+		listarUnidadesPC();
 		
 		//File f = new File("Ficheros");
 		//System.out.println(f.getAbsolutePath());

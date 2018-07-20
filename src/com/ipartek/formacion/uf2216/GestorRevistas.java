@@ -100,16 +100,6 @@ public class GestorRevistas {
 
 	}
 
-	private static void salir() {
-		System.out.println();
-		System.out.println();
-		System.out.println();
-		System.out.println();
-		System.out.println();
-		System.out.println("¡HASTA PRONTO!");
-
-	}
-
 	private static void listarRevistas() {
 
 		System.out.println();
@@ -311,4 +301,15 @@ public class GestorRevistas {
 		bw.close();
 
 	}
+
+	private static void salir() {
+		System.out.println();
+		System.out.println();
+		System.out.println();
+		System.out.println();
+		System.out.println();
+		System.out.println("¡HASTA PRONTO!");
+
+	}
+
 }
