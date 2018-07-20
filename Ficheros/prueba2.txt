@@ -1,0 +1,2 @@
+[Revistas [id=1, titulo=QUORE, isbn=123456789a, numPaginas=235, digital=true], Revistas [id=2, titulo=Planeta de agostini, isbn=123456789b, numPaginas=245, digital=false]]
+
