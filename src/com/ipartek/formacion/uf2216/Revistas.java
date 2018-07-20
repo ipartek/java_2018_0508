@@ -98,9 +98,9 @@ public class Revistas {
 	public String toString() {
 		String f = "";
 		if (formato == true) {
-		f = "digital";
-		} else if(formato == false){
-		f = "papel";
+			f = "digital";
+		} else if (formato == false) {
+			f = "papel";
 		}
 
 		return "Revistas [id=" + id + ", titulo=" + titulo + ", isbn=" + isbn + ", paginas=" + paginas + ", formato="

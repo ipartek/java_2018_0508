@@ -39,8 +39,8 @@ public class GestorRevista {
 				case OPCION_ANADIR:
 
 					Revistas nuevaRevista = crearNuevaRevista();
-					// dao.insert(nuevaRevista);
 					boolean respuestaCorrecta = false;
+
 					do {
 						System.out.println("Desea añadir la revista (S/N)");
 						String respuesta = sc.nextLine();
@@ -66,7 +66,7 @@ public class GestorRevista {
 					System.out.println("Has ingresado un numero ERRONEO por favor vuelve a intentarlo");
 				}
 			} catch (InputMismatchException ex) {
-				System.out.println("No has introducido un numero valido");
+				System.out.println("Se ha producido un error  temporal ");
 			}
 
 		} while (opcion != OPCION_SALIR);
