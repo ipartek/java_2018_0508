@@ -10,12 +10,6 @@ public class Revista {
 	private static String TITULO_EXCEPTION = "La longitud mínima debe de ser " + TITULO_MIN_LENGTH + " y la máxima de "
 			+ TITULO_MAX_LENGTH;
 
-	/*
-	 * private static final int PAGINAS_MIN_EXCEPTION = 1; private static String
-	 * PAGINAS_EXCEPTION = "El número de páginas mínimo a de ser " +
-	 * PAGINAS_MIN_EXCEPTION;
-	 */
-
 	private long id;
 	private String titulo;
 	private String isbn;

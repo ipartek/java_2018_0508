@@ -41,7 +41,7 @@ public class RevistaArrayDAO implements CrudAble<Revista> {
 	@Override
 	public Revista getById(long id) {
 		Revista resul = null;
-		// foreach
+		
 		for (Revista revistaIteracion : revista) {
 			if (id == revistaIteracion.getId()) {
 				resul = revistaIteracion;

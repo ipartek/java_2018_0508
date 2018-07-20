@@ -230,10 +230,13 @@ public class GestionRevista {
 			System.out.println("Introduzca formato (digital o papel): ");
 			formato = sc.next();
 
-			if (formato.equals("digital")) {
+			if (formato.equalsIgnoreCase("digital")) {
 				revista.setFormato(true);
-			} else {
+			} else if (formato.equalsIgnoreCase("papel")) {
 				revista.setFormato(false);
+			}else {
+				System.out.println("No has introducido un formato valido.\n");
+				System.out.println("Por defecto se guardara en papel.\n");
 			}
 
 			System.out.println("¿Quieres guardar la revista con los siguientes datos?");
@@ -249,7 +252,7 @@ public class GestionRevista {
 		dao.insert(revista);
 		System.out.println("Video guardado.\n");
 
-		System.out.println("¿Quieres guardar la revista en el fichero?");
+		System.out.println("¿Quieres guardar la revista en el fichero?(S/N)");
 		sc.nextLine();
 		contest = Character.toUpperCase((char) System.in.read());
 		if (contest == 'S') {

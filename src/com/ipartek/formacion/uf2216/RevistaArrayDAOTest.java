@@ -32,7 +32,7 @@ public class RevistaArrayDAOTest {
 
 	@Before
 	public void setUp() throws Exception {
-		Revista revista = new Revista(++cont, "9788416001460", "Fariña", 100, true);
+		Revista revista = new Revista(++cont, "9788416001460", "Pronto", 100, true);
 		assertTrue(dao.insert(revista));
 
 	}
