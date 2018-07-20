@@ -11,9 +11,22 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 import com.ipartek.formacion.pojo.Libro;
+import com.ipartek.formacion.pojo.VideoYoutube;
 
 public class LibroDAOTest {
+
 	static LibroDAO dao;
+
+	static VideoYoutube mock1;
+	static final long MOCK1_ID = 325;
+	static final String MOCK1_TITULO = "AY4QbN5PCg";
+	static final String MOCK1_ISBN = "AY4QbN5PCg";
+	static final int MOCK1_NUMPAG = 1;
+
+	static VideoYoutube mock2;
+	static final long MOCK2_ID = 421;
+	static final String MOCK2_CODIGO = "ERGERGTREGERGRE";
+	static final String MOCK2_TITULO = "En la noche";
 
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
@@ -65,10 +78,10 @@ public class LibroDAOTest {
 
 	@Test
 	public void testGetAllPrestado() {
-		
+
 		assertEquals(2, dao.getALlPrestados(true).size());
 		assertEquals(5, dao.getALlPrestados(false).size());
-	
+
 	}
 
 	@Test

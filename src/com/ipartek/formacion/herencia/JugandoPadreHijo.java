@@ -14,19 +14,19 @@ public class JugandoPadreHijo {
 		le.setTitulo("La novela mas larga del mundo");
 		System.out.println(le.toString());
 
-		Libro l = new Libro(456457456, "9788467569957",
-				"LENGUA CASTELLANA 3º EDUCACION PRIMARIA TRIMESTRES SAVIA CASTELLA NO ED 2014 ", "EDICIONES SM", false);
+//		Libro l = new Libro(456457456, "9788467569957",
+//				"LENGUA CASTELLANA 3º EDUCACION PRIMARIA TRIMESTRES SAVIA CASTELLA NO ED 2014 ", "EDICIONES SM", false);
 
 		// No se puede instanciar objeto de clases Abstracta
 		// ObjectoGrafico o=new ObjectoGrafico
 
-		ObjectoGrafico o = new ObjectoGrafico() {
-
-			@Override
-			void dibujar() {
-
-			}
-		};
+//		ObjectoGrafico o = new ObjectoGrafico() {
+//
+//			@Override
+//			void dibujar() {
+//
+//			}
+//		};
 
 		Circulo circulo = new Circulo();
 		circulo.dibujar();
