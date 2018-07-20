@@ -88,7 +88,7 @@ public class GestionRevistas {
 		do {
 			sc.nextLine();
 			System.out.println("¿Como deseas llamar al fichero?");
-			nameTxt = sc.nextLine().replaceAll("\\s", "");
+			nameTxt = sc.nextLine();
 			System.out.println("¿Estas seguro de que deseas llamarlo " + nameTxt + "?(s/n)");
 			seguro = (char) System.in.read();
 		} while (seguro != SI);
