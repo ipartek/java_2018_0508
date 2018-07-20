@@ -6,10 +6,10 @@ import java.util.List;
  * Interfaz para determinar o especificar los metodos de <b>CRUD</b>:
  * 
  * <ul>
- * 		<li>Create</li>
- * 		<li>Read</li>
- *		<li>Update</li>
- * 		<li>Delete</li>
+ * <li>Create</li>
+ * <li>Read</li>
+ * <li>Update</li>
+ * <li>Delete</li>
  * </ul>
  * 
  * @author Curso

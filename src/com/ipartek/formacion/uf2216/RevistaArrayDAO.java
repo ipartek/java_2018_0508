@@ -25,7 +25,7 @@ public class RevistaArrayDAO implements CrudAble<Revista> {
 
 	@Override
 	public boolean insert(Revista revista) {
-		
+
 		boolean resul = false;
 		if (revista != null) {
 			resul = kiosko.add(revista);
@@ -36,26 +36,26 @@ public class RevistaArrayDAO implements CrudAble<Revista> {
 
 	@Override
 	public List<Revista> getAll() {
-		
+
 		return kiosko;
-		
+
 	}
 
 	@Override
 	public Revista getById(long id) {
-		// TODO Auto-generated method stub
+		// No necesaria la implementacion
 		return null;
 	}
 
 	@Override
-	public boolean update(Revista pojo) {
-		// TODO Auto-generated method stub
+	public boolean update(Revista revistaUpdate) {
+		// No necesaria la implementacion
 		return false;
 	}
 
 	@Override
 	public boolean delete(long id) {
-		// TODO Auto-generated method stub
+		// No necesaria la implementacion
 		return false;
 	}
 

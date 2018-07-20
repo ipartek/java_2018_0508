@@ -10,12 +10,20 @@ import org.junit.Test;
 
 public class RevistaAndRevistaDAOTest {
 
+	static RevistaArrayDAO dao;
+	
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
+		
+		dao = RevistaArrayDAO.getInstance();
+		
 	}
 
 	@AfterClass
 	public static void tearDownAfterClass() throws Exception {
+		
+		dao = null;
+		
 	}
 
 	@Before
@@ -33,16 +41,25 @@ public class RevistaAndRevistaDAOTest {
 		assertNotNull(r);
 		assertEquals(1, r.getPaginas());
 		assertEquals(Revista.DIGITAL, r.isFormato());
-		
+
 		r = new Revista("Diez minutos", null, 5, Revista.PAPEL);
-		
+
 		assertEquals("Diez minutos", r.getTitulo());
-		assertEquals(" ",r.getIsbn());
+		assertEquals(" ", r.getIsbn());
 		assertEquals(5, r.getPaginas());
 		assertEquals(Revista.PAPEL, r.isFormato());
-		
+
 		r.setTitulo(null);
 		assertNotNull(r.getTitulo());
+
+	}
+
+	@Test
+	public void testRevistaDAO() {
+
+		assertEquals(0, dao.getAll().size());
+		dao.insert(new Revista("Muy Interesante", "1234567890", 120, Revista.DIGITAL));
+		assertEquals(1, dao.getAll().size());
 		
 	}
 

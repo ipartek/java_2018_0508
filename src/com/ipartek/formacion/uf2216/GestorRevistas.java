@@ -1,5 +1,9 @@
 package com.ipartek.formacion.uf2216;
 
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.Scanner;
 
 public class GestorRevistas {
@@ -12,6 +16,7 @@ public class GestorRevistas {
 	static private final int OPCION_SALIR = 0;
 	static private final int OPCION_LISTAR = 1;
 	static private final int OPCION_ANADIR = 2;
+	static private final int OPCION_GUARDAR = 3;
 
 	private static Scanner sc = null;
 
@@ -39,6 +44,10 @@ public class GestorRevistas {
 
 				case OPCION_ANADIR:
 					anadirRevista();
+					break;
+
+				case OPCION_GUARDAR:
+					guardarEnFichero();
 					break;
 
 				case OPCION_SALIR:
@@ -253,4 +262,35 @@ public class GestorRevistas {
 		}
 
 	}
+
+	private static void guardarEnFichero() {
+
+		File f = new File("ficheros/kiosko.txt");
+
+		System.out.println("El fichero se guarda en " + f.getPath());
+
+		if (f.exists()) {
+			BufferedWriter bw = null;
+			try {
+				bw = new BufferedWriter(new FileWriter(f));
+				bw.write(dao.getAll().toString());
+				bw.close();
+				System.out.println("Hemos guardado las revistas en el fichero");
+			} catch (Exception e) {
+				System.out.println("DISCULPE, Hemos tenido un problema al guardar el fichero: " + e.getMessage());
+			}
+
+		} else {
+
+			try {
+				f.createNewFile();
+				System.out.println("Parece que no existia el archivo, vuelva a intentarlo.");
+			} catch (IOException e) {
+
+				System.out.println("Disculpe Hemos tenido un error al crear fichero");
+				e.printStackTrace();
+			}
+		}
+	}
+
 }
