@@ -57,6 +57,7 @@ public class GestorDeRevistas {
 						break;
 
 					default:
+						noOption();
 						break;
 					}
 
@@ -72,6 +73,12 @@ public class GestorDeRevistas {
 
 			System.out.println("ERROR: " + e.getMessage());
 		}
+	}
+
+	private static void noOption() {
+
+		System.out.println("Lo sentimos, la opción seleccionada no existe.");
+
 	}
 
 	/**
@@ -158,7 +165,6 @@ public class GestorDeRevistas {
 
 		boolean esDigital = pedirFormato(); // Llamamos a la función pedirFormato() y recogemos el resultado
 
-		System.out.println(esDigital);
 		System.out.println("Formato aceptado.");
 
 		Revista revInsertar = new Revista(++cont, titulo, isbn, numPaginas, esDigital);
@@ -310,7 +316,7 @@ public class GestorDeRevistas {
 
 		do { // Pedir el número de páginas mientras no sea correcto
 
-			System.out.println("Por favor, introduce el número de páginas (>" + Revista.MIN_NUM_PAGINAS + ").");
+			System.out.println("Por favor, introduce el número de páginas (>= " + Revista.MIN_NUM_PAGINAS + ").");
 
 			try {
 				numPag = Integer.parseInt(sc.nextLine());
@@ -342,10 +348,11 @@ public class GestorDeRevistas {
 	private static boolean pedirFormato() throws IndexOutOfBoundsException {
 
 		boolean esDigital = false;
-		char c = ' ';
+		char c;
 
 		do { // Pedir el formato mientras no sea correcto
 
+			c = ' ';
 			System.out.println("Por favor, introduce el formato. '" + CHAR_DIGITAL + "' para formato Digital y '"
 					+ CHAR_PAPEL + "' para formato Papel.");
 
@@ -366,7 +373,6 @@ public class GestorDeRevistas {
 		} while (!esFormatoValido(c));
 
 		if (c == CHAR_DIGITAL) { // El carácter leido (y válido) es D
-			System.out.println("soy digital");
 			esDigital = true;
 		}
 		return esDigital;
