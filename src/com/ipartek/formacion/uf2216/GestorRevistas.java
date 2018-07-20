@@ -290,12 +290,24 @@ public class GestorRevistas {
 			FileWriter fichero = null;
 			PrintWriter pw = null;
 			List<Revista> revistas = new ArrayList<Revista>();
+			String formatoTexto;
 			try {
 				revistas = dao.getAll();
 				fichero = new FileWriter("src/com/ipartek/formacion/uf2216/fichero.txt");
 				pw = new PrintWriter(fichero);
+				pw.println("ISBN --- TITULO --- NUM. PAGINAS --- FORMATO");
+				pw.println("--------------------------------------------");
 				for (int i = 0; i < revistas.size(); i++) {
-					pw.println(revistas.get(i));
+					if(revistas.get(i).isFormato() == true) {
+						formatoTexto = "Digital";
+					}else {
+						formatoTexto = "Papel";
+					}
+					
+					pw.print(revistas.get(i).getIsbn() + " - ");
+					pw.print(revistas.get(i).getTitulo() + " - ");
+					pw.print(revistas.get(i).getNumPaginas() + " - ");
+					pw.println(formatoTexto);
 				}
 				
 				System.out.println();
