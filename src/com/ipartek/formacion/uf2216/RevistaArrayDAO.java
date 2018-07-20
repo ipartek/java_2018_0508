@@ -23,15 +23,14 @@ public class RevistaArrayDAO implements CrudAble<Revista>{
 	
 	
 	@Override
-	public boolean insert(Revista pojo) {
-		// TODO Auto-generated method stub
-		return false;
+	public boolean insert(Revista revista) {
+		lista.add(revista);
+		return true;
 	}
 
 	@Override
 	public List<Revista> getAll() {
-		// TODO Auto-generated method stub
-		return null;
+		return lista;
 	}
 
 	@Override
@@ -41,7 +40,7 @@ public class RevistaArrayDAO implements CrudAble<Revista>{
 	}
 
 	@Override
-	public boolean update(Revista pojo) {
+	public boolean update(Revista revista) {
 		// TODO Auto-generated method stub
 		return false;
 	}

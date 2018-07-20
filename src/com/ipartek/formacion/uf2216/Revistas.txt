@@ -1,0 +1,4 @@
+Lista de revistas: 
+==================
+    Revista [titulo=El jueves, isbn=1234567890, paginas=50, formato=true]
+    Revista [titulo=La puta mili, isbn=9876543210, paginas=30, formato=false]

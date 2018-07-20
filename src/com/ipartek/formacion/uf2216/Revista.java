@@ -38,8 +38,7 @@ public class Revista {
 	public String getTitulo() {
 		return titulo;
 	}
-
-
+	
 	public boolean setTitulo(String titulo) throws Exception {
 		
 		boolean correcto = false;
@@ -63,27 +62,24 @@ public class Revista {
 	public String getIsbn() {
 		return isbn;
 	}
-
-/*
-	public void setIsbn(String isbn) {
-		this.isbn = isbn;
-	}
-*/
 	
-	public void setIsbn(String isbn) throws Exception {
+	public boolean setIsbn(String isbn) throws Exception {
+		
+		boolean correcto = false;
 		
 		if ( isbn != null ) {
 			isbn = isbn.trim();				
-			if ( isbn.length() != ISBN_LENGTH) {
-				throw new Exception( "El ISBN debe tener 10 numeros de longitud" );
-			}else {
+			if ( isbn.length() == ISBN_LENGTH )  {
 				this.isbn = isbn;
+				correcto = true;
+			}else {
+				throw new Exception( "El ISBN debe ser un numero de longitud " + ISBN_LENGTH);
 			}
 		} else {
 			throw new Exception( "NULL_Exception introduciendo ISBN" );
 		}	
 		
-		
+		return correcto;
 	}
 
 	public int getPaginas() {
@@ -91,8 +87,18 @@ public class Revista {
 	}
 
 
-	public void setPaginas(int paginas) {
-		this.paginas = paginas;
+	public boolean setPaginas(int paginas) throws Exception {
+		
+		boolean correcto = false;
+		
+		if ( paginas >= PAGINAS_MIN)  {
+			this.paginas = paginas;
+			correcto = true;
+		}else {
+			throw new Exception( "El numero de paginas debe ser " + PAGINAS_MIN + " o mayor");
+		}
+		
+		return correcto;
 	}
 
 
@@ -101,8 +107,10 @@ public class Revista {
 	}
 
 
-	public void setFormato(boolean formato) {
+	public boolean setFormato(boolean formato) {
 		this.formato = formato;
+		boolean correcto = true;
+		return correcto;
 	}
 
 	// Metodo toString propio para la clase.
