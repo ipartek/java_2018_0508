@@ -3,4 +3,5 @@
 , titulo=Muy Interesante, isbn=1234567890, paginas=120, formato=PAPEL
 , titulo=Hobby Consolas, isbn=1234869570, paginas=140, formato=PAPEL
 , titulo=Metal Hammer Magazine, isbn=123456789, paginas=120, formato=DIGITAL
+, titulo=qwertyui, isbn=7894561230, paginas=789, formato=DIGITAL
 ]
