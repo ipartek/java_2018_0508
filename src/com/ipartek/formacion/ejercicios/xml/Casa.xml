@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<casas>
+	<casa>
+		<nombre>Casa 1</nombre>
+		<num_habitaciones>3</num_habitaciones>
+		<precio>1000</precio>
+		<localizacion>
+			<latitud>2.03</latitud>
+			<longitud>-2.35</longitud>
+		</localizacion>
+	</casa>
+	
+	<casa>
+		<nombre>Casa 2</nombre>
+		<num_habitaciones>5</num_habitaciones>
+		<precio>1500</precio>
+		<localizacion>
+			<latitud>6.32</latitud>
+			<longitud>12.09</longitud>
+		</localizacion>
+	</casa>
+</casas>
