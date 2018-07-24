@@ -14,6 +14,19 @@
 <body>
 
 	<h1>CMS Préstamo Libros</h1>
+		
+	<nav>
+		<ul>
+			<li><a href="listar">Listar libros</a></li>
+			<li><a href="saludo?nombre=Adrian&ap1=Garcia&ap2=Santos">Saludo personalizado</a></li>
+			<li><a href="ejemplo-response">Ejemplo Response</a></li>
+			<li><a href="ahorcado">Jugar al ahorcado</a></li>
+			<li><a href="jugandoConCss.jsp">Jugando con CSS</a></li>
+		</ul>
+	</nav>
+	
+	<br/>
+	<br/>
 	
 	<%
 		//Esto es Java
@@ -22,13 +35,8 @@
 	
 	%>
 	
-	<a href="listar">Listar libros</a>
-	<br/>
-	<a href="saludo?nombre=Adrian&ap1=Garcia&ap2=Santos">Saludo personalizado</a>
-	
-	<br/>
-	<br/>
-	
+	<div class="ahorcado"></div>
+		
 	<form action="saludo" method="post">
 	
 		<input type="text" name="nombrePost" placeholder="Escribe tu nombre" />
