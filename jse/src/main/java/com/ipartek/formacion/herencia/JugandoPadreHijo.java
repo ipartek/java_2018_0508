@@ -20,12 +20,12 @@ public class JugandoPadreHijo {
 		Libro l=new Libro(234, "iiifdssfs", "Libro de la selva", "Amazonas", true);
 		System.out.println(l);
 		
-		//ObjetoGrafico o=new ObjetoGrafico();--> no se puede instanciar objetos de clases abstractas
-		ObjetoGrafico o=new ObjetoGrafico() {
+		/*ObjetoGrafico o=new ObjetoGrafico();--> no se puede instanciar objetos de clases abstractas
+		//ObjetoGrafico o=new ObjetoGrafico() {
 			void dibujar() {
 				
 			}
-		};
+		};*/
 		Circulo circulo=new Circulo();
 		circulo.dibujar();
 		System.out.println(circulo);
