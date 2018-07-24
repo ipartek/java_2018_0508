@@ -1,4 +1,4 @@
-package com.ipartek.formacion.ejercicio.herencia.ett;
+package com.ipartek.formacion.ejercicios;
 
 import org.junit.After;
 import org.junit.AfterClass;
