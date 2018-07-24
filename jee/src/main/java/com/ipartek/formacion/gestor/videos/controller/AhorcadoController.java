@@ -13,24 +13,44 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet("/ahorcar")
 public class AhorcadoController extends HttpServlet {
 
-	private static final int INTENTOS_TOTALES = 7; // Constante con el limite de fallos
-	private int intentos = 0;
-	private int aciertos = 0;
-	private static String msg = "";
-	private static boolean esComienzo = true;
+	private static final int INTENTOS_TOTALES = 5; // Constante con el limite de fallos
 
 	private static String arrayPalabras[] = { "chrystallion", "el fary", "cesar", "java ee" };
 
+	private int intentos;
+	private int aciertos;
+	private static String msg;
+	private static boolean esComienzo;
+
 	// Random para escoger una palabra
-	private static Random rnd = new Random();
-	private static int aleatorio = rnd.nextInt(arrayPalabras.length);
-	private static String palabra = arrayPalabras[aleatorio];
+
+	private int aleatorio;
+	private static String palabra;
 
 	// Sirve para almacenar los caracteres acertados
-	private char[] tusRespuestas = new char[palabra.length()];
+	private char[] tusRespuestas;
+	private String solucion;
 
 	private static final long serialVersionUID = 1L;
-	
+
+	private void cargarPartida() {
+		intentos = 0;
+		aciertos = 0;
+		msg = "";
+		esComienzo = true;
+		// Elegimos la palabra mediante un Random
+		Random rnd = new Random();
+		aleatorio = rnd.nextInt(arrayPalabras.length);
+		palabra = arrayPalabras[aleatorio];
+
+		tusRespuestas = new char[palabra.length()];
+
+	}
+
+	public AhorcadoController() {
+
+		cargarPartida();
+	}
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -42,7 +62,10 @@ public class AhorcadoController extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-		// 1. Recibir parámet
+		// 1. Recibir parámetros
+		if (esComienzo) {
+			tusRespuestas = dibujarPalabra(Character.toLowerCase(' '));
+		}
 		String entrada = request.getParameter("letra");
 		// 2. Validar parámetros
 		if (entrada != null && !entrada.isEmpty() && entrada.trim().length() == 1) {
@@ -59,7 +82,7 @@ public class AhorcadoController extends HttpServlet {
 			} else { // Seguimos jugando
 				intentos++;
 				tusRespuestas = dibujarPalabra(Character.toLowerCase(entrada.charAt(0)));
-				String solucion = "";
+				solucion = "";
 				for (int i = 0; i < tusRespuestas.length; i++) {
 					solucion += tusRespuestas[i];
 				}
@@ -77,39 +100,39 @@ public class AhorcadoController extends HttpServlet {
 	private char[] dibujarPalabra(char c) {
 
 		boolean acertado = false;
-		
-		if (esComienzo) { // Inicializamos la palabra con asteriscos
-			for (int i = 0; i < palabra.length(); i++) {
-				if (palabra.charAt(i) == ' ') { // Contiene espacios
 
+		for (int i = 0; i < palabra.length(); i++) {
+			if (esComienzo) {
+				if (palabra.charAt(i) == ' ') {
 					tusRespuestas[i] = ' ';
 				} else {
 					tusRespuestas[i] = '*';
 				}
-			}
-		} else {
-			for (int i = 0; i < palabra.length(); i++) {
+			} else {
 				if (palabra.charAt(i) == c) { // Letra acertada
-					
+
 					tusRespuestas[i] = c;
 					acertado = true;
-					
-				} else if (palabra.charAt(i) == ' ') { // Contiene espacios
+
+				} else if (palabra.charAt(i) == ' ') { // Es un espacio
 
 					tusRespuestas[i] = ' ';
 				} else {
 					tusRespuestas[i] = tusRespuestas[i];
 				}
 			}
-		}
-		
 
+		}
+		if (esComienzo) {
+			esComienzo = false;
+		}
 		if (acertado) {
 			msg = "Ha acertado!";
 			aciertos++;
 		} else {
 			msg = "Ha fallado!";
 		}
+
 		return tusRespuestas;
 	}
 
