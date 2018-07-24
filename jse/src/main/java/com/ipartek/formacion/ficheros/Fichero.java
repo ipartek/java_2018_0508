@@ -2,7 +2,6 @@ package com.ipartek.formacion.ficheros;
 
 import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -99,20 +98,13 @@ public class Fichero {
 	 * @param palabraBuscar String a buscar dentro del fichero
 	 */
 	private static void searchFile(File file, String palabraBuscar) {
-		boolean resul = false;
+		//boolean resul = false;
 		if(file.isDirectory()) {
 			for (File fichero : file.listFiles()) {
 				searchFile(fichero, palabraBuscar);
 			}
 		}else {
-			try {
-				FileReader fr = new FileReader(file);
-				BufferedReader bf = new BufferedReader(fr);
-				
-			} catch (FileNotFoundException e) {
-				System.out.println("Error al encontrar el archivo.");
-				e.printStackTrace();
-			}
+			
 		}
 		
 	}

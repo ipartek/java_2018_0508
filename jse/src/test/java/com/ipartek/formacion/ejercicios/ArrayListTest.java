@@ -16,7 +16,7 @@ public class ArrayListTest {
 		assertTrue("La lista no deberia estar vacia",paises.isEmpty()); //Comprobar que la lista no esta vacia
 		assertNotNull("La lista no deberia ser NULL", paises); //Comprobar que la lista no es null
 		
-		paises.add("Egpaña");
+		paises.add("Egpaï¿½a");
 		
 		assertEquals("La lista deberia tener solo un pais", 1, paises.size()); //Comprobar la longitud de la lista
 		
@@ -33,10 +33,10 @@ public class ArrayListTest {
 		
 		assertEquals("Italia", paises.get(0));
 		
-		assertTrue(paises.contains("Hungria")); //Comprobar que la lista contiene el país Hungria
+		assertTrue(paises.contains("Hungria")); //Comprobar que la lista contiene el paï¿½s Hungria
 		assertEquals(3, paises.indexOf("Hungria"));
 		
-		assertFalse(paises.contains("Francia")); //Comprobar que la lista contiene el país Francia
+		assertFalse(paises.contains("Francia")); //Comprobar que la lista contiene el paï¿½s Francia
 		assertEquals(-1, paises.indexOf("Francia"));
 		
 		//Insertar entre Italia y Alemania Suiza
