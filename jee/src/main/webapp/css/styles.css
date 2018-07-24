@@ -1,13 +1,86 @@
 /* Hoja de Estilos Principal */
+#menu {
+	padding: 0;
+}
 
-h1{
+#menu li {
+	display: inline;
+}
+
+#menu li a {
+	font-family: Helvetica;
+	font-size: 0.75em;
+	text-decoration: none;
+	padding: 10px;
+	background-color: #004040;
+	color: #fff;
+}
+
+#menu li a:hover {
+	background-color: #7fbfbf;
+	padding-bottom: 12px;
+}
+
+h1 {
 	color: teal;
 	font-size: 2em;
 	text-align: center;
 }
-.text-danger{
-	color:red;
+
+h2 {
+	color: #004040;
+	font-size: 1.5em;
 }
-.text-danger:after{
-	content:"***";
+
+.text-danger {
+	color: red;
+}
+
+.text-danger:after {
+	content: "***";
+}
+
+.center {
+	text-align: center;
+}
+
+.ahorcado {
+	margin: auto;
+	border: 3px solid teal;
+	width: 75px;
+	height: 100px;
+	overflow: hidden;
+	background-image: url(../img/ahorcado.jpg);
+}
+
+.fallo0 {
+	background-position-x: 616px;
+}
+
+.fallo1 {
+	background-position-x: 539px;
+}
+
+.fallo2 {
+	background-position-x: 462px;
+}
+
+.fallo3 {
+	background-position-x: 385px;
+}
+
+.fallo4 {
+	background-position-x: 308px;
+}
+
+.fallo5 {
+	background-position-x: 231px;
+}
+
+.fallo6 {
+	background-position-x: 154px;
+}
+
+.fallo7 {
+	background-position-x: 77px;
 }

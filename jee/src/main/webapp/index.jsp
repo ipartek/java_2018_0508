@@ -15,18 +15,30 @@
 <body>
 
 	<h1>CMS Prestamo Libros</h1>
-	
+
+	<nav class="center">
+		<ul id="menu">
+			<li>
+				<a href="listar">Listar Libros</a>
+			</li>
+			<li>
+				<a href="saludo?nombre=Pepe&ap1=Otilio&ap2=Gomez">Saludar</a>
+			</li>
+			<li>
+				<a href="ejemplo-response">Ejemplo Response</a>
+			</li>
+			<li>
+				<a href="jugandoConCSS.jsp">Jugando con CSS</a>
+			</li>
+			<li>
+				<a href="ahorcado">Ahorcado</a>
+			</li>
+		</ul>
+	</nav>
 	<%
 		// Esto es Java
-		out.print("<p>Soy Java</p>");
+		//out.print("<p>Soy Java</p>");
 	%>
-
-	<a href="listar">Listar Libros</a>
-	
-	<a href="saludo?nombre=Pepe&ap1=Otilio&ap2=Gomez">Saludar</a>
-	
-	<a href="ejemplo-response">Ejemplo Response</a>
-	
 	<br><br>
 	<h2>Por POST</h2>
 	<form action="saludo" method="POST">

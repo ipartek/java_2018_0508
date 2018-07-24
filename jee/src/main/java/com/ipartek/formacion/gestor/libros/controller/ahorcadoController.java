@@ -14,9 +14,12 @@ public class ahorcadoController extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
 
-	private static final String palabra = "Cesar";
+	private static final String palabra = "cesar";
 
 	private static char[] huecos = { '_', '_', '_', '_', '_' };
+	
+	private static int FALLOS = 0;
+	private static final int MAX_FALLOS = 7;
 
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -48,27 +51,44 @@ public class ahorcadoController extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
+		char c = ' '; 
+		boolean chivato = false;
+		
 		try {
 			// 1.- Recibir Parametros
-
-			char c = (char) request.getAttribute("letra");
-			
-			System.out.println(c);
+			c = (char) request.getParameter("letra").toLowerCase().charAt(0);
 
 			// 2.- Validar Parametros
 
 			for (int i = 0; i < palabra.length(); i++) {
 				if (c == palabra.charAt(i)) {
 					huecos[i] = c;
+					chivato=true;
 					break;
 				}
 			}
-
+			
+			boolean azkena = false;
+			
+			if (!chivato) {
+				FALLOS++;
+			}else {
+				azkena = solucion();
+			}
+			
 			// 3.- LLamar modelo DAO
 
 			// 4.- Enviar atributos a la vista
 
+			
+			if (azkena) {
+				request.setAttribute("msg", "Zorionak !!! Has ganado");
+			}else if(FALLOS == MAX_FALLOS){
+				request.setAttribute("msg", "Vaya... no has ganado, otra partidita");
+			}
+			
 			request.setAttribute("huecos", huecos);
+			request.setAttribute("fallos", FALLOS);
 
 			// 5.- Ir a la vista
 
@@ -79,5 +99,19 @@ public class ahorcadoController extends HttpServlet {
 			e.printStackTrace();
 		}
 
+	}
+
+	private boolean solucion() {
+		
+		boolean resul = true;
+		
+		for (int i = 0; i < huecos.length; i++) {
+			if (huecos[i] == '_') {
+				resul = false;
+			}
+		}
+		
+		return resul;
+		
 	}
 }
