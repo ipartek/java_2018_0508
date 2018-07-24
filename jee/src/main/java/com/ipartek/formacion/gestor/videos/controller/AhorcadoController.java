@@ -10,130 +10,186 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-@WebServlet("/ahorcar")
+@WebServlet("/jugar-ahorcado")
 public class AhorcadoController extends HttpServlet {
-
-	private static final int INTENTOS_TOTALES = 5; // Constante con el limite de fallos
-
-	private static String arrayPalabras[] = { "chrystallion", "el fary", "cesar", "java ee" };
-
-	private int intentos;
-	private int aciertos;
-	private static String msg;
-	private static boolean esComienzo;
-
-	// Random para escoger una palabra
-
-	private int aleatorio;
-	private static String palabra;
-
-	// Sirve para almacenar los caracteres acertados
-	private char[] tusRespuestas;
-	private String solucion;
 
 	private static final long serialVersionUID = 1L;
 
-	private void cargarPartida() {
-		intentos = 0;
-		aciertos = 0;
-		msg = "";
-		esComienzo = true;
-		// Elegimos la palabra mediante un Random
-		Random rnd = new Random();
-		aleatorio = rnd.nextInt(arrayPalabras.length);
-		palabra = arrayPalabras[aleatorio];
+	private static final short MAXIMO_INTENTOS = 7;
 
-		tusRespuestas = new char[palabra.length()];
+	private static final String[] arrayPalabras = { "cesar", "java ee", "css", "html", "Integer", "String",
+			"Ahorcado", "lorem ipsum", "chrystallion", "character" };
 
-	}
+	private static int aciertos = 0;
+	private static String charAcertados;
+	private static int fallos = 0;
+	private static String charFallados;
+	private static int intentos = 0;
+
+	private static String palabra;
+	private static int numLetras;
+
+	// Las usaremos paras esconder/descubrir las letras de la palabra
+	private static char[] respuesta;
+	private static String solucion;
+	private static String intento;
+
+	// Lo usaremos para mostrar los diferentes mensajes (Acierto, fallo,
+	// victoria...)
+	private static String msg = "Comenzemos!";
 
 	public AhorcadoController() {
 
-		cargarPartida();
+		inicializarPartida();
+
+	}
+
+	private static void inicializarPartida() {
+
+		aciertos = 0;
+		charAcertados = "";
+		fallos = 0;
+		charFallados = "";
+		intentos = 0;
+
+		// Escogemos una palabra del array al azar
+		int aleatorio = new Random().nextInt(arrayPalabras.length);
+		palabra = arrayPalabras[aleatorio];
+		// Contamos las letras sin repetir para saber cuando ha ganado
+		numLetras = contarLetras(palabra);
+
+		respuesta = new char[palabra.length()];
+
+		// Inicializamos la variable respuesta con * y espacios
+		for (int i = 0; i < palabra.length(); i++) {
+			if (palabra.charAt(i) == ' ') {
+				respuesta[i] = ' ';
+			} else {
+				respuesta[i] = '*';
+			}
+		}
+		
+		// Convertimos a String
+		solucion = String.valueOf(respuesta);
+		intento = "";
+
+
+	}
+
+	private static int contarLetras(String palabra) {
+		int cont = 0; // Aquí guardaremos el número de letras no repetidas
+		String letrasSinRepetir = new String();
+
+		for (int i = 0; i < palabra.length(); i++) {
+			if (!letrasSinRepetir.contains(Character.toString(palabra.charAt(i)))) {
+
+				letrasSinRepetir += palabra.charAt(i);
+			}
+
+		}
+		cont = letrasSinRepetir.length();
+		return cont;
 	}
 
 	@Override
-	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 
-		doPost(req, resp);
+		doPost(request, response);
 	}
 
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-		// 1. Recibir parámetros
-		if (esComienzo) {
-			tusRespuestas = dibujarPalabra(Character.toLowerCase(' '));
-		}
-		String entrada = request.getParameter("letra");
-		// 2. Validar parámetros
-		if (entrada != null && !entrada.isEmpty() && entrada.trim().length() == 1) {
+		String caracter;
+		boolean acertado;
 
-			entrada = entrada.trim(); // Eliminamos espacios
+		// Recogemos los parámetros de la VISTA
+		caracter = request.getParameter("letra");
+		intento = request.getParameter("intento");
 
-			if (intentos == INTENTOS_TOTALES) { // Fin del juego
-				msg = "Lo siento, has perdido.";
-
-			} else if (aciertos == palabra.length()) { // Ha ganado
-				msg = "Enhorabuena! Has acertado la palabra.";
-				request.getRequestDispatcher("index.jsp").forward(request, response);
-
-			} else { // Seguimos jugando
-				intentos++;
-				tusRespuestas = dibujarPalabra(Character.toLowerCase(entrada.charAt(0)));
-				solucion = "";
-				for (int i = 0; i < tusRespuestas.length; i++) {
-					solucion += tusRespuestas[i];
-				}
-				request.setAttribute("solucion", solucion);
+		// Tratamos los valores recogidos
+		if (intento != null && !intento.trim().isEmpty()) { // Si trata de solucionar la palabra
+			
+			if (intento.equalsIgnoreCase(palabra)) { // Ha acertado la palabra
+				
+				msg = "Enhorabuena, has acertado la palabra!";
+				
+				descubrirPalabra();
+				//inicializarPartida();
+			
+			} else { // Ha dado una solución errónea
+				msg = "Lo siento, no es correcto. Has perdido!";
+				
+				descubrirPalabra();	
+				//inicializarPartida();
 			}
+		} else if (caracter != null && caracter.trim().length() == 1) { // Ha introducido una letra
+
+			char letra = caracter.charAt(0); // Convertimos a caracter
+			
+			acertado = pintarRespuesta(letra);
+			
+			if (acertado) {
+				aciertos++;	// Sumamos un acierto
+				charAcertados += letra + "\t"; // Lo añadimos al String de aciertos
+				msg = "Has acertado!";
+			} else {
+				fallos++;	// Sumamos un fallo
+				charFallados += letra + "\t"; // Lo añadimos al String de aciertos
+				msg = "Has fallado!";
+			}
+			
+			intentos++;	// En cualquier caso sumamos un intento
+			
+			if (aciertos == numLetras) { // No quedan letras por descubrir
+				msg = "Enhorabuena, has descubierto la palabra!";
+				descubrirPalabra();
+				
+			} else if (intentos == MAXIMO_INTENTOS) { // Comprobamos si no hay más intentos
+				
+				msg = "Lo sentimos, se acabaron los intentos!";
+				descubrirPalabra();
+				
+			} else {
+				solucion = String.valueOf(respuesta);
+			}
+
 		}
 
-		request.setAttribute("msg", msg);
-		request.setAttribute("intentos", intentos);
+		// Enviamos los atributos
+		request.setAttribute("solucion", solucion);
 		request.setAttribute("aciertos", aciertos);
-		// 5. Ir a la vista
+		request.setAttribute("charAcertados", charAcertados);
+		request.setAttribute("fallos", fallos);
+		request.setAttribute("charFallados", charFallados);
+		request.setAttribute("intentos", intentos);
+		request.setAttribute("msg", msg);
+		
+		// Llamamos a la VISTA
 		request.getRequestDispatcher("ahorcado.jsp").forward(request, response);
+
 	}
 
-	private char[] dibujarPalabra(char c) {
+	private void descubrirPalabra() {
+		respuesta = palabra.toCharArray();
+		solucion = String.valueOf(respuesta);
+	}
 
+	private boolean pintarRespuesta(char letra) {
 		boolean acertado = false;
 
-		for (int i = 0; i < palabra.length(); i++) {
-			if (esComienzo) {
-				if (palabra.charAt(i) == ' ') {
-					tusRespuestas[i] = ' ';
-				} else {
-					tusRespuestas[i] = '*';
-				}
-			} else {
-				if (palabra.charAt(i) == c) { // Letra acertada
+		for (int i = 0; i < palabra.length(); i++) { // Para cada letra de la Palabra
 
-					tusRespuestas[i] = c;
-					acertado = true;
+			if (palabra.charAt(i) == letra) { // Si se encuentra la letra (una o más veces)
 
-				} else if (palabra.charAt(i) == ' ') { // Es un espacio
-
-					tusRespuestas[i] = ' ';
-				} else {
-					tusRespuestas[i] = tusRespuestas[i];
-				}
+				acertado = true;
+				respuesta[i] = letra; // Pintamos la letra en la respuesta
 			}
+		}
+		return acertado;
 
-		}
-		if (esComienzo) {
-			esComienzo = false;
-		}
-		if (acertado) {
-			msg = "Ha acertado!";
-			aciertos++;
-		} else {
-			msg = "Ha fallado!";
-		}
-
-		return tusRespuestas;
 	}
 
 }

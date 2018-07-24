@@ -27,10 +27,10 @@
 			<li><a href="saludoGet?nombre=Luis&apellido1=Galdos&apellido2=Garcia">Saludar</a></li>
 			<li><a href="ejemplo-response">Ejemplo <b>RESPONSE</b></a></li>
 			<li><a href="jugandoConCss.jsp">CSS Avanzado</a></li>
+			<li><a href="jugar-ahorcado">Ahorcado</a></li>
 		</ul>
 	</nav>
-	<h2>Saludar </h2>
-	<br><br>
+	<h2> Saludar </h2>
 	<form action="saludoPost">
 		<input name="nombre" type="text" placeholder="Escribe aquí tu nombre"> 
 		<p class="text-danger">${msg}</p>
@@ -54,10 +54,5 @@
 	<br>
 	<p class="text-danger">${resultado}</p>
 	<script src="js/scripts.js"></script>
-	<br><br>
-	<hr>
-	<h2> Juego del Ahorcado </h2>
-	<a href="ahorcar">Jugar</a>
-	<br>
 </body>
 </html>
