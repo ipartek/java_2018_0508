@@ -46,6 +46,7 @@ public class JugandoPadreHijo {
 				System.out.println("Soy un Ebook " + ebook2.getTitulo());
 			} else {
 				System.out.println(libroIteracion.getTitulo());
+				System.out.println(libroIteracion.getTitulo());
 			}
 
 		}
