@@ -1,8 +1,43 @@
-/* Hoja de estilos principal */
-
+/* Hoja de Estilos Principal */
 
 h1{
-	color:teal;
-	font-size: 2em;
 	text-align: center;
+	color: teal;
+	font-size: 2em;
+}
+
+.text-danger{
+	color:red;
+}
+
+.text-danger:before{
+	content: "***"
+}	
+
+.text-danger:after{
+	content: "!!!"
+}	
+
+.casilla{
+	width: 10px;
+	height: 10px;
+}
+.ahorcado{
+	border:1px solid red;
+	width: 75px;
+	height: 100px;
+	overflow: hidden;
+	background-image: url('../img/ahorcado.jpg');
+	
+}
+
+.fallo0{
+	background-position:616px;
+	
+}
+
+
+.fallo1{
+	background-position: 539px;
+	
 }

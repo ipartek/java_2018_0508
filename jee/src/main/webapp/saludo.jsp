@@ -1,21 +1,33 @@
-<%@page import="com.ipartek.formacion.gestor.libros.controller.SaludoController"%>
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
-<!DOCTYPE html>
-<html>
-<head>
-	<meta charset="ISO-8859-1">
-	<title>Saludo</title>
-</head>
-<body>
-	<h1>Saludamos</h1>
-	<%
-	//recibir atributos en un jsp
-	String nombre=(String)request.getAttribute("nombreCompleto");
-	out.print(nombre);
-	%>
+<!doctype html>
+
+<html lang="es">
+	<head>
+	<meta charset="utf-8">
+		<title>Gestion libros</title>
+		<meta name="description" content="App web Java 3.0 para gestionar Prestamos de Libros">
+		<meta name="author" content="Andrea Perez">
+		
+		<link rel="stylesheet" href="css/styles.css?v=1.1">
+	</head>
 	
-	<%=request.getAttribute("nombreCompleto")%>
-	
-</body>
+	<body>
+		<h1>Saludo</h1>
+
+		<%
+			//recibir Atributo en una JSP
+			String nombre = (String)request.getAttribute("nombreCompleto");
+			out.println(nombre);			
+		%>		
+		
+		
+		<hr>
+		Expression Language
+		<b>${nombreCompleto}</b>
+		
+		<hr>
+		
+		<%=request.getAttribute("nombreCompleto")%>
+		
+
+	</body>
 </html>
