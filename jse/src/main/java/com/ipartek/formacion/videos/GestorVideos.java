@@ -22,7 +22,6 @@ public class GestorVideos {
 	static private final int OPCION_ANADIR = 2;
 	static private final int OPCION_ELIMINAR = 3;
 
-
 	public static void main(String[] args) {
 
 		sc = new Scanner(System.in);
@@ -95,20 +94,20 @@ public class GestorVideos {
 	}
 
 	/***
-	 * Añade un video a la lista de videos
+	 * Aï¿½ade un video a la lista de videos
 	 * El titulo del video debe ser mayor de 3 caracteres y menor de 254
 	 * El codigo debe ser de 11 caracteres
 	 */
 	private static void anadir() {
 		do {
-			System.out.println("Introduce el titulo del video a añadir: ");
+			System.out.println("Introduce el titulo del video a aï¿½adir: ");
 			titulo = sc.nextLine().trim();
 
 			if(titulo.length() < 3 || titulo.length() > 254) {
 				System.out.println("ERROR. El titulo tiene que ser mayor de 3 caracteres y menor de 254.");
 				System.out.println("");
 			}else{
-				System.out.println("Introduce el codigo del video a añadir: ");
+				System.out.println("Introduce el codigo del video a aï¿½adir: ");
 				codigo = sc.next();
 
 				if(codigo.length() != 11) {
@@ -125,7 +124,7 @@ public class GestorVideos {
 					
 					cont++;
 
-					System.out.println("Video añadido. "+ video.toString());
+					System.out.println("Video aï¿½adido. "+ video.toString());
 
 					pintarMenu();
 				}
@@ -174,7 +173,7 @@ public class GestorVideos {
 		System.out.println("--          youtube               --");
 		System.out.println("------------------------------------");
 		System.out.println("-    1. Listar                     -");
-		System.out.println("-    2. Añadir Nuevo               -");
+		System.out.println("-    2. Aï¿½adir Nuevo               -");
 		System.out.println("-    3. Eliminar                   -");
 		System.out.println("-                                  -");
 		System.out.println("-    0 - Salir                     -");
