@@ -1,47 +1,35 @@
 package com.ipartek.formacion.ett;
 
-/**
- * 
- * @author Curso this.salario = salario; this.nombre = nombre; this.dni = dni;
- */
 public class Secretaria extends Persona {
 
-	static final int  SUELDO = 800;
-	int calculo;
-	int edad;
+	// VARIABLES
+	private int edad;
 
+	// CONSTRUCTORES
 	public Secretaria() {
-		super();	
+		super();
+	}
+	
+	public Secretaria(String nombre, String dni, float salario, int edad) {
+		super(nombre, dni, salario);
+		this.edad = edad;
 	}
 
-	public Secretaria(int salario, String nombre, String dni) {
-		super(salario, nombre, dni);
+	// GETTERS AND SETTERS
+
+	public int getEdad() {
+		return edad;
 	}
 
-	public Secretaria(String nSeguridad, int calculo) {
-		this();
-		this.calculo = calculo;
+	public void setEdad(int edad) {
+		this.edad = edad;
 	}
 
-	public static void main(String[] args) {
-		Persona asier = new sociosFundadores(5000,"Asier","ESB987654321x");
-		asier.calcularSalario(asier);
-
-			
-		}
-
-	@Override void calcularSalario(Persona asier) {
-		int calculo;
-		calculo = asier.getSalario() * 3;
-		System.out.println("El salario de  "+asier.getNombre() +" es: "+ calculo);
-		
-		
-	}
-
+	// OTROS MÉTODOS
 	@Override
-	public String toString() {
-		return super.toString() + "sociosFundadores [calculo=" + calculo + "]";
+	float calcularSalario() {
+		// TODO Auto-generated method stub
+		return ((this.getSalario() * 0.8f) - this.edad);
 	}
+
 }
-
-

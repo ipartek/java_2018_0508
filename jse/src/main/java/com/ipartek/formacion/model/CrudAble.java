@@ -2,44 +2,58 @@ package com.ipartek.formacion.model;
 
 import java.util.List;
 
+import com.ipartek.formacion.pojo.VideoYoutube;
+
 /**
+ * Interfaz para especificar los métodos de <b>CRUD</b>
  * 
- * @author Curso Interfaz para especificar los metodos de <b>CRUD<b>:
- *         <ol>
- *         <li>Create</li>
- *         <li>Read</li>
- *         <li>Update</li>
- *         <li>Delete</li>
- *         </ol>
+ * <ul>
+ * <li>Create</li>
+ * <li>Read</li>
+ * <li>Update</li>
+ * <li>Delete</li>
+ * </ul>
+ * 
+ * @author Curso
+ *
  */
 public interface CrudAble<P> {
-	
-	//insertar
-	boolean insert(P pojo) ;
+
+	boolean insert(P pojo); // Create
+
 	/**
-	 * recupera todos los VideoYoutube
+	 * Recupera todos los objetos de la lista.
 	 * 
-	 * @return si no existen resultados retorna lista vacia , no null
-	 * tambien llamados prototipos
+	 * @return lista, vacía si no existen resultados.
 	 */
-	//leer
-	List<P> getAll();
-	//leer
-	P getById(long id);
+	List<P> getAll(); // Read
+
 	/**
-	 * Buscamos un P por su identifacodr el long id 
-	 * @param video
-	 * @return video si lo encuentra, null si no lo encuentra
+	 * Función que devuelve el objeto con el id pasado por par�metro.
+	 * 
+	 * @param id, tipo long, que representa el identificador del video
+	 * @return v, objeto VideoYoutube Si no encuentra el <b>id</b>, devuelve
+	 *         <b>null</b>
 	 */
-	
-	//update
-	
-	boolean update(P pojo);
+	P getById(long id); // Read
+
 	/**
-	 * Le pasamos un video y lo modifica
-	 * @param id
-	 * @return obligatorio
+	 * Función que modifica el
+	 * <P>
+	 * pasado por parámetro.
+	 * 
+	 * @param video, objeto de clase VideoYoutube, que representa un video
+	 * @see VideoYoutube
+	 * @return result, boolean Si no encuentra el video, devuelve <b>false</b>
 	 */
-	boolean delete(long id);
+	boolean update(P pojo); // Update
+
+	/**
+	 * Función que elimina el con el id pasado por parámetro.
+	 * 
+	 * @param id, tipo long, que representa el identificador del video
+	 * @return result, boolean Si no encuentra el <b>id</b>, devuelve <b>false</b>
+	 */
+	boolean delete(long id); // Delete
 
 }

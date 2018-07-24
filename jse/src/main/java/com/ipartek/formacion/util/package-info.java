@@ -1,6 +1,8 @@
 /**
- * Clases con metodos comunes para el resto de la App
- * @author ur00
+ * 
+ */
+/**
+ * @author Curso
  *
  */
 package com.ipartek.formacion.util;

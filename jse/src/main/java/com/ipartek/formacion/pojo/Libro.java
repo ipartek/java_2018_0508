@@ -1,70 +1,43 @@
 package com.ipartek.formacion.pojo;
 
-import java.sql.Date;
-
-/**
- * 
- * @author Curso
- *
- */
 public class Libro {
-	
-	public static final int ISBN_MIN_LENGTH = 5;
-	public static final String ISBN_MIN_EXCEPTION = "La longitud minima debe ser 5";
-	
+
+	private static final int MIN_LONG_ISBN = 5;
+	private static final String MENSAJE_ERROR_ISBN = "La longitud del ISBN debe ser mayor que " + MIN_LONG_ISBN;
+
 	private long id;
-	private String isbn;
 	private String titulo;
+	private String autor;
 	private String editorial;
+	private String isbn;
+	private int numPaginas;
 	private boolean prestado;
-	private Date fInicio;
-	private Date fFin;
-	private int diasPrestamo;
 
-	
-	public Date getfInicio() {
-		return fInicio;
-	}
-
-	public void setfInicio(Date fInicio) {
-		this.fInicio = fInicio;
-	}
-
-	public Date getfFin() {
-		return fFin;
-	}
-
-	public void setfFin(Date fFin) {
-		this.fFin = fFin;
-	}
-
-	public int getDiasPrestamo() {
-		return diasPrestamo;
-	}
-
-	public void setDiasPrestamo(int diasPrestamo) {
-		this.diasPrestamo = diasPrestamo;
-	}
-
+	// CONSTRUCTORES
 	public Libro() {
 		super();
 		this.id = -1;
-		this.isbn = "";
 		this.titulo = "";
+		this.autor = "";
 		this.editorial = "";
+		this.isbn = "";
+		this.numPaginas = 0;
 		this.prestado = false;
 	}
 
-	public Libro(long id, String isbn, String titulo, String editorial, boolean prestado) {
+	public Libro(long id, String titulo, String autor, String editorial, String isbn, int numPaginas, boolean prestado)
+			throws Exception {
 		this();
 		this.id = id;
-		this.isbn = isbn;
-		this.titulo = titulo;
-		this.editorial = editorial;
+		this.titulo = titulo.trim();
+		this.autor = autor;
+		this.editorial = editorial.trim();
+		setIsbn(isbn);
+		this.numPaginas = numPaginas;
 		this.prestado = prestado;
 	}
-	
 
+	// GETTERS AND SETTERS
 	public long getId() {
 		return id;
 	}
@@ -73,30 +46,24 @@ public class Libro {
 		this.id = id;
 	}
 
-	public String getIsbn() {
-		return isbn;
-	}
-/**
- * Se controla que el valor no se nulo y que no tenga menos de 5
- * @param isbn
- * @throws Exception
- */
-	public void setIsbn(String isbn) throws Exception {
-		//controlar primero el null
-		if (isbn != null && isbn.length() >= ISBN_MIN_LENGTH) {
-			this.isbn = isbn;
-		}else {
-			throw new Exception(ISBN_MIN_EXCEPTION);
-		}
-		
-	}
-
 	public String getTitulo() {
 		return titulo;
 	}
 
 	public void setTitulo(String titulo) {
-		this.titulo = titulo;
+		if (titulo != null && !titulo.trim().isEmpty()) {
+			this.titulo = titulo.trim();
+		}
+	}
+
+	public String getAutor() {
+		return autor;
+	}
+
+	public void setAutor(String autor) {
+		if (autor != null && !autor.trim().isEmpty()) {
+			this.autor = autor.trim();
+		}
 	}
 
 	public String getEditorial() {
@@ -104,7 +71,36 @@ public class Libro {
 	}
 
 	public void setEditorial(String editorial) {
-		this.editorial = editorial;
+		if (editorial != null && !editorial.trim().isEmpty()) {
+			this.editorial = editorial.trim();
+		}
+	}
+
+	public String getIsbn() {
+		return isbn;
+	}
+
+	/**
+	 * Método que establece el ISBN del libro.
+	 * 
+	 * @param isbn, String
+	 * @throws Exception si ISBN == null || ISBN.lenght() < 5
+	 */
+	public void setIsbn(String isbn) throws Exception {
+		if (isbn != null && isbn.trim().length() >= MIN_LONG_ISBN) {
+			this.isbn = isbn.trim();
+		} else {
+			throw new Exception(MENSAJE_ERROR_ISBN);
+		}
+
+	}
+
+	public int getNumPaginas() {
+		return numPaginas;
+	}
+
+	public void setNumPaginas(int numPaginas) {
+		this.numPaginas = numPaginas;
 	}
 
 	public boolean isPrestado() {
@@ -114,10 +110,13 @@ public class Libro {
 	public void setPrestado(boolean prestado) {
 		this.prestado = prestado;
 	}
+
 	@Override
 	public String toString() {
-		return "Libro [id=" + id + ", isbn=" + isbn + ", titulo=" + titulo + ", editorial=" + editorial + ", prestado="
-				+ prestado + "]";
+		return "Libro [id=" + id + ", titulo=" + titulo + ", autor=" + autor + ", editorial=" + editorial + ", isbn="
+				+ isbn + ", numPaginas=" + numPaginas + ", prestado=" + prestado + "]";
 	}
+
+	
 
 }

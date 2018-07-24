@@ -1,9 +1,18 @@
 /* Hoja de Estilos Principal */
+p{
+	color: red;
+}
+
+
 
 h1{
 	text-align: center;
 	color: teal;
 	font-size: 2em;
+}
+
+#identi{
+	color: pink;
 }
 
 .text-danger{
@@ -17,3 +26,23 @@ h1{
 .text-danger:after{
 	content: "!!!"
 }	
+
+.ahorcado{
+	border: 1px solid red;
+	width: 75px;
+	height: 100px;				
+	overflow: hidden;
+	background-image: url('../img/ahorcado.jpg');
+	
+}
+.fallo0{
+	background-position-x: 616px;
+}
+
+.fallo1{
+	background-position-x: 539px;
+}
+
+.fallo2{
+	background-position-x: 462px;
+}

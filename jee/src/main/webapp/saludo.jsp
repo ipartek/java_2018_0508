@@ -1,33 +1,38 @@
-<!doctype html>
-
+<!DOCTYPE HTML>
 <html lang="es">
-	<head>
-	<meta charset="utf-8">
-		<title>Gestion libros</title>
-		<meta name="description" content="App web Java 3.0 para gestionar Prestamos de Libros">
-		<meta name="author" content="Alain Muñoz Arrizabalaga">
-		
-		<link rel="stylesheet" href="css/styles.css?v=1.1">
-	</head>
-	
-	<body>
-		<h1>Saludo</h1>
+<head>
+<meta charset="utf-8">
 
-		<%
-			//recibir Atributo en una JSP
-			String nombre = (String)request.getAttribute("nombreCompleto");
-			out.println(nombre);			
-		%>		
-		
-		
-		<hr>
-		Expression Language
-		<b>${nombreCompleto}</b>
-		
-		<hr>
-		
-		<%=request.getAttribute("nombreCompleto")%>
-		
+<title>Gestión de Libros</title>
+<meta name="description"
+	content="App web Java 3.0 para gestionar préstamos de libros">
+<meta name="author" content="Luis">
 
-	</body>
+<link rel="stylesheet" href="css/styles.css?v=1.0">
+
+</head>
+
+<body>
+
+	<h1>Saludo</h1>
+
+	<%
+		//Recibir atributo de una JSP
+		String nombre = (String) request.getAttribute("nombre");
+		String apellido1 = (String) request.getAttribute("apellido1");
+		String apellido2 = (String) request.getAttribute("apellido2");
+
+		out.println("<p> Saludos, " + nombre + " " + apellido1 + " " + apellido2);
+	%>
+
+	<hr>
+	Expression language
+	<br>
+	<b>${nombre}</b>
+	<b>${apellido1}</b>
+	<b>${apellido2}</b>
+
+	<script src="js/scripts.js"></script>
+
+</body>
 </html>

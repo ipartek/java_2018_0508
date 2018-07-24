@@ -1,53 +1,57 @@
 package com.ipartek.formacion.ett;
-/**
- * 
- * @author Curso
- *
- */
+
 public abstract class Persona {
-	
+
+	// VARIABLES
+	private String nombre;
+	private String dni;
+	private float salario;
+
+	// CONSTRUCTOR
 	public Persona() {
 		super();
-		this.salario = 0;
 		this.nombre = "";
-		this.dni ="";
+		this.dni = "";
+		this.salario = 0f;
+
 	}
-	public Persona(int salario, String nombre, String dni) {
-		this();
-		this.salario = salario;
+
+	public Persona(String nombre, String dni, float salario) {
+		super();
 		this.nombre = nombre;
 		this.dni = dni;
-	}
-	
-	public int getSalario() {
-		return salario;
-	}
-	public void setSalario(int salario) {
 		this.salario = salario;
 	}
+
+	// GETTERS AND SETTERS
 	public String getNombre() {
 		return nombre;
 	}
+
 	public void setNombre(String nombre) {
-		this.nombre = nombre;
+		if (nombre != null) {
+			this.nombre = nombre;
+		}
 	}
+
 	public String getDni() {
 		return dni;
 	}
+
 	public void setDni(String dni) {
-		this.dni = dni;
-	}
-	int salario;
-	String nombre;
-	String dni;
-	
-	abstract void calcularSalario(Persona pojo) ;
-	
-	@Override
-	public String toString() {
-		return "Persona [salario=" + salario + ", nombre=" + nombre + ", dni=" + dni + "]";
+		if (dni != null) {
+			this.dni = dni;
+		}
 	}
 
-	
-	
+	public float getSalario() {
+		return salario;
+	}
+
+	public void setSalario(float salario) {
+		this.salario = salario;
+	}
+
+	// OTROS MÉTODOS
+	abstract float calcularSalario();
 }

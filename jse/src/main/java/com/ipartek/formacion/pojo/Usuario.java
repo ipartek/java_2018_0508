@@ -1,27 +1,49 @@
 package com.ipartek.formacion.pojo;
 
+/**
+ * Clase POJO para gestionar Usuarios.
+ * 
+ * @see package-info.java
+ * @author Curso
+ *
+ */
 public class Usuario {
-	long id;
-	String nombre;
-	String email;
-	String password;
-	
-	//constructor
+
+	// VARIABLES
+	private long id;
+	private String nombre;
+	private String mail;
+	private String psw;
+
+	// CONSTRUCTORES
 	public Usuario() {
+
 		super();
-		this.id = 1;
-		this.nombre = "usuario prueba";
-		this.email = "email@gmail.com"  ;
-		this.password = "12345" ;
+		this.id = 0;
+		this.nombre = "";
+		this.mail = "";
+		this.psw = "";
 	}
-	
-	//getter y setters
+
+	public Usuario(long id, String nombre, String mail, String psw) {
+
+		this();
+		setId(id);
+		setNombre(nombre);
+		setNombre(mail);
+		setPsw(psw);
+	}
+
+	// GETTERS AND SETTERS
 	public long getId() {
 		return id;
 	}
 
 	public void setId(long id) {
-		this.id = id;
+
+		if (id != 0) {
+			this.id = id;
+		}
 	}
 
 	public String getNombre() {
@@ -29,29 +51,76 @@ public class Usuario {
 	}
 
 	public void setNombre(String nombre) {
-		this.nombre = nombre;
+		if (nombre != null) {
+			this.nombre = nombre.trim();
+		}
 	}
 
-	public String getEmail() {
-		return email;
+	public String getMail() {
+		return mail;
 	}
 
-	public void setEmail(String email) {
-		this.email = email;
+	public void setMail(String mail) {
+		if (mail != null) {
+			this.mail = mail.trim();
+		}
 	}
 
-	public String getPassword() {
-		return password;
+	public String getPsw() {
+		return psw;
 	}
 
-	public void setPassword(String password) {
-		this.password = password;
+	public void setPsw(String psw) {
+		if (psw != null) {
+			this.psw = psw.trim();
+		}
+	}
+
+	// OTROS M�TODOS Y FUNCIONES
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + (int) (id ^ (id >>> 32));
+		result = prime * result + ((mail == null) ? 0 : mail.hashCode());
+		result = prime * result + ((nombre == null) ? 0 : nombre.hashCode());
+		result = prime * result + ((psw == null) ? 0 : psw.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Usuario other = (Usuario) obj;
+		if (id != other.id)
+			return false;
+		if (mail == null) {
+			if (other.mail != null)
+				return false;
+		} else if (!mail.equals(other.mail))
+			return false;
+		if (nombre == null) {
+			if (other.nombre != null)
+				return false;
+		} else if (!nombre.equals(other.nombre))
+			return false;
+		if (psw == null) {
+			if (other.psw != null)
+				return false;
+		} else if (!psw.equals(other.psw))
+			return false;
+		return true;
 	}
 
 	@Override
 	public String toString() {
-		return "Usuario [id=" + id + ", nombre=" + nombre + ", email=" + email + ", password=" + password + "]";
+		return "Usuario [id=" + id + ", nombre=" + nombre + ", mail=" + mail + ", psw=" + psw + "]";
 	}
 
-	
-}
+} // FIN Usuario
