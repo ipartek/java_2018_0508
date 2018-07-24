@@ -16,17 +16,18 @@
 		<div class="ahorcado fallo0"></div>
 		
 		<p>
-			<span value=""><%=request.getAttribute("casilla0")%></span>
-			<span><%=request.getAttribute("casilla1")%></span>
-			<span><%=request.getAttribute("casilla2")%></span>
-			<span><%=request.getAttribute("casilla3")%></span>
-			<span><%=request.getAttribute("casilla4")%></span>		
+			<span><%=request.getAttribute("solucion")%></span>
+			
 		</p>
+		<p>
+			<span>${msg}</span>
+		</p>
+			
 		
 		<p>${intento}</p>
 		<form action="jugarAhorcado" method="post">			
 			<input name="letraUsuario" type="text" placeholder="Dime una letra">
-			<p >${msg}</p>
+			
 			
 			<input type="submit" value="Enviar">
 					
