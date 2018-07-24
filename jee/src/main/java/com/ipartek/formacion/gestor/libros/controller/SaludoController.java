@@ -43,7 +43,7 @@ public class SaludoController extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		//doGet(request, response);
-		
+		//TODO No funciona con POST
 		System.out.println("Pasamos por saludo POST");
 		
 		try {

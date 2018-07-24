@@ -3,7 +3,7 @@
 <html lang="es">
 	<head>
 	<meta charset="utf-8">
-		<title>Gestion libros</title>
+		<title>Saludo</title>
 		<meta name="description" content="App web Java 3.0 para gestionar Prestamos de Libros">
 		<meta name="author" content="Alain Muñoz Arrizabalaga">
 		
