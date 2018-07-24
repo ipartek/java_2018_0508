@@ -1,5 +1,5 @@
 /**
- * 
+ * Package con todos los ejercicios de ArrayList resueltos.
  */
 /**
  * @author Curso
