@@ -12,11 +12,15 @@ import javax.servlet.http.HttpServletResponse;
 
 public class AhorcadoController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	private static char[] letras = { '_', '_', '_', '_', '_' };
 	
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		
+		
+		request.setAttribute("letras", letras);
+
 
 		request.getRequestDispatcher("ahorcado.jsp").forward(request, response);
 	}
@@ -24,15 +28,10 @@ public class AhorcadoController extends HttpServlet {
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		String letra = request.getParameter("let");
+		
+		
+		char let = (char) request.getAttribute("let");
 
-		if (letra != null && !"".equals(letra.trim())) {
-			request.setAttribute("Tu respuesta ingresada es : ", letra);
-			request.getRequestDispatcher("ahorcado.jsp").forward(request, response);
-		} else {
-			request.setAttribute("msg", "por favor rellena los datos");
-			request.getRequestDispatcher("index.jsp").forward(request, response);
-		}
-
+		
 	}
 }

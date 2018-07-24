@@ -34,10 +34,7 @@
 			transition-duration : 2s;
 			border-radius:50%;
 		}
-		@keyframes pulse {
-		    from {top: 0px;}
-		    to {top: 200px;}
-		}	
+		
 	</style>
 
 </head>

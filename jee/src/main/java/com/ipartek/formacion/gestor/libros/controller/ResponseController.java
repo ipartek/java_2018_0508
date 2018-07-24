@@ -36,12 +36,14 @@ public class ResponseController extends HttpServlet {
 		request.getRequestDispatcher("listado.jsp").forward(request, response);
 
 	}
-
+	
 	protected void doGet1(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
 		doPost(request, response);
 	}
+
+	
 
 	private void doPost1(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {

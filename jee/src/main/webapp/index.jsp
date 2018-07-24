@@ -23,20 +23,9 @@
 			<li><a href="jugandoConCss.jsp">jugando con Css</a></li>
 		</ul>
 	</nav>
-	<div class="ahorcado fallo1"></div>
-	<style>
-	
-	</style>
-	
 
-	<form action="saludo" method="post">
 
-		<input name="nom" type="text" placeholder="Dime tu Nombre"> 
-		
-		<input type="submit" value="Enviar">
 
-	</form>
-		
 	
 </body>
 </html>
