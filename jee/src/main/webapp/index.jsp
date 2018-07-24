@@ -8,7 +8,6 @@
   
   <link rel="stylesheet" href="css/styles.css?v=1.0">
 </head>
-weeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee
 <body>
 	<h1>CMS GESTION LIBROS</h1>
 	
@@ -18,11 +17,12 @@ weeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee
 	
 	<p> - GET - </p>
 	<a href="listar">Listar Libros</a><br>
-	<a href="saludo?nombre=Pepe&ape1=Otilio&ape2=Gomez">Saludo</a>
+	<a href="saludo?nombre=Pepe&ape1=Otilio&ape2=Gomez">Saludo</a><br>
+	<a href="ejemplo-response">Ejemplo Response</a>
 	
-	<br>
+	
+	
 	<p> - POST - </p>
-	<!-- POST -->
 	<form action="bienvenida" method="post">
 		<input name="nombre" type="text" placeholder="Dime tu nombre">
 		<p class="text-danger">${msg}</p>

@@ -32,11 +32,11 @@ public interface CrudAble<P> {
 	 * @param id long identificador
 	 * @return P pojo si lo encuentra, null si no encuentra
 	 */
-	P getById(long id);
+	//P getById(long id);
 	
 	
 	boolean update(P pojo);
 	
-	boolean delete(long id);
+	//boolean delete(long id);
 	
 }

@@ -21,6 +21,10 @@
 	String nombreComple=(String)request.getAttribute("nombreCompleto");
 	out.println(nombreComple);
 	%>
+	<!-- otra forma de sacar datos por pantalla -->
+	<hr>
+	Expression Language
+	<b>${nombreCompleto}</b>
   <script src="js/scripts.js"></script>
 
 

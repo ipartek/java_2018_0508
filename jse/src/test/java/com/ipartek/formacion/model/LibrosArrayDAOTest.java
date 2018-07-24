@@ -8,7 +8,7 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import com.ipartek.formacion.gestor.libros.model.LibrosArrayDAO;
+import com.ipartek.formacion.model.LibrosArrayDAO;
 import com.ipartek.formacion.pojo.Libro;
 
 public class LibrosArrayDAOTest {

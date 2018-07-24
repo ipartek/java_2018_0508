@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-import com.ipartek.formacion.gestor.libros.model.LibrosArrayDAO;
+import com.ipartek.formacion.model.LibrosArrayDAO;
 import com.ipartek.formacion.pojo.Libro;
 import com.ipartek.formacion.pojo.VideoYoutube;
 

@@ -40,11 +40,16 @@ public class RevistaArrayDAO implements CrudAble<Revista>{
 			public List<Revista> getAll() {
 				return lista;
 			}
+			@Override
+			public boolean update(Revista pojo) {
+				// TODO Auto-generated method stub
+				return false;
+			}
 			
 			/**
 			 * Al haber dicho que no importaba el id,no lo he creado como atributo
 			 */
-			@Override
+			
 			/*public Revista getById(long id) {
 				Revista resul = null;
 				//foreach
@@ -77,7 +82,7 @@ public class RevistaArrayDAO implements CrudAble<Revista>{
 			*/
 			
 			//@Override
-			public boolean delete(long id) {
+			/*public boolean delete(long id) {
 				boolean resul = false;
 				Revista rIteracion = null;
 				
@@ -92,8 +97,8 @@ public class RevistaArrayDAO implements CrudAble<Revista>{
 					}
 				}
 				return false;
-			}
-			@Override
+			}*/
+			/*@Override
 			public Revista getById(long id) {
 				// TODO Auto-generated method stub
 				return null;
@@ -102,5 +107,5 @@ public class RevistaArrayDAO implements CrudAble<Revista>{
 			public boolean update(Revista pojo) {
 				// TODO Auto-generated method stub
 				return false;
-			}	
+			}	*/
 }
