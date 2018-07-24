@@ -19,12 +19,12 @@ public class ArrayListTest {
 		assertTrue(paises.isEmpty());
 		assertNotNull(paises);
 		
-		paises.add("España");
-		//paises.add("España"); Puede haber paises identicos
+		paises.add("Espaï¿½a");
+		//paises.add("Espaï¿½a"); Puede haber paises identicos
 		paises.add("Italia");
 		paises.add("Alemania");
 		paises.add("Burkina Faso");
-		paises.add("Hungría");
+		paises.add("Hungrï¿½a");
 		
 		assertEquals(5, paises.size());
 		
@@ -34,8 +34,8 @@ public class ArrayListTest {
 		
 		assertEquals("Italia", paises.get(0));
 		
-		assertTrue(paises.contains("Hungría"));
-		assertEquals(3, paises.indexOf("Hungría"));
+		assertTrue(paises.contains("Hungrï¿½a"));
+		assertEquals(3, paises.indexOf("Hungrï¿½a"));
 		
 		assertFalse(paises.contains("Francia"));
 		assertEquals(-1, paises.indexOf("Francia"));
@@ -54,7 +54,7 @@ public class ArrayListTest {
 		
 		assertEquals("Alemania", paises.get(0));
 		assertEquals("Burkina Faso", paises.get(1));
-		assertEquals("Hungría", paises.get(2));
+		assertEquals("Hungrï¿½a", paises.get(2));
 		assertEquals("Italia", paises.get(3));
 		assertEquals("Suiza", paises.get(4));
 		

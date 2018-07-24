@@ -93,7 +93,7 @@ public class VideoYoutubeArrayDAOTest {
 		assertEquals(MOCK1_TITULO, video.getTitulo());
 		assertEquals(MOCK1_CODIGO, video.getCodigo());
 		
-		assertNull("No debería encontarar este id -1", dao.getById(ID_INEXISTENTE));
+		assertNull("No deberï¿½a encontarar este id -1", dao.getById(ID_INEXISTENTE));
 		
 	}
 
@@ -113,7 +113,7 @@ public class VideoYoutubeArrayDAOTest {
 		assertEquals("fff", videoModificado.getCodigo());
 
 		//Modificamos un video que no existe
-		VideoYoutube videoModificarSinId = new VideoYoutube(ID_INEXISTENTE, "Canción inexistente", "fff");
+		VideoYoutube videoModificarSinId = new VideoYoutube(ID_INEXISTENTE, "Canciï¿½n inexistente", "fff");
 		
 		assertFalse(dao.update(videoModificarSinId));
 		
