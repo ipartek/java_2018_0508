@@ -18,7 +18,6 @@ public class PrestamosController extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		//TODO implementar logger
 		System.out.println("pasamos por do get");
 		
 		//recibir parametros
