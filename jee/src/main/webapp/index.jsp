@@ -24,6 +24,9 @@
 	<a href="listar">Listar Libros</a>
 	
 	<a href="saludo?nombre=Pepe&ap1=Otilio&ap2=Gomez">Saludar</a>
+	
+	<a href="ejemplo-response">Ejemplo Response</a>
+	
 	<br><br>
 	<h2>Por POST</h2>
 	<form action="saludo" method="POST">
