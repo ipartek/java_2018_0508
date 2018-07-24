@@ -14,26 +14,27 @@
 </head>
 
 <body>
-	
+
 
 
 	<h1>BIENVENIDO A MI PAGINA</h1>
-	
-	
+
+
 
 	<a href="listar">Listar</a>
 	<a href="saludo?nombre=Pakito&ap1=Chocolatero&ap2=Choco">Saludo</a>
-	
+	<a href="ejemplo-response">Ejemplo response </a>
+
 	<form action="saludo" method="post">
-		
+
 		<input name="nombre" type="text" placeholder="Dime tu nombre">
-		
+
 		<!-- Mensaje si no se ha introducido ningun nombre. -->
 		<p class="text-danger">${msg}</p>
-		
+
 		<input type="submit" value="Enviar">
-	
-	
+
+
 	</form>
 
 
