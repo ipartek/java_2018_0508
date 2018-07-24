@@ -1,7 +1,0 @@
-ISBN --- TITULO --- NUM. PAGINAS --- FORMATO
---------------------------------------------
-1234567890 - Revista1 - 15 - Papel
-1029384756 - Revista2 - 30 - Digital
-1018273645 - Revista3 - 25 - Digital
-1342908765 - Revista4 - 50 - Papel
-1234567890 - Revista5 - 100 - Digital
