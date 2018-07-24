@@ -14,28 +14,33 @@
 <body>
 	<h1>CMS Prestamos Libros</h1>
 
-	<%
-		//Esto es java
-		out.print("<p>Soy Java</p>");
-	%>
-
-	<a href="listar">Listar Libros</a>
-	<br>
-	<a href="saludo?nombre=pepe&ape1=Lorenzo&ape2=Gomez">Saludo</a>
-
-	<%
-		//Recibir atributo en jsp
-		String nombre = (String) request.getAttribute("nombre");
-		out.print("nombre: "+ nombre);
-	%>
+	<nav>
+		<ul>
+			<li><a href="listar">Listar Libros</a> </li>
+			<li><a href="saludo?nombre=pepe&ape1=Lorenzo&ape2=Gomez">Saludo</a> </li>
+			<li><a href="ejemplo-response">Ejemplo Response</a></li>
+			<li><a href="jugandoConCss.jsp">Jugando con Css</a></li>
+		</ul>
+		
+	</nav>
 
 	<form action="saludo" method="post">
 		<input name="nom" type="text">
-		<p style="color:red">${msg }</p>
+		<p style="color: red">${msg }</p>
 		<input type="submit" value="enviar">
 	</form>
-	
-	
+
+	<br>
+	<h1>Juego ahorcado</h1>
+
+	<%
+		//Esto es java
+		out.print("<p>A jugar</p>");
+	%>
+	<a href="juego">Juego del ahorcado</a>
+	<br>
+
+
 
 	<script src="js/scripts.js"></script>
 </body>

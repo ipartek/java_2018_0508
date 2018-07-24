@@ -15,12 +15,6 @@ public class PrestamosController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	//private static final Logger LOG = Logger.getLogger(PrestamosController.class);
        
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public PrestamosController() {
-        super();
-    }
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)

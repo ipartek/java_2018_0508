@@ -5,3 +5,16 @@ h1{
 	color: teal;
 	font-size: 2em;
 }
+
+#ahorcado{
+	border: 1px solid red;
+	width: 75px;
+	height: 100px;
+	overflow: hidden;
+	background-image: url('../img/ahorcado.jpg');
+	background-position-x: 616px;
+		
+}
+.fallo 0{
+	background-position-x: 616px;
+}
