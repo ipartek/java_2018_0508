@@ -3,8 +3,7 @@
 <head>
 <meta charset="utf-8">
 <title>Gestion Libros</title>
-<meta name="description"
-	content="App web Javaa 3.0 paragestionar prestamos de libros">
+<meta name="description" content="App web Javaa 3.0 paragestionar prestamos de libros">
 <meta name="author" content="SitePoint">
 
 <link rel="stylesheet" href="css/styles.css?v=2.0">
@@ -16,10 +15,15 @@
 	<div id="content">
 		<h3>Opciones</h3>
 		<div id="opciones">	
-			<ul>
-				<li><a href="listar">Listar Libros</a></li>
-				<li><a href="saludo?nombre=pepe&ap1=Otilio&ap2=Gomez">Saludo</a></li>
-			</ul>
+			<nav>
+				<ul>
+					<li><a href="listar">Listar Libros</a></li>
+					<li><a href="saludo?nombre=pepe&ap1=Otilio&ap2=Gomez">Saludo</a></li>
+					<li><a href="ejemplo-response">Ejemplo response</a></li>
+					<li><a href="juego.jsp">Juego</a></li>
+					<li><a href="jugandoConCss.jsp">Jugando con CSS</a></li>
+				</ul>
+			</nav>
 		</div>
 
 		<form action="saludo" method="post">
