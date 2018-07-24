@@ -26,7 +26,7 @@ public class SaludoController extends HttpServlet {
 		System.out.println("Pasamos por saludo");
 		
 		//1. recibir parametros
-		String nombre = request.getParameter("nombre");
+		String nombre = request.getParameter("Nombre");
 		String ap1 = request.getParameter("Otilio");
 		String ap2 = request.getParameter("Gomez");
 		
