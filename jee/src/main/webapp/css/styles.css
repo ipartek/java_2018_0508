@@ -17,3 +17,43 @@ h1{
 .text-danger:after{
 	content: "!!!"
 }
+
+.ahorcado{
+	border: 1px solid red;
+	width: 75px;
+	height: 100px;
+	overflow: hidden;
+	background-image: url('../img/ahorcado.jpg');
+}
+
+.fallo0{
+	background-position-x: 616px;
+}
+
+.fallo1{
+	background-position-x: 539px;	
+}
+
+.fallo2{
+	background-position-x: 462px;	
+}
+
+.fallo3{
+	background-position-x: 385px;	
+}
+
+.fallo4{
+	background-position-x: 308px;	
+}
+
+.fallo5{
+	background-position-x: 231px;	
+}
+
+.fallo6{
+	background-position-x: 153px;	
+}
+
+.fallo7{
+	background-position-x: 76px;	
+}

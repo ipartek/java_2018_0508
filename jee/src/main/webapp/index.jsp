@@ -7,25 +7,33 @@
 	<meta name="description"
 		content="App Web Java 3.0 para gestioar préstamos de libros">
 	<meta name="author" content="Adriana Prado Alonso">
-	<link rel="stylesheet" href="css/styles.css?v=1.0">
+	<link rel="stylesheet" href="css/styles.css">
 </head>
 
 <body>
 	<h1>CMS Préstamo Libros</h1>
+	
+	<nav>
+		<ul><li>
+			<li><a href="listar">Listar Libros</a></li>
+			<li><a href="saludo?nombre=pepe&ape1=otilio&ape2=gomez"> Saludar </a></li>
+			<li><a href="ejemplo-response">Ejemplo Response</a>	</li>
+			<li><a href="ahorcado">Juego del ahorcado</a></li>
+			<li><a href="jugandoConCss.jsp">Jugando con CSS</a></li>
+		</ul>
+	</nav>
+
+	<!-- 
+		<a href="saludo?nombre=pepe"> Saludar </a>
+		<a href="saludo?nombre=pepe&ape1=otilio&ape2=gomez"> Saludar </a>
+	 -->
+	 
 	<%
 		//Esto es Java
 		out.print("<p>Soy Java</p>");
 	%>
-
-	<a href="listar">Listar Libros</a>
-
-	<!-- 
-		<a href="saludo?nombre=pepe"> Saludar </a>
-		<a href="saludo?nombre=pepe, ape1=otilio, ape2=gomez"> Saludar </a>
-	 -->
-	 
-	<a href="saludo?nombre=pepe&ape1=otilio&ape2=gomez"> Saludar </a>
 	
+	 	
 	<form action="saludo" method="post" >
 	
 		<input name="nom" type="text" placeholder="Dime tu nombre">
@@ -33,14 +41,6 @@
 		<input type="submit" value="Enviar">
 	
 	</form>
-
-	<%
-		//Crear un nuevo controlador que tenga de mapping saludo y se le envia un parametro nombre por GET
-		//<a href="saludo?nombre=pepe&ape1="Otilio"&ape2="Gomez"> Saludar </a>
-		//recibir un atributo en una jsp
-		//String nombre = (String) request.getAttribute("nombre");
-		//out.print("nombre: " + nombre);
-	%>
 
 	<script src="js/scripts.js"></script>
 </body>
