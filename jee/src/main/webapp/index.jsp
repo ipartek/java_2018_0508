@@ -20,20 +20,22 @@
 		out.print("<p> Soy Java </p>");
 	%>
 
-	<h2> Listar </h2>
-	<a href="listar">Listar libros</a>
-	<hr>
-	<h2> Saludar </h2>
-	<p>Crear un nuevo controlador que tenga de Mapping Saludo y se le envie un parámetro "nombre" por GET.</p>
-	<p>Redirigirá a una nueva vista que se llame Saludo.jsp</p>
-	<a href="saludoGet?nombre=Luis&apellido1=Galdos&apellido2=Garcia">Saludar</a>
+	<nav>
+		<h2> Nav </h2>
+		<ul>
+			<li><a href="listar">Listar libros</a></li>
+			<li><a href="saludoGet?nombre=Luis&apellido1=Galdos&apellido2=Garcia">Saludar</a></li>
+			<li><a href="ejemplo-response">Ejemplo <b>RESPONSE</b></a></li>
+			<li><a href="jugandoConCss.jsp">CSS Avanzado</a></li>
+		</ul>
+	</nav>
+	<h2>Saludar </h2>
 	<br><br>
 	<form action="saludoPost">
 		<input name="nombre" type="text" placeholder="Escribe aquí tu nombre"> 
 		<p class="text-danger">${msg}</p>
 		<input type="submit" value="Enviar">
 	</form>
-	<br><br>
 	<hr>
 	<h2> Calcular </h2>
 	<form action="calcular">
@@ -52,6 +54,10 @@
 	<br>
 	<p class="text-danger">${resultado}</p>
 	<script src="js/scripts.js"></script>
-
+	<br><br>
+	<hr>
+	<h2> Juego del Ahorcado </h2>
+	<a href="ahorcar">Jugar</a>
+	<br>
 </body>
 </html>
