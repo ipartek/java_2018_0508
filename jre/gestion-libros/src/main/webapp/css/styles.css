@@ -1,0 +1,31 @@
+/* Hoja de Estilos Principal */
+
+h1{
+	text-align: center;
+	color: teal;
+	font-size: 2em;
+}
+
+.text-danger{
+	color:red;
+}
+
+.text-danger:before{
+	content: "***"
+}	
+
+.text-danger:after{
+	content: "!!!"
+}	
+
+#ahorcado{
+	border: 1px solid red;
+	width: 75px;
+	height: 100px;
+	overflow: hidden;
+	background-image: '../img/ahorcado.jpg';
+	background-position: 616px;
+	
+	
+	
+}

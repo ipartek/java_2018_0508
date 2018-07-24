@@ -1,0 +1,11 @@
+@charset "ISO-8859-1";
+#ahorcado{
+	border: 1px solid red;
+	width: 75px;
+	height: 100px;
+	overflow: hidden;
+	background-image: "/img/ahorcado.jpg"
+	
+	
+	
+}
