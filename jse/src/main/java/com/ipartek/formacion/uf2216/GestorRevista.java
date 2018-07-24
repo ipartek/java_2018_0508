@@ -127,10 +127,10 @@ public class GestorRevista {
 			String frmt = sc.nextLine();
 
 			if (frmt.equals("digital")) {
-				formato = true;
+				formato = Revistas.FORMATO_DIGITAL;
 				formatoCorrecto = true;
 			} else if (frmt.equals("papel")) {
-				formato = false;
+				formato = Revistas.FORMATO_PAPEL;
 				formatoCorrecto = true;
 			} else {
 				System.out.println(" El formato es incorrecto debe ser digital o papel,  por favor vuelve a insertalo");

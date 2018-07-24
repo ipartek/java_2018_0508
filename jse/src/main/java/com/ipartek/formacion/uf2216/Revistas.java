@@ -12,6 +12,10 @@ public class Revistas {
 	public static final int TITULO_MAX_LENGTH = 150;
 	public static final String TITULO_EXCEPTION = "El titulo tiene que ser entre 3 y 150 caracteres";
 
+	public static final boolean FORMATO_DIGITAL = false;
+	public static final boolean FORMATO_PAPEL = true;
+	public static final String FORMATO_EXCEPTION = "El formato debe ser digital o papel ";
+
 	private long id;
 	private String titulo;
 	private String isbn;
@@ -91,20 +95,22 @@ public class Revistas {
 	}
 
 	public void setFormato(boolean formato) {
-		this.formato = formato;
+		String f = "";
+		if (formato == FORMATO_PAPEL) {
+			f = "papel";
+			this.formato = formato;
+		} else if (formato == FORMATO_DIGITAL) {
+			f = "digital";
+			this.formato = formato;
+		}
+
 	}
 
 	@Override
 	public String toString() {
-		String f = "";
-		if (formato == true) {
-			f = "digital";
-		} else if (formato == false) {
-			f = "papel";
-		}
-
+		
 		return "Revistas [id=" + id + ", titulo=" + titulo + ", isbn=" + isbn + ", paginas=" + paginas + ", formato="
-				+ f + "]";
+				+ formato + "]";
 	}
 
 }
