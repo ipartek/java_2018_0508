@@ -64,7 +64,7 @@ public class SaludoController extends HttpServlet {
 
 			} else {
 
-				request.setAttribute("msg", "Por favor rellena el nombre. No seas vago.");
+				request.setAttribute("msg", "Por favor rellena el nombre y no seas vago.");
 				request.getRequestDispatcher("index.jsp").forward(request, response);
 			}
 		} catch (Exception e) {
