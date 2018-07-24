@@ -38,8 +38,8 @@ public class SaludoController extends HttpServlet {
 		//3. llamar modelo DAO
 				
 		//4. enviar Atributos vista
-		String nombreCompleto = String.format("nombre completo %s %s %s", nombre, ape1, ape2);
-		request.setAttribute("nombreCompleto", nombreCompleto);		
+		String paso = String.format("nombre completo %s %s %s", nombre, ape1, ape2);
+		request.setAttribute("nombreCompleto", paso);		
 		
 		//5. ir a la vista
 		request.getRequestDispatcher("saludo.jsp").forward(request, response);
