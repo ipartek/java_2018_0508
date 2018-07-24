@@ -33,8 +33,8 @@ public class Excepciones4 {
 	private static void metodoC() {
 		System.out.println("Entro en metodoC");
 		try {
-			Object o = null;
-			o.toString();
+		//	Object o = null;
+		//	o.toString();
 
 		} catch (Exception e) {
 			System.out.println("Excepcion capturada.");

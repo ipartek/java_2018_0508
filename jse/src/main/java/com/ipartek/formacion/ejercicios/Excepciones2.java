@@ -31,8 +31,8 @@ public class Excepciones2 {
 	private static void metodoC() {
 		System.out.println("Metodo C");
 		try {
-			Object o = null;
-			o.toString();
+			//Object o = null;
+			//o.toString();
 
 		} catch (NullPointerException e) {
 			System.out.println("Catch--> Error con el Objeto");
@@ -43,7 +43,7 @@ public class Excepciones2 {
 		 * System.out.println("Usuario=> Lo sentimos pero ha surgido un problema.");
 		 * System.out.println("LOG=> " + e);
 		 * 
-		 * } finally { System.out.println("Terminamos ejecución (Siempre se ejecute)");
+		 * } finally { System.out.println("Terminamos ejecuciï¿½n (Siempre se ejecute)");
 		 * }
 		 */
 

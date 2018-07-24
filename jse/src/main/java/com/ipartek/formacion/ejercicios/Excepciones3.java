@@ -32,7 +32,7 @@ public class Excepciones3 {
 		
 		System.out.println("Entro en metodoB");
 		System.out.println("Introduce un caracter: ");
-		char contest = (char) System.in.read();
+	//	char contest = (char) System.in.read();
 		metodoC();
 		System.out.println("Salgo en metodoB");
 	}
@@ -40,8 +40,8 @@ public class Excepciones3 {
 	private static void metodoC() {
 		System.out.println("Entro en metodoC");
 		try {
-			Object o = null;
-			o.toString();
+	//		Object o = null;
+	//		o.toString();
 
 		} catch (NullPointerException e) {
 			System.out.println("Catch--> Error con el Objeto");
@@ -52,7 +52,7 @@ public class Excepciones3 {
 		 * System.out.println("Usuario=> Lo sentimos pero ha surgido un problema.");
 		 * System.out.println("LOG=> " + e);
 		 * 
-		 * } finally { System.out.println("Terminamos ejecución (Siempre se ejecute)");
+		 * } finally { System.out.println("Terminamos ejecuciï¿½n (Siempre se ejecute)");
 		 * }
 		 */
 

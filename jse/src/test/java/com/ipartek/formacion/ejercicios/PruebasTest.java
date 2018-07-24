@@ -1,7 +1,5 @@
 package com.ipartek.formacion.ejercicios;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
@@ -35,7 +33,7 @@ public class PruebasTest {
 		Integer i1= new Integer(5);
 		Integer i2= new Integer(5);
 		
-		assertTrue(i1!=i2);//Compara posición de memoria
+		assertTrue(i1!=i2);//Compara posiciï¿½n de memoria
 		assertTrue(i1.equals(i2));//Compara valor interno
 		 
 		VideoYoutube v=new VideoYoutube();

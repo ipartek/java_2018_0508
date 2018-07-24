@@ -10,10 +10,10 @@ public class Excepciones {
 
 	public static void main(String[] args) {
 
-		System.out.println("Comenzamos ejecución");
+		System.out.println("Comenzamos ejecuciï¿½n");
 		try {
-			int [] aEnteros=new int[5];
-			int a=aEnteros[5];
+			//int [] aEnteros=new int[5];
+			//int a=aEnteros[5];
 			
 		} catch (ArrayIndexOutOfBoundsException e) {
 			System.out.println("Error con el Array");
@@ -24,7 +24,7 @@ public class Excepciones {
 			System.out.println("LOG=> " + e);
 			
 		} finally {
-			System.out.println("Terminamos ejecución (Siempre se ejecute)");
+			System.out.println("Terminamos ejecuciï¿½n (Siempre se ejecute)");
 		}*/
 
 	}
