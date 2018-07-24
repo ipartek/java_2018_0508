@@ -11,7 +11,7 @@
 
 <body>
 
-	<h1>CMS Prestamo libros</h1>	
+	<h1>CMS Prestamo libros </h1>	
 		
 	<%//esto es Java 
 	out.print("<p>Soy Java</p>");
