@@ -18,8 +18,8 @@ public class ArrayListTest {
 		assertTrue(paises.isEmpty());
 		assertNotNull(paises);
 
-		paises.add("Egpaña");
-		// paises.add("Egpaña");
+		paises.add("Egpaï¿½a");
+		// paises.add("Egpaï¿½a");
 		assertEquals("deberia tener solo 1 pais ", 1, paises.size());
 
 		paises.add("Italia");
