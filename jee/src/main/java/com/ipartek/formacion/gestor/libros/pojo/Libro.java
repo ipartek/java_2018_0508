@@ -10,7 +10,6 @@ public class Libro {
 	private String isbn;
 	private String editorial;
 	private boolean prestado;
-	// TODO FECHA
 
 	// Cronstructores
 	public Libro() {

@@ -2,7 +2,7 @@ package com.ipartek.formacion.pojo;
 
 import java.io.Serializable;
 
-public class Libro implements Serializable, Imprimible {
+public class Libro {
 
 	private static final int LONG_ISBN = 5;
 
@@ -93,11 +93,4 @@ public class Libro implements Serializable, Imprimible {
 		return "Libro: id=" + id + ", titulo=" + titulo + ", isbn=" + isbn + ", editorial=" + editorial + ", "
 				+ ((prestado) ? "Esta prestado" : "No esta prestado") + "\n";
 	}
-
-	@Override
-	public void imprimir() {
-		// TODO Auto-generated method stub
-		
-	}
-
 }
