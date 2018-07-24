@@ -12,15 +12,7 @@
 </head>
 
 <body>
-		<h1>Juego del Ahorcado</h1>
-	<%
-	
-		char[] letras = (char[]) request.getAttribute("letras");
-	
-		out.print(letras);	
-	
-	%>
-	
+	<h1>Juego del Ahorcado</h1>
 	
 	<h2>Descubre la palabra</h2>
 	
@@ -30,6 +22,8 @@
 		<input type="submit" value="Enviar">
 		
 	</form>
+	
+	<p>${respuesta}</p>
 
 	<script src="js/scripts.js"></script>
 	

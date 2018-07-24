@@ -9,29 +9,43 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 @WebServlet("/ahorcado")
-
 public class AhorcadoController extends HttpServlet {
+
 	private static final long serialVersionUID = 1L;
-	private static char[] letras = { '_', '_', '_', '_', '_' };
+	private static final int MAX_INTENTOS = 7;
+	private static final String PALABRA = "valeria";
 	
-	@Override
-	protected void doGet(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-		
-		
-		request.setAttribute("letras", letras);
-
-
-		request.getRequestDispatcher("ahorcado.jsp").forward(request, response);
-	}
+	private String palabraUsuario = "_______";
+	private int contador = 0;
 	
+
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		
+		String let = request.getParameter("let");
 		
-		char let = (char) request.getAttribute("let");
+		if(let !=null && !let.trim().equals("") && let.length() == 1) {
+			
+			if(contador < MAX_INTENTOS) {
+				contador++;
+				for(int i=0;i<PALABRA.length();i++) {
+					if(PALABRA.charAt(i)==let.charAt(0)) {
+						
+					}
+				}
+				request.setAttribute("respuesta", palabraUsuario);
+				request.getRequestDispatcher("ahorcado.jsp").forward(request, response);
+			}else {
+				request.setAttribute("respuesta", "Game Over");
+				request.getRequestDispatcher("ahorcado.jsp").forward(request, response);				
+			}
 
+		}else {
+			request.setAttribute("respuesta", "El texto introducido tiene que ser UNA letra");
+			request.getRequestDispatcher("ahorcado.jsp").forward(request, response);
+		}
 		
 	}
+	
 }
