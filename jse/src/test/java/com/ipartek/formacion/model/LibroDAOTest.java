@@ -1,5 +1,6 @@
 package com.ipartek.formacion.model;
 
+
 import static org.junit.Assert.*;
 
 import org.junit.After;

@@ -84,7 +84,7 @@ public class VideoYoutubeArrayDAOTest {
 		assertFalse(dao.update(null));
 		assertTrue(dao.update(video));
 
-		// Se pasa la referencia del objeto y si se cambia, cambia en el array?¿
+		// Se pasa la referencia del objeto y si se cambia, cambia en el array?ï¿½
 		VideoYoutube videoMod = dao.getById(video.getId());
 		assertEquals("test_titulo", videoMod.getTitulo());
 		assertEquals("test_code", videoMod.getCodigo());

@@ -16,8 +16,8 @@ public class ArrayListTest {
 		assertTrue(paises.isEmpty());
 		assertNotNull(paises);
 
-		paises.add("España");
-		// paises.add("España");
+		paises.add("Espaï¿½a");
+		// paises.add("Espaï¿½a");
 		assertEquals("deberia tener solo un pais", 1, paises.size());
 
 		paises.add("Italia");

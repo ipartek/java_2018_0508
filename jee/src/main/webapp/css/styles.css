@@ -1,0 +1,33 @@
+/* Hoja de estilos principal */
+h1 {
+	color: teal;
+	font-size: 2em;
+	text-align: center;
+}
+
+div#content {
+	margin: auto;
+    width: 50%;
+    background-color: #efeeee;
+    padding: 30px;
+    border: 1px solid #ccc;
+}
+
+#opciones a {
+	text-decoration: none;
+	color: black;
+}
+
+#opciones a:hover {
+	color: blue;
+}
+
+button {
+	display: block;
+	margin: 10px 0;
+}
+
+p#msg {
+	color: red;
+	display: inline;
+}
