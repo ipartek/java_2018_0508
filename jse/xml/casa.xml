@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<casa>
+
+<numerohabitaciones>3</numerohabitaciones>
+
+<precio>1000</precio>
+
+<localizacion>
+<longitud>2.03</longitud>
+<latitud>-23</latitud>
+</localizacion>
+
+</casa>

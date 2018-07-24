@@ -1,1 +1,1 @@
-Datos de la revista insertada: Revistas [titulo=Super revista, isbn=1212121234, paginas=56, formato=papel]
+Datos de la revista insertada: Revistas [titulo=Motor Sport, isbn=1234567891, paginas=340, formato=papel]

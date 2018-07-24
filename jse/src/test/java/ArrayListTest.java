@@ -1,4 +1,4 @@
-package com.ipartek.formacion.ejercicios;
+
 
 import static org.junit.Assert.*;
 
@@ -14,10 +14,10 @@ public class ArrayListTest {
 		
 		List<String>paises= new ArrayList<String>();
 		
-		assertTrue(paises.isEmpty()); //comprobar que la lista esta vacía
+		assertTrue(paises.isEmpty()); //comprobar que la lista esta vacï¿½a
 		assertNotNull(paises); 
 		
-		paises.add("España");
+		paises.add("Espaï¿½a");
 		paises.add("Italia");
 		paises.add("Alemania");
 		paises.add("Burkina Faso");
@@ -27,7 +27,7 @@ public class ArrayListTest {
 		
 		paises.remove(0); //eliminar
 		assertEquals(4,paises.size());
-		assertEquals("Italia",paises.get(0)); //buscar, españa se ha ido y ahora italia esta en la posicion 0
+		assertEquals("Italia",paises.get(0)); //buscar, espaï¿½a se ha ido y ahora italia esta en la posicion 0
 		
 		paises.contains("Hungria");
 		assertEquals(3,paises.indexOf("Hungria"));

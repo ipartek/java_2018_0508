@@ -1,4 +1,4 @@
-package com.ipartek.formacion.model;
+
 
 import static org.junit.Assert.*;
 
@@ -8,6 +8,7 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import com.ipartek.formacion.model.LibroArrayDAO;
 import com.ipartek.formacion.pojo.Libro;
 
 public class LibroArrayDAOTest {

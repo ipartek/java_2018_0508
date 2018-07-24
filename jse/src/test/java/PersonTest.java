@@ -1,8 +1,10 @@
-package com.ipartek.formacion.pojo;
+
 
 import static org.junit.Assert.*;
 
 import org.junit.Test;
+
+import com.ipartek.formacion.pojo.Person;
 
 public class PersonTest {  
 

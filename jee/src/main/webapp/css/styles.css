@@ -1,0 +1,19 @@
+/* Hoja de Estilos Principal */
+
+h1{
+	text-align: center;
+	color: teal;
+	font-size: 2em;
+}
+
+.text-danger{
+	color:red;
+}
+
+.text-danger:before{
+	content: "***" 
+}
+
+.text-danger:after{
+	content: "!!!" 
+}
