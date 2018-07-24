@@ -11,15 +11,38 @@
 <body>
 	<h1>CMS GESTION LIBROS</h1>
 	
+	<nav>
+	<!-- GET  -->
+		<ul>
+			<li><a href="listar">Listar Libros</a></li>
+			<li><a href="saludo?nombre=Pepe&ape1=Otilio&ape2=Gomez">Saludo</a></li>
+			<li><a href="JugandoConCss.jsp">Jugando con CSS</a></li>
+		</ul>
+	</nav>
+	
+	
 	<%
 	 out.print("<p>Mensaje desde Java</p>");
 	%>
-	
-	<p> - GET - </p>
-	<a href="listar">Listar Libros</a><br>
-	<a href="saludo?nombre=Pepe&ape1=Otilio&ape2=Gomez">Saludo</a><br>
-	<a href="ejemplo-response">Ejemplo Response</a>
-	
+	<!-- SPRITE -->
+	<div class="ahorcado"></div>
+	<style>
+		.ahorcado{
+			border:1px solid red;
+			width:75px;
+			height: 100px;
+			overflow: hiddden;
+			background-image: url(img/ahorcado.jpg);
+			background-position-x:616px;
+		}
+		.fallo0{background-position-x:616px;}
+		.fallo1{background-position-x:539px;}
+		.fallo2{background-position-x:462px;}
+		.fallo3{background-position-x:462px;}
+		.fallo4{background-position-x:462px;}
+		.fallo5{background-position-x:462px;}
+		.fallo6{background-position-x:462px;}
+	</style>
 	
 	
 	<p> - POST - </p>
@@ -28,6 +51,10 @@
 		<p class="text-danger">${msg}</p>
 		<input type="submit" value="enviar">
 	</form>
+	
+	<!-- AHORCADO --><br><br>
+	<a href="jugar.jsp">Jugar Al Ahorcado</a>
+	
 	
   <script src="js/scripts.js"></script>
 </body>
