@@ -17,8 +17,8 @@
 		<h3>Opciones</h3>
 		<div id="opciones">	
 			<ul>
-				<li type="circle"><a href="listar">Listar Libros</a></li>
-				<li type="circle"><a href="saludo?nombre=pepe&ap1=Otilio&ap2=Gomez">Saludo</a></li>
+				<li><a href="listar">Listar Libros</a></li>
+				<li><a href="saludo?nombre=pepe&ap1=Otilio&ap2=Gomez">Saludo</a></li>
 			</ul>
 		</div>
 

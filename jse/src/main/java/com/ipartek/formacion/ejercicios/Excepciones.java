@@ -9,7 +9,7 @@ public class Excepciones {
 		// Scanner sc = new Scanner(System.in);
 		Object o = null;
 		try {
-			o.toString();
+			System.out.println(o.toString());
 			
 		}catch (NullPointerException e) {
 			System.out.println("NULL");
