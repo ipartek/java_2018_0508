@@ -33,14 +33,26 @@
 	
 	<%
 		//Recibir atributo de una JSP
-		String piesConvertidos = (String) request.getAttribute("piesConvertidos");
+
+		//double	piesConvertidos = Double.parseDouble((String) request.getAttribute("piesConvertidos"));
+		//String	piesConvertidos =String.valueOf(request.getAttribute("piesConvertidos"));
+		String piesConvertidos = (String) request.getParameter("piesConvertidos");
+		//double	metrosConvertidos = Double.parseDouble((String) request.getAttribute("metrosConvertidos"));
+		//String	metrosConvertidos =String.valueOf(request.getAttribute("metrosConvertidos"));
+		String metrosConvertidos = (String) request.getParameter("metrosConvertidos");
 		String msg = (String) request.getAttribute("msg");
 		//int vidas =(Integer) request.getAttribute("vidas");
 		
 		out.println("<p> Test");
+
 		 if (piesConvertidos != null){
 			out.println("<p> El resultado es:  " +piesConvertidos);
+		}else{
+			if (metrosConvertidos != null){
+				out.println("<p> El resultado es:  " +metrosConvertidos);
+			}
 		}
+		 
 		 
 		
 
