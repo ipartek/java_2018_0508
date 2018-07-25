@@ -1,16 +1,6 @@
-<!doctype html>
+<%@ include file="includes/header.jsp" %>		
+<%@ include file="includes/navbar.jsp" %>
 
-<html lang="es">
-	<head>
-	<meta charset="utf-8">
-		<title>Juego Ahorcado</title>
-		<meta name="description" content="App web Java 3.0 para gestionar Prestamos de Libros">
-		<meta name="author" content="Alain Muñoz Arrizabalaga">
-		
-		<link rel="stylesheet" href="css/styles.css?v=1.2">
-	</head>
-	
-	<body>
 		<h1>Juego del Ahorcado</h1>
 		
 		<div class="ahorcado fallo${fallos}"></div><br>
@@ -30,6 +20,4 @@
 		
 		<a href="juega?jdn=1">Jugar de Nuevo</a>
 		
-		<script src="js/scripts.js"></script>
-	</body>
-</html>
+<%@ include file="includes/footer.jsp" %>

@@ -1,6 +1,7 @@
 package com.ipartek.formacion.gestor.libros.controller;
 
 import java.io.IOException;
+import java.text.DecimalFormat;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -48,7 +49,7 @@ public class ConversorController extends HttpServlet {
 	}
 
 	private void doProcess(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		try {
+		try { 
 			dispatch = request.getRequestDispatcher(VIEW);
 			rst = (String) request.getParameter("rst");
 			formulario = request.getParameter("formulario");
@@ -77,6 +78,8 @@ public class ConversorController extends HttpServlet {
 		}catch(Exception e) {
 			mensaje = "Introduce un valor correcto por favor";
 		}finally {
+			request.setAttribute("metros", metros);
+			request.setAttribute("pies", pies);
 			request.setAttribute("mensaje", mensaje);
 			dispatch.forward(request, response);
 		}
@@ -90,12 +93,19 @@ public class ConversorController extends HttpServlet {
 	private void conversorMetrosPies(HttpServletRequest request){
 		try {
 			metros = request.getParameter("metros");
-			metrosF = Double.parseDouble(metros);
-			piesCv = metrosF * 3.2808;
+			if("".equals(metros)) {
+				piesCv = 0;
+				mensaje1 = "Introduce un numero para que podamos realizar la conversión por favor.";
+			}else {
+				mensaje1 = "";
+				metrosF = Double.parseDouble(metros);
+				piesCv = metrosF * 3.2808;
+			}
 			
+			request.setAttribute("mensaje1", mensaje1);
 			request.setAttribute("piesCv", piesCv);
 		} catch (NumberFormatException e) {
-			mensaje1 = "Lo sentimos, no se ha podido convertir de Metros a Pies.";
+			mensaje1 = "Lo sentimos, no se ha podido convertir " + metros + " de Metros a Pies.";
 			request.setAttribute("mensaje1", mensaje1);
 		}
 	}
@@ -107,12 +117,20 @@ public class ConversorController extends HttpServlet {
 	private void conversorPiesMetros(HttpServletRequest request) {
 		try {
 			pies = request.getParameter("pies");
-			piesF = Double.parseDouble(pies);
-			metrosCv = piesF / 3.2808;
+			if("".equals(pies)) {
+				metrosCv = 0;
+				mensaje2 = "Introduce un numero para que podamos realizar la conversión por favor.";
+			}else {
+				mensaje2 = "";
+				piesF = Double.parseDouble(pies);
+				metrosCv = piesF / 3.2808;
+			}
 			
+			
+			request.setAttribute("mensaje2", mensaje2);
 			request.setAttribute("metrosCv", metrosCv);
 		} catch (NumberFormatException e) {
-			mensaje2 = "Lo sentimos, no se ha podido convertir de Pies a Metros.";
+			mensaje2 = "Lo sentimos, no se ha podido convertir " + pies + " de Pies a Metros.";
 			request.setAttribute("mensaje2", mensaje2);
 		}
 	}
