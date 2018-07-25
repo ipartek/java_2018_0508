@@ -13,15 +13,16 @@ import javax.servlet.http.HttpServletResponse;
 public class AhorcadoController extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
+
 	private RequestDispatcher dispatch = null;
 	private static final String VIEW = "ahorcado.jsp";
 
-	private static final String PALABRA_SECRETA = "cesar";
+	private static final String PALABRA_SECRETA = "ceRsar";
 	private static final int INTENTOS = 7;
 	private static int fallos = 0;
 	private static int aciertos = 0;
 	private static String mensaje = "";
-	private static String palabraMostrar = "";
+	private static String palabraMostrar = "??????";
 	private static boolean isTerminado = false;
 	private static String jdn = null; // jugar de nuevo
 
@@ -56,19 +57,18 @@ public class AhorcadoController extends HttpServlet {
 				aciertos = 0;
 				fallos = 0;
 				isTerminado = false;
+				palabraMostrar = "??????";
 
 			} else {
 
 				comprobarSiAcierta(request);
 
-				mostrarPlabra();
-
 			} // jugar de nuevo
 
 		} catch (Exception e) {
 
-			//e.printStackTrace();
-			//mensaje = "Error Inesperado " + e.getMessage();
+			// e.printStackTrace();
+			// mensaje = "Error Inesperado " + e.getMessage();
 			mensaje = "Por favor Dime una letra";
 
 		} finally {
@@ -92,12 +92,21 @@ public class AhorcadoController extends HttpServlet {
 	private void comprobarSiAcierta(HttpServletRequest request) {
 
 		char letra = Character.toLowerCase(request.getParameter("letra").charAt(0));
-
-		if (letra == PALABRA_SECRETA.charAt(aciertos)) {
-			aciertos++;
-		} else {
-			fallos++;
+		boolean acierto = false;
+		
+		for (int i = 0; i < PALABRA_SECRETA.length(); i++) {
+			
+			if (letra == Character.toLowerCase(PALABRA_SECRETA.charAt(i)) ) {
+				aciertos++;
+				acierto = true;
+				palabraMostrar = replaceCharAt(palabraMostrar, i, letra); 
+			}			
 		}
+		
+		if ( !acierto ) { 
+			fallos++;
+		}	
+		
 
 		if (aciertos == PALABRA_SECRETA.length()) {
 			mensaje = "Has Ganado, Enhorabuena!!!!";
@@ -109,22 +118,8 @@ public class AhorcadoController extends HttpServlet {
 
 	}
 
-	/**
-	 * Gestionar las letras que se muestran y se ocultan de la palabra a buscar
-	 */
-	private void mostrarPlabra() {
-
-		char letraItreacion;
-		palabraMostrar = "";
-		for (int i = 0; i < PALABRA_SECRETA.length(); i++) {
-			letraItreacion = PALABRA_SECRETA.charAt(i);
-			if (i < aciertos) {
-				palabraMostrar += letraItreacion;
-			} else {
-				palabraMostrar += "?";
-			}
-		}
-
+	public static String replaceCharAt(String s, int pos, char c) {
+		return s.substring(0, pos) + c + s.substring(pos + 1);
 	}
 
 }

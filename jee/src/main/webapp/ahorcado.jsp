@@ -30,14 +30,10 @@
 		
 		</form>
 		
-		<%
-			boolean isTerminado = (boolean)request.getAttribute("isTerminado");
-			if ( isTerminado ){
-				%>
-					<a href="ahorcado?jdn=1">Jugar de Nuevo</a>
-				<%
-			}
-		%>
+		
+		
+		<a href="ahorcado?jdn=1">Jugar de Nuevo</a>
+		
 		
 		<script src="js/scripts.js"></script>
 	</body>
