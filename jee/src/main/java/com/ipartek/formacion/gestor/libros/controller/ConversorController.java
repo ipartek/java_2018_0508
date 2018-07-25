@@ -1,6 +1,7 @@
 package com.ipartek.formacion.gestor.libros.controller;
 
 import java.io.IOException;
+import java.text.DecimalFormat;
 import java.util.logging.Logger;
 
 import javax.servlet.RequestDispatcher;
@@ -18,7 +19,7 @@ public class ConversorController extends HttpServlet {
 	private static double pies = 0;
 	private static double metros;
 	private static double conversordePies = 0.3048;
-
+	private static int formulario = 0;
 	private RequestDispatcher dispatch = null;
 	private static final String VIEW = "conversor.jsp";
 
@@ -42,35 +43,53 @@ public class ConversorController extends HttpServlet {
 
 		String paramPies = "";
 		String paramMetros = "";
+		DecimalFormat df = new DecimalFormat("0.00");
 		try {
+
 			// TODA LA EXTRUCTURA
 			dispatch = request.getRequestDispatcher(VIEW);
-			int formulario = Integer.parseInt(request.getParameter("formulario"));
+			formulario = Integer.parseInt(request.getParameter("formulario"));
 
 			// CONVERSOR DE PIES A METROS
 			if (formulario == 1) {
+
 				paramPies = request.getParameter("pies");
 				pies = Double.parseDouble(paramPies);
 				resultado = pies * conversordePies;
-				request.setAttribute("metros", resultado);
 
-			// CONVERSOR DE METROS A PIES
+				request.setAttribute("resultado1", df.format(resultado));
+				request.setAttribute("ParamIntroPies", paramPies);
+
+				// CONVERSOR DE METROS A PIES
 			} else if (formulario == 2) {
+
 				paramMetros = request.getParameter("metros");
 				metros = Double.parseDouble(paramMetros);
 				resultado = metros / conversordePies;
-				request.setAttribute("pies", resultado);
+
+				request.setAttribute("resultado2", df.format(resultado));
+				request.setAttribute("ParamIntroMetros", paramMetros);
 			}
-		
-		}catch (NumberFormatException e) {
+
+		} catch (NumberFormatException e) {
+
 			if (e.getMessage().contains("empty String")) {
-				request.setAttribute("msg","introduce un numero por favor");
+				request.setAttribute("msg", "Introduce un numero por favor");
 			} else {
-				request.setAttribute("msg","Solo se aceptan numeros");
+				if (formulario == 1) {
+					paramPies = request.getParameter("pies");
+					request.setAttribute("msg",
+							"ERROR.El programa no puede convertir <b> " + paramPies + "</b> a Metros.");
+				} else {
+					paramMetros = request.getParameter("metros");
+					request.setAttribute("msg",
+							"ERROR.El programa no puede convertir <b>" + paramMetros + "</b>  a Pies.");
+				}
+
 			}
-		
+
 		} catch (Exception e) {
-			
+
 		} finally {
 			dispatch.forward(request, response);
 		}
