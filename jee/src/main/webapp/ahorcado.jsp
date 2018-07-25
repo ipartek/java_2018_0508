@@ -1,22 +1,6 @@
-<!doctype html>
+	<%@ include file = "includes/header.jsp" %>
 
-<%@page import="com.ipartek.formacion.gestor.libros.controller.AhorcadoController"%>
-<html lang="es">
-<head>
-	<meta charset="utf-8">
-	
-	<title>Gestion Libros -- Ahorcado</title>
-	<meta name="description" content="App Web Java 3.0 para Gestionar Prestamo de Libros">
-	<meta name="author" content="Adrian Perozzo">
-	
-	<link rel="stylesheet" href="css/styles.css?v=1.0">
-	<link rel="stylesheet" href="css/ahorcado.css?v=1.0">
-
-</head>
-
-<body>
-
-	<a href="index.jsp" class="btn btn-danger">Volver a casa</a>
+	<%@ include file = "includes/navbar.jsp" %>
 
 	<h1>El Ahorcado</h1>
 	<h2 class="center">Descubre la palabra</h2>
@@ -46,7 +30,7 @@
 			
 			<form class="center" action="ahorcado" method="POST">
 				
-				<input name="letra" type="text" placeholder="Dime una letra" maxlength="1">
+				<input name="letra" type="text" placeholder="Dime una letra" maxlength="1" autofocus>
 				<br>
 				<input class="btn btn-gestion-libros" type="submit" value="Enviar">
 				
@@ -68,8 +52,4 @@
 	</section>
 	
 
-	<script src="js/scripts.js"></script>
-	
-</body>
-
-</html>
+	<%@ include file = "includes/footer.jsp" %>

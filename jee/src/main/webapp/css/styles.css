@@ -1,10 +1,14 @@
 /* Hoja de Estilos Principal */
+body {
+	background-color: #e5f2f2;
+}
+
 ul {
 	list-style-type: none;
 	margin: 0;
-	padding: 0;
-	width: 100%;
+	padding: 0; width : 100%;
 	background-color: #004040;
+	width: 100%;
 }
 
 li {
@@ -13,7 +17,8 @@ li {
 }
 
 li a {
-	display: block; color : #FFF;
+	display: block;
+	color: #FFF;
 	padding: 8px 16px;
 	border: 2px dotted #004040;
 	text-decoration: none;
@@ -24,7 +29,7 @@ li a {
 li a:hover {
 	background-color: #7fbfbf;
 	color: #001919;
-	border: 2px dotted #FF0;
+	border: 2px dotted teal;
 }
 
 h1 {
@@ -40,15 +45,6 @@ h2 {
 
 .text-danger {
 	color: red;
-}
-
-.text-danger:after {
-	content: "***";
-}
-
-input[type="text"] {
-	display: block;
-	width: 200px;
 }
 
 input[type="text"] {
@@ -67,6 +63,10 @@ input[type="text"] {
 	border-left-color: rgb(206, 212, 218);
 	border-radius: .25rem;
 	transition: border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+}
+
+input[type="text"]:focus {
+	border-color: teal;
 }
 
 .container {
@@ -108,6 +108,8 @@ input[type="text"] {
 	border-radius: .25rem;
 	transition: color .15s ease-in-out, background-color .15s ease-in-out,
 		border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+	text-decoration: none;
+	text-transform: uppercase;
 }
 
 .btn-danger {
@@ -141,4 +143,3 @@ input[type="text"] {
 	width: 50%;
 	margin: auto;
 }
-

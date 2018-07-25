@@ -1,18 +1,6 @@
-<!doctype html>
+	<%@ include file = "includes/header.jsp" %>
 
-<html lang="es">
-<head>
-	<meta charset="utf-8">
-	
-	<title>Gestion Libros</title>
-	<meta name="description" content="App Web Java 3.0 para Gestionar Prestamo de Libros">
-	<meta name="author" content="Adrian Perozzo">
-	
-	<link rel="stylesheet" href="css/styles.css?v=1.0">
-
-</head>
-
-<body>
+	<%@ include file = "includes/navbar.jsp" %>
 
 	<h1>Saludo</h1>
 	
@@ -24,8 +12,4 @@
 		out.print("<p>"+nombre+" "+ap1+" "+ap2+"</p>");
 	%>
 	
-	<script src="js/scripts.js"></script>
-	
-</body>
-
-</html>
+	<%@ include file = "includes/footer.jsp" %>

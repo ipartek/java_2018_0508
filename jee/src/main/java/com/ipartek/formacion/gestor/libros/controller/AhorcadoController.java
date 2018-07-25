@@ -2,6 +2,7 @@ package com.ipartek.formacion.gestor.libros.controller;
 
 import java.io.IOException;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -14,6 +15,9 @@ public class AhorcadoController extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
 
+	private static final String VIEW = "ahorcado.jsp";
+	private static RequestDispatcher dispatch = null;
+	
 	private static final String palabra = "ceRsar";
 
 	private static char[] huecos = { '_', '_', '_', '_', '_', '_' };
@@ -31,6 +35,8 @@ public class AhorcadoController extends HttpServlet {
 
 			// 2.- Validar Parametros
 			
+			dispatch = request.getRequestDispatcher(VIEW);
+			
 			for (int i = 0; i < huecos.length; i++) {
 				huecos[i] = '_';
 			}
@@ -46,7 +52,7 @@ public class AhorcadoController extends HttpServlet {
 
 			// 5.- Ir a la vista
 
-			request.getRequestDispatcher("ahorcado.jsp").forward(request, response);
+			dispatch.forward(request, response);
 
 		} catch (Exception e) {
 			// TODO: handle exception
@@ -65,6 +71,8 @@ public class AhorcadoController extends HttpServlet {
 		try {
 			// 1.- Recibir Parametros
 
+			dispatch = request.getRequestDispatcher(VIEW);
+			
 			if (request.getParameter("letra").length() > 0) {
 				c = (char) request.getParameter("letra").toLowerCase().charAt(0);
 			}
@@ -94,7 +102,7 @@ public class AhorcadoController extends HttpServlet {
 				request.setAttribute("msg", "Zorionak !!! Has ganado");
 				recarga = true;
 			} else if (FALLOS == MAX_FALLOS) {
-				request.setAttribute("msg", "Vaya... no has ganado, otra partidita, la palabra era" + palabra);
+				request.setAttribute("msg", "Vaya... no has ganado, otra partidita, la palabra era " + palabra);
 				recarga = true;
 			}
 
@@ -105,7 +113,7 @@ public class AhorcadoController extends HttpServlet {
 
 			// 5.- Ir a la vista
 
-			request.getRequestDispatcher("ahorcado.jsp").forward(request, response);
+			dispatch.forward(request, response);
 
 		} catch (Exception e) {
 			// TODO: handle exception
