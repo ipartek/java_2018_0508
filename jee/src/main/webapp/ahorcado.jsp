@@ -52,23 +52,12 @@
 			out.println("<br>");
 			out.print("Le quedan "+request.getAttribute("vidas")+" vidas");
 		}
-			
-		
-			
-		
-		
-		//out.println(vidas);
+
 		
 	%>
-
-
 	<%
-		String vidas = (String) request.getAttribute("vidas");
-		request.getAttribute("vidas");
-		if(vidas == "7"){
-			out.println("<div class='fallo6' />");
-		};
-		
-	 %>
+
+	
+	 <div class="ahorcado"></div>
 </body>
 </html>

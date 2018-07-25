@@ -24,6 +24,10 @@
 			<li><a href="ahorcado.jsp">Juego del<b> ahorcado</b></a></li>
 			
 			<li><a href="jugandoConCss.jsp">jugando con css</a></li>
+			<!-- Conversor de metros a pies y de metros a pies Hay que comprobar que el usuario
+			escriba algo inadecuado, si mete algo que no sea numeros -> lo siento pero no puedo
+			 convertir este valor mostrando por pantalla el valor introducido-->
+			<li><a href="conversores.jsp">Conversores</a></li>
 		</ul>
 	</nav>
 	<%

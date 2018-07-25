@@ -28,7 +28,7 @@ public class AhorcadoController extends HttpServlet {
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-
+		doProcess(request, response);
 		/*System.out.println("Pasamos por doPost()");
 
 		// 1. Recibir parámetros
@@ -46,38 +46,7 @@ public class AhorcadoController extends HttpServlet {
 
 		// 4. Enviar atributos a la Vista
 		request.getRequestDispatcher("ahorcado.jsp").forward(request, response);*/
-		String palabraBuscar ="cesar";
-		String msg = "";
-		String palabraCodificada;
-		try {
-			
 		
-		System.out.println("Pasamos por doGet() +1");
-
-		String usuarioLetra = (String) request.getParameter("letraAhorcado");
-		
-		if(palabraBuscar.contains(usuarioLetra)) {
-			System.out.println("La palabra contiene la letra que has introducido");
-			msg = "La palabra contiene la letra que has introducido";
-		}else {
-			System.out.println("No contiene la letra que has introducido");
-			msg = "La palabra no contiene la letra que has introducido";
-			
-		}
-		
-		//palabraCodificada = calcularLongitud(palabraSecreta);
-		//palabraCodificada = calcularAcertados(palabraSecreta,usuarioLetra);
-		/*request.setAttribute("pc", palabraCodificada);
-		request.setAttribute("letraAhorcado", usuarioLetra);
-		request.setAttribute("msg", msg);
-		request.setAttribute("vidas", vidas);
-		
-
-		request.getRequestDispatcher("ahorcado.jsp").forward(request, response);*/
-	}
-	 catch (Exception e) {
-		// TODO: handle exception
-	}
 
 	}
 
@@ -86,6 +55,11 @@ public class AhorcadoController extends HttpServlet {
 			throws ServletException, IOException {
 		
 		//doPost( request, response);
+		doProcess(request, response);
+		
+	}
+
+	private void doProcess(HttpServletRequest request, HttpServletResponse response) {
 		String palabraBuscar ="cesar";
 		String msg = "";
 		String palabraCodificada;
@@ -128,6 +102,7 @@ public class AhorcadoController extends HttpServlet {
 		// TODO: handle exception
 	}
 
+		
 	}
 
 	private String calcularAcertados(String palabraSecreta,String usuarioLetra, String palabraLongitud) {
@@ -149,7 +124,9 @@ public class AhorcadoController extends HttpServlet {
 				//valoresArray.add(palabraCodificada);
 				//valoresArray.set(x, palabraCodificada);
 				//valores.add(usuarioLetra);
-				valores.set(x, usuarioLetra);
+				//valores.set(x, usuarioLetra);
+			}else {
+				palabraCodificada +="*"; 
 			}
 		
 			}
@@ -170,7 +147,7 @@ public class AhorcadoController extends HttpServlet {
 		
 		
 		} catch (Exception e) {
-			// TODO: handle exception
+
 		}
 		return palabraCodificada;
 	}
