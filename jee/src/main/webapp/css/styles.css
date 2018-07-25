@@ -5,6 +5,19 @@ h1{
 	color: teal;
 	font-size: 2em;
 }
+#titulo{
+	text-align: center;
+	color: teal;
+	font-size: 12px;
+}
+
+table, th, td {
+    border: 1px solid black;
+    border-collapse: collapse;
+    text-align:center;
+    align:center;
+    margin: 0 auto;
+}
 
 #ahorcado{
 	border: 1px solid red;
@@ -18,3 +31,33 @@ h1{
 .fallo 0{
 	background-position-x: 616px;
 }
+
+#button {
+ padding: 0;
+ }
+
+
+#button li {
+ display: inline;
+ }
+ 
+ #button li a {
+ font-family: Arial;
+ font-size: 20px;
+ text-decoration: none;
+ float: center;
+ padding: 10px;
+ background-color: #008B8B;
+ color: #fff;
+ }
+ 
+ #boton{
+ text-decoration: none;
+    padding: 4px;
+    font-weight: 60;
+    font-size: 15px;
+    color: #ffffff;
+    background-color: #008B8B;
+    border-radius: 6px;
+    border: 2px solid #0016b0;
+ }
