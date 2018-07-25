@@ -33,6 +33,9 @@
 			<li>
 				<a href="ahorcado">Ahorcado</a>
 			</li>
+			<li>
+				<a href="conversor">Conversores</a>
+			</li>
 		</ul>
 	</nav>
 	<%

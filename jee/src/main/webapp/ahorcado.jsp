@@ -14,35 +14,48 @@
 
 <body>
 
+	<a href="index.jsp" class="btn btn-danger">Volver a casa</a>
+
 	<h1>El Ahorcado</h1>
 	<h2 class="center">Descubre la palabra</h2>
-	<%
 	
-		char[] huecos = (char[]) request.getAttribute("huecos");
+	<section id="tablero">
 	
-		out.print("<p class='center'>");
-		for(int i = 0; i<huecos.length;i++){
-			out.print(" "+huecos[i]+" ");
-		}
-		out.print("</p>");
-	
-	%>
-	
-	<div class="ahorcado fallo<%= request.getAttribute("fallos") %>">
-	</div>
-	
-	<!-- <img src="img/ahorcado.jpg" alt="Imagen del juego del ahorcado."> -->
-	
-	<br>
-	
-	<form class="center" action="ahorcado" method="POST">
+		<div id="juego">
 		
-		<input name="letra" type="text" placeholder="Dime una letra" maxlength="1">
-		<input type="submit" value="Enviar">
+			<%
 		
-	</form>
-
-	${msg}
+			char[] huecos = (char[]) request.getAttribute("huecos");
+		
+			out.print("<p class='center'>");
+			for(int i = 0; i<huecos.length;i++){
+				out.print(" "+huecos[i]+" ");
+			}
+			out.print("</p>");
+		
+			%>
+			
+			<div class="ahorcado fallo<%= request.getAttribute("fallos") %>">
+			</div>
+			
+			<!-- <img src="img/ahorcado.jpg" alt="Imagen del juego del ahorcado."> -->
+			
+			<br>
+			
+			<form class="center" action="ahorcado" method="POST">
+				
+				<input name="letra" type="text" placeholder="Dime una letra" maxlength="1">
+				<input type="submit" value="Enviar">
+				
+			</form>
+		
+			<p>${msg}</p>
+		
+		</div>
+		<div></div>
+		
+	</section>
+	
 
 	<script src="js/scripts.js"></script>
 	

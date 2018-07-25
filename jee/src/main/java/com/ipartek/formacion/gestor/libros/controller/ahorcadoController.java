@@ -14,10 +14,10 @@ public class ahorcadoController extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
 
-	private static final String palabra = "cesar";
+	private static final String palabra = "ceRsar";
 
-	private static char[] huecos = { '_', '_', '_', '_', '_' };
-	
+	private static char[] huecos = { '_', '_', '_', '_', '_', '_' };
+
 	private static int FALLOS = 0;
 	private static final int MAX_FALLOS = 7;
 
@@ -51,42 +51,43 @@ public class ahorcadoController extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-		char c = ' '; 
+		char c = ' ';
 		boolean chivato = false;
-		
+
 		try {
 			// 1.- Recibir Parametros
-			c = (char) request.getParameter("letra").toLowerCase().charAt(0);
+
+			if (request.getParameter("letra").length() > 0) {
+				c = (char) request.getParameter("letra").toLowerCase().charAt(0);
+			}
 
 			// 2.- Validar Parametros
 
 			for (int i = 0; i < palabra.length(); i++) {
-				if (c == palabra.charAt(i)) {
+				if (Character.toLowerCase(c) == palabra.toLowerCase().charAt(i)) {
 					huecos[i] = c;
-					chivato=true;
-					break;
+					chivato = true;
 				}
 			}
-			
+
 			boolean azkena = false;
-			
+
 			if (!chivato) {
 				FALLOS++;
-			}else {
+			} else {
 				azkena = solucion();
 			}
-			
+
 			// 3.- LLamar modelo DAO
 
 			// 4.- Enviar atributos a la vista
 
-			
 			if (azkena) {
 				request.setAttribute("msg", "Zorionak !!! Has ganado");
-			}else if(FALLOS == MAX_FALLOS){
-				request.setAttribute("msg", "Vaya... no has ganado, otra partidita");
+			} else if (FALLOS == MAX_FALLOS) {
+				request.setAttribute("msg", "Vaya... no has ganado, otra partidita, la palabra era" + palabra);
 			}
-			
+
 			request.setAttribute("huecos", huecos);
 			request.setAttribute("fallos", FALLOS);
 
@@ -102,16 +103,16 @@ public class ahorcadoController extends HttpServlet {
 	}
 
 	private boolean solucion() {
-		
+
 		boolean resul = true;
-		
+
 		for (int i = 0; i < huecos.length; i++) {
 			if (huecos[i] == '_') {
 				resul = false;
 			}
 		}
-		
+
 		return resul;
-		
+
 	}
 }
