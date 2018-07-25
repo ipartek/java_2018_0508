@@ -16,77 +16,102 @@ import javax.servlet.http.HttpServletResponse;
 public class AhorcadoController extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
+
 	private RequestDispatcher dispatch = null;
-	private static final String VIEW_AHORCADO = "juegoAhorcado.jsp";
-	private static final String PALABRA_OCULTA = "cesar";
-	private static final int MAX_FALLOS = 7;
-	private static String MSG_ERROR = "Debes insertar una letra para poder jugar";
-	private static String MSG_ACIERTO = "Enhorabuena!! LO HAS CONSEGUIDO!!";
-	private static String MSG_NO_LETRA = "Lastima la palabra no contiene la letra ";
+	private static final String VIEW = "juegoAhorcado.jsp";
 
-
-	private ArrayList<String> respuestas = new ArrayList<String>(Arrays.asList("*", "*", "*", "*", "*"));
-
-	int cont = 1;
+	private static final String PALABRA_SECRETA = "cersar";
+	private static final int INTENTOS = 7;
+	private static final String MSG_ERROR = "Debes insertar una letra para poder jugar";
+	private static final String MSG_ACIERTO = "Enhorabuena!! LO HAS CONSEGUIDO!!";
+	private static final String MSG_NO_LETRA = "Lastima la palabra no contiene la letra ";
+	private static String msg = "";
+	private static int fallos = 0;
+	private static int aciertos = 0;
+	private ArrayList<String> respuestas = new ArrayList<String>(Arrays.asList("*", "*", "*", "*", "*", "*"));
+	private static String letra;
+	private static boolean isTerminado = false;
+	private static String repetirJugadda = null; // jugar de nuevo
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-		request.getRequestDispatcher("juegoAhorcado.jsp").forward(request, response);
+		doProcess(request, response);
 
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		doProcess(request, response);
+	}
 
-				
-		try {			
-			
-			dispatch = request.getRequestDispatcher(VIEW_AHORCADO);
-			char[] aCaracteres = PALABRA_OCULTA.toCharArray();
-			String letra = request.getParameter("letraUsuario");
-			int aciertos=0;
+	private void doProcess(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 
-			if (cont <= MAX_FALLOS) {
-				if (letra.isEmpty() || letra==null) {
-					
-					request.setAttribute("msg", MSG_ERROR);
-				}else {
-					for (int x = 0; x < aCaracteres.length; x++) {
-						if (String.valueOf(aCaracteres[x]).equalsIgnoreCase(letra)) {
-							respuestas.set(x, letra);
-							aciertos++;
-						}else {
-							request.setAttribute("msg", MSG_NO_LETRA+letra);
-						}
-					}
-					request.setAttribute("solucion", respuestas.toString());
-				}
-				if (aciertos==aCaracteres.length) {
-					request.setAttribute("msg", MSG_ACIERTO);
-				}
-				
-				
-				
-				request.setAttribute("intento", "Te quedan " + (MAX_FALLOS - cont) + " intentos");
-				cont++;
+		letra = "";
+
+		try {
+
+			dispatch = request.getRequestDispatcher(VIEW);
+			repetirJugadda = (String) request.getParameter("jdn");
+
+			// jugar de nuevo
+			if (repetirJugadda != null) {
+
+				aciertos = 0;
+				fallos = 0;
+				isTerminado = false;
+				respuestas = new ArrayList<String>(Arrays.asList("*", "*", "*", "*", "*", "*"));
+
 			} else {
-				request.setAttribute("intento", "no te quedan mas intentos");
-				request.getRequestDispatcher("juegoAhorcado.jsp").forward(request, response);
+
+				comprobarSiacierta(request);
+
 			}
-		
 
 		} catch (Exception e) {
-			e.printStackTrace();
+
+			msg = "Por favor Dime una letra";
+			
 		} finally {
+			request.setAttribute("intento", INTENTOS);
+			request.setAttribute("fallos", fallos);
+			request.setAttribute("msg", msg);
+			request.setAttribute("solucion", respuestas.toString());
+			request.setAttribute("isTerminado", isTerminado);
 			dispatch.forward(request, response);
 		}
 
 	}
 
-	public ArrayList<String> crearPalabra(String letraUsuario) {
+	private void comprobarSiacierta(HttpServletRequest request) {
 
-		return respuestas;
+		letra = request.getParameter("letraUsuario");
+		char[] aCaracteres = PALABRA_SECRETA.toCharArray();
+		boolean acierto = false;
+
+		for (int x = 0; x < aCaracteres.length; x++) {
+			if (String.valueOf(aCaracteres[x]).equalsIgnoreCase(letra)) {
+
+				respuestas.set(x, letra);
+				aciertos++;
+				acierto = true;
+
+			}
+		}
+
+		if (!acierto) {
+			fallos++;
+		}
+
+		if (aciertos == PALABRA_SECRETA.length()) {
+			msg = "Has Ganado, Enhorabuena!!!!";
+			isTerminado = true;
+		} else if (fallos == INTENTOS) {
+			msg = "Ohhhhhhhh Perdiste :-(";
+			isTerminado = true;
+		}
+
 	}
 
 }

@@ -9,28 +9,27 @@
 		<link rel="stylesheet" href="css/styles.css">
 	</head>
 	<body>
+	
 		<h1>JUEGO DEL AHORCADO</h1>
 		
 		<!-- Juego del ahorcado -->
 		
-		<div class="ahorcado fallo0"></div>
+		<div class="ahorcado fallo${fallos}"></div>	
 		
-		<p>
-			<span><%=request.getAttribute("solucion")%></span>
-			
-		</p>
-		<p>
-			<span>${msg}</span>
-		</p>
-			
+		<span>${solucion}</span>
 		
-		<p>${intento}</p>
+		<span>${intento}</span>
+		
 		<form action="jugarAhorcado" method="post">			
-			<input name="letraUsuario" type="text" placeholder="Dime una letra">
-			
+			<input name="letraUsuario" type="text" placeholder="Dime una letra">			
+			<p class="text-danger">${msg}</p>
 			
 			<input type="submit" value="Enviar">
 					
 		</form>
+		
+		<a href="ahorcado?jdn=1">Jugar de Nuevo</a>
+		
+		
 	</body>
 </html>
