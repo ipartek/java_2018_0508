@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 
 @WebServlet("/ahorcado")
 
-public class ahorcadoController extends HttpServlet {
+public class AhorcadoController extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
 
@@ -20,6 +20,7 @@ public class ahorcadoController extends HttpServlet {
 
 	private static int FALLOS = 0;
 	private static final int MAX_FALLOS = 7;
+	private static boolean recarga = false;
 
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -29,12 +30,19 @@ public class ahorcadoController extends HttpServlet {
 			// 1.- Recibir Parametros
 
 			// 2.- Validar Parametros
+			
+			for (int i = 0; i < huecos.length; i++) {
+				huecos[i] = '_';
+			}
 
+			recarga = false;
+			
 			// 3.- LLamar modelo DAO
 
 			// 4.- Enviar atributos a la vista
 
 			request.setAttribute("huecos", huecos);
+			request.setAttribute("recarga", recarga);
 
 			// 5.- Ir a la vista
 
@@ -64,7 +72,7 @@ public class ahorcadoController extends HttpServlet {
 			// 2.- Validar Parametros
 
 			for (int i = 0; i < palabra.length(); i++) {
-				if (Character.toLowerCase(c) == palabra.toLowerCase().charAt(i)) {
+				if (c == palabra.toLowerCase().charAt(i)) {
 					huecos[i] = c;
 					chivato = true;
 				}
@@ -84,10 +92,14 @@ public class ahorcadoController extends HttpServlet {
 
 			if (terminado) {
 				request.setAttribute("msg", "Zorionak !!! Has ganado");
+				recarga = true;
 			} else if (FALLOS == MAX_FALLOS) {
 				request.setAttribute("msg", "Vaya... no has ganado, otra partidita, la palabra era" + palabra);
+				recarga = true;
 			}
 
+			
+			request.setAttribute("recarga", recarga);
 			request.setAttribute("huecos", huecos);
 			request.setAttribute("fallos", FALLOS);
 

@@ -1,24 +1,30 @@
 /* Hoja de Estilos Principal */
-#menu {
+ul {
+	list-style-type: none;
+	margin: 0;
 	padding: 0;
-}
-
-#menu li {
-	display: inline;
-}
-
-#menu li a {
-	font-family: Helvetica;
-	font-size: 0.75em;
-	text-decoration: none;
-	padding: 10px;
+	width: 100%;
 	background-color: #004040;
-	color: #fff;
 }
 
-#menu li a:hover {
+li {
+	width: 15%;
+	display: inline-block;
+}
+
+li a {
+	display: block; color : #FFF;
+	padding: 8px 16px;
+	border: 2px dotted #004040;
+	text-decoration: none;
+	color: #FFF;
+}
+
+/* Change the link color on hover */
+li a:hover {
 	background-color: #7fbfbf;
-	padding-bottom: 12px;
+	color: #001919;
+	border: 2px dotted #FF0;
 }
 
 h1 {
@@ -45,9 +51,40 @@ input[type="text"] {
 	width: 200px;
 }
 
-.conversor{
-	width: 50%;
+input[type="text"] {
+	display: block;
+	width: 85%;
+	padding: .375rem .75rem;
+	font-size: 1rem;
+	line-height: 1.5;
+	color: #495057;
+	background-color: #fff;
+	background-clip: padding-box;
+	border: 1px solid #ced4da;
+	border-top-color: rgb(206, 212, 218);
+	border-right-color: rgb(206, 212, 218);
+	border-bottom-color: rgb(206, 212, 218);
+	border-left-color: rgb(206, 212, 218);
+	border-radius: .25rem;
+	transition: border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+}
+
+.container {
+	width: 100%;
+}
+
+.contain {
 	display: inline-block;
+	width: 49%;
+}
+
+.conversor {
+	width: 49%;
+	display: inline-block;
+}
+
+.conversion {
+	margin-top: -5em;
 }
 
 .btn {
@@ -79,6 +116,19 @@ input[type="text"] {
 	border-color: #dc3545;
 }
 
+.btn-gestion-libros {
+	color: #fff;
+	background-color: #7fbfbf;
+	border-color: #7fbfbf;
+}
+
+.btn-gestion-libros:hover {
+	color: #fff;
+	background-color: teal;
+	border-color: teal;
+	cursor: pointer;
+}
+
 .center {
 	text-align: center;
 }
@@ -92,43 +142,3 @@ input[type="text"] {
 	margin: auto;
 }
 
-.ahorcado {
-	margin: auto;
-	border: 3px solid teal;
-	width: 75px;
-	height: 100px;
-	overflow: hidden;
-	background-image: url(../img/ahorcado.jpg);
-}
-
-.fallo0 {
-	background-position-x: 616px;
-}
-
-.fallo1 {
-	background-position-x: 539px;
-}
-
-.fallo2 {
-	background-position-x: 462px;
-}
-
-.fallo3 {
-	background-position-x: 385px;
-}
-
-.fallo4 {
-	background-position-x: 308px;
-}
-
-.fallo5 {
-	background-position-x: 231px;
-}
-
-.fallo6 {
-	background-position-x: 154px;
-}
-
-.fallo7 {
-	background-position-x: 77px;
-}

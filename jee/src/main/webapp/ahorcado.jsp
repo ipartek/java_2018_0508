@@ -1,14 +1,16 @@
 <!doctype html>
 
+<%@page import="com.ipartek.formacion.gestor.libros.controller.AhorcadoController"%>
 <html lang="es">
 <head>
 	<meta charset="utf-8">
 	
-	<title>Gestion Libros</title>
+	<title>Gestion Libros -- Ahorcado</title>
 	<meta name="description" content="App Web Java 3.0 para Gestionar Prestamo de Libros">
 	<meta name="author" content="Adrian Perozzo">
 	
 	<link rel="stylesheet" href="css/styles.css?v=1.0">
+	<link rel="stylesheet" href="css/ahorcado.css?v=1.0">
 
 </head>
 
@@ -27,11 +29,11 @@
 		
 			char[] huecos = (char[]) request.getAttribute("huecos");
 		
-			out.print("<p class='center'>");
+			out.print("<h2 class='center'>");
 			for(int i = 0; i<huecos.length;i++){
 				out.print(" "+huecos[i]+" ");
 			}
-			out.print("</p>");
+			out.print("</h2>");
 		
 			%>
 			
@@ -45,14 +47,23 @@
 			<form class="center" action="ahorcado" method="POST">
 				
 				<input name="letra" type="text" placeholder="Dime una letra" maxlength="1">
-				<input type="submit" value="Enviar">
+				<br>
+				<input class="btn btn-gestion-libros" type="submit" value="Enviar">
 				
 			</form>
 		
-			<p>${msg}</p>
+			<div class="center">
+				<p>${msg}</p>
+				
+				<%
+					if((boolean)request.getAttribute("recarga") == true){
+						out.print("<a href='ahorcado' class='btn btn-danger'>Volver a JUGAR</a>");
+					}
+				%>
+			</div>
+			
 		
 		</div>
-		<div></div>
 		
 	</section>
 	

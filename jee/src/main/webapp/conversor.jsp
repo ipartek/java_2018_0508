@@ -14,32 +14,40 @@
 
 <body>
 
+	<a href="index.jsp" class="btn btn-danger">Volver a casa</a>
+	
 	<h1>Conversor</h1>
 	
-	<section>
-	
-	<div class="conversor">
-		<h2>De Metros a Pies:</h2>
-		<form action="conversor" method="POST">
-			<input type="text" name="metros" placeholder="Introduce el numero de metros...">
-			<input type="hidden" name="formulario" value="1">
-			<input type="submit" value="Convertir">
-		</form>
+	<div class="container">
+		<section class="contain">	
+		<div class="conversor">
+			<h2>De Metros a Pies:</h2>
+			<form action="conversor" method="POST">
+				<input type="text" name="metros" placeholder="Introduce el numero de metros...">
+				<input type="hidden" name="formulario" value="1">
+				<br>
+				<input class="btn btn-gestion-libros" type="submit" value="Convertir">
+			</form>
+		</div>
+		
+		<div class="conversor">
+			<h2>De Pies a Metros:</h2>
+			<form action="conversor" method="POST">
+				<input type="text" name="pies" placeholder="Introduce el numero de pies...">
+				<input type="hidden" name="formulario" value="2">
+				<br>
+				<input class="btn btn-gestion-libros" type="submit" value="Convertir">
+			</form>
+		</div>
+		<p>${msg}</p>
+		</section>
+		<section class="contain">
+			<div>
+				<h2 class="conversion">${conversion}</h2>
+			</div>
+		</section>
 	</div>
 	
-	<div class="conversor">
-		<h2>De Pies a Metros:</h2>
-		<form action="conversor" method="POST">
-			<input type="text" name="pies" placeholder="Introduce el numero de pies...">
-			<input type="hidden" name="formulario" value="2">
-			<input type="submit" value="Convertir">
-		</form>
-	</div>
-	<p>${msg}</p>
-	</section>
-	<section>
-		<h2 class="conversion">${conversion}</h2>
-	</section>
 	
 </body>
 

@@ -57,30 +57,38 @@ public class ConversorController extends HttpServlet {
 			// 2.- Validar Parametros
 
 			if (OPCION_METROS.equals(request.getParameter("formulario"))) {
-				
+
 				metros = Double.parseDouble(request.getParameter("metros"));
 				conversion = metros * MAP;
-				request.setAttribute("conversion", metros+" metros son "+conversion+" pies.");
-				
-			}else if(OPCION_PIES.equals(request.getParameter("formulario"))){
-				
-				pies = Double.parseDouble(request.getParameter("metros"));
+				request.setAttribute("conversion", metros + " metros son " + conversion + " pies.");
+
+			} else if (OPCION_PIES.equals(request.getParameter("formulario"))) {
+
+				pies = Double.parseDouble(request.getParameter("pies"));
 				conversion = pies * PAM;
-				request.setAttribute("conversion", pies+" pies son "+conversion+" metros.");
-				
+				request.setAttribute("conversion", pies + " pies son " + conversion + " metros.");
+
 			}
 
 			// 3.- LLamar modelo DAO
 
 			// 4.- Enviar atributos a la vista
 
-			
-
 			// 5.- Ir a la vista
 
 		} catch (NumberFormatException e) {
 			// e.printStackTrace();
-			MSG = "No puedes convertir texto a numeros";
+
+			if (OPCION_METROS.equals(request.getParameter("formulario"))) {
+				
+				MSG = "No puedes convertir texto " + request.getParameter("metros") + " a numeros";
+				
+			} else if (OPCION_PIES.equals(request.getParameter("formulario"))) {
+
+				MSG = "No puedes convertir texto " + request.getParameter("pies") + " a numeros";
+
+			}
+
 		} catch (Exception e) {
 			// TODO: handle exception
 			e.printStackTrace();
