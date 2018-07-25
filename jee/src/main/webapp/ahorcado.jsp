@@ -30,19 +30,18 @@
 
 	<br/>
 	<form action="jugar-ahorcado" method="post">
-		<label>Letra:</label> <input name="letra" class="texto" type="text" placeholder="Escribe aquí una letra."> <br/>
-		<label>Solución:</label> <input name="intento" class="texto" type="text" placeholder="Escribe aquí la solución."> <br/>	
+		<input name="letra" class="texto" type="text" placeholder="Escribe aquí una letra."> <br/>
+		<input name="intento" class="texto" type="text" placeholder="Escribe aquí una solución."> <br/>	
 		<input type="submit"  name="operacion" value="Enviar">
+		<input type="submit" name="operacion" value="Ver">
 		<input type="submit" name="operacion" value="Reiniciar">
-		<input type="submit" name="operacion" value="Ver Respuesta">
 	</form>
 	<hr>
-	<p class ="text-danger">${msg}</p>
+	<label class ="text-danger">${msg}</label>
 	<h2> La palabra es: ${solucion} </h2>
-	<p> Aciertos: <b>${charAcertados}</b> (${aciertos} / ${intentos}) </p>
-	<p> Fallos: <b>${charFallados}</b> (${fallos} / ${intentos})</p>
-	
-	<div id="ahorcado"></div>
+	<label class="texto"> Aciertos: <b>${charAcertados}</b> (${aciertos} / ${intentos})</label>
+	<label class="texto">Fallos: <b>${charFallados}</b> (${fallos} / ${intentos}</label>
+	<div id="${intentos}"></div>
 	<script src="js/scripts.js"></script>
 
 </body>

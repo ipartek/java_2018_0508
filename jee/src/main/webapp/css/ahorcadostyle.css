@@ -7,7 +7,7 @@ body {
 	color: white;
 }
 
-h1 {
+h1, h2 {
 	color: teal;
 	font-size: 2em;
 	text-align: center;
@@ -17,35 +17,55 @@ form {
 	text-align: center;
 	margin-left: auto;
 	margin-right: auto;
-	padding: 5px;
+}
+
+label {
+	text-align: center;
 }
 
 .texto {
 	display: block;
+	margin: auto;
 }
 
 
-#ahorcado {
-	border = 1px solid red;
+div {
+	border = 2px solid red;
 	width: 75px;
 	height: 100px;
 	overflow: hidden;
 	background-image: url("../img/ahorcado.jpg");
-	background-position-x: 616px;
 }
 
-.fallo1 {
+.fallo0 {
 	background-position-x: 616px;	
 }
-
 .fallo1 {
 	background-position-x: 539px;	
 }
-
 .fallo2 {
 	background-position-x: 462px;	
 }
+.fallo3 {
+	background-position-x: 385px;	
+}
+.fallo4 {
+	background-position-x: 308px;	
+}
+.fallo5 {
+	background-position-x: 231px;	
+}
+.fallo6{
+	background-position-x: 154px;	
+}
+.fallo7 {
+	background-position-x: 77px;	
+}
+
 
 .text-danger {
 	color: red;
+	margin: auto;
+	display: block;
+	text-align: center;
 }

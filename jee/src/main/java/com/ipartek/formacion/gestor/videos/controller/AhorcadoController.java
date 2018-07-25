@@ -74,7 +74,7 @@ public class AhorcadoController extends HttpServlet {
 		solucion = String.valueOf(respuesta);
 		intento = "";
 		
-		msg = "Comenzemos!";
+		msg = "Comenzamos!";
 
 	}
 
@@ -106,44 +106,52 @@ public class AhorcadoController extends HttpServlet {
 		
 		String operacion;
 
-		// Recogemos los parámetros de la VISTA
-		caracter = request.getParameter("letra");
-		intento = request.getParameter("intento");
-		operacion = request.getParameter("operacion");
+		try {
+			// Recogemos los parámetros de la VISTA
+			caracter = request.getParameter("letra");
+			intento = request.getParameter("intento");
+			operacion = request.getParameter("operacion");
 
-		if (operacion != null) { // Detectamos el botón pulsado
+			if (operacion != null) { // Detectamos el botón pulsado
+				
+				switch (operacion) {
+				case "Reiniciar":
+					
+					inicializarPartida();
+					break;
+					
+				case "Ver":
+					
+					msg = "Has perdido!";
+					descubrirPalabra();
+					break;
+					
+				case "Enviar":	
+					jugar();
+					break;
+					
+				default:
+					msg = "Error inesperado";
+					break;
+				}	
+			} 
+
+			// Enviamos los atributos
+			request.setAttribute("solucion", solucion);
+			request.setAttribute("aciertos", aciertos);
+			request.setAttribute("charAcertados", charAcertados);
+			request.setAttribute("fallos", fallos);
+			request.setAttribute("charFallados", charFallados);
+			request.setAttribute("intentos", intentos);
+			request.setAttribute("msg", msg);
+
+			// Llamamos a la VISTA
+			request.getRequestDispatcher("ahorcado.jsp").forward(request, response);	
 			
-			switch (operacion) {
-			case "Reiniciar":
-				
-				inicializarPartida();
-				break;
-				
-			case "Ver respuesta":
-				
-				msg = "Has perdido!";
-				descubrirPalabra();
-				break;
-			case "Enviar":	
-				jugar();
-				break;
-			default:
-				msg = "Error inesperado";
-				break;
-			}	
-		} 
-
-		// Enviamos los atributos
-		request.setAttribute("solucion", solucion);
-		request.setAttribute("aciertos", aciertos);
-		request.setAttribute("charAcertados", charAcertados);
-		request.setAttribute("fallos", fallos);
-		request.setAttribute("charFallados", charFallados);
-		request.setAttribute("intentos", intentos);
-		request.setAttribute("msg", msg);
-
-		// Llamamos a la VISTA
-		request.getRequestDispatcher("ahorcado.jsp").forward(request, response);
+		} catch (Exception e) {
+			
+		}
+		
 
 	}
 

@@ -28,6 +28,7 @@
 			<li><a href="ejemplo-response">Ejemplo <b>RESPONSE</b></a></li>
 			<li><a href="jugandoConCss.jsp">CSS Avanzado</a></li>
 			<li><a href="jugar-ahorcado">Ahorcado</a></li>
+			<li><a href="convertir">Conversor</a></li>
 		</ul>
 	</nav>
 	<h2> Saludar </h2>
