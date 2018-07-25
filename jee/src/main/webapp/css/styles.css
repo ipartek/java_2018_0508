@@ -5,7 +5,29 @@ h1{
 	color: teal;
 	font-size: 2em;
 }
+p{
+	color:red;
+}
 
+a{
+	text-decoration: none;
+	color:#fff;
+}
+
+a:hover{
+	color:orange;
+	font-weight: 600;
+}
+/* nav
+**********************************/
+nav{
+background-color: teal;
+color:rgb(255,255,255);
+border-top:5px solid #03A9F4;
+border-bottom:5px solid #03A9F4;
+padding: 20px 0;
+padding: 20px,10px, 5px;
+}
 .text-danger{
 	color:red;
 }
