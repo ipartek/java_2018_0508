@@ -14,13 +14,12 @@
 	<h1>Juego del Ahorcado</h1>
 	
 	<form action="ahorcado" method="post" >
-		<span>${letras[0]} </span>
-		<span>${letras[1]} </span>
-		<span>${letras[2]} </span>
-		<span>${letras[3]} </span>
-		<span>${letras[4]} </span>
-		<span>${letras[5]} </span>
-		<br><br>
+		<% char [] letras = (char[]) request.getAttribute("letras"); 
+			for(int i=0;i<letras.length;i++){
+				out.print("<span>"+letras[i]+" </span>");
+			} %>
+		<br>		
+		<br>
 		<input name="letra" type="text" placeholder="Introduce una letra">
 		<input type="submit" value="Enviar">
 		<br><br>

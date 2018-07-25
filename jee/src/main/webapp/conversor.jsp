@@ -21,10 +21,11 @@
 		<br><br>
 		<span>Pies:</span>
 		<span>${metros} metros son ${metrosConvertidos} pies.</span>
-		
+	</form>
+	
 	<hr>
 	
-	</form>
+	
 	
 	<form action="conversor" method="post" >
 		<span>Pies</span>
