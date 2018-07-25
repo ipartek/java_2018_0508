@@ -70,19 +70,19 @@ public class ahorcadoController extends HttpServlet {
 				}
 			}
 
-			boolean azkena = false;
+			boolean terminado = false;
 
 			if (!chivato) {
 				FALLOS++;
 			} else {
-				azkena = solucion();
+				terminado = solucion();
 			}
 
 			// 3.- LLamar modelo DAO
 
 			// 4.- Enviar atributos a la vista
 
-			if (azkena) {
+			if (terminado) {
 				request.setAttribute("msg", "Zorionak !!! Has ganado");
 			} else if (FALLOS == MAX_FALLOS) {
 				request.setAttribute("msg", "Vaya... no has ganado, otra partidita, la palabra era" + palabra);

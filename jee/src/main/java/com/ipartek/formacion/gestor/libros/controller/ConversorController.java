@@ -2,6 +2,7 @@ package com.ipartek.formacion.gestor.libros.controller;
 
 import java.io.IOException;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -14,50 +15,83 @@ public class ConversorController extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
 
+	private RequestDispatcher dispatch = null;
+	private static final String VIEW = "conversor.jsp";
+
+	private static String MSG = "INTRODUCE UN NUMERO...";
+
+	private static final String OPCION_METROS = "1";
+	private static final String OPCION_PIES = "2";
+	private static final double MAP = 3.28084; // Un Metro es 3,28084 Pies
+	private static final double PAM = 0.3048; // Un Pie es 0,3048 Metro
+
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-
-		// 1.- Recibir Parametros
-
-		String nombre = (String) request.getParameter("nombre");
-		String ap1 = (String) request.getParameter("ap1");
-		String ap2 = (String) request.getParameter("ap2");
-
-		// 2.- Validar Parametros
-
-		// 3.- LLamar modelo DAO
-
-		// 4.- Enviar atributos a la vista
-
-		request.setAttribute("nombre", nombre);
-		request.setAttribute("ap1", ap1);
-		request.setAttribute("ap2", ap2);
-
-		// 5.- Ir a la vista
-
-		request.getRequestDispatcher("saludo.jsp").forward(request, response);
-
+		doProcess(request, response);
 	}
 
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		doProcess(request,response);
-		// 1.- Recibir Parametros
-
-		// 2.- Validar Parametros
-
-		// 3.- LLamar modelo DAO
-
-		// 4.- Enviar atributos a la vista
-
-		// 5.- Ir a la vista
-		
+		doProcess(request, response);
 	}
 
-	private void doProcess(HttpServletRequest request, HttpServletResponse response) {
-		// TODO Auto-generated method stub
-		
+	private void doProcess(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+
+		try {
+
+			double conversion = 0.0;
+			double metros = 0.0;
+			double pies = 0.0;
+
+			dispatch = request.getRequestDispatcher(VIEW);
+
+			// 1.- Recibir Parametros
+
+			if ("".equals(request.getParameter("metros")) && "".equals(request.getParameter("metros"))) {
+				MSG = "OYE TIENES QUE INTRODUCIR ALGUN NUMERO...";
+			}
+
+			// 2.- Validar Parametros
+
+			if (OPCION_METROS.equals(request.getParameter("formulario"))) {
+				
+				metros = Double.parseDouble(request.getParameter("metros"));
+				conversion = metros * MAP;
+				request.setAttribute("conversion", metros+" metros son "+conversion+" pies.");
+				
+			}else if(OPCION_PIES.equals(request.getParameter("formulario"))){
+				
+				pies = Double.parseDouble(request.getParameter("metros"));
+				conversion = pies * PAM;
+				request.setAttribute("conversion", pies+" pies son "+conversion+" metros.");
+				
+			}
+
+			// 3.- LLamar modelo DAO
+
+			// 4.- Enviar atributos a la vista
+
+			
+
+			// 5.- Ir a la vista
+
+		} catch (NumberFormatException e) {
+			// e.printStackTrace();
+			MSG = "No puedes convertir texto a numeros";
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		} finally {
+
+			request.setAttribute("metros", "");
+			request.setAttribute("pies", "");
+			request.setAttribute("msg", MSG);
+			dispatch.forward(request, response);
+
+		}
+
 	}
 }

@@ -40,6 +40,16 @@ h2 {
 	content: "***";
 }
 
+input[type="text"] {
+	display: block;
+	width: 200px;
+}
+
+.conversor{
+	width: 50%;
+	display: inline-block;
+}
+
 .btn {
 	display: inline-block;
 	font-weight: 400;
