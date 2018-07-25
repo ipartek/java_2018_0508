@@ -21,9 +21,9 @@ public class ConversorController extends HttpServlet {
 	private static String msg = "";
 	private static final String VIEW = "conversor.jsp";
 	private static final double PIES = 3.28083989501;
-	private static double uDato;
+	private static double formulario;
 	private static double resul;
-	private static double valor;
+	private static double valorConvertir;
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
@@ -37,35 +37,41 @@ public class ConversorController extends HttpServlet {
 		doProcess(request, response);
 	}
 
-	private void doProcess(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		DecimalFormat df = new DecimalFormat("#.00");
+	private void doProcess(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		
+		DecimalFormat df = null;
 		resul = 0;
+		String numUsuario = "";
 		
 		try {
+			numUsuario = request.getParameter("valor");
+			df = new DecimalFormat("#.00");
 			dispatch = request.getRequestDispatcher(VIEW);
-			uDato = Double.parseDouble(request.getParameter("formulario"));
-			valor = Double.parseDouble(request.getParameter("valor"));
-			
-			if (uDato==1) {
-				resul = valor * PIES;
-				request.setAttribute("resultadoPies", df.format(resul));
-			}else if(uDato==2) {
-				resul = valor / PIES;
-				request.setAttribute("resultadoMetros", df.format(resul));
+			formulario = Double.parseDouble(request.getParameter("formulario"));
+			valorConvertir = Double.parseDouble(numUsuario);
+
+			if (formulario == 1) {
+				resul = valorConvertir * PIES;
+				request.setAttribute("resultadoPies", valorConvertir + " metros son: " + df.format(resul) + " pies");
+			} else if (formulario == 2) {
+				resul = valorConvertir / PIES;
+				request.setAttribute("resultadoMetros", valorConvertir + " pies son : " + df.format(resul) + " metros");
 			}
-			
+
 		} catch (NumberFormatException e) {
 			if (e.getMessage().contains("empty String")) {
-				msg="introduce un numero por favor";
-			}else {
-				msg="Solo se aceptan numeros ";
+				msg ="No se ha recibido ningun dato...introduce un numero por favor";
+			} else {
+				msg =numUsuario
+						+ " no se puede convertir ...introduce un numero y si es decimal comprueba que usas el punto";
 			}
-		}finally {
-			
+		} finally {
+
 			request.setAttribute("msg", msg);
 			dispatch.forward(request, response);
 		}
 
 	}
-	
+
 }

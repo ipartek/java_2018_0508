@@ -10,14 +10,15 @@ h1{
 	color:red;
 }
 
-.text-danger:before{
+/*.text-danger:before{
 	content: "***"
 }	
-
+*/
+/*
 .text-danger:after{
 	content: "!!!"
 }	
-
+*/
 .casilla{
 	width: 10px;
 	height: 10px;
