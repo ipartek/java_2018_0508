@@ -38,6 +38,7 @@ public class ConversorController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 		doPost(request, response);
+		esComienzo = false;
 		
 	}
 	
@@ -50,7 +51,6 @@ public class ConversorController extends HttpServlet {
 			String operacion = request.getParameter("operacion");
 			// Trabajamos con ellos
 			if (entrada != null && entrada.trim().length() > 1) {
-				esComienzo = false;
 				try {	
 					//boolean esError = false; // Por si hay algún error inesperado
 					

@@ -1,4 +1,5 @@
 /* Hoja de estilos principal */
+
 h1 {
 	color: teal;
 	font-size: 2em;
@@ -16,31 +17,40 @@ h1 {
 .text-danger: after {
 	content: *!!!*;
 }
+nav {
+	text-align: center;
+	border: 5px solid blue;
+	background-color: #555;
+	padding: 20px 0px;
+}
 
 nav li {
-	display: inline;
-	background-color: black;
-	border-radius: 10%;
+	color: white; display : inline;
+	background-color: teal;
+	border-radius: 0.2em;
 	text-decoration: none;
 	padding: 5px;
+	display: inline;
+	margin: 0px auto;
 }
 
 nav li:hover {
 	background-color: blue;
-	transition-duration: 1s;	
+	transition-duration: 1s;
 }
 
-
 a:link {
-	color:#ffffff;
-	}
-a:visited {
-	color:#ffffff;
-	}
-a:active {
-	color:#ffffff;
-	}
-a:hover {
-	color:#ffffff;
-	}
+	color: #ffffff;
+}
 
+a:visited {
+	color: #ffffff;
+}
+
+a:active {
+	color: #ffffff;
+}
+
+a:hover {
+	color: #ffffff;
+}
