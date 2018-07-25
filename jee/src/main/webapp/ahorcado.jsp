@@ -8,15 +8,14 @@
 	content="App web Java 3.0 para gestionar préstamos de libros">
 <meta name="author" content="Luis">
 
-<link rel="stylesheet" href="css/styles.css?v=1.0">
+<link rel="stylesheet" href="css/ahorcadostyle.css?v=1.0">
 
 </head>
 
 <body>
 
-	<img class="ahorcado" alt="ahorcado.jpg">
 	<article>
-	<h1> Bienvenido al juego del ahorcado. </h1>
+	<h1> Bienvenido al juego del ahorcado </h1>
 	<p> <b> INSTRUCCIONES </b></p>
 	<ol>
 	<li> Tienes 7 <b>intentos</b> para adivinar la palabra. </li>
@@ -31,17 +30,19 @@
 
 	<br/>
 	<form action="jugar-ahorcado" method="post">
-		Letra: <input name="letra" type="text" placeholder="Escribe aquí una letra."> <br/>
-		Solución: <input name="intento" type="text" placeholder="Escribe aquí la solución."> <br/>	
-		<input type="submit" value="Enviar">
+		<label>Letra:</label> <input name="letra" class="texto" type="text" placeholder="Escribe aquí una letra."> <br/>
+		<label>Solución:</label> <input name="intento" class="texto" type="text" placeholder="Escribe aquí la solución."> <br/>	
+		<input type="submit"  name="operacion" value="Enviar">
+		<input type="submit" name="operacion" value="Reiniciar">
+		<input type="submit" name="operacion" value="Ver Respuesta">
 	</form>
 	<hr>
 	<p class ="text-danger">${msg}</p>
 	<h2> La palabra es: ${solucion} </h2>
-	<p> Aciertos: ${charAcertados} (${aciertos} / ${intentos}) </p>
-	<p> Fallos: ${charFallados} (${fallos} / ${intentos})</p>
+	<p> Aciertos: <b>${charAcertados}</b> (${aciertos} / ${intentos}) </p>
+	<p> Fallos: <b>${charFallados}</b> (${fallos} / ${intentos})</p>
 	
-
+	<div id="ahorcado"></div>
 	<script src="js/scripts.js"></script>
 
 </body>

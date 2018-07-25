@@ -17,8 +17,8 @@ public class AhorcadoController extends HttpServlet {
 
 	private static final short MAXIMO_INTENTOS = 7;
 
-	private static final String[] arrayPalabras = { "cesar", "java ee", "css", "html", "Integer", "String",
-			"Ahorcado", "lorem ipsum", "chrystallion", "character" };
+	private static final String[] arrayPalabras = { "cesar", "java ee", "css", "html", "Integer", "String", "Ahorcado",
+			"lorem ipsum", "chrystallion", "character" };
 
 	private static int aciertos = 0;
 	private static String charAcertados;
@@ -33,6 +33,7 @@ public class AhorcadoController extends HttpServlet {
 	private static char[] respuesta;
 	private static String solucion;
 	private static String intento;
+	private static String caracter;
 
 	// Lo usaremos para mostrar los diferentes mensajes (Acierto, fallo,
 	// victoria...)
@@ -68,11 +69,12 @@ public class AhorcadoController extends HttpServlet {
 				respuesta[i] = '*';
 			}
 		}
-		
+
 		// Convertimos a String
 		solucion = String.valueOf(respuesta);
 		intento = "";
-
+		
+		msg = "Comenzemos!";
 
 	}
 
@@ -101,62 +103,35 @@ public class AhorcadoController extends HttpServlet {
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-
-		String caracter;
-		boolean acertado;
+		
+		String operacion;
 
 		// Recogemos los parámetros de la VISTA
 		caracter = request.getParameter("letra");
 		intento = request.getParameter("intento");
+		operacion = request.getParameter("operacion");
 
-		// Tratamos los valores recogidos
-		if (intento != null && !intento.trim().isEmpty()) { // Si trata de solucionar la palabra
+		if (operacion != null) { // Detectamos el botón pulsado
 			
-			if (intento.equalsIgnoreCase(palabra)) { // Ha acertado la palabra
+			switch (operacion) {
+			case "Reiniciar":
 				
-				msg = "Enhorabuena, has acertado la palabra!";
+				inicializarPartida();
+				break;
 				
+			case "Ver respuesta":
+				
+				msg = "Has perdido!";
 				descubrirPalabra();
-				//inicializarPartida();
-			
-			} else { // Ha dado una solución errónea
-				msg = "Lo siento, no es correcto. Has perdido!";
-				
-				descubrirPalabra();	
-				//inicializarPartida();
-			}
-		} else if (caracter != null && caracter.trim().length() == 1) { // Ha introducido una letra
-
-			char letra = caracter.charAt(0); // Convertimos a caracter
-			
-			acertado = pintarRespuesta(letra);
-			
-			if (acertado) {
-				aciertos++;	// Sumamos un acierto
-				charAcertados += letra + "\t"; // Lo añadimos al String de aciertos
-				msg = "Has acertado!";
-			} else {
-				fallos++;	// Sumamos un fallo
-				charFallados += letra + "\t"; // Lo añadimos al String de aciertos
-				msg = "Has fallado!";
-			}
-			
-			intentos++;	// En cualquier caso sumamos un intento
-			
-			if (aciertos == numLetras) { // No quedan letras por descubrir
-				msg = "Enhorabuena, has descubierto la palabra!";
-				descubrirPalabra();
-				
-			} else if (intentos == MAXIMO_INTENTOS) { // Comprobamos si no hay más intentos
-				
-				msg = "Lo sentimos, se acabaron los intentos!";
-				descubrirPalabra();
-				
-			} else {
-				solucion = String.valueOf(respuesta);
-			}
-
-		}
+				break;
+			case "Enviar":	
+				jugar();
+				break;
+			default:
+				msg = "Error inesperado";
+				break;
+			}	
+		} 
 
 		// Enviamos los atributos
 		request.setAttribute("solucion", solucion);
@@ -166,9 +141,63 @@ public class AhorcadoController extends HttpServlet {
 		request.setAttribute("charFallados", charFallados);
 		request.setAttribute("intentos", intentos);
 		request.setAttribute("msg", msg);
-		
+
 		// Llamamos a la VISTA
 		request.getRequestDispatcher("ahorcado.jsp").forward(request, response);
+
+	}
+
+	private void jugar() {
+
+		boolean acertado;
+
+		// Tratamos los valores recogidos
+		if (intento != null && !intento.trim().isEmpty()) { // Si trata de solucionar la palabra
+
+			if (intento.equalsIgnoreCase(palabra)) { // Ha acertado la palabra
+
+				msg = "Enhorabuena, has acertado la palabra!";
+
+				descubrirPalabra();
+
+			} else { // Ha dado una solución errónea
+				msg = "Lo siento, no es correcto. Has perdido!";
+
+				descubrirPalabra();
+		
+			}
+		} else if (caracter != null && caracter.trim().length() == 1) { // Ha introducido una letra
+
+			char letra = caracter.charAt(0); // Convertimos a caracter
+
+			acertado = pintarRespuesta(letra);
+
+			if (acertado) {
+				aciertos++; // Sumamos un acierto
+				charAcertados += letra + "\t"; // Lo añadimos al String de aciertos
+				msg = "Has acertado!";
+			} else {
+				fallos++; // Sumamos un fallo
+				charFallados += letra + "\t"; // Lo añadimos al String de aciertos
+				msg = "Has fallado!";
+			}
+
+			intentos++; // En cualquier caso sumamos un intento
+
+			if (aciertos == numLetras) { // No quedan letras por descubrir
+				msg = "Enhorabuena, has descubierto la palabra!";
+				descubrirPalabra();
+
+			} else if (intentos == MAXIMO_INTENTOS) { // Comprobamos si no hay más intentos
+
+				msg = "Lo sentimos, se acabaron los intentos!";
+				descubrirPalabra();
+
+			} else {
+				solucion = String.valueOf(respuesta);
+			}
+
+		}
 
 	}
 
