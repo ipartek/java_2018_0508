@@ -17,7 +17,6 @@ public class JuegoController extends HttpServlet {
 	private RequestDispatcher dispatch = null;
 
 	private static final String VIEW_INDEX = "index.jsp";
-	private static final String VIEW_JUEGO = "juego.jsp";
 	private static final String palabra="cesar";
 	char[] respuesta;
 	
@@ -54,16 +53,22 @@ public class JuegoController extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		char c=' ';
+		boolean contador=true;
 		try {
 			dispatch= request.getRequestDispatcher(VIEW_INDEX);
 			String letra = request.getParameter("letra");
 					if (letra != null) {
+						
 						if(palabra.toLowerCase().contains(letra)) {
 							request.setAttribute("msg", "Letra correcta");
-							for(int i = 0; i < palabra.length(); i++){
-								if (palabra.charAt(i) == letra.charAt(0)) {
-									request.setAttribute("letra", palabra.charAt(i));
-								}						
+							c = (char) request.getParameter("letra").toLowerCase().charAt(0);
+							for (int i = 0; i < palabra.length(); i++) {
+								if (c == palabra.charAt(i)) {
+									respuesta[i] = c;
+									contador=true;
+									break;
+								}
 							}
 							request.getRequestDispatcher("juego.jsp").forward(request, response);
 						}else {

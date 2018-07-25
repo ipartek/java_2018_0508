@@ -20,6 +20,8 @@
 			<li><a href="saludo?nombre=pepe&ape1=Lorenzo&ape2=Gomez">Saludo</a> </li>
 			<li><a href="ejemplo-response">Ejemplo Response</a></li>
 			<li><a href="jugandoConCss.jsp">Jugando con Css</a></li>
+			<li><a href="ahorcado">Juego del ahorcado</a></li>
+			<li><a href="conversor">Conversores</a></li>
 		</ul>
 		
 	</nav>
@@ -29,19 +31,6 @@
 		<p style="color: red">${msg }</p>
 		<input type="submit" value="enviar">
 	</form>
-
-	<br>
-	<h1>Juego ahorcado</h1>
-
-	<%
-		//Esto es java
-		out.print("<p>A jugar</p>");
-	%>
-	<a href="juego">Juego del ahorcado</a>
-	<br>
-
-
-
 	<script src="js/scripts.js"></script>
 </body>
 </html>
