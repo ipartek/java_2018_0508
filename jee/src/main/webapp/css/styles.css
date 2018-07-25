@@ -5,6 +5,22 @@ h1{
 	font-size: 2em;
 	text-align: center;
 }
+a{
+	text-decoration:none;
+	color:#fff;
+}
+a:hover{
+	color: orange;
+	font-weight: 600;
+}
+
+nav{
+	background-color: teal;
+	color: white;
+	border-top: 5px solid #03A9F4;
+	border-bottom: 5px solid #03A9F4;
+	padding: 20px 10px;
+}
 
 .ahorcado{
 	border: 1px solid red;
