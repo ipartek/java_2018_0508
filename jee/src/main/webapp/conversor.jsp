@@ -8,7 +8,7 @@ comprobar usuario escriba algo inadecuado vacio,algo k no es numero,
 <meta name="description" content="Juegos del Ahorcado">
 <meta name="author" content="Rakel Pastor Villarroel">
 
-<link rel="stylesheet" href="css/styles.css?v=1.0">
+<link rel="stylesheet" href="css/conversor_estilos.css?v=1.0">
 </head>
 <body>
 	<h1>JUEGO DEL CONVERSOR</h1>

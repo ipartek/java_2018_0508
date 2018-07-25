@@ -1,31 +1,8 @@
-<!doctype html>
-<html lang="es">
-<head>
-  <meta charset="utf-8">
-  <title>Gestion Libros</title>
-  <meta name="description" content="App Web Java 3.0 para gestionar prestamos de libros">
-  <meta name="author" content="Rakel Pastor Villarroel">
-  
-  <link rel="stylesheet" href="css/styles.css?v=1.0">
-</head>
-<body>
-	<h1>CMS GESTION LIBROS</h1>
+<%@ include file="includes/header.jsp" %>
+<%@ include file="includes/navbar.jsp" %>
 	
-	<nav>
-	<!-- GET  -->
-		<ul>
-			<li><a href="listar">Listar Libros</a></li>
-			<li><a href="saludo?nombre=Pepe&ape1=Otilio&ape2=Gomez">Saludo</a></li>
-			<li><a href="JugandoConCss.jsp">Jugando con CSS</a></li>
-			<li><a href="ahorcado.jsp">Jugar Al Ahorcado</a></li>
-			<li><a href="conversor.jsp">Conversores</a></li>
-		</ul>
-	</nav>
-	
-	
-	<%
-	 out.print("<p>Mensaje desde Java</p>");
-	%>
+<%out.print("<p>Mensaje desde Java</p>");%>
+
 	<!-- SPRITE -->
 	<div class="ahorcado"></div>
 	<style>
@@ -56,8 +33,6 @@
 	
 	<!-- AHORCADO --><br><br>
 	
+<%@ include file="includes/footer.jsp" %>
 	
-	
-  <script src="js/scripts.js"></script>
-</body>
-</html>
+ 
