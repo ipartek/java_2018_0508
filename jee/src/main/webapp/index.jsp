@@ -19,6 +19,7 @@
 				<li><a href="saludo?nombre=pepe&ape1=Otilio&ape2=Gomez">Saludo</a></li>
 				<li><a href="ejemplo-response">Ejemplo Response</a></li>
 				<li><a href="jugandoConCss.jsp">Jugando con CSS</a></li>
+				<li><a href="ahorcado">Juego del Ahorcado</a></li>
 			</ul>
 		</nav>
 		
@@ -28,8 +29,7 @@
 			//Esto es java
 			out.print("<p>Soy Java</p>");
 		%>
-		<div class="ahorcado"></div>
-		
+
 	
 		
 		                                                                                       

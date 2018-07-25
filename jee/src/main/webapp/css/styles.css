@@ -19,13 +19,15 @@ h1{
 	color:red;
 }
 
+/*
 .text-danger:before{
 	content: "***"
 }	
 
 .text-danger:after{
 	content: "!!!"
-}	
+}
+*/	
 
 .ahorcado{
 	border: 1px solid red;
@@ -45,6 +47,21 @@ h1{
 
 .fallo2{
 	background-position-x: 462px;
+}
+.fallo3{
+	background-position-x: 385px;
+}
+.fallo4{
+	background-position-x: 308px;
+}
+.fallo5{
+	background-position-x: 231px;
+}
+.fallo6{
+	background-position-x: 154px;
+}
+.fallo7{
+	background-position-x: 76px;
 }
 
 
