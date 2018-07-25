@@ -1,6 +1,7 @@
 package com.ipartek.formacion.gestor.libros.controller;
 
 import java.io.IOException;
+
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -18,44 +19,44 @@ public class JuegoController extends HttpServlet {
 
 	private static final String VIEW_INDEX = "index.jsp";
 	private static final String palabra="cesar";
-	char[] respuesta;
+	private static char[] respuesta;
 	
-    
+	private static int VIDAS = 0;
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
-	 *      response)
-	 */
+	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		
-		System.out.println("Pasamos por juego");
 
-		// 1. recibir parametros
-		String letra = request.getParameter("letra");
-		
-		// 2. validar parametros
+		try {
+			// 1.- Recibir Parametros
 
-		// 3. llamar modelo DAO
+			// 2.- Validar Parametros
 
-		// 4. enviar Atributos vista
-		String palabra = String.format("Palabra %s", letra);
-		
-		request.setAttribute("palabra", palabra);
+			// 3.- LLamar modelo DAO
 
-		// 5. ir a la vista
-		request.getRequestDispatcher("juego.jsp").forward(request, response);
+			// 4.- Enviar atributos a la vista
+
+			request.setAttribute("respuesta", respuesta);
+
+			// 5.- Ir a la vista
+
+			request.getRequestDispatcher("juego.jsp").forward(request, response);
+
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}
+
 	}
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
-	 *      response)
-	 */
+	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+
 		char c=' ';
 		boolean contador=true;
 		try {
+			
 			dispatch= request.getRequestDispatcher(VIEW_INDEX);
 			String letra = request.getParameter("letra");
 					if (letra != null) {
@@ -83,11 +84,22 @@ public class JuegoController extends HttpServlet {
 					request.getRequestDispatcher("juego.jsp").forward(request, response);
 				}	
 			
+			// 3.- LLamar modelo DAO
+
+			// 4.- Enviar atributos a la vista
+			
+			request.setAttribute("resultado", respuesta);
+			request.setAttribute("vidas", VIDAS);
+
+			// 5.- Ir a la vista
+
+			request.getRequestDispatcher("juego.jsp").forward(request, response);
+
 		} catch (Exception e) {
+			// TODO: handle exception
 			e.printStackTrace();
-		} finally {
-			dispatch.forward(request, response);
 		}
+
 	}
 
 }
