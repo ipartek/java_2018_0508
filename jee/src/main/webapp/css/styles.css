@@ -20,6 +20,19 @@ div#content {
 
 #opciones a:hover {
 	color: blue;
+	font-weight: bold;
+}
+
+div#opciones{
+	    width: 25%;
+	    padding: 10px 0;
+}
+#opciones li{
+	list-style-type: none;
+	padding: 8px 10px;
+    background-color: #ddd;
+    width: auto;
+    border: 1px solid #ccc;
 }
 
 button {
@@ -33,12 +46,15 @@ p#msg {
 }
 
 
+
+/***************** juego *************************/
 #ahorcado{
 	border: 1px solid red;
 	width: 75px;
 	height: 100px;				
 	overflow: hidden;
 	background-image: url('../img/ahorcado.jpg');
+	margin: auto;
 	
 	
 }
@@ -60,13 +76,80 @@ p#msg {
 }
 
 .fallo4{
-	background-position-x: 153px;
+	background-position-x: 308px;
 }
 
 .fallo5{
+	background-position-x: 231px;
+}
+
+
+.fallo6{
+	background-position-x: 153px;
+}
+
+.fallo7{
 	background-position-x: 76px;
 }
 
-.fallo6{
+.fallo8{
 	background-position-x: 0px;
 }
+
+
+div#juego{
+	padding: 50px;
+    background-color: #ddd;
+    border: 1px solid #ccc;
+    width: 20%;
+    margin: auto;
+	
+}
+div#juego form{
+    text-align: center;
+    padding: 20px;
+	
+}
+
+div#juego p{
+	display : block;
+}
+
+div#juego a{
+	text-decoration: none;
+    background-color: #74ff69;
+    padding: 10px 20px;
+    border: 1px solid #0ec500;
+    color: #086b00;
+    border-radius: 5px;
+}
+
+div#juego button{
+	display: block;
+    margin: auto;
+    padding: 10px 20px;
+}
+
+
+/*******************************/
+
+
+/**************Conversor*********/
+
+.conversor {
+    padding: 20px;
+    background-color: #ddd;
+    width: 400px;
+    border: 1px solid #ccc;
+    margin: 5px;
+}
+
+.conversor span {
+    float: right;
+}
+
+p#msg{
+    width: 100%;
+}
+
+/*******************************/

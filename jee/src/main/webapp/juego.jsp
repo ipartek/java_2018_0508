@@ -8,18 +8,30 @@
 	<link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
-	<div>
-		<div id="ahorcado" class="${fail}"></div>		
-		<form id="juego" action="juego" method="post">
+	<div id="juego">
+		<div id="ahorcado" class="${fail}"></div>	
+		<form action="juego" method="post">
 			<div class="container">
-				<p><b>${respuesta}</b></p>				
-				<label for="Letra"><b>Introduce una letra</b></label> 
-				<input type="text" placeholder="letra" name="letra">
-				<p id="msg">${resultado}</p>
-	
-				<button type="submit">Try!</button>
+				<%
+					if(!(boolean)request.getAttribute("finalizado") ){
+				%>
+					<p><b>${respuesta}</b></p>		
+					<label for="Letra"><b>Introduce una letra</b></label>
+					<input type="text" placeholder="letra" name="letra" maxlength="1" autocomplete="off" ${ finalizado ? 'disabled' : 'autofocus' }>
+					<p id="msg">${msg}</p>
+					<button type="submit">Try!</button>
+				<%
+					}else{
+				%>
+					<p id="msg">${msg}</p>
+					<a href="juego">Nuevo juego</a>
+				<%
+					}
+				%>
 			</div>
 		</form>
+		
+		
 	</div>
 </body>
 </html>

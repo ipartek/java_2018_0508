@@ -17,77 +17,91 @@ import javax.servlet.http.HttpServletResponse;
 public class JuegoController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private static RequestDispatcher dispatch = null;
-	private static String VIEW_INDEX = "index.jsp";
-	private static String VIEW_JUEGO = "juego.jsp";
+	//private static final String VIEW_INDEX = "index.jsp";
+	private static final String VIEW_JUEGO = "juego.jsp";
 	private static final String palabra = "cesar";
 	private static char[] respuesta = new char[5];
 	private static int fallos;
+	private static final int FALLOS_MAX = 5;
 
 	public JuegoController() {
-		initValues();		
+		initValues();
 	}
-	
+
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+
+		initValues();
+		request.setAttribute("fail", "fallo" + fallos);
+		request.setAttribute("respuesta", new String(respuesta));
+		request.setAttribute("finalizado", false);
+		dispatch = request.getRequestDispatcher(VIEW_JUEGO);
+		dispatch.forward(request, response);
+
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
 		try {
-			dispatch = request.getRequestDispatcher(VIEW_INDEX);
-
-			// 1.recibir parametros
-			char letra = request.getParameter("letra").trim().charAt(0);
-			// List<Integer> positions = new ArrayList<Integer>();
+			
 			String msg = "";
+			String respuesta_str = new String(respuesta);
+			if (request.getParameter("letra") != null) {
+				char letra = request.getParameter("letra").trim().charAt(0);
 
-			// 2.validar parametros
-			if (palabra.toLowerCase().indexOf(Character.toLowerCase(letra)) >= 0) {
-				for (int i = 0; i < palabra.length(); i++) {
-					if (palabra.charAt(i) == letra) {
-						respuesta[i] = letra;
+				// 2.validar parametros
+				if (palabra.toLowerCase().indexOf(Character.toLowerCase(letra)) >= 0) {
+					for (int i = 0; i < palabra.length(); i++) {
+						if (palabra.charAt(i) == letra) {
+							respuesta[i] = letra;
+						}
 					}
-				}
-				msg = "Correcto!";
+					msg = "Correcto!";
 
-			} else {
+				} else {
+					msg = "Fallaste!";
+					fallos++;
+				}
+				
+				if (palabra.equals(respuesta_str)) {
+					msg = "Ganaste!";
+					request.setAttribute("finalizado", true);
+
+				} else if (fallos == FALLOS_MAX) {
+					msg = "Perdiste!";
+					request.setAttribute("finalizado", true);
+
+				} else {
+					request.setAttribute("finalizado", false);
+				}
+			
+			}else {
 				msg = "Fallaste!";
-				fallos++;
 			}
 			
-			String respuesta_str = new String(respuesta);
-			if (palabra.equals(respuesta_str)) {
-				msg = "Ganaste!";
-				initValues();
-				dispatch = request.getRequestDispatcher(VIEW_INDEX);
-				
-				
-				
-			}else {
-		
-				// 4.enviar atributos a la vista
-				request.setAttribute("fail", "fallo" + fallos);
-				request.setAttribute("respuesta", respuesta_str);
-				request.setAttribute("resultado", msg);
+			request.setAttribute("respuesta", respuesta_str);
+			request.setAttribute("msg", msg);
+			request.setAttribute("fail", "fallo" + fallos);
+			request.setAttribute("fallos", fallos);
 
-				// 5.ir a la vista
-				dispatch = request.getRequestDispatcher(VIEW_JUEGO);
-			}
+
+			// 5.ir a la vista
+			dispatch = request.getRequestDispatcher(VIEW_JUEGO);
+
 		} catch (Exception e) {
-			System.out.println(e.getMessage());
-			dispatch = request.getRequestDispatcher(VIEW_INDEX);
+			request.setAttribute("error", e.getMessage());
+			dispatch = request.getRequestDispatcher(VIEW_JUEGO);
+
 		} finally {
 			dispatch.forward(request, response);
 		}
 	}
-	
+
 	private void initValues() {
 		Arrays.fill(respuesta, '_');
-		fallos=0;
-		
+		fallos = 0;
+
 	}
 
 }
