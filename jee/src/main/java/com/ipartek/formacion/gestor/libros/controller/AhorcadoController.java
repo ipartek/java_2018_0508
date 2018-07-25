@@ -25,31 +25,38 @@ public class AhorcadoController extends HttpServlet {
 	
 	private RequestDispatcher dispatch = null;
 
-	private char[] arrayLetras = new char[] { '_', '_', '_', '_', '_' };
+	private char[] arrayLetras = new char[] { '_', '_', '_', '_', '_', '_' };
 	
 
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		request.getRequestDispatcher(VIEW_AHORCADO).forward(request, response);
+		doProcess(request, response);
 	}
 
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		doProcess(request, response);
+	}
+	private void doProcess(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		try {
 			dispatch = request.getRequestDispatcher(VIEW_AHORCADO);
 			
-			jdn = (String) request.getParameter(jdn);
+			jdn = (String) request.getParameter("jdn");
+			
 			if(jdn != null) {
 				isTerminado = false;
 				contFallos = 0;
+				arrayLetras = new char[] { '_', '_', '_', '_', '_', '_' };
 			}else {
 				char letra = Character.toLowerCase(request.getParameter("letra").charAt(0));
 				
 				for(int i = 0; i<PALABRA_SECRETA.length();i++) {
-					if(PALABRA_SECRETA.charAt(i) == letra) {
+					if(PALABRA_SECRETA.toLowerCase().charAt(i) == letra) {
 						arrayLetras[i] = Character.toUpperCase(letra);
+						existePalabra = true;
 					}
 				}
 				
@@ -58,14 +65,25 @@ public class AhorcadoController extends HttpServlet {
 					msg = "La letra introducida no está. Le quedan " + (INTENTOS_AHORCADO - contFallos) + " intentos.";
 				}
 				
-				/*for(int i = 0; i<arrayLetras.length;i++) {
-					if(arrayLetras[i] == '_') {
-						
+				int completo = PALABRA_SECRETA.length();
+				for(int i = 0; i<arrayLetras.length;i++) {
+					if(arrayLetras[i] != '_') {
+						completo--;
+						System.out.println("No acabado");
 					}
-				}*/
+				}
+				
+				System.out.println(completo);
+				
+				if(completo == 0) {
+					isTerminado = true;
+					msg = "HAS GANADO!!";
+				}else if(contFallos == INTENTOS_AHORCADO) {
+					isTerminado = true;
+					msg = "HAS PERDIDO!!";
+				}
+					
 			}
-			
-			
 			
 			/*if (letra != null && !letra.equals("".trim())) {
 				if (letra.equalsIgnoreCase("c"))
@@ -87,25 +105,15 @@ public class AhorcadoController extends HttpServlet {
 			} else
 				request.setAttribute("msg", "Debes introducir una letra.");*/
 
-			if (contFallos >= 7) {
+			/*if (contFallos >= 7) {
 				msg = "No te quedan más intentos.";
 				arrayLetras = new char[] { '_', '_', '_', '_', '_' };
 				request.setAttribute("letras", arrayLetras);
 				contFallos = 0;
-			}
-			
-			/*
-			for(int i = 0; i<arrayLetras.length;i++) {
-				if(arrayLetras[i] == '_') {
-					
-					break;
-				}else{
-					arrayLetras = new char[] { '_', '_', '_', '_', '_' };
-				}
 			}*/
 			
 		} catch (Exception e) {
-			msg = "Debes introducir una letra";
+			msg = "Debes introducir una letra.";
 		} finally {
 			request.setAttribute("msg", msg);
 			request.setAttribute("letras", arrayLetras);

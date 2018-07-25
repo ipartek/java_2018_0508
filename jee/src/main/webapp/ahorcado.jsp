@@ -24,6 +24,7 @@
 		<input name="letra" type="text" placeholder="Introduce una letra">
 		<input type="submit" value="Enviar">
 		<br><br>
+		<span>Fallos: ${contFallos} </span>
 		<p class="text-danger">${msg}</p>
 	</form>
 	

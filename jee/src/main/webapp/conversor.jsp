@@ -15,7 +15,7 @@
 	
 	<form action="conversor" method="post" >
 		<span>Metros</span>
-		<input name="metros" type="text" placeholder="Introduce los metros">
+		<input name="metros" type="text" placeholder="${metros}">
 		<input name="formulario" type="hidden" value="1">
 		<input type="submit" value="Enviar">
 		<br><br>
