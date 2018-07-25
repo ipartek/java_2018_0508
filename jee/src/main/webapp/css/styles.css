@@ -6,6 +6,27 @@ h1{
 	text-align:center;
 }
 
+a{
+	text-decoration:none;
+	color:#fff;
+}
+
+a:hover{
+	color:orange;
+	font-weight:bold;
+}
+
+/* nav
+*****************************/
+
+nav{
+	background-color:teal;
+	color:#fff;
+	border-top: 4px solid #03a9f4;
+	border-bottom: 4px solid #03a9f4;
+	padding: 20px 0px;
+}
+
 .text-danger{
 	color:red;
 }
@@ -44,6 +65,26 @@ h1{
 
 .fallo2{
 	background-position-x:462px;
+}
+
+.fallo3{
+	background-position-x:385.5px;
+}
+
+.fallo4{
+	background-position-x:308px;
+}
+
+.fallo5{
+	background-position-x:231px;
+}
+
+.fallo6{
+	background-position-x:154.5px;
+}
+
+.fallo7{
+	background-position-x:77px;
 }
 
 fieldset{

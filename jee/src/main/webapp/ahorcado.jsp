@@ -1,17 +1,5 @@
-<!doctype html>
-<html lang="es">
-<head>
-	<meta charset="utf-8">
-		
-	<title>Ahorcado</title>
-	<meta name="description" content="App Web Java 3.0 para jugar al ahorcado">
-	<meta name="author" content="Adrian Garcia">
-		
-	<link rel="stylesheet" href="css/styles.css?v=1.0">
-	
-</head>
-	
-<body>
+<%@ include file="includes/header.jsp" %>	
+<%@ include file="includes/navbar.jsp" %>
 
 	<h1>Juego del ahorcado</h1>
 	
@@ -38,9 +26,9 @@
 		<div class="ahorcado fallo${fallos}"></div>
 		
 		<p class="text-danger">${eliminado}</p>
+		
+		<a href="ahorcado?otraPartida=1">Jugar otra partida</a>
 	
 	</div>
-
-	<script src="js/scripts.js"></script>
-</body>
-</html>
+	
+<%@ include file="includes/footer.jsp" %>
