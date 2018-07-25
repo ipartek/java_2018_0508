@@ -1,6 +1,6 @@
 <!doctype html>
 
-<%@page import="com.ipartek.formacion.ahorcado.controller.AhorcadoController"%>
+<%@page import="com.ipartek.formacion.gestor.libros.controller.AhorcadoController"%>
 <html lang="es">
 <head>
 	<meta charset="utf-8">	
@@ -14,11 +14,12 @@
 	<h1>Juego del Ahorcado</h1>
 	
 	<form action="ahorcado" method="post" >
-		<label>${letras[0]} </label>
-		<label>${letras[1]} </label>
-		<label>${letras[2]} </label>
-		<label>${letras[3]} </label>
-		<label>${letras[4]} </label>
+		<span>${letras[0]} </span>
+		<span>${letras[1]} </span>
+		<span>${letras[2]} </span>
+		<span>${letras[3]} </span>
+		<span>${letras[4]} </span>
+		<span>${letras[5]} </span>
 		<br><br>
 		<input name="letra" type="text" placeholder="Introduce una letra">
 		<input type="submit" value="Enviar">
@@ -28,19 +29,12 @@
 	
 	<br>
 	
-	<div  class="ahorcado fallo<%out.print(AhorcadoController.contFallos);%>">
+	<div  class="ahorcado fallo${contFallos}">
 	</div>
 	
 	<br/>
-	
-	<%
-		boolean isTerminado = (boolean)request.getAttribute("isTerminado");
-		if ( isTerminado ){
-			%>
-				<a href="ahorcado?jdn=1">Jugar de Nuevo</a>
-			<%
-		}
-	%>
+
+	<a href="ahorcado?jdn=1">Jugar de Nuevo</a>
 	
 	<script src="js/scripts.js"></script>
 </body>

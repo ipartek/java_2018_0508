@@ -1,4 +1,4 @@
-package com.ipartek.formacion.ahorcado.controller;
+package com.ipartek.formacion.gestor.libros.controller;
 
 import java.io.IOException;
 
@@ -58,11 +58,11 @@ public class AhorcadoController extends HttpServlet {
 					msg = "La letra introducida no está. Le quedan " + (INTENTOS_AHORCADO - contFallos) + " intentos.";
 				}
 				
-				for(int i = 0; i<arrayLetras.length;i++) {
+				/*for(int i = 0; i<arrayLetras.length;i++) {
 					if(arrayLetras[i] == '_') {
 						
 					}
-				}
+				}*/
 			}
 			
 			

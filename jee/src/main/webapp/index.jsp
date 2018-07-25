@@ -20,6 +20,7 @@
 			<li><a href="ejemplo-response">Ejemplo Response</a>	</li>
 			<li><a href="ahorcado">Juego del ahorcado</a></li>
 			<li><a href="jugandoConCss.jsp">Jugando con CSS</a></li>
+			<li><a href="conversor.jsp">Conversor</a></li>
 		</ul>
 	</nav>
 
