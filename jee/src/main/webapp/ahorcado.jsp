@@ -15,12 +15,21 @@
 <body>
 
 	<h1>Ahorcado</h1>
+	<form action="ahorcado">
+		<input type="submit" value="Start">
+	</form>
 	<%
 		
 		out.println("<div center>" );
 		String pc = (String) request.getAttribute("pc");
-		if(pc != null){
+		if(pc != null && pc.contains("*")){
 			out.println("<h2> Adivina la palabra : " + pc);
+		}else{
+			if(pc != null && !pc.contains("*")){
+				out.println("<h2> Enhorabuena !! Acertartes la palabra : " + pc);
+				
+				
+			}
 		}
 		
 		out.println("</div>" );
@@ -29,7 +38,7 @@
 	<form action="ahorcado">
 		<input name="letraAhorcado" type="text" placeholder="Escribe letra..."> 
 		<br> 
-		<input type="submit" value="Enviar">
+		<input type="submit" value="Enviar"> 
 	</form>
 	
 

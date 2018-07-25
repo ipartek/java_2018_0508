@@ -15,6 +15,7 @@ public class ConversorController extends HttpServlet {
 	double medidaPiesMetro = 3.2808;
 	double medidaMetroPies = 0.3048;
 	String msg;
+	String errorMsg;
 
 	private static final long serialVersionUID = 1L;
 
@@ -65,13 +66,16 @@ public class ConversorController extends HttpServlet {
 			System.out.println(piesUsuario);
 			// convertirPies(metrousuarioEntero);
 			pies2Metros = convertirMetros(piesUsuario);
-			request.setAttribute("piesConvertidos",pies2Metros );
+			request.setAttribute("pc",pies2Metros );
+			System.out.println(msg);
+			msg = "Hola";
+			request.setAttribute("msg",msg );
 
 			request.getRequestDispatcher("conversor.jsp").forward(request, response);
 		} catch (Exception e) {
 			System.out.println("Intentelo de nuevo se ha producido un error al procesar la informacion");
-			msg = "Intentelo de nuevo se ha producido un error al procesar la informacion";
-			request.setAttribute("msg", msg);
+			errorMsg = "Intentelo de nuevo se ha producido un error al procesar la informacion";
+			request.setAttribute("msg", errorMsg);
 		}
 
 	}
@@ -89,7 +93,10 @@ public class ConversorController extends HttpServlet {
 			System.out.println(metrousuarioEntero);
 			// convertirPies(metrousuarioEntero);
 			metros2PiesRes = convertirPies(metrousuarioEntero) ;
-			request.setAttribute("metrosConvertidos",metros2PiesRes );
+			request.setAttribute("mc",metros2PiesRes );
+			System.out.println(msg);
+			msg = "Hola";
+			request.setAttribute("msg",msg );
 
 			request.getRequestDispatcher("conversor.jsp").forward(request, response);
 		} catch (Exception e) {
@@ -101,11 +108,11 @@ public class ConversorController extends HttpServlet {
 
 
 	private String convertirPies(double metrousuarioEntero) {
-		String conversionPies;
+		String conversionPiesRes;
 
-		conversionPies =String.valueOf(( metrousuarioEntero * medidaPiesMetro));
-		System.out.println(conversionPies);
-		return conversionPies;
+		conversionPiesRes =String.valueOf(( metrousuarioEntero * medidaPiesMetro));
+		System.out.println(conversionPiesRes);
+		return conversionPiesRes;
 
 	}
 	private String convertirMetros(double piesUsuario) {
