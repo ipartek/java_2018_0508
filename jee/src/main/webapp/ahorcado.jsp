@@ -19,12 +19,12 @@
 		<span class="fallos">Fallos: ${fallos}</span>
 		<span class="aciertos">Aciertos: ${aciertos}</span><br>
 		
-		<span class="palabraMostrar">${palabraMostrar}</span><br><br>
+		<span class="palabraMostrar">${mostrar}</span><br><br>
 			                                                                                       
 		<form action="juega" method="post">
 				
-			<input name="letra" type="text" placeholder="Dime Una Letra">
-			<p class="text-danger">${msg}</p>
+			<input name="letra" type="text" placeholder="Introduce una letra">
+			<p class="text-danger">${mensaje}</p>
 						
 			<input type="submit" value="¡Comprueba!" />
 		

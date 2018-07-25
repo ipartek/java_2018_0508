@@ -22,11 +22,11 @@ public class AhorcadoController extends HttpServlet {
 
 	private static final String PALABRA_SECRETA = "ceRsar";
 	private static final int INTENTOS = 7;
-	private static int fallos = 0;
 	private static int aciertos = 0;
+	private static int fallos = 0;
 	private static String mensaje = "";
-	private static String palabraMostrar = "******";
-	private static boolean isTerminado = false;
+	private static String mostrar = "******";
+	private static boolean terminado = false;
 	private static String jdn = null; // jugar de nuevo
 
 	/**
@@ -59,8 +59,8 @@ public class AhorcadoController extends HttpServlet {
 
 				aciertos = 0;
 				fallos = 0;
-				isTerminado = false;
-				palabraMostrar = "??????";
+				terminado = false;
+				mostrar = "******";
 
 			} else {
 
@@ -69,19 +69,16 @@ public class AhorcadoController extends HttpServlet {
 			} // jugar de nuevo
 
 		} catch (Exception e) {
-
-			// e.printStackTrace();
-			// mensaje = "Error Inesperado " + e.getMessage();
-			mensaje = "Por favor Dime una letra";
+			mensaje = "Introduce una letra por favor";
 
 		} finally {
 
 			request.setAttribute("intentos", INTENTOS);
-			request.setAttribute("fallos", fallos);
+			request.setAttribute("mensaje", mensaje);
 			request.setAttribute("aciertos", aciertos);
-			request.setAttribute("palabraMostrar", palabraMostrar);
-			request.setAttribute("msg", mensaje);
-			request.setAttribute("isTerminado", isTerminado);
+			request.setAttribute("fallos", fallos);
+			request.setAttribute("mostrar", mostrar);
+			request.setAttribute("terminado", terminado);
 			dispatch.forward(request, response);
 		}
 
@@ -102,7 +99,7 @@ public class AhorcadoController extends HttpServlet {
 			if (letra == Character.toLowerCase(PALABRA_SECRETA.charAt(i)) ) {
 				aciertos++;
 				acierto = true;
-				palabraMostrar = replaceCharAt(palabraMostrar, i, letra); 
+				mostrar = replaceCharAt(mostrar, i, letra); 
 			}			
 		}
 		
@@ -113,10 +110,10 @@ public class AhorcadoController extends HttpServlet {
 
 		if (aciertos == PALABRA_SECRETA.length()) {
 			mensaje = "¡Has Ganado!";
-			isTerminado = true;
+			terminado = true;
 		} else if (fallos == INTENTOS) {
 			mensaje = "¡Has perdido!";
-			isTerminado = true;
+			terminado = true;
 		}
 
 	}
