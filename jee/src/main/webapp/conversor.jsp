@@ -2,19 +2,9 @@
 
 <%@page
 	import="com.ipartek.formacion.gestor.libros.controller.ConversorController"%>
-<html lang="es">
-<head>
-<meta charset="utf-8">
-<title>Gestion libros</title>
-<meta name="description"
-	content="App web Java 3.0 para gestionar Prestamos de Libros">
-<meta name="author" content="Ainara Goitia">
 
-<link rel="stylesheet" href="css/styles.css?v=1.1">
-</head>
-
-<body>
-
+<%@ include file="includes/header.jsp" %>
+<%@ include file="includes/navbar.jsp" %>
 	<table border=2px>
 		<tr>
 			<th colspan=2>CONVERSOR</th>
@@ -47,20 +37,9 @@
 				</form>
 			</td>
 		</tr>
-		<tr >
-			<td colspan=2>
-				<form action="http://localhost:8080/gestion-libros/" method="post">
-					<input id="boton" type="submit" value="Volver" >
-				</form>
-			</td>
-
-		</tr>
 	</table>
 
 
 	<br>
 
-
-
-</body>
-</html>
+<%@ include file="includes/footer.jsp" %>
