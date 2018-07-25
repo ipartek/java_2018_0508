@@ -7,7 +7,7 @@
 	<meta name="description"
 		content="App Web Java 3.0 para gestioar préstamos de libros">
 	<meta name="author" content="Adriana Prado Alonso">
-	<link rel="stylesheet" href="css/styles.css">
+	<link rel="stylesheet" href="css/styles.css?v3">
 </head>
 
 <body>

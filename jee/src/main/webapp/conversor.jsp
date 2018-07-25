@@ -7,7 +7,7 @@
 	<meta name="description"
 		content="App Web Java 3.0 para gestionar préstamos de libros">
 	<meta name="author" content="Adriana Prado Alonso">
-	<link rel="stylesheet" href="css/styles.css">
+	<link rel="stylesheet" href="css/styles.css?v3">
 </head>
 
 <body>
@@ -20,7 +20,7 @@
 		<input type="submit" value="Enviar">
 		<br><br>
 		<span>Pies:</span>
-		<span>${metrosConvertidos} ft.</span>
+		<span>${metros} metros son ${metrosConvertidos} pies.</span>
 		
 	<hr>
 	
@@ -33,7 +33,7 @@
 		<input type="submit" value="Enviar">
 		<br><br>
 		<span>Metros:</span>
-		<span>${piesConvertidos} m.</span>
+		<span>${pies} pies son ${piesConvertidos} metros.</span>
 		
 		<p class="text-danger">${msg}</p>
 	</form>

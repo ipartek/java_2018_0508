@@ -1,6 +1,7 @@
 package com.ipartek.formacion.gestor.libros.controller;
 
 import java.io.IOException;
+import java.text.DecimalFormat;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -20,6 +21,9 @@ public class ConversorController extends HttpServlet {
 	private static double metrosAPies = 0;
 	private static double piesAMetros = 0;
 	private static String texto = "";
+	private static double metros = 0;
+	private static double pies = 0;
+	private static boolean sonMetros = false;
 
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -30,7 +34,11 @@ public class ConversorController extends HttpServlet {
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		msg = "";
+		DecimalFormat df = null;
 		try {
+			df = new DecimalFormat("#.00");
+			
 			dispatch = request.getRequestDispatcher(VIEW_CONVERSOR);
 			
 			String[] conversor = request.getParameterValues("formulario");
@@ -38,12 +46,13 @@ public class ConversorController extends HttpServlet {
 			if(conversor[0].equals(Integer.toString(1))) {
 				//Entonces es convertir de metros a pies
 				texto = request.getParameter("metros");
-				double metros = Double.parseDouble(texto);
-				System.out.println(metros);
+				metros = Double.parseDouble(texto);
 				metrosAPies = metros * 3.2808;
-			}else{
+				sonMetros = true;
+			}else if(conversor[0].equals(Integer.toString(2))){
 				//Sino de pies a metros
-				double pies = Double.parseDouble(request.getParameter("pies"));
+				texto = request.getParameter("pies");
+				pies = Double.parseDouble(texto);
 				piesAMetros = pies / 3.2808;
 			}
 			
@@ -51,15 +60,22 @@ public class ConversorController extends HttpServlet {
 			if(e.getMessage().contains("empty String")) {
 				msg = "Debe introducir algo para poder convertirlo.";
 			}else{
-				msg = "Debe introducir un numero y no cualquier carácter.";
+				msg = "Error no se puede convertir " + texto;
+				if(sonMetros) {
+					msg = msg + " a metros";
+				}else {
+					msg = msg + " a pies";
+				}
 			}
 			
 		}catch (Exception e) {
 			msg = "Error en la llamada.";
 		}finally {
 			request.setAttribute("msg", msg);
-			request.setAttribute("metrosConvertidos", metrosAPies);
-			request.setAttribute("piesConvertidos", piesAMetros);
+			request.setAttribute("metros", metros);
+			request.setAttribute("pies", pies);
+			request.setAttribute("metrosConvertidos", df.format(metrosAPies));
+			request.setAttribute("piesConvertidos", df.format(piesAMetros));
 			dispatch.forward(request, response);
 		}
 	}

@@ -10,13 +10,13 @@ h1{
 	color:red;
 }
 
-.text-danger:before{
+/*.text-danger:before{
 	content: "***";
-}
+}*/
 
-.text-danger:after{
-	content: "!!!"
-}
+/*.text-danger:after{
+	content: "!!!";
+}*/
 
 .ahorcado{
 	border: 1px solid red;
