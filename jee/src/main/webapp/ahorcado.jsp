@@ -6,7 +6,7 @@
 <title>Ahorcado</title>
 <meta name="description"
 	content="App web Java 3.0 para gestionar préstamos de libros">
-<meta name="author" content="Luis">
+<meta name="author" content="raul">
 
 <link rel="stylesheet" href="css/styles.css?v=1.0">
 
@@ -55,7 +55,7 @@
 
 		
 	%>
-	<%
+	
 
 	
 	 <div class="ahorcado"></div>
