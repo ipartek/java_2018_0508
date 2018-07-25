@@ -2,6 +2,7 @@ package com.ipartek.formacion.gestor.libros.controller;
 
 import java.io.IOException;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -16,9 +17,17 @@ public class AhorcadoController extends HttpServlet {
 	
 	private static final long serialVersionUID = 1L;
 
-	private static final String PALABRA_SECRETA = "cesRar";
-	int contVidas = 7;
-	int contAciertos = 0;
+	private RequestDispatcher dispatch = null;
+	private static final String VIEW = "ahorcado.jsp";
+
+	private static final String PALABRA_SECRETA = "ceRsar";
+	private static final int INTENTOS = 7;
+	private static int fallos = 0;
+	private static int aciertos = 0;
+	private static String mensaje = "";
+	private static String palabraMostrar = "******";
+	private static boolean isTerminado = false;
+	private static String jdn = null; // jugar de nuevo
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
@@ -38,82 +47,82 @@ public class AhorcadoController extends HttpServlet {
 		doProcess(request, response);
 	}
 
-	private void doProcess(HttpServletRequest request, HttpServletResponse response) {
-
-		String mostrar = "*****";
-		String letra = "";
-		String respuesta = "";
-		String resultado = "";
-		boolean fallo = false;
+	private void doProcess(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 
 		try {
-		
 
-			respuesta = request.getParameter("letra");
-			respuesta = respuesta.trim();
+			dispatch = request.getRequestDispatcher(VIEW);
 
-			for (int i = 0; i < PALABRA_SECRETA.length(); i++) {
-				char letraExtraida = PALABRA_SECRETA.charAt(i);
-				letra = Character.toString(letraExtraida);
+			jdn = (String) request.getParameter("jdn");
+			if (jdn != null) {
 
-				if (letra.equals(respuesta)) {
-					contAciertos++;
-					fallo = false;
-					resultado = "¡Esa letra es correcta!";
-					request.setAttribute("resultado", resultado);
-					request.setAttribute("respuesta", respuesta);
-					request.setAttribute("mostrar", mostrar);
-					break;
+				aciertos = 0;
+				fallos = 0;
+				isTerminado = false;
+				palabraMostrar = "??????";
 
-				} else {
-					fallo = true;
-					resultado = "¡Esa letra es incorrecta!";
-					request.setAttribute("resultado", resultado);
-					request.setAttribute("respuesta", respuesta);
-					request.setAttribute("mostrar", mostrar);
-				}
+			} else {
 
-			}
+				comprobarSiAcierta(request);
 
-			if (contAciertos == PALABRA_SECRETA.length()) {
-				resultado = "¡Has ganado!";
-				request.setAttribute("resultado", resultado);
-			}
+			} // jugar de nuevo
 
-			if (fallo == true) {
-				contVidas--;
-				request.setAttribute("contVidas", contVidas);
-				if (contVidas == 0) {
-					resultado = "¡Has perdido!";
-					request.setAttribute("resultado", resultado);
-					contVidas = 8;
-				}
-			}
+		} catch (Exception e) {
 
+			// e.printStackTrace();
+			// mensaje = "Error Inesperado " + e.getMessage();
+			mensaje = "Por favor Dime una letra";
 
 		} finally {
-			fallo = false;
-			letra = "";
-			request.setAttribute("resultado", resultado);
-			request.setAttribute("respuesta", respuesta);
-			request.setAttribute("mostrar", mostrar);
-			request.setAttribute("contVidas", contVidas);
-			try {
-				request.getRequestDispatcher("ahorcado.jsp").forward(request, response);
-			} catch (ServletException e) {
-				e.printStackTrace();
-			} catch (IOException o) {
-				o.printStackTrace();
-			}
+
+			request.setAttribute("intentos", INTENTOS);
+			request.setAttribute("fallos", fallos);
+			request.setAttribute("aciertos", aciertos);
+			request.setAttribute("palabraMostrar", palabraMostrar);
+			request.setAttribute("msg", mensaje);
+			request.setAttribute("isTerminado", isTerminado);
+			dispatch.forward(request, response);
 		}
+
 	}
-	
-	void mostrarPalabra(){
+
+	/**
+	 * Leemos la letra que envia y comprobamos si ha acertado
+	 * 
+	 * @param request
+	 */
+	private void comprobarSiAcierta(HttpServletRequest request) {
+
+		char letra = Character.toLowerCase(request.getParameter("letra").charAt(0));
+		boolean acierto = false;
 		
+		for (int i = 0; i < PALABRA_SECRETA.length(); i++) {
+			
+			if (letra == Character.toLowerCase(PALABRA_SECRETA.charAt(i)) ) {
+				aciertos++;
+				acierto = true;
+				palabraMostrar = replaceCharAt(palabraMostrar, i, letra); 
+			}			
+		}
+		
+		if ( !acierto ) { 
+			fallos++;
+		}	
+		
+
+		if (aciertos == PALABRA_SECRETA.length()) {
+			mensaje = "¡Has Ganado!";
+			isTerminado = true;
+		} else if (fallos == INTENTOS) {
+			mensaje = "¡Has perdido!";
+			isTerminado = true;
+		}
+
 	}
-	
-	void comprobarLetra() {
-		
+
+	public static String replaceCharAt(String s, int pos, char c) {
+		return s.substring(0, pos) + c + s.substring(pos + 1);
 	}
 
 }
