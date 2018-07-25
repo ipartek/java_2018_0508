@@ -14,7 +14,7 @@
 	<h1>CMS Préstamo Libros</h1>
 	
 	<nav>
-		<ul><li>
+		<ul>
 			<li><a href="listar">Listar Libros</a></li>
 			<li><a href="saludo?nombre=pepe&ape1=otilio&ape2=gomez"> Saludar </a></li>
 			<li><a href="ejemplo-response">Ejemplo Response</a>	</li>

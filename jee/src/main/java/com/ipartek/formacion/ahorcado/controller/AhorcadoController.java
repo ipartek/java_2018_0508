@@ -13,11 +13,20 @@ import javax.servlet.http.HttpServletResponse;
 public class AhorcadoController extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
+	
 	private static final String VIEW_AHORCADO = "ahorcado.jsp";
 	private static final int INTENTOS_AHORCADO = 7;
+	public static int contFallos = 0;
+	private static final String PALABRA_SECRETA = "ceRsar";
+	private static boolean isTerminado = false;
+	private static boolean existePalabra = false;
+	private static String jdn = null;
+	private static String msg = "";
+	
 	private RequestDispatcher dispatch = null;
+
 	private char[] arrayLetras = new char[] { '_', '_', '_', '_', '_' };
-	public static int cont = 0;
+	
 
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -30,10 +39,35 @@ public class AhorcadoController extends HttpServlet {
 			throws ServletException, IOException {
 		try {
 			dispatch = request.getRequestDispatcher(VIEW_AHORCADO);
-			// recibir parametros
-			String letra = request.getParameter("letra");
-			// validar parametros si proceden
-			if (letra != null && !letra.equals("".trim())) {
+			
+			jdn = (String) request.getParameter(jdn);
+			if(jdn != null) {
+				isTerminado = false;
+				contFallos = 0;
+			}else {
+				char letra = Character.toLowerCase(request.getParameter("letra").charAt(0));
+				
+				for(int i = 0; i<PALABRA_SECRETA.length();i++) {
+					if(PALABRA_SECRETA.charAt(i) == letra) {
+						arrayLetras[i] = Character.toUpperCase(letra);
+					}
+				}
+				
+				if(!existePalabra) {
+					contFallos++;
+					msg = "La letra introducida no está. Le quedan " + (INTENTOS_AHORCADO - contFallos) + " intentos.";
+				}
+				
+				for(int i = 0; i<arrayLetras.length;i++) {
+					if(arrayLetras[i] == '_') {
+						
+					}
+				}
+			}
+			
+			
+			
+			/*if (letra != null && !letra.equals("".trim())) {
 				if (letra.equalsIgnoreCase("c"))
 					arrayLetras[0] = 'C';
 				else if (letra.equalsIgnoreCase("e"))
@@ -45,30 +79,37 @@ public class AhorcadoController extends HttpServlet {
 				else if (letra.equalsIgnoreCase("r"))
 					arrayLetras[4] = 'R';
 				else {
-					cont++;
+					contFallos++;
 					request.setAttribute("msg",
-							"La letra introducida no está. Le quedan " + (INTENTOS_AHORCADO - cont) + " intentos.");
+							"La letra introducida no está. Le quedan " + (INTENTOS_AHORCADO - contFallos) + " intentos.");
 				}
 				request.setAttribute("letras", arrayLetras);
 			} else
-				request.setAttribute("msg", "Debes introducir una letra.");
+				request.setAttribute("msg", "Debes introducir una letra.");*/
 
-			if (cont >= 7) {
-				request.setAttribute("msg", "No te quedan más intentos.");
+			if (contFallos >= 7) {
+				msg = "No te quedan más intentos.";
 				arrayLetras = new char[] { '_', '_', '_', '_', '_' };
 				request.setAttribute("letras", arrayLetras);
-				cont = 0;
+				contFallos = 0;
 			}
 			
+			/*
 			for(int i = 0; i<arrayLetras.length;i++) {
-				if(arrayLetras[i] == '_')
+				if(arrayLetras[i] == '_') {
+					
 					break;
-				else
+				}else{
 					arrayLetras = new char[] { '_', '_', '_', '_', '_' };
-			}
+				}
+			}*/
+			
 		} catch (Exception e) {
-			e.printStackTrace();
+			msg = "Debes introducir una letra";
 		} finally {
+			request.setAttribute("msg", msg);
+			request.setAttribute("letras", arrayLetras);
+			request.setAttribute("contFallos", contFallos);
 			dispatch.forward(request, response);
 		}
 	}

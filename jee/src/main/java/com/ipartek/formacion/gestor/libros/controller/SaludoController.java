@@ -15,7 +15,7 @@ public class SaludoController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private RequestDispatcher dispatch = null;
 	private static final String VIEW_INDEX = "index.jsp";
-	private static final String VIEW_SALUDO = "index.jsp";
+	private static final String VIEW_SALUDO = "saludo.jsp";
 	// private static final Logger LOG =
 	// Logger.getLogger(PrestamosController.class);
 
@@ -56,7 +56,7 @@ public class SaludoController extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		try {
-			dispatch = request.getRequestDispatcher(VIEW_SALUDO);
+			dispatch = request.getRequestDispatcher(VIEW_INDEX);
 
 			// 1. Recibir parametros
 			String nombre = request.getParameter("nom");
