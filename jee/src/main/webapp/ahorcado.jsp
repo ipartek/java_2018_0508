@@ -16,23 +16,19 @@
 		<div class="ahorcado fallo${fallos}"></div><br>
 		
 		<span class="intentos">Intentos: ${intentos}</span>
-		<span class="fallos">Fallos: ${fallos}</span>
-		<span class="aciertos">Aciertos: ${aciertos}</span><br>
+		<span class="aciertos">Aciertos: ${aciertos}</span>
+		<span class="fallos">Fallos: ${fallos}</span><br>
 		
 		<span class="palabraMostrar">${mostrar}</span><br><br>
 			                                                                                       
-		<form action="juega" method="post">
-				
+		<form action="juega" method="post">	
 			<input name="letra" type="text" placeholder="Introduce una letra">
-			<p class="text-danger">${mensaje}</p>
+			<p>${mensaje}</p>
 						
 			<input type="submit" value="¡Comprueba!" />
+		</form><br>
 		
-		</form>
-		
-		
-		
-		<a href="ahorcado?jdn=1">Jugar de Nuevo</a>
+		<a href="juega?jdn=1">Jugar de Nuevo</a>
 		
 		<script src="js/scripts.js"></script>
 	</body>

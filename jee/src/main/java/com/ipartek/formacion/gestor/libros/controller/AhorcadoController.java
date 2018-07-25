@@ -85,8 +85,7 @@ public class AhorcadoController extends HttpServlet {
 	}
 
 	/**
-	 * Leemos la letra que envia y comprobamos si ha acertado
-	 * 
+	 * Comprobar si la letra introducida es correcta
 	 * @param request
 	 */
 	private void comprobarSiAcierta(HttpServletRequest request) {
