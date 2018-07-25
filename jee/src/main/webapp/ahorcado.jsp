@@ -25,6 +25,7 @@
 			<p>Respuesta: ${respuesta}</p>
 			<input type="submit" value="¡Comprueba!">
 		</form>
+		<a href="juega?1">Jugar de nuevo</a>
 		
 		<p>Vidas: ${contVidas}</p>
 		

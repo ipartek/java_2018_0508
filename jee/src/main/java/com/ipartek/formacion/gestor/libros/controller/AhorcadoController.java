@@ -13,13 +13,12 @@ import javax.servlet.http.HttpServletResponse;
  */
 @WebServlet("/juega")
 public class AhorcadoController extends HttpServlet {
+	
+	private static final long serialVersionUID = 1L;
 
+	private static final String PALABRA_SECRETA = "cesRar";
 	int contVidas = 7;
 	int contAciertos = 0;
-
-	private static final long serialVersionUID = 1L;
-	// private static final Logger LOG =
-	// Logger.getLogger(PrestamosController.class);
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
@@ -41,7 +40,6 @@ public class AhorcadoController extends HttpServlet {
 
 	private void doProcess(HttpServletRequest request, HttpServletResponse response) {
 
-		String adivina = "cesar";
 		String mostrar = "*****";
 		String letra = "";
 		String respuesta = "";
@@ -49,12 +47,13 @@ public class AhorcadoController extends HttpServlet {
 		boolean fallo = false;
 
 		try {
+		
 
 			respuesta = request.getParameter("letra");
 			respuesta = respuesta.trim();
 
-			for (int i = 0; i < adivina.length(); i++) {
-				char letraExtraida = adivina.charAt(i);
+			for (int i = 0; i < PALABRA_SECRETA.length(); i++) {
+				char letraExtraida = PALABRA_SECRETA.charAt(i);
 				letra = Character.toString(letraExtraida);
 
 				if (letra.equals(respuesta)) {
@@ -76,7 +75,7 @@ public class AhorcadoController extends HttpServlet {
 
 			}
 
-			if (contAciertos == adivina.length()) {
+			if (contAciertos == PALABRA_SECRETA.length()) {
 				resultado = "¡Has ganado!";
 				request.setAttribute("resultado", resultado);
 			}
@@ -91,19 +90,30 @@ public class AhorcadoController extends HttpServlet {
 				}
 			}
 
+
+		} finally {
+			fallo = false;
+			letra = "";
+			request.setAttribute("resultado", resultado);
+			request.setAttribute("respuesta", respuesta);
+			request.setAttribute("mostrar", mostrar);
+			request.setAttribute("contVidas", contVidas);
 			try {
 				request.getRequestDispatcher("ahorcado.jsp").forward(request, response);
 			} catch (ServletException e) {
 				e.printStackTrace();
+			} catch (IOException o) {
+				o.printStackTrace();
 			}
-
-		} catch (IOException e) {
-			e.printStackTrace();
-		} finally {
-			fallo = false;
-			letra = "";
 		}
-
+	}
+	
+	void mostrarPalabra(){
+		
+	}
+	
+	void comprobarLetra() {
+		
 	}
 
 }
