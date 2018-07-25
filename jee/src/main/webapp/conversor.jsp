@@ -12,10 +12,12 @@
 
 
 
-	<h1>Conversor de medidas de Longitud </h1>
+	<h1>Conversor de metros a pulgadas </h1>
+	<p> Admite conversión de números decimales o flotantes.<p>
+	<p> Formato aceptado: 0.0</p>
 
-	<form name="conversor">
-		<input type="text" name="num" placeholder="Valor a convertir.">
+	<form name="conversor" method="post">
+		<input type="text" name="num" placeholder="Valor a convertir." autocomplete="off" autofocus>
 		<input type="submit" name="operacion" value="Metros a Pulgadas">	
 		<input type="submit" name="operacion" value="Pulgadas a Metros">
 	</form>

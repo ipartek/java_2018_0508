@@ -1,16 +1,16 @@
 @charset "ISO-8859-1";
 /* Hoja de estilos del ahorcado */
 
-body {
-	
+body {	
 	background-color: black;
 	color: white;
 }
 
 h1, h2 {
 	color: teal;
-	font-size: 2em;
+	font-size: 1.8em;
 	text-align: center;
+	padding: 5px;
 }
 
 form {
@@ -26,40 +26,47 @@ label {
 .texto {
 	display: block;
 	margin: auto;
+	padding: 5px;
 }
 
 
 div {
 	border = 2px solid red;
-	width: 75px;
-	height: 100px;
+	width: 150px;
+	height: 200px;
 	overflow: hidden;
 	background-image: url("../img/ahorcado.jpg");
+	background-size: cover;
 }
 
 .fallo0 {
-	background-position-x: 616px;	
+	background-position-x: 1230px;	
 }
 .fallo1 {
-	background-position-x: 539px;	
+	background-position-x: 1072px;	
 }
 .fallo2 {
-	background-position-x: 462px;	
+	background-position-x: 912px;	
 }
 .fallo3 {
-	background-position-x: 385px;	
+	background-position-x: 762px;	
 }
 .fallo4 {
-	background-position-x: 308px;	
+	background-position-x: 610px;	
 }
 .fallo5 {
-	background-position-x: 231px;	
+	background-position-x: 458px;	
 }
 .fallo6{
-	background-position-x: 154px;	
+	background-position-x: 306px;	
 }
 .fallo7 {
-	background-position-x: 77px;	
+	background-position-x: 152px;	
+}
+
+div{
+	margin: auto;
+	text-align: center;
 }
 
 

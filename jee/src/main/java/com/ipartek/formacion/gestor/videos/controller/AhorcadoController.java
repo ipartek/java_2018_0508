@@ -123,6 +123,7 @@ public class AhorcadoController extends HttpServlet {
 				case "Ver":
 					
 					msg = "Has perdido!";
+					fallos = 7;
 					descubrirPalabra();
 					break;
 					
@@ -149,7 +150,7 @@ public class AhorcadoController extends HttpServlet {
 			request.getRequestDispatcher("ahorcado.jsp").forward(request, response);	
 			
 		} catch (Exception e) {
-			
+			e.printStackTrace();
 		}
 		
 
@@ -165,12 +166,11 @@ public class AhorcadoController extends HttpServlet {
 			if (intento.equalsIgnoreCase(palabra)) { // Ha acertado la palabra
 
 				msg = "Enhorabuena, has acertado la palabra!";
-
 				descubrirPalabra();
 
 			} else { // Ha dado una solución errónea
+				
 				msg = "Lo siento, no es correcto. Has perdido!";
-
 				descubrirPalabra();
 		
 			}

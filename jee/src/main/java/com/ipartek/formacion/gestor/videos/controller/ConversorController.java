@@ -17,6 +17,7 @@ public class ConversorController extends HttpServlet {
 	private static String msg;
 	private static float num;
 	private static float resultado;
+	private static boolean esComienzo;
 	
 
 	public ConversorController() {
@@ -29,6 +30,7 @@ public class ConversorController extends HttpServlet {
 		msg = "";
 		num = 0;
 		resultado = 0;
+		esComienzo = true;
 		
 	}
 	
@@ -46,26 +48,21 @@ public class ConversorController extends HttpServlet {
 			// Leemos los PARAMETROS de la vista
 			String entrada = request.getParameter("num");
 			String operacion = request.getParameter("operacion");
-			
 			// Trabajamos con ellos
 			if (entrada != null && entrada.trim().length() > 1) {
-				
+				esComienzo = false;
 				try {	
 					//boolean esError = false; // Por si hay algún error inesperado
 					
 					num = Float.parseFloat(entrada);
 					
-					calcula(operacion, num);
-					
-					
-
-					
+					calcula(operacion, num);		
 					
 				} catch (NumberFormatException e){
 					msg = "No se puede convertir " + entrada;
 				}
 				
-			} else if (entrada == null) {
+			} else if ((entrada == null || entrada.isEmpty()) && !esComienzo) { // No se ha introducido nada
 				msg = "El campo no puede estar vacío.";
 			}
 			
@@ -76,7 +73,7 @@ public class ConversorController extends HttpServlet {
 			request.getRequestDispatcher("conversor.jsp").forward(request, response);
 			
 		} catch (Exception e) {
-			System.out.println(e);
+			
 			e.printStackTrace();
 		}
 	}
