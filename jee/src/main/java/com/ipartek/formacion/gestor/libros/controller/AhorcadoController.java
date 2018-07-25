@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 public class AhorcadoController extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
-	private static final int MAX_INTENTOS = 7;
+	private static final int INTENTOS = 7;
 	private static final String PALABRA = "cesar";
 
 	private String palabraUsuario = "_______";
@@ -26,7 +26,7 @@ public class AhorcadoController extends HttpServlet {
 
 		if (let != null && !let.trim().equals("") && let.length() == 1) {
 
-			if (contador < MAX_INTENTOS) {
+			if (contador < INTENTOS) {
 				contador++;
 				for (int i = 0; i < PALABRA.length(); i++) {
 					if (PALABRA.toLowerCase().charAt(i) == let.toLowerCase().charAt(0)) {
@@ -34,6 +34,7 @@ public class AhorcadoController extends HttpServlet {
 
 					}
 				}
+
 				request.setAttribute("respuesta", palabraUsuario);
 				request.getRequestDispatcher("ahorcado.jsp").forward(request, response);
 			} else {
@@ -41,11 +42,7 @@ public class AhorcadoController extends HttpServlet {
 				request.getRequestDispatcher("ahorcado.jsp").forward(request, response);
 			}
 
-		} else {
-			request.setAttribute("respuesta", "El texto introducido tiene que ser UNA letra");
-			request.getRequestDispatcher("ahorcado.jsp").forward(request, response);
 		}
 
 	}
-
 }
