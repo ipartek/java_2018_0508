@@ -11,23 +11,28 @@
 	</head>
 	
 	<body>
-		<h1>Juego Ahorcado</h1>
+		<h1>Juego del Ahorcado</h1>
+
+		<span class="intentos">Intentos: ${intentos}</span>
+		<span class="fallos">Fallos: ${fallos}</span>
+		<span class="aciertos">Aciertos: ${aciertos}</span>
 		
-		<div class="ahorcado">
-			<img src="img/ahorcado.jpg?v2" alt="sprite del juego del ahorcado">
-		</div><br>
+		<div class="ahorcado fallo${fallos}"></div>
 		
-		<p>${mostrar}</p>
+		<span class="palabraMostrar">${palabraMostrar}</span>
+			                                                                                       
+		<form action="ahorcado" method="post">
+				
+			<input name="letra" type="text" placeholder="Dime Una Letra">
+			<p class="text-danger">${msg}</p>
+						
+			<input type="submit" value="¡Comprueba!" />
 		
-		<form method="post" action="juega">
-			<input type="text" name="letra" placeholder="Introduce una letra"><br><br>
-			<p>${resultado}</p>
-			<p>Respuesta: ${respuesta}</p>
-			<input type="submit" value="¡Comprueba!">
 		</form>
-		<a href="juega?1">Jugar de nuevo</a>
 		
-		<p>Vidas: ${contVidas}</p>
+		
+		
+		<a href="ahorcado?jdn=1">Jugar de Nuevo</a>
 		
 		<script src="js/scripts.js"></script>
 	</body>
