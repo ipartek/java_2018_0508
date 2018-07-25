@@ -22,26 +22,24 @@
 	
 	%>
 	
-	<p>${encontrado}</p>
-	<p>${noEncontrado}</p>
-	<p>${msg}</p>
+	<div class="container">
 	
-	<label>${letra0}</label>
-	<label>${letra1}</label>
-	<label>${letra2}</label>
-	<label>${letra3}</label>
-	<label>${letra4}</label>
+		<p>${msg}</p>
+		
+		<label>${palabraMostrar}</label>
+		
+		<form action="ahorcado" method="post">
+		
+			<input type="text" name="letra" placeholder="Escribe una letra" />
+			<input type="submit" value="Comprobar"/>
+		
+		</form>
+		
+		<div class="ahorcado fallo${fallos}"></div>
+		
+		<p class="text-danger">${eliminado}</p>
 	
-	<form action="ahorcado" method="post">
-	
-		<input type="text" name="letra" placeholder="Escribe una letra" />
-		<input type="submit" value="enviar"/>
-	
-	</form>
-	
-	<div class="ahorcado"></div>
-	
-	<p class="text-danger">${eliminado}</p>
+	</div>
 
 	<script src="js/scripts.js"></script>
 </body>

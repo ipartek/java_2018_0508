@@ -1,9 +1,10 @@
 <!doctype html>
+<%@page import="com.ipartek.formacion.gestor.libros.controller.ConversorController"%>
 <html lang="es">
 <head>
 	<meta charset="utf-8">
 		
-	<title>Gestión Libros</title>
+	<title>Conversor metros-pies</title>
 	<meta name="description" content="App Web Java 3.0 para gestionar préstamos de libros">
 	<meta name="author" content="Adrian Garcia">
 		
@@ -13,39 +14,35 @@
 	
 <body>
 
-	<h1>CMS Préstamo Libros</h1>
+	<h1>Conversor metros-pies</h1>
+	
+	<div class="grid">
+	
+		<form class="formConversor" action="conversor" method="post">
+			<fieldset>
+				<legend>Metros:</legend>
+				<input type="text" name="metros" placeholder="Metros" />
+				<input type="hidden" name="form" value="<%=ConversorController.FORM1 %>" />
+				<label>${piesCalculados} pies</label>
+				<p class="text-danger">${msgNoNumeroMetros}</p>
+				<p class="text-danger">${msgVacioMetros}</p>
+				<input type="submit" value="Convertir" />
+			</fieldset>
+		</form>
 		
-	<nav>
-		<ul>
-			<li><a href="listar">Listar libros</a></li>
-			<li><a href="saludo?nombre=Adrian&ap1=Garcia&ap2=Santos">Saludo personalizado</a></li>
-			<li><a href="ejemplo-response">Ejemplo Response</a></li>
-			<li><a href="ahorcado">Jugar al ahorcado</a></li>
-			<li><a href="jugandoConCss.jsp">Jugando con CSS</a></li>
-			<li><a href="conversor">Conversor metros/pies</a></li>
-		</ul>
-	</nav>
+		<form class="formConversor" action="conversor" method="post">
+			<fieldset>
+				<legend>Pies:</legend>
+				<input type="text" name="pies" placeholder="Pies" />
+				<input type="hidden" name="form" value="<%=ConversorController.FORM2 %>" />
+				<label>${metrosCalculados} metros</label>
+				<p class="text-danger">${msgNoNumeroPies}</p>
+				<p class="text-danger">${msgVacioPies}</p>
+				<input type="submit" value="Convertir" />
+			</fieldset>
+		</form>
 	
-	<br/>
-	<br/>
+	</div>
 	
-	<%
-		//Esto es Java
-		
-		out.print("<p>Soy Java</p>");
-	
-	%>
-	
-	<div class="ahorcado"></div>
-		
-	<form action="saludo" method="post">
-	
-		<input type="text" name="nombrePost" placeholder="Escribe tu nombre" />
-		<p class="text-danger">${msg}</p>
-		<input type="submit" value="enviar"/>
-	
-	</form>
-
-	<script src="js/scripts.js"></script>
 </body>
 </html>

@@ -24,6 +24,14 @@ h1{
 	height:100px;
 	overflow:hidden;
 	background-image:url("../img/ahorcado.jpg");
+	margin: 0 auto;
+	margin-top:3em;
+}
+
+.container{
+	margin: 0 auto;
+	width:100%;
+	text-align:center;
 }
 
 .fallo0{
@@ -38,5 +46,32 @@ h1{
 	background-position-x:462px;
 }
 
+fieldset{
+	border: 1px solid teal;
+}
 
+form.formConversor{
+	background: rgba(0,128,128,0.2);
+	width:90%;
+	margin:0 auto;
+}
+
+input[type="submit"]{
+	background: teal;
+	color:#fff;
+	padding:0.5em;
+	border-radius:0.5em;
+	border:1px solid teal;
+}
+
+input[type="submit"]:hover{
+	background: #fff;
+	color:teal;
+	cursor:pointer;
+}
+
+div.grid{
+	display:grid;
+	grid-template-columns: repeat(2, 1fr);
+}
 

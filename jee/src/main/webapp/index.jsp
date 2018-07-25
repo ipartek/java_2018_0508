@@ -22,7 +22,7 @@
 			<li><a href="ejemplo-response">Ejemplo Response</a></li>
 			<li><a href="ahorcado">Jugar al ahorcado</a></li>
 			<li><a href="jugandoConCss.jsp">Jugando con CSS</a></li>
-			<li><a href="conversor">Conversor metros/pies</a></li>
+			<li><a href="conversor">Conversor metros-pies</a></li>
 		</ul>
 	</nav>
 	
