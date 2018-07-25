@@ -3,33 +3,21 @@
 <html lang="es">
 <head>
 	<meta charset="utf-8">
-	
 	<title>Gestion Libros</title>
 	<meta name="description" content="App Web Java 3.0 para Gestionar Prestamo de Libros">
-	<meta name="author" content="Adrian Perozzo">
-	
 	<link rel="stylesheet" href="css/styles.css?v=1.0">
-
 </head>
 
 <body>
 
 	<h1>CMS Prestamo Libros</h1>
 	
+	<%@ include file="includes/navbar.jsp" %>
+	
 	<%
 		// Esto es Java
 		out.print("<p>Soy Java</p>");
 	%>
-
-	<nav>
-		<ul>
-			<li><a href="listar">Listar Libros</a></li>
-			<li><a href="saludo?nombre=Pepe&ap1=Otilio&ap2=Gomez">Saludar</a></li>
-			<li><a href="ejemplo-response.jsp">Ejemplo Response</a></li>
-			<li><a href="jugandoConCss.jsp">Jugando con CSS</a></li>
-			<li><a href="ahorcado.jsp"> * Ahorcado * </a></li>
-		</ul>
-	</nav>
 	
 	
 	<br><br>
@@ -44,8 +32,8 @@
 		
 	</form>
 
-	<script src="js/scripts.js"></script>
-	
+	<%@ include file="includes/footer.jsp" %>
+
 </body>
 
 </html>

@@ -1,15 +1,13 @@
 package com.ipartek.formacion.gestor.libros.controller;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import com.ipartek.formacion.gestor.libros.model.LibroArrayDAO;
-import com.ipartek.formacion.gestor.libros.pojo.Libro;
 
 @WebServlet("/ejemplo-response")
 
@@ -27,21 +25,26 @@ public class ResponseController extends HttpServlet {
 
 	private void doProcess(HttpServletRequest request, HttpServletResponse response) {
 
+		PrintWriter out = null;
+
 		try {
+			response.setContentType("text/html");
+			response.setCharacterEncoding("UTF-8");
 
-			// 1.- Recibir Parametros
+			out = response.getWriter();
+			// TODO maquetar todo el html
+			out.print("<p>Soy un Response</p>");
 
-			// 2.- Validar Parametros
-
-			// 3.- LLamar modelo DAO
-
-			// 4.- Enviar atributos a la vista
-
-			// 5.- Ir a la vista
+			out.flush();
 
 		} catch (Exception e) {
-
+			// TODO Auto-generated catch block
 			e.printStackTrace();
+		} finally {
+			if (out != null) {
+				out.close();
+
+			}
 		}
 
 	}

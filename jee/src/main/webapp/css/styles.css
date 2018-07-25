@@ -12,3 +12,22 @@ h1{
 	content:"***";
 }
 
+a{
+	text-decoration: none;
+}
+
+a:hover{
+	color: orange;
+	font-weight: 600;  /* equivalente a bold  */
+}
+
+/* nav
+***********************/
+nav{
+	background-color: teal;
+	color: #FFFFFF;	 /* rgb(255,255,255) */	
+	border-top: 5px solid #03A9F4;
+	border-bottom: 5px solid #03A9F4;
+	padding: 20px 30px 40px;
+}
+
