@@ -29,10 +29,11 @@ h1{
 
 .ahorcado{
 	border: 1px solid red;
-	width: 75px;
-	height: 100px;				
+	width: 238px;
+	height: 300px;				
 	overflow: hidden;
 	background-image: url('../img/ahorcado.jpg');
+	
 	
 }
 .fallo0{
@@ -45,4 +46,16 @@ h1{
 
 .fallo2{
 	background-position-x: 462px;
+}
+.fallo3{
+	background-position-x: 462px;
+}
+.fallo4{
+	background-position-x: 462px;
+}
+.fallo5{
+	background-position-x: 462px;
+}
+.fallo6{
+	background-position-x: 0px;
 }

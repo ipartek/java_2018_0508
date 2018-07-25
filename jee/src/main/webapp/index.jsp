@@ -22,7 +22,7 @@
 			<li><a href="ejemplo-response">Ejemplo <b>RESPONSE</b></a></li>
 		
 			<li><a href="ahorcado.jsp">Juego del<b> ahorcado</b></a></li>
-			<li><a href="jugandoConCss.jsp"></a></li>
+			
 			<li><a href="jugandoConCss.jsp">jugando con css</a></li>
 		</ul>
 	</nav>

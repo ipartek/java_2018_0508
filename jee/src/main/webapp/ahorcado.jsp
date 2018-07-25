@@ -15,6 +15,16 @@
 <body>
 
 	<h1>Ahorcado</h1>
+	<%
+		
+		out.println("<div center>" );
+		String pc = (String) request.getAttribute("pc");
+		if(pc != null){
+			out.println("<h2> Adivina la palabra : " + pc);
+		}
+		
+		out.println("</div>" );
+	%>
 	
 	<form action="ahorcado">
 		<input name="letraAhorcado" type="text" placeholder="Escribe letra..."> 
@@ -27,23 +37,38 @@
 		//Recibir atributo de una JSP
 		String usuarioLetra = (String) request.getAttribute("letraAhorcado");
 		String msg = (String) request.getAttribute("msg");
-		String vidas = (String) request.getAttribute("vidas");
+		//int vidas =(Integer) request.getAttribute("vidas");
 		
-		out.println("<p> Letra seleccionada " +usuarioLetra);
-		out.println(msg);
+		
+		 if (usuarioLetra != null){
+			out.println("<p> Letra seleccionada " +usuarioLetra);
+		}
+		 
+		if (msg != null){
+			out.println("<br>");
+			out.println(msg);
+		}
+		if(request.getAttribute("vidas") != null){
+			out.println("<br>");
+			out.print("Le quedan "+request.getAttribute("vidas")+" vidas");
+		}
+			
+		
+			
+		
+		
 		//out.println(vidas);
 		
 	%>
 
-	  <hr>
-	Expression language
-	<br>
-	<b>${usuarioLetra}</b>
-	
 
-
-	<script src="js/scripts.js"></script>
-	<hr>
-	<img src="img/ahorcado.jpg" alt=""/>
+	<%
+		String vidas = (String) request.getAttribute("vidas");
+		request.getAttribute("vidas");
+		if(vidas == "7"){
+			out.println("<div class='fallo6' />");
+		};
+		
+	 %>
 </body>
 </html>
