@@ -7,6 +7,7 @@
 			<li><a href="conversor.jsp">Convensor</a></li>
 			<li><a href="ahorcado.jsp">Juego del Ahorcado</a></li>
 			<li><a href="login.jsp">Login</a></li>
+			<li><a href="libro.jsp">Formulario Libros</a></li>
 			
 		</ul>
 </nav>

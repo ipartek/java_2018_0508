@@ -25,9 +25,9 @@
 	<form method="POST" action="login">
 		Usuario:<input type="text" name="usu" autofocus required
 			pattern="^[A-Za-z0-9_]{3,25}$" /><br /> Password:<input id="passw"
-			type="password" name="pass" required />
-			 <i id="eye" class="fas fa-eye" onmouseenter="show()"  onmouseleave="show()" ></i> <br /> <input
-			type="submit" value="login" />
+			type="password" name="pass" required /> <i id="eye"
+			class="fas fa-eye" onmouseenter="show()" onmouseleave="show()"></i> <br />
+		<input type="submit" value="login" />
 	</form>
 	<script>
 		function show() {
@@ -35,11 +35,12 @@
 			var passw = document.getElementById('passw');
 			var eye = document.getElementById('eye');
 
-
 			if (passw.type == "password") {
 				passw.type = "text";
+				eye.classList.replace("fa-eye","fa-eye-slash");
 			} else {
 				passw.type = "password";
+				eye.classList.replace("fa-eye-slash","fa-eye");
 			}
 		}
 	</script>
