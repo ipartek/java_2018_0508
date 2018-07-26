@@ -26,11 +26,11 @@ public class SaludoController extends HttpServlet {
 		System.out.println("pasamos por do get Saludo");
 
 		// 1. Recibir parametros
-		String nombre = request.getParameter("nombre");
+		String user = request.getParameter("user");
 		String ape1 = request.getParameter("ape1");
 		String ape2 = request.getParameter("ape2");
 
-		System.out.println("Nombre: " + nombre);
+		System.out.println("Nombre: " + user);
 		System.out.println("Apellido 1: " + ape1);
 		System.out.println("Apellido 2: " + ape2);
 
@@ -39,7 +39,7 @@ public class SaludoController extends HttpServlet {
 		// 3. Llamar modelo DAO
 
 		// 4. Enviar atributos a la vista
-		request.setAttribute("nombre", nombre);
+		request.setAttribute("nombre", user);
 		request.setAttribute("ape1", ape1);
 		request.setAttribute("ape2", ape2);
 
@@ -59,10 +59,10 @@ public class SaludoController extends HttpServlet {
 			dispatch = request.getRequestDispatcher(VIEW_INDEX);
 
 			// 1. Recibir parametros
-			String nombre = request.getParameter("nom");
+			String nombre = request.getParameter("user");
 
 			if (nombre != null && !nombre.equals("".trim())) {
-				request.setAttribute("nom", nombre + " enviado por POST");
+				request.setAttribute("user", nombre + " enviado por POST");
 				dispatch = request.getRequestDispatcher(VIEW_SALUDO);
 			} else {
 				request.setAttribute("msg", "Por favor envía el nombre y no seas vaguete");

@@ -10,10 +10,10 @@
 </head>
 
 <body>
-	<h1>Saludos <% out.print(request.getAttribute("nom")); %></h1>
+	<h1>Saludos <% out.print(request.getAttribute("user")); %></h1>
 	
 	<% 
-	String nombre = (String)request.getAttribute("nom");
+	String nombre = (String)request.getAttribute("user");
 	out.print(nombre); 
 	%>
 	
@@ -21,7 +21,7 @@
 	Expression Language 
 	<b>${nombre}</b>
 	
-	<%=request.getAttribute("nom")%>
+	<%=request.getAttribute("user")%>
 	
 	
 	<script src="js/scripts.js"></script>

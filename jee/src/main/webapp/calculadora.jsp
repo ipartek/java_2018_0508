@@ -14,14 +14,14 @@
 	<h1>Calculadora</h1>
 	 	
 	<form action="conversor" method="post" >
-		<span>Número 1: </span>
-		<input name="numero1" type="text" placeholder="${numero1}">
+		<label for="numero1">Número 1: </label>
+		<input name="numero1" type="text" placeholder="Introduce un número" value="${numero1}">
 		<br><br>
-		<span>Operando: </span>
-		<input name="operando" type="text" placeholder="${operando}">
+		<label for="operando">Operando: </label>
+		<input name="operando" type="text" placeholder="${operando}" value="${operando}">
 		<br><br>
-		<span>Número 2: </span>
-		<input name="numero2" type="text" placeholder="${numero2}">
+		<label for="numero2">Número 2: </label>
+		<input name="numero2" type="text" placeholder="Introduce un número" value="${numero2}">
 		<br><br>
 		<span></span>
 		<input type="submit" value="Enviar">
