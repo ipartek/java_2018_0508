@@ -6,6 +6,34 @@ h1{
 	text-align: center;
 }
 
+/* nav
+*/
+nav{
+	background-color: teal;
+	color: white;
+	/*rgb(255,255,255)*/
+	/*#FFFFFF blanco y #000000 negro*/
+	border-top: 4px solid #03A9F4;
+	border-bottom: 4px solid #03A9F4;
+	padding: 20px 0px;
+	/*Aplica a todo*/
+	/*padding: 20px 30px 40px 50px;*/
+	/*Aplica a arriba,izqda-dcha juntos y el ultimo abajo*/
+	/*padding: 20px 30px 40px;*/
+	/*Aplica a arriba-abajo, izqda-dcha*/
+	/*padding: 20px 30px;*/
+}
+
+a{
+	test-decoration: none;
+	color: #FFF;
+}
+
+a:hover{
+	color: orange;
+	font-weight: 600; /*bold*/
+}
+
 .text-danger{
 	color:red;
 }

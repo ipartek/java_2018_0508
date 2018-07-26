@@ -1,6 +1,5 @@
 <!doctype html>
 
-<%@page import="com.ipartek.formacion.gestor.libros.controller.AhorcadoController"%>
 <html lang="es">
 <head>
 	<meta charset="utf-8">	
@@ -11,6 +10,7 @@
 </head>
 
 <body>
+	<%@ include file ="includes/navbar.jsp" %>
 	<h1>Juego del Ahorcado</h1>
 	
 	<form action="ahorcado" method="post" >
