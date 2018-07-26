@@ -21,7 +21,9 @@ public class ConversorController extends HttpServlet {
 	private static String msg = "";
 	private static final String VIEW = "conversor.jsp";
 	private static final double PIES = 3.28083989501;
-	private static double formulario;
+	public static final String FORMULARIO1 = "1";
+	public static final String FORMULARIO2 = "2";
+	private static String formulario;
 	private static double resul;
 	private static double valorConvertir;
 
@@ -39,34 +41,36 @@ public class ConversorController extends HttpServlet {
 
 	private void doProcess(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		
+
 		DecimalFormat df = null;
 		resul = 0;
 		String numUsuario = "";
-		
+		msg="";
+
 		try {
 			numUsuario = request.getParameter("valor");
 			df = new DecimalFormat("#.00");
 			dispatch = request.getRequestDispatcher(VIEW);
-			formulario = Double.parseDouble(request.getParameter("formulario"));
+			formulario = (request.getParameter("formulario"));
 			valorConvertir = Double.parseDouble(numUsuario);
 
-			if (formulario == 1) {
+			if (formulario.equals(FORMULARIO1)) {
 				resul = valorConvertir * PIES;
 				request.setAttribute("resultadoPies", valorConvertir + " metros son: " + df.format(resul) + " pies");
-			} else if (formulario == 2) {
+			} else if (formulario.equals(FORMULARIO2)) {
 				resul = valorConvertir / PIES;
 				request.setAttribute("resultadoMetros", valorConvertir + " pies son : " + df.format(resul) + " metros");
 			}
 
 		} catch (NumberFormatException e) {
+			
 			if (e.getMessage().contains("empty String")) {
-				msg ="No se ha recibido ningun dato...introduce un numero por favor";
+				msg = "No se ha recibido ningun dato...introduce un numero por favor";
 			} else {
-				msg =numUsuario
+				msg = numUsuario
 						+ " no se puede convertir ...introduce un numero y si es decimal comprueba que usas el punto";
 			}
-		}catch (Exception e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
 

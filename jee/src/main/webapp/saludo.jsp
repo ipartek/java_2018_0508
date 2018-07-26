@@ -1,16 +1,7 @@
 <!doctype html>
 
-<html lang="es">
-	<head>
-	<meta charset="utf-8">
-		<title>Gestion libros</title>
-		<meta name="description" content="App web Java 3.0 para gestionar Prestamos de Libros">
-		<meta name="author" content="Andrea Perez">
-		
-		<link rel="stylesheet" href="css/styles.css?v=1.1">
-	</head>
-	
-	<body>
+<%@include file="includes/navbar.jsp"%>
+<%@include file="includes/header.jsp"%>
 		<h1>Saludo</h1>
 
 		<%
@@ -28,6 +19,5 @@
 		
 		<%=request.getAttribute("nombreCompleto")%>
 		
-
-	</body>
-</html>
+<p class="text-danger">${msg}</p>
+<%@include file="includes/footer.jsp"%>

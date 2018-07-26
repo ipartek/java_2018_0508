@@ -74,7 +74,7 @@ public class AhorcadoController extends HttpServlet {
 			request.setAttribute("intento", INTENTOS);
 			request.setAttribute("fallos", fallos);
 			request.setAttribute("msg", msg);
-			request.setAttribute("solucion", respuestas.toString());
+			request.setAttribute("solucion", respuestas);
 			request.setAttribute("isTerminado", isTerminado);
 			dispatch.forward(request, response);
 		}

@@ -28,6 +28,22 @@ border-bottom:5px solid #03A9F4;
 padding: 20px 0;
 padding: 20px,10px, 5px;
 }
+
+/*selectores
+**************************/
+input[type="text"]:valid{
+	color:green;
+}
+
+input[type="text"]:invalid{
+	color:red;
+	border:1px solid red;
+}
+
+#ojoGris{
+	color:grey;
+}
+
 .text-danger{
 	color:red;
 }
@@ -41,6 +57,15 @@ padding: 20px,10px, 5px;
 	content: "!!!"
 }	
 */
+
+#ojo{
+	color:gray;
+}
+
+#ojo:hover{
+	color:black;
+}
+
 .casilla{
 	width: 10px;
 	height: 10px;
