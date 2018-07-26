@@ -13,7 +13,7 @@
 	%>	
 	 	
 	<form action="saludo" method="post" >	
-		<input name="nom" type="text" placeholder="Dime tu nombre">
+		<input name="user" type="text" placeholder="Dime tu nombre">
 		<p class="text-danger">${msg}</p>
 		<input type="submit" value="Enviar">	
 	</form>
