@@ -37,25 +37,60 @@ h1{
 	
 }
 .fallo0{
+	border: 1px solid red;
+	width: 238px;
+	height: 300px;				
+	overflow: hidden;
+	background-image: url('../img/ahorcado.jpg');
 	background-position-x: 616px;
 }
 
 .fallo1{
-	background-position-x: 539px;
+	border: 1px solid red;
+	width: 238px;
+	height: 300px;				
+	overflow: hidden;
+	background-image: url('../img/ahorcado.jpg');
+	background-position-x: -1200px;
 }
 
 .fallo2{
-	background-position-x: 462px;
+	border: 1px solid red;
+	width: 238px;
+	height: 300px;				
+	overflow: hidden;
+	background-image: url('../img/ahorcado.jpg');
+	background-position-x: -960px;
 }
 .fallo3{
-	background-position-x: 462px;
+	border: 1px solid red;
+	width: 238px;
+	height: 300px;				
+	overflow: hidden;
+	background-image: url('../img/ahorcado.jpg');
+	background-position-x: -720px;
 }
 .fallo4{
-	background-position-x: 462px;
+	border: 1px solid red;
+	width: 238px;
+	height: 300px;				
+	overflow: hidden;
+	background-image: url('../img/ahorcado.jpg');
+	background-position-x: -480px;
 }
 .fallo5{
-	background-position-x: 462px;
+	border: 1px solid red;
+	width: 238px;
+	height: 300px;				
+	overflow: hidden;
+	background-image: url('../img/ahorcado.jpg');
+	background-position-x: -240px;
 }
 .fallo6{
+	border: 1px solid red;
+	width: 238px;
+	height: 300px;				
+	overflow: hidden;
+	background-image: url('../img/ahorcado.jpg');
 	background-position-x: 0px;
 }

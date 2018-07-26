@@ -19,9 +19,6 @@
 	
 	<form action="conversor">
 		<input name="m2p" type="text" placeholder="Introduce metros"> 
-		 
-		
-		 
 		<br> 
 		<input type="submit" value="Convertir a pies">
 	</form>
@@ -31,44 +28,7 @@
 		<input type="submit" value="Convertir a metros">
 	</form>
 	
-	<%
-		//Recibir atributo de una JSP
-
-		//double	piesConvertidos = Double.parseDouble((String) request.getAttribute("piesConvertidos"));
-		//String	piesConvertidos =String.valueOf(request.getAttribute("piesConvertidos"));
-		String piesConvertidos = (String) request.getParameter("pc");
-		//double	metrosConvertidos = Double.parseDouble((String) request.getAttribute("metrosConvertidos"));
-		//String	metrosConvertidos =String.valueOf(request.getAttribute("metrosConvertidos"));
-		String metrosConvertidos = (String) request.getParameter("mc");
-		String msg = (String) request.getAttribute("msg");
-		//int vidas =(Integer) request.getAttribute("vidas");
-		
-		out.println("<p> Test");
-		out.println(msg);
-		out.println("<p> El resultado es:  " + piesConvertidos);
-		out.println("<p> El resultado es:  " + metrosConvertidos);
-		 /* if (piesConvertidos ){
-			out.println("<p> El resultado es:  " +piesConvertidos);
-		}else{
-			if (metrosConvertidos ){
-				out.println("<p> El resultado es:  " +metrosConvertidos);
-			}
-		} */
-	
-	%>
-	<%
-		String test1 = (String) request.getParameter("pc");
-		out.print(test1);
-		String test2 = (String) request.getParameter("mp");
-		out.print(test2);
-	%>
-	<!--  
-	<form action="conversor">
-		<input name="formulario" type="text" placeholder="Introduce pies"> 
-		<br> 
-		<input type="hidden" value="1">
-	</form>
-	-->
+	<p >${msg}</p>
 	
 
 </body>

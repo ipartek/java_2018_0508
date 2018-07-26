@@ -15,14 +15,24 @@
 <body>
 
 	<h1>Ahorcado</h1>
-	<form action="ahorcado">
-		<input type="submit" value="Start">
-	</form>
+	<div width="50%">
+		<form action="ahorcado">
+			<input name="mostrarPalabra" type="submit" value="Start">
+		</form>
+	</div>
+	<div width="50%">
+		<form action="ahorcado">
+			<input name="reiniciar" type="submit" value="restart">
+		</form>
+	</div>
+	
 	<%
 		
 		out.println("<div center>" );
 		String pc = (String) request.getAttribute("pc");
+		String Sugerencias = (String) request.getAttribute("Sugerencias");
 		if(pc != null && pc.contains("*")){
+			out.println("<h2> Sugerencia : " + Sugerencias);
 			out.println("<h2> Adivina la palabra : " + pc);
 		}else{
 			if(pc != null && !pc.contains("*")){
@@ -65,8 +75,16 @@
 		
 	%>
 	
+	<%
+	String stilos = (String) request.getAttribute("stilos");
+	out.println("<br>");
+	if (stilos != null){
+		out.println(stilos);
+	}
+	
+	%>
 
 	
-	 <div class="ahorcado"></div>
+	 <div class="${stilos }"></div>
 </body>
 </html>

@@ -68,8 +68,7 @@
 	<p class="text-danger">${resultado}</p>
 	<script src="js/scripts.js"></script>
 	
-	<hr>
-	<a href="ahorcado">Juego del ahorcado</a>
+
 	
 	
 	

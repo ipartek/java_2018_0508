@@ -12,19 +12,31 @@ import javax.servlet.http.HttpServletResponse;
 
 @WebServlet("/conversor")
 public class ConversorController extends HttpServlet {
-	double medidaPiesMetro = 3.2808;
-	double medidaMetroPies = 0.3048;
+	double MEDIDA_PIES_METRO= 3.2808;
+	double MEDIDA_METRO_PIES = 0.3048;
 	String msg;
 	String errorMsg;
+	String conversionMetros;
+	String conversionPiesRes;
 
 	private static final long serialVersionUID = 1L;
 
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		try {
+			queHacer(request,response);
+		} catch (Exception e) {
+			msg = "Se ha producido un error en doPost";
+		}
+		
+		
+
+	}
+
+	private void queHacer(HttpServletRequest request, HttpServletResponse response) {
 		String m2p = request.getParameter("m2p");
 		String p2m = request.getParameter("p2m");
-
 		if (m2p != null) {
 			doProcessM2p(request, response);
 		} else {
@@ -32,25 +44,16 @@ public class ConversorController extends HttpServlet {
 				doProcessP2m(request, response);
 			}
 		}
-
+		
 	}
 
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		try {
-			String m2p = request.getParameter("m2p");
-			String p2m = request.getParameter("p2m");
-
-			if (m2p != null) {
-				doProcessM2p(request, response);
-			} else {
-				if (p2m != null) {
-					doProcessP2m(request, response);
-				}
-			}
+			queHacer(request,response);
 		} catch (Exception e) {
-			System.out.println("Problema en doGet");
+			msg= "Se ha producido un error en doGet";
 		}
 		
 
@@ -68,7 +71,7 @@ public class ConversorController extends HttpServlet {
 			pies2Metros = convertirMetros(piesUsuario);
 			request.setAttribute("pc",pies2Metros );
 			System.out.println(msg);
-			msg = "Hola";
+			msg = pies2Metros+" Metros";
 			request.setAttribute("msg",msg );
 
 			request.getRequestDispatcher("conversor.jsp").forward(request, response);
@@ -95,7 +98,7 @@ public class ConversorController extends HttpServlet {
 			metros2PiesRes = convertirPies(metrousuarioEntero) ;
 			request.setAttribute("mc",metros2PiesRes );
 			System.out.println(msg);
-			msg = "Hola";
+			msg = metros2PiesRes+" Pies";
 			request.setAttribute("msg",msg );
 
 			request.getRequestDispatcher("conversor.jsp").forward(request, response);
@@ -108,17 +111,16 @@ public class ConversorController extends HttpServlet {
 
 
 	private String convertirPies(double metrousuarioEntero) {
-		String conversionPiesRes;
 
-		conversionPiesRes =String.valueOf(( metrousuarioEntero * medidaPiesMetro));
+
+		conversionPiesRes =String.valueOf(( metrousuarioEntero * MEDIDA_PIES_METRO));
 		System.out.println(conversionPiesRes);
 		return conversionPiesRes;
 
 	}
 	private String convertirMetros(double piesUsuario) {
-		String conversionMetros;
 		
-		conversionMetros =String.valueOf((piesUsuario * medidaMetroPies ) );
+		conversionMetros =String.valueOf((piesUsuario * MEDIDA_METRO_PIES ) );
 		System.out.println(conversionMetros);
 		return conversionMetros;
 	}
