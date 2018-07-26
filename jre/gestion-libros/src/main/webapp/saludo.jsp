@@ -11,23 +11,9 @@
 	</head>
 	
 	<body>
-		<h1>Saludo</h1>
+	
+		<h1>Bienvenido <%=request.getAttribute("nombreCompleto")%> </h1>
 
-		<%
-			//recibir Atributo en una JSP
-			String nombre = (String)request.getAttribute("nombreCompleto");
-			out.println(nombre);			
-		%>		
 		
-		
-		<hr>
-		Expression Language
-		<b>${nombreCompleto}</b>
-		
-		<hr>
-		
-		<%=request.getAttribute("nombreCompleto")%>
-		
-
 	</body>
 </html>

@@ -14,46 +14,115 @@ import javax.servlet.http.HttpServletResponse;
  */
 @WebServlet("/ahorcado")
 public class AhorcadoController extends HttpServlet {
+	/**
+	 * 
+	 */
 	private static final long serialVersionUID = 1L;
 	private RequestDispatcher dispatch = null;
-	private String palabra = "cesar";
-	private String[] respuesta = new String[palabra.length()];
-	private static final String VIEW_AHORCADO = "ahorcado.jsp";
-	private int cont = 0;
+	private static final String VIEW = "ahorcado.jsp";
 
+	private static final String PALABRA_SECRETA = "ceRsar";
+	private static final int INTENTOS = 7;
+	private static int fallos = 0;
+	private static int aciertos = 0;
+	private static String mensaje = "";
+	private static String palabraMostrar = "??????";
+	private static boolean isTerminado = false;
+	private static String jdn = null; // jugar de nuevo
+
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+	 *      response)
+	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-
-		request.getRequestDispatcher(VIEW_AHORCADO).forward(request, response);
+		doProcess(request, response);
 	}
 
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+	 *      response)
+	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		doProcess(request, response);
+	}
 
-		// 1. recibir parametros
-		String letra = request.getParameter("letra");
+	private void doProcess(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 
-		// 2. validar parametros
-		if (letra != null) {
-			for (int i = 0; i < palabra.length(); i++) {
-				if (palabra.charAt(i) == letra.charAt(0)) {
-					// 4. enviar Atributos vista
-					respuesta[i] = letra;
-					request.setAttribute("letra", "la letra " + letra + " se encuentra en la palabra");
-					request.setAttribute("respuesta", respuesta);
-					break;
-				}
-			}
-		} else {
-			cont++;
-			request.setAttribute("letra", "la letra " + letra + " no se encuentra en la palabra");
-			request.setAttribute("respuesta", respuesta);
-			request.setAttribute("contador", cont);
+		try {
 
+			dispatch = request.getRequestDispatcher(VIEW);
+
+			jdn = (String) request.getParameter("jdn");
+			if (jdn != null) {
+
+				aciertos = 0;
+				fallos = 0;
+				isTerminado = false;
+				palabraMostrar = "??????";
+
+			} else {
+
+				comprobarSiAcierta(request);
+
+			} // jugar de nuevo
+
+		} catch (Exception e) {
+
+			// e.printStackTrace();
+			// mensaje = "Error Inesperado " + e.getMessage();
+			mensaje = "Por favor Dime una letra";
+
+		} finally {
+
+			request.setAttribute("intentos", INTENTOS);
+			request.setAttribute("fallos", fallos);
+			request.setAttribute("aciertos", aciertos);
+			request.setAttribute("palabraMostrar", palabraMostrar);
+			request.setAttribute("msg", mensaje);
+			request.setAttribute("isTerminado", isTerminado);
+			dispatch.forward(request, response);
 		}
 
-		// 5. ir a la vista
-		request.getRequestDispatcher(VIEW_AHORCADO).forward(request, response);
+	}
+
+	/**
+	 * Leemos la letra que envia y comprobamos si ha acertado
+	 * 
+	 * @param request
+	 */
+	private void comprobarSiAcierta(HttpServletRequest request) {
+
+		char letra = Character.toLowerCase(request.getParameter("letra").charAt(0));
+		boolean acierto = false;
+
+		for (int i = 0; i < PALABRA_SECRETA.length(); i++) {
+
+			if (letra == Character.toLowerCase(PALABRA_SECRETA.charAt(i))) {
+				aciertos++;
+				acierto = true;
+				palabraMostrar = replaceCharAt(palabraMostrar, i, letra);
+			}
+		}
+
+		if (!acierto) {
+			fallos++;
+		}
+
+		if (aciertos == PALABRA_SECRETA.length()) {
+			mensaje = "Has Ganado, Enhorabuena!!!!";
+			isTerminado = true;
+		} else if (fallos == INTENTOS) {
+			mensaje = "Ohhhhhhhh Perdiste :-(";
+			isTerminado = true;
+		}
+
+	}
+
+	public static String replaceCharAt(String s, int pos, char c) {
+		return s.substring(0, pos) + c + s.substring(pos + 1);
 	}
 
 }
