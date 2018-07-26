@@ -20,10 +20,12 @@
 	<p> Número de páginas: ${libro.numPaginas} </p>
 	<p> Prestado:
 	 <% 
-	 	Libro l = (Libro) request.getAttribute("libro");
-		if (  l.isPrestado()   ) {
+	 	Libro l = (Libro) request.getAttribute("libro"); // Casteamos el libro
+		
+	 	if (  l.isPrestado()   ) { // Si es prestado
 			out.print("Sí");
-		} else {
+	 	
+		} else { // Si no es prestado
 			out.print("No");
 		}
 	
