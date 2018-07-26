@@ -16,9 +16,9 @@
 		
 		<div class="ahorcado fallo${fallos}"></div>	
 		
-		<span>${solucion}</span>
-		
-		<span>${intento}</span>
+		<span>Palabra Secreta: ${solucion}</span>
+		<br/>
+		<span>Intentos: ${intento}</span>
 		
 		<form action="jugarAhorcado" method="post">			
 			<input name="letraUsuario" type="text" placeholder="Dime una letra">			

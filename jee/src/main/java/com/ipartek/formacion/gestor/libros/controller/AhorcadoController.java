@@ -22,9 +22,6 @@ public class AhorcadoController extends HttpServlet {
 
 	private static final String PALABRA_SECRETA = "cersar";
 	private static final int INTENTOS = 7;
-	private static final String MSG_ERROR = "Debes insertar una letra para poder jugar";
-	private static final String MSG_ACIERTO = "Enhorabuena!! LO HAS CONSEGUIDO!!";
-	private static final String MSG_NO_LETRA = "Lastima la palabra no contiene la letra ";
 	private static String msg = "";
 	private static int fallos = 0;
 	private static int aciertos = 0;
@@ -72,7 +69,7 @@ public class AhorcadoController extends HttpServlet {
 		} catch (Exception e) {
 
 			msg = "Por favor Dime una letra";
-			
+
 		} finally {
 			request.setAttribute("intento", INTENTOS);
 			request.setAttribute("fallos", fallos);
@@ -89,19 +86,25 @@ public class AhorcadoController extends HttpServlet {
 		letra = request.getParameter("letraUsuario");
 		char[] aCaracteres = PALABRA_SECRETA.toCharArray();
 		boolean acierto = false;
+		if (letra == null || letra.isEmpty()) {
+			msg = "Inserte una letra para poder jugar por favor";
+		} else {
+			for (int x = 0; x < aCaracteres.length; x++) {
+				if (String.valueOf(aCaracteres[x]).equalsIgnoreCase(letra)) {
 
-		for (int x = 0; x < aCaracteres.length; x++) {
-			if (String.valueOf(aCaracteres[x]).equalsIgnoreCase(letra)) {
+					respuestas.set(x, letra);
+					aciertos++;
+					acierto = true;
 
-				respuestas.set(x, letra);
-				aciertos++;
-				acierto = true;
-
+				} else {
+					msg = "La " + letra + " no se encuentra en la palabra secreta";
+				}
 			}
 		}
 
 		if (!acierto) {
 			fallos++;
+
 		}
 
 		if (aciertos == PALABRA_SECRETA.length()) {
