@@ -3,7 +3,6 @@
 
 		<h1>CMS Prestamos Libros</h1>
 		
-		
 		<%
 			//Esto es java
 			out.print("<p>Soy Java</p>");
@@ -14,5 +13,6 @@
 			<p class="text-danger">${msg}</p>			
 			<input type="submit" value="Enviar" />		
 		</form>
+		
 				
 <%@ include file="includes/footer.jsp" %>

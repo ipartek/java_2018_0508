@@ -7,5 +7,6 @@
 		<li><a href="jugandoConCss.jsp">Jugando con CSS</a></li>
 		<li><a href="ahorcado">Juego del Ahorcado</a></li>
 		<li><a href="login">Login</a></li>
+		<li><a href="videos">Videos</a></li>
 	</ul>
 </nav>
