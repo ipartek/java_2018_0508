@@ -7,7 +7,7 @@
 	content="App Web Java 3.0 para gestionar prestamos de libros">
 <meta name="author" content="Rakel Pastor Villarroel">
 
-<link rel="stylesheet" href="css/styles.css?v=1.0">
+<link rel="stylesheet" href="css/styles.css?<%=System.currentTimeMillis()%>">
 </head>
 <body>
-	<h1>CMS GESTION LIBROS</h1>
+	

@@ -15,13 +15,19 @@ import javax.servlet.http.HttpServletResponse;
 public class ConversorController extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
-	private static double resultado;
-	private static double pies = 0;
-	private static double metros;
-	private static double conversordePies = 0.3048;
-	private static int formulario = 0;
 	private RequestDispatcher dispatch = null;
 	private static final String VIEW = "conversor.jsp";
+	private static double conversordePies = 0.3048;
+	//Constantes
+	private  double resultado=0;
+	private  String paramPies = "";//INTRODUCE EL CLIENTE
+	private  String paramMetros = "";//INTRODUCE EL CLIENTE
+	
+	//Parametro parseado
+	private double doblePies = 0;
+	private double dobleMetros=0;
+	private  int formulario = 0;
+	
 
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
@@ -41,8 +47,7 @@ public class ConversorController extends HttpServlet {
 	private void doProcess(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-		String paramPies = "";
-		String paramMetros = "";
+		
 		DecimalFormat df = new DecimalFormat("0.00");
 		try {
 
@@ -54,8 +59,8 @@ public class ConversorController extends HttpServlet {
 			if (formulario == 1) {
 
 				paramPies = request.getParameter("pies");
-				pies = Double.parseDouble(paramPies);
-				resultado = pies * conversordePies;
+				doblePies = Double.parseDouble(paramPies);
+				resultado = doblePies * conversordePies;
 
 				request.setAttribute("resultado1", df.format(resultado));
 				request.setAttribute("ParamIntroPies", paramPies);
@@ -64,8 +69,8 @@ public class ConversorController extends HttpServlet {
 			} else if (formulario == 2) {
 
 				paramMetros = request.getParameter("metros");
-				metros = Double.parseDouble(paramMetros);
-				resultado = metros / conversordePies;
+				dobleMetros = Double.parseDouble(paramMetros);
+				resultado = dobleMetros / conversordePies;
 
 				request.setAttribute("resultado2", df.format(resultado));
 				request.setAttribute("ParamIntroMetros", paramMetros);
@@ -73,23 +78,23 @@ public class ConversorController extends HttpServlet {
 
 		} catch (NumberFormatException e) {
 
-			if (e.getMessage().contains("empty String")) {
+			if(e.getMessage().contains("empty String")) {
 				request.setAttribute("msg", "Introduce un numero por favor");
-			} else {
+			}else{
 				if (formulario == 1) {
-					paramPies = request.getParameter("pies");
-					request.setAttribute("msg",
-							"ERROR.El programa no puede convertir <b> " + paramPies + "</b> a Metros.");
-				} else {
-					paramMetros = request.getParameter("metros");
-					request.setAttribute("msg",
-							"ERROR.El programa no puede convertir <b>" + paramMetros + "</b>  a Pies.");
+					request.setAttribute("msg","ERROR.El programa no puede convertir <b> " + paramPies + "</b> a Metros.");
+					request.setAttribute("resultado1","");
+				}else{
+					request.setAttribute("msg","ERROR.El programa no puede convertir <b>" + paramMetros + "</b>  a Pies.");
+					request.setAttribute("resultado2","");
 				}
-
 			}
 
-		} catch (Exception e) {
-
+	} catch (Exception e) {
+			request.setAttribute("msg",
+					"Lo sentimos pero tenemos un fallo inesperado <b>" + paramMetros + "</b>  a Pies.");
+			e.printStackTrace();
+			
 		} finally {
 			dispatch.forward(request, response);
 		}

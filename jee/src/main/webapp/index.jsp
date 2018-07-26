@@ -2,7 +2,7 @@
 <%@ include file="includes/navbar.jsp" %>
 	
 <%out.print("<p>Mensaje desde Java</p>");%>
-
+	<h1>CMS GESTION LIBROS</h1>
 	<!-- SPRITE -->
 	<div class="ahorcado"></div>
 	<style>

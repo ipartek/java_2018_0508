@@ -24,6 +24,13 @@ nav{
 	border-bottom:5px solid #03A9F4;
 	padding:20px 0px;
 }
+input[type="text"]:valid,input[type="password"]:valid{
+	color:green;
+}
+input[type="text"]:invalid,input[type="password"]:invalid{
+	border-bottom:1px solid red;
+	color:red;
+}
 #identi{
 	color: pink;
 }
