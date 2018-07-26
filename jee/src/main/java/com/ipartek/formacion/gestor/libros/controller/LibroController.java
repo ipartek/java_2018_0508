@@ -15,41 +15,52 @@ public class LibroController extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
 	private RequestDispatcher dispatch = null;
-	private static final String VIEW_LIBRO = "libro.jsp";
+	private static final String VIEW_DETALLE_LIBRO = "detalleLibro.jsp";
 
-	private static String id = "";
 	private static String isbn = "";
 	private static String titulo = "";
 	private static String editorial = "";
 	private static String tipo = "";
-
 	private static String msg = "";
+	private int id = 0;
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		try {
+			dispatch = request.getRequestDispatcher(VIEW_DETALLE_LIBRO);
 
-		dispatch = request.getRequestDispatcher(VIEW_LIBRO);
+			id++;
+			
+			isbn = request.getParameter("isbn");
+			titulo = request.getParameter("titulo");
+			editorial = request.getParameter("editorial");
+			tipo = request.getParameter("tipo");
+			
+			if(isbn==null || titulo==null ) {
+				msg = "Falta algun dato";
+			}
 
-		id = request.getParameter("id");
-		isbn = request.getParameter("isbn");
-		titulo = request.getParameter("titulo");
-		editorial = request.getParameter("editorial");
-		tipo = request.getParameter("tipo");
+			if ("prestado".equals(tipo)) {
+				request.setAttribute("tipo", tipo);
 
-		if ("prestado".equals(tipo)) {
+			} else if ("noprestado".equals(tipo)) {
+				request.setAttribute("tipo", tipo);
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			msg = "Ha ocurrido un error=>" + e.getMessage();
+		} finally {
+
+			request.setAttribute("id", id);
+			request.setAttribute("isbn", isbn);
+			request.setAttribute("titulo", titulo);
+			request.setAttribute("editorial", editorial);
+			request.setAttribute("msg", msg);
 			request.setAttribute("tipo", tipo);
-
-		} else if ("noprestado".equals(tipo)) {
-			request.setAttribute("tipo", tipo);
+			dispatch.forward(request, response);
 		}
 
-		request.setAttribute("id", id);
-		request.setAttribute("isbn", isbn);
-		request.setAttribute("titulo", titulo);
-		request.setAttribute("editorial", editorial);
-		request.setAttribute("msg", msg);
-		request.setAttribute("tipo", tipo);
-		dispatch.forward(request, response);
 	}
 
 }
