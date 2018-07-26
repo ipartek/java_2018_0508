@@ -31,3 +31,20 @@ nav{
 	padding: 20px 30px 40px;
 }
 
+input[type="text"]:valid, input[type="password"]:valid{
+	color: green;
+}
+
+input[type="text"]:invalid, input[type="password"]:invalid{
+	color: red;
+	border-bottom: 1px solid red;
+}
+
+i[class="fas fa-eye"] {
+	color: gray;
+}
+
+i[class="fas fa-eye"]:hover {
+	color: black;
+}
+

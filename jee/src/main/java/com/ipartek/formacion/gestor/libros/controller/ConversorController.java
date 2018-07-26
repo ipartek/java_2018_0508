@@ -20,8 +20,8 @@ public class ConversorController extends HttpServlet {
 
 	private static String MSG = "INTRODUCE UN NUMERO...";
 
-	private static final String OPCION_METROS = "1";
-	private static final String OPCION_PIES = "2";
+	public static final String OPCION_METROS = "1";
+	public static final String OPCION_PIES = "2";
 	private static final double MAP = 3.28084; // Un Metro es 3,28084 Pies
 	private static final double PAM = 0.3048; // Un Pie es 0,3048 Metro
 

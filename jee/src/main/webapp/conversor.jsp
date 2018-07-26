@@ -1,5 +1,7 @@
 <!doctype html>
 
+<%@page import="com.ipartek.formacion.gestor.libros.controller.ConversorController"%>
+
 <html lang="es">
 <head>
 	<meta charset="utf-8">
@@ -20,7 +22,7 @@
 		<h2>De Metros a Pies:</h2>
 		<form action="conversor" method="POST">
 			<input type="text" name="metros" placeholder="Introduce el numero de metros...">
-			<input type="hidden" name="formulario" value="1">
+			<input type="hidden" name="formulario" value="<%=ConversorController.OPCION_METROS%>">
 			<input type="submit" value="Convertir">
 		</form>
 	</div>
@@ -29,7 +31,7 @@
 		<h2>De Pies a Metros:</h2>
 		<form action="conversor" method="POST">
 			<input type="text" name="pies" placeholder="Introduce el numero de pies...">
-			<input type="hidden" name="formulario" value="2">
+			<input type="hidden" name="formulario" value="<%=ConversorController.OPCION_PIES%>">
 			<input type="submit" value="Convertir">
 		</form>
 	</div>

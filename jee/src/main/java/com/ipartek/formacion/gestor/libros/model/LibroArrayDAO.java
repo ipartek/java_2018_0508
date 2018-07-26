@@ -34,11 +34,11 @@ public class LibroArrayDAO implements CrudAble<Libro> {
 	}
 
 	@Override
-	public boolean insert(Libro video) {
+	public boolean insert(Libro libro) {
 
 		boolean resul = false;
-		if (video != null) {
-			resul = lista.add(video);
+		if (libro != null) {
+			resul = lista.add(libro);
 		}
 
 		return resul;
