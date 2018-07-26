@@ -6,6 +6,6 @@
 		<li><a href="ejemplo-response">Ejemplo Response</a></li>
 		<li><a href="jugarAhorcado">Jugar al ahoracado</a></li>
 		<li><a href="jugandoConCss.jsp">Jugando con CSS</a></li>
-		<li><a href="conversor.jsp">conversor mTOpies </a></li>
+		<li><a href="conversor.jsp">conversor metrosTOpies </a></li>
 	</ul>
 </nav>
