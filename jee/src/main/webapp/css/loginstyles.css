@@ -1,0 +1,98 @@
+@charset "ISO-8859-1";
+
+html {
+	
+	background-color: blue;
+}
+
+h1 {
+	
+	color: blue;
+	
+}
+body {
+
+	background-color: #FFF;
+	text-align: center;
+	margin: auto;
+	padding-top: 10%;
+	min-height: 50%;
+}
+
+form {
+	
+	border:2px solid blue;
+    width:450px;
+    margin:auto;
+    padding: 10px;
+    background-color: gray;
+    border-radius: 2em;
+}
+
+p {
+	margin: auto;
+	padding: 10px;
+	display: inline-block;
+}
+
+label{
+  
+  margin-top: 5px;
+  display: inline;
+  margin-left: 5px;
+  
+}
+
+input{
+	margin-bottom: 10px;
+	text-align: center;
+}
+
+
+input[type="text"], input[type="password"]  {
+	
+	width: 80%;
+	height: 50px;
+	background-color: #ffffff;
+	border-radius:25px;
+	border: 3px solid blue;
+}
+	
+input[type="submit"] {
+	
+	border: 2px solid blue;
+	border-radius: 10px;
+	background-color: #333;
+	color: white;
+	display: inline-block;
+	padding: 5px;
+	height: 50px;
+	width: 100px;
+}
+
+i {
+	margin-top: 10px;
+	color: blue;
+	font-size: 1.8em;
+}
+
+i:hover {
+	color: white;
+}
+
+input[type="text"]:valid, input[type="password"]:valid {
+	color: blue;
+}
+
+input[type="text"]:invalid, input[type="password"]:invalid {
+	color: red;
+}
+
+
+input[type="submit"]:hover {
+	
+	color: blue;
+	background-color: #DDD;
+	border: 5px solid;
+}
+

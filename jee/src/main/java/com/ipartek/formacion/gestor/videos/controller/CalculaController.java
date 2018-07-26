@@ -13,43 +13,76 @@ import javax.servlet.http.HttpServletResponse;
 public class CalculaController extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
-	//private static final Logger LOG = Logger.getLogger(PrestamosController.class.getName());
+	
+	// CONSTANTES DE LA CALCULADORA
+	private static final String SUMA = "+";
+	private static final String RESTA = "-";
+	private static final String MULT = "*";
+	private static final String DIVISION = "/";
+	
+	private static float result = 0;
+	private static String msg = "";
+
 
 	@Override
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 
-		System.out.println("Pasamos por doGet()");
-		
-		float result = 0;
-		
-		//1. Recibir parámetros
-		int num1 = Integer.parseInt(request.getParameter("num1"));
-		int num2 = Integer.parseInt(request.getParameter("num2"));
-		
-		String operacion = request.getParameter("operacion");
-		System.out.println(operacion);
+		try {
+
+			// 1. Recibir los PARÁMETROS de la vista
+			String numero1 = request.getParameter("num1");
+			String numero2 = request.getParameter("num2");
+			String operacion = request.getParameter("operacion");
+
+			if (operacion != null) {
+
+				int num1 = Integer.parseInt(numero1);
+				int num2 = Integer.parseInt(numero2);
+				calcula(operacion, num1, num2);
+
+			} else {
+
+				msg = "Por favor, selecciona una operación.";
+			}
+
+			// Enviamos los atributos deseados a la VISTA
+						request.setAttribute("resultado", result);
+						request.setAttribute("msg", msg);
+						
+			// 5. Ir a la vista
+			request.getRequestDispatcher("calculadora.jsp").forward(request, response);
+
+		} catch (Exception e) {
+
+			msg = "Lo sentimos, ha ocurrido un error inesperado. Por favor, recargue y vuelva a interntarlo.";
+		}
+
+	}
+
+	private void calcula(String operacion, int num1, int num2) {
+
 		switch (operacion) {
-		case "+":
-			result = num1+num2;
+		case SUMA:
+			result = num1 + num2;
 			break;
-		case "-":
-			result = num1-num2;
+			
+		case RESTA:
+			result = num1 - num2;
 			break;
-		case "*":
-			result = num1*num2;
+			
+		case MULT:
+			result = num1 * num2;
 			break;
-		case "/":
-			result = num1/num2;
+			
+		case DIVISION:
+			result = num1 / num2;
 			break;
+			
 		default:
+			msg = "No se reconoce la operación. Por favor, vuelve a intentarlo.";
 			break;
 		}
-		//2. Validar parámetros
-		//3. Llamar al modelo
-		//4. Enviar atributos a la Vista
-		request.setAttribute("resultado", result);
-		//5. Ir a la vista
-		request.getRequestDispatcher("index.jsp").forward(request, response);
 	}
 
 }

@@ -1,0 +1,25 @@
+@charset "ISO-8859-1";
+
+body {
+	
+	text-align: center;
+	width: 80%;
+	margin: auto;
+	padding: 10px;
+}
+
+form {
+	
+	padding: 10px;
+	width: 80%;
+	align-content: center;
+	margin: auto;
+	background-color: rgba(153, 255, 0, .7);
+}
+
+input[type="radio"] {
+	display: inline-block;
+	margin: auto;
+	margin: 10px;
+	
+}

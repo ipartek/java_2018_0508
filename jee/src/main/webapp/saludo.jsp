@@ -14,23 +14,9 @@
 
 <body>
 
-	<h1>Saludo</h1>
-
-	<%
-		//Recibir atributo de una JSP
-		String nombre = (String) request.getAttribute("nombre");
-		String apellido1 = (String) request.getAttribute("apellido1");
-		String apellido2 = (String) request.getAttribute("apellido2");
-
-		out.println("<p> Saludos, " + nombre + " " + apellido1 + " " + apellido2);
-	%>
-
-	<hr>
-	Expression language
-	<br>
-	<b>${nombre}</b>
-	<b>${apellido1}</b>
-	<b>${apellido2}</b>
+	<h1>Bienvenido/a</h1>
+	
+	<p> ${msg} </p>
 
 	<script src="js/scripts.js"></script>
 
