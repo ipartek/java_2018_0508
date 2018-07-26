@@ -10,6 +10,9 @@ import javax.servlet.http.HttpServletResponse;
 
 
 
+import com.ipartek.formacion.gestor.libros.model.LibroArrayDAO;
+import com.ipartek.formacion.gestor.libros.pojo.Libro;
+
 @WebServlet("/libro")
 public class LibroController extends HttpServlet {
 
