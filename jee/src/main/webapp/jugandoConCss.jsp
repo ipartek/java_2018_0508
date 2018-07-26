@@ -1,9 +1,5 @@
-<!doctype html>
-
-<html lang="es">
-<head>
-<meta charset="utf-8">
-<title>Gestion libros</title>
+<%@ include file="includes/header.jsp"%>
+<%@ include file="includes/navbar.jsp"%>
 
 	<style>
 		/*
@@ -63,5 +59,4 @@
 
 	<div class="box"></div>
 
-</body>
-</html>
+<%@ include file="includes/footer.jsp"%>

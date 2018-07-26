@@ -20,13 +20,40 @@ table, th, td {
 	margin: 0 auto;
 }
 
-#ahorcado {
+/*Estilos juego ahorcado*/
+.ahorcado{
 	border: 1px solid red;
 	width: 75px;
-	height: 100px;
+	height: 100px;				
 	overflow: hidden;
 	background-image: url('../img/ahorcado.jpg');
+	
+}
+.fallo0{
 	background-position-x: 616px;
+}
+
+.fallo1{
+	background-position-x: 539px;
+}
+
+.fallo2{
+	background-position-x: 462px;
+}
+.fallo3{
+	background-position-x: 385px;
+}
+.fallo4{
+	background-position-x: 308px;
+}
+.fallo5{
+	background-position-x: 231px;
+}
+.fallo6{
+	background-position-x: 154px;
+}
+.fallo7{
+	background-position-x: 76px;
 }
 
 /* Estilos para el menu*/
@@ -70,4 +97,82 @@ a:hover {
 	background-color: #008B8B;
 	border-radius: 6px;
 	border: 2px solid #21d4d4;
+}
+
+/*Login*/
+/* Borde del formulario */
+.loginform {
+    border: 3px solid #2f2d2d;
+    height: 30%;
+    width: 30%;
+	padding: 12px 20px;
+    margin: 8px 0;
+}
+
+/* Cajas de Texto */
+.logininput {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+}
+
+/* Boton Enviar */
+button {
+    background-color: #4CAF50;
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+}
+
+button:hover {
+    opacity: 0.8;
+}
+
+/* Boton Cancelar */
+.cancelbtn {
+    width: auto;
+    padding: 10px 18px;
+    background-color: #f44336;
+}
+
+/* Imagen */
+.imgcontainer {
+    text-align: center;
+    width:100%;
+    height:100px;
+    margin:20px 0 30px 0;
+    position: auto;
+}
+
+img.avatar {
+    width: 40%;
+    border-radius: 50%;
+}
+
+/* Add padding to containers */
+.container {
+    padding: 16px;
+}
+
+/* The "Forgot password" text */
+span.psw {
+    float: right;
+    padding-top: 16px;
+}
+
+/* Change styles for span and cancel button on extra small screens */
+@media screen and (max-width: 300px) {
+    span.psw {
+        display: block;
+        float: none;
+    }
+    .cancelbtn {
+        width: 100%;
+    }
 }
