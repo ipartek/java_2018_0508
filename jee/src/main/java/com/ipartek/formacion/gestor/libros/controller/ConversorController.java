@@ -16,49 +16,65 @@ public class ConversorController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	private static final String VIEW_CONVERSOR = "conversor.jsp";
+	private static final double PIES =  3.2808f;
 	private RequestDispatcher dispatch = null;
-	private static String msg = "";
-	private static double metrosAPies = 0;
-	private static double piesAMetros = 0;
+	//parametros
 	private static String texto = "";
 	private static double metros = 0;
 	private static double pies = 0;
+	private static String formulario = "";
+	//atributos
+	private static String msg = "";
+	private static double metrosAPies = 0;
+	private static double piesAMetros = 0;	
+	
 	private static boolean sonMetros = false;
+	public static final int FORMULARIO1 = 1;
+	public static final int FORMULARIO2 = 2;
 
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		request.getRequestDispatcher(VIEW_CONVERSOR).forward(request, response);
+		doProcess(request, response);
 	}
 
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		doProcess(request, response);
+
+	}
+
+	private void doProcess(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		/*Al estar pidiendo que te den datos deberia de ser con get pero si se hace con post no pasa nada*/		
 		msg = "";
+		
 		DecimalFormat df = null;
 		try {
 			df = new DecimalFormat("#.00");
 			
 			dispatch = request.getRequestDispatcher(VIEW_CONVERSOR);
+						
+			formulario = request.getParameter("formulario");			
 			
-			String[] conversor = request.getParameterValues("formulario");
-			
-			if(conversor[0].equals(Integer.toString(1))) {
+			if(formulario.equals(Integer.toString(FORMULARIO1))) {
 				//Entonces es convertir de metros a pies
 				texto = request.getParameter("metros");
 				metros = Double.parseDouble(texto);
-				metrosAPies = metros * 3.2808;
+				metrosAPies = metros * PIES;
 				sonMetros = true;
-			}else if(conversor[0].equals(Integer.toString(2))){
+			}else if(formulario.equals(Integer.toString(FORMULARIO2))){
 				//Sino de pies a metros
 				texto = request.getParameter("pies");
 				pies = Double.parseDouble(texto);
-				piesAMetros = pies / 3.2808;
+				piesAMetros = pies / PIES;
 			}
 			
 		} catch (NumberFormatException e) {
 			if(e.getMessage().contains("empty String")) {
 				msg = "Debe introducir algo para poder convertirlo.";
+				metros = 0;
+				pies = 0;
 			}else{
 				msg = "Error no se puede convertir " + texto;
 				if(sonMetros) {
