@@ -1,7 +1,5 @@
 package com.ipartek.formacion.pojo;
 
-import java.io.Serializable;
-
 public class Libro {
 
 	private static final int LONG_ISBN = 5;
