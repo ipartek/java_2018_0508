@@ -1,0 +1,257 @@
+/* Hoja de Estilos Principal */
+body {
+	background-color: #e5f2f2;
+}
+
+ul {
+	list-style-type: none;
+	margin: 0;
+	padding: 0;
+	width: 100%;
+	background-color: #004040;
+	width: 100%;
+}
+
+li {
+	width: 15%;
+	display: inline-block;
+}
+
+li a {
+	display: block;
+	color: #FFF;
+	padding: 8px 16px;
+	border: 2px dotted #004040;
+	text-decoration: none;
+	color: #FFF;
+}
+
+/* Change the link color on hover */
+li a:hover {
+	background-color: #7fbfbf;
+	color: #001919;
+	border: 2px dotted teal;
+}
+
+h1 {
+	color: teal;
+	font-size: 2em;
+	text-align: center;
+}
+
+h2 {
+	color: #004040;
+	font-size: 1.5em;
+}
+
+h3 {
+	color: #495057;
+	font-size: 1.25em;
+}
+
+.text-danger {
+	color: red;
+}
+
+input[type="text"], input[type="password"] {
+	display: block;
+	width: 85%;
+	padding: .375rem .75rem;
+	font-size: 1rem;
+	line-height: 1.5;
+	color: #495057;
+	background-color: #fff;
+	background-clip: padding-box;
+	border: 1px solid #ced4da;
+	border-top-color: rgb(206, 212, 218);
+	border-right-color: rgb(206, 212, 218);
+	border-bottom-color: rgb(206, 212, 218);
+	border-left-color: rgb(206, 212, 218);
+	border-radius: .25rem;
+	transition: border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+	margin: auto;
+}
+
+.media {
+	width: 50%;
+	margin: auto;
+	margin-top: 1.5em;
+	background-color: #FFF;
+	border: 3px dotted teal;
+	border-radius: 1.5%;
+	width: 50%;
+}
+
+.media input[type="text"], .media input[type="password"] {
+	display: inline-block;
+	width: 65%;
+	padding: .375rem .75rem;
+	font-size: 1rem;
+	line-height: 1.5;
+	color: #495057;
+	background-color: #fff;
+	background-clip: padding-box;
+	border: 1px solid #ced4da;
+	border-top-color: rgb(206, 212, 218);
+	border-right-color: rgb(206, 212, 218);
+	border-bottom-color: rgb(206, 212, 218);
+	border-left-color: rgb(206, 212, 218);
+	border-radius: .25rem;
+	transition: border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+	margin: auto;
+	font-weight: bold;
+}
+
+.media span.texto-check {
+	font-size: 1.25em;
+	color: #495057;
+	vertical-align: bottom;
+}
+
+.media span {
+	display: inline-block;
+	vertical-align: sub;
+	color: rgba(0, 64, 64, 0.5);
+}
+
+.media #pass_css:hover {
+	color: rgba(0, 64, 64, 0.9);
+}
+
+.media img {
+	margin: 1.75em;
+}
+
+.libro_fondo {
+	background-image: url("../img/libro_fondo.png");
+}
+
+input[type="text"]:focus, input[type="password"]:focus {
+	border-color: teal;
+}
+
+.container {
+	width: 99%;
+	padding: 10px;
+}
+
+.contain {
+	display: inline-block;
+	width: 49%;
+}
+
+.conversor {
+	width: 45%;
+	display: inline-block;
+	margin: 10px;
+}
+
+.conversion {
+	display: inline-block;
+}
+
+.btn {
+	display: inline-block;
+	font-weight: 400;
+	text-align: center;
+	white-space: nowrap;
+	vertical-align: middle;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+	border: 1px solid transparent;
+	border-top-color: transparent;
+	border-right-color: transparent;
+	border-bottom-color: transparent;
+	border-left-color: transparent;
+	padding: .375rem .75rem;
+	font-size: 1rem;
+	line-height: 1.5;
+	border-radius: .25rem;
+	transition: color .15s ease-in-out, background-color .15s ease-in-out,
+		border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+	text-decoration: none;
+	text-transform: uppercase;
+}
+
+.btn-danger {
+	color: #fff;
+	background-color: #dc3545;
+	border-color: #dc3545;
+}
+
+.btn-gestion-libros {
+	color: #fff;
+	background-color: #7fbfbf;
+	border-color: #7fbfbf;
+}
+
+.btn-gestion-libros:hover {
+	color: #fff;
+	background-color: teal;
+	border-color: teal;
+	cursor: pointer;
+}
+
+.media .btn {
+	width: 73.5%;
+}
+/*
+input:valid:not([type="submit"]) {
+	color: rgba(71, 255, 99, 0.7);
+	border: 3px solid;
+	border-color: rgba(71, 255, 99, 0.7);
+}
+
+input:invalid:not([type="submit"]) {
+	color: rgba(255, 99, 71, 0.7);
+	border: 3px solid;
+	border-color: rgba(255, 99, 71, 0.7);
+}
+*/
+.center {
+	text-align: center;
+}
+.justify {
+	text-align: justify;
+}
+#tablero {
+	width: 100%;
+}
+
+#juego {
+	width: 50%;
+	margin: auto;
+}
+
+table {
+	margin: auto;
+	border-collapse: collapse;
+}
+
+table thead th {
+	text-align: left;
+	color: #FFF;
+	background-color: teal;
+}
+
+table tbody td {
+	padding: 5px;
+}
+
+tr.prestado {
+	background-color: rgba(255, 99, 71, 0.7);
+}
+
+tr.prestado:hover {
+	background-color: rgba(255, 99, 71, 0.3);
+}
+
+tr.libre {
+	background-color: rgba(71, 255, 99, 0.7);
+}
+
+tr.libre:hover {
+	background-color: rgba(71, 255, 99, 0.3);
+}
