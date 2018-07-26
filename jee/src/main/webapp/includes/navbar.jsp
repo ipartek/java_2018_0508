@@ -21,5 +21,8 @@
 			<li>
 				<a href="login">Login</a>
 			</li>
+			<li>
+				<a href="crearLibro.jsp">Crear Libro</a>
+			</li>
 		</ul>
 	</nav>

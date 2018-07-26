@@ -56,7 +56,7 @@ public class Libro {
 	public void setIsbn(String isbn) throws Exception {
 
 		if (isbn != null) {
-			if (isbn.length() > LONG_ISBN) {
+			if (isbn.length() == LONG_ISBN) {
 				this.isbn = isbn;
 			} else {
 				throw new Exception();

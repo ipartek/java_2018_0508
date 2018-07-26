@@ -12,6 +12,7 @@
 	
 	<link rel="stylesheet" href="css/styles.css?v=1.0">
 	<link rel="stylesheet" href="css/ahorcado.css?v=1.0">
+	
 
 </head>
 

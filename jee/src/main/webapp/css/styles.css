@@ -73,12 +73,12 @@ input[type="text"], input[type="password"] {
 }
 
 .media {
-	width : 50%;
+	width: 50%;
 	margin: auto;
-	margin-top: 1.5em; 
+	margin-top: 1.5em;
 	background-color: #FFF;
 	border: 3px dotted teal;
-	border-radius:1.5%;
+	border-radius: 1.5%;
 	width: 50%;
 }
 
@@ -99,6 +99,13 @@ input[type="text"], input[type="password"] {
 	border-radius: .25rem;
 	transition: border-color .15s ease-in-out, box-shadow .15s ease-in-out;
 	margin: auto;
+	font-weight: bold;
+}
+
+.media span.texto-check {
+	font-size: 1.25em;
+	color: #495057;
+	vertical-align: bottom;
 }
 
 .media span {
@@ -107,8 +114,16 @@ input[type="text"], input[type="password"] {
 	color: rgba(0, 64, 64, 0.5);
 }
 
+.media #pass_css:hover {
+	color: rgba(0, 64, 64, 0.9);
+}
+
 .media img {
 	margin: 1.75em;
+}
+
+.libro_fondo {
+	background-image: url("../img/libro_fondo.png");
 }
 
 input[type="text"]:focus, input[type="password"]:focus {
@@ -179,13 +194,28 @@ input[type="text"]:focus, input[type="password"]:focus {
 	cursor: pointer;
 }
 
-.media .btn{
+.media .btn {
 	width: 73.5%;
 }
+/*
+input:valid:not([type="submit"]) {
+	color: rgba(71, 255, 99, 0.7);
+	border: 3px solid;
+	border-color: rgba(71, 255, 99, 0.7);
+}
+
+input:invalid:not([type="submit"]) {
+	color: rgba(255, 99, 71, 0.7);
+	border: 3px solid;
+	border-color: rgba(255, 99, 71, 0.7);
+}
+*/
 .center {
 	text-align: center;
 }
-
+.justify {
+	text-align: justify;
+}
 #tablero {
 	width: 100%;
 }
