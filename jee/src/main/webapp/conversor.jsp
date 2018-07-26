@@ -5,6 +5,7 @@
 
 <%@ include file="includes/header.jsp" %>
 <%@ include file="includes/navbar.jsp" %>
+<br>
 	<table border=2px>
 		<tr>
 			<th colspan=2>CONVERSOR</th>
@@ -38,8 +39,5 @@
 			</td>
 		</tr>
 	</table>
-
-
-	<br>
 
 <%@ include file="includes/footer.jsp" %>

@@ -115,7 +115,7 @@ public class AhorcadoController extends HttpServlet {
 
 	private String replaceCharAt(String s, int pos, char c) {
 	
-		return s.substring(0, pos);
+		return s.substring(0, pos) + c + s.substring(pos + 1);
 	}
 
 

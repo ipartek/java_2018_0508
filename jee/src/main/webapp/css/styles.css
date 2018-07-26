@@ -11,6 +11,7 @@ h1 {
 	font-size: 12px;
 }
 
+/* Estilos para la tabla del conversor*/
 table, th, td {
 	border: 1px solid black;
 	border-collapse: collapse;
@@ -28,23 +29,12 @@ table, th, td {
 	background-position-x: 616px;
 }
 
-.fallo
- 
-0{
-background-position-x
-:
- 
-616
-px
-;
-
-
-}
+/* Estilos para el menu*/
 nav {
 	background-color: #008B8B;
 	color: #DCDCDC;
-	boder-top: 4px solid #21d4d4;
-	boder-bottom: 4px solid #21d4d4;
+	border-top: 4px solid #21d4d4;
+	border-bottom: 4px solid #21d4d4;
 }
 
 li {
@@ -70,6 +60,7 @@ a:hover {
 	font-weight: 600;
 }
 
+/* Estilos para los botones del conversor*/
 #boton {
 	text-decoration: none;
 	padding: 4px;
@@ -78,5 +69,5 @@ a:hover {
 	color: #ffffff;
 	background-color: #008B8B;
 	border-radius: 6px;
-	border: 2px solid #0016b0;
+	border: 2px solid #21d4d4;
 }
