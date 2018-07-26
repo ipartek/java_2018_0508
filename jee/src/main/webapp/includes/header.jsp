@@ -6,7 +6,9 @@
 		<meta name="description" content="App web Java 3.0 para gestionar Prestamos de Libros">
 		<meta name="author" content="Ander Uraga Real">
 		
-		<link rel="stylesheet" href="css/styles.css?v=1.1">
+		<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
+		<link rel="stylesheet" href="css/styles.css?<%=System.currentTimeMillis()%>">
 	</head>
 	
 	<body>
+	

@@ -40,6 +40,14 @@ nav {
 	padding: 10px 0;
 }
 
+input[type="text"]:valid, input[type="password"]:valid{
+	color: green;
+}
+
+input[type="text"]:invalid, input[type="password"]:invalid{
+	color: red;
+	border-bottom: 1px solid red;
+}
 
 
 #identi{

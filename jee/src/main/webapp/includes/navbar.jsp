@@ -6,5 +6,6 @@
 		<li><a href="ejemplo-response">Ejemplo Response</a></li>
 		<li><a href="jugandoConCss.jsp">Jugando con CSS</a></li>
 		<li><a href="ahorcado">Juego del Ahorcado</a></li>
+		<li><a href="login">Login</a></li>
 	</ul>
 </nav>
