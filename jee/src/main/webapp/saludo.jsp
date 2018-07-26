@@ -31,6 +31,7 @@
 	<b>${nombre}</b>
 	<b>${apellido1}</b>
 	<b>${apellido2}</b>
+	<b>${ msg }</b>
 
 	<script src="js/scripts.js"></script>
 

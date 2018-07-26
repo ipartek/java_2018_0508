@@ -8,7 +8,9 @@
 	content="App web Java 3.0 para gestionar préstamos de libros">
 <meta name="author" content="Luis">
 
-<link rel="stylesheet" href="css/styles.css?v=1.0">
+ <link rel="stylesheet" href="css/styles.css?v=1.0">
+
+
 
 </head>
 
@@ -17,6 +19,7 @@
 	<h1>CMS Préstamos de Libros</h1>
 	<nav>
 		<ul>
+			<li><a href="anadirLibro.jsp">Añadir libros</a></li>
 			<li><a href="listar">Listar libros</a></li>
 		
 			<li><a href="ejemplo-response">Ejemplo <b>RESPONSE</b></a></li>
@@ -28,6 +31,7 @@
 			escriba algo inadecuado, si mete algo que no sea numeros -> lo siento pero no puedo
 			 convertir este valor mostrando por pantalla el valor introducido-->
 			<li><a href="conversor.jsp">Conversores</a></li>
+			<li><a href="login.jsp">Login</a></li>
 		</ul>
 	</nav>
 	<%

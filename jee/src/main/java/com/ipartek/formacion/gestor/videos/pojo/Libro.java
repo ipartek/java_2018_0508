@@ -10,7 +10,6 @@ public class Libro {
 	private String autor;
 	private String editorial;
 	private String isbn;
-	private int numPaginas;
 	private boolean prestado;
 
 	// CONSTRUCTORES
@@ -21,11 +20,10 @@ public class Libro {
 		this.autor = "";
 		this.editorial = "";
 		this.isbn = "";
-		this.numPaginas = 0;
 		this.prestado = false;
 	}
 
-	public Libro(long id, String titulo, String autor, String editorial, String isbn, int numPaginas, boolean prestado)
+	public Libro(long id, String titulo, String autor, String editorial, String isbn,  boolean prestado)
 			throws Exception {
 		this();
 		this.id = id;
@@ -33,7 +31,7 @@ public class Libro {
 		this.autor = autor;
 		this.editorial = editorial.trim();
 		setIsbn(isbn);
-		this.numPaginas = numPaginas;
+
 		this.prestado = prestado;
 	}
 
@@ -95,14 +93,7 @@ public class Libro {
 
 	}
 
-	public int getNumPaginas() {
-		return numPaginas;
-	}
-
-	public void setNumPaginas(int numPaginas) {
-		this.numPaginas = numPaginas;
-	}
-
+	
 	public boolean isPrestado() {
 		return prestado;
 	}
@@ -114,7 +105,7 @@ public class Libro {
 	@Override
 	public String toString() {
 		return "Libro [id=" + id + ", titulo=" + titulo + ", autor=" + autor + ", editorial=" + editorial + ", isbn="
-				+ isbn + ", numPaginas=" + numPaginas + ", prestado=" + prestado + "]";
+				+ isbn  + ", prestado=" + prestado + "]";
 	}
 
 	

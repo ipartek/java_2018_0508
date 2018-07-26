@@ -1,96 +1,132 @@
 /* Hoja de Estilos Principal */
-p{
+p {
 	color: red;
 }
 
-
-
-h1{
+h1 {
 	text-align: center;
 	color: teal;
 	font-size: 2em;
 }
 
-#identi{
+#identi {
 	color: pink;
 }
 
-.text-danger{
-	color:red;
+.text-danger {
+	color: red;
 }
 
-.text-danger:before{
+.text-danger:before {
 	content: "***"
-}	
+}
 
-.text-danger:after{
+.text-danger:after {
 	content: "!!!"
-}	
+}
 
-.ahorcado{
+.ahorcado {
 	border: 1px solid red;
 	width: 238px;
-	height: 300px;				
+	height: 300px;
 	overflow: hidden;
 	background-image: url('../img/ahorcado.jpg');
-	
-	
 }
-.fallo0{
+
+.fallo0 {
 	border: 1px solid red;
 	width: 238px;
-	height: 300px;				
+	height: 300px;
 	overflow: hidden;
 	background-image: url('../img/ahorcado.jpg');
 	background-position-x: 616px;
 }
 
-.fallo1{
+.fallo1 {
 	border: 1px solid red;
 	width: 238px;
-	height: 300px;				
+	height: 300px;
 	overflow: hidden;
 	background-image: url('../img/ahorcado.jpg');
 	background-position-x: -1200px;
 }
 
-.fallo2{
+.fallo2 {
 	border: 1px solid red;
 	width: 238px;
-	height: 300px;				
+	height: 300px;
 	overflow: hidden;
 	background-image: url('../img/ahorcado.jpg');
 	background-position-x: -960px;
 }
-.fallo3{
+
+.fallo3 {
 	border: 1px solid red;
 	width: 238px;
-	height: 300px;				
+	height: 300px;
 	overflow: hidden;
 	background-image: url('../img/ahorcado.jpg');
 	background-position-x: -720px;
 }
-.fallo4{
+
+.fallo4 {
 	border: 1px solid red;
 	width: 238px;
-	height: 300px;				
+	height: 300px;
 	overflow: hidden;
 	background-image: url('../img/ahorcado.jpg');
 	background-position-x: -480px;
 }
-.fallo5{
+
+.fallo5 {
 	border: 1px solid red;
 	width: 238px;
-	height: 300px;				
+	height: 300px;
 	overflow: hidden;
 	background-image: url('../img/ahorcado.jpg');
 	background-position-x: -240px;
 }
-.fallo6{
+
+.fallo6 {
 	border: 1px solid red;
 	width: 238px;
-	height: 300px;				
+	height: 300px;
 	overflow: hidden;
 	background-image: url('../img/ahorcado.jpg');
 	background-position-x: 0px;
+}
+
+.logingform {
+	margin-top:200px;
+}
+
+.loginstyle1 {
+	border: 1px dotted green;
+	border-radius: 0;
+	-webkit-appearance: none;
+}
+.primerLogin{
+
+	
+	background-size:100%;
+	background-image: url('https://pics.me.me/tu-primer-login-en-clases-de-programacion-imgtip-com-comenten-22611232.png');
+}
+/*input:valid{
+	color:green;
+}
+
+input:invalid{
+	color:red;
+	border-bottom:1px solid red;
+	
+}*/
+input[type="text"]:valid, input[type="password"]:valid{
+	color:green;
+}
+input[type="text"]:invalid, input[type="password"]:invalid{
+	color:red;
+	border-bottom:1px solid red;
+}
+i{
+	font-size:1.8em;
 }
