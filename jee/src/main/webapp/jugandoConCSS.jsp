@@ -45,6 +45,8 @@
 	
 	<body>
 	
+		<%@ include file = "includes/navbar.jsp" %>
+	
 		<h1>Jugando con CSS</h1>
 
 		<p>Verde</p>

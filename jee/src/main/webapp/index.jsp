@@ -1,9 +1,9 @@
 
 	<%@ include file = "includes/header.jsp" %>
 
-	<h1>CMS Prestamo Libros</h1>
-
 	<%@ include file = "includes/navbar.jsp" %>
+
+	<h1>CMS Prestamo Libros</h1>
 
 	<%
 		// Esto es Java
