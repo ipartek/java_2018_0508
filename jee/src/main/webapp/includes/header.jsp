@@ -6,9 +6,9 @@
 	<meta charset="utf-8">
 		<title>Gestion libros</title>
 		<meta name="description" content="App web Java 3.0 para gestionar Prestamos de Libros">
-		<meta name="author" content="Alain Muñoz Arrizabalaga">
+		<meta name="author" content="Andrea Perez">
 		
-		<link rel="stylesheet" href="css/styles.css">
+		<link rel="stylesheet" href="css/styles.css?<%=System.currentTimeMillis()%>">
 		
 	</head>
 </body>

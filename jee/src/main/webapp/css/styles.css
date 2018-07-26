@@ -27,7 +27,20 @@ border-top:5px solid #03A9F4;
 border-bottom:5px solid #03A9F4;
 padding: 20px 0;
 padding: 20px,10px, 5px;
+text-align: center;
 }
+
+nav ul{
+	list-style:none;
+}
+
+nav li{
+display: inline-block;	
+margin-right: 20px;
+padding:0px 10px;
+text-align: center;
+}
+
 .text-danger{
 	color:red;
 }
@@ -62,6 +75,11 @@ padding: 20px,10px, 5px;
 
 .fallo1{
 	background-position: 539px;
+	
+}
+
+.normal{
+	font-weight:normal;
 	
 }
 
