@@ -2,7 +2,6 @@ package com.ipartek.formacion.gestor.libros.controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.logging.Logger;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
