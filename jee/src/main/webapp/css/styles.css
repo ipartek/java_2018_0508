@@ -11,6 +11,37 @@ h1{
 	font-size: 2em;
 }
 
+
+a {
+	font-family: Arial;
+	font-size: 20px;
+	text-decoration: none;	
+	padding: 10px;
+	color: #DCDCDC;
+}
+
+a:hover {
+	font-family: Arial;
+	font-size: 20px;
+	text-decoration: none;	
+	padding: 10px;
+	color: #00CED1;
+	font-weight: 600;
+}
+
+/* nav
+***************************************/
+
+nav {
+	background-color: #008B8B;
+	color: #DCDCDC;
+	border-top: 4px solid #21d4d4;
+	border-bottom: 4px solid #21d4d4;
+	padding: 10px 0;
+}
+
+
+
 #identi{
 	color: pink;
 }
