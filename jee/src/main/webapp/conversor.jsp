@@ -5,7 +5,8 @@
 	<h1>Conversor</h1>
 	
 	<div class="container">
-		<section class="contain">	
+		<section class="contain">
+		<h3 class="center">${msg}</h3>
 			<div class="conversor">
 				<h2>De Metros a Pies:</h2>
 				<form action="conversor" method="POST">
@@ -25,7 +26,7 @@
 					<input class="btn btn-gestion-libros" type="submit" value="Convertir">
 				</form>
 			</div>
-			<h3 class="center">${msg}</h3>
+			
 		</section>
 		<section class="contain">
 			<div>

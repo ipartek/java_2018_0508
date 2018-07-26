@@ -44,7 +44,7 @@ h2 {
 	font-size: 1.5em;
 }
 
-h3{
+h3 {
 	color: #495057;
 	font-size: 1.25em;
 }
@@ -53,7 +53,7 @@ h3{
 	color: red;
 }
 
-input[type="text"] {
+input[type="text"], input[type="password"] {
 	display: block;
 	width: 85%;
 	padding: .375rem .75rem;
@@ -69,9 +69,49 @@ input[type="text"] {
 	border-left-color: rgb(206, 212, 218);
 	border-radius: .25rem;
 	transition: border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+	margin: auto;
 }
 
-input[type="text"]:focus {
+.media {
+	width : 50%;
+	margin: auto;
+	margin-top: 1.5em; 
+	background-color: #FFF;
+	border: 3px dotted teal;
+	border-radius:1.5%;
+	width: 50%;
+}
+
+.media input[type="text"], .media input[type="password"] {
+	display: inline-block;
+	width: 65%;
+	padding: .375rem .75rem;
+	font-size: 1rem;
+	line-height: 1.5;
+	color: #495057;
+	background-color: #fff;
+	background-clip: padding-box;
+	border: 1px solid #ced4da;
+	border-top-color: rgb(206, 212, 218);
+	border-right-color: rgb(206, 212, 218);
+	border-bottom-color: rgb(206, 212, 218);
+	border-left-color: rgb(206, 212, 218);
+	border-radius: .25rem;
+	transition: border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+	margin: auto;
+}
+
+.media span {
+	display: inline-block;
+	vertical-align: sub;
+	color: rgba(0, 64, 64, 0.5);
+}
+
+.media img {
+	margin: 1.75em;
+}
+
+input[type="text"]:focus, input[type="password"]:focus {
 	border-color: teal;
 }
 
@@ -92,7 +132,7 @@ input[type="text"]:focus {
 }
 
 .conversion {
-	
+	display: inline-block;
 }
 
 .btn {
@@ -139,6 +179,9 @@ input[type="text"]:focus {
 	cursor: pointer;
 }
 
+.media .btn{
+	width: 73.5%;
+}
 .center {
 	text-align: center;
 }
