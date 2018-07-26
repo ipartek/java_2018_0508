@@ -14,17 +14,19 @@ public class ConversorController extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
 	private final double PIES_METRO = 3.2808;
-	
+	// private double resultado = 0.0;
+	private String mensaje = "";
 
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+	
 
 		try {
 			double valor = new Double(request.getParameter("valor"));
-
-			String tipo = request.getParameter("tipo");
 			double resultado = 0.0;
+			String tipo = request.getParameter("tipo");
+
 
 			if ("m".equals(tipo)) {
 				resultado = valor * PIES_METRO;
@@ -34,10 +36,13 @@ public class ConversorController extends HttpServlet {
 			request.setAttribute("resultado", resultado);
 			request.getRequestDispatcher("conversor.jsp").forward(request, response);
 
-		} catch (NumberFormatException e) {
-			
+		} catch (Exception e) {
+			mensaje = "Lo sentimos tenemos un fallo";
+			e.printStackTrace();
+
 		} finally {
-			
+			//request.setAttribute("resultado", resultado);
+			//request.getRequestDispatcher("conversor.jsp").forward(request, response);
 		}
 
 	}

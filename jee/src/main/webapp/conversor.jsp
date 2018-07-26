@@ -1,18 +1,7 @@
-<!doctype html>
+<%@ include file="includes/navbar.jsp" %>
+<%@ include file="includes/header.jsp" %>
 
-<html lang="es">
-<head>
-	<meta charset="utf-8">
-	
-	<title>Gestion_libros</title>
-	<meta name="description" content="App Web Java 3.0 para gestionar prestamos libros">
-	<meta name="author" content="Valeria Valencia">
-	<link rel="stylesheet" href="css/styles.css">
-
-</head>
-
-<body>
-
+	<h1>Conversor</h1>
 	
 	<form action="convertir" method="post">
 	<div><input type="text" name="valor"></div>
@@ -26,6 +15,4 @@
 	<p>${resultado}</p>
 
 	
-	
-</body>
-</html>
+<%@ include file="includes/footer.jsp" %>

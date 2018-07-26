@@ -24,24 +24,31 @@ public class AhorcadoController extends HttpServlet {
 
 		String let = request.getParameter("let");
 
-		if (let != null && !let.trim().equals("") && let.length() == 1) {
+		try {
+			if (let != null && !let.trim().equals("") && let.length() == 1) {
 
-			if (contador < INTENTOS) {
-				contador++;
-				for (int i = 0; i < PALABRA.length(); i++) {
-					if (PALABRA.toLowerCase().charAt(i) == let.toLowerCase().charAt(0)) {
-						palabraUsuario = palabraUsuario.substring(0, i) + let + palabraUsuario.substring(i + 1);
+				if (contador < INTENTOS) {
+					contador++;
+					for (int i = 0; i < PALABRA.length(); i++) {
+						if (PALABRA.toLowerCase().charAt(i) == let.toLowerCase().charAt(0)) {
+							palabraUsuario = palabraUsuario.substring(0, i) + let + palabraUsuario.substring(i + 1);
 
+						}
 					}
+
+					request.setAttribute("respuesta", palabraUsuario);
+					request.getRequestDispatcher("ahorcado.jsp").forward(request, response);
+				} else {
+					request.setAttribute("respuesta", "Game Over");
+					request.getRequestDispatcher("ahorcado.jsp").forward(request, response);
 				}
 
-				request.setAttribute("respuesta", palabraUsuario);
-				request.getRequestDispatcher("ahorcado.jsp").forward(request, response);
-			} else {
-				request.setAttribute("respuesta", "Game Over");
-				request.getRequestDispatcher("ahorcado.jsp").forward(request, response);
 			}
 
+		} catch (Exception e) {
+			// TODO: handle exception
+		}finally {
+			
 		}
 
 	}

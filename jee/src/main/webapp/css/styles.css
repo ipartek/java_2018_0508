@@ -14,6 +14,10 @@ a:hover{
 	font-weight: 600;
 }
 
+.fas fa-eye{
+	color:green;
+}
+
 nav{
 	background-color: teal;
 	color: white;
@@ -21,6 +25,16 @@ nav{
 	border-bottom: 5px solid #03A9F4;
 	padding: 20px 10px;
 }
+
+input[type="text"]:valid, input[type="password"]:valid{
+	color: green;
+}
+input[type="text"]:invalid, input[type="password"]:invalid{
+	color:red;
+	border-botton: 1px solid red;
+}
+
+
 
 .ahorcado{
 	border: 1px solid red;
