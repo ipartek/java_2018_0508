@@ -6,5 +6,7 @@
 			<li><a href="ahorcado">Jugar al ahorcado</a></li>
 			<li><a href="jugandoConCss.jsp">Jugando con CSS</a></li>
 			<li><a href="conversor">Conversor metros-pies</a></li>
+			<li><a href="login">Login</a></li>
+			<li><a href="libro">Añadir libro</a></li>
 		</ul>
 	</nav>

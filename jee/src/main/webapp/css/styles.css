@@ -116,3 +116,45 @@ div.grid{
 	grid-template-columns: repeat(2, 1fr);
 }
 
+/* Estilos para el login */
+
+div#login{
+	margin:3em auto;
+	text-align: center;
+}
+
+div#login fieldset{
+	margin:0 auto;
+	width:30%;
+}
+
+div#login img{
+	width:50px;
+	heigth:50px
+}
+
+div#login input{
+	margin:1em auto;
+}
+
+div#login input[type="text"]:valid, div#login input[type="password"]:valid{
+	color:green;
+}
+
+div#login input[type="text"]:invalid, div#login input[type="password"]:invalid{
+	color:red;
+	border-bottom:1px solid red;
+}
+
+div#login input[type="submit"]{
+	outline:none;
+}
+
+.fa-eye{
+	color:grey;
+}
+
+.fa-eye:hover{
+	color:black;
+}
+
