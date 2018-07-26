@@ -59,7 +59,7 @@ public class LoginController extends HttpServlet {
 			} else {
 				if (!usuario.equalsIgnoreCase(USUARIO_CORRECTO)) {
 					request.setAttribute("msg", "Los credenciales no son correctos");
-					request.getRequestDispatcher(VIEW).forward(request, response);
+					dispatch.forward(request, response);
 				} else {
 					if (!password.equals(PASSWORD_CORRECTO)) {
 						request.setAttribute("msg", "Los credenciales no son correctos");

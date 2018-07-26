@@ -117,7 +117,9 @@ a:hover {
     display: inline-block;
     border: 1px solid #ccc;
     box-sizing: border-box;
+    color:green;
 }
+
 
 /* Boton Enviar */
 button {
@@ -175,4 +177,25 @@ span.psw {
     .cancelbtn {
         width: 100%;
     }
+}
+
+/*Estilo libros*/
+/* Borde del formulario */
+.libroform {
+    border: 3px solid #2f2d2d;
+    height: 30%;
+    width: 30%;
+	padding: 12px 20px;
+    margin: 8px 0;
+}
+
+/* Cajas de Texto */
+.libroinput {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+    color:green;
 }
