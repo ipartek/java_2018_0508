@@ -66,6 +66,8 @@ public class ConversorController extends HttpServlet {
 				msg =numUsuario
 						+ " no se puede convertir ...introduce un numero y si es decimal comprueba que usas el punto";
 			}
+		}catch (Exception e) {
+			e.printStackTrace();
 		} finally {
 
 			request.setAttribute("msg", msg);
