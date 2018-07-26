@@ -1,7 +1,6 @@
 package com.ipartek.formacion.gestor.libros.controller;
 
 import java.io.IOException;
-import java.text.DecimalFormat;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -15,9 +14,10 @@ public class LoginController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	private RequestDispatcher dispatch = null;
-	private static String msg = "";
+
 	private static final String VIEW_LOGIN = "login.jsp";
 	private static final String VIEW_SALUDO = "saludo.jsp";
+	private static String msg = "";
 	private static String usuario = "";
 	private static String contrasena = "";
 	private static final String USUARIO_REG = "admin";
@@ -37,29 +37,28 @@ public class LoginController extends HttpServlet {
 	private void doProcess(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-		
 		try {
-
-			dispatch = request.getRequestDispatcher(VIEW_LOGIN);
 			
+			msg="";
+			dispatch = request.getRequestDispatcher(VIEW_LOGIN);
+
 			usuario = request.getParameter("usuario");
 			contrasena = request.getParameter("contrasena");
+			if (usuario != null) {
+				if (usuario.equals(USUARIO_REG) && contrasena.equals(CONTRASEÑA_REG)) {
+					request.setAttribute("msg", "Hola " + usuario + " bienvenido!!");
+					request.setAttribute("nombreCompleto", usuario);
+					dispatch = request.getRequestDispatcher(VIEW_SALUDO);
 
-			if (usuario.equals(USUARIO_REG) && contrasena.equals(CONTRASEÑA_REG)) {
-				request.setAttribute("msg", "Hola " +usuario +" bienvenido!!");
-				request.setAttribute("nombreCompleto", usuario);
-				dispatch = request.getRequestDispatcher(VIEW_SALUDO);
-
-			} else {
-				msg = "usuario o contraseña incorrecta.";
+				} else {
+					msg = "usuario o contraseña incorrecta.";
+				}
 			}
 
-		} catch (NullPointerException e) {
-			msg = "ERROR null=>" + e.getMessage();
 		} catch (Exception e) {
 			msg = "Ha ocurrido un error=>" + e.getMessage();
 		} finally {
-			request.setAttribute("msg", "msg");
+			request.setAttribute("msg", msg);
 			dispatch.forward(request, response);
 
 		}
