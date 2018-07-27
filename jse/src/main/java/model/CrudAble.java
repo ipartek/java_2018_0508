@@ -1,4 +1,4 @@
-package com.ipartek.formacion.model;
+package model;
 
 import java.util.List;
 
