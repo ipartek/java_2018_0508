@@ -16,11 +16,13 @@
 
     <title>Youtube Video Play List</title>
 
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
+	
     <!-- Bootstrap core CSS -->
-    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://blackrockdigital.github.io/startbootstrap-shop-item/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
     <!-- Custom styles for this template -->
-    <link href="css/shop-item.css" rel="stylesheet">
+    <link href="https://blackrockdigital.github.io/startbootstrap-shop-item/css/shop-item.css" rel="stylesheet">
 
   </head>
 
@@ -37,8 +39,8 @@
           <ul class="navbar-nav ml-auto">
             <li class="nav-item active">
               <form action="" method="post" class="form-inline mt-2 mt-md-0">
-	            <input class="form-control mr-sm-2" type="text" placeholder="ID" required>
-	            <input class="form-control mr-sm-2" type="text" placeholder="Nombre" required>
+	            <input name="id" class="form-control mr-sm-2" type="text" placeholder="ID 11 caracerteres" title="11 caracteres" required pattern=".{11,11}">
+	            <input name="nombre" class="form-control mr-sm-2" type="text" placeholder="Nombre minimo 2 letras" required pattern=".{2,125}">
 	            <button class="btn btn-outline-info my-2 my-sm-0" type="submit">Añadir</button>
 	          </form>
             </li>            
@@ -60,11 +62,17 @@
           <div class="list-group">
           	<%
           		ArrayList<Video> videos = (ArrayList<Video>) request.getAttribute("videos");
-    			Video videoInicio = videos.get(0); 
+          	
+          		Video videoInicio = new Video();
+          		if ( !videos.isEmpty() ){
+          			videoInicio = videos.get(0);
+          		}	
+    			
           		for( Video v : videos ){
           	%>
                    
           	  <a href="#" class="list-group-item"><%=v.getNombre()%></a>
+          	  <a href="?id=<%=v.getId()%>"><i style="color:red;" class="float-right fas fa-trash-alt"></i></a>
             
             <%
           		} //end for
@@ -125,8 +133,8 @@
     </footer>
 
     <!-- Bootstrap core JavaScript -->
-    <script src="vendor/jquery/jquery.min.js"></script>
-    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="https://blackrockdigital.github.io/startbootstrap-shop-item/vendor/jquery/jquery.min.js"></script>
+    <script src="https://blackrockdigital.github.io/startbootstrap-shop-item/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
   </body>
 

@@ -30,6 +30,12 @@ public class HomeController extends HttpServlet {
 		
 		try {
 			
+			String id = request.getParameter("id");
+			if ( id != null ) {
+				dao.delete(id);
+			}
+			
+			
 			dao = VideoArrayListDAO.getInstance();
 			ArrayList<Video> videos = (ArrayList<Video>) dao.getAll();
 			request.setAttribute("videos", videos);
@@ -49,6 +55,15 @@ public class HomeController extends HttpServlet {
 			throws ServletException, IOException {
 		try {
 			
+			//recoger parametros
+			String id = request.getParameter("id");
+			String nombre = request.getParameter("nombre");
+			
+			//insertar
+			Video v = new Video(id, nombre);
+			dao.insert(v);
+			
+			//pedir listado
 			dao = VideoArrayListDAO.getInstance();
 			ArrayList<Video> videos = (ArrayList<Video>) dao.getAll();
 			request.setAttribute("videos", videos);
