@@ -19,7 +19,11 @@ import com.ipartek.formacion.youtube.model.VideoArrayListDAO;
 public class HomeController extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
+	
+	public static final String OP_ELIMINAR = "1";
 	private static VideoArrayListDAO dao;
+	private ArrayList<Video> videos;
+	private Video videoInicio;
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
@@ -30,19 +34,34 @@ public class HomeController extends HttpServlet {
 		
 		try {
 			
+			//parametros
 			String id = request.getParameter("id");
-			if ( id != null ) {
+			String op = request.getParameter("op");
+			
+			//eliminar ?			
+			if ( op != null && OP_ELIMINAR.equals(op) ) {
 				dao.delete(id);
 			}
 			
-			
+			//listado videos
 			dao = VideoArrayListDAO.getInstance();
-			ArrayList<Video> videos = (ArrayList<Video>) dao.getAll();
-			request.setAttribute("videos", videos);
+			videos = (ArrayList<Video>) dao.getAll();
+			
+			
+			//video de inicio
+			videoInicio = new Video();
+			if ( id != null && !OP_ELIMINAR.equals(op) ) {
+				videoInicio = dao.getById(id);
+			}else if ( !videos.isEmpty()) {
+				videoInicio = videos.get(0);
+			}
+			
 
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
+			request.setAttribute("videos", videos);
+			request.setAttribute("videoInicio", videoInicio);
 			request.getRequestDispatcher("home.jsp").forward(request, response);
 		}
 	}
@@ -60,17 +79,19 @@ public class HomeController extends HttpServlet {
 			String nombre = request.getParameter("nombre");
 			
 			//insertar
-			Video v = new Video(id, nombre);
-			dao.insert(v);
+			videoInicio = new Video(id, nombre);
+			dao.insert(videoInicio);
 			
 			//pedir listado
 			dao = VideoArrayListDAO.getInstance();
-			ArrayList<Video> videos = (ArrayList<Video>) dao.getAll();
-			request.setAttribute("videos", videos);
+			videos = (ArrayList<Video>) dao.getAll();
+			
 
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
+			request.setAttribute("videos", videos);
+			request.setAttribute("videoInicio", videoInicio);
 			request.getRequestDispatcher("home.jsp").forward(request, response);
 		}
 	}

@@ -1,3 +1,4 @@
+<%@page import="com.ipartek.formacion.youtube.controller.HomeController"%>
 <%@page import="com.ipartek.formacion.youtube.Video"%>
 <%@page import="java.util.ArrayList"%>
 
@@ -59,35 +60,38 @@
 
         <div class="col-lg-3">        	
           <h1 class="my-4">Lista Reproduccion</h1>
-          <div class="list-group">
+          <ul class="list-group">
           	<%
           		ArrayList<Video> videos = (ArrayList<Video>) request.getAttribute("videos");
-          	
-          		Video videoInicio = new Video();
-          		if ( !videos.isEmpty() ){
-          			videoInicio = videos.get(0);
-          		}	
+          		if ( videos == null ){
+          			videos = new ArrayList<Video>();
+          		}
+          		
+          		Video videoInicio = (Video)request.getAttribute("videoInicio");
+          		if ( videoInicio == null){
+          			videoInicio = new Video();
+          		}
     			
           		for( Video v : videos ){
           	%>
-                   
-          	  <a href="#" onclick="reproducir('<%=v.getId()%>')" class="list-group-item"><%=v.getNombre()%></a>
-          	  <a href="?id=<%=v.getId()%>"><i style="color:red;" class="float-right fas fa-trash-alt"></i></a>
-            
+	            <li class="list-group-item d-flex justify-content-between align-items-center">     
+	          	  	<a href="?id=<%=v.getId()%>"><%=v.getNombre()%></a>
+	          	  	<a href="?id=<%=v.getId()%>&op=<%=HomeController.OP_ELIMINAR%>"><i style="color:red;" class="float-right fas fa-trash-alt"></i></a>
+	            </li>
             <%
           		} //end for
             %>
-            
+            </ul>
             
           </div>
-        </div>
+        
         <!-- /.col-lg-3 -->
 
         <div class="col-lg-9">
 
           <div class="card mt-4">
           
-            <iframe id="iframe" width="823" height="415" src="https://www.youtube.com/embed/<%=videoInicio.getId()%>" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+            <iframe id="iframe" width="823" height="415" src="https://www.youtube.com/embed/<%=videoInicio.getId()%>?autoplay=1" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
             
             <div class="card-body">
               <h3 class="card-title"><%=videoInicio.getNombre()%></h3>              
@@ -135,18 +139,6 @@
     <!-- Bootstrap core JavaScript -->
     <script src="https://blackrockdigital.github.io/startbootstrap-shop-item/vendor/jquery/jquery.min.js"></script>
     <script src="https://blackrockdigital.github.io/startbootstrap-shop-item/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-
-
-	<script>
-		function reproducir(id) {
-			
-			console.info('reproducir video ' + id);
-			var iframe = document.getElementById('iframe');
-			iframe.src = "https://www.youtube.com/embed/" + id;
-			
-		}	
-	
-	</script>
 
   </body>
 
