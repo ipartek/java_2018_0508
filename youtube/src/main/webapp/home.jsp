@@ -1,3 +1,7 @@
+<%@page import="com.ipartek.formacion.youtube.Video"%>
+<%@page import="java.util.ArrayList"%>
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -49,12 +53,22 @@
 
       <div class="row">
 
-        <div class="col-lg-3">
+        <div class="col-lg-3">        	
           <h1 class="my-4">Lista Reproduccion</h1>
           <div class="list-group">
-            <a href="#" class="list-group-item active">Video 1</a>
-            <a href="#" class="list-group-item">Video 2</a>
-            <a href="#" class="list-group-item">Video 3</a>
+          	<%
+          		ArrayList<Video> videos = (ArrayList<Video>) request.getAttribute("videos");
+    			Video videoInicio = videos.get(0); 
+          		for( Video v : videos ){
+          	%>
+                   
+          	  <a href="#" class="list-group-item"><%=v.getNombre()%></a>
+            
+            <%
+          		} //end for
+            %>
+            
+            
           </div>
         </div>
         <!-- /.col-lg-3 -->
@@ -63,10 +77,10 @@
 
           <div class="card mt-4">
           
-            <iframe width="823" height="415" src="https://www.youtube.com/embed/2Eph-_vK7FM" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+            <iframe width="823" height="415" src="https://www.youtube.com/embed/<%=videoInicio.getId()%>" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
             
             <div class="card-body">
-              <h3 class="card-title">Nombre Video</h3>              
+              <h3 class="card-title"><%=videoInicio.getNombre()%></h3>              
               <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sapiente dicta fugit fugiat hic aliquam itaque facere, soluta. Totam id dolores, sint aperiam sequi pariatur praesentium animi perspiciatis molestias iure, ducimus!</p>
               <span class="text-warning">&#9733; &#9733; &#9733; &#9733; &#9734;</span>
               4.0 stars
