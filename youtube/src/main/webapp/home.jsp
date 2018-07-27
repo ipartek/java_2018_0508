@@ -36,9 +36,9 @@
         <div class="collapse navbar-collapse" id="navbarResponsive">
           <ul class="navbar-nav ml-auto">
             <li class="nav-item active">
-              <form class="form-inline mt-2 mt-md-0">
-	            <input class="form-control mr-sm-2" type="text" placeholder="ID">
-	            <input class="form-control mr-sm-2" type="text" placeholder="Nombre">
+              <form action="" method="post" class="form-inline mt-2 mt-md-0">
+	            <input class="form-control mr-sm-2" type="text" placeholder="ID" required>
+	            <input class="form-control mr-sm-2" type="text" placeholder="Nombre" required>
 	            <button class="btn btn-outline-info my-2 my-sm-0" type="submit">Añadir</button>
 	          </form>
             </li>            

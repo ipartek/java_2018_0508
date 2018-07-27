@@ -48,6 +48,10 @@ public class HomeController extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		try {
+			
+			dao = VideoArrayListDAO.getInstance();
+			ArrayList<Video> videos = (ArrayList<Video>) dao.getAll();
+			request.setAttribute("videos", videos);
 
 		} catch (Exception e) {
 			e.printStackTrace();
