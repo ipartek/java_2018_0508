@@ -6,12 +6,12 @@ public class Video {
 	
 	private String id;
 	private String nombreCancion;
-	private String nombreAutor;
+
 	
 	
 	public Video() throws Exception {
 		super();
-		this.setId(id);
+		this.id = "";
 		this.nombreCancion = "";
 
 	}
@@ -40,11 +40,6 @@ public class Video {
 	public void setNombreCancion(String nombreCancion) {
 		this.nombreCancion = nombreCancion;
 	}
-	public String getNombreAutor() {
-		return nombreAutor;
-	}
-	public void setNombreAutor(String nombreAutor) {
-		this.nombreAutor = nombreAutor;
-	}
+	
 
 }

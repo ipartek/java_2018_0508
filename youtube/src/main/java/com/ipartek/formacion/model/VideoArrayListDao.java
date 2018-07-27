@@ -9,47 +9,74 @@ import com.ipartek.formacion.pojo.Video;
 
 public class VideoArrayListDao implements CrudAble<Video> {
 	private static VideoArrayListDao INSTANCE = null;
-	private static ArrayList<Video> lista;
-	
+	private static ArrayList<Video> videos;
+
 	public static synchronized VideoArrayListDao getInstance() {
 		return (INSTANCE == null ? new VideoArrayListDao() : INSTANCE);
+	}
+	private VideoArrayListDao() { // CONSTRUCTOR MEDIANTE SINGLETON PATTERN
+		videos = new ArrayList<Video>();
 	}
 
 	@Override
 	public boolean insert(Video pojo) {
-		// TODO Auto-generated method stub
-		return false;
+		boolean result = false;
+
+		if (pojo != null) {
+			videos.add(pojo);
+			result = true;
+		}
+
+		return result;
 	}
 
 	@Override
 	public List<Video> getAll() {
-		// TODO Auto-generated method stub
-		return null;
+		
+		return videos;
 	}
 
 	@Override
 	public Video getById(String id) {
-		if(id != null) {
-			for (Video v: lista) {
-				if(id.equals("")) {
-					
+		Video videoCoincidencia = null  ;
+		if (id != null) {
+			for (Video v : videos) {
+				if (v.getId().equals(id)) {
+					videoCoincidencia = v;
 				}
 			}
 		}
-		return null;
+		return videoCoincidencia;
 	}
 
 	@Override
 	public boolean update(Video pojo) {
-		// TODO Auto-generated method stub
-		return false;
+		boolean flag = false;
+
+		if (pojo != null) {
+			for (int i = 0; i < videos.size(); i++) {
+				if (videos.get(i).getId() == pojo.getId()) {
+					videos.set(i, pojo);
+					flag = true;
+				}
+			}
+		}
+
+		return flag;
 	}
 
 	@Override
-	public boolean delete(long id) {
-		// TODO Auto-generated method stub
-		return false;
+	public boolean delete(String id) {
+		boolean flag = false;
+		if (id != null) {
+			for (Video v : videos) {
+				if (v.getId().equals(id)) {
+					videos.remove(v);
+					flag = true;
+				}
+			}
+		}
+		return flag;
 	}
-	
 
 }

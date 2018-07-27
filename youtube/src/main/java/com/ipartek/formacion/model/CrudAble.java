@@ -52,6 +52,6 @@ public interface CrudAble<P> {
 	 * @param id, tipo long, que representa el identificador del video
 	 * @return result, boolean Si no encuentra el <b>id</b>, devuelve <b>false</b>
 	 */
-	boolean delete(long id); // Delete
+	boolean delete(String id); // Delete
 
 }

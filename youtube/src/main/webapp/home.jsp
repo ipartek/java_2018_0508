@@ -1,3 +1,6 @@
+<%@page import="com.ipartek.formacion.youtube.controller.VideoYoutubeController"%>
+<%@page import="com.ipartek.formacion.pojo.Video"%>
+<%@page import="java.util.ArrayList"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html>
@@ -11,7 +14,7 @@
 <meta name="description" content="">
 <meta name="author" content="">
 
-<title>Shop Item - Start Bootstrap Template</title>
+<title>Youtube app</title>
 
 <!-- Bootstrap core CSS -->
 
@@ -37,7 +40,7 @@
 				aria-expanded="false" aria-label="Toggle navigation">
 				<span class="navbar-toggler-icon"></span>
 			</button>
-			<div class="collapse navbar-collapse" id="navbarResponsive">
+			<div class="" id="navbarResponsive" align="right">
 
 				<form class="form-inline">
 
@@ -63,22 +66,46 @@
 		<div class="row">
 
 			<div class="col-lg-3">
-				${videos } asdasfd
 				<h1 class="my-4">Lista de reproduccion</h1>
-				<div class="list-group">
-					<a href="#" class="list-group-item active">video1</a> <a href="#"
-						class="list-group-item">Video2</a> <a href="#"
-						class="list-group-item">Video3</a>
-				</div>
-			</div>
+				<div class="list-group active">
+					
+				
+				<% 
+				ArrayList<Video> videos = (ArrayList<Video>) request.getAttribute("videos");
+		          if (videos.isEmpty()) {
+		        	  
+		        	  Video vSeleccionado = new Video();
+		        	  
+		          } 
+		          for( Video video: videos) {
+		           
+		          %>
+		          
+
+		          
+		          <a href="?id=<%= video.getId() %>" class="list-group-item "><%= video.getNombreCancion() %></a>
+		          <div id="iconos" class="text-center">
+		          	<i class="text-center fab fa-youtube"></i>
+		          	<i class="text-center  fas fa-trash-alt"></i>
+		          </div>
+		          
+		              
+		          <% 
+		         	 }
+		          %>
+	            
+            
+		</div>
+         
+            
+</div>
 			<!-- /.col-lg-3 -->
 
 			<div class="col-lg-9">
 
 				<div class="card mt-4">
-					<!-- <img class="card-img-top img-fluid" src="http://placehold.it/900x400" alt=""> -->
 					<iframe width="560" height="315"
-						src="https://www.youtube.com/embed/EPWG2svJVNk" frameborder="0"
+						src="https://www.youtube.com/embed/${video.id }" frameborder="0"
 						allow="autoplay; encrypted-media" allowfullscreen></iframe>
 					<div class="card-body">
 						<h3 class="card-title">Ricky hombre libre(titulo)</h3>

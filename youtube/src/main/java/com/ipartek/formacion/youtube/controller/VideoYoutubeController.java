@@ -19,7 +19,10 @@ import com.ipartek.formacion.pojo.Video;
 @WebServlet("/")
 public class VideoYoutubeController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private static VideoArrayListDao dao;
+	private static VideoArrayListDao videosDao;
+	private static ArrayList<Video> videos;
+	
+	
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
@@ -30,11 +33,16 @@ public class VideoYoutubeController extends HttpServlet {
 		
 		try {
 			
-			dao = VideoArrayListDao.getInstance();
-			
+			videosDao = VideoArrayListDao.getInstance();
+			videos = (ArrayList<Video>) videosDao.getAll();		
 			Video v = new Video("AwsoXKP2HWE","El momo - sol de marzo");
-			dao.insert(v);
-			ArrayList<Video> videos = (ArrayList<Video>) dao.getAll();
+			videosDao.insert(v);
+			Video v2 = new Video("rC1KcJLRFDE","Shintoma - Somos de lo malo lo peor");
+			videosDao.insert(v2);
+			Video v3 = new Video("wWrXkBz74SU","Nach - Éxodo");
+			videosDao.insert(v3);
+			
+			
 			request.setAttribute("videos", videos);
 			System.out.println("doGet");
 
@@ -44,6 +52,17 @@ public class VideoYoutubeController extends HttpServlet {
 			request.getRequestDispatcher("home.jsp").forward(request, response);
 		}
 	}
+
+	
+			/*Video v = new Video("AwsoXKP2HWE","El momo - sol de marzo");
+			videosDao.insert(v);
+			Video v2 = new Video("rC1KcJLRFDE","Shintoma - Somos de lo malo lo peor");
+			videosDao.insert(v2);
+			Video v3 = new Video("wWrXkBz74SU","Nach - Éxodo");
+			videosDao.insert(v);
+			res = true;*/
+			
+		
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
