@@ -19,6 +19,8 @@ public class LibroController extends HttpServlet {
 
 	private static final String VIEW = "libro.jsp";
 	private static final String VIEW_PRESTAMO = "listado.jsp";
+	public static final int ISBN_MIN_LENGTH = 5;
+	public static final String ISBN_MIN_EXCEPTION = "La longitud minima del isbn debe ser " + ISBN_MIN_LENGTH;
 
 	private static long ID = 0;
 
@@ -53,27 +55,45 @@ public class LibroController extends HttpServlet {
 			editorial = request.getParameter("editorial");
 			prestado = request.getParameter("prestado") != null;
 
-			Libro l = new Libro(ID, titulo, isbn, editorial, prestado);
+			//Libro l = new Libro(ID, titulo, isbn, editorial, prestado);
 
-			if (l != null) {
+			/*if (l != null) {
 				request.getRequestDispatcher(VIEW_PRESTAMO).forward(request, response);
 				request.setAttribute("libro", l);
+			}*/
+			
+			if(titulo.isEmpty()||isbn.isEmpty()||editorial.isEmpty()) {
+				request.setAttribute("msg", "Hay campos vacios.");
+			}else {
+				if(isbn.length()<ISBN_MIN_LENGTH) {
+					request.setAttribute("msg", ISBN_MIN_EXCEPTION);
+				}else {
+					if(prestado) {
+					//	TODO Si esta check prestado sino sin prestar.
+					}
+					Libro libro = new Libro(ID, titulo, isbn, editorial, prestado);
+					if (libro != null) {
+						request.setAttribute("libro", libro);
+						request.getRequestDispatcher(VIEW_PRESTAMO).forward(request, response);
+						
+					}
+				
+				}
+				
 			}
 
 		} catch (NullPointerException e) {
 			// e.printStackTrace();
 		} catch (Exception e) {
 			// e.printStackTrace();
-			MSG = "EL ISBN tiene que tener 5 digitos";
-			request.setAttribute("msg", MSG);
-
+			//MSG = "EL ISBN tiene que tener 5 digitos";
+			
+		} finally {
+			//request.setAttribute("msg", "Ha surgido un problema");
 			request.setAttribute("titulo", titulo);
 			request.setAttribute("isbn", isbn);
 			request.setAttribute("editorial", editorial);
 			request.setAttribute("prestado", prestado);
-
-		} finally {
-
 			dispatch.forward(request, response);
 
 		}
