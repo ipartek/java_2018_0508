@@ -27,6 +27,18 @@ border-top:5px solid #03A9F4;
 border-bottom:5px solid #03A9F4;
 padding: 20px 0;
 padding: 20px,10px, 5px;
+text-align: center;
+}
+
+nav ul{
+	list-style:none;
+}
+
+nav li{
+display: inline-block;	
+margin-right: 20px;
+padding:0px 10px;
+text-align: center;
 }
 
 /*selectores
@@ -43,6 +55,7 @@ input[type="text"]:invalid{
 #ojoGris{
 	color:grey;
 }
+
 
 .text-danger{
 	color:red;
@@ -87,6 +100,11 @@ input[type="text"]:invalid{
 
 .fallo1{
 	background-position: 539px;
+	
+}
+
+.normal{
+	font-weight:normal;
 	
 }
 
