@@ -71,7 +71,7 @@
           		for( Video v : videos ){
           	%>
                    
-          	  <a href="#" class="list-group-item"><%=v.getNombre()%></a>
+          	  <a href="#" onclick="reproducir('<%=v.getId()%>')" class="list-group-item"><%=v.getNombre()%></a>
           	  <a href="?id=<%=v.getId()%>"><i style="color:red;" class="float-right fas fa-trash-alt"></i></a>
             
             <%
@@ -87,7 +87,7 @@
 
           <div class="card mt-4">
           
-            <iframe width="823" height="415" src="https://www.youtube.com/embed/<%=videoInicio.getId()%>" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+            <iframe id="iframe" width="823" height="415" src="https://www.youtube.com/embed/<%=videoInicio.getId()%>" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
             
             <div class="card-body">
               <h3 class="card-title"><%=videoInicio.getNombre()%></h3>              
@@ -135,6 +135,18 @@
     <!-- Bootstrap core JavaScript -->
     <script src="https://blackrockdigital.github.io/startbootstrap-shop-item/vendor/jquery/jquery.min.js"></script>
     <script src="https://blackrockdigital.github.io/startbootstrap-shop-item/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+
+	<script>
+		function reproducir(id) {
+			
+			console.info('reproducir video ' + id);
+			var iframe = document.getElementById('iframe');
+			iframe.src = "https://www.youtube.com/embed/" + id;
+			
+		}	
+	
+	</script>
 
   </body>
 
