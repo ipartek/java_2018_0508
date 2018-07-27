@@ -13,11 +13,21 @@ public class Video {
 		this.nombre = "Red Hot Chili Peppers - Californication";		
 	}
 	
+	public Video(String id, String nombre) throws Exception {
+		this();
+		this.setId(id);
+		this.nombre = nombre;
+	}
+
 	public String getId() {
 		return id;
 	}
-	public void setId(String id) {
-		this.id = id;
+	public void setId(String id) throws Exception {
+		if ( id != null && id.length() == ID_LONGITUD ) {
+			this.id = id;
+		}else {
+			throw new Exception("El ID debe ser exactamente de " + ID_LONGITUD + " caracteres");
+		}	
 	}
 	public String getNombre() {
 		return nombre;
