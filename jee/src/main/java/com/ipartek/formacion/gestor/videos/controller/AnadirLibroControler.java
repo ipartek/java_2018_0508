@@ -10,12 +10,14 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.ipartek.formacion.gestor.videos.model.LibroDAO;
 import com.ipartek.formacion.gestor.videos.pojo.Libro;
 
 @WebServlet("/anadirLibro")
 public class AnadirLibroControler extends HttpServlet {
 	boolean prestado;
 	long id = 0;
+	static private LibroDAO dao;
 
 	private static final long serialVersionUID = 1L;
 	// private static final Logger LOG =
@@ -75,7 +77,9 @@ public class AnadirLibroControler extends HttpServlet {
 			id = calculeId();
 			// Libro libroNuevo = new Libro(id,titulo,autor,editorial,isbn, prestado);
 			Libro libroNuevo2 = new Libro(id, titulo, autor, editorial, isbn, prestado);
+			dao.insert(libroNuevo2);
 			request.setAttribute("libroNuevo", libroNuevo2);
+			request.setAttribute("dao", dao);
 			System.out.println(libroNuevo2.toString());
 			
 		} catch (Exception e) {

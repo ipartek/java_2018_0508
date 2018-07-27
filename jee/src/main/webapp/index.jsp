@@ -17,10 +17,11 @@
 <body>
 
 	<h1>CMS Préstamos de Libros</h1>
-	<nav>
-		<ul>
+
+		<ul id="menu">
 			<li><a href="anadirLibro.jsp">Añadir libros</a></li>
 			<li><a href="listar">Listar libros</a></li>
+			<li><a href="listar?signal=listar">Listar libros</a></li>
 		
 			<li><a href="ejemplo-response">Ejemplo <b>RESPONSE</b></a></li>
 		
@@ -33,7 +34,7 @@
 			<li><a href="conversor.jsp">Conversores</a></li>
 			<li><a href="login.jsp">Login</a></li>
 		</ul>
-	</nav>
+	
 	<%
 		out.print("<p> Soy Java </p>");
 	%>

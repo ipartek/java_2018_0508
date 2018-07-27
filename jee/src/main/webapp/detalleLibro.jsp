@@ -15,15 +15,47 @@
 <body>
 
 	<h1>Detalle del libro</h1>
-	
-	 <div align="center">
-		<p>${libroNuevo.toString() }</p>
-		 <p>${libroNuevo.titulo }</p> 
-		
-		
+
+	<div align="center">
+		<div class="datagrid">
+			<table>
+				<thead>
+					<tr>
+						<th>Resumen</th>
+						<th> sadasd</th>
+					</tr>
+				</thead>
+				<tfoot>
+					<tr>
+						<td colspan="2"><div id="paging">
+								
+							</div>
+					</tr>
+				</tfoot>
+				<tbody>
+					<tr>
+						<td>Titulo</td>
+						<td>${libroNuevo.titulo }</td>
+					</tr>
+					<tr class="alt">
+						<td>Autor</td>
+						<td>${libroNuevo.autor }</td>
+					</tr>
+					<tr>
+						<td>Editorial</td>
+						<td>${libroNuevo.editorial }</td>
+					</tr>
+					<tr class="alt">
+						<td>Isbn</td>
+						<td>${libroNuevo.isbn }</td>
+					</tr>
+					
+				</tbody>
+			</table>
+		</div>
 	</div>
-	
-	
+
+
 
 </body>
 </html>

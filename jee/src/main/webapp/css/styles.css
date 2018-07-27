@@ -3,6 +3,21 @@ p {
 	color: red;
 }
 
+#detalleLibro {
+	text-align: left;
+	border: 1px solid black;
+	width: 60%;
+}
+
+#cabeceraTabla {
+	width: 100%;
+}
+
+th, td {
+	width: 25%;
+	border: 1px solid #000;
+}
+
 h1 {
 	text-align: center;
 	color: teal;
@@ -97,7 +112,7 @@ h1 {
 }
 
 .logingform {
-	margin-top:200px;
+	margin-top: 200px;
 }
 
 .loginstyle1 {
@@ -105,11 +120,11 @@ h1 {
 	border-radius: 0;
 	-webkit-appearance: none;
 }
-.primerLogin{
 
-	
-	background-size:100%;
-	background-image: url('https://pics.me.me/tu-primer-login-en-clases-de-programacion-imgtip-com-comenten-22611232.png');
+.primerLogin {
+	background-size: 100%;
+	background-image:
+		url('https://pics.me.me/tu-primer-login-en-clases-de-programacion-imgtip-com-comenten-22611232.png');
 }
 /*input:valid{
 	color:green;
@@ -120,13 +135,124 @@ input:invalid{
 	border-bottom:1px solid red;
 	
 }*/
-input[type="text"]:valid, input[type="password"]:valid{
-	color:green;
+input[type="text"]:valid, input[type="password"]:valid {
+	color: green;
 }
-input[type="text"]:invalid, input[type="password"]:invalid{
-	color:red;
-	border-bottom:1px solid red;
+
+input[type="text"]:invalid, input[type="password"]:invalid {
+	color: red;
+	border-bottom: 1px solid red;
 }
-i{
-	font-size:1.8em;
+
+i {
+	font-size: 1.8em;
 }
+//estilos para la tabla detalleLibro.jsp
+.datagrid table {
+	border-collapse: collapse;
+	text-align: left;
+	width: 100%;
+}
+
+.datagrid {
+	font: normal 12px/150% Arial, Helvetica, sans-serif;
+	background: #fff;
+	overflow: hidden;
+	border: 10px solid #2C9992;
+}
+
+.datagrid table td, .datagrid table th {
+	padding: 20px 20px;
+}
+
+.datagrid table thead th {
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0.05, #006699
+		), color-stop(1, #00557F));
+	background: -moz-linear-gradient(center top, #006699 5%, #00557F 100%);
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#006699',
+		endColorstr='#00557F');
+	background-color: #006699;
+	color: #FFFFFF;
+	font-size: 14px;
+	font-weight: bold;
+	border-left: 0px solid #0070A8;
+}
+
+.datagrid table thead th:first-child {
+	border: none;
+}
+
+.datagrid table tbody td {
+	color: #00496B;
+	font-size: 15px;
+	font-weight: normal;
+}
+
+.datagrid table tbody .alt td {
+	background: #E1EEF4;
+	color: #00496B;
+}
+
+.datagrid table tbody td:first-child {
+	border-left: none;
+}
+
+.datagrid table tbody tr:last-child td {
+	border-bottom: none;
+}
+
+.datagrid table tfoot td div {
+	border-top: 1px solid #2C9992;
+	background: #E1EEF4;
+}
+
+.datagrid table tfoot td {
+	padding: 0;
+	font-size: 16px
+}
+
+.datagrid table tfoot td div {
+	padding: 14px;
+}
+
+.datagrid table tfoot td ul {
+	margin: 0;
+	padding: 0;
+	list-style: none;
+	text-align: right;
+}
+
+.datagrid table tfoot  li {
+	display: inline;
+}
+
+.datagrid table tfoot li a {
+	text-decoration: none;
+	display: inline-block;
+	padding: 2px 8px;
+	margin: 1px;
+	color: #FFFFFF;
+	border: 8px solid #006699;
+	-webkit-border-radius: 3px;
+	-moz-border-radius: 3px;
+	border-radius: 3px;
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0.05, #006699
+		), color-stop(1, #00557F));
+	background: -moz-linear-gradient(center top, #006699 5%, #00557F 100%);
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#006699',
+		endColorstr='#00557F');
+	background-color: #006699;
+}
+
+.datagrid table tfoot ul.active, .datagrid table tfoot ul a:hover {
+	text-decoration: none;
+	border-color: #006699;
+	color: #FFFFFF;
+	background: none;
+	background-color: #00557F;
+}
+
+div.dhtmlx_window_active, div.dhx_modal_cover_dv {
+	position: fixed !important;
+}
+//estilos para el menudo index.jsp

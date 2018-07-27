@@ -14,7 +14,8 @@
 <body>
 
 	<h1>Libros prestados</h1>
-	
+	<table>
+	</table>
 	<% out.print("<p> Soy Java </p>"); %>
 	
 	<a href="listar">Listar libros</a>
