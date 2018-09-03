@@ -1,0 +1,36 @@
+
+ 
+h1#titulo { 
+    color: #008080; 
+}
+strong, a, th{
+    color: #F00; /* #FF 00 00*/
+}
+
+h2#subtitulo, caption, a em { 
+    color: #00F; 
+}
+
+table, tr, th, td {
+    border: 1px solid #000; 
+    border-collapse: collapse; 
+    padding: 5px;
+}
+
+span.especial {
+     color: #F0F; 
+}
+
+td strong , th.especial, span.destacado{
+    color: orange;
+}
+
+#adicional{
+    color:#808000;
+}
+#especial{
+    color:fuchsia;
+}
+div#adicional a, td { 
+    color: green; 
+}
