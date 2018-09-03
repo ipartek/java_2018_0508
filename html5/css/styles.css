@@ -1,0 +1,11 @@
+/*
+    Hoja de estilos principal.
+*/
+
+header {
+    text-align: center;
+}
+h1 {
+    font-size: 3em;
+    color: teal;
+}
