@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <title>Posicionamiento</title>
+
+    <!-- FONT - AWSOME -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU"
+        crossorigin="anonymous">
+
+    <style>
+
+        section {
+        background-color: #D3D3D3;
+        border: 1px solid #000;
+        margin-bottom: 1em;
+        padding: 1em 3em;
+    }
+    p {
+        background-color: #0F0;
+    }
+    
+    span {
+        background-color: #F00;
+    }
+
+    .box {
+        text-align: center;
+        vertical-align: middle;
+        color: #FFF;
+        font-size: 3em;
+        font-family: Arial, Helvetica, sans-serif;
+        display: inline-block;
+        width: 33%;
+        height: 200px;
+        background-color: #00F;
+
+    }
+
+    .relativa {
+        background-color: #FFA500;
+        position: relative;
+        
+    }
+
+    .absoluta {
+        background-color: #FFA500;
+        position: absolute;
+        left: 250px;
+    }
+
+    section img {
+        float: left;
+        border: 1em;
+    }
+
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <h1>Posicionamiento</h1>
+    </header>
+
+    <section>
+        <h2> Elementos inline - block </h2>
+
+        <p> BLOCK ocupa todo el bloque. </p>
+
+        <span>INLINE se adapta al contenido.</span>
+    </section>
+
+    <section>
+        <h2>Posicionamiento Relativo</h2>
+
+        <div class="box">1</div>
+        <div class="box relativa">2</div>
+        <div class="box">3</div>
+
+    </section>
+
+    <section>
+        <h2>Posicionamiento Absoluto</h2>
+
+        <div class="box">1</div>
+        <div class="box absoluta">2</div>
+        <div class="box">3</div>
+
+    </section>
+
+    <section>
+
+        <img src="img/lobo.jpg" alt="Canis Lupus" height="150px" width="150px">
+
+        <p id="texto_lobo">
+            El lobo (Canis lupus) es una especie de mamífero placentario del orden de los carnívoros. El perro
+            doméstico (Canis lupus familiaris) se considera miembro de la misma especie según distintos indicios, la
+            secuencia del ADN y otros estudios genéticos.
+
+            El primer registro fósil data de hace 800.000 años.
+            En antaño, los lobos fueron abundantes y se distribuían por Norteamérica, Eurasia y el Oriente Medio.
+            Actualmente, por una serie de razones relacionadas con el hombre, incluyendo el muy extendido hábito de la
+            caza, los lobos habitan únicamente en una muy limitada porción del que antes fue su territorio.
+        </p>
+
+
+    </section>
+
+    <div id="scrolL">
+        <button><i class="fas fa-arrow-up"></i></button>
+    </div>
+</body>
+
+</html>

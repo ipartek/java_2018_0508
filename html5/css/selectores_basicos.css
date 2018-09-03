@@ -1,0 +1,25 @@
+
+header {
+    text-align: center;
+}
+h1 {
+    font-size: 2em;
+    color: teal;
+}
+
+table, tr, th, td { border:1px solid #000; border-collapse:collapse; padding:5px;}
+
+h1#titulo { color: #008080; }
+h2#subtitulo, a em, caption { color: #00F; }   /*  00 00 FF */
+
+strong, a, th { color: #F00; }   /*  FF 00 00 */
+
+span.destacado, td strong, th.especial { color: #FFA500; }
+span.especial { color: #800080; }
+ 
+ 
+div#adicional p { color: #808000; }
+div#adicional span#especial { color: #F0F; }    /* FF 00 FF */
+td, div#adicional a { color: #008000; }
+
+

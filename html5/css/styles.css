@@ -1,5 +1,15 @@
+/*  Hoja de estilos principal.  */
+
 /*
-    Hoja de estilos principal.
+    ORDEN PARA DISEÑAR LOS CSS
+
+    1. Reset CSS
+    2. Etiquetas para nuestra web
+    3. Clases re-utilizables.
+    4. Layouts o secciones (cabecera, sidebar, menu, etc).
+    5. Elementos muy específicos (ID's).
+    6. Responsive web-design.
+
 */
 
 header {
