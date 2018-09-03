@@ -14,8 +14,8 @@ import com.ipartek.formacion.gestor.libros.pojo.Libro;
  */
 public class LibroDAO implements CrudAble<Libro>{
 	
-	public static LibroDAO INSTANCE = null;
-	public static List<Libro> lista = null;
+	private static LibroDAO INSTANCE = null;
+	private static List<Libro> lista = null;
 	
 	private LibroDAO() {
 		lista = new ArrayList<Libro>();

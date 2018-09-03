@@ -1,7 +1,0 @@
-Revistas guardadas en el fichero:
-
-Revista [titulo=Hola Mundo, isbn=1234567890, nPaginas=10, formato=false]
-
-Revista [titulo=ojeofewif, isbn=0000000000, nPaginas=10, formato=true]
-
-Revista [titulo=wqefwcwRE, isbn=1212121212, nPaginas=24, formato=false]
