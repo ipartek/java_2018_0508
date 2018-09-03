@@ -1,0 +1,32 @@
+#titulo{
+    color: #008080;
+}
+
+strong, a, th{
+    color: #F00;
+}
+
+.destacado, th.especial, td strong{
+    color: #FFA500;
+}
+
+#subtitulo, caption, a em{
+    color: #00F;
+}
+
+span.especial, #especial{
+    color: #800080;
+}
+
+table, th, td{
+    border: 1px solid #000;
+    border-collapse: collapse;
+}
+
+td, #adicional p a{
+    color: #0F0;
+}
+
+#adicional{
+    color: #808000;
+}

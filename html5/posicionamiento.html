@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=<device-width>, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Posicionamiento</title>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
+
+    <style>
+        section{
+            background-color: lightgray;
+            border: 1px solid #000;
+            margin-bottom: 1em;
+            padding: 1.5em 2em; 
+        }
+
+        p {
+            background-color: pink;
+        }
+
+        span {
+            background-color: lime;
+            margin-right: 1em;
+        }
+
+        .box{
+            display: inline-block;
+            width: 100px;
+            height: 100px;
+            background-color: teal;
+            /* fuente */
+            color: #FFF;
+            font-size: 3em;
+            text-align: center;
+            font-family: arial, Courier, monospace;
+        }
+
+        .relativa{
+            background-color: orange;
+            position: relative;
+            bottom: -50px;
+            right: -50px;
+        }
+
+        .contenedor-relativo{
+            position: relative;
+        }
+
+        .absoluta{
+            background-color: orange;
+            position: absolute;
+            top: 110px;
+            left: 210px;
+        }
+
+        #fija{
+            position: absolute;
+            right: 25px;
+        }
+
+        #contenedor-flotante div{
+            float: right;
+            width: 460px;
+            margin-right: 1em;
+        }
+
+    </style>
+
+</head>
+
+<body>
+    <h1 id="top">Posicionamiento</h1>
+
+    <section>
+        <h2>Elementos inline y block</h2>
+
+        <p>BLOCK, ocupa todo el ancho</p>
+        <span>INLINE, ocupa lo que necesita su contenido</span>
+        <span>INLINE, ocupa lo que necesita su contenido</span>
+        <span>INLINE, ocupa lo que necesita su contenido</span>
+        <span>INLINE, ocupa lo que necesita su contenido</span>
+        <span>INLINE, ocupa lo que necesita su contenido</span>
+    </section>
+
+    <section>
+        <h2>Otro ejercicio de posicionamiento</h2>
+
+        <p>BLOCK, ocupa todo el ancho</p>
+        <span>INLINE, ocupa lo que necesita su contenido</span>
+    </section>
+
+    <section>
+        <h2>Posicionamiento relativo</h2>
+
+        <div class="box">1</div>
+        <div class="box relativa">2</div>
+        <div class="box">3</div>
+
+    </section>
+    
+    <section class="contenedor-relativo">
+        <h2>Posicionamiento absoluto</h2>
+    
+        <div class="box">1</div>
+        <div class="box absoluta">2</div>
+        <div class="box">3</div>
+    
+    </section>
+
+    <section id="contenedor-flotante">
+        <h2>Posicionamiento flotante</h2>
+        
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/79/Herbstlandschaft_%28am_Rebhang%29.jpg/270px-Herbstlandschaft_%28am_Rebhang%29.jpg" alt="">
+        <div><p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Nulla ducimus magnam nesciunt harum qui ratione id quaerat dolore unde asperiores, beatae tenetur veniam vel error consequuntur molestias at. Alias, ipsum!</p></div>
+        <div><p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Magnam fugiat molestiae totam pariatur numquam blanditiis obcaecati eveniet ipsam inventore sint, cum nisi labore consequuntur animi excepturi amet neque est beatae.</p></div>
+        
+    </section>
+
+    <div id="fija">
+        <a href="#top"><i class="fas fa-arrow-alt-circle-up"></i></a>
+    </div>
+
+</body>
+
+</html>
