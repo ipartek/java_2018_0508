@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Posicionamiento</title>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+    <style>
+        section {
+            background-color: lightgray;
+            border: 1px solid black;
+            margin-bottom: 1em;
+            padding: 1.5em 2em;
+        }
+
+        p {
+            background-color: pink;
+        }
+
+        span {
+            background-color: lime;
+        }
+
+        img {
+            width: 500px;
+            height: 500px;
+        }
+
+        .box {
+            display: inline-block;
+            width: 100px;
+            height: 100px;
+            background-color: #008080;
+            color: #FFF;
+            font-size: 3em;
+            text-align: center;
+            font-family: 'Courier New', Courier, monospace;
+        }
+
+        .relativa {
+            background-color: #FFA500;
+            position: relative;
+            bottom: 70px;
+            right: -216px;
+        }
+
+        .absoluta {
+            background-color: #FFA500;
+            position: absolute;
+            top: 140px;
+            left: 200px;
+        }
+
+        .section-relative {
+            position: relative;
+
+        }
+
+        .img-flota {
+            float: left;
+        }
+
+        .ancla{
+            position: fixed;
+            bottom: 0;
+            right: 0;
+            font-size: 3.5em;
+            color: #008080;
+        }
+    </style>
+</head>
+
+<body>
+    <h1 id="top">Posicionamiento</h1>
+
+    <section>
+        <h2>Elementos inline y block</h2>
+
+        <p>BLOCK, ocupa todo el ancho.</p>
+        <span>INLINE, ocupa lo que necesita su contenido.</span>
+    </section>
+    <section>
+        <h2>Otro ejercicio de posicionamiento</h2>
+
+        <p>BLOCK, ocupa todo el ancho.</p>
+        <span>INLINE, ocupa lo que necesita su contenido.</span>
+    </section>
+    <section>
+        <h2>Posicionamiento Relativo</h2>
+        <div class="box">1</div>
+        <div class="box relativa">2</div>
+        <div class="box">3</div>
+    </section>
+    <section class="section-relative">
+        <h2>Posicionamiento Absoluto</h2>
+        <div class="box">1</div>
+        <div class="box absoluta">2</div>
+        <div class="box">3</div>
+    </section>
+    <section>
+        <h2>Posicionamiento Flotante</h2>
+        <div class="img-flota"><img src="images/imagen_01.jpg" alt="Piñas y piñas"></div>
+        <div class="box-flota">
+            <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Repellendus, eligendi earum! At possimus
+                dolores non odio, neque tenetur molestiae maiores aperiam, fuga ullam deleniti porro, blanditiis
+                expedita ut facilis eveniet.</p>
+            <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Repellendus, eligendi earum! At possimus
+                dolores non odio, neque tenetur molestiae maiores aperiam, fuga ullam deleniti porro, blanditiis
+                expedita ut facilis eveniet.</p>
+            <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Repellendus, eligendi earum! At possimus
+                dolores non odio, neque tenetur molestiae maiores aperiam, fuga ullam deleniti porro, blanditiis
+                expedita ut facilis eveniet.</p>
+            <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Repellendus, eligendi earum! At possimus
+                dolores non odio, neque tenetur molestiae maiores aperiam, fuga ullam deleniti porro, blanditiis
+                expedita ut facilis eveniet.</p>
+            <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Repellendus, eligendi earum! At possimus
+                dolores non odio, neque tenetur molestiae maiores aperiam, fuga ullam deleniti porro, blanditiis
+                expedita ut facilis eveniet.</p>
+            <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Repellendus, eligendi earum! At possimus
+                dolores non odio, neque tenetur molestiae maiores aperiam, fuga ullam deleniti porro, blanditiis
+                expedita ut facilis eveniet.</p>
+            <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Repellendus, eligendi earum! At possimus
+                dolores non odio, neque tenetur molestiae maiores aperiam, fuga ullam deleniti porro, blanditiis
+                expedita ut facilis eveniet.</p>
+            <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Repellendus, eligendi earum! At possimus
+                dolores non odio, neque tenetur molestiae maiores aperiam, fuga ullam deleniti porro, blanditiis
+                expedita ut facilis eveniet.</p>
+            <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Repellendus, eligendi earum! At possimus
+                dolores non odio, neque tenetur molestiae maiores aperiam, fuga ullam deleniti porro, blanditiis
+                expedita ut facilis eveniet.</p>
+            <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Repellendus, eligendi earum! At possimus
+                dolores non odio, neque tenetur molestiae maiores aperiam, fuga ullam deleniti porro, blanditiis
+                expedita ut facilis eveniet.</p>
+            <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Repellendus, eligendi earum! At possimus
+                dolores non odio, neque tenetur molestiae maiores aperiam, fuga ullam deleniti porro, blanditiis
+                expedita ut facilis eveniet.</p>
+            <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Repellendus, eligendi earum! At possimus
+                dolores non odio, neque tenetur molestiae maiores aperiam, fuga ullam deleniti porro, blanditiis
+                expedita ut facilis eveniet.</p>
+            <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Repellendus, eligendi earum! At possimus
+                dolores non odio, neque tenetur molestiae maiores aperiam, fuga ullam deleniti porro, blanditiis
+                expedita ut facilis eveniet.</p>
+            <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Repellendus, eligendi earum! At possimus
+                dolores non odio, neque tenetur molestiae maiores aperiam, fuga ullam deleniti porro, blanditiis
+                expedita ut facilis eveniet.</p>
+            <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Repellendus, eligendi earum! At possimus
+                dolores non odio, neque tenetur molestiae maiores aperiam, fuga ullam deleniti porro, blanditiis
+                expedita ut facilis eveniet.</p>
+            <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Repellendus, eligendi earum! At possimus
+                dolores non odio, neque tenetur molestiae maiores aperiam, fuga ullam deleniti porro, blanditiis
+                expedita ut facilis eveniet.</p>
+            <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Repellendus, eligendi earum! At possimus
+                dolores non odio, neque tenetur molestiae maiores aperiam, fuga ullam deleniti porro, blanditiis
+                expedita ut facilis eveniet.</p>
+            <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Repellendus, eligendi earum! At possimus
+                dolores non odio, neque tenetur molestiae maiores aperiam, fuga ullam deleniti porro, blanditiis
+                expedita ut facilis eveniet.</p>
+        </div>
+    </section>
+    
+    <a href="#top" class="ancla"><i class="fas fa-arrow-up"></i></a>
+</body>
+
+</html>
