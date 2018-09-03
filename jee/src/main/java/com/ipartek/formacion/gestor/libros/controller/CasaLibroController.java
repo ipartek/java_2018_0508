@@ -1,7 +1,6 @@
 package com.ipartek.formacion.gestor.libros.controller;
 
 import java.io.IOException;
-import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -20,8 +19,7 @@ public class CasaLibroController extends HttpServlet {
 	private static final String VIEW_MOSTRAR = "casaMostrarLibro.jsp";
 	private static final String PRESTADO = "si";
 	private static final int ISBN_MIN_LENGTH = 5;
-	private static final String CADENA_VACIA = "";
-
+	
 	private RequestDispatcher dispatch = null;
 	private static Libro libro = null;
 

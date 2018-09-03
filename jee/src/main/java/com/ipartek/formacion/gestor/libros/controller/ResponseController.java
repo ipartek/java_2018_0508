@@ -2,7 +2,6 @@ package com.ipartek.formacion.gestor.libros.controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.logging.Logger;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -56,7 +55,7 @@ public class ResponseController extends HttpServlet {
 
 			response.getWriter();
 		} catch (Exception e) {// COGEMOS TODAs las excepciones
-			// TODO Auto-generated catch block
+			
 			e.printStackTrace();
 		} finally {
 			if (out != null) {

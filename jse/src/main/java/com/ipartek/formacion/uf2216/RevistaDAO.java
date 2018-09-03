@@ -55,19 +55,19 @@ public class RevistaDAO implements CrudAble<Revista> {
 
 	@Override
 	public Revista getById(long id) {
-		// TODO Auto-generated method stub
+		
 		return null;
 	}
 
 	@Override
 	public boolean update(Revista pojo) {
-		// TODO Auto-generated method stub
+		
 		return false;
 	}
 
 	@Override
 	public boolean delete(long id) {
-		// TODO Auto-generated method stub
+		
 		return false;
 	}
 

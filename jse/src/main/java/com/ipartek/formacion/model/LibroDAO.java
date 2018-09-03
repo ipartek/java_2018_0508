@@ -51,19 +51,19 @@ public class LibroDAO implements CrudAble<Libro> {
 
 	@Override
 	public Libro getById(long id) {
-		// TODO Auto-generated method stub
+		
 		return null;
 	}
 
 	@Override
 	public boolean update(Libro pojo) {
-		// TODO Auto-generated method stub
+		
 		return false;
 	}
 
 	@Override
 	public boolean delete(long id) {
-		// TODO Auto-generated method stub
+	
 		return false;
 	}
 

@@ -17,8 +17,7 @@ public class LibroController extends HttpServlet {
 
 	private RequestDispatcher dispatch = null;
 
-	private static final String VIEW = "crearLibro.jsp";
-	private static final String VIEW_MOSTRAR = "mostrarLibro.jsp";
+	private static final String VIEW = "crearLibro.jsp";	
 	private static final int MAX_ISBN=5;
 	
 	private static String tituloReg="";
@@ -74,7 +73,7 @@ public class LibroController extends HttpServlet {
 			
 			
 		} catch (Exception e) {
-			// TODO: handle exception
+			
 		}finally {
 			request.setAttribute("msg", msg);
 			dispatch.forward(request, response);

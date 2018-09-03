@@ -39,7 +39,6 @@ public class Excepciones2 {
 		System.out.println("salgo del metodoC");
 	}
 
-	// TODO Ejercicio4 capturar excepciones para que se ejecuten todos los metodos
-	// como si no hubiera excepcion.(no se manda mensaje)
+	
 
 }
