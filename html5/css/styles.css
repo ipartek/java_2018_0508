@@ -1,6 +1,60 @@
 /*Hoja de estilos principal*/
 
-h1{
+/*h1{
     color: teal;
     font-size: 5em;
+}*/
+
+/*Orden para organizar un css
+
+    1. Reset
+    2. Etiquetas para nuestra web
+    3. Clases reutilizables
+    4. Layouts o secciones (cabecera, sidebar, menús...)
+    5. Cosas más específica
+
+*/
+
+#titulo{
+    color:#008080;
+}
+
+strong, a, tfoot th, tbody th{
+    color: #ff0000; /* F 0 0*/
+}
+
+.destacado, .especial, tbody td strong{
+    color: #ffa500;
+}
+
+#subtitulo, a em, caption{
+    color: #0000ff;
+}
+
+span.especial{
+    color:#800080;
+}
+
+tbody td, td em, #adicional p a{
+    color: #008000;
+}
+
+#adicional{
+    color: #808000;
+}
+
+#especial{
+    color: #ff00ff;
+}
+
+table{
+    border-collapse: collapse;
+ }
+
+ table, th, td {
+    border: 1px solid #000000; /*Shorthand -> size, style, color*/
+}
+
+th, td{
+    padding: 5px;
 }

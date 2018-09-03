@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+
+    <style>
+        section
+        { 
+            background-color: lightgray;
+            border: 1px solid black;
+            margin-bottom: 1em;
+            padding: 1.5em 3em;
+        }
+
+        p{ background-color: pink; }
+        
+        span{ background-color: lime; }
+
+        .box{
+            display: inline-block;
+            width: 100px;
+            height: 100px;
+            background-color: teal;
+            /*Fuente*/
+            color: white;
+            font-size: 3em;
+            text-align: center;
+            font-family: 'Courier New', Courier, monospace;
+        }
+
+        .relativa{
+            background-color: orange;
+            position: relative;
+         /* bottom: -36px; */
+            right: -213px;
+        }
+
+        .absoluta{
+            background-color: orange;
+            position: absolute;
+            bottom: -5px;
+            left: 111px;
+        }
+
+        .contenedor-relativo{
+            position: relative;
+        }
+
+        a{
+            position: absolute;
+            bottom: -480px;
+            right: 20px;
+        }
+    
+    </style>
+</head>
+<body>
+    <h1>Posicionamiento</h1>
+
+    <section>
+        <h2>Elementos inline y block</h2>
+
+        <p> BLOCK, Ocupa todo el ancho</p>
+        <span>INLINE, ocupa lo que necesita</span>
+
+    </section>
+
+    <section>
+            <h2>Otro ejercicio de posicionamiento</h2>
+    
+            <p> BLOCK, Ocupa todo el ancho</p>
+            <span>INLINE, ocupa lo que necesita</span>
+    
+    </section>
+
+    <section>
+        <h2>Posicionamiento relativo</h2>
+
+        <div class="box">1</div>
+        <div class="box relativa">2</div>
+        <div class="box">3</div> 
+
+    </section>
+
+    <section class="contenedor-relativo">
+            <h2>Posicionamiento absoluto</h2>
+    
+            <div class="box">1</div>
+            <div class="box absoluta">2</div>
+            <div class="box">3</div>
+    
+    </section>
+
+    <section>
+            <h2>Posicionamiento flotante</h2>
+    
+            <div class="box">1</div>
+            <div class="box">2</div>
+            <div class="box">3</div>
+    
+    </section>
+
+    <p>
+        <a href=""><i class="far fa-arrow-alt-circle-up"></i></a>
+    </p>
+   
+    
+</body>
+</html>
+
+
+<!--Posicionamiento fijo 
+Icono de una flecha que esta siempre en la dcha abajo. Posicionar de abajo a dcha
+Buscar en fontawesome
+Al pinchar tiene que subir hasta arriba de la pagina (enlace interno <a>) 
+    
+Posicionamiento flotante
+Hacer una seccion, que metamos una imagen y que metiendo el texto lorem ipsum el texto flote-->
