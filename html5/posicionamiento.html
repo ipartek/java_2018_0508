@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Posicionamiento</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <style>
+
+        section{
+            background-color:lightgray;
+            border:1px solid #000;
+            margin-bottom:1em;
+            padding:1.5em 2em;
+        }
+    
+        p{
+            background-color:pink;
+        }
+
+        span{
+            background-color:lime;
+        }
+    
+        .box{
+            display:inline-block;
+            width:100px;
+            height:100px;
+            background-color:teal;
+            /* Fuente */
+            color:#fff;
+            font-size:3em;
+            text-align:center;
+            font-family:'Courier New', Courier, monospace;
+        }
+
+        .relativa{
+            background-color:orange;
+            position: relative;
+            left: 310px;
+        }
+
+        .absoluta{
+            background-color:orange;
+            position: absolute;
+            top: 100px;
+            left: 180px;    
+        }
+
+        .contenedor-relativo{
+            position:relative;
+        }
+
+        .flecha::before{
+            font-size:3.5em;
+            position:fixed;
+            bottom:0.3em;
+            right:0.3em;
+        }
+
+        .enlace-flecha{
+            color:#000;
+        }
+
+        #logo{
+            height:170px;
+            width:150px;
+            float:left;
+            margin-right:1em;
+        }
+
+        #texto{
+            background-color:transparent;
+        }
+
+    </style>
+
+</head>
+<body>
+    
+    <h1 id="top">Posicionamiento</h1>
+
+    <section>
+        <h2>Elementos inline y block</h2>
+
+        <p>Block, ocupa todo el ancho de la página</p>
+        
+        <span>Inline, ocupa lo que necesita su contenido</span>
+
+    </section>
+
+    
+    <section>
+        <h2>Otro ejercicio</h2>
+    
+        <p>Block, ocupa todo el ancho de la página</p>
+            
+        <span>Inline, ocupa lo que necesita su contenido</span>
+    
+    </section>
+
+    <section>
+        <h2>Posicionamiento relativo</h2>
+    
+        <div class="box">1</div>
+        <div class="box relativa">2</div>
+        <div class="box">3</div>
+    
+    </section>
+
+    <section class="contenedor-relativo">
+        <h2>Posicionamiento absoluto</h2>
+    
+        <div class="box">1</div>
+        <div class="box absoluta">2</div>
+        <div class="box">3</div>
+    
+    </section>
+
+    <section>
+        
+        <img src="images/css3-logo.png" id="logo" />
+
+        <p id="texto">Lorem ipsum dolor sit amet consectetur adipisicing elit. Rerum culpa eveniet temporibus. 
+            Officiis corporis deleniti dolor hic iusto? Ut quam hic expedita qui impedit, asperiores 
+            amet ipsam voluptatum ducimus voluptate!Lorem ipsum dolor sit amet consectetur adipisicing elit. Rerum culpa eveniet temporibus. 
+            Officiis corporis deleniti dolor hic iusto? Ut quam hic expedita qui impedit, asperiores 
+            amet ipsam voluptatum ducimus voluptate!Lorem ipsum dolor sit amet consectetur adipisicing elit. Rerum culpa eveniet temporibus. 
+            Officiis corporis deleniti dolor hic iusto? Ut quam hic expedita qui impedit, asperiores 
+            amet ipsam voluptatum ducimus voluptate!Lorem ipsum dolor sit amet consectetur adipisicing elit. Rerum culpa eveniet temporibus. 
+            Officiis corporis deleniti dolor hic iusto? Ut quam hic expedita qui impedit, asperiores 
+            amet ipsam voluptatum ducimus voluptate!Lorem ipsum dolor sit amet consectetur adipisicing elit. Rerum culpa eveniet temporibus. 
+            Officiis corporis deleniti dolor hic iusto? Ut quam hic expedita qui impedit, asperiores 
+            amet ipsam voluptatum ducimus voluptate!Lorem ipsum dolor sit amet consectetur adipisicing elit. Rerum culpa eveniet temporibus. 
+            Officiis corporis deleniti dolor hic iusto? Ut quam hic expedita qui impedit, asperiores 
+            amet ipsam voluptatum ducimus voluptate!Lorem ipsum dolor sit amet consectetur adipisicing elit. Rerum culpa eveniet temporibus. 
+            Officiis corporis deleniti dolor hic iusto? Ut quam hic expedita qui impedit, asperiores 
+            amet ipsam voluptatum ducimus voluptate!Lorem ipsum dolor sit amet consectetur adipisicing elit. Rerum culpa eveniet temporibus. 
+            Officiis corporis deleniti dolor hic iusto? Ut quam hic expedita qui impedit, asperiores 
+            amet ipsam voluptatum ducimus voluptate!Lorem ipsum dolor sit amet consectetur adipisicing elit. Rerum culpa eveniet temporibus. 
+            Officiis corporis deleniti dolor hic iusto? Ut quam hic expedita qui impedit, asperiores 
+            amet ipsam voluptatum ducimus voluptate!Lorem ipsum dolor sit amet consectetur adipisicing elit. Rerum culpa eveniet temporibus. 
+            Officiis corporis deleniti dolor hic iusto? Ut quam hic expedita qui impedit, asperiores 
+            amet ipsam voluptatum ducimus voluptate!</p>
+    
+    </section>
+
+    <a href="#top" class="enlace-flecha"><i class="fa fa-arrow-circle-o-up flecha" aria-hidden="true"></i></a>
+
+</body>
+</html>

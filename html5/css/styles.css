@@ -1,5 +1,18 @@
 /* Hoja de estilos principal */
 
+
+/*
+    ORDEN PARA ORGANIZAR UN CSS
+
+    1. Hacer un reset
+    2. Etiquetas para nuestra web
+    3. Clases reutilizables
+    4. Layouts o secciones (cabecera, sidebar, menus... etc.)
+    5. Cosas más específicas
+    6. Responsive web design (MediaQuerys)
+
+*/
+
 h1{
     color:teal;
     font-size:5em;
