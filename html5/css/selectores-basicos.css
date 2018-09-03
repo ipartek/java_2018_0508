@@ -1,0 +1,33 @@
+h2#subtitulo,a em, caption{
+    color: blue;
+}
+
+.destacado , tfoot tr th, tbody tr th , p a, p strong{
+    color: red;
+}
+
+
+
+table, table td ,table th{
+    border-collapse: collapse;
+    border: black 1px solid;
+    padding: 5px;
+}
+
+thead tr th , tbody tr th.especial , tbody tr td strong{
+    color : orange;
+}
+tbody tr   td{
+    color: green;
+}
+div#adicional p{
+    color: #808000;
+}
+
+div#adicional p span#especial{
+    color: blueviolet;
+}
+
+div p a{
+    color:darkgreen;
+}

@@ -1,4 +1,17 @@
-h1{
+/*HOJA DE ESTILOS PRINCIPAL*/
+
+/**
+1.Reset
+2.Etiquetas para nuestra web
+3.Clases reutilizables
+4. layouts o secciones (cabecera , sidebar, menus, etc)
+5 Cosas más especificas.
+6. Responsive web design
+*/
+/*reset*/
+
+h1#titulo{
     color: teal;
-    font-size: 5em;
+    
 }
+

@@ -1,3 +1,10 @@
+//COMENTARIO LINEA
+/*COMENTARIO DE BLOQUE*/
+
+/**
+ * Funcion inicial que se ejecuta al cargar la pagina principal
+ * mediante el evento 'onload' del <body>
+ */
 function init() {
     console.log('iniciado');
 
