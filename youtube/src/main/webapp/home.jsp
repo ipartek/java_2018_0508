@@ -1,4 +1,5 @@
-<%@page import="com.ipartek.formacion.youtube.controller.VideoYoutubeController"%>
+<%@page
+	import="com.ipartek.formacion.youtube.controller.VideoYoutubeController"%>
 <%@page import="com.ipartek.formacion.pojo.Video"%>
 <%@page import="java.util.ArrayList"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
@@ -45,16 +46,15 @@
 				<form class="form-inline">
 
 					<div class="form-group mx-sm-3 mb-2">
-						<label for="inputPassword2" class="sr-only">id</label>
-						 <input
-							type="password" class="form-control" id="inputPassword2"
-							placeholder="ID"> <label for="inputPassword2"
-							class="sr-only">nombre</label>
-							 <input type="password"
-							class="form-control" id="inputPassword2" placeholder="NOMBRE">
+						<label for="id-label" class="sr-only">id</label> <input
+							type="text" class="form-control" name="id" id="id" placeholder="ID">
+						<label for="nombreCancion" class="sr-only">nombre</label> <input
+							type="text" class="form-control" name="nombreCancion" id="nombreCancion"
+							placeholder="NOMBRE">
 
 					</div>
-					<button type="submit" class="btn btn-primary mb-2">Anadir</button>
+					<button name="anadir" id="anadir" value="anadir" type="submit"
+						class="btn btn-primary mb-2">Anadir</button>
 				</form>
 			</div>
 		</div>
@@ -68,45 +68,44 @@
 			<div class="col-lg-3">
 				<h1 class="my-4">Lista de reproduccion</h1>
 				<div class="list-group active">
-					
-				
-				<% 
-				ArrayList<Video> videos = (ArrayList<Video>) request.getAttribute("videos");
-		          if (videos.isEmpty()) {
-		        	  
-		        	  Video vSeleccionado = new Video();
-		        	  
-		          } 
-		          for( Video video: videos) {
-		           
-		          %>
-		          
 
-		          
-		          <a href="?id=<%= video.getId() %>" class="list-group-item "><%= video.getNombreCancion() %></a>
-		          <div id="iconos" class="text-center">
-		          	<i class="text-center fab fa-youtube"></i>
-		          	<i class="text-center  fas fa-trash-alt"></i>
-		          </div>
-		          
-		              
-		          <% 
-		         	 }
-		          %>
-	            
-            
-		</div>
-         
-            
-</div>
+
+					<%
+						ArrayList<Video> videos = (ArrayList<Video>) request.getAttribute("videos");
+						if (videos.isEmpty()) {
+
+							Video vSeleccionado = new Video();
+
+						}
+						for (Video video : videos) {
+					%>
+
+
+
+					<a name="enlaceClickado" value="<%=video.getId()%>" href="?id=<%=video.getId()%>" class="list-group-item "><%=video.getNombreCancion()%></a>
+					<div id="iconos" class="text-center">
+						<i class="text-center fab fa-youtube"></i> <i
+							class="text-center  fas fa-trash-alt"></i>
+							
+					</div>
+
+
+					<%
+						}
+					%>
+
+
+				</div>
+
+
+			</div>
 			<!-- /.col-lg-3 -->
 
 			<div class="col-lg-9">
 
 				<div class="card mt-4">
-					<iframe width="560" height="315"
-						src="https://www.youtube.com/embed/${video.id }" frameborder="0"
-						allow="autoplay; encrypted-media" allowfullscreen></iframe>
+					<iframe width="560" height="315" src="${idSeleccionado}" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+					
 					<div class="card-body">
 						<h3 class="card-title">Ricky hombre libre(titulo)</h3>
 						<!--  <h4>$24.99</h4> -->

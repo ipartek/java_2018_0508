@@ -18,20 +18,25 @@ public class Video {
 	
 	public Video(String id, String nombreCancion) throws Exception {
 		this();
-		this.id = id;
-		this.nombreCancion = nombreCancion;
-
+		this.setId(id);
+		this.setNombreCancion(nombreCancion);
 	}
 
 	public String getId() {
 		return id;
 	}
 	public void setId(String id) throws Exception {
-		if(id != null && id.length() == 11) {
-			this.id = id;
-		}else {
-			throw new Exception("El id debe contener 11 caracteres");
+		try {
+			if(id != null && id.length() == 11) {
+				this.id = id;
+			}else {
+				throw new Exception("El id debe contener 11 caracteres");
+			}
+		} catch (Exception e) {
+			System.out.println("El identificador debe tener 11 caracteres");
+			
 		}
+		
 		
 	}
 	public String getNombreCancion() {

@@ -3,19 +3,31 @@ package com.ipartek.formacion.model;
 import java.util.ArrayList;
 import java.util.List;
 
-
 import com.ipartek.formacion.model.CrudAble;
 import com.ipartek.formacion.pojo.Video;
 
 public class VideoArrayListDao implements CrudAble<Video> {
 	private static VideoArrayListDao INSTANCE = null;
-	private static ArrayList<Video> videos;
+	private static ArrayList<Video> videos = null;
+	private static boolean cargaVideos = false;
 
-	public static synchronized VideoArrayListDao getInstance() {
-		return (INSTANCE == null ? new VideoArrayListDao() : INSTANCE);
-	}
 	private VideoArrayListDao() { // CONSTRUCTOR MEDIANTE SINGLETON PATTERN
 		videos = new ArrayList<Video>();
+		try {
+			videos.add(new Video("AwsoXKP2HWE", "El momo - sol de marzo"));
+			videos.add(new Video("rC1KcJLRFDE", "Shintoma - Somos de lo malo lo peor"));
+			videos.add(new Video("wWrXkBz74SU", "Nach - Éxodo"));
+		} catch (Exception e) {
+			System.out.println("Error en VideoArrayListDao");
+		}
+	}
+	
+	public static synchronized VideoArrayListDao getInstance() {
+		if (INSTANCE == null) {
+			INSTANCE = new VideoArrayListDao();
+		}
+
+		return INSTANCE;
 	}
 
 	@Override
@@ -32,13 +44,13 @@ public class VideoArrayListDao implements CrudAble<Video> {
 
 	@Override
 	public List<Video> getAll() {
-		
+
 		return videos;
 	}
 
 	@Override
 	public Video getById(String id) {
-		Video videoCoincidencia = null  ;
+		Video videoCoincidencia = null;
 		if (id != null) {
 			for (Video v : videos) {
 				if (v.getId().equals(id)) {
