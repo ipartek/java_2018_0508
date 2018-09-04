@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU"
+        crossorigin="anonymous">
+    <title>Visualizacion</title>
+
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+        }
+
+        section {
+            background-color: lightgray;
+            border: 1px solid black;
+            margin-bottom: 1em;
+            padding: 1.5em 3em;
+        }
+
+        .box {
+            display: inline-block;
+            width: 100px;
+            height: 100px;
+            background-color: teal;
+            /*fuente*/
+            color: #fff;
+            font-size: 3em;
+            text-align: center;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        p span {
+            background-color: #dd425c;
+        }
+    </style>    
+</head>
+
+<body id="top">
+
+    <h1>Visualización</h1>
+    <a target=_blanck "" href="https://librosweb.es/libro/css/capitulo-5/visualizacion.html">ver documentacion</a>
+
+    <h2>Posicinamiento flotante</h2>
+
+    <section>
+        <h2>Display</h2>
+        <p> La propiedad
+            <span>display</span> permite ocultar completamente un elemento haciendo que desaparezca de la página. Como el elemento
+            oculto no se muestra, el resto de elementos de la página se mueven para ocupar su lugar..</p>
+        <p>Ocultamos la caja 2 con la propiedad display
+            <span>none</span>
+        </p>
+        <div class="box">1</div>
+        <div class="box display-none">2</div>
+        <div class="box">3</div>
+
+        <style>
+            .display-none {
+                display: none;
+            }
+        </style>
+    </section>
+    <section>
+        <h2>Visibility</h2>
+        <p> la propiedad
+            <span>visibility</span> permite hacer invisible un elemento, lo que significa que el navegador crea la caja del elemento
+            pero no la muestra. En este caso, el resto de elementos de la página no modifican su posición, ya que aunque
+            la caja no se ve, sigue ocupando sitio.</p>
+        <p>Ocultamos la caja 2 con visibility
+            <span>hidden</span>
+        </p>
+        <p>*Al pasar el raton por la caja 2 se mostrará</p>
+        <div class="box">1</div>
+        <div class="visible-container">
+            <div class="box display-visibility">2</div>
+        </div>
+        <div class="box">3</div>
+
+        <style>
+            .display-visibility {
+                visibility: hidden;
+            }
+
+            .visible-container {
+                display: inline-block;
+                width: 100px;
+                height: 100px;
+            }
+
+            .visible-container:hover .display-visibility {
+                visibility: visible;
+
+            }
+        </style>
+    </section>
+    <section>
+        <h2>OverFLow</h2>
+        <p> Permite controlar los contenidos sobrantes de un elemento</p>
+        <div class="box visible">
+            <p>
+                <span>visible</span> Lorem ipsum dolor sit amet consectetur adipisicing elit. Nostrum velit corrupti enim assumenda
+                sit culpa repudiandae nihil! Quibusdam sint debitis ut sunt repudiandae eius architecto autem! Aut dolore
+                assumenda quas.</p>
+        </div>
+        <div class="box hidden">
+            <p>
+                <span>hidden</span> Lorem ipsum dolor sit amet consectetur adipisicing elit. Ratione quasi laudantium incidunt,
+                quidem et natus iste maiores, dolorum quaerat modi quod obcaecati dolorem! A at ea distinctio, non omnis
+                expedita.
+            </p>
+        </div>
+        <div class="box scroll">
+            <p>
+                <span>scroll</span>Lorem ipsum dolor sit amet consectetur adipisicing elit. Beatae quibusdam tenetur veritatis
+                assumenda voluptate laboriosam, accusantium debitis quisquam eius corrupti sed doloribus reiciendis voluptatibus
+                iusto dolor! Dolor ratione quae aut.</p>
+        </div>
+
+        <style>
+            .box p {
+                font-size: .2em;
+            }
+
+            /*Visible es el valor por defecto*/
+
+            .hidden {
+                overflow: hidden;
+            }
+
+            .scroll {
+                overflow: scroll;
+                overflow-x: initial;
+                /*Ocultamos scroll horizontal*/
+            }
+        </style>
+    </section>
+    <section>
+        <h2>Z-Index</h2>
+        <p> es posible indicar las cajas que se muestran delante o detrás de otras cajas cuando se producen solapamientos.</p>
+        <div class="box verde">1</div>
+        <div class="box rojo">2</div>
+        <div class="box azul">3</div>
+        <style>
+            .verde {
+                background-color: #1ae01a;
+                z-index: 15;
+                top: 27em;
+                left: 11em;
+                position: absolute;
+            }
+
+            .rojo {
+                background-color: #d61616;
+                z-index: 5;
+                top: 0em;
+                left: 8em;
+                position: relative
+            }
+
+            .azul {
+                background-color: #0000ff;
+                z-index: 25;
+                top: 28em;
+                left: 12em;
+                position: absolute;
+            }
+        </style>
+    </section>
+
+    <section>
+        <h2>ejemplo mas avanzado</h2>
+        <!--Card 300x300px-->
+        <div class="card">
+            <span class="circle">27 May</span>
+            <img src="https://picsum.photos/300/300" alt="imagen aleatoria">
+            <!--Position absolute-->
+            <div class="content">
+                <h3>titulo</h3>
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Esse provident quo impedit iste eius vitae minus.
+                    Repellendus, tenetur! Necessitatibus deserunt facilis nam praesentium ad ullam rem accusantium tempore
+                    blanditiis dicta?</p>
+            </div>
+        </div>
+
+        <style>
+            .card {
+                display: inline-block;
+                width: 300px;
+                height: 300px;
+                position: relative;
+                /*Para posicionar de forma absoluta los elementos hijos*/
+                overflow: hidden;
+            }
+
+            .card .circle {
+                width: 50px;
+                height: 39px;
+                border-radius: 50%;
+                padding-top: 20px;
+                background: #5cb85c;
+                color: #000000;
+                text-align: center;
+                display: inline-block;
+                position: absolute;
+                top: 4px;
+                right: 4px;
+
+            }
+
+            .card .content {
+                background-color: #fff;
+                padding: 0 1em;
+                position: absolute;
+                top: 252px;
+                opacity: .6;
+                height: 300px;
+            }
+
+            .card:hover .content {
+                top: 0;
+                transition: 1.5s;
+                opacity: .9;
+            }
+        </style>
+
+    </section>
+
+</body>
+
+</html>

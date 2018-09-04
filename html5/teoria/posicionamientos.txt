@@ -1,0 +1,169 @@
+p span { color: red; }--->Cambia el color  todo los elementos span del parrafo 
+
+Selector descendente:
+/* El estilo se aplica a todos los elementos "p", "a", "span" y "em" */
+p, a, span, em { text-decoration: underline; }
+ 
+/* El estilo se aplica solo a los elementos "em" que se
+   encuentran dentro de "p a span" */
+p a span em { text-decoration: underline; }
+
+Selector de clase:
+
+<body>
+  <p class="destacado">Lorem ipsum dolor sit amet...</p>
+  <p>Nunc sed lacus et est adipiscing accumsan...</p>
+  <p>Class aptent taciti sociosqu ad litora...</p>
+</body>
+
+se prefija el valor del atributo class con un punto (.) tal y como muestra el siguiente ejemplo:
+
+.destacado { color: red; }
+
+Selectores de ID:
+
+#destacado { color: red; }
+ 
+<p>Primer párrafo</p>
+<p id="destacado">Segundo párrafo</p>
+<p>Tercer párrafo</p>
+
+id unico.
+ clase se puede repetir.
+ 
+ TABVLE:
+ th siempre en caabecera
+ td en tbody
+ 
+ Selector de hijos:
+ 
+ Se trata de un selector similar al selector descendente, pero muy diferente en su funcionamiento. 
+ Se utiliza para seleccionar un elemento que es hijo directo de otro elemento y se indica mediante el "signo de mayor que" (>):
+
+	p > span { color: blue; }
+ 
+	<p><span>Texto1</span></p>
+	<p><a href="#"><span>Texto2</span></a></p>
+	
+Selector adyacente:
+El selector adyacente se emplea para seleccionar elementos que en el código HTML de la página se encuentran justo a continuación de otros elementos. Su sintaxis emplea el signo + para separar los dos elementos:
+
+elemento1 + elemento2 { ... }
+
+<body>
+<h1>Titulo1</h1>
+ 
+<h2>Subtítulo</h2>
+...
+ 
+<h2>Otro subtítulo</h2>
+...
+</body>
+
+
+h2 { color: green; }
+h1 + h2 { color: red }
+
+Selector de atributos(Se usan para formularios):
+Los cuatro tipos de selectores de atributos son:
+
+[nombre_atributo], selecciona los elementos que tienen establecido el atributo llamado nombre_atributo, independientemente de su valor.
+[nombre_atributo=valor], selecciona los elementos que tienen establecido un atributo llamado nombre_atributo con un valor igual a valor.
+[nombre_atributo~=valor], selecciona los elementos que tienen establecido un atributo llamado nombre_atributo y al menos uno de los valores del atributo es valor.
+[nombre_atributo|=valor], selecciona los elementos que tienen establecido un atributo llamado nombre_atributo y cuyo valor es una serie de palabras separadas con guiones, pero que comienza con valor.
+ Este tipo de selector sólo es útil para los atributos de tipo lang que indican el idioma del contenido del elemento.
+ 
+ A continuación se muestran algunos ejemplos de estos tipos de selectores:
+
+/* Se muestran de color azul todos los enlaces que tengan 
+   un atributo "class", independientemente de su valor */
+a[class] { color: blue; }
+ 
+/* Se muestran de color azul todos los enlaces que tengan 
+   un atributo "class" con el valor "externo" */
+a[class="externo"] { color: blue; }
+ 
+/* Se muestran de color azul todos los enlaces que apunten 
+   al sitio "http://www.ejemplo.com" */
+a[href="http://www.ejemplo.com"] { color: blue; }
+ 
+/* Se muestran de color azul todos los enlaces que tengan 
+   un atributo "class" en el que al menos uno de sus valores
+   sea "externo" */
+a[class~="externo"] { color: blue; }
+ 
+/* Selecciona todos los elementos de la página cuyo atributo
+   "lang" sea igual a "en", es decir, todos los elementos en inglés */
+*[lang=en] { ... }
+ 
+/* Selecciona todos los elementos de la página cuyo atributo
+   "lang" empiece por "es", es decir, "es", "es-ES", "es-AR", etc. */
+*[lang|="es"] { color : red }
+
+
+
+Orden para ORGANIZAR CSS:
+1.- reset
+2.- definir todas las etiquetas para la web.
+3.- clases reutilizables.
+4.- layouts o secciones(cabeceras,sidebar,menus,etc)
+5.- cosas especificas(identificadores).
+6.- responsive del diseño(Para hacer una web adaptativa).
+
+Unidades de medida:
+Si es un cero, no tiene porque ponerse el valor.
+	Unidades relativas:
+		rem,
+		em, (no confundir con la etiqueta <em> de HTML) relativa respecto del tamaño de letra del elemento.
+(MAS USADO)	px, (píxel) relativa respecto de la resolución de la pantalla del dispositivo en el que se visualiza la página HTML.
+		%.
+		
+		Para las fuentes se usa la unidad em;
+ todos los navegadores muestran por defecto el texto de los párrafos con un tamaño de letra de 16 píxel.
+ Por tanto, en este caso el margen de 1em equivale a un margen de anchura 16px.
+
+3.1.3. Porcentajes:
+
+Capítulo 4. Modelo de cajas:IMPORTANTE
+displayblock(bloque)
+display-inline(en linea)
+IMPORTANTE:
+
+MARGEN:de etiqueta a etiqueta
+de arriba a bajo y derecha a isquierda.
+
+Capítulo 5. Posicionamiento y visualización:
+Posicionamiento de la caja (normal, relativo, absoluto, fijo o flotante).
+El estándar HTML clasifica a todos sus elementos en dos grandes grupos: elementos en línea y elementos de bloque.
+
+En el inspector de codigo podemos ver que propiedades tiene la etiqueta en elements|computed.
+
+5.2. Posicionamiento:
+
+Posicionamiento normal o estático: se trata del posicionamiento que utilizan los navegadores si no se indica lo contrario.
+Posicionamiento relativo: variante del posicionamiento normal que consiste en posicionar una caja según el posicionamiento normal y después desplazarla respecto de su posición original.
+Posicionamiento absoluto: la posición de una caja se establece de forma absoluta respecto de su elemento contenedor y el resto de elementos de la página ignoran la nueva posición del elemento.
+Posicionamiento fijo: variante del posicionamiento absoluto que convierte una caja en un elemento inamovible, de forma que su posición en la pantalla siempre es la misma independientemente del resto de elementos e independientemente de si el usuario sube o baja la página en la ventana del navegador.
+Posicionamiento flotante: se trata del modelo más especial de posicionamiento, ya que desplaza las cajas todo lo posible hacia la izquierda o hacia la derecha de la línea en la que se encuentran.
+
+
+
+
+El posicionamiento de una caja se establece mediante la propiedad position:
+
+Propiedad			position
+Valores				static | relative | absolute | fixed | inherit(heredado)|flex(nuevo)
+Se aplica a			Todos los elementos
+Valor inicial		static
+Descripción			Selecciona el posicionamiento con el que se mostrará el elemento
+
+Posicionamiento normal:
+en block, uno encima de otro.
+en linea: uno detras de otro a la misma altura.
+
+5.4. Posicionamiento relativo:
+respecto a la posicion inicial de la caja.
+
+Posicionamiento absoluto:
+respecto al contenedor de la caja.
+PARA BUSCAR EL CONTENEDOR De la caja, se crea una clase con posicionamiento relatyive;

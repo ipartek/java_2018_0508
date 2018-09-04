@@ -1,0 +1,37 @@
+﻿5.8. Visualización:
+
+5.8.1. Propiedades display y visibility:
+
+Las propiedades display y visibility controlan la visualización de los elementos. Las dos propiedades permiten ocultar cualquier elemento de la página. Habitualmente se utilizan junto con JavaScript para crear efectos dinámicos como mostrar y ocultar determinados textos o imágenes cuando el usuario pincha sobre ellos.
+
+La propiedad display permite ocultar completamente un elemento haciendo que desaparezca de la página. Como el elemento oculto no se muestra, el resto de elementos de la página se mueven para ocupar su lugar.
+
+Por otra parte, la propiedad visibility permite hacer invisible un elemento, 
+lo que significa que el navegador crea la caja del elemento pero no la muestra.
+ En este caso, el resto de elementos de la página no modifican su posición,
+ ya que aunque la caja no se ve, sigue ocupando sitio.
+
+Propiedad overflow:
+
+
+TEXT:
+line-height:sube o baja las lineas.
+Ejemplo:
+p { line-height: 1.2; font-size: 1em } 
+p { line-height: 1.2em; font-size: 1em }
+p { line-height: 120%; font-size: 1em }
+
+
+
+Propiedad	text-decoration
+Valores	none | ( underline || overline || line-through || blink ) | inherit
+Se aplica a	Todos los elementos
+Valor inicial	none
+Descripción	Establece la decoración del texto (subrayado, tachado, parpadeante, etc.)
+
+
+Propiedad	text-transform
+Valores	capitalize | uppercase | lowercase | none | inherit
+Se aplica a	Todos los elementos
+Valor inicial	none
+Descripción	Transforma el texto original (lo transforma a mayúsculas, a minúsculas, etc.)

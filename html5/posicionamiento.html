@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Posicinamiento</title>
+
+    <style>
+        p {
+            background-color: pink;
+        }
+
+        span {
+            background-color: green;
+        }
+
+        section {
+            background-color: lightgray;
+            border: 1px solid black;
+            margin-bottom: 1em;
+            padding: 1.5em 3em;
+        }
+
+        .box {
+            display: inline-block;
+            width: 100px;
+            height: 100px;
+            background-color: teal;
+            /*fuente*/
+            color: #fff;
+            font-size: 3em;
+            text-align: center;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        .relativa {
+            background-color: orangered;
+            position: relative;
+            bottom: -20px;
+            right: -99px;
+
+        }
+
+        .absoluta {
+            background-color: orangered;
+            position: absolute;
+            top: 133px;
+            left: 171px;
+        }
+
+        .contenedor-relativo {
+            position: relative;
+        }
+
+        #iconoArriba {
+            position: fixed;
+            right: 20px;
+            bottom: 20px;
+        }
+
+        img {
+            float: left;
+            margin-right: 2px;
+            margin-left: 2px;
+            width: 50px;
+            height: 50px;
+        }
+
+        div.sticky {
+            position: -webkit-sticky;
+            position: sticky;
+            top: 0;
+            background-color: #ffc400;
+            padding: 50px;
+            font-size: 60px;
+            font-style: oblique;
+        }
+    </style>
+
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU"
+        crossorigin="anonymous">
+</head>
+
+<body id="top">
+    <div class="sticky">Posicionamiento sticky</div>
+    <h1>Posicinamientos</h1>
+
+
+    <h2>Posicinamiento flotante</h2>
+
+    <span>
+        <img src="https://www.monmagan.com/wp-content/uploads/2015/05/loremlogo600.jpg" alt=""> Lorem ipsum dolor sit amet consectetur adipisicing elit. Dignissimos fuga, nihil enim voluptatem quam ullam totam
+        praesentium, optio eaque ipsa doloremque, itaque officiis expedita laboriosam vero voluptate exercitationem consectetur
+        magni! Lorem ipsum dolor sit amet consectetur adipisicing elit. Quia molestiae aut dolorem odio, dolore, hic repellendus
+        eaque corporis blanditiis deleniti, amet fuga officiis officia? Ratione praesentium laudantium sapiente corporis
+        fugit. Lorem ipsum dolor sit amet consectetur adipisicing elit. Laudantium temporibus unde quam distinctio accusantium
+        minus nesciunt rem natus obcaecati ipsum, quidem numquam possimus esse ut totam, dolores culpa nulla vel!</span>
+    </section>
+
+    <section>
+        <h2>Elementos inline y block</h2>
+        <p>Block , ocupa todo el ancho.</p>
+        <span>INLINE,ocupa lo que necesita su contenido</span>
+    </section>
+
+    <section>
+        <h2>Otro ejercicio de posicionamiento</h2>
+        <p>Block , ocupa todo el ancho.</p>
+        <span>INLINE,ocupa lo que necesita su contenido</span>
+    </section>
+
+    <section>
+        <h2> posicionamiento relativo</h2>
+        <div class="box">1</div>
+        <div class="box relativa">2</div>
+        <div class="box">3</div>
+    </section>
+
+    <section class="contenedor-relativo">
+        <h2> posicionamiento absoluto</h2>
+        <div class="box">1</div>
+        <div class="box absoluta">2</div>
+        <div class="box">3</div>
+    </section>
+
+    <div id=iconoArriba>
+        <a href="#top">
+            <i class="fas fa-arrow-circle-up"></i>
+        </a>
+    </div>
+</body>
+
+</html>

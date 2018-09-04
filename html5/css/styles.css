@@ -1,6 +1,47 @@
 /*Hoja de estilos principal*/
 
+/*
 h1{
     color: teal;
     font-size: 5em;
 }
+*/
+
+/*estilos selectores-basicos*/
+#titulo{
+    color:#008080;
+}
+strong,a{
+    color: #f00; /*FF 00 00*/
+}
+.destacado{
+    color: #ffff00;
+}
+#subtitulo,caption, a em{
+    color: #0000ff;
+}
+table{
+   /* 
+  border-color: #000000;
+   border-style: solid;
+   border-width: 1px;
+
+         shorthand
+   */
+    border: 1px solid #000000;
+}
+adicional p a {
+    color: green;
+}
+
+.especial,td strong{
+    color:orange;
+}
+
+#adicional{
+    color:#808000;
+}
+#especial{
+    color:#ffc0cb;
+}
+ 
