@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU"
+        crossorigin="anonymous">
+        <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+    <style>
+        body{
+            font-family: 'Roboto', sans-serif;
+        }
+        section {
+            background-color: lightgray;
+            border: 1px solid #000;
+            margin-bottom: 1em;
+            padding: 1.5em 2em;
+        }
+
+
+        .box {
+            display: inline-block;
+            width: 100px;
+            height: 100px;
+            background-color: teal;
+            /* fuente */
+            color: #FFF;
+            font-size: 3em;
+            text-align: center;
+            font-family: arial, Courier, monospace;
+        }
+
+        .box p {
+            font-size: 0.2em
+        }
+
+        p span {
+            background-color: pink;
+        }
+
+        .display-none {
+            display: none;
+        }
+
+        .display-visibility {
+            visibility: hidden;
+        }
+
+        .visible-container {
+            display: inline-block;
+            width: 100px;
+            height: 100px;
+        }
+
+        .visible-container:hover .display-visibility {
+            visibility: visible;
+            transition-duration: 3s;
+        }
+
+        .hidden {
+            overflow: hidden;
+        }
+
+        .scroll {
+            overflow: scroll;
+            overflow-x: auto;
+            /*Ocultamos el scroll horizontal*/
+        }
+
+        .verde {
+            background-color: green;
+            position: relative;
+            z-index: 15;
+            left: 3.5em;
+            top: 1em;
+        }
+
+        .roja {
+            background-color: red;
+            position: relative;
+            z-index: 25;
+        }
+
+        .azul {
+            background-color: blue;
+            position: relative;
+            z-index: 5;
+            top: 2.5em;
+            left: .5em;
+            ;
+        }
+
+        .card {
+            overflow: hidden;
+            display: inline-block;
+            height: 300px;
+            width: 300px;
+            background-color: white;
+            border: 1px solid black;
+            position: relative;
+            /* Para psosicionar de forma absoluta los elementos hijos*/
+        }
+
+        .card:hover .content {
+            bottom: 0em;
+            
+
+
+        }
+
+        .card .circle {
+            display: inline-block;
+            background-color: green;
+            color: black;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            position: absolute;
+            right: 5px;
+            text-align: center;
+            padding-top: 7px;
+            top: 5px;
+            opacity: 1;
+            z-index: 99;
+
+
+        }
+
+        .card .content {
+            background-color: white;
+            max-height: 300px;
+            position: absolute;
+            bottom: -128px;
+            opacity: .7;
+            padding: 0 1em;
+            transition: bottom 2s;
+        }
+
+
+
+        .card:hover img {
+            opacity: .6;
+
+        }
+    </style>
+
+</head>
+
+<body id="top">
+    <h1>Visualizacion</h1>
+    <a target="_blank" href="https://librosweb.es/libro/css/capitulo-5/visualizacion.html">Leer documentación</a>
+    <section>
+        <h2>Display</h2>
+        <p>La propiedad
+            <span>display</span> permite ocultar completamente un elemento haciendo que desaparezca de la página. Como el elemento
+            oculto no se muestra, el resto de elementos de la página se mueven para ocupar su lugar.</p>
+        <p>Ocultamos la caja 2 con las propiedades display
+            <span>none</span>
+        </p>
+        <div class="box">1</div>
+        <div class="box display-none">2</div>
+        <div class="box">3</div>
+    </section>
+
+    <section>
+        <h2>Visibility</h2>
+        <p>Por otra parte, la propiedad visibility permite hacer invisible un elemento, lo que significa que el navegador crea
+            la caja del elemento pero no la muestra. En este caso, el resto de elementos de la página no modifican su posición,
+            ya que aunque la caja no se ve, sigue ocupando sitio.</p>
+        <p>Ocultamos la caja 2 con las propiedades visibility
+            <span>hidden</span>
+        </p>
+        <p>Al pasar por encima de la caja 2 con el raton,se mostrara, para que funcione debemos meter el elemento que queremos
+            que aparezca dentro de otro contenedor.</p>
+
+        <div class="box">1</div>
+        <div class="visible-container">
+            <div class="box display-visibility">2</div>
+        </div>
+        <div class="box">3</div>
+    </section>
+
+
+    <section>
+        <h2>Overflow</h2>
+
+        <p>Permite controlar los contenidos sobrantes de un elemento</p>
+
+        <div class="box visible">
+            <p>
+                <span>VISIBLE</span> Lorem ipsum dolor sit, amet consectetur adipisicing elit. Placeat exercitationem aliquam dolor
+                eius laborum labore, perspiciatis dolorum consectetur assumenda, ratione dicta tempore fuga explicabo doloribus
+                quasi consequatur repudiandae molestias beatae.</p>
+        </div>
+        <div class="box hidden">
+            <p>
+                <span>HIDDEN</span> Lorem ipsum dolor sit, amet consectetur adipisicing elit. Placeat exercitationem aliquam dolor
+                eius laborum labore, perspiciatis dolorum consectetur assumenda, ratione dicta tempore fuga explicabo doloribus
+                quasi consequatur repudiandae molestias beatae.</p>
+        </div>
+        <div class="box scroll">
+            <p>
+                <span>SCROLL</span> Lorem ipsum dolor sit, amet consectetur adipisicing elit. Placeat exercitationem aliquam dolor
+                eius laborum labore, perspiciatis dolorum consectetur assumenda, ratione dicta tempore fuga explicabo doloribus
+                quasi consequatur repudiandae molestias beatae.</p>
+        </div>
+
+    </section>
+
+    <section>
+        <h2>Z-index</h2>
+
+        <p>La posición tridimensional de un elemento se establece sobre un tercer eje llamado Z y se controla mediante la propiedad
+            z-index. Utilizando esta propiedad es posible crear páginas complejas con varios niveles o capas.</p>
+
+        <div class="box verde">1</div>
+
+        <div class="box roja">2</div>
+
+        <div class="box azul">3</div>
+    </section>
+
+    <section>
+
+        <h2>Ejemplo más avanzado</h2>
+        <!--card tiene 300px x 300px-->
+        <div class="card">
+            <span class="circle">27 MAY</span>
+            <img class=""src="https://picsum.photos/300/300/?random" alt="Imagen aleatoria">
+            <!--Posicion absoluta-->
+            <div class="content">
+                <h3>Titulo</h3>
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptates reiciendis sint rerum exercitationem
+                    eius architecto saepe reprehenderit fuga ut, voluptas, cum dolorem atque voluptatem officiis voluptatum
+                    modi voluptatibus et harum.</p>
+            </div>
+        </div>
+    </section>
+
+
+</body>
+
+</html>

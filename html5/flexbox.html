@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Flexbox</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: teal;
+        }
+
+        .main-content {
+            background-color: #FFF;
+            width: 1024px;
+            min-width: 400px;
+            margin: auto;
+            height: 100vh;
+            padding: 1em;
+
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        .container {
+            background-color: blueviolet;
+            padding: 3em;
+            display: flex;
+            flex-direction: row;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: stretch;
+        }
+
+        .item {
+            background-color: orange;
+            font-size: 3em;
+            width: 30%;
+            text-align: center;
+            margin: 1%;
+
+
+
+        }
+
+        .primero {
+            order: 1;
+
+        }
+
+        .segundo {
+            order: 2;
+            flex-grow: 2;
+        }
+
+        .tercero {
+            order: 3;
+
+        }
+    </style>
+</head>
+
+<body>
+    <div class="main-content">
+
+        <h1>Flexbox</h1>
+        <section class="container">
+            <a href="https://css-tricks.com/snippets/css/a-guide-to-flexbox/">teoria flexbox</a>
+            <a href="https://www.youtube.com/watch?v=8w5mfbMH4Gw&t=401s">Video de maquetar con flexbox</a>
+            <div class="item tercero">1</div>
+            <div class="item primero">2</div>
+            <div class="item segundo">3</div>
+
+
+        </section>
+
+    </div>
+
+</body>
+
+</html>
