@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU"
+        crossorigin="anonymous">
+
+    <style>
+        body {
+            /* font-size: 20px; */
+        }
+
+        section {
+            background-color: lightgray;
+            border: 1px solid #000;
+            margin-bottom: 1em;
+            padding: 1.5em 2em;
+        }
+
+        .box {
+            display: inline-block;
+            width: 100px;
+            height: 100px;
+            background-color: teal;
+            /* fuente */
+            color: #FFF;
+            font-size: 3em;
+            text-align: center;
+            font-family: arial, Courier, monospace;
+        }
+
+        p span {
+            background-color: pink;
+        }
+    </style>
+
+</head>
+
+<body id="top">
+    <h1>Visualizacion</h1>
+    <a target="_blank" href="https://librosweb.es/libro/css/capitulo-5/visualizacion.html">Leer mas documentación</a>
+    <section>
+        <h2>Display</h2>
+        <p>La propiedad <span>display</span> permite ocultar completamente un elemento haciendo que desaparezca de la
+            página. Como el elemento oculto no se muestra, el resto de elementos de la página se mueven para ocupar su
+            lugar.</p>
+        <p>Ocultamos la caja 2 con la propiedas display <span>none</span></p>
+
+        <div class="box">1</div>
+        <div class="box display-none">2</div>
+        <div class="box">3</div>
+
+        <style>
+            .display-none {
+                display: none;
+            }
+        </style>
+
+    </section>
+
+    <section>
+        <h2>Visibility</h2>
+        <p>la propiedad <span>visibility</span> permite hacer invisible un elemento, lo que significa que el navegador
+            crea la caja del elemento pero no la muestra. En este caso, el resto de elementos de la página no modifican
+            su posición, ya que aunque la caja no se ve, sigue ocupando sitio.</p>
+        <p>Ocultamos la caja 2 con la propiedas visibility <span>hidden</span></p>
+        <p>*Al pasar sobre la caja 2 con el raton se mostrara</p>
+
+        <div class="box">1</div>
+        <div class="visible-container">
+            <div class="box display-visibility">2</div>
+        </div>
+        <div class="box">3</div>
+
+        <style>
+            .display-visibility {
+                visibility: hidden;
+            }
+
+            .visible-container {
+                display: inline-block;
+                width: 100px;
+                height: 100px;
+            }
+
+            .visible-container:hover .display-visibility {
+                visibility: visible;
+            }
+        </style>
+
+    </section>
+
+
+    <section>
+        <h2>Overflow</h2>
+        <p>Permite controlar los contenidos sobrantes de un elemento</p>
+
+        <div class="box visible">
+            <p><span>visible</span>Lorem ipsum dolor sit amet consectetur adipisicing elit. Asperiores animi aut
+                accusamus ad repellat esse facilis maiores dignissimos exercitationem magnam corporis at ex adipisci,
+                dolor alias explicabo? Quidem, vero at?</p>
+        </div>
+        <div class="box hidden">
+            <p><span>hidden</span>Lorem ipsum dolor sit amet consectetur adipisicing elit. Asperiores animi aut
+                accusamus ad repellat esse facilis maiores dignissimos exercitationem magnam corporis at ex adipisci,
+                dolor alias explicabo? Quidem, vero at?</p>
+        </div>
+        <div class="box scroll">
+            <p><span>scroll</span>Lorem ipsum dolor sit amet consectetur adipisicing elit. Asperiores animi aut
+                accusamus ad repellat esse facilis maiores dignissimos exercitationem magnam corporis at ex adipisci,
+                dolor alias explicabo? Quidem, vero at?</p>
+        </div>
+
+        <style>
+            .box p {
+                font-size: .2em;
+            }
+
+            /* visible => es el valor por defecto */
+            .hidden {
+                overflow: hidden;
+            }
+
+            .scroll {
+                overflow: scroll;
+                overflow-x: initial;
+                /* ocultamos scroll horizaontal  */
+            }
+        </style>
+
+    </section>
+
+
+    <section>
+        <h2>Z-index</h2>
+        <p>Establece el nivel tridimensional en el que se muestra el elemento</p>
+
+
+        <div class="box green">1</div>
+        <div class="box red">2</div>
+        <div class="box blue">3</div>
+
+        <style>
+            .green {
+                background-color: green;
+                z-index: 2;
+                position: relative;
+                left: 15em;
+                top: -1em;
+                }
+            
+
+            .red {
+                background-color: red;
+                z-index: 3;
+                top: -2em;
+                left: 11em;
+                position: relative;
+            }
+
+            .blue {
+                background-color: blue;
+                z-index: 1;
+                position: relative;
+                top: 0em;
+                left: 12em;
+            }
+        </style>
+
+    </section>
+
+
+
+    <section>
+        <h2>Ejemplo mas avanzado</h2>
+
+        <!-- card 300x300 px-->
+        <div class="card">
+            <span class="circle">27 MAY</span>
+            <img src="https://picsum.photos/300/300" alt="imagen aleatoria">
+            <!-- posiction absolute -->
+            <div class="content">
+                <h3>titulo</h3>
+                <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Possimus ad placeat fugiat? Maiores,
+                    voluptate, tempora neque suscipit qui nulla quam soluta aut, tenetur at voluptatum rerum vero.
+                    Placeat, reprehenderit nam.</p>
+            </div>
+        </div>
+
+        <style>
+            .card {
+                background-color: #FFF;
+                display: inline-block;
+                width: 300px;
+                height: 300px;
+                position: relative;
+                /* para posicionar de forma absoluta los elementos hijos */
+                overflow: hidden;
+            }
+
+            .card .circle {
+
+                background-color: orange;
+                color: #000;
+                border-radius: 50%;
+                width: 50px;
+                height: 30px;
+                padding-top: 20px;
+                font-size: .7em;
+                text-align: center;
+                display: inline-block;
+                position: absolute;
+                top: 5px;
+                right: 5px;
+            }
+
+            .card .content {
+                padding: 0 1em;
+                background-color: #FFF;
+                position: absolute;
+                top: 250px;
+                opacity: .7;
+                transition: top 1s;
+                height: 300px;
+            }
+
+            .card:hover .content {
+                top: 0;
+            }
+        </style>
+
+
+    </section>
+
+
+</body>
+
+</html>
