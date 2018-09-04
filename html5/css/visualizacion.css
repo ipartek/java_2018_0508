@@ -1,0 +1,147 @@
+body {
+    width: 80%;
+    margin: auto;
+    font-family: 'Roboto', sans-serif;
+}
+
+header {
+    text-align: center;
+}
+
+section {
+    background-color:#808080;
+    margin: 1em auto;
+    padding: 1em;
+}
+
+p span {
+    color: #00F;
+}
+
+.box p {
+    font-size: 0.2em;
+}
+
+.box span {
+    font-size: 0.5em;
+    margin: 2px;
+}
+
+/*  Clases propias */
+.box {
+    text-align: center;
+    vertical-align: middle;
+    color: #000;
+    font-size: 3em;
+    font-family: Arial, Helvetica, sans-serif;
+    display: inline-block;
+    width: 150px;
+    height: 150px;
+    background-color: #2F4F4F;
+}
+
+.oculta {
+    display: none;
+}
+
+.invisible {
+    visibility: hidden;
+}
+
+.hidden {
+    overflow: hidden;
+}
+
+.scroll {
+    overflow: scroll;
+}
+
+.contenedor {
+    width: 150px;
+    height: 150px;
+    display: inline-block;
+    animation-duration: 500ms;
+}
+
+.contenedor:hover .invisible {
+    visibility: visible;
+}
+
+.rojo {
+    background-color: #F00;
+    position: absolute;
+    bottom: 0.2em;
+    left: 10em;
+    z-index: 3;
+}
+
+.verde {
+    background-color: #0F0;
+    position: absolute;
+    bottom: -0.5em;
+    z-index: 2;
+}
+
+.azul {
+    background-color: #00F;
+    position: relative;
+    z-index: 1;
+    bottom: -1.2em;
+    left: 1em;
+}
+
+#contenedor_zindex {
+    position: relative;
+    text-align: center;
+}
+
+/* Ejemplo Avanzado */
+
+.card {
+    width: 300px;
+    height: 300px;
+    display: inline-block;
+    background-color: #000;
+    color: #FFF;
+    position: relative; /* Para posicionar de forma absoluta los elementos hijos */
+
+    overflow: hidden;
+}
+
+.card .circle {
+    display: inline-block;
+    border-radius: 50%;
+    background-color: #0FF;
+    
+    font-size: 1em;
+    text-align: center;
+    
+    
+    height: 1.5em;
+    vertical-align: middle;
+    margin: auto;
+    padding: 1em;
+   
+    position: absolute;
+    top: 1em;
+    right: 1em;
+}
+
+.card .content {
+    position: absolute;
+    top: 10em;
+    padding: 1em;
+    height: 300px;
+
+    background-color: #FFF;
+    color: #000;
+    text-align: justify;
+   
+    opacity: 0.7; 
+    transition: 1s;
+}
+
+.card:hover .content {
+    top: 0; 
+    opacity: 0.9;
+}

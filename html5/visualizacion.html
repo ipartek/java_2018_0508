@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Visualización</title>
+</head>
+
+<body>
+
+    <!-- FONT - AWSOME -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU"
+        crossorigin="anonymous">
+
+    <!-- GOOGLE FONTS -->
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+
+    <link rel="stylesheet" href="css/visualizacion.css">
+
+    </head>
+
+    <body>
+
+        <header>
+            <h1>Visualización</h1>
+        </header>
+
+        <div>
+            <a href="https://librosweb.es/libro/css/capitulo-5/visualizacion.html">Ver Documentación</a>
+        </div>
+
+
+        <section>
+            <h2>Propiedad Display</h2>
+            <p>
+                La propiedad <span>display</span> permite ocultar completamente un elemento haciendo que desaparezca de
+                la página.
+                Como el elemento oculto <span>no se muestra</span>, el resto de elementos de la página <span>se mueven</span>
+                para ocupar su
+                lugar.
+            </p>
+
+            <div class="box">1</div>
+            <div class="box oculta">2</div>
+            <div class="box">3</div>
+        </section>
+
+        <section>
+            <h2>Propiedad Visivility</h2>
+            <p>
+                la propiedad <span>visibility</span> permite hacer invisible un elemento, lo que significa que el
+                navegador crea la caja del elemento pero no la muestra. En este caso, el resto de elementos de la
+                página <span>no modifican su
+                    posición</span>, ya que aunque la caja no se ve, sigue ocupando sitio.
+            </p>
+
+            <div class="box">1</div>
+
+            <div class="contenedor">
+                <div class="box invisible">2</div>
+            </div>
+
+            <div class="box">3</div>
+        </section>
+
+        <section>
+            <h2>Propiedad Overflow</h2>
+            <p>
+                CSS define la propiedad <span>overflow</span> para controlar la forma en la que se visualizan los
+                contenidos que
+                <span>sobresalen</span> de sus elementos.
+            </p>
+
+            <div class="box visible">
+                <span>Visible</span>
+                <p>
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque sed eros blandit, porttitor
+                    velit at, feugiat diam. Praesent vitae commodo sapien. Maecenas lectus nunc, faucibus venenatis
+                    enim non, faucibus molestie elit. In metus arcu, dictum in nisl in, fringilla euismod urna. Sed
+                    consectetur orci non aliquam fringilla.
+                </p>
+            </div>
+            <div class="box hidden">
+                <span>Hidden</span>
+                <p>
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque sed eros blandit, porttitor
+                    velit at, feugiat diam. Praesent vitae commodo sapien. Maecenas lectus nunc, faucibus venenatis
+                    enim non, faucibus molestie elit. In metus arcu, dictum in nisl in, fringilla euismod urna. Sed
+                    consectetur orci non aliquam fringilla. Nunc sapien risus, bibendum vitae porta non, lacinia eget
+                    sapien. Fusce bibendum elit nisl, ut imperdiet nisl scelerisque sit amet. Quisque enim ligula,
+                    pellentesque ut turpis sit amet, ullamcorper iaculis justo.
+                </p>
+            </div>
+            <div class="box scroll">
+                <span>Scroll</span>
+                <p>
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque sed eros blandit, porttitor
+                    velit at, feugiat diam. Praesent vitae commodo sapien. Maecenas lectus nunc, faucibus venenatis
+                    enim non, faucibus molestie elit. In metus arcu, dictum in nisl in, fringilla euismod urna. Sed
+                    consectetur orci non aliquam fringilla. Nunc sapien risus, bibendum vitae porta non, lacinia eget
+                    sapien. Fusce bibendum elit nisl, ut imperdiet nisl scelerisque sit amet. Quisque enim ligula,
+                    pellentesque ut turpis sit amet, ullamcorper iaculis justo.
+                </p>
+            </div>
+        </section>
+
+        <section>
+            <h2>Propiedad Z-Index</h2>
+            <p>
+                La posición tridimensional de un elemento se establece sobre un <span>tercer eje</span> llamado Z y se
+                controla
+                mediante la propiedad <span>z-index</span>. Utilizando esta propiedad es posible crear páginas
+                complejas con varios
+                niveles o capas.
+            </p>
+
+            <div id="contenedor_zindex">
+                <div class="box verde">1</div>
+                <div class="box rojo">2</div>
+                <div class="box azul">3</div>
+            </div>
+        </section>
+
+        <section>
+            <h2>Ejemplo Avanzado</h2>
+
+            <div class="card">
+                <div id="fecha" class="circle"></div>
+                <img src="https://picsum.photos/300/300/?random" alt="Imagen aleatoria">
+
+
+
+                <div class="content">
+                    <h3>Título</h3>
+                    <p>
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque sed eros blandit,
+                        porttitor
+                        velit at, feugiat diam. Praesent vitae commodo sapien. Maecenas lectus nunc, faucibus venenatis
+                        enim non, faucibus molestie elit. In metus arcu, dictum in nisl in, fringilla euismod urna. Sed
+                        consectetur orci non aliquam fringilla. 
+                    </p>
+                </div>
+        </section>
+
+
+        <!-- JQUERY -->
+        <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+
+        <script>
+            var f = new Date();
+            var div = document.getElementById("fecha");
+
+            div.innerHTML = (f.getDate() + "/" + (f.getMonth() + 1) + "/" + f.getFullYear());
+        </script>
+
+    </body>
+
+</html>

@@ -1,0 +1,59 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    background-color: #FFF;
+}
+.contenido_principal {
+    width: 80%;
+    max-width: 1024px;
+    min-height: 400px;
+    margin: 0 auto;
+    margin-top: 0;
+    background-color: #00008B;
+    height: 100vh;
+    padding: 2em;
+}
+
+header {
+    text-align: center;
+    padding: 0.5em;
+    color: white;
+}
+
+a {
+    color: #FFF;
+    margin: 1em;
+}
+
+.contenedor {
+    background-color: #800080;
+    padding: 2em;
+
+    /* Jugando con el Flex Box */
+    display: flex;
+
+    flex-direction: row;
+    flex-wrap: nowrap;
+    flex-flow: row nowrap; /* Shorthand */
+
+    justify-content: center;
+    align-items: flex-start;
+    align-content: flex-start;
+}
+
+.item {
+    width: 20%;
+    text-align: center;
+    margin: 1%;
+    font-size: 3em;
+    display: inline-block;
+    background-color: #FF4500;
+}
+
+/* Cambiamos el orden natural de los flex-items */
+.primero {  order: 1; }
+.segundo {  order: 2; flex-shrink: 2;}
+.tercero {  order: 3; flex-grow: 2;  }
