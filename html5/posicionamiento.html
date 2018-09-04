@@ -54,23 +54,62 @@
         .imagen {
             float: left;
             width: 10em;
+            margin-right: 2em;
+            margin-bottom: 2em;
         }
-        .clear{
+
+        .clear {
             clear: both;
+        }
+
+
+
+        .navbar {
+            overflow: hidden;
+            background-color: #900C3F;
+            position: fixed;
+            top: 0;
+            width: 100%;
+        }
+
+        .navbar a {
+            float: left;
+            display: block;
+            color: #f2f2f2;
+            text-align: center;
+            padding: 14px 16px;
+            text-decoration: none;
+        }
+
+        /* Change background on mouse-over */
+        .navbar a:hover {
+            background: #C5626F;
+            color: black;
         }
     </style>
 </head>
 
 <body id="titulo">
+
+    <!--Posicionamiento sticky-->
+    <div class="navbar">
+        <a href="">Flotante</a>
+        <a href="">Inline-Block</a>
+        <a href="">Relativo</a>
+        <a href="">Absoluta</a>
+    </div><br>
+
+
     <h1>Posicionamiento</h1>
 
     <section>
         <h2>Posicionamiento Flotante</h2>
         <img class="imagen" src="images/foto1.jpg" alt="">
 
-        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Autem, illum assumenda harum vel non enim, recusandae
+        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Autem, illum assumenda harum vel non enim,
+            recusandae
             pariatur magnam a illo asperiores facere error fugit amet facilis alias iusto aut rerum.</p>
-            <div class="clear"></div>
+        <div class="clear"></div>
     </section>
 
 
