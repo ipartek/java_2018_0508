@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=<device-width>, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        *{
+            padding: 0px;
+            margin: 0px;
+        }
+        header {
+            margin:auto;
+            width:500px;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+        ul,ol {
+            list-style: none;
+            
+        }
+        a {
+            text-decoration: none;
+        }
+        nav.main{
+            width:500px;
+            margin:0 auto;/*Centrar horizontalmente*/
+            position:relative;
+        }
+        nav.main li a{
+            background-color: #000;
+            color:#fff;   
+            padding: 10px 15px;
+            display: block;
+        }
+
+        nav.main li a:hover{
+            background-color: rgb(105, 193, 252);
+        }
+        nav.main ul:first-child > li{
+            float:left;
+        }
+        nav.main > li {
+            float:left;
+        }
+        nav.main li ul {
+            display: none;
+            position:absolute;
+            min-width: 140px;
+        }
+        nav.main li:hover > ul{
+            display: block;
+        }
+        nav.main li ul li {
+            position: relative;
+        }
+
+        nav.main li ul li ul{
+            left : 140px;
+            top:0;
+
+        }
+    
+    </style>
+</head>
+<body>
+    <h1>
+        Menu desplegable orizontal
+    </h1>
+    <nav class="main">
+        <ul >
+            <li><a href="">Inicio</a></li>
+
+            <li><a href="">Servicios</a>
+                <ul>
+                    <li><a href="">Submenu1</a></li>
+                    <li><a href="">Submenu2</a></li>
+                    <li><a href="">Submenu3</a></li>
+                    <li><a href="">Submenu4</a>
+                        <ul>
+                            <li><a href="">Submenu1</a></li>
+                            <li><a href="">Submenu2</a></li>
+                            <li><a href="">Submenu3</a></li>
+                            <li><a href="">Submenu4</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </li>
+
+            <li><a href="">Acerca de</a>
+                <ul>
+                    <li><a href="">Submenu1</a></li>
+                    <li><a href="">Submenu2</a></li>
+                    <li><a href="">Submenu3</a></li>
+                    <li><a href="">Submenu4</a></li>
+                </ul>
+            </li>
+            <li><a href="">Contactanos</a></li>
+        </ul>
+    </nav>
+    <a href="https://www.youtube.com/watch?v=oZa2Ut8u2S0">Fuente</a>
+    <br>
+    <a href="index.html">Volver</a>
+</body>
+</html>

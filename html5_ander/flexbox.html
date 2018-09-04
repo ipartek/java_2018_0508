@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Flex box</title>
+    <style>
+        body{
+            background-color: aqua;
+            margin:0;
+            padding: 0;
+        }
+        h1 {
+            text-align: center;
+        }
+        /*Contenedor central esta centrado*/
+        .main-content{
+            width:1024px;
+            height: 100vh;/*Unidad usada para disposivos moviles*/
+            margin:auto;
+            background-color:white;
+            padding: 1em;
+            
+        }
+        .container{
+            background: #88499C;
+            display: flex;
+            padding: 3em;
+            flex-direction: row;
+            flex-wrap: nowrap;
+            align-items:stretch;
+        }
+        .item{
+            background-color: #E77F24;
+            font-size: 3em;
+            width:33%;
+            text-align: center;
+            margin: 15%;
+
+
+        }
+        .primero{
+            order:1;
+        }
+        .segundo{
+            order:2;
+           
+        }
+        .tercero{
+            order:3;
+            flex-grow:3;
+        }
+
+    </style>
+</head>
+<body>
+        <h1>FLEXBOX</h1>
+    <div class="container">  
+        <section class="container">
+            <div class="item tercero">1</div>
+            <div class="item primero">2</div>
+            <div class="item segundo">3</div>
+        </section>
+    </div>
+    
+</body>
+</html>

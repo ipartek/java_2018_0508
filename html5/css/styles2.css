@@ -1,0 +1,53 @@
+/*etiquetas
+#->id
+.nombre -> clase
+*/
+/*
+ORDEN PARA ORGAnIZAR UN CSS
+1.reset
+2.Definir etiquetas para nuestra web
+3.clases reutilizables
+4.Layouts o secciones(Cabecera sizbar menus etc..)
+5.cosas mas especificas
+6.responsive de web design 
+*/
+h1{
+    color: teal;
+    font-size: 5 em;
+}
+
+.destacado {
+
+}
+p strong{
+    color:red;
+}
+
+p .destacado{
+    color:yellow;
+}
+
+#subtitulo {
+    color: blue;
+}
+
+p a{
+    color:red;
+}
+
+p em{
+    color:blue;
+}
+
+#especial{
+    color:blueviolet;
+}
+
+table caption{
+    color:blue;
+}
+th #especial {
+    color: yellow;
+}
+
+/**table thead tr th*/

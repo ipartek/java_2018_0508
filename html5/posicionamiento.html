@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<style>
+    p {
+        background-color: pink;
+    }
+
+    span {
+        background-color: blue;
+    }
+    section {
+        background-color: lightgray;
+        border : 1px solid black;
+        margin-bottom: 1em;
+        padding: 1em 3em;
+    }
+    .box {
+        display: inline-block;
+        width:300px;
+        height: 300px;
+        background-color: aqua;
+        /**fuente**/
+        color:white;
+        font-size: 3em;
+        text-align: center;
+        font-family: Arial, Helvetica, sans-serif;
+        
+    }
+    .relativa{
+        background-color: tomato;
+        position: relative;
+        bottom: -50px;
+        left: 166px;
+    }
+    .absoluta{
+        background-color: tomato;
+        position: absolute;
+        bottom: -50px;
+        left: 0px;
+    }
+    .contenedor-relativo{
+        position: absolute;
+        bottom: 17px;
+        left: 658px;
+    }
+    .posicionamiento-fijo{
+        /*position: fixed;*/
+        border: 1px solid black;
+        width: 60px;
+        margin-top:30px;
+        
+
+
+    }
+</style>
+<body>
+    <h1>Posicionamiento</h1>
+    <section>
+        <h2>Elementos inline inblock</h2>
+        <p>Block ocupa todo el contenido</p>
+        <span>Inline, ocupa lo que necesita su contenido</span>
+    </section>
+
+    <section>
+        <h2>Otro ejercicio de posicionamiento</h2>
+        <p>Block ocupa todo el contenido</p>
+        <span>Inline, ocupa lo que necesita su contenido</span>
+    </section>
+
+    <section>
+        <h2>Posicionamiento relativo</h2>
+        <div class="box">1</div>
+        <div class="box relativa">2</div>
+        <div class="box">3</div>
+        
+    </section>
+
+     <section class="contenedor-relativo">
+        <h2>Posicionamiento Absoluto</h2>
+        <div class="box">1</div>
+        <div class="box absoluta">2</div>
+        <div class="box">3</div>
+        
+    </section>
+
+    
+    <section>
+        <!--  imagen y texto flotante--> test
+    </section>
+    <br>
+    <div class="posicionamiento-fijo"><img src="https://fontawesome.com/icons/angle-up?style=solid"></div>
+    
+    <a href="index.html">Volver</a>
+</body>
+</html>
