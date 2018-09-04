@@ -5,30 +5,78 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Proyecto web para aprender HTML5 y CSS3</title>
-<style>
-   *{
-       margin:0;
-       padding:0;
-   }
-   body{
-        background-color: teal;
-    }
-    .main-content{
-        background-color: beige;
-        width: 1024px;
-        margin:auto;
-        max-width: 1024px;
-        min-height: 400px;
-        height: 100vh;
-    }
-</style>
+    <title>Flexbox</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: teal;
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        .main-content {
+            background-color: beige;
+            width: 1024px;
+            margin: auto;
+            max-width: 1024px;
+            min-height: 400px;
+            height: 100vh;
+            padding: 1em;
+        }
+
+        .container {
+            display: flex;
+            background-color: #88499C;
+            padding: 3em;
+            flex-direction: row;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: stretch;
+        }
+
+        .item {
+            background-color: #E67E24;
+            font-size: 3em;
+            text-align: center;
+            margin: 1%;
+            width: 20%;
+
+        }
+
+        .primero {
+            order: 1;
+
+        }
+
+        .segundo {
+            order: 2;
+            flex-grow: 2;
+
+        }
+
+        .tercero {
+            order: 3;
+
+        }
+    </style>
 </head>
 
 <body>
 
     <div class="main-content">
-        <h2>Flexbox</h2>
+        <h1>Flexbox</h1>
+        <section class="container">
+
+            <div class="item tercero">1</div>
+            <div class="item primero">2</div>
+            <div class="item segundo">3</div>
+        </section>
 
     </div>
 
