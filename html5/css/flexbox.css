@@ -1,0 +1,39 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-color: teal;
+}
+
+h1 {
+    text-align: center;
+}
+
+.main-content {
+    background-color: #FFF;
+    max-width: 1024px;
+    margin: auto;
+    height: 100vh;
+    padding: 1em;
+}
+.container{
+    background-color: #88499C;
+    padding: 3em;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: center;
+    align-items: stretch;
+}
+.item{
+    background-color:  #E77F24;
+    font-size: 3em;
+    text-align: center;
+    margin: 1%;
+    width: 20%;
+}
+.primero{order: 1;}
+.segundo{order: 2; flex-grow: 2;}
+.tercero{order: 3;}
