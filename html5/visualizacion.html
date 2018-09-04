@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">   
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+
+    <style>
+        body{
+            font-family: 'Roboto', sans-serif;
+        }
+        section
+        { 
+            background-color: lightgray;
+            border: 1px solid black;
+            margin-bottom: 1em;
+            padding: 1.5em 3em;
+        }
+
+        .box{
+            display: inline-block;
+            width: 100px;
+            height: 100px;
+            background-color: teal;
+            /*Fuente*/
+            color: white;
+            font-size: 3em;
+            text-align: center;
+            font-family: 'Courier New', Courier, monospace;
+        }
+
+        p span{
+            background-color: lime;
+        }
+    
+    </style>
+</head>
+<body>
+    <h1>Visualización</h1>
+
+    <a target="_blank" href="https://librosweb.es/libro/css/capitulo-5/visualizacion.html">Ver Documentación</a>
+
+    <section>
+        <h2>Display</h2>
+        <p>La propiedad <span>display</span> permite ocultar completamente un elemento haciendo que desaparezca de la página. 
+            Como el elemento oculto no se muestra, el resto de elementos de la página se mueven para ocupar su lugar.</p>
+
+        <p>Ocultamos la caja 2 con la propiedad Display: <span>None</span></p>
+
+        <div class="box">1</div>
+        <div class="box display-none">2</div>
+        <div class="box">3</div>
+
+        <style>
+            .display-none{
+                display: none;
+            }
+        </style>
+
+    </section>  
+
+    <section>
+        <h2>Visibility</h2>
+        <p>La propiedad <span>visibility</span> permite hacer invisible un elemento, lo que significa que el navegador crea la caja 
+            del elemento pero no la muestra. En este caso, el resto de elementos de la página no modifican su posición, 
+            ya que aunque la caja no se ve, sigue ocupando sitio.</p>
+            
+        <p>Ocultamos la caja 2 con la propiedad Visibility: <span>Hidden</span></p>
+
+        <p>Al pasar sobre la caja 2 con el ratón se mostrará</p>
+
+        <div class="box">1</div>
+        <div class="visible-container"><div class="box display-visibility">2</div></div> 
+        <div class="box">3</div>
+
+        <style>
+            .display-visibility{
+                visibility: hidden;
+            }
+
+            .visible-container{
+                display: inline-block;
+                width: 100px;
+                height: 100px;
+            }
+
+            .visible-container:hover .display-visibility{
+                visibility: visible;
+            }
+        </style>
+    
+    </section>  
+
+    <section>
+        <h2>Overflow</h2>
+        <p>Permite controlar los contenidos sobrantes de un elemento</p>
+
+        <div class="box visible"><p> <span>Overflow visible</span> Lorem ipsum dolor sit amet consectetur adipiscing elit fusce, dictumst lectus gravida nulla pretium netus vivamus, 
+                magna ultrices sodales curabitur sed erat fringilla. Mattis in vulputate fermentum nulla non litora velit odio, 
+                conubia rutrum posuere ultricies porttitor accumsan lacus, metus laoreet orci justo sociis dignissim dictumst. 
+                Dui porttitor hac sollicitudin dis mauris venenatis at arcu a, nascetur nulla tempor ornare vestibulum malesuada 
+                ad lacus viverra phasellus, torquent habitant pellentesque eros cras pretium enim curae.
+                Donec sem penatibus parturient fames nisi iaculis fringilla eu, purus molestie eget cursus volutpat vel per, 
+                tortor ligula habitasse senectus pellentesque libero feugiat dictum, commodo posuere scelerisque gravida quisque porttitor. 
+                Porta magna vivamus eu vestibulum lacus a scelerisque, in non auctor tortor interdum tempor massa lobortis, 
+                rhoncus laoreet dui velit mus litora. Litora bibendum lacus primis vivamus nibh vehicula dis interdum eros dictumst 
+                facilisi hac, nam turpis aenean vitae torquent consequat auctor viverra integer nascetur curae libero, 
+                sed eget ultricies commodo ante est quisque ad vel himenaeos diam.</p></div>
+        <div class="box hidden"><p> <span>Overflow hidden</span> Lorem ipsum dolor sit amet consectetur adipiscing elit fusce, dictumst lectus gravida nulla pretium netus vivamus, 
+                magna ultrices sodales curabitur sed erat fringilla. Mattis in vulputate fermentum nulla non litora velit odio, 
+                conubia rutrum posuere ultricies porttitor accumsan lacus, metus laoreet orci justo sociis dignissim dictumst. 
+                Dui porttitor hac sollicitudin dis mauris venenatis at arcu a, nascetur nulla tempor ornare vestibulum malesuada 
+                ad lacus viverra phasellus, torquent habitant pellentesque eros cras pretium enim curae.
+                Donec sem penatibus parturient fames nisi iaculis fringilla eu, purus molestie eget cursus volutpat vel per, 
+                tortor ligula habitasse senectus pellentesque libero feugiat dictum, commodo posuere scelerisque gravida quisque porttitor. 
+                Porta magna vivamus eu vestibulum lacus a scelerisque, in non auctor tortor interdum tempor massa lobortis, 
+                rhoncus laoreet dui velit mus litora. Litora bibendum lacus primis vivamus nibh vehicula dis interdum eros dictumst 
+                facilisi hac, nam turpis aenean vitae torquent consequat auctor viverra integer nascetur curae libero, 
+                sed eget ultricies commodo ante est quisque ad vel himenaeos diam.</p></div>
+        <div class="box scroll"><p> <span>Overflow scroll</span> Lorem ipsum dolor sit amet consectetur adipiscing elit fusce, dictumst lectus gravida nulla pretium netus vivamus, 
+                magna ultrices sodales curabitur sed erat fringilla. Mattis in vulputate fermentum nulla non litora velit odio, 
+                conubia rutrum posuere ultricies porttitor accumsan lacus, metus laoreet orci justo sociis dignissim dictumst. 
+                Dui porttitor hac sollicitudin dis mauris venenatis at arcu a, nascetur nulla tempor ornare vestibulum malesuada 
+                ad lacus viverra phasellus, torquent habitant pellentesque eros cras pretium enim curae.
+                Donec sem penatibus parturient fames nisi iaculis fringilla eu, purus molestie eget cursus volutpat vel per, 
+                tortor ligula habitasse senectus pellentesque libero feugiat dictum, commodo posuere scelerisque gravida quisque porttitor. 
+                Porta magna vivamus eu vestibulum lacus a scelerisque, in non auctor tortor interdum tempor massa lobortis, 
+                rhoncus laoreet dui velit mus litora. Litora bibendum lacus primis vivamus nibh vehicula dis interdum eros dictumst 
+                facilisi hac, nam turpis aenean vitae torquent consequat auctor viverra integer nascetur curae libero, 
+                sed eget ultricies commodo ante est quisque ad vel himenaeos diam.</p></div>
+
+        <style>
+            .box p{
+                font-size: 0.2em;
+            }
+
+            .visible{
+                overflow: visible;
+            }
+
+            .hidden{
+                overflow: hidden;
+                position: relative;
+                top: -798px;
+            }
+
+            .scroll{
+                overflow: scroll;
+                overflow-x: initial; /*Solo mostrar el scroll vertical. Esta propiedad oculta el scroll horizontal*/
+                position: relative;
+                top:-798px;
+            }
+            
+        </style>
+
+    </section>  
+
+    <section>
+        <h2>Z-INDEX</h2>
+        <p>	Establece el nivel tridimensional en el que se muestra el elemento</p>
+
+        <div class="box green">1</div>
+        <div class="box red">2</div>
+        <div class="box blue">3</div>
+
+        <style>
+            .green{
+                background-color: green;
+                position: relative;
+                right: -175px;
+                bottom: -35px;
+                z-index: 2;
+            }
+
+            .red{
+                background-color: red;
+                position: relative;
+                z-index: 3;
+            }
+
+            .blue{
+                background-color: blue;
+                position: relative;
+                right: -35px;
+                bottom: -75px;
+                z-index: 1;
+            }
+        </style>
+    
+    </section>  
+
+    <section>
+        <h2>EJEMPLO MÁS AVANZADO</h2>
+
+        <!-- Card tiene 300 x 300 px-->
+
+        <div class="card">
+            <span class="circle">27 MAY</span>
+            <img src="https://picsum.photos/300" alt="card image">
+            <div class="content">
+                <h3>Título</h3>
+                <p>Lorem ipsum dolor sit amet consectetur adipiscing elit fusce, dictumst lectus gravida nulla pretium netus vivamus, 
+                    magna ultrices sodales curabitur sed erat fringilla. Mattis in vulputate fermentum nulla non litora velit odio, 
+                    conubia rutrum posuere ultricies porttitor accumsan lacus, metus laoreet orci justo sociis dignissim dictumst. 
+                    Dui porttitor hac sollicitudin dis mauris venenatis at arcu a, nascetur nulla tempor ornare vestibulum malesuada 
+                    ad lacus viverra phasellus, torquent habitant pellentesque eros cras pretium enim curae.</p>
+            </div>
+        </div>
+
+        <style>
+            .card{
+                display: inline-block;
+                width: 300px;
+                height: 300px;
+                background-color: white;
+                position: relative; /*Para posicionar de forma absoluta los elementos hijos*/
+            }
+
+            .card .circle{
+                background-color: green;
+                color: #000000;
+                font-size: 0.7em;
+
+                position: absolute;
+                top: 5px;
+                right: 5px;
+                padding-top: 15px;
+                
+                border-radius: 50%;
+                height: 30px;
+                width: 45px;
+                
+                display: inline-block;
+                text-align: center;                
+            }
+            .card .content{
+                position: absolute;
+                background-color: white;
+                top: 290px;
+                opacity: .7;
+                padding: 0 1em;
+                min-height: 300px;
+            }
+
+            .card:hover .content{
+                top: 0;
+                transition: 1.5s;
+                opacity: .9;
+            }
+            
+        </style>
+        
+    </section>  
+
+</body>
+</html>
+
+<!--
+Inicialmente solo se ve la imagen y el titulo. Cuando se hace hover en la imagen el parrafo transiciona sobre la imagen
+sin llegar a taparla del todo.
+Quien se ponga encima de card content sube para arriba
+Semitransparencia. Que se siga viendo la imagen de fondo (opacity)
+Content de forma absoluta respecto a card y ponerlo algo mas abajo
+-->

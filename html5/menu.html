@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+
+        *{
+            padding: 0;
+            margin: 0;
+        }
+        
+        ul, ol{
+            list-style: none;
+        }
+
+        nav.main{
+            margin: auto;
+            width: 500px;
+            position: relative;
+        }
+
+        nav.main li a{
+            background-color: black;
+            color: white;
+            text-decoration: none;
+            padding: 10px 15px;
+            display: block;
+        }
+
+        nav.main li a:hover{
+            background-color: #434343;
+        }
+
+      /*nav.main > ul > li{*/
+        nav.main ul:first-child > li{
+            float: left;
+            
+        }
+
+        nav.main li ul{
+            display: none;
+            position: absolute;
+            min-width: 140px;
+        }
+
+        nav.main li:hover > ul {
+            display: block;
+        }
+
+        nav.main li ul li{
+            position: relative;
+        }
+
+        nav.main li ul li ul{ /*A partir del segundo nivel de los menus*/
+            right: -140px;
+            top: 0px;
+        }
+
+    </style>
+</head>
+<body>
+    <h1>Menu Desplegable Horizontal</h1>
+    <a href="https://www.youtube.com/watch?v=oZa2Ut8u2S0" target="_blank">Ver Video Tutorial</a>
+
+    <nav class="main">
+        <ul>
+            <li><a href="">Inicio</a></li>
+            <li><a href="">Servicios</a>
+                <ul>
+                    <li><a href="">Submenu 1</a></li>
+                    <li><a href="">Submenu 2</a></li>
+                    <li><a href="">Submenu 3</a></li>
+                    <li><a href="">Submenu 4</a>
+                        <ul>
+                            <li><a href="">Submenu 1</a></li>
+                            <li><a href="">Submenu 2</a></li>
+                            <li><a href="">Submenu 3</a></li>
+                            <li><a href="">Submenu 4</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </li>
+            <li><a href="">Acerca de</a>
+                <ul>
+                    <li><a href="">Submenu 1</a></li>
+                    <li><a href="">Submenu 2</a></li>
+                    <li><a href="">Submenu 3</a></li>
+                    <li><a href="">Submenu 4</a></li>
+                </ul>
+            </li>
+            <li><a href="">Contacto</a></li>
+        </ul>
+        <!-- <\ul class="nav"> -->
+    </nav>
+    
+</body>
+</html>
+
+<!-- 
+    En vez de ul usar nav
+-->

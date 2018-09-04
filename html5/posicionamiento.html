@@ -51,10 +51,23 @@
             position: relative;
         }
 
-        a{
-            position: absolute;
-            bottom: -480px;
-            right: 20px;
+        .fixed{
+            position: fixed;
+            bottom: .25em;
+            right: .25em;
+            font-size: 3em;
+        }
+
+        .imagen-flotante{
+            float: left;
+            margin-right: 2em;
+            margin-bottom: 2em;
+        }
+
+        .sticky{
+            position: sticky;
+            top: 0;
+            width: 100%;
         }
     
     </style>
@@ -62,11 +75,9 @@
 <body>
     <h1>Posicionamiento</h1>
 
-    <section>
-        <h2>Elementos inline y block</h2>
-
-        <p> BLOCK, Ocupa todo el ancho</p>
-        <span>INLINE, ocupa lo que necesita</span>
+    <section class="sticky">
+        <h2>Posicionamiento Sticky</h2>
+        <p> Esta sección se va a quedar pegada arriba de la página</p>
 
     </section>
 
@@ -88,36 +99,51 @@
     </section>
 
     <section class="contenedor-relativo">
-            <h2>Posicionamiento absoluto</h2>
-    
-            <div class="box">1</div>
-            <div class="box absoluta">2</div>
-            <div class="box">3</div>
+        <h2>Posicionamiento absoluto</h2>
+
+        <div class="box">1</div>
+        <div class="box absoluta">2</div>
+        <div class="box">3</div>
     
     </section>
 
     <section>
-            <h2>Posicionamiento flotante</h2>
-    
-            <div class="box">1</div>
-            <div class="box">2</div>
-            <div class="box">3</div>
-    
-    </section>
+        <h2>Posicionamiento fijo</h2>
 
-    <p>
-        <a href=""><i class="far fa-arrow-alt-circle-up"></i></a>
-    </p>
-   
-    
+        <a href="#top"><i class="fixed far fa-arrow-alt-circle-up"></i></a>
+        <i class="far fa-arrow-alt-circle-up"></i>
+    </section>
+       
+    <section>
+            <h2>Posicionamiento flotante</h2>
+            <img class="imagen-flotante" src="https://picsum.photos/200/300" alt="lorem image">
+            <p>
+                Lorem ipsum dolor sit amet consectetur adipiscing elit fusce, dictumst lectus gravida nulla pretium netus vivamus, 
+                magna ultrices sodales curabitur sed erat fringilla. Mattis in vulputate fermentum nulla non litora velit odio, 
+                conubia rutrum posuere ultricies porttitor accumsan lacus, metus laoreet orci justo sociis dignissim dictumst. 
+                Dui porttitor hac sollicitudin dis mauris venenatis at arcu a, nascetur nulla tempor ornare vestibulum malesuada 
+                ad lacus viverra phasellus, torquent habitant pellentesque eros cras pretium enim curae.
+                Donec sem penatibus parturient fames nisi iaculis fringilla eu, purus molestie eget cursus volutpat vel per, 
+                tortor ligula habitasse senectus pellentesque libero feugiat dictum, commodo posuere scelerisque gravida quisque porttitor. 
+                Porta magna vivamus eu vestibulum lacus a scelerisque, in non auctor tortor interdum tempor massa lobortis, 
+                rhoncus laoreet dui velit mus litora. Litora bibendum lacus primis vivamus nibh vehicula dis interdum eros dictumst 
+                facilisi hac, nam turpis aenean vitae torquent consequat auctor viverra integer nascetur curae libero, 
+                sed eget ultricies commodo ante est quisque ad vel himenaeos diam.
+            </p>
+            <p>
+                Lorem ipsum dolor sit amet consectetur adipiscing elit fusce, dictumst lectus gravida nulla pretium netus vivamus, 
+                magna ultrices sodales curabitur sed erat fringilla. Mattis in vulputate fermentum nulla non litora velit odio, 
+                conubia rutrum posuere ultricies porttitor accumsan lacus, metus laoreet orci justo sociis dignissim dictumst. 
+                Dui porttitor hac sollicitudin dis mauris venenatis at arcu a, nascetur nulla tempor ornare vestibulum malesuada 
+                ad lacus viverra phasellus, torquent habitant pellentesque eros cras pretium enim curae.
+                Donec sem penatibus parturient fames nisi iaculis fringilla eu, purus molestie eget cursus volutpat vel per, 
+                tortor ligula habitasse senectus pellentesque libero feugiat dictum, commodo posuere scelerisque gravida quisque porttitor. 
+                Porta magna vivamus eu vestibulum lacus a scelerisque, in non auctor tortor interdum tempor massa lobortis, 
+                rhoncus laoreet dui velit mus litora. Litora bibendum lacus primis vivamus nibh vehicula dis interdum eros dictumst 
+                facilisi hac, nam turpis aenean vitae torquent consequat auctor viverra integer nascetur curae libero, 
+                sed eget ultricies commodo ante est quisque ad vel himenaeos diam.
+            </p>
+    </section> 
+
 </body>
 </html>
-
-
-<!--Posicionamiento fijo 
-Icono de una flecha que esta siempre en la dcha abajo. Posicionar de abajo a dcha
-Buscar en fontawesome
-Al pinchar tiene que subir hasta arriba de la pagina (enlace interno <a>) 
-    
-Posicionamiento flotante
-Hacer una seccion, que metamos una imagen y que metiendo el texto lorem ipsum el texto flote-->
