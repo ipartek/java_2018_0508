@@ -7,16 +7,21 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
 
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU"
+        crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
 
     <style>
-
+        body{
+            font-family: 'Roboto', sans-serif;
+        }
         section {
             background-color: lightgray;
             border: 1px solid #000;
             margin-bottom: 1em;
             padding: 1.5em 2em;
         }
+
         .box {
             display: inline-block;
             width: 100px;
@@ -28,90 +33,110 @@
             text-align: center;
             font-family: arial, Courier, monospace;
         }
-        p span{
-         background-color: lime;
+
+        p span {
+            background-color: lime;
         }
-        .display-none{
+
+        .display-none {
             display: none;
         }
-        .display-visibility{
+
+        .display-visibility {
             visibility: hidden;
         }
-        .visible-container{
+
+        .visible-container {
             display: inline-block;
             width: 100px;
             height: 100px;
         }
-        .visible-container:hover .display-visibility{
+
+        .visible-container:hover .display-visibility {
             visibility: visible;
         }
-        .box p{
-            font-size:.2em;
+
+        .box p {
+            font-size: .2em;
         }
-        .hidden{
+
+        .hidden {
             overflow: hidden;
         }
-        .scroll{
+
+        .scroll {
             overflow: scroll;
-            overflow-x: initial;/*ocultamos scroll horizontal*/
+            overflow-x: initial;
+            /*ocultamos scroll horizontal*/
         }
-        
-     .green{
-         background-color: green;
-         position: absolute; 
-         z-index: 15;  top: 23em; left: 3em;
-     }
-     .red{
-         background-color: red;
-         position: absolute; 
-         z-index: 25;  top: 22em; left: 2em;
-     }
-     .blue{
-         background-color: blue;
-         position: absolute; 
-         z-index: 5;  top: 24em; left: 4em;
-     }
-     
-     /*Estilos ejemplo avanzado*/
-     .card .circle{
-        background-color: #82f782;
-        color:#062006;
-        border-radius: 50%;
-        padding-top: 20px;
-        font-size: .7em;
-        width: 50px;
-        height: 25px;
-        display: inline-block;
-        text-align: center; 
-        position: absolute;
-        top: 5px;
-        right: 5px;
-     }
-     .card .content{
-        background-color: #d4f7d4;
-        color:#040e04;
-        font-size: 1em;
-        top: 250px;
-        opacity: .7;
-        display: inline-block;
-        text-align: center; 
-        position: absolute;
-        padding: 0 1em;
-        transition: top 2s;
-        height: 300px;
-        
-     }
-     .card{
-        display: inline-block;
-        width:300px;
-        height: 300px;
-        background-color: white;
-        position: relative;
-        overflow: hidden;
-     }
-     .card:hover .content{
-        top:0px;           
-    }
+
+        .green {
+            background-color: green;
+            position: absolute;
+            z-index: 15;
+            top: 23em;
+            left: 3em;
+        }
+
+        .red {
+            background-color: red;
+            position: absolute;
+            z-index: 25;
+            top: 22em;
+            left: 2em;
+        }
+
+        .blue {
+            background-color: blue;
+            position: absolute;
+            z-index: 5;
+            top: 24em;
+            left: 4em;
+        }
+
+        /*Estilos ejemplo avanzado*/
+        .card .circle {
+            background-color: #82f782;
+            color: #062006;
+            border-radius: 50%;
+            padding-top: 20px;
+            font-size: .7em;
+            width: 50px;
+            height: 25px;
+            display: inline-block;
+            text-align: center;
+            position: absolute;
+            top: 5px;
+            right: 5px;
+        }
+
+        .card .content {
+            background-color: #d4f7d4;
+            color: #040e04;
+            font-size: 1em;
+            top: 250px;
+            opacity: .7;
+            display: inline-block;
+            text-align: center;
+            position: absolute;
+            padding: 0 1em;
+            transition: top 2s;
+            height: 300px;
+
+        }
+
+        .card {
+            display: inline-block;
+            width: 300px;
+            height: 300px;
+            background-color: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card:hover .content {
+            top: 0px;
+        }
     </style>
 
 </head>
@@ -121,60 +146,79 @@
     <a target="_blank" href="https://librosweb.es/libro/css/capitulo-5/visualizacion.html">Leer más documentación</a>
     <section>
         <h2>Display</h2>
-        <p>La propiedad <span>display</span> permite ocultar completamente un elemento haciendo que desaparezca de la página. 
+        <p>La propiedad <span>display</span> permite ocultar completamente un elemento haciendo que desaparezca de la
+            página.
             Como el elemento oculto no se muestra, el resto de elementos de la página se mueven para ocupar su lugar.</p>
         <p>Ocultamos la caja 2 con el elemento display <span>none</span></p>
-            <div class="box">1</div>
-            <div class="box display-none">2</div>
-            <div class="box">3</div>
+        <div class="box">1</div>
+        <div class="box display-none">2</div>
+        <div class="box">3</div>
     </section>
     <section>
-            <h2>Visibility </h2>
-            <p>La propiedad <span>visibility </span> permite hacer invisible un elemento, 
-                lo que significa que el navegador crea la caja del elemento pero no la muestra. 
-                En este caso, el resto de elementos de la página no modifican su posición, 
-                ya que aunque la caja no se ve, sigue ocupando sitio.</p>
-            <p>Ocultamos la caja 2 con el elemento visibility <span>hidden</span></p>
-            <p>*Al pasar por la caja 2 con el ratón se mostrará</p>
-                <div class="box">1</div>
-                <div class="visible-container"><div class="box display-visibility">2</div></div>
-                <div class="box">3</div>
-        </section>
-        <section>
-                <h2>Overflow </h2>
-                <p>La propiedad <span>overflow </span>para controlar la forma en la que se visualizan los contenidos que sobresalen de sus elementos.</p>
-                    <div class="box visible"><p><span>Visible</span> modi soluta veritatis odio voluptatibus necessitatibus asperiores ducimus excepturi. Exercitationem voluptates
-                            fuga sunt a! Fugiat iusto eum, ab accusantium excepturi nihil quidem illum esse unde! Aperiam assumenda consequatur
-                            suscipit.</p></div>
-                   <div class="box hidden"><p><span>Hidden</span>Consequatur modi soluta veritatis odio voluptatibus necessitatibus asperiores ducimus excepturi. Exercitationem voluptates
-                            fuga sunt a! Fugiat iusto eum, ab accusantium excepturi nihil quidem illum esse unde! Aperiam assumenda consequatur
-                            suscipit.</div></div>
-                    <div class="box scroll"><p><span>Scroll</span>Consequatur modi soluta veritatis odio voluptatibus necessitatibus asperiores ducimus excepturi. Exercitationem voluptates
-                            fuga sunt a! Fugiat iusto eum, ab accusantium excepturi nihil quidem illum esse unde! Aperiam assumenda consequatur
-                            suscipit.</div>
-            </section>
-            <section>
-                    <h2>Z-index </h2>
-                    <p>La propiedad <span>z-index </span>es posible crear páginas complejas con varios niveles o capas.</p>
-                        <div class="box green">1</div>
-                        <div class="box red">2</div>
-                        <div class="box blue">3</div>
-                </section>
-                <section>
-                        <h2>Ejemplo mas avanzado </h2>
-                        <!--Card tiene 300x300 px-->
-                            <div class="card">
-                                <span class="circle">27 MAY</span>
-                                <img src="https://picsum.photos/300/300" alt="foto lorem">
-                                <!--Position absolute-->
-                                <div class="content">
-                                    <h3>Titulo</h3>
-                                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatem amet non itaque nulla ipsum recusandae nostrum, omnis natus deserunt expedita voluptatum atque ad nam pariatur iste, eligendi esse eveniet! Praesentium!</p>
-                                </div>
-                            </div>
-                    </section>
+        <h2>Visibility </h2>
+        <p>La propiedad <span>visibility </span> permite hacer invisible un elemento,
+            lo que significa que el navegador crea la caja del elemento pero no la muestra.
+            En este caso, el resto de elementos de la página no modifican su posición,
+            ya que aunque la caja no se ve, sigue ocupando sitio.</p>
+        <p>Ocultamos la caja 2 con el elemento visibility <span>hidden</span></p>
+        <p>*Al pasar por la caja 2 con el ratón se mostrará</p>
+        <div class="box">1</div>
+        <div class="visible-container">
+            <div class="box display-visibility">2</div>
+        </div>
+        <div class="box">3</div>
+    </section>
+    <section>
+        <h2>Overflow </h2>
+        <p>La propiedad <span>overflow </span>para controlar la forma en la que se visualizan los contenidos que
+            sobresalen de sus elementos.</p>
+        <div class="box visible">
+            <p><span>Visible</span> modi soluta veritatis odio voluptatibus necessitatibus asperiores ducimus
+                excepturi. Exercitationem voluptates
+                fuga sunt a! Fugiat iusto eum, ab accusantium excepturi nihil quidem illum esse unde! Aperiam assumenda
+                consequatur
+                suscipit.</p>
+        </div>
+        <div class="box hidden">
+            <p><span>Hidden</span>Consequatur modi soluta veritatis odio voluptatibus necessitatibus asperiores ducimus
+                excepturi. Exercitationem voluptates
+                fuga sunt a! Fugiat iusto eum, ab accusantium excepturi nihil quidem illum esse unde! Aperiam assumenda
+                consequatur
+                suscipit.
+        </div>
+        </div>
+        <div class="box scroll">
+            <p><span>Scroll</span>Consequatur modi soluta veritatis odio voluptatibus necessitatibus asperiores ducimus
+                excepturi. Exercitationem voluptates
+                fuga sunt a! Fugiat iusto eum, ab accusantium excepturi nihil quidem illum esse unde! Aperiam assumenda
+                consequatur
+                suscipit.
+        </div>
+    </section>
+    <section>
+        <h2>Z-index </h2>
+        <p>La propiedad <span>z-index </span>es posible crear páginas complejas con varios niveles o capas.</p>
+        <div class="box green">1</div>
+        <div class="box red">2</div>
+        <div class="box blue">3</div>
+    </section>
+    <section>
+        <h2>Ejemplo mas avanzado </h2>
+        <!--Card tiene 300x300 px-->
+        <div class="card">
+            <span class="circle">27 MAY</span>
+            <img src="https://picsum.photos/300/300" alt="foto lorem">
+            <!--Position absolute-->
+            <div class="content">
+                <h3>Titulo</h3>
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatem amet non itaque nulla ipsum
+                    recusandae nostrum, omnis natus deserunt expedita voluptatum atque ad nam pariatur iste, eligendi
+                    esse eveniet! Praesentium!</p>
+            </div>
+        </div>
+    </section>
 
-    
+
 
 </body>
 
