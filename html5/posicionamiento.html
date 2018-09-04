@@ -1,28 +1,36 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
 
-    <style>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
 
-        body{
-            /* font-size: 20px; */ 
+    <style>
+        body {
+            /* font-size: 20px; */
         }
 
-        section { 
-            background-color: lightgray; 
+        section {
+            background-color: lightgray;
             border: 1px solid #000;
             margin-bottom: 1em;
             padding: 1.5em 2em;
         }
 
-        p { background-color: pink; }
-        span{ background-color: lime; margin-right: 1em;}
+        p {
+            background-color: pink;
+        }
 
-        .box{
+        span {
+            background-color: lime;
+            margin-right: 1em;
+        }
+
+        .box {
             display: inline-block;
             width: 100px;
             height: 100px;
@@ -34,28 +42,45 @@
             font-family: arial, Courier, monospace;
         }
 
-        .relativa{
+        .relativa {
             background-color: orange;
             position: relative;
             bottom: -36px;
             right: -27px;
         }
 
-        .absoluta{
+        .absoluta {
             background-color: orange;
             position: absolute;
-            top: 110px; 
+            top: 110px;
             left: 210px;
         }
 
-        .contenerdor-relativo{
+        .contenerdor-relativo {
             position: relative;
         }
 
+
+        .fixed{
+            position: fixed;
+            bottom: .25em;
+            right: .25em;
+            font-size: 3em;
+        }
+
+       
+        .imagen-flotante {
+            float: left;
+            margin-right: 2em;
+            margin-bottom: 2em;
+        }
+
+     
     </style>
 
 </head>
-<body>
+
+<body id="top">
     <h1>Posicionamiento</h1>
 
     <section>
@@ -71,20 +96,47 @@
     </section>
 
     <section>
-        <h2>Poscionamiento Relativo</h2>    
-         <div class="box">1</div>
-         <div class="box relativa">2</div>
-         <div class="box">3</div>     
+        <h2>Poscionamiento Relativo</h2>
+        <div class="box">1</div>
+        <div class="box relativa">2</div>
+        <div class="box">3</div>
     </section>
 
 
     <section class="contenerdor-relativo">
-            <h2>Poscionamiento Absoluto</h2>        
-             <div class="box">1</div>
-             <div class="box absoluta">2</div>
-             <div class="box">3</div>     
-     </section>
+        <h2>Poscionamiento Absoluto</h2>
+        <div class="box">1</div>
+        <div class="box absoluta">2</div>
+        <div class="box">3</div>
+    </section>
 
+    <section>
+            <h2>Poscionamiento Fijo</h2>            
+            <p>Ejemplo con el boton derecho inferior para subir hasta arriba de la pagina</p>
+            <a href="#top"><i class="fixed fas fa-arrow-circle-up"></i></a>
+            <i class="fas fa-arrow-circle-up"></i>
+        </section>
+    
+
+    <section>
+        <h2>Poscionamiento Flotante</h2>
+        <img class="imagen-flotante" src="https://picsum.photos/200/200/?random" alt="lorem image">
+        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Fuga odit vel voluptates voluptas blanditiis ut nulla, quo
+            quam assumenda facere quod nesciunt in eum eveniet ea natus eaque aliquam laudantium!</p>
+        <p>Consequatur modi soluta veritatis odio voluptatibus necessitatibus asperiores ducimus excepturi. Exercitationem voluptates
+            fuga sunt a! Fugiat iusto eum, ab accusantium excepturi nihil quidem illum esse unde! Aperiam assumenda consequatur
+            suscipit.</p>
+        <p>Sed quae modi architecto natus, placeat distinctio, minima fugit nobis ducimus sunt vero. Recusandae placeat fuga
+            nihil nostrum voluptate atque harum deserunt fugiat consequuntur expedita id rem, obcaecati reprehenderit odio.</p>
+        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Fuga odit vel voluptates voluptas blanditiis ut nulla, quo
+            quam assumenda facere quod nesciunt in eum eveniet ea natus eaque aliquam laudantium!</p>
+        <p>Consequatur modi soluta veritatis odio voluptatibus necessitatibus asperiores ducimus excepturi. Exercitationem voluptates
+            fuga sunt a! Fugiat iusto eum, ab accusantium excepturi nihil quidem illum esse unde! Aperiam assumenda consequatur
+            suscipit.</p>
+        <p>Sed quae modi architecto natus, placeat distinctio, minima fugit nobis ducimus sunt vero. Recusandae placeat fuga
+            nihil nostrum voluptate atque harum deserunt fugiat consequuntur expedita id rem, obcaecati reprehenderit odio.</p>
+    </section>
 
 </body>
+
 </html>
