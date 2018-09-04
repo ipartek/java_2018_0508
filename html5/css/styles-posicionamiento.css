@@ -1,0 +1,68 @@
+section{
+    background-color: #ddd;
+    border: 1px solid #333;
+    margin-bottom: 1em;
+    padding: 1.5em 2em;
+}
+div.box{
+
+    width: 100px;
+    height: 100px;
+    display: inline-block;
+    border: 1px solid #333;
+    font-weight: bold;
+    font-size: 3em;
+    font-family: monospace;
+    color: #fff;
+    text-align: center;
+    background-color: #999;
+}
+
+div.relativa{
+    background-color: orange;
+    position: relative;
+    top: 10px;
+    left: 20px;
+}
+
+div.absoluta{
+    background-color: orange;
+    position: absolute;
+    top: 110px;
+    left:220px;
+}
+
+.contenedor-relativo{
+    position: relative;
+}
+
+p{
+    background-color: rgb(255, 200, 200);
+}
+span{
+    background-color: rgb(112, 200, 200);
+
+}
+
+#flecha{
+    position: fixed;
+    right: .25em;
+    bottom: .25em;
+}
+
+.floating-img{
+    float: left;
+    margin-right: 1em;
+    margin-bottom: 1em;
+}
+
+.sticky-header{
+    position: sticky;
+    top: 0;
+    margin-top: 0;
+    text-align: center;
+    background-color: #ddd;
+    padding: 1em 0;
+    border: 8px outset #fff;
+    z-index: 99;
+}

@@ -1,4 +1,20 @@
+/*
+    Orden para organizar un CSS
+
+      1.Reseet
+      2.Definir todas las etiquetas para nuestra web (estilo general para toda la web)
+      3.Clases reutilizables
+      4.Layaouts o secciones (cabecera, sidebar, menus...)
+      5.Cosas mas especificas
+      6.Responsive Web Design
+
+
+*/
+
+
+
+
 h1{
-    color: blue;
-    font-size: 50px;
+    color: teal;
+    font-size: 5em;
 }
