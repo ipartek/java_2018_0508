@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="css/styles-visualizacion.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">">
+    <title>Visualizacion</title>
+</head>
+<body id="top">
+    <h1 class="sticky-header">Visualizacion</h1>
+    <a target="_blank" href="https://librosweb.es/libro/css/capitulo-5/visualizacion.html">Leer mas documentacion</a>
+    <section>
+        <h2>Display</h2>
+        <p>La propiedad <b>display</b> permite ocultar completamente un elemento haciendo que desaparezca de la página. Como el elemento oculto no se muestra, el resto de elementos de la página se mueven para ocupar su lugar.</p>
+        <p>Ocultamos la caja 2 con la propiedad display <b>"none"</b></p>
+        <div class="box">1</div>
+        <div class="box display-none">2</div>
+        <div class="box">3</div>
+
+    </section>
+
+    <section>
+            <h2>Visibility</h2>
+            <p>La propiedad <b>visibility</b> permite hacer invisible un elemento, lo que significa que el navegador crea la caja del elemento pero no la muestra. En este caso, el resto de elementos de la página no modifican su posición, ya que aunque la caja no se ve, sigue ocupando sitio.</p>
+            <p>Ocultamos la caja 2 con la propiedad visibility <b>"hidden"</b></p>
+            <div class="box">1</div>
+            <div class="visible-container"> <div class="box visibility-hidden">2</div></div>
+            <div class="box">3</div>
+    </section>
+
+    <section>
+            <h2>Overflow</h2>
+           
+            <p> la propiedad <b>overflow</b> para controlar la forma en la que se visualizan los contenidos que sobresalen de sus elementos</p>
+            <div class="box">
+                <p><b>VISIBLE</b></p>
+                <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Ullam nihil autem, voluptatem recusandae corporis reiciendis fugiat, perspiciatis iste dolore tempore velit aspernatur ratione vero nemo quas culpa rem rerum eos?</p>
+            </div>
+            <div class="box hidden">
+                <p><b>HIDDEN</b></p>
+                <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Ullam nihil autem, voluptatem recusandae corporis reiciendis fugiat, perspiciatis iste dolore tempore velit aspernatur ratione vero nemo quas culpa rem rerum eos?</p>
+            </div>
+            <div class="box scroll">
+                <p><b>SCROLL</b></p>
+                <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Ullam nihil autem, voluptatem recusandae corporis reiciendis fugiat, perspiciatis iste dolore tempore velit aspernatur ratione vero nemo quas culpa rem rerum eos?</p></div>
+    </section>
+
+    <section style="position:relative;height:300px;">
+            <h2>Z-INDEX</h2>
+            <p>La posición tridimensional de un elemento se establece sobre un tercer eje llamado Z y se controla mediante la propiedad <b>z-index</b>.</p>
+            <div class="box green-box">1</div>
+            <div class="box red-box">2</div>
+            <div class="box blue-box">3</div>
+    </section>
+
+
+    <section>
+            <h2>Ejemplo mas avanzado</h2>
+            <div class="card">
+                <span class="circle">27 MAY</span>
+                <img src="images/coffe.jpg" alt="coffe" width="300" height="300">
+                <div class="content">
+                    <h3>titulo</h3>
+                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ea accusamus eius ut fuga sint minima doloremque quaerat minus? Odio asperiores molestiae alias</p>
+                </div>
+
+            </div>
+    </section>
+
+
+
+    <div id="flecha">
+        <a href="#top"><i class="fas fa-arrow-circle-up"></i></a>
+    </div>
+
+
+
+</body>
+</html>

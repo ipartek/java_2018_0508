@@ -1,0 +1,153 @@
+body{
+    font-family: 'Roboto',sans-serif;
+}
+
+i{
+    font-size: 3em;
+}
+
+section{
+    background-color: #ddd;
+    border: 1px solid #333;
+    margin-bottom: 1em;
+    padding: 1.5em 2em;
+}
+
+#flecha{
+    position: fixed;
+    right: .25em;
+    bottom: .25em;
+}
+
+div.box{
+
+    width: 100px;
+    height: 100px;
+    display: inline-block;
+    border: 1px solid #333;
+    font-weight: bold;
+    font-size: 3em;
+    font-family: monospace;
+    color: #fff;
+    text-align: center;
+    background-color: #999;
+}
+
+.sticky-header{
+    position: sticky;
+    top: 0;
+    margin-top: 0;
+    text-align: center;
+    background-color: #ddd;
+    padding: 1em 0;
+    border: 8px outset #fff;
+    z-index: 99;
+}
+
+.display-none{
+    display: none!important;
+}
+
+.visibility-hidden{
+    visibility: hidden;
+}
+
+.visible-container{
+    display: inline-block;
+    width: 100px;
+    height: 100px;
+}
+
+div.visible-container:hover .visibility-hidden{
+    visibility: visible;
+    animation-duration: 1000ms;
+}
+
+.box p{
+    font-size: .2em;
+}
+
+.hidden{
+    overflow: hidden;
+}
+
+.scroll{
+    overflow: scroll;
+    overflow-x: initial;
+}
+
+.red-box{
+    z-index: 3;
+    background-color: red!important;
+    position: absolute;
+    top: 3em;
+    left: 3em;
+    opacity: .8;
+}
+
+.green-box{
+    z-index: 2;
+    background-color: green!important;
+    position: absolute;
+    top: 4em;
+    left: 4em;
+    opacity: .8;
+}
+
+
+
+.blue-box{
+    z-index: 1;
+    background-color: blue!important;
+    position: absolute;
+    top: 5em;
+    left: 5em;
+    opacity: 1;
+}
+
+.card{
+    width: 300px;
+    height: 300px;
+    position: relative;
+    overflow: hidden;
+}
+
+.content{
+    position: absolute;
+    background-color: #333;
+    opacity: 0.8;
+    color: #fff;
+    top: 80%;
+    width: 100%;
+    transition: 1s;    
+}
+
+.content p{
+    padding: 0 1em;
+    text-align: justify;    
+}
+
+.content h3{
+    text-align: center;
+}
+
+.card:hover .content{
+    top: 50%;
+    opacity: 1;
+    overflow: visible;
+}
+
+.circle{
+    position: absolute;
+    top: .5em;
+    right: .5em;
+    width: 50px;
+    height: 30px;
+    border-radius: 50%;
+    border: 1px solid #00aa00;
+    padding: 10px;
+    background-color: #3bff3b;
+    z-index: 3;
+    text-align: center;
+    padding-bottom: 20px;
+}
