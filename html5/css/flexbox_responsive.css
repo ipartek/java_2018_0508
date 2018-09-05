@@ -1,0 +1,278 @@
+/*  
+    Estilos para maquetar una web con Flexbox    
+    @see Tutorial Falcon Masters
+    @author Luis M. Galdos
+    @Date 05/09/2018
+    @version 1.0
+
+    CSS Responsive
+        *   Laptop 1024px
+        *   Tablet 768px
+        *   Mobile  375px
+
+*/
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.contenedor {
+    width: 80%;
+    max-width: 1024px;
+    margin: 0 auto;
+    background-color: #CCC;
+    /* Flexbox */
+    display: flex;
+    flex-flow: row wrap;
+}
+
+body {
+    background: #E9E9E9;
+    font-family: 'Source Sans Pro', sans-serif;
+}
+
+/* Header */
+header {
+    background: #2C3E50;
+    width: 100%;
+    padding: 1em;
+    /* Flexbox */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-flow: row wrap;
+}
+
+header .logo {
+    color: #FFF;
+    font-size: 20px;
+    vertical-align: top;
+}
+
+header .logo img {
+    width: 50px;
+    height: 50px;
+    background-color: #FFF;
+
+    /* Flex */
+    vertical-align: top;
+}
+
+
+header .logo h1 {
+    display: inline-block;
+}
+
+header .logo a {
+    color: #FFF;
+    text-decoration: none;
+    line-height: 50px;
+}
+
+/* NAVS */
+.overlay {
+    background-color: #000;
+    opacity: 0.8;
+    transition: 0.5s;
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    z-index: 1;
+    top: 0;
+    left: 0;
+}
+
+.overlay-content {
+    display: inline;
+    text-align: center;
+}
+
+.overlay-content nav a {
+    display: block;
+    padding: 20px;
+    background-color: #D35400;
+    color: white;
+    text-decoration: none;
+    font-size: 1.5em;
+}
+
+.nav-main,
+.nav-footer {
+    width: 50%;
+    /* Flexbox */
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+.btn-close, .btn-open {
+    font-size: 1.5em;
+}
+
+.nav-main a,
+.nav-footer a {
+    background: #C0392B;
+    color: #FFF;
+    text-align: center;
+    text-decoration: none;
+    padding: 10px;
+    /* Flexbox */
+    flex-grow: 1;
+}
+
+.nav-main a:hover,
+.nav-footer a:hover {
+    background: #e74c3c;
+}
+
+.nav-social a {
+    color: #FFF;
+    padding: 5px;
+    text-decoration: none;
+}
+
+.nav-mobile-container {
+    display: none;
+}
+
+/*  SECTION */
+.main {
+    background: #fff;
+    padding: 20px;
+    /* FLEX */
+    flex: 1 1 70%;
+    /*flex:1;*/
+}
+
+
+.main article {
+    margin-bottom: 20px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #000;
+}
+
+.main article:nth-last-child(1) {
+    margin-bottom: 0;
+    padding-bottom: 0;
+    border-bottom: none;
+}
+
+/*  ASIDE   */
+aside {
+    background: #E67E22;
+    padding: 20px;
+    /*FLEX*/
+    flex: 1 1 30%;
+    /*flex:0 0 300px;*/
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    justify-content: flex-start;
+}
+
+aside .widget {
+    background: #D35400;
+    height: 150px;
+    margin: 10px;
+}
+
+/*  FOOTER  */
+footer {
+    background: #2C3E50;
+    width: 100%;
+    padding: 20px;
+    /* Flexbox */
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+footer .social a {
+    color: #fff;
+    text-decoration: none;
+    padding: 10px;
+    display: inline-block;
+}
+
+/* OTRAS CLASES */
+.btn-open {
+    color: #FFF;
+    display: inline-block;
+    text-decoration: none;
+    display: none;
+}
+
+.btn-close {
+    color: #FFF;
+    display: inline-block;
+    text-decoration: none;
+    margin: 20px;
+    font-size: 2em;
+}
+
+/* MEDIA QUERYS */
+@media screen and (max-width: 768px) {
+    .contenedor {
+        flex-direction: column;
+        width: 100%;
+    }
+
+    header {
+        flex-direction: column;
+        padding: 0;
+    }
+
+    header .logo {
+        margin: 20px 0;
+    }
+
+    .nav-main {
+        width: 100%;
+    }
+
+    aside {
+        flex-direction: row;
+        flex: 0;
+    }
+
+    aside .widget {
+        flex-grow: 1;
+    }
+}
+
+@media screen and (max-width: 375px) {
+    header {
+        padding: 0px 20px;
+        flex-direction: row-reverse;
+    }
+
+    header h1 {
+        font-size: 18px;
+    }
+
+    .nav-main {
+        display: none;  /* Ocultar para móviles */
+    }
+
+    .btn-open {
+        display: inline-block;
+        flex: 1;
+    }
+
+    aside {
+        flex-direction: column;
+    }
+
+    .nav-footer {
+        width: 100%;
+    }
+
+    .nav-social {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-content: center;
+    }
+}
