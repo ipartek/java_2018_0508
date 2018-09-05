@@ -1,0 +1,207 @@
+/*
+Estilo para maquetar una web con Flexbox
+Tutorial @see:http://www.falconmasters.com/web-design/sitio-web-layout-flexbox/
+@autor: Andrea Perez
+@Date:2018 09 05
+@version:1.0
+
+css preparado para laptop 1024px y responsive para los siguientes break points:
+tablet:768px witdh
+movil:375px witdh
+
+*/
+
+/*Reset
+**********************************************/
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;/*los bordes se cuentan como ancho total*/
+}
+
+/*Colores fijos
+*************/
+:root {
+    --main-color: #2c3e50;
+    --red:#E74C3C;
+    --orange-light:#E67E22;
+    --orange-dark:#D35400;
+    --grey:#808080;
+}
+/*Tags
+****************************************/
+body{
+    font-family: 'Roboto', sans-serif;
+}
+
+/*Layouts
+****************************************/
+.contenedor{   
+	width:100%;
+	max-width:1000px;
+	margin:auto;
+    display:flex;  
+    flex-direction: row;  
+    flex-wrap: wrap;
+    justify-content:center;    
+}
+header{
+    width:100%;
+    padding:20px;
+    background:  var(--main-color);
+    display: flex;    
+    flex-wrap: wrap; 
+    flex-direction: row;
+    justify-content: space-between;
+    align-items:center;
+}
+nav.main {
+    width:50%;    	 
+	display:flex;
+    flex-wrap:wrap;
+    align-items:center;	
+}
+header nav a{
+    background: var(--red);
+    color:#fff;
+	text-align: center;
+	text-decoration: none;
+    padding:10px 15px;
+    flex-grow: 1;
+}
+header .logo{
+    color: #fff;
+    font-size: 30px;
+}
+
+header .logo img{
+    width: 50px;
+    vertical-align: top;
+}
+header .logo a{
+    color: #fff;
+    text-decoration: none;
+    line-height: 50px;
+}
+aside{
+    background:var(--orange-light);
+    padding:20px;   
+	width: 30%;
+	display: flex;    
+    flex-wrap:wrap;
+	flex-direction:column;
+	justify-content:flex-start;
+}
+aside .widget {
+    background:var(--orange-dark);
+    height: 150px;
+    margin: 10px;
+}
+footer{
+    background:  var(--main-color);
+    width: 100%;
+    padding: 20px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+header .logo a{
+    text-decoration: none;
+}
+
+section.main{
+    background-color: #fff;
+    padding:20px;
+    width: 70%;
+}
+section.main article{
+    margin-bottom: 20px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #000000;
+}
+section.main article:nth-last-child(1){
+    border-bottom: none;
+    margin-bottom: 0;
+    padding-bottom: 0;
+}
+nav.nav-links{
+    background:var(--red);
+    display: flex;
+    flex-wrap: wrap;
+}
+nav.nav-links a{    
+    color: #fff;
+    padding: 10px;
+    text-align: center;
+    text-decoration: none;
+    padding: 10px;
+    
+}
+
+.nav-socials{
+display: flex;
+flex-direction: row;  
+flex-wrap: wrap;
+
+}
+.personal{
+    color:chartreuse;
+   
+}
+/*.overlay{
+    background-color: rgba(0,0, 0,0, 9);    
+    z-index: 1;/*Sobre poner al resto de etiqueta*/
+  /*  width: 0%;/*Cambiamos al 100% mediante js*/
+   /* height: 100vh;/*Ocupar todo el ancho y ancho*/
+  /*  position: fixed;
+    top:0;
+    left: 0;
+    transition: 0.5s;
+}
+*/
+.main-mobile{
+    height: 0;
+    overflow: hidden;
+    background-color: var(--grey);
+}
+
+.content-menu-mobile{
+display: block;
+}
+.content-menu-mobile{
+    visibility: hidden;
+}
+/*Break points
+
+    tablet:768px witdh
+    movil:375px witdh
+********************/
+@media screen and (max-width:768px){
+    header{
+    background:  var(--red);    
+    }
+    .content-menu-mobile{
+        visibility: hidden;
+    }
+}
+
+@media screen and (max-width:375px){
+    header{
+    background:  var(--orange-light);
+    }
+    .nav-main{
+        display: none;
+    }
+    .nav .main-mobile{
+        display:block;
+    }
+    .content-menu-mobile{
+        visibility: visible;
+    }
+    nav.main{
+        visibility: hidden;
+    }
+    
+}
+   
