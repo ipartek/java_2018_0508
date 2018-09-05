@@ -1,0 +1,68 @@
+/*
+Estilos para maquetar una web con flexbox
+@see:http://www.falconmasters.com/web-design/sitio-web-layout-flexbox/
+@author: Adrian Perozzo
+@Date: 05/09/2018
+@version 2.0
+
+CSS preparado para laptop 1024 y responsive para los siguientes breakpoints:
+
+tablet: 768px
+movil: 375px
+*/
+/* Reset
+*********************************************************************/
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+/* Variables
+*********************************************************************/
+:root {
+    --body-bg-color: #E9E9E9;
+    --heater-bg-color: #2C3E50;
+    --main-bg-color: #FFF;
+    --aside-bg-color: #E67E22;
+    --widget-bg-color: #D35400;
+    --nav-bg-color: #C0392B;
+}
+/* Tags
+*********************************************************************/
+body{
+    background-color: var(--body-bg-color);
+}
+img{
+    width: 50px;
+    height: 50px;    
+}
+/* Layouts
+*********************************************************************/
+.contenedor{
+    width: 90%;
+    max-width: 1024px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    margin: auto;
+}
+.contenedor header{
+    background-color: var(--heater-bg-color);
+    width: 100%;
+}
+.contenedor section.main{
+    background-color: var(--main-bg-color);
+    width: 70%;
+}
+.contenedor aside{
+    background-color: var(--aside-bg-color);
+    width: 30%;
+    display: flex;
+    flex-direction: column;
+}
+.contenedor footer{
+    background-color: var(--heater-bg-color);
+    width: 100%;
+}
+/* @Medias
+*********************************************************************/
