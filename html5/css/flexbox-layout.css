@@ -1,0 +1,210 @@
+/*
+Estilos para maquetar una web con flexbox
+Tutorial @see: http://www.falconmasters.com/web-design/sitio-web-layout-flexbox/
+
+css preparado para lapto 1024px  y responsie¡ve para los siguientes breakp
+
+*/
+/*Reset*/
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --main-bg-color: #2c3e50;
+    --red: #C0392B;
+    --orange-light: #E67E22;
+    --orange-dark: #D35400;
+    --logo-color: #FFF;
+    --color-hover: #e74c3c;
+}
+
+/*Tags*/
+body {
+    font-family: 'Roboto', sans-serif;
+}
+
+/* Layaus*/
+.contenedor {
+    background: #ccc;
+    width: 90%;
+    max-width: 1000px;
+    margin: auto;
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: center;
+}
+
+header {
+    background-color: var(--main-bg-color);
+    width: 100%;
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-flow: row wrap;
+}
+
+header .logo {
+    font-size: 20px;
+    color: var(--logo-color);
+    display: flex;
+}
+
+header .logo img {
+    width: 60px;
+    vertical-align: top;
+    height: 50px;
+}
+
+header .logo a {
+    color: var(--logo-color);
+    text-decoration: none;
+    line-height: 50px;
+}
+
+header nav {
+    width: 50%;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+header nav a {
+    background-color: var(--red);
+    color: var(--logo-color);
+    text-align: center;
+    text-decoration: none;
+    padding: 10px 15px;
+    flex-grow: 1;
+}
+
+.content-menu-mobile {
+    display: none;
+    overflow: hidden;
+    overflow-x: hidden;
+}
+
+.overlay {
+    background-color: rgba(0, 0, 0, 0, 9);
+    z-index: 1;
+    width: 0;
+    /*Cambiamos al 100% mediante js*/
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    left: 0;
+    transition: 0.5s
+}
+
+header nav a:hover {
+    background-color: var(--color-hover);
+}
+
+.main {
+    background-color: var(--logo-color);
+    padding: 20px;
+    flex: 1 1 70%;
+}
+
+.main article {
+    margin-bottom: 20px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #000;
+}
+
+.main article:nth-last-child(1) {
+    margin-bottom: 0;
+    padding-bottom: 0;
+    border-bottom: none;
+}
+
+aside {
+    background-color: var(--orange-light);
+    padding: 20px;
+    flex: 1 1 30%;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    justify-content: flex-start;
+}
+
+aside .widget {
+    background-color: var(--orange-dark);
+    height: 150px;
+    margin: 10px;
+}
+
+footer {
+    background-color: var(--main-bg-color);
+    width: 100%;
+    padding: 20px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+footer .nav-links {
+    background-color: #fff;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+footer .nav-links a {
+    background-color: var(--red);
+    color: var(--logo-color);
+    text-align: center;
+    text-decoration: none;
+    padding: 15px;
+    flex-grow: 1;
+}
+
+footer .nav-links a:hover {
+    background-color: var(--color-hover);
+}
+
+footer nav-social {
+    background-color: var(--orange-light);
+}
+
+footer .nav-social a {
+    color: #fff;
+    text-decoration: none;
+    padding: 10px;
+    display: inline-block;
+}
+
+/*break points
+table 7689 px
+mobile 375px
+
+*/
+@media screen and (max-width: 768px) {
+    header {
+        background-color: var(--main-bg-color);
+    }
+
+    .nav-main {
+        display: flex;
+    }
+
+    aside {
+        flex: 1 1 90%;
+    }
+}
+
+@media screen and (max-width: 375px) {
+    header {
+        background-color: var(--main-bg-color);
+    }
+
+    .nav-main {
+        display: none;
+    }
+
+    .content-menu-mobile {
+        display: block;
+    }
+}
