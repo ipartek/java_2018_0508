@@ -1,0 +1,71 @@
+/*
+    Estilos para maquetar una web con flexbox
+    Tutorial @see: http://www.falconmasters.com/web-design/sitio-web-layout-flexbox/
+    @author: Ander Uraga
+    @Date: 2018 09 05 
+    @version: 1.0
+
+    css preparado para laptop 1024px y responsive para los siguientes brakpoints:
+    tablet: 768px witdh
+    mobile: 375px witdh
+
+*/
+
+
+/*  Reset
+*************************************************/
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Colors
+*****************************************************/
+
+:root {
+    --main-color: #2C3E50;
+    --red-color:#c0392b;
+    --orange-light-color:#e67e22;
+    --orange-dark-color:#d35400;
+}
+  
+
+/* Tags
+****************************************************/
+
+
+body{
+    font-family: 'Roboto', sans-serif;
+}
+
+/*  Layouts
+*******************************************************/
+
+header{
+    background-color: var(--main-color);
+    
+}
+
+/* break points
+
+    tablet: 768px witdh
+    mobile: 375px witdh
+*******************************************************/
+
+@media screen and ( max-width: 768px ){
+
+    header{
+        background-color: var(--red-color);
+    }   
+
+}
+
+
+@media screen and ( max-width: 375px ){
+
+    header{
+        background-color: var(--orange-light-color);
+    }   
+
+}
