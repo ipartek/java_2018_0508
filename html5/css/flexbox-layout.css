@@ -70,6 +70,29 @@ header{
     overflow-x: hidden;
 }
 
+.btn-close{
+    position: absolute;
+    top: 20px;
+    right: 45px;
+    font-size: 5em !important;
+}
+
+.overlay-content{
+    position: relative; 
+    top: 5%;
+    width: 100%;
+    text-align: center;
+    margin-top: 30px;
+}
+
+.overlay-content a{
+    display: block;
+    font-size: 1.2em;    
+    border-bottom: 1px solid rgba(255,255,255, .5);
+}
+
+
+
 .overlay{
     background-color: rgba(0,0,0,0.9);
     z-index: 1; /* sobreponer al resto de etiquetas */
@@ -82,6 +105,8 @@ header{
 }
 
 
+
+
 /* break points
 
     tablet: 768px witdh
@@ -90,18 +115,11 @@ header{
 
 @media screen and ( max-width: 768px ){
 
-    header{
-        background-color: var(--red-color);
-    }   
-
+  
 }
 
 
 @media screen and ( max-width: 375px ){
-
-    header{
-        background-color: var(--orange-light-color);
-    }   
 
     .nav-main{      
         display: none; /* ocultar para mobiles*/
@@ -110,5 +128,6 @@ header{
     .content-menu-mobile{      
         display: block;                
     }
+    
 
 }
