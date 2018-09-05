@@ -1,0 +1,265 @@
+/*
+    Estilos para maquetar una web con flexbox
+    Tutorial @see http://www.falconmasters.com/web-design/sitio-web-layout-flexbox/
+    @Autor: Guillermo Sánchez
+    @Date 2018 09 05
+    @Version 1.0
+
+    css preparado para laptop 1024px y responsive para los siguientes breakpoints:
+    tablet: 769px width
+    mobile: 375px width
+*/
+
+:root{
+    --main-color: #2c3e50;
+    --red-color: #c0392b;
+    --light-red-color: #e74c3c;
+    --light-orange-color: #e67e22;
+    --dark-orange-color: #d35400;
+    --white-color: #fff;
+}
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/*TAGS
+************************************************/
+body{
+    font-family: 'Roboto', sans-serif;
+}
+
+a{
+    text-decoration: none;
+    color:var(--white-color);
+}
+
+/*LAYOUTS
+************************************************/
+.contenedor{
+    display: flex;
+    flex-flow: row wrap;
+    max-width: 1024px;
+    margin: auto;
+}
+
+/* header & footer */
+
+header span i{
+    display: none;
+    color: var(--white-color);
+}
+
+header, footer{
+    background-color: var(--main-color);
+    padding: 1em;
+    display: flex;
+    flex-basis: 100%;
+    justify-content: space-between;
+    align-items: center;
+    flex-flow: row wrap;
+
+}
+
+header nav.nav-main-mobile{
+    display: none;
+}
+
+header nav.nav-main, header div.logo{
+    flex-basis: 50%;
+    display: flex;
+}
+
+header nav.nav-main a, footer nav.nav-links a, section.main{
+    padding:.5em 1.5em;
+}
+
+header nav.nav-main a:hover, footer nav.nav-links a:hover{
+    background-color: var(--light-red-color);
+}
+
+header nav.nav-main a, footer nav.nav-links a{
+    background-color: var(--red-color);
+}
+
+header nav.nav-main a{
+    flex-grow:1;
+}
+
+
+header div.logo {
+    align-items: center;
+}
+
+nav.nav-main{
+    justify-content: flex-end;
+}
+
+footer nav.nav-social{
+    background-color: var(--orange-color);
+}
+footer nav.nav-social i{
+   color: var(--white-color);
+}
+
+footer nav.nav-links, footer nav.nav-social {
+    display: flex;
+}
+
+nav.nav-social a {
+    margin: .2em;
+}
+
+/* Content */
+
+section.main {
+    flex-basis: 70%;
+    display: flex;
+    flex-direction: column;
+}
+
+section.main article{
+    padding: .5em 0;
+}
+
+aside {
+    background-color:var(--light-orange-color);
+    flex-basis: 30%;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    padding: 20px;
+    display: flex;
+}
+
+aside div.widget{
+    background-color:var(--dark-orange-color);
+    height: 150px;
+    margin: 10px;
+    
+}
+
+.content-menu-mobile{
+    display: none;
+}
+
+.overlay{
+    background-color: rgba(0, 0, 0, .9);
+    z-index: 1;
+    width: 0;
+    height: 100vh;
+    position: fixed;
+    top: 0  ;
+    left: 0;
+    transition: 0.5s;   
+    display: flex;
+    flex-flow: column nowrap;
+    color: var(--white-color);
+}
+
+.overlay>a{
+    
+    position: absolute;
+    top: 10px;
+    right: 10px;
+}
+
+.overlay-content nav.nav-main-mobile{
+    display: flex;
+    flex-direction: column;
+    overflow: overlay;
+    align-items: center;
+    padding: 50px 0;
+
+}
+.overlay-content nav.nav-main-mobile a{
+    padding: 10px 0;
+
+}
+
+a.btn-open {
+    padding: 10px;
+}
+
+.content-menu-mobile{
+    position: relative;
+    width: 100%;
+
+}
+
+/*BREAKPOINTS
+*****************************************/
+
+@media only screen and (max-width: 768px) {
+
+    header{
+        padding: 0;
+    }
+    
+    header nav.nav-main, header div.logo{
+        flex-basis: 100%;
+    }
+
+    header div.logo {
+        
+        justify-content: center;
+        margin: 10px;
+    }
+    
+    footer{
+        flex-direction: row-reverse;
+    }
+
+    nav.nav-main {
+        flex-direction: row;
+    }
+
+    section.main, aside{
+        flex-basis: 100%;
+    }
+
+    aside{
+        flex-flow:row;
+    }
+
+    aside div.widget{
+        flex-basis: 50%;
+    }
+    
+}
+
+@media only screen and (max-width: 375px) {
+
+    aside{
+        flex-flow:column;
+    }
+
+    aside div.widget{
+        flex-basis: 100%;
+    }
+
+    nav.nav-links {
+        flex-flow: column;
+        flex-basis: 100%;
+        text-align: center;
+    }
+
+    nav.nav-links a {
+        flex-basis: 100%;
+    }
+
+    .content-menu-mobile{
+        display: block;
+    }
+
+    header nav.nav-main-mobile{
+        display: block;
+    }
+
+    header nav.nav-main{
+        display: none;
+
+    }
+
+}
