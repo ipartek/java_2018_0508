@@ -39,13 +39,48 @@ body{
     font-family: 'Roboto', sans-serif;
 }
 
+a{
+    text-decoration: none;
+    color: #FFF;
+}
+
+
 /*  Layouts
 *******************************************************/
+.container{
+    width: 1024px;
+    margin: auto;
+}
+
 
 header{
     background-color: var(--main-color);
     
 }
+
+
+.nav-main{
+    background-color: var(--red-color);
+    padding: 10px 15px;
+}
+
+.content-menu-mobile{    
+    display: none; /* inicialmente oculto */
+    overflow: hidden;
+    overflow-x: hidden;
+}
+
+.overlay{
+    background-color: rgba(0,0,0,0.9);
+    z-index: 1; /* sobreponer al resto de etiquetas */
+    width: 0; /* cambiamos al 100% mediante js */ 
+    height: 100vh; /* ocupar todo el ancho y alto */
+    position: fixed;
+    top: 0;
+    left: 0;
+    transition: 0.5s;
+}
+
 
 /* break points
 
@@ -67,5 +102,13 @@ header{
     header{
         background-color: var(--orange-light-color);
     }   
+
+    .nav-main{      
+        display: none; /* ocultar para mobiles*/
+    }
+
+    .content-menu-mobile{      
+        display: block;                
+    }
 
 }
