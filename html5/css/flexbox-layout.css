@@ -1,0 +1,303 @@
+/*
+    Estilos para maquetar una web con flexbox
+    Tutorial @see: http://www.falconmasters.com/web-design/sitio-web-layout-flexbox/
+    @author: Alain Muñoz
+    @date: 2018 09 05
+    @version: 1.0
+
+
+    css preparado para laptop 1024px y responsive para los siguientes breakpoints:
+    tablet 768px width
+    mobile 375px width
+*/
+
+/* Reset
+*******************************************************/
+*{
+    margin: 0;
+    padding: 0 ;
+    box-sizing: border-box;
+}
+
+/* Colores
+*******************************************************/
+/* Colores de fondo*/
+:root {
+    --header-footer-bg-color: #2c3e50; /* Header y Footer*/
+    --main-bg-color: #FFF; /* Menu principal*/
+    --aside-bg-color: #e67e22; /* Sidebar*/
+    --nav-main-bg-color: #c0392b; /* Cuerpo principal*/
+    --nav-links-bg-color: #c0392b; /* Navegador de links*/
+    --nav-social-bg-color: #e67e22; /* Navegador de iconos sociales*/
+}
+
+/* Tags
+*******************************************************/
+body{
+    font-family: 'Roboto', sans-serif;
+    background: #e9e9e9;
+}
+
+/* Layouts
+*******************************************************/
+
+.contenedor{
+    width: 90%;
+    max-width: 1024px;
+    margin: auto;
+
+    /* FLEX */
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+header{
+    background-color: var(--header-footer-bg-color);
+    width: 100%;
+    padding: 20px;
+
+    /* FLEX */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+header .logo{
+    color: #FFF;
+    font-size: 15px;
+    display: flex;
+    width: 50%;
+}
+
+header .logo img {
+    width: 50px;
+    height: 50px;
+}
+
+header .logo a{
+    color: #FFF;
+    text-decoration: none;
+    line-height: 50px;
+}
+
+header .nav-main{
+    background-color: var(--nav-main-bg-color);
+    width: 50%;
+
+    /* FLEX */
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+header .nav-main a{
+    color: white;
+    text-decoration: none;
+    text-align: center;
+    padding: 20px;
+    flex-grow: 1;
+}
+
+.btn-open{
+    display: none;
+}
+
+.overlay{
+    display: none;
+}
+
+.main{
+    background-color: var(--main-bg-color);
+    width: 70%;
+    padding: 20px;
+    flex: 1 1 70%;
+}
+
+.main article{
+    margin-bottom: 20px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #000;
+}
+
+.main article:nth-last-child(1){
+    margin-bottom: 0;
+    padding-bottom: 0;
+    border-bottom: none;
+}
+
+article p{
+    text-align: justify;
+}
+
+aside{
+    background-color: var(--aside-bg-color);
+    width: 30%;
+    padding: 20px;
+
+    /* FLEX */
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    justify-content: flex-start;
+    flex: 1 1 30%;
+}
+
+aside .widget {
+    background: #d35400;
+    height: 150px;
+    margin: 10px;
+}
+
+.imagen img{
+    width: 250px;
+    height: 150px;
+}
+
+footer{
+    background-color: var(--header-footer-bg-color);
+    width: 100%;
+    padding: 20px;
+
+    /* FLEX */
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+footer .nav-links{
+    background-color: var(--nav-links-bg-color);
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+footer .nav-links a{
+    flex-grow: 1;
+    color: #fff;
+    padding: 10px;
+    text-align: center;
+    text-decoration: none;
+}
+
+footer .nav-social{
+    background-color: var(--nav-social-bg-color);
+}
+footer .nav-social a{
+    padding: 10px;
+    display: inline-block;
+}
+
+.overlay{
+    display: none;
+    background-color: rgba(0,0,0,0.9);
+    z-index: 1;
+    width: 0;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    left: 0;
+    transition: 0.5s;
+}
+
+/* Breakpoints
+
+    tablet: 768px width
+    mobile: 375px width
+*******************************************************/
+
+@media screen and (max-width: 768px){
+
+    header .logo{
+        width: 100%;
+        margin-bottom: 10px;
+    }
+
+    header .nav-main{
+        width: 100%;
+    }
+
+    .btn-open{
+        display: none;
+    }
+
+    .overlay{
+        display: none;
+    }
+
+    .main{
+        width: 100%;
+    }
+
+    aside{
+        width: 100%;
+        flex-direction: row;
+    }
+    
+}
+
+@media screen and (max-width: 375px){
+
+    header .nav-main{
+        display: none;
+    }
+
+    header .logo{
+        font-size: 10px;
+    }
+
+    .nav-main-mobile a{
+        text-decoration: none;
+        color: white;
+    }
+
+    .btn-open{
+        display: block;
+        color: black;
+        background-color: white;
+        width: 25px;
+        height: 25px;
+        border-radius: 15px;
+        text-align: center;
+        text-decoration: none;
+        position: fixed;
+        top: 10px;
+        right: 40px;
+    }
+
+    .btn-close{
+        color: white;
+        text-decoration: none;
+        position: fixed;
+        left: 20px;
+        font-size: 30px;
+    }
+
+    .nav-main-mobile{
+        display: grid;
+        text-align: center;
+        margin-top: 50px;
+        font-size: 30px;
+    }
+
+    .main{
+        width: 100%;
+    }
+
+    aside{
+        width: 100%;
+    }
+
+    footer .nav-links{
+        width: 100%;
+        flex-direction: column;
+        margin-bottom: 10px;
+    }
+
+    footer .nav-social{
+        width: 100%;
+        text-align: center;
+    }
+}
