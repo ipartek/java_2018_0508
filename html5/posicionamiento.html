@@ -53,8 +53,8 @@
             position:relative;
         }
 
-        .flecha::before{
-            font-size:3.5em;
+        .flecha{
+            font-size:3em;
             position:fixed;
             bottom:0.3em;
             right:0.3em;
@@ -75,12 +75,21 @@
             background-color:transparent;
         }
 
+        .sticky{
+            position:sticky;
+            background-color:orange;
+            top:0;
+            z-index:20;
+        }
+
     </style>
 
 </head>
-<body>
+<body id="top">
     
-    <h1 id="top">Posicionamiento</h1>
+    <h1>Posicionamiento</h1>
+
+    <h2 class="sticky">Posicionamiento sticky</h2>   
 
     <section>
         <h2>Elementos inline y block</h2>
@@ -120,6 +129,8 @@
     </section>
 
     <section>
+
+        <h2>Posicionamiento flotante</h2>
         
         <img src="images/css3-logo.png" id="logo" />
 
@@ -146,8 +157,8 @@
             amet ipsam voluptatum ducimus voluptate!</p>
     
     </section>
-
-    <a href="#top" class="enlace-flecha"><i class="fa fa-arrow-circle-o-up flecha" aria-hidden="true"></i></a>
+    
+    <a href="#top" class="enlace-flecha flecha"><i class="fa fa-arrow-circle-o-up" aria-hidden="true"></i></a>
 
 </body>
 </html>

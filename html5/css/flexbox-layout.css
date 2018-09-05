@@ -1,0 +1,278 @@
+/*
+    Estilos para maquetar una web con flexbox
+    Tutorial
+    @see: http://www.falconmasters.com/web-design/sitio-web-layout-flexbox/
+    @author: Adrian Garcia
+    @Date: 2018 09 05
+    @version: 1.0
+
+    css preparado para laptop a 1024px y responsicve para los siguientes breakpoints
+    tablet: 768px width
+    mobile: 375px width
+*/
+
+/* Reset */
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+/* Colores */
+:root {
+    --main-bg-color: #2c3e50;
+    --red:#c0392b; 
+    --orange-light:#e67e22;
+    --orange-dark:#d35400;
+}
+
+/* Tags */
+body{
+    font-family: 'Roboto', sans-serif;
+    background-color:#e9e9e9;
+}
+
+a{
+    text-decoration:none;
+}
+
+/* Layouts */
+
+.contenedor{
+    max-width:1024px;
+    width:100%;
+    margin:0 auto;
+    display:flex;
+    flex-direction:row;
+    flex-wrap:wrap;
+}
+
+header{
+    background-color:var(--main-bg-color);
+    width:100%;
+    padding:1em;
+    display:flex;
+    flex-direction:row;
+    flex-wrap:wrap;
+    justify-content:space-between;
+    align-items:center;
+}
+
+header .logo{
+    display:flex;
+    justify-content: center;
+    align-items:center;
+}
+
+header .logo img{
+    width:75px;
+    height:75px;
+    vertical-align:top;
+}
+
+header .logo a{
+    color:#fff;
+}
+
+nav.nav-main{
+    width:50%;
+    background-color:var(--red);
+    display:flex;
+    flex-wrap:wrap;
+    align-items:center;
+}
+
+nav.nav-main a{
+    color:#fff;
+    text-align:center;
+    padding:0.7em;
+    flex-grow:1;
+}
+
+nav.nav-main a:hover{
+    background-color:#e74c3c;
+}
+
+.content-menu-mobile{    
+    display: none; /* inicialmente oculto */
+    overflow: hidden;
+    overflow-x: hidden;
+}
+
+.overlay{
+    background-color: rgba(0,0,0,0.9);
+    z-index: 1; /* sobreponer al resto de etiquetas */
+    width: 0; /* cambiamos al 100% mediante js */ 
+    height: 100vh; /* ocupar todo el ancho y alto */
+    position:fixed;
+    top: 0;
+    left: 0;
+    transition:1s;
+}
+
+.nav-main-mobile a{
+    display:block;
+    text-align:center;
+    padding:1em;
+}
+
+.btn-close, .btn-open, .nav-main-mobile a{
+    color:#fff;
+}
+
+section.main{
+    background-color:#fff;
+    flex:1 1 70%;
+    padding:1em;
+}
+
+section.main article{
+    border-bottom:1px solid #000;
+    padding:1em;
+}
+
+section.main article:last-of-type{
+    border-bottom:none;
+    padding:1em;
+}
+
+aside{
+    background-color:var(--orange-light);
+    flex:1 1 30%;
+    display:flex;
+    flex-direction:column;
+    flex-wrap:wrap;
+    justify-content:space-around;
+    padding:1em 2em;
+}
+
+aside .widget{
+    background-color:var(--orange-dark);
+    height:150px;
+}
+
+aside .imagen img{
+}
+
+footer{
+    background-color:var(--main-bg-color);
+    width:100%;
+    padding:1em 2em;
+    display:flex;
+    flex-wrap:wrap;
+    justify-content:space-between;
+    align-items:center;
+}
+
+nav.nav-links{
+    background-color:var(--red);
+    display:flex;
+    flex-wrap:wrap;
+}
+
+nav.nav-links a{
+    flex-grow:1;
+    color:#fff;
+    text-align:center;
+    padding:0.7em;
+}
+
+nav.nav-links a:hover{
+    background-color:#e74c3c;
+}
+
+nav.nav-social{
+    text-decoration:none;
+    display: inline-block;
+}
+
+nav.nav-social a{
+    color:#3b5998;
+    padding:0 0.25em;
+}
+
+nav.nav-social a:last-of-type{
+    color:#00aced;
+}
+
+nav.nav-social a:hover{
+    opacity:0.7;
+}
+
+/* Breakpoints */
+
+@media screen and (max-width:768px){
+
+    .contenedor{
+        flex-direction:column;
+    }
+
+    header{
+        flex-direction:column;
+        padding:0;
+    }
+
+    header .logo{
+        margin:1em 0;
+    }
+    
+    nav.nav-main{
+        width:100%;
+    }
+
+    nav.nav-main a{
+        border-right:thin solid #2c3e50;
+    }
+
+    nav.nav-main a:last-of-type{
+        border-right:none;
+    }
+
+    aside{
+        flex-direction:row;
+        flex:0;
+        padding:1em;
+    }
+
+    aside .widget{
+        flex-grow:1;
+        margin:1em;
+    }
+
+}
+
+@media screen and (max-width:375px){
+   
+    nav.nav-main{
+        display:none;
+    }
+
+    .content-menu-mobile{
+        display:block;
+    }
+
+    .btn-open{
+        position:fixed;
+        top:0;
+        right:0;
+    }
+
+    .nav-main-mobile, .btn-close{
+        display:none;
+    }
+
+    aside{
+        flex-direction:column;
+    }
+
+    nav.nav-links{
+        flex-direction:column;
+        width:100%;
+        margin:1em 0;
+    }
+
+    nav.nav-social{
+        margin:0 auto;
+    }
+
+}

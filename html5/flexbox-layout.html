@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Maquetar web con flexbox</title>
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+    <link rel="stylesheet" href="css/flexbox-layout.css" />
+</head>
+<body>
+    <div class="contenedor">
+        <header>
+            <div class="logo">
+                <img src="images/HTML5_Logo.png" width="150" alt="Logo HTML5">
+                <h1><a href="#">FalconMasters</a></h1>
+            </div>
+         
+            <nav class="nav-main">
+                <a href="#">Inicio</a>
+                <a href="#">Blog</a>
+                <a href="#">Proyectos</a>
+                <a href="#">Contacto</a>
+            </nav>
+         
+            <div class="content-menu-mobile">
+
+                <a href="#" class="btn-open" onclick="openMenu()">&#9776;</a>
+
+                <div id="menu-mobile" class="overlay">
+
+                    <a href="#" id="boton-cerrar" class="btn-close" onclick="closeMenu()">&times;</a>
+                    <div class="overlay-content">
+
+                        <nav id="menu-movil" class="nav-main-mobile">
+                            <a href="#">Inicio</a>
+                            <a href="#">Blog</a>
+                            <a href="#">Proyectos</a>
+                            <a href="#">Contacto</a>
+                        </nav>
+
+                    </div> <!-- /.overlay-content -->
+                    
+                </div> <!-- /.overlay -->
+
+            </div>  <!-- /.content-menu-mobile -->
+
+        </header>
+         
+        <section class="main">
+            <article>
+                <h2 class="titulo">Lorem ipsum dolor sit amet.</h2>
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+                tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+                quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+                consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+                cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+                proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+            </article>
+         
+            <article>
+                <h2 class="titulo">Lorem ipsum dolor sit amet.</h2>
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+                tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+                quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+                consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+                cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+                proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+            </article>
+        </section>
+         
+        <aside>
+            <div class="widget">
+                <div class="imagen">
+                    
+                </div>
+            </div>
+         
+            <div class="widget">
+                <div class="imagen">
+
+                </div>
+            </div>
+        </aside>
+         
+        <footer>
+            <nav class="nav-links">
+                <a href="#">Inicio</a>
+                <a href="#">Blog</a>
+                <a href="#">Proyectos</a>
+                <a href="#">Contacto</a>
+            </nav>
+         
+            <nav class="nav-social">
+                <a href="#"><i class="fab fa-facebook-square fa-3x"></i></a>
+                <a href="#"><i class="fab fa-twitter-square fa-3x"></i></a>
+            </nav>
+        </footer>
+    </div>  <!-- <div class="contenedor"> -->
+
+    <script src="js/main.js"></script>
+</body>
+</html>
