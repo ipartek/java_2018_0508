@@ -18,7 +18,7 @@
 				<h1> <a href="#">FalconMasters</a></h1>  
 			</div>
  
-			<nav class="main">
+			<nav class="nav-main">
 				<a href="#">Inicio</a>
 				<a href="#">Blog</a>
 				<a href="#">Proyectos</a>
@@ -32,7 +32,7 @@
                         <a href="#" class="btn-close" onclick="closeMenu()">&times;</a>
                        
                         <div class="overlay-content">
-                                <nav class="main-mobile">
+                                <nav class="nav-main-mobile">
                                         <a href="#">Inicio</a>
                                         <a href="#">Blog</a>
                                         <a href="#">Proyectos</a>
@@ -41,7 +41,7 @@
                         </div> 
                              <!-- /.overlay-content -->           
                     </div>
-                    <!-- /.overlay-content -->
+                    <!-- /.overlay -->
             </div>
             <!-- /.content-menu-mobile -->
 
@@ -51,7 +51,7 @@
                 menu.style.width='100%';
             }
             function closeMenu() {
-                menu.style.width='0%';
+                menu.style.width='0';
             }
             </script>
 		</header>
@@ -80,11 +80,15 @@
  
 		<aside>
 			<div class="widget">
-				<div class="imagen"></div>
+				<div class="imagen">
+					<img src="images/surikato.png" alt="surikato">
+				</div>
 			</div>
  
 			<div class="widget">
-				<div class="imagen"></div>
+				<div class="imagen">
+					<img src="images/lechuza.png" alt="lechuza">
+				</div>
 			</div>
 		</aside>
 		<footer>
@@ -96,8 +100,8 @@
             </nav>
  
 			<nav class="nav-socials">
-				<a href="#"><i class="fab fa-facebook-square fa-2x personal"></i></a>
-				<a href="#" ><i class="fab fa-twitter-square fa-2x personal"></i></a>
+				<a href="#"><i class="fab fa-facebook-square fa-2x"></i></a>
+				<a href="#" ><i class="fab fa-twitter-square fa-2x"></i></a>
             </nav>
 		</footer>
     </div>
