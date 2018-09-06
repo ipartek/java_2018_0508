@@ -1,0 +1,15 @@
+header {
+    background-color: #00F;
+    margin: 0 auto;
+}
+
+header h1, header a {
+    text-align: center;
+    display: block;
+    text-decoration: none;
+    color: #FFF;
+}
+
+tr:hover td {
+    background-color: #FFA500 !important;
+}

@@ -8,13 +8,15 @@
 
     <title>Tabla con DataTable </title>
 
+    <!-- DATATABLE CSS's-->
     <link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.2.3/css/responsive.dataTables.min.css">
 
+    <!-- MY CSS's-->
     <link rel="stylesheet" href="css/tablas.css">
 </head>
 
 <body>
-
     <header>
         <h1> Ejemplo de tabla (con plug-in DataTable) </h1>
         <a href="https://datatables.net/examples/index">Ver Documentación DataTables</a>
@@ -24,12 +26,12 @@
         <table id="example-table" class="display" style="width:100%">
             <thead>
                 <tr>
-                    <th>Name</th>
-                    <th>Position</th>
-                    <th>Office</th>
-                    <th>Age</th>
-                    <th>Start date</th>
-                    <th>Salary</th>
+                    <th>Nombre</th>
+                    <th>Posición</th>
+                    <th>Oficina</th>
+                    <th>Edad</th>
+                    <th>Fecha Inicio</th>
+                    <th>Salario</th>
                 </tr>
             </thead>
 
@@ -494,12 +496,12 @@
 
             <tfoot>
                 <tr>
-                    <th>Name</th>
-                    <th>Position</th>
-                    <th>Office</th>
-                    <th>Age</th>
-                    <th>Start date</th>
-                    <th>Salary</th>
+                    <th>Nombre</th>
+                    <th>Posición</th>
+                    <th>Oficina</th>
+                    <th>Edad</th>
+                    <th>Fecha Inicio</th>
+                    <th>Salario</th>
                 </tr>
             </tfoot>
 
@@ -510,13 +512,10 @@
     <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
     <!-- JS PLUGIN DATATABLE -->
     <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
-    <script src="https://cdn.datatables.net/plug-ins/1.10.19/i18n/Spanish.json"></script>
+    <script src="https://cdn.datatables.net/responsive/2.2.3/js/dataTables.responsive.min.js"></script>
 
-    <script>
-        $(document).ready(function () { // Todo el HTML debe estar cargado
-            $('#example-table').DataTable(); // Selecciona un objeto por ID (#example)
-        });
-    </script>
+    <!-- MY OWN JS's-->
+    <script src="js/tablas.js"></script>
 </body>
 
 </html>
