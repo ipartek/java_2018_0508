@@ -6,17 +6,26 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
-    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css">
+    <link rel="stylesheet" href="vendors/dataTables/1.10.19/css/jquery.dataTables.min.css">
 
 
-    <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-    <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+    <script src="vendors/Jquery/jquery-3.3.1.js"></script>
+    <script src="vendors/datatables/1.10.19/js/jquery.dataTables.min.js"></script>
     <script>
 
         /*Esperamos a que todo el html este cargado parecido al body onload*/
         $(document).ready(function () {
 
-            $('#example').DataTable();
+            $(document).ready(function () {
+                $('#example').DataTable({
+                    responsive: {
+                        details: true
+                    },
+                    "language": {
+                        "url": "vendors/datatables/plug-ins/i18n/Spanish.json"
+                    }
+                });
+            });
         });
 
          /*
@@ -25,12 +34,21 @@
         */
 
     </script>
+
+    <link href="vendors/datatables/2.1.0/css/responsive.dataTables.css" rel="stylesheet" type="text/css" />
+    <script src="vendors/datatables/2.1.0/js/dataTables.responsive.js"></script>
+
+    <style>
+        tr:hover td {
+            background-color: red !important;
+        }
+    </style>
 </head>
 
 <body>
     <h1>Ejemplo de Tabla con DataTables</h1>
     <a href="https://datatables.net" target="_blank">Documentación oficial DataTables</a>
-    <table id="example" class="display" style="width:100%">
+    <table id="example" class="display responsive nowrap" style="width:100%">
         <thead>
             <tr>
                 <th>Name</th>
