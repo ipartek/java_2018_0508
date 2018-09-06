@@ -162,6 +162,10 @@ aside .widget{
     margin: 10px;
 }
 
+.imagen{
+    display: flex;
+}
+
 /*Seccion Footer
 *****************************************************/
 footer .nav-links{
