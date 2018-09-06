@@ -1,0 +1,41 @@
+body{
+    background-color: #F8F9FA;
+}
+
+header{
+	background-color: #2FFF54;
+}
+
+#main-content{
+	padding-right: 15px;
+	padding-left: 15px;
+	padding-top: 15px;
+	height: 150px;
+}
+
+.col-8{
+	background-color: #000000;
+	color: #FFF;
+}
+
+.col-4{
+	background-color: red;
+}
+
+#destacado-content{
+	padding-right: 15px;
+	padding-left: 15px;
+	padding-top: 15px;
+    padding-bottom: 15px;
+    height: 150px;
+}
+
+.col-3{
+	background-color: #0040FF;
+}
+
+footer{
+	background-color: #000000;
+	color: #FFF;
+	height: 100px;
+}
