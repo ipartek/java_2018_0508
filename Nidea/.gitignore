@@ -1,0 +1,5 @@
+#Lista de ficheros y directorios ignorados por Git
+/target/
+/.classpath
+/.project
+/.settings/
