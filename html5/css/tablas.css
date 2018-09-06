@@ -1,0 +1,3 @@
+table.dataTable.hover tbody tr:hover, table.dataTable.display tbody tr:hover {
+    background-color: #f0197d;
+}
