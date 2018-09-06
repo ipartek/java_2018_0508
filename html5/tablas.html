@@ -6,26 +6,37 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
     
-    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css">
-
-    <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-    <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+   
+    <link rel="stylesheet" href="vendors/datatable/css/jquery.dataTables.min.css">   
+    <script src="vendors/jQuery/jquery-3.3.1.js"></script> 
+    <script src="vendors/datatable/jquery.dataTables.min.js"></script>
     
+    
+    <link href="vendors/datatable/css/responsive.dataTables.css" rel="stylesheet" type="text/css" />
+    <script src="vendors/datatable/dataTables.responsive.js"></script>    
+    
+
     <link rel="stylesheet" href="css/tablas.css">
+
     <script>
         //Esperamos a que todo el html esté cargado ==body onload()
         $(document).ready(function() {
            // $('#example')==> selecciona un objeto por id="example"
            //.DataTable() ==> ejecuta el pluging de datatable
-        $('#example').DataTable();
+            $('#example').DataTable({
+             "language": {
+                 "url": "vendors/datatable/i18n/Spanish.json"
+             }
+            });
         } );
+
     </script>
 </head>
 <body>
 
     <h1>Tabla con DataTable</h1>
     <a href="https://datatables.net/examples/basic_init/zero_configuration.html" target="_blank">Documentacion ofical Datatables</a>
-    <table id="example" class="display" style="width:100%">
+    <table id="example" class="display responsive nowrap" width="100%">
         <thead>
             <tr>
                 <th>Name</th>
