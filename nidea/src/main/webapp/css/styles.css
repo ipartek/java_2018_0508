@@ -1,0 +1,27 @@
+/*
+*	Custom Styles
+*/
+body{
+	background-color: #F8F9FA;
+	color: #DDD;
+}
+.row header{
+	background-color: #008800;
+	height: 200px;
+}
+.main div section{
+	background-color: #800080;
+	height: 400px;
+}
+.main div aside{
+	background-color: #480048;
+	height: 200px;
+}
+.destacados div{
+	background-color: #880000;
+	height: 200px;
+}
+.row footer{
+	background-color: #000088;
+	height: 200px;
+}
