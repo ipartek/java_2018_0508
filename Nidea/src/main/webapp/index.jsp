@@ -22,26 +22,28 @@
 
 <body>
 	
-	<div class=".container">
+	<div class="container">
 		
-		<!-- CABECERA -->
-		<div class="row-12">
-			<header>
-				<h1 class="text-center"> NiDea </h1>
-				<h5 class="text-center"> 12 columnas </h5>	
-			</header>
+		<!-- HEADER -->
+		<div class="header row" >
+			<div class="col-xs-12 col-sm-12 col-md-12">
+				<header>
+					<h1> NiDea </h1>
+					<p class="numero_columnas">12 Columnas</p>	
+				</header>
+			</div>
 		</div>
 		
-		<!-- PRINCIPAL -->
 		<div class="row">
-			<div class="col-8">
+			<!-- MAIN -->
+			<div class="main col-sm-12 col-md-8">
 			
 				<section>
-					
-					<h5> 8 columnas </h5>	
+					<p class="titulo"> Main </p>
+					<p class="numero-columnas-lg">8 Columnas</p>
+					<p class="numero-columnas-md">12 Columnas</p>
 					
 					<p>
-					
 					Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc dapibus lacus 
 					arcu, pharetra efficitur orci interdum non. Aliquam erat volutpat. Aliquam in 
 					libero sit amet augue posuere venenatis a et urna. Quisque dignissim sagittis 
@@ -51,18 +53,21 @@
 					et posuere orci pellentesque eu. Proin egestas eros vitae turpis congue, 
 					eget facilisis arcu egestas. Donec accumsan consectetur eleifend. 
 					Ut sagittis libero non nunc condimentum, vitae dapibus odio feugiat. 
-					Vestibulum sit amet sagittis mi, nec tincidunt odio.	
-					
+					Vestibulum sit amet sagittis mi, nec tincidunt odio.		
 					</p>
 				
 				</section>
 			
 			</div>
 			
-			<div class="col-4">
+			<!-- ASIDE -->
+			<div class="aside col-xs-12 col-sm-12 col-md-4">
 				<aside>
 					
-					<h5> 4 columnas </h5>	
+					<p class="titulo"> Aside </p>
+					
+					<p class="numero-columnas-lg">4 Columnas</p>
+					<p class="numero-columnas-md">12 Columnas</p>
 				
 				</aside>
 			</div>
@@ -71,27 +76,55 @@
 		<!--  DESTACADOS -->
 		<div class="row">
 		
-			<div class="col-md-3  destacado">
-				<h5> 3 columnas </h5>	
+			<div class="destacado col-xs-12 col-sm-12 col-md-4 col-lg-3">
+				<p class="titulo"> Destacado </p>
+				
+				<p class="numero-columnas-lg">3 Columnas</p>
+				<p class="numero-columnas-md">4 Columnas</p>
+				<p class="numero-columnas-sm">12 Columnas</p>	
+				
+				<p>
+				Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed eiusmod tempor 
+				incidunt ut labore et dolore magna aliqua.	
+				</p>
 			</div>
 			
-			<div class="col-md-3 ml-auto destacado">
-				<h5> 3 columnas </h5>	
+			<div class="destacado col-xs-12 col-sm-12 col-md-4 col-lg-3 ml-auto">
+				<p class="titulo"> Destacado </p>
+				
+				<p class="numero-columnas-lg">3 Columnas</p>
+				<p class="numero-columnas-md">4 Columnas</p>
+				<p class="numero-columnas-sm">12 Columnas</p>
+				
+				<p>
+				Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed eiusmod tempor 
+				incidunt ut labore et dolore magna aliqua.	
+				</p>
 			</div>
 			
-			<div class="col-md-3 ml-auto destacado">
-				<h5> 3 columnas </h5>	
+			<div class="destacado col-xs-12 col-sm-12 col-md-4 col-lg-3 ml-auto">
+				<p class="titulo"> Destacado </p>
+				
+				<p class="numero-columnas-lg">3 Columnas</p>
+				<p class="numero-columnas-md">4 Columnas</p>
+				<p class="numero-columnas-sm">12 Columnas</p>
+				
+				<p>
+				Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed eiusmod tempor 
+				incidunt ut labore et dolore magna aliqua.	
+				</p>	
 			</div>
 		
 		</div>
 		
 		<!-- FOOTER -->
-		<div class="row-12">
-			<footer>
-			
-				<h5>12 columnas </h5>
-			
-			</footer>	
+		<div class="footer row">
+			<div class="col-xs-12 col-sm-12 col-md-12">
+				<footer>
+					<p class="titulo"> Footer </p>
+					<p class="numero-columnas">12 Columnas</p>
+				</footer>	
+			</div>
 		</div>
 		
 	</div>

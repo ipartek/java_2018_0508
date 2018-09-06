@@ -1,24 +1,71 @@
 
-header {
-	background:#80ff00;
-	color:#fff;
+.header {
+	background:#9BCA46;
+	color:#FFF;
 }
 
 .main {
-	background:#f2f2f2;
+	background:#FFF;
+	color:#000;
+}
+
+.aside {
+	background:#DEE4E5;
+	color: #42A3F1;
+}
+
+.footer {
+	background:#000;
+	color:#FFF;
+}
+
+.titulo {
+	text-transform: uppercase;
+	font-size: 2em;
 }
 
 .destacado {
-	background: #000080;
-	color:#fff;
+	background: #42A3F1;
+	color:#FFF;
 }
 
-aside {
-	background:#c0392b;
-	color:#fff;
+.numero-columnas-md {
+	display: none;
 }
 
-footer {
-	background:#FFF;
-	color:#000;
+.numero-columnas-sm {
+	display: none;
+}
+
+
+// Small devices (landscape phones, less than 768px)
+@media screen and (min-width: 767.98px) { 
+	
+	.numero-columnas-md {
+		display: none;
+	}	
+	
+	.numero-columnas-sm {
+		display: block;
+	}
+}
+
+// Medium devices (tablets, less than 992px)
+@media screen and (min-width: 991.98px) { 
+.numero-columnas-lg {
+		display: none;
+	}
+	.numero-columnas-md {
+		display: block;
+	}
+}
+
+// Large devices (desktops, less than 1200px)
+@media screen and (min-width: 1199.98px) { 
+	.numero-columnas-sm {
+		display: none;
+	}
+	.numero-columnas-md {
+		display: none;
+	}
 }
