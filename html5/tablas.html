@@ -9,6 +9,8 @@
     <link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css">
     <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
     <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+    <link href="https://cdn.datatables.net/responsive/2.1.0/css/responsive.dataTables.css" rel="stylesheet" type="text/css" />
+    <script src="https://cdn.datatables.net/responsive/2.1.0/js/dataTables.responsive.js"></script>
     
     <script>
         // Esperamos a que todo el html este cargado == body onload
@@ -16,26 +18,33 @@
             // $('#example') => selecciona un objeto por id="example"
             // .DataTable(); => ejecutar el plugin de dataTable
             $('#example').DataTable( {
-            "language": {
-            "url": "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/German.json"
-        }
-    } );
+                "language": {
+                    "url": "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Spanish.json"
+                }
+            } );
+            
         } );
     </script>
+
+    <style>
+       tr:hover td{
+            background-color: pink !important;
+        }
+    </style>
 </head>
 <body>
     <h1>Ejemplo Tabla con DataTables</h1>
     <a href="https://datatables.net/examples/index" target="_blank">Documentacion Oficial DataTables</a>
     
-    <table id="example" class="display" style="width:100%">
+    <table id="example" class="display responsive nowrap" width="100%">
         <thead>
             <tr>
-                <th>Name</th>
-                <th>Position</th>
-                <th>Office</th>
-                <th>Age</th>
-                <th>Start date</th>
-                <th>Salary</th>
+                <th>Nombre</th>
+                <th>Ocupación</th>
+                <th>Oficina</th>
+                <th>Edad</th>
+                <th>Día inicio</th>
+                <th>Salario</th>
             </tr>
         </thead>
         <tbody>
@@ -498,12 +507,12 @@
         </tbody>
         <tfoot>
             <tr>
-                <th>Name</th>
-                <th>Position</th>
-                <th>Office</th>
-                <th>Age</th>
-                <th>Start date</th>
-                <th>Salary</th>
+                <th>Nombre</th>
+                <th>Ocupación</th>
+                <th>Oficina</th>
+                <th>Edad</th>
+                <th>Día inicio</th>
+                <th>Salario</th>
             </tr>
         </tfoot>
     </table>
