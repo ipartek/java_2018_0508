@@ -3,41 +3,49 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=<device-width>, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
-    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css">
-    <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-    <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+    <link rel="stylesheet" href="vendors/datatables/1.10.19/css/jquery.dataTables.min.css">
+    <style>
+        tr:hover td {
+            background-color: #f387cf !important;
+        }
+    </style>
+
+    <script src="vendors/jquery/jquery-3.3.1.js"></script>
+    <script src="vendors/datatables/1.10.19/js/jquery.dataTables.min.js"></script>
+    <link href="vendors/datatables/responsive/2.1.0/css/responsive.dataTables.css" rel="stylesheet" type="text/css" />
+    <script src="vendors/datatables/responsive/2.1.0/js/dataTables.responsive.js"></script>
     <script>
         //Esperamos a que todo el HTML este cargado == body onload
         $(document).ready(function () {
             //$('#example')--> selecciona un objeto por id="example"
-            //.DataTable()--> ejecutar el plugin de DataTable
-            $('#example').DataTable();
+            //.DataTable({})--> ejecutar el plugin de DataTable
+            $('#example').DataTable({
+                "language": {
+                    "url": "vendors/plug-ins/9dcbecd42ad/i18n/Spanish.json"
+                }
+
+            });
         });
     </script>
 </head>
-<style>
-table.dataTable.hover tbody tr:hover,table.dataTable.display tbody tr:hover {
-    background-color: #de1414
-}
 
-</style>
 
 <body>
     <h1>Ejemplo Tabla con DataTables</h1>
     <a href="https://datatables.net" target="_blank">Documentación oficial DataTables</a>
 
-    <table id="example" class="display" style="width:100%">
+    <table id="example" class="display responsive nowrap" width="100%">
         <thead>
             <tr>
-                <th>Name</th>
-                <th>Position</th>
-                <th>Office</th>
-                <th>Age</th>
-                <th>Start date</th>
-                <th>Salary</th>
+                <th>Nombre</th>
+                <th>Posición</th>
+                <th>Oficina</th>
+                <th>Años</th>
+                <th>Fecha de inicio</th>
+                <th>Salario</th>
             </tr>
         </thead>
         <tbody>
