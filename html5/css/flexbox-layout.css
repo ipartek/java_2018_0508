@@ -1,0 +1,167 @@
+/*
+    Estilos para maquetar una web con flexbox
+    Tutorial @see: http://www.falconmasters.com/web-design/sitio-web-layout-flexbox/
+    @author: Ander Uraga
+    @Date: 2018 09 05 
+    @version: 1.0
+    css preparado para laptop 1024px y responsive para los siguientes brakpoints:
+    tablet: 768px witdh
+    mobile: 375px witdh
+*/
+
+
+/*  Reset
+*************************************************/
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Colors
+*****************************************************/
+
+:root {
+    --main-color: #2C3E50;
+    --red-color:#c0392b;
+    --orange-light-color:#e67e22;
+    --orange-dark-color:#d35400;
+}
+  
+
+/* Tags
+****************************************************/
+
+
+body{
+    font-family: 'Roboto', sans-serif;
+}
+
+a{
+    text-decoration: none;
+    color: #FFF;
+}
+
+
+/*  Layouts
+*******************************************************/
+.container{
+    width: 1024px;
+    margin: auto;
+    display: flex;
+    flex-flow: row wrap;
+}
+
+
+header{
+    width: 100%;
+    background-color: var(--main-color);
+    display: flex; 
+    padding: 20px; 
+}
+
+section.main{
+    width: 70%;
+    
+}
+
+aside{
+    width: 30%;
+    background-color: var(--orange-light-color);
+}
+
+footer{
+    width: 100%; 
+    background-color: var(--main-color);
+}
+
+/* header
+****************************************************/
+
+header .logo{
+    width: 50%;
+    display: flex;
+    flex-flow: row nowrap;
+}
+
+.logo img{
+    width: 45px;
+    height: 45px;
+}
+
+header .logo nav-main{
+    width: 50%;
+}  
+
+
+.nav-main{
+    background-color: var(--red-color);
+    padding: 10px 15px;
+}
+
+.content-menu-mobile{    
+    display: none; /* inicialmente oculto */
+    overflow: hidden;
+    overflow-x: hidden;
+}
+
+.btn-close{
+    position: absolute;
+    top: 20px;
+    right: 45px;
+    font-size: 5em !important;
+}
+
+.overlay-content{
+    position: relative; 
+    top: 5%;
+    width: 100%;
+    text-align: center;
+    margin-top: 30px;
+}
+
+.overlay-content a{
+    display: block;
+    font-size: 1.2em;    
+    border-bottom: 1px solid rgba(255,255,255, .5);
+}
+
+
+
+.overlay{
+    background-color: rgba(0,0,0,0.9);
+    z-index: 1; /* sobreponer al resto de etiquetas */
+    width: 0; /* cambiamos al 100% mediante js */ 
+    height: 100vh; /* ocupar todo el ancho y alto */
+    position: fixed;
+    top: 0;
+    left: 0;
+    transition: 0.5s;
+}
+
+
+
+
+/* break points
+    tablet: 768px witdh
+    mobile: 375px witdh
+*******************************************************/
+
+@media screen and ( max-width: 768px ){
+
+  
+}
+
+
+@media screen and ( max-width: 375px ){
+
+    .nav-main{      
+        display: none; /* ocultar para mobiles*/
+    }
+
+    .content-menu-mobile{      
+        display: block;                
+    }
+    
+
+}
