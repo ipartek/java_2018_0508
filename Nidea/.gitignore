@@ -1,0 +1,6 @@
+#	Comentarios en git-ignore
+#	Lista de directorios ignorados por Git
+/target/
+/.classpath
+/.project
+/.settings/
