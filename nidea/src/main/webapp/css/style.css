@@ -1,0 +1,20 @@
+/*
+*Custom Styles
+*/
+
+body{
+	background-color: #F8F9FA;
+}
+header{
+	background-color: #0431B4;
+}
+section{
+	background-color: #DA81F5;
+	
+}
+aside{
+	background-color: #FE642E;
+}
+.col-md-3{
+	background-color: #DF013A;
+}
