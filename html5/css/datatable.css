@@ -1,0 +1,17 @@
+/*
+Estilos para maquetar la dataTable, cambios de color
+@author: Adrian Perozzo
+@Date: 06/09/2018
+@version 1.0
+*/
+table.dataTable.hover tbody tr:hover,
+table.dataTable.display tbody tr:hover,
+table.dataTable.display tbody tr:hover>.sorting_1,
+table.dataTable.order-column.hover tbody tr:hover>.sorting_1 {
+    background-color: #DF3242;
+}
+
+table.dataTable.nowrap th {
+    background-color: #E65E6B;
+    text-align: left;
+}

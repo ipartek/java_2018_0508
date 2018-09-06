@@ -1,5 +1,4 @@
 /* Hoja de estilos propia */
-
 /*
     ORGANIZACION DE UN CSS
 
@@ -16,8 +15,23 @@
     6.- Responsive Web Designe
 
 */
-
-h1{
+/*
+Estilos principal para las paginas de pruebas
+@author: Adrian Perozzo
+@Date: 06/09/2018
+@version 1.0
+*/
+/* Reset
+*********************************************************************/
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+/* Tags
+*********************************************************************/
+h1 {
+    text-align: center;
     color: teal;
     font-size: 5em;
 }
