@@ -50,13 +50,50 @@ a{
 .container{
     width: 1024px;
     margin: auto;
+    display: flex;
+    flex-flow: row wrap;
 }
 
 
 header{
+    width: 100%;
     background-color: var(--main-color);
+    display: flex; 
+    padding: 20px; 
+}
+
+section.main{
+    width: 70%;
     
 }
+
+aside{
+    width: 30%;
+    background-color: var(--orange-light-color);
+}
+
+footer{
+    width: 100%; 
+    background-color: var(--main-color);
+}
+
+/* header
+****************************************************/
+
+header .logo{
+    width: 50%;
+    display: flex;
+    flex-flow: row nowrap;
+}
+
+.logo img{
+    width: 45px;
+    height: 45px;
+}
+
+header .logo nav-main{
+    width: 50%;
+}  
 
 
 .nav-main{
