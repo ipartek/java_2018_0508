@@ -1,0 +1,7 @@
+#######################################################################
+# lista de ficheros y directorios ignorados(o no versionados) por git #
+#######################################################################
+/target/
+/.classpath
+/.project
+/.settings/
