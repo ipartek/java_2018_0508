@@ -14,17 +14,19 @@
 	<body>
 		<div class="container">
 
-			<!--header-->
+			<!-- header -->
 			<div class="row">
-				<header>
-					<h1>Nidea</h1>
+				<header class="col-12">
+					<h1>NIDEA</h1>
 					<h5>12 columnas</h5>
 				</header>
 			</div>
+			<!-- /header -->
 
 
-			<!--main-->
-			<div class="row">
+
+			<!-- main -->
+			<div class="row main">
 				<div class="col-8">
 					<section>
 						<h5>8 columnas</h5>
@@ -32,41 +34,38 @@
 				</div>
 				<div class="col-4">
 					<aside>
-						<h5>4columnas</h5>
+						<h5>4 columnas</h5>
 					</aside>
 				</div>
 			</div>
+			<!-- /main -->
 
 
-			<!--destacados-->
-			<div class="row">
+			<!-- destacados -->
+			<div class="row destacados">
 				<div class="col-3">
-					<section>
-						<h5>3 columnas</h5>
-					</section>
+					<h5>3 columnas</h5>
 				</div>
 				<div class="col-3">
-					<section>
-						<h5>3 columnas</h5>
-					</section>
+					<h5>3 columnas</h5>
 				</div>
 				<div class="col-3">
-					<section>
-						<h5>3 columnas</h5>
-					</section>
+					<h5>3 columnas</h5>
 				</div>
-
 			</div>
+			<!-- /destacados -->
 
-			<!--footer-->
+
+			<!-- footer -->
 			<div class="row">
-				<footer>
+				<footer class="col-12">
 					<h5>12 columnas</h5>
 				</footer>
 			</div>
+			<!-- /footer -->
 
-			<h1>holis</h1>
 
+		</div>
 
 
 		</div>

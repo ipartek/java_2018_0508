@@ -36,3 +36,17 @@ footer {
 	background:#16a085;
 	color:#fff;
 }
+.main aside, .main section{
+	height:150px;
+}
+
+.main section{
+	border:1px solid #333;
+	background-color:  #666;
+}
+
+.destacados>div.col-3{
+	border:1px solid #00a;
+	background-color:  #00f;
+	height:150px;
+}
