@@ -22,7 +22,7 @@
 
         <!-- header -->
         <div class="row">
-            <header class="col-md-12">
+            <header class="col-sm-12">
                 <h1>NIDEA</h1>
                 <h5>12 columnas</h5>
             </header>
@@ -33,12 +33,12 @@
 
         <!-- main -->
         <div class="row">
-            <div class="col-md-8 pt-2 pr-2">
+            <div class="col-sm-12 col-md-8 pt-2 pr-2 ">
                 <section>
                     <h5>8 columnas</h5>
                 </section>
             </div>
-            <div class="col-md-4 pt-2 pr-2">
+            <div class="col-sm-12 col-md-4 pt-2 pr-2">
                 <aside >
                     <h5>4 columnas</h5>
                 </aside>
@@ -49,13 +49,13 @@
 
         <!-- destacados -->
         <div class="row justify-content-md-center">
-            <div class="col-md-3 mt-2 ml-2 rojo">
+            <div class="col-sm-12 col-md-3 mt-2 ml-2 rojo">
                 <h5>3 columnas</h5>
             </div>
-            <div class="col-md-3 mt-2 ml-2 rojo">
+            <div class="col-sm-12 col-md-3 mt-2 ml-2 rojo">
                 <h5>3 columnas</h5>
             </div>
-            <div class="col-md-3 mt-2 ml-2 rojo">
+            <div class="col-sm-12 col-md-3 mt-2 ml-2 rojo">
                 <h5>3 columnas</h5>
             </div>
         </div>
@@ -64,7 +64,7 @@
 
         <!-- footer -->
         <div class="row">
-            <footer  class="col-md-12 mt-2">
+            <footer  class="col-sm-12 col-md-12 mt-2">
                 <h5>12 columnas</h5>
             </footer>
         </div>
