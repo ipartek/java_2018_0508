@@ -1,0 +1,166 @@
+h1,h2{
+	text-align: center;
+}
+
+div > div {
+	border:1px solid black;
+}
+
+div[class^="elemento"]{
+	background-color:orange;
+
+}
+.container10 > div[class^="elementoNoWrap"]{
+	width: 300px;
+}
+.container1 > div[class^="elementoWrap"]{
+	width: 300px;
+}
+
+
+.border{
+	border:1px solid black;
+	margin:20px;
+}
+
+/*Contenedor padre*/
+.main-container{
+	
+	padding: 20px;
+	/*FLEXBOX*/
+	display: -webkit-flex;
+	display: :flex;/*lo declaramos en el contendor padre*/
+	flex-flow: column nowrap;
+	/*flex-flow: row wrap,*/
+}
+.container{
+	
+	
+}
+
+.container1{
+	//*adding: 20px;*/
+	
+	width: 500px;
+	padding: 10px;
+	margin:20px;
+	display: -webkit-flex;
+	display: :flex;	
+	flex-flow: row wrap;
+}
+.container10{
+	//*adding: 20px;*/
+	
+	width: 500px;
+	padding: 10px;
+	margin:20px;
+	display: -webkit-flex;
+	display: :flex;	
+	flex-flow: row nowrap;
+}
+.container10 > div{
+	width:100px;
+}
+.container2{
+	//*adding: 20px;*/
+	
+	width: 500px;
+	padding: 10px;
+	margin:20px;
+	display: -webkit-flex;
+	display: :flex;	
+	flex-flow: column wrap;
+
+	
+}
+.container3{
+	//*adding: 20px;*/
+	
+	width: 300px;
+	padding: 10px;
+	margin:20px;
+	display: -webkit-flex;
+	display: :flex;	
+	justify-content: flex-end;
+
+	
+}
+.container4{
+	//*adding: 20px;*/
+	
+	width: 300px;
+	padding: 10px;
+	margin:20px;
+	display: -webkit-flex;
+	display: :flex;	
+	justify-content:center;
+
+	
+}
+.container5{
+	//*adding: 20px;*/
+	
+	width: 300px;
+	padding: 10px;
+	margin:20px;
+	display: -webkit-flex;
+	display: :flex;	
+	justify-content:space-between;
+
+	
+}
+.container6{
+	//*adding: 20px;*/
+	
+	width: 300px;
+	padding: 10px;
+	margin:20px;
+	display: -webkit-flex;
+	display: :flex;	
+	justify-content:space-around;	
+}
+.container7{
+	//*adding: 20px;*/
+	
+	width: 300px;
+	padding: 10px;
+	margin:20px;
+	display: -webkit-flex;
+	display: :flex;	
+	justify-content:flex-start;	
+}
+.container8{
+	//*adding: 20px;*/
+	
+	width: 300px;
+	padding: 10px;
+	height:150px;
+	margin:20px;
+	display: -webkit-flex;
+	display: :flex;	
+	justify-content:center;	
+	align-items: flex-end;
+}
+.container9{
+	//*adding: 20px;*/
+	
+	width: 300px;
+	padding: 10px;
+	height:150px;
+	margin:20px;
+	display: -webkit-flex;
+	display: :flex;	
+	flex-wrap: wrap;
+	justify-content:center;	
+	align-items: stretch ;
+}
+
+.elemento{
+	text-align: center;
+	font-size: 16px;
+	margin: 5px;
+	width: 100px;
+	/*height: 50px;*/
+
+}
+
