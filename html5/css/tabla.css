@@ -1,2 +1,15 @@
-table.dataTable.display tbody tr.odd {
-    background-color: #fa1299;
+table tr:hover {
+    background-color: #f00;
+  }
+
+table tr:hover {
+    background-color: #f00 !important;
+}
+
+table td:hover {
+    background-color: #f00 !important;
+}
+
+table th:hover {
+    background-color: #f00 !important;
+}
