@@ -30,12 +30,14 @@
 		<div class="row main">
 			<div class="col-12 col-sm-12 col-md-8 col-lg-8">
 				<section>
-					<h5>8 Columnas</h5>
+					<h5 class="d-none d-md-block">8 Columnas</h5>
+					<h5 class="d-block d-sm-block d-md-none">12 columnas</h5>
 				</section>
 			</div>
 			<div class="col-12 col-sm-12 col-md-4 col-lg-4">
 				<aside>
-					<h5>4 Columnas</h5>
+					<h5 class="d-none d-md-block">4 Columnas</h5>
+					<h5 class="d-block d-sm-block d-md-none">12 columnas</h5>
 				</aside>
 			</div>
 		</div>
@@ -44,14 +46,19 @@
 	<!-- Destacados -->
 		<div class="row destacados">
 			<div class="col-12 col-sm-12 col-md-4 col-lg-3 offset-lg-1">
-				<h5 class="d-none d-lg-block d-xl-none">3 Columnas</h5>
-				<h5 class="d-lg-none">4 Columnas</h5>
+				<h5 class="d-none d-lg-block">3 Columnas</h5>
+				<h5 class="d-none d-md-block d-lg-none">4 Columnas</h5>
+				<h5 class="d-block d-sm-block d-md-none">12 Columnas</h5>
 			</div>
 			<div class="col-12 col-sm-12 col-md-4 col-lg-3 offset-lg-1">
-				<h5 class="d-none d-lg-block d-xl-none">3 Columnas</h5>
+				<h5 class="d-none d-lg-block">3 Columnas</h5>
+				<h5 class="d-none d-md-block d-lg-none">4 Columnas</h5>
+				<h5 class="d-block d-sm-block d-md-none">12 Columnas</h5>
 			</div>
 			<div class="col-12 col-sm-12 col-md-4 col-lg-3 offset-lg-1">
-				<h5 class="d-none d-lg-block d-xl-none">3 Columnas</h5>
+				<h5 class="d-none d-lg-block">3 Columnas</h5>
+				<h5 class="d-none d-md-block d-lg-none">4 Columnas</h5>
+				<h5 class="d-block d-sm-block d-md-none">12 Columnas</h5>
 			</div>
 		</div>
 	<!-- /Destacados -->
