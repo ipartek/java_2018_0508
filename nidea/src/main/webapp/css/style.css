@@ -10,11 +10,19 @@ header{
 }
 section{
 	background-color: #DA81F5;
+	height: 20em;
 	
 }
 aside{
 	background-color: #FE642E;
+	height: 20em;
 }
-.col-md-3{
+.rojo{
 	background-color: #DF013A;
+	height: 10em;
 }
+footer{
+	background-color: #1ec0ff;
+	height: 4em;;
+}
+
