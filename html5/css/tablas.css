@@ -1,8 +1,9 @@
 table.dataTable.hover tbody tr:hover, table.dataTable.display tbody tr:hover {
     background-color: rgb(255, 83, 112);
+    
 }
 
 table.dataTable.display tbody tr:hover>.sorting_1, table.dataTable.order-column.hover tbody tr:hover>.sorting_1{
-
     background-color: rgb(233, 75, 101);
+
 }
