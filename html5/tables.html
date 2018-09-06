@@ -6,10 +6,21 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
 
+    
+    
     <link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css">    
+    <link href="https://cdn.datatables.net/responsive/2.1.0/css/responsive.dataTables.css" rel="stylesheet" type="text/css" />
 
     <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-    <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>    
+    <script src="https://cdn.datatables.net/responsive/2.1.0/js/dataTables.responsive.js"></script>
+    
+    <style>
+            tr:hover td{
+                background-color: pink !important;
+            }
+    </style>
+
 
     <script>
 
@@ -18,7 +29,11 @@
 
             // $('#example')  => selecciona un objeto por id="example"
             // .DataTable();  => ejecutar el plugin de dataTable
-            $('#example').DataTable();
+            $('#example').DataTable({
+                "language": {
+                    "url": "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Spanish.json"
+                }
+            });
 
         } );
 
@@ -30,7 +45,7 @@
         <h1>Ejemplo Tabla con DataTables</h1>
         <a href="https://datatables.net" target="_blank">Documentacion oficial DataTables</a>
 
-        <table id="example" class="display" style="width:100%">
+        <table id="example" class="display responsive nowrap" width="100%">
                 <thead>
                     <tr>
                         <th>Name</th>
