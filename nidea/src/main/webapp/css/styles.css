@@ -2,29 +2,30 @@
 *	Custom Styles
 */
 body{
-	background-color: #F8F9FA;
+	background-color: #dcdce6;
 	color: #DDD;
 }
 h1,h2,h3,h4,h5{
 	text-align: center;
 }
 .row header{
-	background-color: #008800;
-	height: 200px;
+	background-color: #513c79;
+	height: 150px;
 }
 .main div section{
 	background-color: #800080;
 	height: 400px;
 }
 .main div aside{
-	background-color: #480048;
+	background-color: #463066;
 	height: 200px;
 }
 .destacados div{
-	background-color: #880000;
+	background-color: #8164b0;
 	height: 200px;
+	margin:auto;
 }
 .row footer{
-	background-color: #000088;
-	height: 200px;
+	background-color: #513c79;
+	height: 150px;
 }
