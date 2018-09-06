@@ -6,11 +6,11 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Ejemplo Tabla con DataTables</title>
     
-    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css">
-    <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-    <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
-    <link href="https://cdn.datatables.net/responsive/2.1.0/css/responsive.dataTables.css" rel="stylesheet" type="text/css" />
-    <script src="https://cdn.datatables.net/responsive/2.1.0/js/dataTables.responsive.js"></script>
+    <script src="vendors/jquery/jquery-3.3.1.js"></script>
+    <link rel="stylesheet" href="vendors/datatables/1.10.19/css/jquery.dataTables.min.css">
+    <script src="vendors/datatables/1.10.19/js/jquery.dataTables.min.js"></script>
+    <link href="vendors/datatables/responsive/2.1.0/css/responsive.dataTables.css" rel="stylesheet" type="text/css" />
+    <script src="vendors/datatables/responsive/2.1.0/js/dataTables.responsive.js"></script>
     
     <script>
         // Esperamos a que todo el html este cargado == body onload
@@ -19,7 +19,7 @@
             // .DataTable(); => ejecutar el plugin de dataTable
             $('#example').DataTable( {
                 "language": {
-                    "url": "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Spanish.json"
+                    "url": "vendors/datatables/i18n/Spanish.json"
                 }
             } );
             
