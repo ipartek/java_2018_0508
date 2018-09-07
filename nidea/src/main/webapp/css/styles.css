@@ -7,3 +7,27 @@ body{
 }	
 
 
+header{
+	background-color: #9CC940;
+	min-height: 50px;
+}
+
+section{
+	background-color: #FFF;
+	min-height: 250px;
+}
+
+aside{
+	background-color: #DFE4E6;
+	min-height: 150px;
+}
+
+.destacado{
+	background-color: #2295F5;
+	min-height: 150px;
+}
+
+footer{
+	background-color: #DDD;
+	min-height: 50px;
+}
