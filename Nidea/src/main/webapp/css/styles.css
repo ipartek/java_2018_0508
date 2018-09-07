@@ -2,40 +2,50 @@ body{
     background-color: #F8F9FA;
 }
 
-header{
+.row header{
 	background-color: #2FFF54;
+	min-height: 50px;
 }
 
-#main-content{
-	padding-right: 15px;
-	padding-left: 15px;
-	padding-top: 15px;
-	height: 150px;
-}
-
-.col-8{
+.main div section{
 	background-color: #000000;
 	color: #FFF;
+	min-height: 200px;
 }
 
-.col-4{
+.d-none.d-xl-block h5{
+	color:pink;
+}
+
+.d-none.d-md-block.d-xl-none h5{
+	color:yellow;
+}
+
+.d-block.d-md-none{
+	color: white;
+}
+
+.main div aside{
 	background-color: red;
+	min-height: 200px;
 }
 
-#destacado-content{
-	padding-right: 15px;
-	padding-left: 15px;
-	padding-top: 15px;
-    padding-bottom: 15px;
-    height: 150px;
+.destacados div{
+	background-color: #0040FF;	
+	min-height: 150px;
 }
 
-.col-3{
-	background-color: #0040FF;
-}
-
-footer{
+.row footer{
 	background-color: #000000;
 	color: #FFF;
-	height: 100px;
+	min-height: 50px;
+}
+
+.card-footer{
+	background-color: #FFF;
+    border-top: none;
+}
+
+canvas { 
+	background: #eee; display: block; margin: 0 auto; 
 }
