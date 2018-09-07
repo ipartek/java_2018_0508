@@ -31,3 +31,20 @@ footer{
 	background-color: #DDD;
 	min-height: 50px;
 }
+
+canvas { 
+	background: #eee; 
+	display: block; 
+	margin: 0 auto; 
+}
+
+.card-img-top{
+	min-height: 180px;
+}
+
+.card-footer {    
+     background-color: #FFF; 
+     border-top: none; 
+}
+
+.
