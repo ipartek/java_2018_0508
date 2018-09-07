@@ -1,0 +1,33 @@
+body {
+	background-color: #F8F9FA;
+}
+
+#header>div, #destacados>div{
+	    background-color: #ddd;
+}
+
+#main div:last-child{
+	    background-color: #fff;
+}
+#main div:first-child{
+	    background-color: #eee;
+}
+
+#footer>div{
+	    background-color: #aaa;
+}
+
+/* Index */
+
+.card-footer {
+    border-top: none;
+    background-color: rgba(0,0,0,0);
+}
+
+/* Arkanoid */
+
+canvas {
+	background: #eee; 
+	display: block;
+	 margin: 0 auto; 
+}
