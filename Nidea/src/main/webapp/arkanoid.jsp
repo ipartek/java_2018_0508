@@ -220,7 +220,9 @@
 	}
 	
 	//the function draw gets call in an interval of 10 in a loop
-	setInterval(draw, 10);
+	//setInterval(draw, 10);
+	draw();
+	requestAnimationFrame(draw);
 	
 </script>
 
