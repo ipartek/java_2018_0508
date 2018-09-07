@@ -1,7 +1,12 @@
+body {
+  min-height: 75rem;
+  padding-top: 4.5rem;
+}
 
 .header {
 	background:#9BCA46;
 	color:#FFF;
+	margin-bottom: 1em;
 }
 
 .main {
@@ -10,8 +15,14 @@
 }
 
 .aside {
+	height: 200px;
 	background:#DEE4E5;
 	color: #42A3F1;
+}
+
+.destacados {
+	margin-top: 1em;
+	margin-bottom: 1em;
 }
 
 .footer {
@@ -29,43 +40,13 @@
 	color:#FFF;
 }
 
-.numero-columnas-md {
-	display: none;
+.card-footer
+	background: none;
+	border-top: none;
 }
 
-.numero-columnas-sm {
-	display: none;
+.col .card img {
+	height: 150px;
+	width: 150px;
 }
 
-
-// Small devices (landscape phones, less than 768px)
-@media screen and (min-width: 767.98px) { 
-	
-	.numero-columnas-md {
-		display: none;
-	}	
-	
-	.numero-columnas-sm {
-		display: block;
-	}
-}
-
-// Medium devices (tablets, less than 992px)
-@media screen and (min-width: 991.98px) { 
-.numero-columnas-lg {
-		display: none;
-	}
-	.numero-columnas-md {
-		display: block;
-	}
-}
-
-// Large devices (desktops, less than 1200px)
-@media screen and (min-width: 1199.98px) { 
-	.numero-columnas-sm {
-		display: none;
-	}
-	.numero-columnas-md {
-		display: none;
-	}
-}
