@@ -24,15 +24,23 @@
 
 <body>
 	<div class="container">
+	<div class="row">
 	<header>
-		<div class="row">
-			<div class="col-12">12 columnas</div>
-		</div>
+		
+			
+			<div class="col-12">
+				<p><h1>HEADER</h1></p>
+				<p>6 columnas</p>
+			</div>
+			
+		
 	</header>
+	</div>
 		
 		<div id="article" class="row">
-			<div class="col-8">
+			<div class="col-8 col">
 				<section>
+					<h2>MAIN</h2>
 					<h5>8 columnas</h5>
 					<p>
 					Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
@@ -44,36 +52,54 @@
 					</p>
 				</section>
 			</div>
-			<div class="col-4"><aside>4 columnas
-			<p>
-				Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-                        tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-                        quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-                        consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-                        cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-                        proident, sunt in culpa qui officia deserunt mollit anim id est laborum
-			</p>
-			</aside></div>
+			<div class="col-4 col">
+				<aside>
+					<h2>ASIDE</h2>
+					<p>	
+						4 columnas
+						
+					</p>
+					<p><a href="form.jsp">Dar de alta libro</a></p>
+				</aside>
+			</div>
 		</div>
 		
-		<div id="tresColumnas" class="row">
-  				<div class="col-3">
-  					<h5>3 columnas</h5>
+		<div id="tresColumnas" class="row justify-content-between col-auto">
+  				<div class="col-3 col">
+  					
+  					<p><h5>3 columnas</h5>
+  					Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+                        tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+                        quis nostrud exercitation ullamco laboris nisi ut aliquip 
+                    </p>
   				</div>
-  				<div class="col-3">
-  					<h5>3 columnas</h5>
+  				<div class="col-3 col">
+  					
+  					<p><h5>3 columnas</h5>
+  					Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+                        tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+                        quis nostrud exercitation ullamco laboris nisi ut aliquip
+                    </p>
   				</div>
-  				<div class="col-3">
-  					<h5>3 columnas</h5>
+  				<div class="col-3 col">
+  					
+  					<p><h5>3 columnas</h5>
+  					Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+                        tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+                        quis nostrud exercitation ullamco laboris nisi ut aliquip 
+                    </p>
   				</div>
-  			</div>
-		
+		</div>			
+		<div class="row">
 			<footer>
-				<div class="row">
-					<div class="col-12">12 columnas</div>
-				</div>
+				
+					<div class="col-12 col-sm-1">
+						<p>FOOTER</p>
+						<P>12 columnas</P>
+					</div>
+				
 			</footer>
-		
+		</div>
 	</div>
 
 	<!-- Latest compiled and minified JavaScript -->

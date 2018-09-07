@@ -154,6 +154,61 @@ div[class^="elemento"]{
 	justify-content:center;	
 	align-items: stretch ;
 }
+.container11{
+	//*adding: 20px;*/
+	
+	width: 500px;
+	height:300px;
+	padding: 10px;
+	margin:20px;
+	display: -webkit-flex;
+	display: :flex;	
+	flex-flow: row wrap;
+	justify-content:center;	
+	align-content: center;
+}
+.container11 > div {
+	width:300px;
+}
+.container12{
+	//*adding: 20px;*/
+	
+	width: 500px;
+	height:200px;
+	padding: 10px;
+	margin:20px;
+	display: -webkit-flex;
+	display: :flex;	
+	flex-flow: row wrap;
+	justify-content:center;	
+	align-content: center;
+}
+.container13{
+	//*adding: 20px;*/
+	
+	width: 500px;
+	height:200px;
+	padding: 10px;
+	margin:20px;
+	display: -webkit-flex;
+	display: :flex;	
+	flex-flow: row wrap;
+	justify-content:center;	
+	align-content: center;
+}
+.container14{
+	//*adding: 20px;*/
+	
+	width: 500px;
+	height:200px;
+	padding: 10px;
+	margin:20px;
+	display: -webkit-flex;
+	display: :flex;	
+	flex-flow: row nowrap;
+	justify-content:center;	
+	align-content: center;
+}
 
 .elemento{
 	text-align: center;
@@ -161,6 +216,29 @@ div[class^="elemento"]{
 	margin: 5px;
 	width: 100px;
 	/*height: 50px;*/
+	order:2;
 
+}
+.elementoGrow{
+	flex-grow: 4;
+}
+
+.elementoHighShrink{
+
+	flex-shrink: 4;
+	height: 50px;
+}
+
+.elementoNormalShrink{
+
+	flex-shrink: 1;
+	width: 350px;
+	height: 50px;
+}
+.elementoOrder{
+	order:1;
+}
+.elementoAlignSelf{
+	align-self: flex-end;
 }
 

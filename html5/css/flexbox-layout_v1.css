@@ -1,0 +1,36 @@
+/*Estilos para maquetar con flexbox
+@see: http://www.falconmasters.com/web-design/sitio-web-layout-flexbox/
+@author: Ipartek team
+@Date: 05 / 09 / 2018
+@version: 1.0
+css preparado para laptop 1024 px y responsive para los siguientes breakpoints
+tablet:width 768px;
+mobile:width 375px;
+*/
+/*RESET*/
+/*Colors*/
+:root{
+    --main-color: #2C3E50;
+    --red:#c0392b;
+    --orange-light:#e67e22;
+    --orange-dark:#d35400;
+}
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+ 
+.contenedor {
+	background:#ccc;
+	width:90%;
+	max-width:1000px;
+	margin:auto;/*centra el contenido*/
+ 
+	/* Flexbox */
+	display:flex;
+	flex-flow:row wrap;
+}
+ 
+
+

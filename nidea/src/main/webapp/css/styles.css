@@ -1,15 +1,28 @@
 body{
-	height: 100%;	
+	height: 100%;
+	width: 100%;	
+	margin:auto;
+	background: #EFF1F3;
 }
 header {
-	background:#2c3e50;
+	background:#9BCA46;
 	color:#fff;
-	height:200px;	
+	height:100px;
+	width:100%;
+		
 }
 footer {
 	height:100px;
+	background: #181818;
+	width: 100%;
+}
+footer > div {
+	color:white;
 }
 
+.container{
+	width: 60%;
+}
 .main {
 	background:#f2f2f2;
 }
@@ -20,18 +33,85 @@ footer {
 }
 
 aside {
-	background:#c0392b;
-	color:#fff;
+	background:#DEE4E5;
+	color:#678AB4;
+	margin-top:30px;
 }
 
-footer {
-	background:#16a085;
-	color:#fff;
-}
+
 #article{
-	height:300px;	
+	height:300px;
+	margin-top: 15px;	
+	
 }
 
 #tresColumnas{
-	height:150px;	
+	height:auto;
+	width:auto;
+	margin-top: 15px;
+	margin-bottom: 15px;
+	
+		
 }
+#tresColumnas > div{
+	
+	border: 1px solid black;
+	background: #2195EE;	
+}
+#article > div[class^="col-8"]{
+	background: white;
+}
+
+#article > div[class^="col-4"]{
+	background: #DEE4E5;
+	height: 50%;
+	line-height: normal;
+	margin-top: 70px;
+}
+
+/* @media  (max-width: 1074px) {
+
+#tresColumnas{
+	display:flex;
+	flex-direction: column;
+	
+} */
+#tresColumnas > div[class^="col-3"]{
+	height: 100%;
+}
+
+@media (min-width: 220px) and (max-width: 1200px) {
+.container{
+	width: 100%;
+}
+
+aside h2,p{
+	font-size: 15px;
+}
+@media  (max-width: 750px) {
+.container{
+	width: 90%;
+}
+aside h2,p{
+	font-size: 13px;
+}
+
+
+
+
+aside h2,p{
+	font-size: 12px;
+}
+
+@media (min-width: 220px) and (max-width: 419px) {
+.container{
+	width: 100%;
+}
+
+aside h2,p{
+	font-size: 9px;
+}
+
+
+
+

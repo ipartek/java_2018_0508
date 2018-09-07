@@ -1,0 +1,28 @@
+form{
+	text-align: center;
+	{}
+div > div[class^="col-6"]{
+	width: 100%;
+	margin:auto;
+}
+
+label{
+  display:block;
+}
+
+input:invalid {
+  border: 1px solid #CC0000;
+}
+
+input:valid{
+  background-color: lightyellow;
+  border: 1px solid #3399FF;  
+}
+
+input:valid+.invalid{
+  visibility: hidden;
+}
+
+input:invalid+.invalid{
+  visibility: visible;
+}

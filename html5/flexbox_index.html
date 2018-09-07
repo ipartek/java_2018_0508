@@ -13,7 +13,7 @@
 	main-container-> display:flex; Contenedor padre
 	<header>
 		<h1>FlexBox Ejemplos</h1>
-		<h2>Ejemplos desde padres que son hijos</h2>
+		<h2>Ejemplos desde contenedores padre </h2>
 	</header>
 	<h2>Sin flexbox</h2>
 	<div class="container border">
@@ -111,6 +111,63 @@
 		<div class="elemento elemento2c1">2</div>
 		<div class="elemento elemento3c1">3</div>
 		<div class="elemento elemento4c1">4</div>
+
+	</div>
+	<h2>Flexbox -> display: -webkit-flex;display: :flex;flex-flow: row wrap;justify-content: center;align-content: center;</h2>
+	<div class="container11 border">
+	
+		<div class="elementoNoWrap elemento elemento1c1">1</div>
+		<div class="elementoNoWrap elemento elemento2c1">2</div>
+		<div class="elementoNoWrap elemento elemento3c1">3</div>
+		<div class="elementoNoWrap elemento elemento4c1">4</div>
+
+	</div>
+	<h2>Flexbox -> justify-content: center;align-content: center;</h2>
+	<div class="container12 border">
+	
+		<div class="elementoNoWrap elemento elemento1c1">1</div>
+		<div class="elementoNoWrap elemento elemento2c1">2</div>
+		<div class="elementoNoWrap elemento elemento3c1">3</div>
+		<div class="elementoNoWrap elemento elemento4c1">4</div>
+
+	</div>
+	<section>
+		<h2>Ejemplos en los elementos hijos</h2>
+	</section>
+		<h2>div3-elementoGrow-Flex-grow:4;</h2>
+	<div class="container13 border">
+	
+		<div class="elementoNoWrap elemento ">1</div>
+		<div class="elementoNoWrap elemento ">2</div>
+		<div class="elementoNoWrap elemento elementoGrow">3</div>
+		<div class="elementoNoWrap elemento ">4</div>
+
+	</div>
+	<h2>div3-elementoShrink-Flex-shrink:4;</h2>
+	<div class="container14 border">
+	
+		<div class="elementoNoWrap elemento elementoNormalShrink">1</div>
+		<div class="elementoNoWrap elemento elementoNormalShrink">2</div>
+		<div class="elementoNoWrap elemento elemento14width elementoHighShrink">3</div>
+		<div class="elementoNoWrap elemento elementoNormalShrink">4</div>
+
+	</div>
+	<h2>div[1,2,3] = order 2, div4 order 1</h2>
+	<div class="container14 border">
+	
+		<div class="elementoNoWrap elemento ">1</div>
+		<div class="elementoNoWrap elemento ">2</div>
+		<div class="elementoNoWrap elemento  ">3</div>
+		<div class="elementoNoWrap elemento elementoOrder">4</div>
+
+	</div>
+	<h2>align-self: flex-end</h2>
+	<div class="container14 border">
+	
+		<div class="elementoNoWrap elemento ">1</div>
+		<div class="elementoNoWrap elemento elementoAlignSelf">2</div>
+		<div class="elementoNoWrap elemento  ">3</div>
+		<div class="elementoNoWrap elemento ">4</div>
 
 	</div>
 </div>

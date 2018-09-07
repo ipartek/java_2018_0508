@@ -61,6 +61,19 @@ div[class^="elemento"]{
 .container10 > div{
 	width:100px;
 }
+
+.container11{
+	//*adding: 20px;*/
+	
+	width: 300px;
+	padding: 10px;
+	height:150px;
+	margin:20px;
+	display: -webkit-flex;
+	display: :flex;	
+	flex-wrap: wrap;
+
+}
 .container2{
 	//*adding: 20px;*/
 	
