@@ -1,84 +1,44 @@
-<%@ page language="java" contentType="text/html; charset=utf-8"
-    pageEncoding="utf-8"%>
-<!doctype html>
-<html lang="es">
-	<head>
-		<meta charset="utf-8">
-		<meta name="viewport"
-			content="width=device-width, initial-scale=1, shrink-to-fit=no">
-		<meta name="description" content="">
-		<meta name="author" content="">
-		<title>Nidea</title>
-		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
-		<link rel="stylesheet" href="css/styles.css">
-	</head>
-	<!-- https://getbootstrap.com/docs/4.1/utilities/display/ -->
-<body>
+<%@include file="includes/header.jsp" %>
 
-	<div class="container">
-	
-	<!-- Header -->
-		<div class="row">
-			<header class="col-12">
-				<h1>NIDEA</h1>
-				<h5>12 Columnas</h5>
-			</header>
-		</div>
-	<!-- /Header -->
-	
-	<!-- Main -->
-		<div class="row main">
-			<div class="col-12 col-sm-12 col-md-8 col-lg-8">
-				<section>
-					<h5 class="d-none d-md-block">8 Columnas</h5>
-					<h5 class="d-block d-sm-block d-md-none">12 columnas</h5>
-				</section>
-			</div>
-			<div class="col-12 col-sm-12 col-md-4 col-lg-4">
-				<aside>
-					<h5 class="d-none d-md-block">4 Columnas</h5>
-					<h5 class="d-block d-sm-block d-md-none">12 columnas</h5>
-				</aside>
-			</div>
-		</div>
-	<!-- /Main -->
-	
-	<!-- Destacados -->
-		<div class="row destacados">
-			<div class="col-12 col-sm-12 col-md-4 col-lg-3 offset-lg-1">
-				<h5 class="d-none d-lg-block">3 Columnas</h5>
-				<h5 class="d-none d-md-block d-lg-none">4 Columnas</h5>
-				<h5 class="d-block d-sm-block d-md-none">12 Columnas</h5>
-			</div>
-			<div class="col-12 col-sm-12 col-md-4 col-lg-3 offset-lg-1">
-				<h5 class="d-none d-lg-block">3 Columnas</h5>
-				<h5 class="d-none d-md-block d-lg-none">4 Columnas</h5>
-				<h5 class="d-block d-sm-block d-md-none">12 Columnas</h5>
-			</div>
-			<div class="col-12 col-sm-12 col-md-4 col-lg-3 offset-lg-1">
-				<h5 class="d-none d-lg-block">3 Columnas</h5>
-				<h5 class="d-none d-md-block d-lg-none">4 Columnas</h5>
-				<h5 class="d-block d-sm-block d-md-none">12 Columnas</h5>
-			</div>
-		</div>
-	<!-- /Destacados -->
-	
-	<!-- Footer -->
-		<div class="row">
-			<footer class="col-12">
-				<h5>12 Columnas</h5>
-			</footer>
-		</div>
-	<!-- /Footer -->
+<%@include file="includes/navbar.jsp" %>
+
+<main role="main" class="container">
+    <div class="jumbotron">
+    	<h1>Ejemplos</h1>
+        <p class="lead">Ejemplos con bootstrap 4 y Java Enterprise Edition</p>
+        <div class="row">
+        	<div class="col">
+        		<div class="card" style="width: 18rem;">
+				  <img class="card-img-top" src="images/imagen02.jpg" alt="Card image cap" width="180" height="180">
+				  <div class="card-body">
+				    <h5 class="card-title">Sistema Grid</h5>
+				    <p class="card-text">Sistema grid de bootstrap, con sus breakpoints y ejemplos de columnas.</p>
+				    <a href="grid.jsp" class="btn btn-outline-primary btn-lg btn-block text-uppercase">ver ejemplo</a>
+				  </div>
+				</div>
+        	</div>
+        	<div class="col">
+        		<div class="card" style="width: 18rem;">
+				  <img class="card-img-top" src="images/imagen03.png" alt="Card image cap" width="180" height="180">
+				  <div class="card-body">
+				    <h5 class="card-title">Componentes</h5>
+				    <p class="card-text">Ejemplos de los diferentes componentes de bootstrap 4.</p>
+				    <a href="componentes.jsp" class="btn btn-outline-secondary btn-lg btn-block text-uppercase">ver ejemplo</a>
+				  </div>
+				</div>
+        	</div>
+        	<div class="col">
+        		<div class="card" style="width: 18rem;">
+				  <img class="card-img-top" src="images/imagen04.jpg" alt="Card image cap" width="180" height="180">
+				  <div class="card-body">
+				    <h5 class="card-title">Arcanoid</h5>
+				    <p class="card-text">Juego arcanoid hecho con HTML y CSS.</p>
+				    <a href="arcanoid.jsp" class="btn btn-outline-primary btn-lg btn-block text-uppercase">ver ejemplo</a>
+				  </div>
+				</div>
+        	</div>
+        </div>
 	</div>
-<!-- /.container -->
-	
-	<!-- Bootstrap core JavaScript
-    ================================================== -->
-	<!-- Placed at the end of the document so the pages load faster -->
-	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-	<script	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
-	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+</main>
 
-</body>
-</html>
+<%@include file="includes/footer.jsp" %>

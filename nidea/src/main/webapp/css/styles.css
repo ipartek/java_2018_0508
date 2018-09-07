@@ -1,12 +1,14 @@
 /*
 *	Custom Styles
 */
+/*
 body{
 	background-color: #dcdce6;
 	color: #DDD;
 }
-h1,h2,h3,h4,h5{
-	text-align: center;
+img{
+	width: 150px;
+	height: 150px;
 }
 .row header{
 	background-color: #513c79;
@@ -22,10 +24,23 @@ h1,h2,h3,h4,h5{
 }
 .destacados div{
 	background-color: #8164b0;
-	height: 200px;
 	margin:auto;
 }
 .row footer{
 	background-color: #513c79;
 	height: 150px;
 }
+.ult-ofertas{
+	position: absolute;
+	top: -20px;
+	right: -40px;
+}
+.proc-new{
+	position: absolute;
+	top: 0;
+	right: 0;
+}
+.bg-navbar{
+	background-color: #8164b0;
+}
+*/
