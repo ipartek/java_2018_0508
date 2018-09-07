@@ -12,9 +12,14 @@ header {
 		
 }
 footer {
-	height:100px;
+	height:150px;
 	background: #181818;
 	width: 100%;
+}
+canvas { 
+	background: #eee;
+	display: block;
+	margin: 0 auto;
 }
 footer > div {
 	color:white;
@@ -39,6 +44,13 @@ aside {
 }
 
 
+
+.card-footer {
+    padding: .75rem 1.25rem;
+    background: white;
+    /* background-color: rgba(0,0,0,.03); */
+    /* border-top: 1px solid rgba(0,0,0,.125); */
+}
 #article{
 	height:300px;
 	margin-top: 15px;	
@@ -69,6 +81,8 @@ aside {
 	margin-top: 70px;
 }
 
+
+
 /* @media  (max-width: 1074px) {
 
 #tresColumnas{
@@ -88,19 +102,24 @@ aside {
 aside h2,p{
 	font-size: 15px;
 }
-@media  (max-width: 750px) {
+
+@media  (max-width: 768px) {
 .container{
 	width: 90%;
+}
+
+#article > div[class^="col-4"] {
+	
+    margin-top: 0px;
 }
 aside h2,p{
 	font-size: 13px;
 }
 
 
-
-
-aside h2,p{
-	font-size: 12px;
+#tresColumnas {
+	background: black;
+	margin-top:88px;
 }
 
 @media (min-width: 220px) and (max-width: 419px) {
