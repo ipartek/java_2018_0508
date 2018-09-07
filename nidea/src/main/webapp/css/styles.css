@@ -44,3 +44,13 @@ img{
 	background-color: #8164b0;
 }
 */
+.card-footer {
+	background-color: #FFF;
+	border-top: none;
+}
+
+canvas {
+	background: #eee;
+	display: block;
+	margin: 0 auto;
+}
