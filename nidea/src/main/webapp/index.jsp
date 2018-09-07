@@ -1,81 +1,79 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="UTF-8"%>
-<!doctype html>
-<html lang="es">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
-    <meta name="author" content="">
-    
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
-	<link rel="stylesheet" href="css/style.css" >
-
-    <title>Nidea</title>
-    
-
-   
-  </head>
-  <body>
+<%@include file="includes/header.jsp" %>
+<%@include file="includes/navbar.jsp" %>
   
-	 <div class="container">
-
-        <!-- header -->
-        <div class="row">
-            <header class="col-sm-12">
-                <h1>NIDEA</h1>
-                <h5>12 columnas</h5>
-            </header>
+ <main role="main" class="container">
+      <div class="jumbotron">
+        <h1>Ejemplos</h1>
+        <p class="lead">Ejemplos con bootsrap 4 y Java Enterprise Edition</p>
+        
+      </div>
+     
+   <div class="row row-eq-height">
+        	
+        	<div class="col">
+	        	<div class="card h-100">
+				  <img class="card-img-top" src="https://csharpcorner-mindcrackerinc.netdna-ssl.com/article/bootstrap-grid-system/Images/1.png" alt="image Grid System">
+				  <div class="card-body">
+				    <h5 class="card-title text-uppercase">Grid System</h5>
+				    <p class="card-text">Sistema rejilla de boostrap 4 basado 12 columnas y flexbox</p>				    
+				  </div>
+				  <div class="card-footer">
+				  	<a href="grid.jsp" class="btn btn-outline-primary btn-block ">Ver Detalle</a>
+				  </div>
+				</div>
+        	</div>
+        	
+        	<div class="col">
+        	
+	        	<div class="card h-100">	        	
+				  <img class="card-img-top" src="http://www.boss-development.biz/sites/default/files/bootstrap-02.png" alt="image Componentes">				  
+				  <div class="card-body">
+				    <h5 class="card-title text-uppercase">Componentes</h5>
+				    <p class="card-text">Componentes Reutilizables</p>				    
+				  </div>				  
+				  <div class="card-footer">
+				  	<a href="components.jsp" class="btn btn-outline-primary btn-block">Ver Detalle</a>
+				  </div>				  
+				</div>
+								
+        	</div>
+        	
+        	
+        	<div class="col">
+	        	<div class="card  h-100">
+				  <img class="card-img-top" src="https://www.classicgame.com/uploaded/thumb/arkanoid-mx300.jpg" alt="image juego arkanoid">
+				  <div class="card-body">
+				    <h5 class="card-title text-uppercase">Arkanoid</h5>
+				    <p class="card-text">Juego de Arkanoid con Canva</p>				    
+				  </div>
+				  <div class="card-footer">
+				  	<a href="arkanoid.jsp" class="btn btn-outline-primary btn-block ">Ver Detalle</a>
+				  </div>
+				</div>
+        	</div>
+        	
+        	
+        	<div class="col">
+	        	<div class="card  h-100">
+				  <img class="card-img-top" src="http://stacktips.com/wp-content/uploads/2016/06/Bootstrap-Horizontal-Form-Layout.png" alt="image formulario">
+				  <div class="card-body">
+				    <h5 class="card-title text-uppercase">Formulario</h5>
+				    <p class="card-text">Formulario para enviar información al servidor</p>				    
+				  </div>
+				   <div class="card-footer">
+				   	<a href="grid.jsp" class="btn btn-outline-primary btn-block ">Ver Detalle</a>
+				   </div>
+				</div>
+        	</div>
+        	
+        	
+        	
+        	
         </div>
-        <!-- /header -->
-
-
-
-        <!-- main -->
-        <div class="row">
-            <div class="col-sm-12 col-md-8 pt-2 pr-2 ">
-                <section>
-                    <h5>8 columnas</h5>
-                </section>
-            </div>
-            <div class="col-sm-12 col-md-4 pt-2 pr-2">
-                <aside >
-                    <h5>4 columnas</h5>
-                </aside>
-            </div>
-        </div>
-        <!-- /main -->
-
-
-        <!-- destacados -->
-        <div class="row justify-content-md-center">
-            <div class="col-sm-12 col-md-3 mt-2 ml-2 rojo">
-                <h5>3 columnas</h5>
-            </div>
-            <div class="col-sm-12 col-md-3 mt-2 ml-2 rojo">
-                <h5>3 columnas</h5>
-            </div>
-            <div class="col-sm-12 col-md-3 mt-2 ml-2 rojo">
-                <h5>3 columnas</h5>
-            </div>
-        </div>
-        <!-- /destacados -->
-
-
-        <!-- footer -->
-        <div class="row">
-            <footer  class="col-sm-12 col-md-12 mt-2">
-                <h5>12 columnas</h5>
-            </footer>
-        </div>
-        <!-- /footer -->
-
-    </div>
-
-	
+      
+      
+      
+      
+    </main>
   
-  	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
-	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
-  </body>
-  </html>
+  <%@include file="includes/footer.jsp" %>
