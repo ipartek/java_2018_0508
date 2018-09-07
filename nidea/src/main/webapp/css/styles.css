@@ -29,3 +29,14 @@ footer {
 	background:#16a085;
 	color:#fff;
 }
+
+.card-footer{
+	background-color: #FFF;
+	border-top: none;
+}
+
+canvas{ 
+	background: #eee; 
+	display: block; 
+	margin: 0 auto; 
+}
