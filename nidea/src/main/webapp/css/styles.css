@@ -13,7 +13,7 @@ h1, h5{
 
 .row header {
 	background-color:#00ff00;
-	height: 150px;
+	height: 130px;
 }
 
 section{
@@ -35,3 +35,10 @@ footer{
 	background-color: #808080;
 }
 
+.card-footer {
+   
+    background-color:#ffffff ;
+    border-top: none;
+}
+
+canvas { background: #eee; display: block; margin: 0 auto; }
