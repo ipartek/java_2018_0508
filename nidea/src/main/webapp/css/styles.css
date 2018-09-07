@@ -1,26 +1,37 @@
 /*
 Custom style
 */
-header {
-	background:#2c3e50;
-	color:#fff;
+
+body{
+	background-color:#c0c0c0;
+	color: #ffffff;
 }
 
-.main {
-	background:#f2f2f2;
+h1, h5{
+	text-align: center;
 }
 
-.color1 {
-	background: #34495e;
-	color:#fff;
+.row header {
+	background-color:#00ff00;
+	height: 150px;
 }
 
-aside {
-	background:#c0392b;
-	color:#fff;
+section{
+	background-color:#000040;
+	height: 290px;
 }
 
-footer {
-	background:#16a085;
-	color:#fff;
+aside{
+	background-color:#ff0000;
+	height: 290px;
 }
+
+.destacados{
+	height: 200px;
+	background-color: #0000ff;
+}
+
+footer{
+	background-color: #808080;
+}
+

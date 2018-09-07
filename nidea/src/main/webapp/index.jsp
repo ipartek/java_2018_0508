@@ -10,7 +10,7 @@
     <title>Nidea</title>
 
   	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
-	<link rel="stylesheet" href="css/style.css">
+	<link rel="stylesheet" href="css/styles.css">
 </head>
 
 <body>	
@@ -19,7 +19,7 @@
   		
   		<!-- header -->
   			<div class="row">
-	  			<header>
+	  			<header class="col">
 	  				<h1>NIDEA</h1>
 	  				<h5>12 columnas</h5>
 	  			</header>
@@ -30,14 +30,28 @@
   		
   		<!-- main -->	
   			<div class="row">
-  				<div class="col-8">
+  				<div class="col-md-8 col-lg-6">
   					<section>
-  						<h5>8 columnas</h5>
+  						<h5 class="d-none d-lg-block">6 columnas</h5>
+  						<h5 class="d-none d-md-block d-lg-none">8 columnas</h5>
+  						<h5 class="d-block d-md-none">12 columnas</h5>
+  						
+  						<h2 class="text-primary">BreakPoints</h2>
+  						<p>col extra small devices &lt; 576px</p>
+						<p>col-sm- small devices    &gt;= 576px</p>
+						<p>col-md- medium devices   &gt;= 768px</p>
+						<p>col-lg- large devices    &gt;= 992px</p>
+						<p>col-xl- xlarge devices   &gt;= 1200px</p>
+						  						
   					</section>
   				</div>
-  				<div class="col-4">
+  				<div class="col-md-4 col-lg-6">
   					<aside>
-  						<h5>4 columnas</h5>
+  						
+  						<h5 class="d-none d-lg-block">6 columnas</h5>
+  						<h5 class="d-none d-md-block d-lg-none">4 columnas</h5>
+  						<h5 class="d-block d-md-none">12 columnas</h5>
+  					
   					</aside>
   				</div>
   			</div>
@@ -45,14 +59,18 @@
   		
   		
   		<!-- destacados -->		
-  			<div class="row">
-  				<div class="col-3">
+  			<div class="row  no-gutters">
+  				<div class="col-sm-12 col-md-3 destacados">
   					<h5>3 columnas</h5>
   				</div>
-  				<div class="col-3">
-  					<h5>3 columnas</h5>
+  				
+  				<div class="col-md-3 offset-md-1">
+  					<div class= "destacados">
+  						<h5>3 columnas</h5>
+  					</div>
   				</div>
-  				<div class="col-3">
+  				
+  				<div class="col-sm-12 col-md-3 offset-md-1 destacados">
   					<h5>3 columnas</h5>
   				</div>
   			</div>
@@ -61,7 +79,7 @@
   			
   		<!-- footer -->	
   			<div class="row">
-  				<footer>
+  				<footer class="col">
   					<h5>12 columnas</h5>
   				</footer>
   			</div>
