@@ -12,14 +12,19 @@
       <div class="row">
   		<div class="col-sm-3">
 	      <div class="card h-100">
-	  			<img class="card-img-top" src="https://www.bioiberica.com/app/webroot/files/thumbs/9498e50feecc37a029fe33d8e966440d.jpg" alt="Card image cap">
+	  			<img class="card-img-top" src="https://i.ytimg.com/vi/5--Jv13AxFc/maxresdefault.jpg" alt="imagen del sistema grid">
 	  			<div class="card-body">
 		    		<h5 class="card-title text-dark text-uppercase">grid system</h5>
-		    		<p class="card-text text-dark text-justify">Perro con gato tomando el aire en el campo</p>
+		    		<p class="card-text text-dark text-justify">
+		    			En el diseño gráfico, un grid es simplemente una “estructura formada por una serie de líneas 
+						horizontales y verticales usadas para estructurar contenido”.
+						Con el sistema de grid, responsive y mobile first, de 12 columnas de Bootstrap, se hace fácil 
+						crear sitios webs complejos y dinámicos.
+					</p>
 		    		
 	  			</div>
 	  			<div class="card-footer">
-	  				<a href="#" class="btn btn-outline-primary btn-lg btn-block">Ver ejemplo</a>
+	  				<a href="grid.jsp" class="btn btn-outline-primary btn-lg btn-block">Ver ejemplo</a>
 	  			</div>
 		 </div>
 		 </div>
@@ -33,7 +38,7 @@
 		    		
 	  			</div>
 	  			<div class="card-footer">
-	  				<a href="#" class="btn btn-outline-primary btn-lg btn-block">Ver ejemplo</a>
+	  				<a href="components.jsp" class="btn btn-outline-primary btn-lg btn-block">Ver ejemplo</a>
 	  			</div>
 		 </div>
 		 </div>
