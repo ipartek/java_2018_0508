@@ -62,7 +62,7 @@
 				    <p class="card-text">Formulario para enviar información al servidor</p>				    
 				  </div>
 				   <div class="card-footer">
-				   	<a href="grid.jsp" class="btn btn-outline-primary btn-block ">Ver Detalle</a>
+				   	<a href="formulario" class="btn btn-outline-primary btn-block ">Ver Detalle</a>
 				   </div>
 				</div>
         	</div>
