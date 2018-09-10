@@ -1,3 +1,4 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@include file="includes/header.jsp" %>
 <%@include file="includes/navbar.jsp" %>
 
@@ -5,7 +6,7 @@
       <div class="jumbotron">
         <h1>Ejemplos</h1>
         <p class="lead">Ejemplos con Bootstrap 4 y Java Enterprise Edition</p>
-      </div>
+      
       <div class="row">
       	<div class="col">
       	   <div class="card text-center h-100">
@@ -36,10 +37,10 @@
 				<img class="card-img-top" src="images/formulario.png">
 			  	<div class="card-body">
 			    	<h5 class="card-title text-uppercase">formularios</h5>
-			    	<p class="card-text">Formularios.</p>
+			    	<p class="card-text">Ejemplos de formularios.</p>
 			    </div>
 			    	<div class="card-footer">
-			    	<a href="formulario.jsp" class="btn btn-outline-primary btn-lg btn-block">Ver ejemplo</a>
+			    	<a href="formulario" class="btn btn-outline-primary btn-lg btn-block">Ver ejemplo</a>
 			  	</div>
 			</div>
       	</div>
@@ -55,7 +56,8 @@
 			  	</div>
 			</div>
       	</div>
-     
+      	</div>
+     </div>
 	
 </main> 
     	
