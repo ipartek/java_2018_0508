@@ -40,9 +40,15 @@ public class FormularioController extends HttpServlet {
 
 		try {
 			// recoger parametros
+			String imagen=request.getParameter("imagen");
 			String nombre=request.getParameter("nombre");
 			String codigo = request.getParameter("codigo");
-		    Alert alert=new Alert();
+			String oferta=request.getParameter("oferta");
+			String precio = request.getParameter("precio");
+			String descripcion = request.getParameter("descripcion");
+			
+			
+			Alert alert=new Alert();
 			
 			
 			// validar parametros
@@ -57,14 +63,25 @@ public class FormularioController extends HttpServlet {
 				// crear Producto a traves de parametros recibidos del formulario
 				Producto p = new Producto();
 				
+				//Comprobamos imagen, sino ponemos img por defecto
+				if (imagen.isEmpty()) {
+					p.setImagen(p.IMG_PROD_POR_DEFECTO);
+				}
+				
+				p.setNombre(nombre);
 				p.setCodigo(codigo);
-
+				p.setOferta(("on".equalsIgnoreCase(oferta))?true:false);//TODO validar
+				p.setDescripcion(descripcion);
 				// pasa parametro
 				request.setAttribute("producto", p);
 				request.setAttribute("alert", new Alert(alert.ALERT_PRIMARY,"dado de alta correctamente"));
 				
 				
 			}
+			
+			
+			
+			
 
 		} catch (Exception e) {
 						// Si nos da error el server le mandamos al formulario de nuevo

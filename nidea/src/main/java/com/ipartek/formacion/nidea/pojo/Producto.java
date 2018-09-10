@@ -2,6 +2,9 @@ package com.ipartek.formacion.nidea.pojo;
 
 public class Producto {
 	
+	
+	public static final String IMG_PROD_POR_DEFECTO="http://pngimg.com/uploads/box/box_PNG68.png"; 
+	
 	private String nombre;
 	private String codigo;
 	private String descripcion;
@@ -17,7 +20,7 @@ public class Producto {
 		this.descripcion="";
 		this.oferta=false;
 		this.precio=0;
-		this.imagen="http://pngimg.com/uploads/box/box_PNG68.png";
+		this.imagen=IMG_PROD_POR_DEFECTO;
 		
 	}
 	public String getNombre() {

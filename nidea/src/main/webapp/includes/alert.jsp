@@ -29,6 +29,8 @@
 			 tipo: alert-danger 
 			 Texto:lo sentimos ha surgido ago inesperado.
 			 2º constructor: el tipo y parametro que yo quiera.
+			 
+			 
 
 -->
  

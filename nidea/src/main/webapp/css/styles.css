@@ -42,3 +42,8 @@ footer{
 }
 
 canvas { background: #eee; display: block; margin: 0 auto; }
+
+.required::before { 
+    content: "* ";
+    color=#966161;
+}
