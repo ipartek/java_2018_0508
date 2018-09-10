@@ -1,29 +1,20 @@
  <%@include file="includes/header.jsp" %>
   <%@include file="includes/navbar.jsp" %>
-
-
-<canvas id="myCanvas" width="480" height="320"></canvas>
-
-		<script>
-			var canvas = document.getElementById("myCanvas");
-			var ctx = canvas.getContext("2d");
+	
+	<main role="main" class="container">
+		<div class="row justify-content-center" >
+			<div class="col-12 mb-3">
+				<h1 class="text-center text-prymary font-weight-light" >Arkanoid Canvas Game</h1>
+				<canvas id="myCanvas" width="480" height="320"></canvas>
+			</div>
 			
-			ctx.beginPath();
-			ctx.rect(20, 40, 50, 50);
-			ctx.fillStyle = "#FF0000";
-			ctx.fill();
-			ctx.closePath();
-			
-			ctx.beginPath();
-			ctx.arc(240, 160, 20, 0, Math.PI*2, false);
-			ctx.fillStyle = "green";
-			ctx.fill();
-			ctx.closePath();
-			
-			ctx.beginPath();
-			ctx.rect(160, 10, 100, 40);
-			ctx.strokeStyle = "rgba(0, 0, 255, 0.5)";
-			ctx.stroke();
-			ctx.closePath();
-		</script>
+			<div class="col-12 col-md-6">
+				<!-- registramos click mediante escuchador, mirar arkanoid.js -->
+				<button id="btn_play" type="button" class="btn btn-outline btn-primary  btn-lg btn-block">Jugar</button>
+			</div>
+		</div>
+		
+		<script src="js/arkanoid.js"></script>
+		
+	</main>		
   <%@ include file="includes/footer.jsp" %>

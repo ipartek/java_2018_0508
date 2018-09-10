@@ -1,6 +1,7 @@
 
   <%@include file="includes/header.jsp" %>
   <%@include file="includes/navbar.jsp" %>
+  
    <div role="main" class="container">
     <div class="alert alert-info alert-dismissible fade show" role="alert">
 	 	<p>Si quieres más detalles sobre componentes visita la <a href="https://getbootstrap.com/docs/4.1/components/alerts/" target="_blank" >documentación oficial</a></p>
@@ -77,7 +78,7 @@
 								  </div>
 								  
 								  <div class="card-footer">
-								  		<a href="form.jsp" class="btn btn-outline-primary btn-lg btn-block">Ver detalles</a>
+								  		<a href="formulario" class="btn btn-outline-primary btn-lg btn-block">Ver detalles</a>
 								  </div>
 							</div>
 						     
