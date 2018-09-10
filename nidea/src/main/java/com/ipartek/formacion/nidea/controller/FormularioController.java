@@ -36,11 +36,17 @@ public class FormularioController extends HttpServlet {
 		try {
 		
 			//recoger parametros
+			String nombre = request.getParameter("nombre");
 			String codigo = request.getParameter("codigo");
+			String precio = request.getParameter("precio");
+			String oferta = request.getParameter("oferta");
+			String descripcion = request.getParameter("descripcion");
 			
 			//validar parametros
 			
 			if ( codigo.isEmpty()  ) {
+				
+				//TODO validar resto de campos
 				
 				request.setAttribute("alert", new Alert( Alert.WARNING , "Faltan campos obligatorios") );
 				request.getRequestDispatcher("formulario.jsp").forward(request, response);
@@ -50,7 +56,11 @@ public class FormularioController extends HttpServlet {
 			
 				//crear Producto a traves de parametros recibidos del formulario
 				Producto p = new Producto();
+				p.setNombre(nombre);
 				p.setCodigo(codigo);
+				p.setPrecio(Float.parseFloat(precio)); //TODO validar arriba
+				p.setOferta(("on".equalsIgnoreCase(oferta))?true:false);
+				p.setDescripcion(descripcion);
 				
 				//pasa parametro
 				request.setAttribute("producto",  p );
