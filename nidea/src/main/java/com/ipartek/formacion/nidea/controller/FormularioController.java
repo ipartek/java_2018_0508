@@ -32,22 +32,40 @@ public class FormularioController extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		//recoger parametros
-		String codigo = request.getParameter("codigo");
+		try {
 		
-		//validar parametros
-		
-		
-		//crear Producto a traves de parametros recibidos del formulario
-		Producto p = new Producto();
-		p.setCodigo(codigo);
-		
-		//pasa parametro
-		request.setAttribute("producto",  p );
-		
-		
-		//ir a la vista
-		request.getRequestDispatcher("resultado.jsp").forward(request, response);
+			//recoger parametros
+			String codigo = request.getParameter("codigo");
+			
+			String codigo2 = request.getParameter("codigo22222");
+			codigo2.trim();
+			
+			//validar parametros
+			
+			
+			//crear Producto a traves de parametros recibidos del formulario
+			Producto p = new Producto();
+			p.setCodigo(codigo);
+			
+			//pasa parametro
+			request.setAttribute("producto",  p );
+			
+			
+			//ir a la vista
+			request.getRequestDispatcher("resultado.jsp").forward(request, response);
+			
+			
+		}catch (Exception e) {
+			
+			e.printStackTrace();
+			
+			//enviar mensaje al usuario
+			request.setAttribute("alert", "Lo sentimos pero tenemos un fallo inexsperado");
+			
+			request.getRequestDispatcher("formulario.jsp").forward(request, response);
+			
+		}	
+			
 	}
 
 }

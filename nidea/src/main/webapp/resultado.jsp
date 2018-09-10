@@ -4,6 +4,7 @@
 <%@include file="includes/header.jsp" %>
 <%@include file="includes/navbar.jsp" %>
 
+
 	<main role="main" class="container">
 		<h1>Resultado</h1>
 		

@@ -23,3 +23,8 @@
         </ul>        
       </div>
     </nav>
+    
+    
+    
+    <%@include file="alert.jsp" %>
+    
