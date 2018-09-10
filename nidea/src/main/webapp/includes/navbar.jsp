@@ -16,6 +16,9 @@
             <a class="nav-link" href="componentes.jsp">Componentes</a>
           </li>
           <li class="nav-item">
+            <a class="nav-link" href="formulario.jsp">Formularios</a>
+          </li>
+          <li class="nav-item">
             <a class="nav-link" href="arkanoid.jsp">Arkanoid</a>
           </li>
         </ul>
