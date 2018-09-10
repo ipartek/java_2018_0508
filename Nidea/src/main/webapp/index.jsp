@@ -58,7 +58,7 @@
 		    <p class="card-text text-center">Lorem ipsum dolor sit amet consectetur adipiscing elit nulla posuere, malesuada primis fermentum dis tempus auctor suspendisse. </p>
 		   </div>
 		  <div class="card-footer">
-    			 <a href="form.jsp" class="btn btn-outline-primary btn-lg btn-block" role="button">Ver Detalle</a>
+    			 <a href="formulario" class="btn btn-outline-primary btn-lg btn-block" role="button">Ver Detalle</a>
     		</div>
 		</div>
 		<!-- /Card 4 -->

@@ -14,6 +14,14 @@
         <li class="nav-item">
           <a class="nav-link" href="components.jsp">Components</a>
         </li>
+        <li class="nav-item">
+          <a class="nav-link" href="arkanoid.jsp">Arkanoid</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="formulario">Formularios</a>
+        </li>
       </ul>
     </div>
   </nav>
+  
+  <%@include file="alert.jsp"%>

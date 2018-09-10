@@ -49,3 +49,12 @@ body{
 canvas { 
 	background: #eee; display: block; margin: 0 auto; 
 }
+
+.required::before{
+	content: "*";
+	color: red;
+}
+
+div .star{
+	color: yellow; important!
+}
