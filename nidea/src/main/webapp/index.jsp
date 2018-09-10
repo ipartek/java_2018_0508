@@ -34,7 +34,7 @@
 	  			<img class="card-img-top" src="https://www.bioiberica.com/app/webroot/files/thumbs/9498e50feecc37a029fe33d8e966440d.jpg" alt="Card image cap">
 	  			<div class="card-body">
 		    		<h5 class="card-title text-dark text-uppercase">componentes</h5>
-		    		<p class="card-text text-dark text-justify">BLA BLA BLA</p>
+		    		<p class="card-text text-dark text-center">BLA BLA BLA</p>
 		    		
 	  			</div>
 	  			<div class="card-footer">

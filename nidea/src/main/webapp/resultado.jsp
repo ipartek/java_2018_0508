@@ -5,40 +5,55 @@
 <%@include file="includes/navbar.jsp" %>
 
 	<main role="main" class="container">
-		<h1>Resultado</h1>
 		
+		<h1>Resultado</h1>	
 		
-		<h2>Scriplet</h2>
 		<%
 			Producto p = (Producto)request.getAttribute("producto");
-			//out.print(p);
-		%>
+		%>		
 		
-		<div class="card" style="width: 18rem;">
-			  <img class="card-img-top rounded float-left" src= <%p.getImagen(); %> alt="imagen del producto">
-			  <div class="card-body">
-			    <h5 class="card-title"><%p.getNombre(); %></h5>
-			    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+		
+		<div class="card" style="width: 20rem;">
+		
+			
+			  <img class="card-img-top " src="<%=p.getImagen()%>"  alt="imagen del producto">
+			  
+			  <%
+				  	//Si está el producto el oferta pintamos circulo verde con el texto "Oferta"
+				  		if(p.isOferta()){
+				  	%>
+				  			<span class="badge badge-pill badge-success text-warning"> Oferta</span>
+		      <% }%>
+		      
+			  <div class="card-body">					    
+				    <div class="row">
+				    	<div class=col text-left>
+				    		<h5 class="card-title text-dark text-uppercase text-justify"><%=p.getNombre()%></h5>
+					  		
+				    	</div>
+				    	
+				    	<div class="col text-center">
+					    	<h5 class="card-title font-weight-light text-justify text-secondary"><%=p.getCodigo() %></h5>
+				  		</div>
+				  		
+				    	<div class="col text-right">
+					    	<h5 class="card-title text-info font-weight-light text-justify"><%=p.getPrecio() %>&#8364;</h5>
+				  		</div>				  		
+				  		
+				  	</div>
+				  	<p class="card-text font-italic text-muted text-justify"><%=p.getDescripcion() %></p>
+				  	
+				  		
+				  	
+				  	
+				  	
+				  	
 			  </div>
-			  <ul class="list-group list-group-flush">
-			    <li class="list-group-item">Cras justo odio</li>
-			    <li class="list-group-item">Dapibus ac facilisis in</li>
-			    <li class="list-group-item">Vestibulum at eros</li>
-			  </ul>
-			  <div class="card-body">
-			    <a href="#" class="card-link">Card link</a>
-			    <a href="#" class="card-link">Another link</a>
-			  </div>
+				  	
+			  
 		</div>
 		
 		
-		
-		<!-- 
-			<hr><!-- linea entera en la pantalla --!>
-		
-			<h2>EL - Expresion Lenguage</h2>
-				${producto}
-		 -->
 	</main>
 
 

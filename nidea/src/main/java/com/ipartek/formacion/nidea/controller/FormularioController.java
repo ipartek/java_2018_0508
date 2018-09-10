@@ -54,7 +54,7 @@ public class FormularioController extends HttpServlet {
 			// validar parametros
 			if (codigo.isEmpty()) {
 
-				request.setAttribute("alert", new Alert(alert.ALERT_WARNING,"Introduce un texto en los campos"));
+				request.setAttribute("alert", new Alert(alert.ALERT_WARNING,"Completa los campos obligatorios"));
 				request.getRequestDispatcher("formulario.jsp").forward(request, response);
 				
 				
@@ -63,18 +63,22 @@ public class FormularioController extends HttpServlet {
 				// crear Producto a traves de parametros recibidos del formulario
 				Producto p = new Producto();
 				
-				//Comprobamos imagen, sino ponemos img por defecto
-				if (imagen.isEmpty()) {
+				//ponemos img por defecto si no se inserta
+				if (imagen==null || ("").equals(imagen)) {
 					p.setImagen(p.IMG_PROD_POR_DEFECTO);
+				}else {
+					
+					p.setImagen(imagen);
 				}
 				
 				p.setNombre(nombre);
 				p.setCodigo(codigo);
 				p.setOferta(("on".equalsIgnoreCase(oferta))?true:false);//TODO validar
 				p.setDescripcion(descripcion);
+				p.setPrecio(Float.parseFloat(precio));
 				// pasa parametro
 				request.setAttribute("producto", p);
-				request.setAttribute("alert", new Alert(alert.ALERT_PRIMARY,"dado de alta correctamente"));
+				request.setAttribute("alert", new Alert(alert.ALERT_SUCCESS,"Producto dado de alta correctamente"));
 				
 				
 			}
