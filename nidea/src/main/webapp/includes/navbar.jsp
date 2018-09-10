@@ -22,3 +22,4 @@
         </form>
       </div>
     </nav>
+<%@include file="alert.jsp" %>

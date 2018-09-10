@@ -10,22 +10,32 @@ canvas {
 
   }
 </style>
-<div class="row">
-	<div class="col">
-		<canvas id="myCanvas" width="500" height="400" style="aling:left"></canvas>
+
+<div class="container">
+	<div class="row">
+		
+		<div class="col-12">
+			<p><h1 class="text-center text-primary font-weight-light">Arkanoid Canvas Game</h1></p>
+			<canvas id="myCanvas" width="500" height="400" style="aling:left"></canvas>
+		</div>
+		<!-- <div class="col">
+			<canvas id="myCanvas2" width="500" height="400" style="aling:right">xd</canvas>
+		</div> -->
 	</div>
-	<div class="col">
-		<canvas id="myCanvas2" width="500" height="400" style="aling:right">xd</canvas>
+
+	<div class="row justify-content-center">
+		<div class="col-12 col-md-6 text-center">
+			<p><a href="../index.jsp">Inicio</a></p>
+			<!-- REgistramos click mediante escuchador onclick="draw()" -->
+			<p><button id="btnPlay"  class="btn btn-outline-primary  ">Jugar</button>
+		</div>
+			<script type="text/javascript" src="../js/arkanoid.js"></script>
 	</div>
 </div>
 
-<div>
-	<a href="../index.jsp">Inicio</a>
-</div>
 
 
-
-<script>
+<!-- <script>
 //guardamos la referencia al objejo camvas por id
 var canvas = document.getElementById("myCanvas");
 //guardamos el contexto grafico a usar
@@ -193,9 +203,9 @@ function draw() {
 }
 
 draw();
-</script>
+</script> -->
 
-<script>
+<!-- <script>
 //guardamos la referencia al objejo camvas por id
 var canvas_ = document.getElementById("myCanvas2");
 //guardamos el contexto grafico a usar
@@ -341,7 +351,7 @@ function draw_() {
 
 draw();
 </script>
-<!-- <script>
+<script>
 
 var canvas = document.getElementById("myCanvas");
 var ctx = canvas.getContext("2d");

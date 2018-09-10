@@ -1,0 +1,9 @@
+
+
+span:valid+.invalid{
+  visibility: hidden;
+}
+
+span:invalid+.invalid{
+  visibility: visible;
+}
