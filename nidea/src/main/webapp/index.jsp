@@ -32,7 +32,7 @@
 			<div class="card" style="width: 18rem;">
 				<img class="card-img-top" src="images/imagen04.jpg" alt="Card image cap" width="180" height="180">
 				<div class="card-body">
-					<h5 class="card-title text-uppercase">Arcanoid</h5>
+					<h5 class="card-title text-uppercase">Arkanoid</h5>
 					<p class="card-text">Juego arcanoid hecho con HTML y CSS.</p>
 
 				</div>
@@ -49,7 +49,7 @@
 
 				</div>
 				<div class="card-footer">
-					<a href="formulario.jsp" class="btn btn-outline-secondary btn-lg btn-block">Ver Ejemplo</a>
+					<a href="formulario" class="btn btn-outline-secondary btn-lg btn-block">Ver Ejemplo</a>
 				</div>
 			</div>
 

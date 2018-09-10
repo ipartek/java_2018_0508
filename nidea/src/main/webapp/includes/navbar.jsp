@@ -17,6 +17,11 @@
           <li class="nav-item">
             <a class="nav-link" href="arkanoid.jsp">Arkanoid</a>
           </li>
+          <li class="nav-item">
+            <a class="nav-link" href="formulario">Formulario</a>
+          </li>
         </ul>
       </div>
     </nav>
+    
+<%@ include file="alert.jsp"%>

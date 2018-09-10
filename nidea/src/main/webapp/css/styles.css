@@ -54,3 +54,14 @@ canvas {
 	display: block;
 	margin: 0 auto;
 }
+
+.card{
+	position:relative;
+}
+
+.card .oferta{
+	position: absolute;
+	top: 0;
+	right: 0;
+}
+
