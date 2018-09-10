@@ -24,9 +24,19 @@ canvas {
 footer > div {
 	color:white;
 }
+aside {
+	background:#DEE4E5;
+	color:#678AB4;
+	margin-top:30px;
+}
+
 
 .container{
 	width: 60%;
+}
+
+.index{
+	width:80%;
 }
 .main {
 	background:#f2f2f2;
@@ -37,11 +47,7 @@ footer > div {
 	color:#fff;
 }
 
-aside {
-	background:#DEE4E5;
-	color:#678AB4;
-	margin-top:30px;
-}
+
 
 
 

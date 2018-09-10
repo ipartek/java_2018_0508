@@ -24,7 +24,7 @@
 			<header>
 				
 					
-					<div class="col-12">
+					<div class="col-12 col-xl-12 col-lg-12 col-md-12 col-sm-3">
 						<p><h1>HEADER</h1></p>
 						<p class="d-none d-xl-block">12 columnas</p>
 						<p class="d-none d-lg-block d-xl-none">12 columnas</p>
@@ -36,11 +36,11 @@
 		</div>
 		
 		<div id="article" class="row">
-			<div class="col-8 col col-xl-6 col-md-8 col-sm-12">
+			<div class="col-8 col col-xl-8 col-lg-8 col-md-6 col-sm-12">
 				<section>
 					<h2>MAIN</h2>
 					<p class="d-none d-xl-block">8 columnas</p>
-					<h5 class="d-none d-lg-block d-xl-none">6 columnas</h5>
+					<h5 class="d-none d-lg-block d-xl-none">8 columnas</h5>
 					<h5 class="d-none d-sm-block d-md-none">12 columnas</h5>
 					
 					<p>	Extra small devices &lt; 576px</p>
@@ -51,15 +51,15 @@
 					
 				</section>
 			</div>
-			<div class="col-4 col col-xl-6 col-md-4 col-sm-12">
+			<div class="col-4 col col-xl-4 col-lg-4 col-md-6 col-sm-12">
 				<aside>
 					<h2>ASIDE</h2>
 
 
-					<p class="d-none d-xl-block">6 columnas</p>
-					<p class="d-none d-lg-block d-xl-none">6 columnas</p>
+					<p class="d-none d-xl-block">4 columnas</p>
+					<p class="d-none d-lg-block d-xl-none">4 columnas</p>
 					<p class="d-none d-sm-block d-md-none">12 columnas</p>
-					<p class="d-none .d-md-block .d-lg-none">4 columnas</p>
+					<p class="d-none .d-md-block .d-lg-none">6 columnas</p>
 					<p><a href="form.jsp">Dar de alta libro</a></p>
 				</aside>
 			</div>
