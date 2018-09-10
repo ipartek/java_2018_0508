@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.ipartek.formacion.nidea.pojo.Alert;
 import com.ipartek.formacion.nidea.pojo.Producto;
 
 /**
@@ -37,22 +38,27 @@ public class FormularioController extends HttpServlet {
 			//recoger parametros
 			String codigo = request.getParameter("codigo");
 			
-			String codigo2 = request.getParameter("codigo22222");
-			codigo2.trim();
-			
 			//validar parametros
 			
+			if ( codigo.isEmpty()  ) {
+				
+				request.setAttribute("alert", new Alert( Alert.WARNING , "Faltan campos obligatorios") );
+				request.getRequestDispatcher("formulario.jsp").forward(request, response);
+				
+			}else {
 			
-			//crear Producto a traves de parametros recibidos del formulario
-			Producto p = new Producto();
-			p.setCodigo(codigo);
 			
-			//pasa parametro
-			request.setAttribute("producto",  p );
-			
-			
-			//ir a la vista
-			request.getRequestDispatcher("resultado.jsp").forward(request, response);
+				//crear Producto a traves de parametros recibidos del formulario
+				Producto p = new Producto();
+				p.setCodigo(codigo);
+				
+				//pasa parametro
+				request.setAttribute("producto",  p );
+				request.setAttribute("alert", new Alert( Alert.SUCCESS , "Registro Dado de Alta") );
+				
+				//ir a la vista
+				request.getRequestDispatcher("resultado.jsp").forward(request, response);
+			}	
 			
 			
 		}catch (Exception e) {
@@ -60,7 +66,7 @@ public class FormularioController extends HttpServlet {
 			e.printStackTrace();
 			
 			//enviar mensaje al usuario
-			request.setAttribute("alert", "Lo sentimos pero tenemos un fallo inexsperado");
+			request.setAttribute("alert", new Alert() );
 			
 			request.getRequestDispatcher("formulario.jsp").forward(request, response);
 			
