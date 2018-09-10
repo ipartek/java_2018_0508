@@ -59,14 +59,15 @@
 		  
 		  <div class="col-sm-3 ">
 		 <div class="card h-100">
-	  			<img class="card-img-top" src="https://www.bioiberica.com/app/webroot/files/thumbs/9498e50feecc37a029fe33d8e966440d.jpg" alt="Card image cap">
+	  			<img class="card-img-top" src="http://www.abcdisegno.com/wp-content/uploads/2010/09/formail.gif" alt="Card image cap">
 	  			<div class="card-body">
 		    		<h5 class="card-title text-dark text-uppercase">formulario</h5>
-		    		<p class="card-text text-dark text-justify">Perro con gato tomando el aire en el campo</p>
+		    		<p class="card-text text-dark text-justify">formulario para productos de mi tienda Nidea</p>
 		    		
 	  			</div>
 	  			<div class="card-footer">
-	  				<a href="#" class="btn btn-outline-primary btn-lg btn-block">Ver ejemplo</a>
+	  			<!-- llamamos al controller del formulario -->
+	  				<a href="formulario" class="btn btn-outline-primary btn-lg btn-block">Ver ejemplo</a>
 	  			</div>
 		 </div>
 		 </div>
