@@ -20,7 +20,7 @@
 				  </div>
 				  
 				    <div class="card-footer">
-				    	<a href="#" class="btn btn-outline-primary btn-block">Ver ejemplo</a>
+				    	<a href="grid.jsp" class="btn btn-outline-primary btn-block">Ver ejemplo</a>
 				    </div>
 				  
 				</div>
@@ -36,7 +36,7 @@
 				  </div>
 				  
 				    <div class="card-footer">
-				    	<a href="#" class="btn btn-outline-primary btn-block">Ver ejemplo</a>
+				    	<a href="components.jsp" class="btn btn-outline-primary btn-block">Ver ejemplo</a>
 				    </div>
 				    
 				</div>
@@ -67,7 +67,7 @@
 				  </div>
 				    
 				    <div class="card-footer">
-				    	<a href="#" class="btn btn-outline-primary btn-block">Ver ejemplo</a>
+				    	<a href="formulario.jsp" class="btn btn-outline-primary btn-block">Ver ejemplo</a>
 				    </div>
 				
 				</div>
