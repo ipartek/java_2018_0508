@@ -1,3 +1,5 @@
+	
+	//declarar variables
 	var canvas = document.getElementById("myCanvas");
     var ctx = canvas.getContext("2d");
     var ballRadius = 10;
@@ -27,10 +29,34 @@
             bricks[c][r] = { x: 0, y: 0, status: 1 };
         }
     }
-    document.addEventListener("keydown", keyDownHandler, false);
-    document.addEventListener("keyup", keyUpHandler, false);
-    document.addEventListener("mousemove", mouseMoveHandler, false);
     
+    
+    
+    //Esperar a que se carge todo el DOM == $( document ).ready()
+    //tambien podriamos haberlo hecho desde el HTML con <body onload="miFuncion()">
+    window.addEventListener("load", function(event) {
+    
+    	registerEventsListener();
+    	
+    });	
+    
+    
+    
+    //Funciones
+    /////////////////////////////////////////////////
+    
+    function registerEventsListener(){
+    	
+    	//registrar evento para comenzar partida
+    	var btnPlay = document.getElementById("btn-play");
+    	btnPlay.addEventListener("click", draw , false);
+    	
+    	document.addEventListener("keydown", keyDownHandler, false);
+        document.addEventListener("keyup", keyUpHandler, false);
+        document.addEventListener("mousemove", mouseMoveHandler, false);
+        
+    	
+    }
     
     function keyDownHandler(e) {
         if(e.keyCode == 39) {
@@ -157,7 +183,7 @@
         requestAnimationFrame(draw);
     }
     
-    
-    draw();
+    //comienzo juego
+    //draw();
     
     
