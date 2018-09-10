@@ -25,9 +25,20 @@ body {
 }
 
 /* Arkanoid */
-
 canvas {
 	background: #eee; 
 	display: block;
 	 margin: 0 auto; 
+}
+
+/* Formulario */
+#product-Card{
+	position: relative;
+	
+}
+
+#product-Card i {
+    position: absolute;
+    top:10px;
+    right: 10px;
 }

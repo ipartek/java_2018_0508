@@ -47,7 +47,7 @@
           <p class="card-text">...</p>
         </div>
         <div class="card-footer">
-          <a href="components.jsp" class="btn btn-outline-primary btn-block">Ver ejemplo</a>
+          <a href="formulario" class="btn btn-outline-primary btn-block">Ver ejemplo</a>
         </div>
       </div>
     </div>

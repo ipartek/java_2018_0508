@@ -14,6 +14,11 @@
 			<li class="nav-item">
 				<a class="nav-link" href="components.jsp">Components</a>
 			</li>
+			<li class="nav-item">
+				<a class="nav-link" href="formulario.jsp">Formulario</a>
+			</li>
 		</ul>
 	</div>
 </nav>
+
+<%@ include file="alert.jsp" %>
