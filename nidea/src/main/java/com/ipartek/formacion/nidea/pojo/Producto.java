@@ -16,7 +16,7 @@ public class Producto {
 		this.descripcion = "";
 		this.oferta = false;
 		this.precio = 0;
-		this.imagen = "https://f4.bcbits.com/img/a0067498200_5.jpg";
+		this.imagen = "https://image.freepik.com/vector-gratis/bebe-oso-panda-celebra-vector-de-dibujos-animados-de-cumpleanos_1441-689.jpg";
 	}
 
 	public String getNombre() {

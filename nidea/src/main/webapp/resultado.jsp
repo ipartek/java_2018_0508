@@ -18,10 +18,10 @@
 				  <img class="card-img-top" src="<%=p.getImagen() %>" alt="Imagen del producto">
 				  <div class="card-body">
 				  	<div class="row">
-				  		<div class="col"><h5 class="card-title"><%=p.getNombre() %></h5></div>
-				  		<div class="col text-right"><h5 class="card-title"><%=p.getPrecio() %>&#8364;</h5></div>
+				  		<div class="col"><h5 class="card-title text-primary text-uppercase font-weight-bold"><%=p.getNombre() %></h5></div>
+				  		<div class="col text-right"><h5 class="card-title text-info font-weight-light font-italic"><%=p.getPrecio() %>&#8364;</h5></div>
 				  	</div>
-				    <p class="card-text"><%=p.getDescripcion() %></p>
+				    <p class="card-text font-italic"><%=p.getDescripcion() %></p>
 				    <% 
 				    	if(p.isOferta()){ 
 				    %>
