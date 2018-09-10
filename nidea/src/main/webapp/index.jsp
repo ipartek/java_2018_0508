@@ -67,7 +67,7 @@
 				  </div>
 				    
 				    <div class="card-footer">
-				    	<a href="formulario.jsp" class="btn btn-outline-primary btn-block">Ver ejemplo</a>
+				    	<a href="formulario" class="btn btn-outline-primary btn-block">Ver ejemplo</a>
 				    </div>
 				
 				</div>

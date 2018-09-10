@@ -11,3 +11,29 @@ canvas{
 	display: block; 
 	margin: 0 auto;
 }
+
+#obligatorios-txt{
+	font-style:italic;
+}
+
+label[class="required"]::before{
+	content:"*";
+	color:#f00;
+}
+
+#resultado-precio::after{
+	content:"€"
+}
+
+.resultado-card{
+	position:relative;
+	margin:0 auto;
+}
+
+.resultado-oferta{
+	position:absolute;
+	right:10px;
+	top:10px;
+	height:50px;
+	width:50px;
+}
