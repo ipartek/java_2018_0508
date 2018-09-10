@@ -72,10 +72,67 @@
 					</div>
 					
 					<div class="card-footer">
-							<a href="components.jsp" class="btn btn-outline-primary btn-block">Ver ejemplo</a>
+						<a href="components.jsp" class="btn btn-outline-primary btn-block">Ver ejemplo</a>
 					</div>
 				</div>
 			</div>
+			
+			<div class="col mt-5">
+				<div class="card h-100" style="width: 18rem;">
+					
+					<img class="card-img-top" src="img/arkanoid.jpg" alt="Arkanoid Card Image">
+					
+					<div class="card-body">
+						<h5 class="card-title text-uppercase">Arkanoid</h5>
+						<p class="card-text">
+						Juego clásico del Arkanoid realizado tan sólo mediante Canvas y JavaScript.
+						</p>	
+					</div>
+					
+					<div class="card-footer">
+						<a href="arkanoid.jsp" class="btn btn-outline-primary btn-block">Ver ejemplo</a>
+					</div>
+				</div>
+			</div>
+			
+			<div class="col mt-5">
+				<div class="card h-100" style="width: 18rem;">
+					
+					<img class="card-img-top" src="img/formulario.png" alt="Formularios Card Image">
+					
+					<div class="card-body">
+						<h5 class="card-title text-uppercase">Formularios</h5>
+						<p class="card-text">
+						Ejemplo de formulario de HTML que envía parámetros al Servlet por el método DoPost() 
+						y devuelve atributos a la vista JSP.
+						</p>	
+					</div>
+					
+					<div class="card-footer">
+						<a href="formulario.jsp" class="btn btn-outline-primary btn-block">Ver ejemplo</a>
+					</div>
+				</div>
+			</div>
+			
+			<div class="col mt-5">
+				<div class="card h-100" style="width: 18rem;">
+					
+					<img class="card-img-top" src="img/formulario.png" alt="Formularios Card Image">
+					
+					<div class="card-body">
+						<h5 class="card-title text-uppercase">Formularios</h5>
+						<p class="card-text">
+						Ejemplo de formulario de HTML que envía parámetros al Servlet por el método DoPost() 
+						y devuelve atributos a la vista JSP.
+						</p>	
+					</div>
+					
+					<div class="card-footer">
+						<a href="formulario.jsp" class="btn btn-outline-primary btn-block">Ver ejemplo</a>
+					</div>
+				</div>
+			</div>
+			
 		</div>
 	</div>
 	
