@@ -1,42 +1,65 @@
 /*
-* Custom Styles
+*  Estilos Propios
 */
 
 body{
 	background-color: #F8F9FA;
+}	
+
+
+header{
+	background-color: #9CC940;
+	min-height: 50px;
 }
 
-header {
-	background:#2c3e50;
-	color:#fff;
-}
-
-.main {
-	background:#f2f2f2;
-}
-
-.color1 {
-	background: #34495e;
-	color:#fff;
-}
-
-aside {
-	background:#c0392b;
-	color:#fff;
-}
-
-footer {
-	background:#16a085;
-	color:#fff;
-}
-
-.card-footer{
+section{
 	background-color: #FFF;
-	border-top: none;
+	min-height: 250px;
 }
 
-canvas{ 
+aside{
+	background-color: #DFE4E6;
+	min-height: 150px;
+}
+
+.destacado{
+	background-color: #2295F5;
+	min-height: 150px;
+}
+
+footer{
+	background-color: #DDD;
+	min-height: 50px;
+}
+
+canvas { 
 	background: #eee; 
 	display: block; 
 	margin: 0 auto; 
+}
+
+.card-custom-header{
+	position: relative;
+}
+
+.card .badge{
+	position: absolute;
+    bottom: 10px;
+    right: 10px;
+    padding: 5px 10px;
+    font-size: 1.2em;
+}
+
+.card-img-top{
+	min-height: 180px;
+}
+
+.card-footer {    
+     background-color: #FFF; 
+     border-top: none; 
+}
+
+label .obligatorio:before{
+	content: "*";	
+    padding-right: 3px;
 }

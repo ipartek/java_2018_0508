@@ -1,7 +1,8 @@
-###################################################
-# lista de ficheros y directorios ignorados por git
-###################################################
-/target/
+####################################################
+# lista de ficheros y directorios ignorados por GIT
+####################################################
+
 /.classpath
 /.project
 /.settings/
+/target/

@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-md navbar-dark bg-dark mb-4">
+  <nav class="navbar navbar-expand-md navbar-dark bg-dark mb-4">
       <a class="navbar-brand" href="#">Top navbar</a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -13,7 +13,35 @@
           </li>
           <li class="nav-item">
             <a class="nav-link" href="components.jsp">Components</a>
-          </li>
-        </ul>
+          </li>   
+          <li class="nav-item">
+            <a class="nav-link" href="arkanoid.jsp">Arkanoid</a>
+          </li>  
+          <li class="nav-item dropdown">
+	        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+	          JEE
+	        </a>
+	        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+	          <a class="dropdown-item" href="formulario">Formulario</a>
+	          <a class="dropdown-item" href="fichero.jsp">Fichero</a>
+	        </div>
+	      </li>
+	      <li class="nav-item dropdown">
+	        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+	          Pantallas
+	        </a>
+	        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+	          <a class="dropdown-item" href="login.jsp">Login</a>
+	          <a class="dropdown-item" href="registro.jsp">Registro</a>
+	          <a class="dropdown-item" href="formulario">Formulario</a>
+	          <a class="dropdown-item" href="listado.jsp">Listado</a>
+	        </div>
+	      </li>  
+        </ul>        
       </div>
     </nav>
+    
+    
+    
+    <%@include file="alert.jsp" %>
+    
