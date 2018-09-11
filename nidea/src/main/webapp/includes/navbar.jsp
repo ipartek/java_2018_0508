@@ -33,7 +33,8 @@
 	        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
 	          <a class="dropdown-item" href="login.jsp">Login</a>
 	          <a class="dropdown-item" href="registro.jsp">Registro</a>
-	          <a class="dropdown-item" href="listado.jsp">Listado</a>
+	          <a class="dropdown-item" href="listado.jsp">Listado Bonito</a>
+	          <a class="dropdown-item" href="listado-tabla.jsp">Listado DataTable</a>
 	        </div>
 	      </li>
         </ul>

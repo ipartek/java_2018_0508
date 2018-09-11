@@ -30,6 +30,7 @@ public class FicheroController extends HttpServlet {
 
 		dispatch = request.getRequestDispatcher(VIEW_FICHERO);
 		dispatch.forward(request, response);
+		
 
 	}
 

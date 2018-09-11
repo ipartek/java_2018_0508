@@ -15,7 +15,7 @@
 				    <input name="nombre" type="text" class="form-control" id="nombre" placeholder="Nombre">
 				  </div>
 				  <div class="form-group">
-				    <label for="mail">Email</label>
+				    <label for="mail">Email:</label>
 				    <input type="email" class="form-control" id="mail" aria-describedby="emailHelp" placeholder="tunombre@tuempresa.es">
 				    <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
 				  </div>
