@@ -58,7 +58,10 @@
             <div class="card">
                 <img class="card-img-top img-fluid" src="<%=producto.getImagen()%>"" alt="Card image cap">
                 <div class="card-block">
-                    <h4 class="card-title"><%=producto.getNombre()%></h4>
+                    <h4 class="card-title text-primary"><%=producto.getNombre()%></h4>
+                    
+
+                    
                     <p class="card-text">Codigo: <%=producto.getCodigo()%></p>
                     <p class="card-text">Descripcion:<br> <%=producto.getDescripcion()%></p>
                    	<p class="card-text">Precio: <%=df.format(producto.getPrecio())%></p>

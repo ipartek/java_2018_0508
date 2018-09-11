@@ -31,6 +31,34 @@ aside {
 }
 
 
+.login > label{
+	width: 75px;
+	margin:auto;
+}
+.card-custom-header-temp i.fas{
+	position: absolute;
+	top10px;
+	right:10px;
+	
+}
+ .card .badge-temp{
+	position: absolute;
+    bottom: 10px;
+    right: 10px;
+    padding: 5px 10px;
+    font-size: 1.2em;
+}
+.card-custom-header{
+	position: relative;
+}
+ .card .badge{
+	position: absolute;
+    bottom: 10px;
+    right: 10px;
+    padding: 5px 10px;
+    font-size: 1.2em;
+}
+
 .container{
 	width: 60%;
 }
@@ -48,8 +76,10 @@ aside {
 }
 
 
-
-
+label.obligatorio:before{
+	content: "*";	
+    padding-right: 3px;
+}
 
 .card-footer {
     padding: .75rem 1.25rem;

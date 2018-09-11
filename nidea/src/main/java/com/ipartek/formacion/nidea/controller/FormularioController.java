@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.ipartek.formacion.nidea.model.ProductosDao;
 import com.ipartek.formacion.nidea.pojo.Alerts;
+import com.ipartek.formacion.nidea.pojo.Categoria;
 import com.ipartek.formacion.nidea.pojo.Producto;
 
 
@@ -31,6 +32,15 @@ public class FormularioController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		//LLamar al modelo para recuperar categorias
+		//metodo de recuperar categorias
+		//doGet cuando necesitamos que algo este cargado de ante-mano.
+		ArrayList<Categoria> cats = recuperarCategorias();
+		if(cats != null) {
+			request.setAttribute("categorias", cats);
+			request.getRequestDispatcher("formulario.jsp").forward(request, response);
+		}
 		String listar = (String) request.getParameter("signal");
 		if("listar".equals(listar)){
 			request.getRequestDispatcher("listar.jsp").forward(request, response);
@@ -40,6 +50,18 @@ public class FormularioController extends HttpServlet {
 		}
 		
 		
+	}
+
+	private ArrayList<Categoria> recuperarCategorias() {
+		ArrayList<Categoria> cats_ids = new ArrayList<Categoria>();
+		Categoria cat_id = new Categoria(1,"m1","Cocicna");
+		Categoria cat_id2 = new Categoria(2,"m2","Baño");
+		Categoria cat_id3 = new Categoria(3,"m3","Decoracion");
+		cats_ids.add(cat_id);
+		cats_ids.add(cat_id2);
+		cats_ids.add(cat_id3);
+		
+		return cats_ids;
 	}
 
 	/**

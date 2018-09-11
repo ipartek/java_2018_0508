@@ -1,4 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@page import="com.ipartek.formacion.nidea.pojo.Producto"%>
+<%@page import="com.ipartek.formacion.nidea.pojo.Categoria"%>
+<%@page import="com.ipartek.formacion.nidea.model.ProductosDao"%>
+<%@page import="java.util.ArrayList"%>
 <%@include file="includes/header.jsp" %>
 <%@include file="includes/navbar.jsp" %>
 <!--  -->
@@ -8,12 +12,36 @@
 		<h1>Formulario Alta Producto</h1>
 		<form action="formulario" method="post">	
 			
-			<div class="form-group">
-				
-				<span class="invalid">*</span><label for="nombre">Nombre</label>
-				<input type="text" class="form-control" autofocus name="nombre" required="required" placeholder="Nombre del Producto" tabindex="1" pattern="[a-zA-Z\s]{5,}"></p>
-				
+			<div class="form-row">
+				<div class="col">
+					<p class="font-italic text-secondary">Los campos con * son obligatorios</p>
+					<span class="obligatorio" required="required"></span><label for="nombre" class="obligatorio">Nombre</label>
+					<input type="text" class="form-control" autofocus name="nombre" required="required" placeholder="Nombre del Producto" tabindex="1" pattern="[a-zA-Z\s]{5,}"></p>
+				</div>
+			<%
+				ArrayList<Categoria> cats = (ArrayList<Categoria>)request.getAttribute("categorias");
+			
+			
+			%>
+				<div class="col">
+				<p class="font-italic text-secondary">Los campos con * son obligatorios</p>
+					<label for="categoria">Categoria</label>
+					<select name="categoria" class="custom-select">
+						
+						  <option selected>Seleciona la categoria</option>
+						  <%
+						  	for(Categoria c : cats){
+						  		
+						  	
+						  %>
+						  <option value="<%=c.getCodigo()%>"><%=c.getNombre()%></option>
+						  <%
+						  	}
+						  %>
+					</select>
+				</div>
 			</div>
+			
 			
 			<div class="form-row">
 			

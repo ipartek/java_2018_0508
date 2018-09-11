@@ -16,9 +16,40 @@
            <li class="nav-item">
             <a class="nav-link " href="flex_examples.jsp">FlexBox</a>
           </li>
-          <li class="nav-item">
-            <a class="nav-link " href="formulario.jsp">Formulario</a>
-          </li>
+          
+          <li class="nav-item dropdown">
+	        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+	          JEE
+	        </a>
+	        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+	          <a class="dropdown-item" href="formulario">Formulario</a>
+	          <a class="dropdown-item" href="fichero.jsp">Fichero</a>
+	          <div class="dropdown-divider"></div>
+	          <a class="dropdown-item" href="#">Something else here</a>
+	        </div>
+      	</li>
+      <li class="nav-item dropdown">
+	        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+	          Pantallas
+	        </a>
+	        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+	          <a class="dropdown-item" href="registroUsuarios.jsp">Registro</a>
+	          <a class="dropdown-item" href="login.jsp">Login</a>
+	          <a class="dropdown-item" href="altaUsuarios.jsp">Listado de usuarios</a>
+	          <a class="dropdown-item" href="altaUsuarios.jsp">Listado de usuarios(Administracion)</a>
+	          
+      </li>
+      <li class="nav-item dropdown">
+	        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+	          Productos
+	        </a>
+	        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+	          <a class="dropdown-item" href="formulario">Añadir productos</a>
+	          <a class="dropdown-item" href="listarControler">Listar productos(User zone)</a>
+	          <a class="dropdown-item" href="listarControler">Listar productos(Backoffice)</a>
+			
+	          
+      </li>
         </ul>
         <form class="form-inline mt-2 mt-md-0">
           <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
