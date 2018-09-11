@@ -5,19 +5,37 @@
       </button>
       <div class="collapse navbar-collapse" id="navbarCollapse">
         <ul class="navbar-nav mr-auto">
-          <li class="nav-item">
-            <a class="nav-link" href="index.jsp">Home</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="grid.jsp">Grid System</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="components.jsp">componets</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="formulario">Formulario</a>
-          </li>
-         
+	          <li class="nav-item">
+	            <a class="nav-link" href="index.jsp">Home</a>
+	          </li>
+	          <li class="nav-item">
+	            <a class="nav-link" href="grid.jsp">Grid System</a>
+	          </li>
+	          <li class="nav-item">
+	            <a class="nav-link" href="components.jsp">componets</a>
+	          </li>
+	          <li class="nav-item dropdown">
+		        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+		         J2EE
+		        </a>
+		        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+		          <a class="dropdown-item" href="formulario">Formulario</a>
+		          <a class="dropdown-item" href="fichero.jsp">Ficheros</a>	          
+		        </div>
+	      	</li>
+	      	
+	      	<li class="nav-item dropdown">
+	        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+	         Pantalla
+	        </a>
+	        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+	          <a class="dropdown-item" href="formulario">Formulario</a>
+	          <a class="dropdown-item" href="login.jsp">Login</a>	 
+	          <a class="dropdown-item" href="registroUsuario.jsp">Registro</a>
+	          <a class="dropdown-item" href="listadoUsuario.jsp">Listado usuario</a> 
+	          <a class="dropdown-item" href="listadoEmpleado.jsp">Listado empleado</a>        
+	        </div>
+      	</li>    
         </ul>
        
       </div>

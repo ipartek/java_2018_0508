@@ -2,11 +2,6 @@
 Custom style
 */
 
-body{
-	background-color:#c0c0c0;
-	color: #ffffff;
-}
-
 h1, h5{
 	text-align: center;
 }
@@ -45,5 +40,27 @@ canvas { background: #eee; display: block; margin: 0 auto; }
 
 .required::before{
 	content: "*";
+	padding-right=3em;
 	color: #f8ff26;
 }
+
+card-custom-header{
+	position:relative;
+}
+.card .badge{
+	position:absolute;
+	top:10px;
+	right: 10px;
+	font-size:1.2em;
+}
+span.fas.fa-certificate.simbolo {
+    color: red;
+    right: 10px;
+    top:10px;
+    position: absolute;
+    
+    font-size: 3em;
+}
+
+
+

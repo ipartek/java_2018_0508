@@ -14,43 +14,30 @@
 		
 		
 		<div class="card" style="width: 20rem;">
-		
-			
-			  <img class="card-img-top " src="<%=p.getImagen()%>"  alt="imagen del producto">
-			  
+			 <div class="card-custom-header"><!-- estilo propio -->
 			  <%
 				  	//Si está el producto el oferta pintamos circulo verde con el texto "Oferta"
 				  		if(p.isOferta()){
 				  	%>
-				  			<span class="badge badge-pill badge-success text-warning"> Oferta</span>
+				  			<span class="fas fa-certificate simbolo"></span>
 		      <% }%>
-		      
+		      		<img class="card-img-top " src="<%=p.getImagen()%>"  alt="imagen del producto">
+		      		<div class="col text-right">
+					    	<h6 class="badge badge-pill badge-success"><%=p.getPrecio() %>&#8364;</h6>
+				  		</div>
+			  </div>
 			  <div class="card-body">					    
-				    <div class="row">
-				    	<div class=col text-left>
-				    		<h5 class="card-title text-dark text-uppercase text-justify"><%=p.getNombre()%></h5>
-					  		
+				    
+				    	<div class="col" text-left>
+				    		<h5 class="card-title text-dark text-uppercase text-justify"><%=p.getNombre()%></h5>					  		
 				    	</div>
-				    	
-				    	<div class="col text-center">
+				  	
+				  	<div class="col text-center">
 					    	<h5 class="card-title font-weight-light text-justify text-secondary"><%=p.getCodigo() %></h5>
 				  		</div>
-				  		
-				    	<div class="col text-right">
-					    	<h5 class="card-title text-info font-weight-light text-justify"><%=p.getPrecio() %>&#8364;</h5>
-				  		</div>				  		
-				  		
-				  	</div>
 				  	<p class="card-text font-italic text-muted text-justify"><%=p.getDescripcion() %></p>
 				  	
-				  		
-				  	
-				  	
-				  	
-				  	
 			  </div>
-				  	
-			  
 		</div>
 		
 		

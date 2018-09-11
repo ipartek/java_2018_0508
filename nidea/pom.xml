@@ -100,6 +100,12 @@
 			<scope>test</scope>
 		</dependency>
 
+	<!-- Para Subida Ficheros -->
+		<dependency>
+		    <groupId>commons-fileupload</groupId>
+		    <artifactId>commons-fileupload</artifactId>
+		    <version>1.3.3</version>
+		</dependency>
 
 
 	</dependencies>

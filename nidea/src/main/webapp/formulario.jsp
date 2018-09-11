@@ -1,20 +1,41 @@
+<%@page import="java.util.ArrayList"%>
+<%@page import="com.ipartek.formacion.nidea.pojo.Categoria"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@include file="includes/header.jsp" %>
 <%@include file="includes/navbar.jsp" %>
 
-
+<%Categoria categ=new Categoria(); %>
 
 	<main role="main" class="container">
 		<h1>Formulario Alta Producto</h1>
 		<p>Los campos con * son obligatorios</p>
 		
 		<form action="formulario" method="post">			
-		
-		 	<div class="form-group">
-		 		<label for="nombre" class="required">Nombre:</label>
-				<input type="text" name="nombre" autofocus class="form-control" required placeholder="Nombre" tabindex="1">				
-			</div>	
-			
+			<div class="form-row">
+			 	<div class="col">
+				 	<div class="form-group">
+				 		<label for="nombre" class="required">Nombre:</label>
+						<input type="text" name="nombre" autofocus class="form-control" required placeholder="Nombre" tabindex="1">				
+					</div>
+				</div>
+				<div class="col">
+					<label for="categoria">Seleccione categoria:</label>
+				<%
+				ArrayList<Categoria> categorias = (ArrayList<Categoria>)request.getAttribute("categoria");	
+				%>	
+					
+					<select name="categoria" class="custom-select">
+						<%
+						for(Categoria c:categorias){
+						%>	
+							<option value=<%=c.getId()%>><%=c.getNombre() %></option>
+							
+						<% } %>			  
+					 
+					  
+					</select>
+				</div>	
+			</div>
 			<div class="form-row">
 			
 				<div class="col">
@@ -56,3 +77,4 @@
 
 
 <%@include file="includes/footer.jsp" %>
+
