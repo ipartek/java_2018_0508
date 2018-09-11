@@ -1,6 +1,6 @@
 <%@ include file="includes/header.jsp" %>
 <%@ include file="includes/navbar.jsp" %>
-	<div class="container text-primary">
+	<div id="arkanoid-page" class="container text-primary">
 		<div class="row justify-content-center">
 			<div class="col-12 mb-3">
 				<h1 class="text-center text-primary font-weight-light">ARKANOID</h1>

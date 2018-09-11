@@ -1,6 +1,8 @@
 package com.ipartek.formacion.nidea.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -8,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.ipartek.formacion.nidea.pojo.Alert;
+import com.ipartek.formacion.nidea.pojo.Categoria;
 import com.ipartek.formacion.nidea.pojo.Producto;
 
 /**
@@ -23,8 +26,30 @@ public class FormularioController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		response.getWriter().append("Peticion GET ").append(request.getContextPath());
-		request.getRequestDispatcher("formulario.jsp").forward(request, response);
+
+		try {
+			ArrayList<Categoria> cats = recuperarCategorias();
+			
+			//pasar a la vista las categorias
+			request.setAttribute("categorias", cats);
+			
+		}catch (Exception e) {
+			// TODO: handle exception
+		
+		}finally {
+			request.getRequestDispatcher("formulario.jsp").forward(request, response);
+		}
+	}
+
+	private ArrayList<Categoria> recuperarCategorias() {
+
+		ArrayList<Categoria> lista = new ArrayList<Categoria>();
+		lista.add(new Categoria(0,"sal_98","Salon"));
+		lista.add(new Categoria(0,"coc_54","Cocina"));
+		lista.add(new Categoria(0,"wc_34","WC"));
+		
+		
+		return lista;
 	}
 
 	/**

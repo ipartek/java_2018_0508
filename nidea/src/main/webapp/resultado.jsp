@@ -15,17 +15,13 @@
 				
 				<hr>
 				<div class="card-group">
-				  <div id="product-Card" class="col-3 card h-100">
-				    <img class="card-img-top" src=${producto.imagen} alt="Card image cap">
-				    <%
-				    	if(p.isOferta()){
-				    %>
-				    <i class="fas fa-bell text-info"></i>
-				    <%} %>
+				  <div id="product-card" class="col-3 card h-100">
+				    <img class="card-img-top" src=${producto.imagen} alt="Detalle del producto ${producto.nombre}">
+				    <i class="fas ${producto.isOferta()?'fa-certificate':''}"></i>
 				    <div class="card-body">
 				      <h5 class="card-title text-center">${producto.nombre}</h5>
 				      <p class="card-text text-justify">${producto.descripcion}</p>
-				      <p class="card-text"><small class="text-muted">${producto.precio} €</small></p>
+				      <p class="card-text text-center"><small class="text-muted">${producto.precio} &euro;</small></p>
 				    </div>
 				  </div>
 				</div>

@@ -19,26 +19,75 @@ body {
 
 /* Index */
 
-.card-footer {
+index-page .card-footer {
     border-top: none;
     background-color: rgba(0,0,0,0);
 }
 
 /* Arkanoid */
-canvas {
+#arkanoid-page canvas {
 	background: #eee; 
 	display: block;
 	 margin: 0 auto; 
 }
 
 /* Formulario */
-#product-Card{
-	position: relative;
-	
+#formulario-page .container form .oferta{
+    justify-content: flex-end;
+    display: flex;
+    align-items: center;
+    flex-direction: column-reverse;
 }
 
-#product-Card i {
-    position: absolute;
-    top:10px;
-    right: 10px;
+#formulario-page .container form .oferta input {
+    margin: 0 10px;
+    width: 25px;
+    height: 25px;
 }
+
+#formulario-page #product-card{
+	position: relative;
+	padding: 0;
+}
+
+#formulario-page #product-card i {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    color: #FFC107!important;
+    border-radius: 15px;
+    padding: 5px;
+    font-size: 2em;
+}
+
+#formulario-page #product-card .card-body p{
+    text-align: justify;
+    font-size: .7em;
+}
+
+#formulario-page #product-card small {
+    font-size: 1.3em;
+}
+
+#formulario-page label.requiered:before{
+	content:"*";
+}
+
+/* mostrar productos publico */
+#mostrar-page .cards {
+    padding: 5px;
+}
+#mostrar-page .cards .card-body {
+    background-color: #fff;
+}
+#mostrar-page .cards .card-footer {
+    background-color: #eee;
+}
+
+
+#login-page form, #formulario-page form, #registro-page form{
+	background-color: #eee;
+    padding: 25px 20px;
+    border: 1px solid #ddd;
+}
+
