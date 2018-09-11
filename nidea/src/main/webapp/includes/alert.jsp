@@ -1,6 +1,7 @@
+<%@page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@page import="com.ipartek.formacion.nidea.pojo.Alert"%>
 <%
-	/* Muestra alerta cuando enviamos un parámetro 'alert' por la request. */
+	/* Muestra alerta cuando enviamos un parÃ¡metro 'alert' por la request. */
 	
 	Alert a = (Alert)request.getAttribute("alert");
 

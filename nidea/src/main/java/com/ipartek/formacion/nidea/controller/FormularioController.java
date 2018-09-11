@@ -1,6 +1,8 @@
 package com.ipartek.formacion.nidea.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -8,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.ipartek.formacion.nidea.pojo.Alert;
+import com.ipartek.formacion.nidea.pojo.Categoria;
 import com.ipartek.formacion.nidea.pojo.Producto;
 
 /**
@@ -22,8 +25,25 @@ public class FormularioController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
+		//TODO Llamar al MODELO para recuperar 'categorías'.
+		
+		ArrayList <Categoria> cats = recuperarCategorias();
+		
+		request.setAttribute("categorias", cats);
+		
 		request.getRequestDispatcher("formulario.jsp").forward(request, response);
 
+	}
+
+	private ArrayList<Categoria> recuperarCategorias() {
+		
+		ArrayList<Categoria> lista = new ArrayList<Categoria>();
+		
+		lista.add(new Categoria(1, "CO", "Cocina"));
+		lista.add(new Categoria(2, "SA", "Salón"));
+		lista.add(new Categoria(3, "WC", "Baño"));
+		
+		return lista;
 	}
 
 	/**
@@ -38,7 +58,7 @@ public class FormularioController extends HttpServlet {
 			String descripcion = request.getParameter("descripcion");
 			String oferta = request.getParameter("oferta");
 			String precio = request.getParameter("precio");
-			String imagen = request.getParameter("imagen");
+			//String imagen = request.getParameter("imagen");
 			
 			//Validar parámetros
 			
@@ -58,7 +78,7 @@ public class FormularioController extends HttpServlet {
 				p.setDescripcion(descripcion);
 				p.setOferta(("on".equalsIgnoreCase(oferta))?true:false);
 				p.setPrecio(Float.parseFloat(precio));
-				p.setImagen(imagen);	//TODO validar arriba
+				//p.setImagen(imagen);	//TODO validar arriba
 	
 				//Pasar parámetros
 				request.setAttribute("producto", p);

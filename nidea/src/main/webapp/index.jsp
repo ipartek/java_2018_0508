@@ -1,5 +1,5 @@
+<%@page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@include file="includes/header.jsp" %>
-
 <%@include file="includes/navbar.jsp" %>
 
  <main role="main" class="container">
@@ -11,7 +11,12 @@
 	
 			
 				<div class="card" style="width: 18rem;">
-				  <img class="card-img-top" src="https://csharpcorner-mindcrackerinc.netdna-ssl.com/article/bootstrap-grid-system/Images/1.png" alt="Card image cap">
+				
+					<div class="card-header cabecera-carta">
+				 
+				  		<img class="card-img-top" src="https://csharpcorner-mindcrackerinc.netdna-ssl.com/article/bootstrap-grid-system/Images/1.png" alt="Card image cap">
+				  
+				  	</div>
 				  
 				  <div class="card-body">
 				    <h5 class="card-title text-uppercase">grid system</h5>
@@ -28,7 +33,12 @@
 			
 			
 				<div class="card" style="width: 18rem;">
-				  <img class="card-img-top" src="http://www.boss-development.biz/sites/default/files/bootstrap-02.png" alt="Bootstrap components image cap">
+				
+					<div class="card-header">
+					
+				  		<img class="card-img-top" src="http://www.boss-development.biz/sites/default/files/bootstrap-02.png" alt="Bootstrap components image cap">
+				  
+				  	</div>
 				  
 				  <div class="card-body">
 				    <h5 class="card-title text-uppercase">componentes</h5>
@@ -44,11 +54,16 @@
 				
 			
 				<div class="card" style="width: 18rem;">
-				  <img class="card-img-top" src="https://www.classicgame.com/uploaded/thumb/arkanoid-mx300.jpg" alt="Arkanoid image cap">
+				
+					<div class="card-header">
+					
+				  		<img class="card-img-top" src="https://www.classicgame.com/uploaded/thumb/arkanoid-mx300.jpg" alt="Arkanoid image cap">
+				  
+				  	</div>
 				  
 				  <div class="card-body">
 				    <h5 class="card-title text-uppercase">arkanoid</h5>
-				    <p class="card-text">Juego recreativo cl·sico online</p>
+				    <p class="card-text">Juego recreativo cl√°sico online</p>
 				   </div>
 				    
 				    <div class="card-footer">
@@ -58,7 +73,12 @@
 				</div>
 			
 				<div class="card" style="width: 18rem;">
-				  <img class="card-img-top" src="https://2.bp.blogspot.com/-6NdpD70XXDs/VxJj8MKFvrI/AAAAAAAAAYg/TFhd3nHWxzIqkoW_KDYX0z4ec-nmcGNjACLcB/s1600/formulsrio.png" alt="Form image cap">
+				
+					<div class="card-header">
+				
+				  		<img class="card-img-top" src="images/form.jpg" alt="Form image cap">
+				  
+				  	</div>
 				  
 				  <div class="card-body">
 				    <h5 class="card-title text-uppercase">formulario</h5>

@@ -12,35 +12,23 @@
 
 	<main role="main" class="container">
 	
-		<div class="card resultado-card" style="width: 18rem;">
+		<h1 class="text-capitalize">maquetación más elegante</h1>
+	
+		<div class="card" style="width: 18rem;">
 		
-		<%
-		
-		if(p.isOferta()){
-		
-		%>
-		
-		
-			<img src="https://www.freeiconspng.com/uploads/offers-icon-17.png" class="resultado-oferta" />
+			<div class="card-custom-header">	<!-- Estilo propio, no es de Bootstrap -->
 			
-		<%
-		
-		}
-		
-		%>
-			<img class="card-img-top" src="<%=p.getImagen() %>" alt="Card image cap">
+				<i class="fas ${(producto.oferta)?'fa-gift':'' } fa-2x"></i>		
+				<span class="badge badge-secondary">${producto.precio} &euro;</span>
+				<img class="card-img-top" src="${producto.imagen}" alt="${producto.nombre}">
+			
+			</div>
+			
 			<div class="card-body">
 			
-				<div class="row justify-content-between">
-			
-					<h5 class="card-title"><%=p.getNombre() %></h5>
-					<h5 id="resultado-precio"><%=p.getPrecio() %></h5>
-				
-				</div>
-				
-				
-				<h6><%=p.getCodigo() %></h6>
-				<p class="card-text"><%=p.getDescripcion() %></p>
+				<h5 class="card-title text-primary">${producto.nombre}</h5>
+				<h6 class="font-weight-bold">${producto.codigo}</h6>
+				<p class="card-text">${producto.descripcion}</p>
 			</div>
 		</div>
 	

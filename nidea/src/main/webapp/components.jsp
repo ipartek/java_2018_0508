@@ -1,11 +1,11 @@
+<%@page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@include file="includes/header.jsp" %>
-
 <%@include file="includes/navbar.jsp" %>
 
 	<div class="container">
 		
 		<div class="alert alert-info alert-dismissible fade show" role="alert">
-			<p>Si quieres m·s detalles sobre componentes visita la <a href="https://getbootstrap.com/docs/4.1/components/alerts/" target="_blank">documentaciÛn oficial</a></p>
+			<p>Si quieres m√°s detalles sobre componentes visita la <a href="https://getbootstrap.com/docs/4.1/components/alerts/" target="_blank">documentaci√≥n oficial</a></p>
 			<button type="button" class="close" data-dismiss="alert" aria-label="Close">
 				<span aria-hidden="true">&times;</span>
 			</button>
@@ -19,7 +19,7 @@
 				<h2>Botones</h2>
 				
 				<div class="col">
-					<button type="button" class="btn btn-primary">BotÛn</button>
+					<button type="button" class="btn btn-primary">Bot√≥n</button>
 					<p>Etiqueta <span class="badge badge-secondary">button</span></p>
 				</div>
 				
