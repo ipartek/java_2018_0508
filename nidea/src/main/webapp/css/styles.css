@@ -1,24 +1,101 @@
-header {
-	background:#2c3e50;
-	color:#fff;
+/*
+*  Estilos Propios
+*/
+
+.container h1{
+	text-align: center;
 }
 
-.main {
-	background:#f2f2f2;
+body{
+	background-color: #F8F9FA;
+}	
+
+
+header{
+	background-color: #9CC940;
+	min-height: 50px;
 }
 
-.color1 {
-	background: #34495e;
-	color:#fff;
+section{
+	background-color: #FFF;
+	min-height: 250px;
 }
 
-aside {
-	background:#c0392b;
-	color:#fff;
-	right: 0;
+aside{
+	background-color: #DFE4E6;
+	min-height: 150px;
 }
 
-footer {
-	background:#000000;
-	color:#fff;
+.destacado{
+	background-color: #2295F5;
+	min-height: 150px;
 }
+
+footer{
+	background-color: #DDD;
+	min-height: 50px;
+}
+
+canvas { 
+	background: #eee; 
+	display: block; 
+	margin: 0 auto; 
+}
+
+.card-custom-header{
+	position: relative;
+}
+
+.card .badge{
+	position: absolute;
+    bottom: 10px;
+    right: 10px;
+    padding: 5px 10px;
+    font-size: 1.2em;
+}
+
+.card-img-top{
+	min-height: 180px;
+}
+
+.card-footer {    
+     background-color: #FFF; 
+     border-top: none; 
+}
+
+label .obligatorio:before{
+	content: "*";	
+    padding-right: 3px;
+}
+
+.fa-exclamation-circle:before {
+    content: "\f06a";
+    color:orange;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 30px;
+}
+.dropdown-menu .dropdown-item{
+	background-color: #FFF;
+}
+.dropdown-item{
+	color: #343A40;
+}
+
+.dropdown-item:hover{
+	
+	background-color: #343A40;
+	color:#FFF;
+}
+
+.btn{
+	margin-top: 20px;
+}
+
+.col label{
+	margin-top: 10px;
+	
+}
+
+

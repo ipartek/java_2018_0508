@@ -4,28 +4,42 @@
 <%@include file="includes/header.jsp" %>
 <%@include file="includes/navbar.jsp" %>
 
-<% Producto p=(Producto)request.getAttribute("producto");
-out.print(p);
-%>
+
 	<main role="main" class="container">
 		<h1>Resultado</h1>
-		<div class="card-deck">
-			<div class="card" style="width: 18rem;">
-			  <img class="card-img-top" src="<%=p.getImagen()%>" alt="Card image cap">
-			  <div class="card-body">
-			 <div class="d-inline p-2">
-			  <h5 class="card-title  float-left"><%=p.getNombre() %></h5>
-			    <h5 class="card-title float-right"><%=p.getPrecio() %>€</h5>
-			  </div>
-			    
-			    <p class="card-text card text-center"><%=p.getDescripcion() %></p>
-			  </div>
-			</div>
-		</div>
+		
+		
+		<h2>Scriplet</h2>
+		<%
+			Producto p = (Producto)request.getAttribute("producto");
+			out.print(p);
+		%>
+		
 		<hr>
 		
 		<h2>EL - Expresion Lenguage</h2>
 		${producto}
+		
+		<hr>
+		<h2 class="text-capitalize">maquetación mas elegante</h2>
+		
+		<div class="card" style="width: 18rem;">
+		
+		  <div class="card-custom-header"> <!-- estilo propio, no es bootstrap -->	
+		  	<span class="badge badge-secondary">${producto.precio} &euro;</span>
+		  	<img class="card-img-top" src="${producto.imagen}" alt="Imagen Detalle ${producto.nombre}">
+		  	
+		  </div>	
+		  
+		  <div class="card-body">
+		    <h5 class="card-title text-primary">${producto.nombre}</h5>
+		    <h6 class="font-weight-bold">${producto.codigo}</h6>
+		    <p class="card-text">${producto.descripcion}</p>		    
+		  </div>
+		</div>
+		
+		
+		
 		
 	</main>
 

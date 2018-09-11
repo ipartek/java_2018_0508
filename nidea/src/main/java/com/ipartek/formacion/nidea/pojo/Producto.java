@@ -22,6 +22,18 @@ public class Producto {
 
 
 
+	public Producto(String nombre, String codigo, String descripcion, boolean oferta, float precio) {
+		this();
+		this.nombre = nombre;
+		this.codigo = codigo;
+		this.descripcion = descripcion;
+		this.oferta = oferta;
+		this.precio = precio;
+		
+	}
+
+
+
 	public String getNombre() {
 		return nombre;
 	}
