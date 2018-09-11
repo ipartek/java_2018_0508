@@ -11,6 +11,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
 
+import com.ipartek.formacion.nidea.pojo.Alert;
+
 /**
  * Servlet implementation class 'FicheroController'
  * 
@@ -38,25 +40,35 @@ public class FicheroController extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		// gets absolute path of the web application
+		
+		// Localizar el Path Absoluto de la aplicacion Web
 		String appPath = request.getServletContext().getRealPath("");
+		
 		// constructs path of the directory to save uploaded file
 		String savePath = appPath + File.separator + SAVE_DIR;
 
-		// creates the save directory if it does not exists
+		// Crea directorio de desgtino si no existe
 		File fileSaveDir = new File(savePath);
 		if (!fileSaveDir.exists()) {
 			fileSaveDir.mkdir();
 		}
 
+		StringBuilder sb = new StringBuilder();
+		
 		for (Part part : request.getParts()) {
 			String fileName = extractFileName(part);
+			
 			// refines the fileName in case it is an absolute path
 			fileName = new File(fileName).getName();
 			part.write(savePath + File.separator + fileName);
+			
+			sb= new StringBuilder();
+			sb.append("Fichero: \t" + fileName);
+			sb.append("\nRuta: \t" + savePath + File.separator + fileName);
 		}
-		request.setAttribute("message", "Upload has been done successfully!");
-		getServletContext().getRequestDispatcher("/message.jsp").forward(request, response);
+		
+		request.setAttribute("alerta", new Alert(sb.toString(), Alert.SUCCESS));
+		getServletContext().getRequestDispatcher("/fichero.jsp").forward(request, response);
 	}
 
 	/**
