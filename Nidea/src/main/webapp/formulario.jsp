@@ -1,3 +1,5 @@
+<%@page import="com.ipartek.formacion.nidea.pojo.Categoria"%>
+<%@page import="java.util.ArrayList"%>
 <%@include file="includes/header.jsp"%>
 
 <%@include file="includes/navbar.jsp"%>
@@ -7,12 +9,35 @@
 	<p>Los campos con * son obligatorios.</p>
 	
 	<form action="formulario" method="post">
-		<div class="form-group">
-		   <label class="required" for="nombre">Nombre: </label>
-		   <input class="form-control" type="text" name="nombre" placeholder="Nombre del producto" required autofocus tabindex="1">
-		   <div class="invalid-feedback">
-          		Please choose a username.
-        	</div>
+		<div class="form-row">
+			<div class="col">
+				<div class="form-group">
+				   <label class="required" for="nombre">Nombre: </label>
+				   <input class="form-control" type="text" name="nombre" placeholder="Nombre del producto" required autofocus tabindex="1">
+				   <div class="invalid-feedback">
+		          		Please choose a username.
+		        	</div>
+				</div>
+			</div>
+			<div class="col">
+				<div class="form-group">
+					<label class="required" for="categoria">Categoría: </label>
+					<select name="categoria" class="custom-select">
+						<option selected value="${categoria[0].id}">${categoria[0].nombre}</option>
+						<%
+							ArrayList<Categoria> categoria = (ArrayList<Categoria>)request.getAttribute("categoria");
+							for(int i=1;i<categoria.size();i++){
+								
+						%>	
+							<option value="<%=categoria.get(i).getId()%>"><%=categoria.get(i).getNombre()%></option>
+						<%
+							}
+						%>
+					  
+					  
+					</select>
+				</div>
+			</div>
 		</div>
 		
 		<div class="form-row">
@@ -47,20 +72,5 @@
 		<input class="form-control btn btn-outline-primary" type="submit" value="Dar de Alta">
 	</form>
 </main>
-
-<!--  
-	Validar en frontend y backend
-	Si hay codigo pasa, sino sacar una alerta en naranja que 
-	ponga por favor rellena los cambios obligatorios y que sea divisable
-	Rellenar los formularios
-	Revisar estilos de formularios
-	
-	
-	Cuando salga el detalle que salga en un card, con imagen titulo descripcion, al lado del titulo el precio. Cuando es oferta que salga un simbolito arriba de la img
-	a la dcha un simbolo que lo represente
-	
-	Hacer de forma dinamica de css que delante del nombre tiene que aparecer un asterisco class="required" con el pseudo selector before poner un * x
-		
--->
 
 <%@include file="includes/footer.jsp"%>
