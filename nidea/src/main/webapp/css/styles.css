@@ -55,13 +55,19 @@ canvas {
 	margin: 0 auto;
 }
 
-.card{
-	position:relative;
-}
-
 .card .oferta{
 	position: absolute;
 	top: 20px;
 	right: 15px;
 }
 
+.nav-link:hover {
+	text-decoration: underline;
+}
+
+.nope{
+	display:none;
+}
+.nav-link:hover .nope {
+	display: inline-block;
+}

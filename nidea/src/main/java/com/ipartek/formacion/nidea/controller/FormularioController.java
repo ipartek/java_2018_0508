@@ -1,6 +1,7 @@
 package com.ipartek.formacion.nidea.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -10,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.ipartek.formacion.nidea.pojo.Alert;
+import com.ipartek.formacion.nidea.pojo.Categoria;
 import com.ipartek.formacion.nidea.pojo.Producto;
 
 /**
@@ -24,7 +26,6 @@ public class FormularioController extends HttpServlet {
 	private static final String VIEW_FORM = "formulario.jsp";
 	private static final String VIEW_RESUL = "resultado.jsp";
 
-	private static final String ALERTA_CODIGO = "Lo sentimos ha ocurrido un error.";
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
@@ -32,8 +33,26 @@ public class FormularioController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		
+		// Recuperar "categorias"
+		ArrayList<Categoria> cats = recuperarCategorias(); 
+		
+		request.setAttribute("Categorias", cats);
+		
+		// A la vista !!!
 		dispatch = request.getRequestDispatcher(VIEW_FORM);
 		dispatch.forward(request, response);
+	}
+
+	private ArrayList<Categoria> recuperarCategorias() {
+		
+		ArrayList<Categoria> cats = new ArrayList<Categoria>();
+
+		cats.add(new Categoria(123, "CN-111", "Cocina"));
+		cats.add(new Categoria(456, "SL-650", "Salon"));
+		cats.add(new Categoria(789, "BN-899", "Wc"));
+		
+		return cats;
 	}
 
 	/**
