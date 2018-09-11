@@ -1,61 +1,82 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
-<%@include file="includes/header.jsp"%>
-<%@include file="includes/navbar.jsp"%>
+<%@page import="com.ipartek.formacion.nidea.pojo.Categoria"%>
+<%@page import="java.util.ArrayList"%>
+
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@include file="includes/header.jsp" %>
+<%@include file="includes/navbar.jsp" %>
 
 
-<main role="container">
 
-<div class="container">
-<h1>Formulario Alta Producto</h1>
-
-<form action="" method="post">
-	<div class="form-group">
-	<label for="Nombre">Nombre:</label>
-	<input class="form-control" type="text" name="nombre" autofocus required placeholder="Nombre del producto" tabindex="1"><br>
-	</div>
-	
-	<div class="row">
-    	<div class="col">
-			<div class="form-group">
-			<label for="Codigo">Código:</label>
-			<input class="form-control" type="text" name="codigo" required placeholder="Código del producto" tabindex=""><br>
+	<main role="main" class="container">
+		<h1>Formulario Alta Producto</h1>
+		<p class="font-italic text-secondary">Los campos con * son obligatorios</p>
+		
+		<form action="formulario" method="post">
+		
+			<div class="form-row">			
+				<div class="col">
+				 	<div class="form-group">
+				 		<label for="nombre" class="obligatorio">Nombre:</label>
+						<input type="text" name="nombre" autofocus class="form-control" required placeholder="Nombre" tabindex="1">				
+					</div>
+				</div>		
+			
+				<div class="col">
+					<label for="categoria">Selecciona Categoria:</label>
+					<%
+						//recuperar atributo enviado desde el Controlador
+						ArrayList<Categoria> categorias = (ArrayList<Categoria>)request.getAttribute("categorias");
+					
+					%>
+					<select name="categoria" class="custom-select">
+					  <% for( Categoria c : categorias ){ %>					  
+					 	 <option value="<%=c.getId()%>"><%=c.getCodigo() + " - " + c.getNombre()%></option>					  
+					  <% } %>
+					</select>
+				</div>
 			</div>
-		</div>
-		<div class="col">
+			<!-- .form-row -->
+			
+			
+			
+			<div class="form-row">
+			
+				<div class="col">
+					<div class="form-group">
+						<label for="codigo" class="obligatorio">Código:</label>			
+						<input type="text" name="codigo" class="form-control" required placeholder="Código del Producto" tabindex="3">
+					</div>
+				</div>	
+				
+				<div class="col">	
+					<div class="form-group">
+						<label for="precio" class="obligatorio">Precio:</label>	
+						<input type="number" name="precio" class="form-control" required step="0.1" placeholder="precio" tabindex="4">
+					</div>
+				</div>	
+					
+				<div class="col">	
+					<div class="form-group">
+						<label for="oferta" class="d-block text-center" >Oferta</label>						
+						<input type="checkbox" name="oferta" class="form-control" tabindex="2">						
+					</div>
+				</div>	 
+					
+			</div>		
+			<!-- .form-row -->		
+			
 			<div class="form-group">
-			<label for="Precio">Precio:</label>
-			<input class="form-control" type="number" name="precio" required step="0.1" tabindex="2"><br>
+				<label for="descripcion" class="obligatorio">Descripcion:</label>
+				<textarea name="descripcion" rows="5" class="form-control" tabindex="5"></textarea>
 			</div>
-		</div>
-		<div class="col">
+		
 			<div class="form-group">
-				<div class="form-check">
-			    	<input class="form-check-input" type="checkbox" id="oferta" tabindex="3">
-			    	<label class="form-check-label" for="Oferta">
-			   		Oferta:
-			   		</label>
-			 	</div>
-			 </div>
-		 </div>
-	</div>
-	
-	<div class="form-group">
-	<textarea class="form-control" name="descripcion" rows="5" cols="50" tabindex="4"></textarea><br>
-	</div>
-	<div class="form-group">
-		<div class="custom-file">
-	  		<input type="file" class="custom-file-input" id="customFileLang" lang="es">
-	  		<label class="custom-file-label" for="customFileLang">Seleccionar Archivo</label>
-		</div>
-	</div>
-	<div class="form-group">
-		<input class="btn btn-primary btn-lg btn-block" type="submit" value="Nueva Alta">
-	</div>
-</form>
-</div>
-
-</main>
+				<input type="submit" value="Nueva Alta" class="btn btn-primary btn-block">
+			</div>	
+		</form>
+		
+		
+	</main>
 
 
-<%@include file="includes/footer.jsp"%>
+<%@include file="includes/footer.jsp" %>

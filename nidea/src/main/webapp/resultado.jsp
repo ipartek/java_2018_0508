@@ -7,31 +7,28 @@
 
 	<main role="main" class="container">
 		<h1>Resultado</h1>
+		<%
+			Producto p=(Producto)request.getAttribute("parametro");
+			out.print(p);
+		%>
+		<hr>
+		<h2>EL - Expresion Language</h2>
+		
+		${producto}
 		<hr>
 		<div class="card" style="width: 18rem;">
-  			<img class="card-img-top" src="images/imagen.png" alt="Card image cap">
-  			<span class="badge badge-light">
-  			<%
-				out.print(request.getParameter("oferta"));
-			%>
-			</span>
+		
+			<div class="card-custom-header">
+				<i class="fas fa-star"></i>
+  				<span class="badge badge-secondary">${producto.precio} &euro;</span>
+  				<img class="card-img-top" src="${producto.imagen}" alt="Imagen detalle ${producto.imagen }">
+  			</div>
+  		</div>
+		    
   			<div class="card-body">
   			<div class="row">
 	    		<div class="col">
-		    		<h5 class="card-title">
-					<%
-					out.print(request.getParameter("nombre"));
-					%>
-					</h5>
-	    		</div>
-	    		<div class="col">
-		    		<p class="card-text">
-			    		<small class="text-muted">
-						<%
-						out.print(request.getParameter("precio")+"€");
-						%>
-						</small>
-					</p>
+		    		<h5 class="card-title">${producto.nombre}</h5>
 	    		</div>
     		</div>
   			<p class="card-text">
@@ -39,7 +36,6 @@
 				out.print(request.getParameter("descripcion"));
 				%>
 			</p>
-    			<a href="#" class="btn btn-primary">Ver articulo</a>
   			</div>
 		</div>
 		
