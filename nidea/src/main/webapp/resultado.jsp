@@ -20,6 +20,26 @@
 		<h2>EL - Expresion Lenguage</h2>
 		${producto}
 		
+		<hr>
+		<h2 class="text-capitalize">maquetación mas elegante</h2>
+		
+		<div class="card" style="width: 18rem;">
+		
+		  <div class="card-custom-header"> <!-- estilo propio, no es bootstrap -->	
+		  	<span class="badge badge-secondary">${producto.precio} &euro;</span>
+		  	<img class="card-img-top" src="${producto.imagen}" alt="Imagen Detalle ${producto.nombre}">
+		  </div>	
+		  
+		  <div class="card-body">
+		    <h5 class="card-title text-primary">${producto.nombre}</h5>
+		    <h6 class="font-weight-bold">${producto.codigo}</h6>
+		    <p class="card-text">${producto.descripcion}</p>		    
+		  </div>
+		</div>
+		
+		
+		
+		
 	</main>
 
 

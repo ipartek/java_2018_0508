@@ -38,6 +38,18 @@ canvas {
 	margin: 0 auto; 
 }
 
+.card-custom-header{
+	position: relative;
+}
+
+.card .badge{
+	position: absolute;
+    bottom: 10px;
+    right: 10px;
+    padding: 5px 10px;
+    font-size: 1.2em;
+}
+
 .card-img-top{
 	min-height: 180px;
 }
@@ -47,4 +59,7 @@ canvas {
      border-top: none; 
 }
 
-.
+label .obligatorio:before{
+	content: "*";	
+    padding-right: 3px;
+}
