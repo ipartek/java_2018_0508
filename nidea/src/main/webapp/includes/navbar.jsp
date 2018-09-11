@@ -39,10 +39,12 @@
           Pantallas
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <a class="dropdown-item" href="formulario.jsp">Formulario</a>
-          <a class="dropdown-item" href="listadoProducto.jsp">Listado de Productos</a>
-      		<a class="dropdown-item" href="login.jsp">Login</a>
-      		<a class="dropdown-item" href="RegistroUsuarios.jsp">Registro de Usuario</a>
+        	<a class="dropdown-item" href="login.jsp">Login</a>
+        	<a class="dropdown-item" href="registroUsuarios.jsp">Registro de Usuario</a>
+          	<a class="dropdown-item" href="formulario.jsp">Formulario</a>
+          	<a class="dropdown-item" href="listadoProducto.jsp">Listado de Productos</a>
+      		
+      		
         </div>
       </li>
       

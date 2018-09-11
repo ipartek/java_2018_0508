@@ -2,41 +2,29 @@
 <%@include file="includes/header.jsp" %>
 <%@include file="includes/navbar.jsp" %>
 
-<main class="container" role="main">
-
-<h1><i class="far fa-file-alt"></i>Formulario para subir ficheros</h1>
-
-<div class="row justify-content-center">
-	<div clarr="col col-md-6">
+	<main class="container" role="main">
 	
-	<form action="subida-fichero" method="post" enctype="multipart/form-data" >
+		<h1><i class="far fa-file-alt"></i> Formulario para subir ficheros</h1>
+		
+		
+		<div class="row justify-content-center">
+			<div class="col col-md-6">
+			
+				<!-- Formulario -->
+				<form action="subida-fichero" method="post" enctype="multipart/form-data" >
+				
+					<div class="custom-file mb-3 mt-3">
+					  <input type="file" id="fichero" name="fichero" class="custom-file-input">
+					  <label class="custom-file-label" for="fichero">Selecciona Fichero</label>
+					</div>
+								
+					<input type="submit" value="Subir Fichero" class="btn btn-outline-primary btn-block">
+				</form>
+			
+			</div>
+		</div>
+		
 	
-	<input type="submit" value="Subir Ficheros" class="btn btn-outline-primary btn-block">
-	
-	<div class="custom-file mb-3 mt-10">
- 	 <input type="file"  id="fichero" name="fichero">
-  	<label class="custom-file-label" for="fichero">Selecciona Fichero</label>
-	</div>
-	
-	</form>
-	
-	
-	
-	</div>
+	</main>
 
-
-
-
-</div>
-
-
-
-</main>
-
-
-
-
-
-
-
-<%@include file="includes/footer.jsp" %><%@include file="includes/footer.jsp" %>
+<%@include file="includes/footer.jsp" %>

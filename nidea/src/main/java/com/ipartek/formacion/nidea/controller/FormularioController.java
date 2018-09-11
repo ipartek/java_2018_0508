@@ -27,9 +27,9 @@ public class FormularioController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		//TODO llamar al Modelo para recuperar 'Categorias'
-	//	ArrayList<Categoria> cats = recuperarCategorias();
+	//ArrayList<Categoria> cats = recuperarCategorias();
 		
-		//request.setAttribute("Categoria",cats );
+		//request.setAttribute("categoria",cats );
 		
 		//pasar a la vista las categorias
 		
@@ -40,14 +40,12 @@ public class FormularioController extends HttpServlet {
 	}
 
 	//private ArrayList<Categoria> recuperarCategorias() {
-	//ArrayList<Categoria> resul = new ArrayList<Categoria>();
-	//resul.add(new Categoria(1,"COC","Cocina"));
-	//resul.add(new Categoria(2,"SAL","Salon"));
-	//resul.add(new Categoria(3,"COC","Cocina"));
-		// TODO Auto-generated method stub
+		//ArrayList<Categoria> resul = new ArrayList<Categoria>();
+		//resul.add( new Categoria(1, "COC", "Cocina"));
+		//resul.add( new Categoria(2, "SAL", "Salon"));
+		//resul.add( new Categoria(3, "WC", "Baños"));
 		//return resul;
 	//}
-
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
