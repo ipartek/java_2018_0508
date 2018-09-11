@@ -5,44 +5,39 @@
 <%@include file="includes/navbar.jsp" %>
 
 	<main role="main" class="container">
-		
-		<h1>Resultado</h1>	
-		
+	
 		<%
 			Producto p = (Producto)request.getAttribute("producto");
-		%>		
-		
-		
-		<div class="card" style="width: 20rem;">
-			 <div class="card-custom-header"><!-- estilo propio -->
-			  <%
-				  	//Si está el producto el oferta pintamos circulo verde con el texto "Oferta"
-				  		if(p.isOferta()){
-				  	%>
-				  			<span class="fas fa-certificate simbolo"></span>
-		      <% }%>
-		      		<img class="card-img-top " src="<%=p.getImagen()%>"  alt="imagen del producto">
-		      		<div class="col text-right">
-					    	<h6 class="badge badge-pill badge-success"><%=p.getPrecio() %>&#8364;</h6>
+		%>
+		<div class="row bg-dark m-3">
+			<div class="col-12 col-md-4 offset-md-4">
+			<h1 class="text-primary text-center">Resultado</h1>
+				<div class="card m-2" style="width: 18rem;">
+				  <img class="card-img-top" src="<%=p.getImagen() %>" alt="Imagen del producto">
+				  <div class="card-body">
+				  	<div class="row">
+				  		<div class="col">
+				  			<h5 class="card-title text-primary text-uppercase font-weight-bold"><%=p.getNombre() %></h5>
+				  			<h6 class="card-title text-info"><%=p.getCodigo() %></h6>
 				  		</div>
-			  </div>
-			  <div class="card-body">					    
-				    
-				    	<div class="col" text-left>
-				    		<h5 class="card-title text-dark text-uppercase text-justify"><%=p.getNombre()%></h5>					  		
-				    	</div>
-				  	
-				  	<div class="col text-center">
-					    	<h5 class="card-title font-weight-light text-justify text-secondary"><%=p.getCodigo() %></h5>
-				  		</div>
-				  	<p class="card-text font-italic text-muted text-justify"><%=p.getDescripcion() %></p>
-				  	
-			  </div>
-		</div>
+				  		<div class="col text-right"><h5 class="card-title text-info font-weight-light font-italic"><%=p.getPrecio() %>&#8364;</h5></div>
+				  	</div>
+				    <p class="card-text font-italic"><%=p.getDescripcion() %></p>
+				    <% 
+				    	if(p.isOferta()){ 
+				    %>
+				    	<span class="badge badge-pill badge-success text-uppercase oferta"><i class="fas fa-certificate fa-lg"></i>Oferta</span>
+				    <%
+				    	}
+				    %>
+				  </div>
+				</div>
+			
+			</div>
 		
+		</div>		
 		
 	</main>
-
 
 <%@include file="includes/footer.jsp" %>
 

@@ -30,13 +30,16 @@ footer{
 	background-color: #808080;
 }
 
-.card-footer {
-   
+.card-footer {   
     background-color:#ffffff ;
     border-top: none;
 }
 
-canvas { background: #eee; display: block; margin: 0 auto; }
+canvas { 
+	background: #eee; 
+	display: block; 
+	margin: 0 auto; 
+}
 
 .required::before{
 	content: "*";
