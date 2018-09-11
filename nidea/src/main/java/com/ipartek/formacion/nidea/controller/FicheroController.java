@@ -17,7 +17,7 @@ import com.ipartek.formacion.nidea.pojo.Alert;
  */
 @WebServlet("/subida-fichero")
 @MultipartConfig(   fileSizeThreshold=1024*1024*2, 	// 2MB file’s size that is greater than this threshold will be directly written to disk, instead of saving in memory
-					maxFileSize=1024*1024*10,      // 10MB maximum size for a single upload file
+					maxFileSize=1024*1024*2,      // 2MB maximum size for a single upload file
 					maxRequestSize=1024*1024*50)   // 50MB maximum size for a request
 public class FicheroController extends HttpServlet {
 	

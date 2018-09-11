@@ -24,6 +24,14 @@
 			</div>
 		</div>
 		
+		<h2>TODOs</h2>
+		<ul class="list-group">
+  			<li class="list-group-item">Mostrar imagen subida con etiqueta IMG </li>
+  			<li class="list-group-item">Mostrar Tamaño bytes imagen subida</li>
+  			<li class="list-group-item">Permitir solo extensiones .PNG, .JPG y JPEG</li>
+  			<li class="list-group-item">¿ Que pasa si pesa mas de 2MB?</li>
+  		</ul>	
+		
 	
 	</main>
 
