@@ -14,7 +14,8 @@
 <link rel="stylesheet" 	href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
 <link rel="stylesheet" href="css/styles.css">
 <link rel="stylesheet" href="../css/arkanoid.css">
-<link rel="stylesheet" href="../css/formulario.css">
+<link rel="stylesheet" href="css/formulario.css">
+<link rel="stylesheet" href="../css/listar.css">
 
 
 <title>nidea</title>

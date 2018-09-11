@@ -12,17 +12,17 @@ package com.ipartek.formacion.nidea.pojo;
 public class Alerts {
 	public static final String INFO = "alert-primary";
 	public static final String SECONDARY = "alert-secondary";
-	public static final String SUCESS = "alert-success";
+	public static final String SUCESS = "alert-sucess";
 	public static final String DANGER = "alert-danger";
 	public static final String WARNING = "alert-warning";
 	public static final String TEXTO_POR_DEFECTO = "ERROR INEXPERADO";
 	private String texto ;
 	private String tipo;
-	//private String alertTypes[] = {"alert-primary","alert-secondary","alert-sucess","alert-danger","alert-warning"};
+	//private String alertTypes[] = {"primary","secondary","sucess","danger","warning"};
 	public Alerts() {
 		super();
 	}
-	public Alerts(String tipo, String texto ) {
+	public Alerts(String texto, String tipo) {
 		super();
 		this.texto = texto;
 		this.tipo = tipo;

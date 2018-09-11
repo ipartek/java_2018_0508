@@ -1,0 +1,12 @@
+.listarStyle{
+	margin:auto;
+	
+	display:flex;
+	flex-flow:row nowrap;
+	justify-content: center; 
+	
+	
+}
+#card-columns{
+	width:100%;
+}

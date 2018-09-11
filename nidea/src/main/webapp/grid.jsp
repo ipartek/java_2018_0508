@@ -28,6 +28,7 @@
 						<p><h1>HEADER</h1></p>
 						<p class="d-none d-xl-block">12 columnas</p>
 						<p class="d-none d-lg-block d-xl-none">12 columnas</p>
+						<p class="d-none d-md-block d-lg-none">6 columnas</p>
 						<p class="d-block d-sm-none">3 columnas</p>
 					</div>
 					
@@ -41,6 +42,7 @@
 					<h2>MAIN</h2>
 					<p class="d-none d-xl-block">8 columnas</p>
 					<h5 class="d-none d-lg-block d-xl-none">8 columnas</h5>
+					<h5 class="d-none d-d-md-block d-lg-none">6 columnas</h5>
 					<h5 class="d-none d-sm-block d-md-none">12 columnas</h5>
 					
 					<p>	Extra small devices &lt; 576px</p>

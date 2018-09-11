@@ -1,9 +1,16 @@
+input:invalid {
+  border: 1px solid #CC0000;
+}
 
+input:valid{
+  background-color: lightyellow;
+  border: 1px solid #3399FF;  
+}
 
-span:valid+.invalid{
+input:valid+.invalid{
   visibility: hidden;
 }
 
-span:invalid+.invalid{
+input:invalid+.invalid{
   visibility: visible;
 }
