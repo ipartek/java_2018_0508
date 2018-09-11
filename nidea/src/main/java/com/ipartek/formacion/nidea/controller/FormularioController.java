@@ -1,6 +1,8 @@
 package com.ipartek.formacion.nidea.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -8,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.ipartek.formacion.nidea.pojo.Alert;
+import com.ipartek.formacion.nidea.pojo.Categoria;
 import com.ipartek.formacion.nidea.pojo.Producto;
 
 /**
@@ -24,8 +27,23 @@ public class FormularioController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
+		
+		//TODO llamar al MODELO para recuperar 'Categorias'
+		ArrayList<Categoria> cats = recuperarCategorias();
+		
+		//pasar a la vista las categorias
+		request.setAttribute("categorias", cats);
+		
 		request.getRequestDispatcher("formulario.jsp").forward(request, response);
 			
+	}
+
+	private ArrayList<Categoria> recuperarCategorias() {
+		ArrayList<Categoria> resul = new ArrayList<Categoria>();
+		resul.add( new Categoria(1, "COC", "Cocina"));
+		resul.add( new Categoria(2, "SAL", "Salon"));
+		resul.add( new Categoria(3, "WC", "Baños"));
+		return resul;
 	}
 
 	/**

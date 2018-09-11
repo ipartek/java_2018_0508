@@ -26,6 +26,7 @@
 		<div class="card" style="width: 18rem;">
 		
 		  <div class="card-custom-header"> <!-- estilo propio, no es bootstrap -->	
+		  	<i class="fas ${(producto.oferta)?'fa-certificate':''}"></i>
 		  	<span class="badge badge-secondary">${producto.precio} &euro;</span>
 		  	<img class="card-img-top" src="${producto.imagen}" alt="Imagen Detalle ${producto.nombre}">
 		  </div>	
