@@ -25,27 +25,27 @@ public class FormularioController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+		//1.- obtener array de categorias
+		ArrayList<Categoria> categorias = obtenerCategorias();
 		
-		//TODO llamar al Modelo para recuperar 'Categorias'
-	//ArrayList<Categoria> cats = recuperarCategorias();
+		//2.- añadir el array de categorias a la request
+		request.setAttribute("categorias", categorias);
 		
-		//request.setAttribute("categoria",cats );
-		
-		//pasar a la vista las categorias
-		
-		
-		
+		//3.- mostrar la vista (formulario.jsp) pasandole el array de categorias
 		request.getRequestDispatcher("formulario.jsp").forward(request, response);
-			
+	}
+	
+	private ArrayList<Categoria> obtenerCategorias(){
+		ArrayList<Categoria> categorias = new ArrayList<Categoria>();
+		
+		categorias.add(new Categoria(1, "COC", "Cocina"));
+		categorias.add(new Categoria(2, "SAL", "Salon"));
+		categorias.add(new Categoria(3, "WC", "Baños"));
+		
+		return categorias;
 	}
 
-	//private ArrayList<Categoria> recuperarCategorias() {
-		//ArrayList<Categoria> resul = new ArrayList<Categoria>();
-		//resul.add( new Categoria(1, "COC", "Cocina"));
-		//resul.add( new Categoria(2, "SAL", "Salon"));
-		//resul.add( new Categoria(3, "WC", "Baños"));
-		//return resul;
-	//}
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
@@ -54,11 +54,14 @@ public class FormularioController extends HttpServlet {
 		try {
 		
 			//recoger parametros
+			//dentro del getParameter se pone lo que tiene la etiqueta en el atributo name
+			//el getParameter siempre devuelve un String
 			String nombre = request.getParameter("nombre");
 			String codigo = request.getParameter("codigo");
 			String precio = request.getParameter("precio");
 			String oferta = request.getParameter("oferta");
 			String descripcion = request.getParameter("descripcion");
+			String categoria = request.getParameter("categoria");
 			
 
 			

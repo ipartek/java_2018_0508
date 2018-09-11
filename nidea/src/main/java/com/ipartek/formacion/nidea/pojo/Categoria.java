@@ -14,6 +14,13 @@ public class Categoria {
 		// TODO Auto-generated constructor stub
 	}
 
+	public Categoria(long id, String codigo, String nombre) {
+		super();
+		this.id = id;
+		this.codigo = codigo;
+		this.nombre = nombre;
+	}
+
 	public long getId() {
 		return id;
 	}

@@ -1,3 +1,5 @@
+<%@page import="com.ipartek.formacion.nidea.pojo.Categoria"%>
+<%@page import="java.util.ArrayList"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@include file="includes/header.jsp" %>
 <%@include file="includes/navbar.jsp" %>
@@ -20,13 +22,14 @@
 			
 			<div class="col">	
 				<label for="categoria">Selecciona Categoria:</label>
+				
+					<% ArrayList<Categoria> categorias = (ArrayList<Categoria>) request.getAttribute("categorias");%>
 			
   					<select name="categoria" class="custom-select">
   				
-  				
-  					<option value="1">Cocina</option>
-  					<option value="2">Salon</option>
- 			 		<option value="3">Wc</option>
+  					<%for(int i=0;i<categorias.size();i++){%>
+  						<option value="<%= categorias.get(i).getId() %>"><%= categorias.get(i).getNombre() %></option>
+  					<%} %>
  			 		
 					</select>
 			</div>	

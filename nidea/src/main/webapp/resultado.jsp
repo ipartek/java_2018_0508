@@ -15,6 +15,7 @@
       <th scope="col">Codigo</th>
       <th scope="col">Precio</th>
       <th scope="col">Descripcion</th>
+      <th scope="col">Oferta</th>
     </tr>
   </thead>
   <tbody>
@@ -24,6 +25,7 @@
       <td>${producto.codigo}</td>
       <td>${producto.precio}</td>
       <td>${producto.descripcion}</td>
+      <td>${producto.oferta}</td>
     </tr>
   </tbody>
 </table>	
