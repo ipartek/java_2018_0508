@@ -63,6 +63,7 @@ public class FormularioController extends HttpServlet {
 			throws ServletException, IOException {
 
 		try {
+			
 			// recoger parametros
 			String imagen=request.getParameter("imagen");
 			String nombre=request.getParameter("nombre");

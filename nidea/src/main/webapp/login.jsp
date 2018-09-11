@@ -1,30 +1,41 @@
+<%@page import="com.ipartek.formacion.nidea.pojo.Producto"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+
 <%@include file="includes/header.jsp" %>
 <%@include file="includes/navbar.jsp" %>
 
-<main class="container">
-
-	<h1>Login</h1>
-			 <div class="Icon">
-	                    <!--Icono de usuario-->
-	                   <span >&#xe008;</span>
-	         </div>
-			 <div class="ContentForm">
-			 	<form action="" method="post" name="FormEntrar">
-			 		<div class="input-group input-group-lg">
-					  <span class="input-group-addon" id="sizing-addon1"><i class="glyphicon glyphicon-envelope"></i></span>
-					  <input type="email" class="form-control" name="correo" placeholder="Correo" id="Correo" aria-describedby="sizing-addon1" required>
-					</div>
-					<br>
-					<div class="input-group input-group-lg">
-					  <span class="input-group-addon" id="sizing-addon1"><i class="glyphicon glyphicon-lock"></i></span>
-					  <input type="password" name="contra" class="form-control" placeholder="******" aria-describedby="sizing-addon1" required>
-					</div>
-					<br>
-					<button class="btn btn-lg btn-primary btn-block btn-signin" id="IngresoLog" type="submit">Entrar</button>
-					<div class="opcioncontra"><a href="">Olvidaste tu contraseña?</a></div>
-			 	</form>
-			 </div>	
-			 
-
+<body id="LoginForm">
+    <main class="container">
+        <div class="login-form">
+            <div class="main-div">
+                <div class="panel">
+                    <h2>Login</h2>
+                    </br>
+                </div>
+                <form action="formulario" method="post"id="Login">
+                            
+                    <div class="form-group">
+                    
+                    
+                        <input type="email" class="form-control" id="inputEmail" placeholder="Email">
+                    
+                    </div>
+                    
+                    <div class="form-group">
+                    
+                        <input type="password" class="form-control" id="inputPassword" placeholder="********">
+                    
+                    </div>
+                    <div class="forgot">
+                        <a href="#">¿No recuerdas el password?</a>
+                    </div>
+                    
+              
+                    <input type="submit" value="login" class="btn btn-primary btn-block">
+                    
+                </form>                                
+             </div>
+        </div> 
+     </main>        
 <%@include file="includes/footer.jsp" %>
+
