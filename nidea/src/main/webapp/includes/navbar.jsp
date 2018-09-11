@@ -17,9 +17,19 @@
           <li class="nav-item">
             <a class="nav-link" href="arkanoid.jsp">Arkanoid</a>
           </li>  
-          <li class="nav-item">
-            <a class="nav-link" href="formulario">Formulario</a>
-          </li>      
+          
+          <li class="nav-item dropdown">
+	        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+	          JEE
+	        </a>
+	        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+	          <a class="dropdown-item" href="formulario">Formulario</a>	          
+	          <a class="dropdown-item" href="fichero.jsp">Fichero</a>
+	        </div>
+	      </li>
+          <!-- .dropdown -->
+          
+             
         </ul>        
       </div>
     </nav>
