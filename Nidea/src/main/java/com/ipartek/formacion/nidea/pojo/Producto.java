@@ -77,6 +77,7 @@ public class Producto {
 	public void setImg(String img) {
 		this.img = img.trim();
 	}
+	
 	@Override
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
@@ -94,8 +95,6 @@ public class Producto {
 		
 		sb.append("\nImagen del producto: "  + "\t" + img);
 		return sb.toString();
-	}
-	
-	
+	}	
 
 }

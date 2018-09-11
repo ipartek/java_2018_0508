@@ -1,6 +1,18 @@
+
+
 body {
   min-height: 75rem;
   padding-top: 4.5rem;
+  background-color: #525252;
+}
+
+.centered-form{
+	margin-top: 60px;
+}
+
+.centered-form .panel{
+	background: rgba(255, 255, 255, 0.8);
+	box-shadow: rgba(0, 0, 0, 0.3) 20px 20px 20px;
 }
 
 .header {
@@ -40,6 +52,10 @@ body {
 	color:#FFF;
 }
 
+.card {
+	border-bottom: 10px;
+}
+
 .card-footer {
 	background: none;
 	border-top: none;
@@ -47,6 +63,16 @@ body {
 
 .card-img-top {
 	height: 50% !important;
+}
+
+.discount {
+	height: 50px;
+	width: 50px;
+}
+
+label.obligatorio:before {
+	content: "*";
+	padding-right: 3px;
 }
 
 <!-- CHECKBOX -->

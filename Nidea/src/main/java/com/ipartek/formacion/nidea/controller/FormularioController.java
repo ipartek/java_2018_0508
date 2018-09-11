@@ -1,6 +1,8 @@
 package com.ipartek.formacion.nidea.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -8,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.ipartek.formacion.nidea.pojo.Alert;
+import com.ipartek.formacion.nidea.pojo.Categoria;
 import com.ipartek.formacion.nidea.pojo.Producto;
 
 
@@ -17,7 +20,7 @@ import com.ipartek.formacion.nidea.pojo.Producto;
  *
  */
 @WebServlet("/formulario")
-public class Formulario_Controller extends HttpServlet {
+public class FormularioController extends HttpServlet {
 	
 	private static final long serialVersionUID = 1L;
 	private static final String WARNING_MSG = "Faltan campos obligatorios.";
@@ -34,10 +37,12 @@ public class Formulario_Controller extends HttpServlet {
 	private String strPrecio;
 	private float precio;
 	
+	private ArrayList<Categoria> categorias = new ArrayList<Categoria>();
+	
 	private Producto producto;
        
     
-    public Formulario_Controller() {
+    public FormularioController() {
         super();
     }
 
@@ -46,7 +51,9 @@ public class Formulario_Controller extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		response.getWriter().append("Petición GET: ").append(request.getContextPath());
+		crearCategorias();
+		request.setAttribute("categorias", categorias);
+		System.out.println("categorias enviadas");
 		request.getRequestDispatcher("formulario.jsp").forward(request, response);
 	}
 
@@ -65,8 +72,7 @@ public class Formulario_Controller extends HttpServlet {
 				request.getRequestDispatcher("formulario.jsp").forward(request, response);
 			} 
 			
- 			sendAttributes(request);
-			request.getRequestDispatcher("formulario_resultado.jsp").forward(request, response);
+ 			sendAttributes(request, response);
 			
 		} catch (Exception e) {
 			
@@ -107,20 +113,34 @@ public class Formulario_Controller extends HttpServlet {
 		try {
 			
             precio = Float.parseFloat(strPrecio);
-            
-        } catch (NumberFormatException excepcion) {
-            
+        } catch (NumberFormatException excepcion) {  
         	alerta = new Alert(DARK_MSG, Alert.DARK);
         }
 		
 		return alerta;
 	}
 	
-	private void sendAttributes(HttpServletRequest request) {
+	
+	private void sendAttributes(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		producto = new Producto(codigo, nombre, descripcion, esOferta, precio, img);
 		
 		request.setAttribute("producto", producto);
+		request.getRequestDispatcher("formulario_resultado.jsp").forward(request, response);
+	}
+	
+	private void crearCategorias() {
+		
+		String nombreCategorias[] = {"Submarinismo", "Caza", "Pesca", "Supervivencia"};
+		ArrayList<Categoria> categorias = new ArrayList<>();
+		
+		Categoria tmp;
+		
+		for (int i = 0; i < nombreCategorias.length; i++) {
+			tmp = new Categoria(i, nombreCategorias[i].substring(0, 2).toUpperCase() + i, nombreCategorias[i]);
+			
+			categorias.add(tmp);
+		}
 	}
 
 }
