@@ -71,3 +71,9 @@ canvas {
 .nav-link:hover .nope {
 	display: inline-block;
 }
+.card-img-top:hover{
+	border:1px solid #000;
+	transform: scale(1.4);
+	z-index: 5;
+	transition: transform 2s;
+}
