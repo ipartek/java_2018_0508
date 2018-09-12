@@ -59,7 +59,7 @@ public class LoginUsuariosController extends HttpServlet {
 			usuariosDao = usuariosDao.getInstance();
 			
 			//validaciones
-			comprobarUsuario(nombreUsuario, passUsuario);
+			accessSignal = comprobarUsuario(nombreUsuario, passUsuario);
 			String estilos = actualizarEstilos();
 			
 			
@@ -89,13 +89,14 @@ public class LoginUsuariosController extends HttpServlet {
 		return est;
 	}
 
-	private void comprobarUsuario(String nombreUsuario, String passUsuario) {
+	private boolean comprobarUsuario(String nombreUsuario, String passUsuario) {
 		Usuarios = (ArrayList<Usuario>) usuariosDao.getAll();
 		for (Usuario u : Usuarios) {
 			if (nombreUsuario.equals(u.getNombre()) && passUsuario.equals(u.getPassword())){
 				accessSignal = true;
 			}
-		}	
+		}
+		return accessSignal;
 	}
 
 }

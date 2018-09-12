@@ -15,7 +15,7 @@
 			<div class="form-row">
 				<div class="col">
 					<p class="font-italic text-secondary">Los campos con * son obligatorios</p>
-					<span class="obligatorio" required="required"></span><label for="nombre" class="obligatorio">Nombre</label>
+					<label for="nombre" class="obligatorio">Nombre</label>
 					<input type="text" class="form-control" autofocus name="nombre" required="required" placeholder="Nombre del Producto" tabindex="1" pattern="[a-zA-Z\s]{5,}"></p>
 				</div>
 			<%
@@ -30,7 +30,6 @@
 						
 						  <option selected>Seleciona la categoria</option>
 						  <%
-						  	
 						  	for(Categoria c : cats){
 						  		
 						  	
@@ -49,12 +48,12 @@
 			
 				<div class="form-group">
 					
-						<span class="invalid">*</span><label for="codigo">Codigo</label>
+						<label for="codigo">Codigo</label>
 						<input type="text" class="form-control" name="codigo" required placeholder="Código del Producto" tabindex="3">
 				</div>
 				<div class="form-group">
 					
-						<span class="invalid">*</span><label for="precio">Precio</label>
+						<label for="precio">Precio</label>
 						<input type="number" class="form-control" name="precio" required placeholder="Precio del Producto" tabindex="4">
 					
 				</div>
@@ -65,11 +64,13 @@
 					
 				</div>
 				<div class="form-group">
-					<p><label for="descripcion">Descripcion: </label></p>
+					p><label for="descripcion">Descripcion: </label></p>
 					<textarea type=text name="descripcion" required placeholder="Descripcion" tabindex="6" rows="10" cols="82"></textarea>
 				
 				</div>
-				
+				<div class="form-group">
+	        	<input type="submit" value="Enviar" id="enviar"/>
+	        </div>	
 			</div>	
 			
 			<div>

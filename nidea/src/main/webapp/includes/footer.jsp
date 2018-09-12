@@ -1,4 +1,6 @@
-
+<script src="vendors/jquery/jquery-3.3.1.js"></script>
+    <script src="vendors/jquery/1.10.19/js/jquery.dataTables.min.js"></script>    
+    <script src="vendors/datatables/2.1.0/js/dataTables.responsive.js"></script>
 <!-- Optional JavaScript -->
 <!-- jQuery first, then Popper.js, then Bootstrap JS -->
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
@@ -16,5 +18,8 @@
 	<script src="http://code.jquery.com/jquery-latest.js"></script>
 	<script
 		src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
+    
+   	<link rel="stylesheet" 	href="js/login.js">
+    
 		
 </html>

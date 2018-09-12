@@ -1,3 +1,4 @@
+@import(navbar.css);
 body{
 	height: 100%;
 	width: 100%;	
@@ -35,10 +36,10 @@ img{
 }
 
 
-.login > label{
+/* .login > label{
 	width: 75px;
 	margin:auto;
-}
+} */
 .card-custom-header-temp i.fas{
 	position: absolute;
 	top10px;
@@ -170,7 +171,7 @@ aside h2,p{
 aside h2,p{
 	font-size: 9px;
 }
-
+@import url('navbar.css');
 
 
 
