@@ -12,11 +12,11 @@
 				<form>
 				  <div class="form-group">
 				    <label for="usuario">Usuario:</label>
-				    <input name="usuario" type="text" class="form-control" id="usuario" aria-describedby="emailHelp" placeholder="Enter email">
+				    <input name="usuario" required="requerido" autofocus="autofocus" type="text" class="form-control" id="usuario" aria-describedby="emailHelp" placeholder="Enter email">
 				  </div>
 				  <div class="form-group">
 				    <label for="contrasenya">Contraseña:</label>
-				    <input name="contrasenya" type="password" class="form-control" id="contrasenya" placeholder="Password">
+				    <input name="contrasenya" required type="password" class="form-control" id="contrasenya" placeholder="Password">
 				  </div>
 				  <input type="submit" value="Iniciar Sesion" class="btn btn-outline-primary btn-block">
 				</form>

@@ -497,4 +497,5 @@
 		$('#example').DataTable();
 	});
 	</script>
+	
 <%@include file="includes/footer.jsp" %>

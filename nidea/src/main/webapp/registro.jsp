@@ -12,7 +12,7 @@
 				<form>
 				  <div class="form-group">
 				    <label for="nombre">Nombre:</label>
-				    <input name="nombre" type="text" class="form-control" id="nombre" placeholder="Nombre">
+				    <input name="nombre" type="text" autofocus class="form-control" id="nombre" placeholder="Nombre">
 				  </div>
 				  <div class="form-group">
 				    <label for="mail">Email:</label>
