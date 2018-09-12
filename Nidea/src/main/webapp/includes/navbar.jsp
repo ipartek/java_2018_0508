@@ -33,6 +33,7 @@
 			  <a class="dropdown-item" href="login.jsp">Login</a>
 			  <a class="dropdown-item" href="registro.jsp">Registro</a>
 			  <a class="dropdown-item" href="listaProductos.jsp">Lista Productos</a>
+			  <a class="dropdown-item" href="listaCards.jsp">Lista Productos Cards</a>
 			  <a class="dropdown-item" href="formulario">Formularios</a>
 			</div>
         </li>

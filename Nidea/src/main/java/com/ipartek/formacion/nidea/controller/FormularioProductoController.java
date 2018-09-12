@@ -18,7 +18,7 @@ import com.ipartek.formacion.nidea.pojo.Producto;
  * Servlet implementation class FormulariosController
  */
 @WebServlet("/formulario")
-public class FormularioController extends HttpServlet {
+public class FormularioProductoController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private static final String VIEW_FORMULARIO = "formulario.jsp";
 	private static final String VIEW_RESULTADO = "resultado.jsp";

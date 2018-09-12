@@ -12,7 +12,7 @@
 			<div class="col">
 				<div class="form-group">
 				   <label class="required" for="usuario">Usuario: </label>
-				   <input class="form-control" type="text" name="usuario" placeholder="Nombre de usuario" required autofocus tabindex="1">
+				   <input class="form-control" type="text" name="usuario" placeholder="Mínimo 3 caracteres y máximo 10" minlength="3" maxlength="10" required autofocus tabindex="1">
 				   <div class="invalid-feedback">
 		          		Please choose a username.
 		        	</div>
@@ -24,17 +24,30 @@
 			<div class="col">
 				<div class="form-group">
 				    <label class="required" for="pswd">Contraseña: </label>
-				    <input class="form-control" type="password" name="pswd" placeholder="Escribe una contraseña" tabindex="3">
+				    <input class="form-control" type="password" name="pswd" placeholder="Mínimo 8 caracteres y al menos una mayúscula y un carácter numérico" minlength="8" pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?!.*\s).*$" tabindex="3">
 				</div>
 			</div>	
+			<div class="col">
+				<div class="form-group">
+				    <label class="required" for="pswd">Repite la contraseña: </label>
+				    <input class="form-control" type="password" name="pswd" placeholder="Repite la contraseña anterior" minlength="8" pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?!.*\s).*$" tabindex="3">
+				</div>
+			</div>
 		</div>
 		
 		<div class="form-row">
 			
 			<div class="col">
 				<div class="form-group">
-			   		<label class="required" for="email">Correo Electrónico: </label>
-			   		<input class="form-control" type="email" name="email" step="0.1" placeholder="Escribe tu correo" tabindex="4">
+			   		<label class="required" for="email">Correo electrónico: </label>
+			   		<input class="form-control" type="email" name="email" step="0.1" placeholder="Introduce un correo válido" tabindex="4">
+				</div>
+			</div>
+			
+			<div class="col">
+				<div class="form-group">
+			   		<label class="required" for="email">Repite el correo electrónico: </label>
+			   		<input class="form-control" type="email" name="email" step="0.1" placeholder="Repite tu correo" tabindex="4">
 				</div>
 			</div>
 		</div>

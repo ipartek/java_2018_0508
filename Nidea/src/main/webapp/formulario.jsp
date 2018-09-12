@@ -13,7 +13,7 @@
 			<div class="col">
 				<div class="form-group">
 				   <label class="required" for="nombre">Nombre: </label>
-				   <input class="form-control" type="text" name="nombre" placeholder="Nombre del producto" required autofocus tabindex="1">
+				   <input class="form-control" type="text" name="nombre" placeholder="Mínimo 3 caracteres y máximo 20" minlength="3" maxlength="20" required autofocus tabindex="1">
 				   <div class="invalid-feedback">
 		          		Please choose a username.
 		        	</div>
@@ -44,14 +44,14 @@
 			<div class="col">
 				<div class="form-group">
 				    <label class="required" for="codigo">Código: </label>
-				    <input class="form-control" type="text" name="codigo" placeholder="Código del producto" tabindex="3">
+				    <input class="form-control" type="text" name="codigo" placeholder="Mínimo 3 caracteres" minlength="3" tabindex="3">
 				</div>
 			</div>
 			
 			<div class="col">
 				<div class="form-group">
 			   		<label class="required" for="precio">Precio: </label>
-			   		<input class="form-control" type="number" name="precio" step="0.1" placeholder="Precio" tabindex="4">
+			   		<input class="form-control" type="number" name="precio" step="0.1" placeholder="Precio en euros" tabindex="4">
 				</div>
 			</div>
 			
@@ -66,7 +66,7 @@
 		
 		<div class="form-group">
 			<label class="required" for="descripcion">Descripción: </label>
-			<textarea class="form-control" type="text" name="descripcion" rows="5"  placeholder="Descripción del producto" tabindex="5"></textarea>
+			<textarea class="form-control" type="text" name="descripcion" rows="5"  placeholder="Detalles del producto" tabindex="5"></textarea>
 		</div>
 		
 		<input class="form-control btn btn-outline-primary" type="submit" value="Dar de Alta">

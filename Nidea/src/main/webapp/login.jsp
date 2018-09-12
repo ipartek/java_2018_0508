@@ -4,7 +4,7 @@
 <%@include file="includes/navbar.jsp"%>
 
 <main class="container " role="main" >
-	<h1 class="text-center">Log in</h1>
+	<h1 class="text-center">Iniciar sesión</h1>
 	
 	<form action="login" method="post">
 		<div class="form-row">
@@ -13,7 +13,7 @@
 				   <label for="nombre">Nombre: </label>
 				   <input class="form-control" type="text" name="usuario" placeholder="Escribe tu nombre de usuario" required autofocus tabindex="1">
 				   <div class="invalid-feedback">
-		          		Please choose a username.
+		          		Por favor, elige un nombre de usuario.
 		        	</div>
 				</div>
 			</div>

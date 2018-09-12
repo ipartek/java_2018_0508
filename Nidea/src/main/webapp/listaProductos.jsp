@@ -7,7 +7,7 @@
 	<h1 class="text-center mb-3 ">Listado de productos</h1>
 	
 	<table id="lista" class="display" style="width:100%">
-        <thead class="thead-dark">
+        <thead>
             <tr>
                 <th>Nombre</th>
                 <th>Categoría</th>
