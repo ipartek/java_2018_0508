@@ -1,0 +1,19 @@
+
+div.html5header {
+    border: 5px solid #D9D9D9;
+    height: 379px;
+    margin: 0;
+    padding: 0;
+    width: 625px;
+}
+
+
+code {
+    background-color: #F6F4F0;
+    border: 1px solid #D4D4D4;
+    color: #444444;
+    display:block;
+    margin: 0;
+    padding: 5px;
+    width: 30%; 
+}

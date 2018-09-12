@@ -1,0 +1,674 @@
+
+html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, font, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td {
+    background: none repeat scroll 0 0 rgba(0, 0, 0, 0);
+    border: 0 none;
+    font-size: 100%;
+    font-weight: normal;
+    margin: 0;
+    outline: 0 none;
+    padding: 0;
+}
+body {
+    line-height: 1;
+    margin: 0 auto;
+    width: 1000px;
+}
+ol, ul {
+    list-style: none outside none;
+}
+blockquote, q {
+    quotes: none;
+}
+blockquote:before, blockquote:after, q:before, q:after {
+    content: none;
+}
+:focus {
+    outline: 3px solid #0092BF;
+}
+ins {
+    text-decoration: none;
+}
+del {
+    text-decoration: line-through;
+}
+table {
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+@font-face {
+    font-family: "museo-sans-1";
+    font-style: normal;
+    font-weight: normal;
+    src: local("☺"), url("fonts/museosans_500-webfont.woff") format("woff"), url("fonts/museosans_500-webfont.ttf") format("truetype"), url("fonts/museosans_500-webfont.svg#webfont6kY1IVGu") format("svg");
+}
+@font-face {
+    font-family: "Museo_Slab_100";
+    font-style: normal;
+    font-weight: normal;
+    src: local("☺"), url("fonts/Museo_Slab_100-webfont.woff") format("woff"), url("fonts/Museo_Slab_100-webfont.ttf") format("truetype"), url("fonts/Museo_Slab_100-webfont.svg#webfont6kY1IVGu") format("svg");
+}
+@font-face {
+    font-family: "league-gothic-1";
+    font-style: normal;
+    font-weight: normal;
+    src: local("☺"), url("fonts/League_Gothic-webfont.woff") format("woff"), url("fonts/League_Gothic-webfont.ttf") format("truetype"), url("fonts/League_Gothic-webfont.svg#webfontOTINA1xY") format("svg");
+}
+@font-face {
+    font-family: "calluna";
+    font-style: normal;
+    font-weight: normal;
+    src: local("☺"), url("fonts/calluna-regular-webfont.woff") format("woff"), url("fonts/calluna-regular-webfont.ttf") format("truetype"), url("fonts/calluna-regular-webfont.svg#webfonts6RMrQrn") format("svg");
+}
+body {
+    background: none repeat scroll 0 0 #D9D9D9;
+    font-family: Helvetica,Arial,Sans-serif;
+}
+
+b{
+    font-weight: bold;
+}
+
+header a{
+    float:left;
+}
+
+h1{    
+     color: #F14A29;
+    float: right;
+    font-family: "museo-sans-1",'Trebuchet MS',sans-serif;
+    font-size: 73px;
+    font-weight: 100;
+    line-height: 55px;
+    margin: 0;
+    padding: 0;
+
+}
+
+h2 {
+    font-family: "league-gothic-1",Impact,sans-serif;
+    font-size: 30px;
+    text-transform: uppercase;
+}
+h3 {
+    font-family: "league-gothic-1",Impact,sans-serif;
+    font-size: 24px;
+    text-transform: uppercase;
+}
+#faq h3 {
+    color: #0092BF;
+    font-family: "league-gothic-1",Impact,sans-serif;
+    font-size: 34px;
+    text-transform: uppercase;
+}
+.no-fontface h2, .no-fontface h3, .no-fontface #faq h3 {
+    font-size: 28px;
+    font-weight: normal !important;
+}
+.no-fontface h3 {
+    font-size: 20px;
+}
+p {
+    font-family: "calluna";
+    margin-bottom: 1em;
+}
+a {
+    color: #0092BF;
+    text-decoration: none;
+}
+nav {
+    background: none repeat scroll 0 0 #0092BF;
+    color: #FFFFFF;
+    cursor: pointer;
+    left: 0;
+    margin: 0;
+    max-width: 148px;
+    min-width: 60px;
+    overflow: hidden;
+    padding: 0;
+    position: fixed;
+    text-align: center;
+    top: 194px;
+    z-index: 1000;
+}
+nav #navmenu {
+    display: none;
+}
+nav:hover #navmenu {
+    display: block;
+}
+nav:hover #navhdr {
+    display: none;
+}
+nav h2 {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 60px;
+}
+nav ul {
+    text-align: left;
+    width: 148px;
+}
+nav a {
+    color: #FFFFFF;
+    display: block;
+    font-style: normal;
+    padding: 6px 0 4px 16px;
+}
+nav a:hover, nav a:focus {
+    background: none repeat scroll 0 0 #F14A29;
+    outline: 0 none;
+}
+#wrapper {
+    margin: 0 auto;
+    padding: 48px 0 0;
+    width: 1000px;
+}
+header, #main-header {
+   
+    display: block;    
+    margin: 20px 0;
+    float: left;
+    width: 1000px;
+}
+#main-header h1, #main-header h2 {
+    display: none;
+}
+.tag-bar {
+    background: none repeat scroll 0 0 #0092BF;
+    clear: both;
+    width: 1000px;
+}
+.tag-bar h2 {
+    color: #FFFFFF;
+    font-size: 80px;
+    font-weight: normal;
+    line-height: 140px;
+    margin: 0 36px;
+    text-transform: uppercase;
+}
+.no-fontface .tag-bar h2 {
+    font-size: 55px;
+}
+section {
+    display: block;
+    margin: 10px 0 0;
+}
+section section {
+    margin: 0;
+}
+#the-logo-display {
+    background-color: #FFFFFF;
+    background-image: url("../images/html5-display.png");
+    float: left;
+    height: 495px;
+    margin: 0 10px 10px 0;
+    width: 495px;
+}
+#the-logo-description {
+    background: none repeat scroll 0 0 #FFFFFF;
+    float: left;
+    height: 410px;
+    margin: 0 0 10px;
+    padding: 44px 33px;
+    width: 429px;
+}
+#the-logo-display-faq {
+    background-color: #FFFFFF;
+    background-image: url("../images/html5-display.png");
+    background-repeat: no-repeat;
+    float: left;
+    height: 500px;
+    margin: 0 10px 10px 0;
+    width: 495px;
+}
+#the-logo-description-faq {
+    background: none repeat scroll 0 0 #FFFFFF;
+    float: left;
+    height: 420px;
+    margin: 0 0 10px;
+    overflow-y: scroll;
+    padding: 40px;
+    width: 415px;
+}
+#the-logo-description h2, #the-logo-description-faq h2 {
+    color: #F14A29;
+    font-size: 70px;
+    margin: 66px 0 26px;
+}
+#the-logo-description h3, #the-logo-description-faq h3 {
+    color: #000000;
+    font-size: 35px;
+    margin: 0 0 26px;
+}
+#the-logo-description-faq h2#faq-header {
+    color: #F14A29;
+    font-size: 34px;
+    margin: 0 0 26px;
+}
+#the-logo-description p, #the-logo-description-faq p {
+    font-size: 19px;
+    line-height: 26px;
+    margin: 0 0 26px;
+}
+#the-logo-description p i, #the-logo-description-faq p i {
+    font-style: italic;
+}
+#the-logo-description li, #the-logo-description-faq li {
+    font-size: 14px;
+    line-height: 18px;
+    margin: 0 0 16px;
+    text-transform: uppercase;
+}
+#the-logo a:focus {
+    color: #EBEBEB;
+    outline: 0 none;
+}
+#faq p {
+    font-size: 19px;
+    line-height: 26px;
+    margin: 0 0 50px;
+}
+.the-logo-aside {
+    background: url("../images/logo-aside-orange.png") no-repeat scroll 0 bottom #FFFFFF;
+    float: left;
+    height: 200px;
+    margin: 0 0 10px;
+    padding: 21px 25px;
+    position: relative;
+    width: 276px;
+}
+#use-logo {
+    margin-right: 10px;
+}
+#wear-logo {
+    background-image: url("../images/logo-aside-orange.png");
+    margin-right: 10px;
+}
+#follow-logo {
+    background-image: url("../images/logo-aside-orange.png");
+}
+.the-logo-aside h3 {
+    color: #0092BF;
+    font-size: 40px;
+    margin-bottom: 10px;
+}
+.no-fontface .the-logo-aside h3 {
+    font-size: 30px;
+}
+.the-logo-aside p {
+    font-size: 14px;
+    font-style: italic;
+    line-height: 16px;
+}
+.the-logo-aside img {
+    display: block;
+}
+.the-logo-aside a {
+    font-family: "calluna";
+    font-size: 16px;
+    line-height: 16px;
+    margin-right: 5px;
+}
+.the-logo-aside li {
+    display: inline;
+}
+.orange-links {
+    -moz-user-select: none;
+    bottom: 12px;
+    height: 49px;
+    left: 25px;
+    position: absolute;
+    width: 280px;
+}
+.orange-right {
+    margin-top: 48px;
+}
+.orange-links li {
+    display: inline;
+    margin: 0;
+    padding: 0;
+}
+a.orange-link-text {
+    color: #FFFFFF;
+    display: block;
+    font-family: "museo-sans-1",'Trebuchet MS',sans-serif;
+    font-size: 12px;
+    font-weight: 100;
+    padding: 5px 5px 0 10px;
+    text-transform: uppercase;
+}
+.orange-links li a {
+    color: #FFFFFF;
+    display: block;
+    float: left;
+    font-family: "museo-sans-1",'Trebuchet MS',sans-serif;
+    font-size: 12px;
+    font-weight: 100;
+    text-transform: uppercase;
+}
+#bb-icon {
+    background: url("../images/badge-builder-orange.png") no-repeat scroll 0 0 rgba(0, 0, 0, 0);
+    height: 44px;
+    padding: 5px 5px 0 48px;
+    width: 70px;
+}
+#bb-icon:hover, #bb-icon:focus {
+    background: url("../images/badge-builder-orange-action.png") no-repeat scroll 0 0 rgba(0, 0, 0, 0);
+}
+#dl-icon {
+    background: url("../images/downloads-orange.png") no-repeat scroll 0 0 rgba(0, 0, 0, 0);
+    height: 42px;
+    padding: 5px 5px 0 56px;
+    width: 80px;
+}
+#dl-icon:hover, #dl-icon:focus {
+    background: url("../images/downloads-orange-action.png") no-repeat scroll 0 0 rgba(0, 0, 0, 0);
+}
+#sticker-icon {
+    background: url("../images/free-stickers-orange.png") no-repeat scroll 0 0 rgba(0, 0, 0, 0);
+    height: 45px;
+    padding: 5px 5px 0 52px;
+    width: 66px;
+}
+#sticker-icon:hover, #sticker-icon:focus {
+    background: url("../images/free-stickers-orange-action.png") no-repeat scroll 0 0 rgba(0, 0, 0, 0);
+}
+#gear-icon {
+    background: url("../images/gear-orange.png") no-repeat scroll 0 0 rgba(0, 0, 0, 0);
+    height: 47px;
+    padding: 5px 5px 0 72px;
+    width: 62px;
+}
+#gear-icon:hover, #gear-icon:focus {
+    background: url("../images/gear-orange-action.png") no-repeat scroll 0 0 rgba(0, 0, 0, 0);
+}
+#submit-icon {
+    background: url("../images/submit-icon.png") no-repeat scroll 0 0 rgba(0, 0, 0, 0);
+    height: 45px;
+    padding: 5px 5px 0 56px;
+    width: 62px;
+}
+#submit-icon:hover, #submit-icon:focus {
+    background: url("../images/submit-icon-action.png") no-repeat scroll 0 0 rgba(0, 0, 0, 0);
+}
+#gallery-icon {
+    background: url("../images/gallery-icon.png") no-repeat scroll 0 0 rgba(0, 0, 0, 0);
+    height: 47px;
+    padding: 5px 5px 0 56px;
+    width: 80px;
+}
+#gallery-icon:hover, #gallery-icon:focus {
+    background: url("../images/gallery-icon-action.png") no-repeat scroll 0 0 rgba(0, 0, 0, 0);
+}
+#the-technology {
+    clear: both;
+    margin: 0 auto;
+}
+#the-current-class {
+    background: none repeat scroll 0 0 #000000;
+    float: left;
+    height: 370px;
+    margin: 0 10px 10px 0;
+    position: relative;
+    width: 495px;
+}
+.ielt8 #the-current-class {
+    display: none;
+}
+#the-technology-overview {
+    background: none repeat scroll 0 0 #FFFFFF;
+    float: left;
+    margin: 0;
+    width: 447px;
+}
+#semantics-header, #offline-storage-header, #device-access-header, #connectivity-header, #multimedia-header, #threed-effects-header, #performance-integration-header, #css3-styling-header {
+    left: 0;
+    position: absolute;
+    top: 0;
+}
+#the-classes {
+    float: left;
+    margin: 0 9px 0 0;
+    width: 495px;
+}
+.ielt8 #the-classes {
+    display: none;
+}
+#the-classes-right {
+    float: left;
+    width: 496px;
+}
+#the-classes ul {
+    float: left;
+    margin: 0;
+    position: relative;
+}
+#the-classes li {
+    background: none repeat scroll 0 0 #FFFFFF;
+    display: block;
+    float: left;
+    height: 116.25px;
+    margin: 0 10px 10px 0;
+    width: 116.25px;
+}
+.ie8 #the-classes li {
+    overflow: hidden;
+}
+#the-classes li.class-end {
+    margin-right: 0;
+}
+#the-classes li a {
+    background-image: url("../images/icons-2.png");
+    display: block;
+    height: 116px;
+    left: 0;
+    margin-right: -20px;
+    overflow: hidden;
+    padding-right: 20px;
+    position: relative;
+    top: 0;
+    width: 116px;
+    z-index: 0;
+}
+#the-classes li a:focus {
+    outline: 0 none;
+}
+#the-classes li a.active {
+    background-color: #0092BE;
+    z-index: 600;
+}
+#the-classes li a.active span {
+    background-image: url("../images/icon-right.png");
+    display: block;
+    height: 116px;
+    left: 0;
+    position: absolute;
+    top: 0;
+    width: 136px;
+}
+#semantics-icon:hover, #semantics-icon:focus {
+    background-position: 0 -116px;
+    outline: 0 none;
+}
+#semantics-icon.active {
+    background-position: 0 -232px;
+}
+#offline-storage-icon {
+    background-position: -116px 0;
+}
+#offline-storage-icon:hover, #offline-storage-icon:focus {
+    background-position: -116px -116px;
+    outline: 0 none;
+}
+#offline-storage-icon.active {
+    background-position: -116px -232px;
+}
+#device-access-icon {
+    background-position: -232px 0;
+}
+#device-access-icon:hover, #device-access-icon:focus {
+    background-position: -232px -116px;
+    outline: 0 none;
+}
+#device-access-icon.active {
+    background-position: -232px -232px;
+}
+#connectivity-icon {
+    background-position: -348px 0;
+}
+#connectivity-icon:hover, #connectivity-icon:focus {
+    background-position: -348px -116px;
+    outline: 0 none;
+}
+#connectivity-icon.active {
+    background-position: -348px -232px;
+}
+#multimedia-icon {
+    background-position: -464px 0;
+}
+#multimedia-icon:hover, #multimedia-icon:focus {
+    background-position: -464px -116px;
+    outline: 0 none;
+}
+#multimedia-icon.active {
+    background-position: -464px -232px;
+}
+#threed-effects-icon {
+    background-position: -580px 0;
+}
+#threed-effects-icon:hover, #threed-effects-icon:focus {
+    background-position: -580px -116px;
+    outline: 0 none;
+}
+#threed-effects-icon.active {
+    background-position: -580px -232px;
+}
+#performance-integration-icon {
+    background-position: -696px 0;
+}
+#performance-integration-icon:hover, #performance-integration-icon:focus {
+    background-position: -696px -116px;
+    outline: 0 none;
+}
+#performance-integration-icon.active {
+    background-position: -696px -232px;
+}
+#css3-styling-icon {
+    background-position: -812px 0;
+}
+#css3-styling-icon:hover, #css3-styling-icon:focus {
+    background-position: -812px -116px;
+    outline: 0 none;
+}
+#css3-styling-icon.active {
+    background-position: -812px -232px;
+}
+.class-description {
+    background: none repeat scroll 0 0 #FFFFFF;
+    float: left;
+    min-height: 194px;
+    padding: 24px;
+    position: relative;
+    width: 447px;
+}
+.ielt8 .class-description {
+    float: none;
+    height: 1100px;
+    position: static;
+    width: auto;
+}
+.ielt8 .class-description div {
+    display: block !important;
+    position: static !important;
+    width: auto !important;
+}
+.class-description > div {
+    background: none repeat scroll 0 0 #FFFFFF;
+}
+
+
+
+.class-description h2 {
+    border-bottom: 1px solid #B8B8B8;
+    font-family: "museo-sans-1",'Trebuchet MS',sans-serif;
+    font-size: 18px;
+    font-weight: 100;
+    line-height: 24px;
+    margin: 0 0 20px;
+    padding: 0 0 20px;
+}
+.class-description p {
+    font-size: 16px;
+    line-height: 20px;
+}
+.class-number-icon {
+    color: #0092BF;
+    float: right;
+    font-size: 19px;
+    font-weight: bold;
+    line-height: 24px;
+    margin: 0;
+}
+.class-number-icon img {
+    margin: 0 0 0 16px;
+}
+#semantics-desc, #offline-storage-desc, #device-access-desc, #connectivity-desc, #multimedia-desc, #threed-effects-desc, #performance-integration-desc, #css3-styling-desc {
+    left: 0;
+    margin: 24px;
+    position: absolute;
+    top: 0;
+    width: 447px;
+}
+#the-technology-overview {
+    border-bottom: 10px solid #D9D9D9;
+    height: 322px;
+    padding: 24px;
+}
+.ielt8 #the-technology-overview {
+    float: none;
+    height: auto;
+    position: relative;
+    width: auto;
+    z-index: 2;
+}
+#the-technology-overview h2 {
+    color: #F14A29;
+    font-size: 70px;
+    margin: 0 0 26px;
+}
+.no-fontface #the-technology-overview h2 {
+    font-size: 50px;
+}
+#the-technology-overview p {
+    font-size: 19px;
+    line-height: 26px;
+    margin: 0 0 26px;
+}
+
+
+
+/* Clearfix */
+
+.cleared {
+    clear: both;
+}
+.clear-left {
+    clear: left;
+}
+.clearfix:before, .clearfix:after {
+    content: " ";
+    display: block;
+    height: 0;
+    visibility: hidden;
+}
+.clearfix:after {
+    clear: both;
+}
+.clearfix {
+}
+*::-moz-selection {
+    background: none repeat scroll 0 0 #F14A29;
+    color: #FFFFFF;
+    text-shadow: none;
+}
