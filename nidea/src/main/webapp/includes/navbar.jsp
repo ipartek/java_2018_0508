@@ -1,6 +1,7 @@
 
     <nav class="navbar navbar-expand-md navbar-dark bg-dark mb-4">
-      <a class="navbar-brand" href="#">Top navbar</a>
+    
+      <img class="navbar-brand" alt="" src="imagenes/logo.png" width="100px">
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
@@ -41,8 +42,9 @@
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
         	<a class="dropdown-item" href="login.jsp">Login</a>
         	<a class="dropdown-item" href="registroUsuarios.jsp">Registro de Usuario</a>
-          	<a class="dropdown-item" href="formulario.jsp">Formulario</a>
+          	<a class="dropdown-item" href="formulario">Formulario</a>
           	<a class="dropdown-item" href="listadoProducto.jsp">Listado de Productos</a>
+          	<a class="dropdown-item" href="listadoUsuarios.jsp">Listado de Usuarios</a>
       		
       		
         </div>

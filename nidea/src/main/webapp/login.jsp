@@ -2,21 +2,12 @@
 <%@include file="includes/header.jsp" %>
 <%@include file="includes/navbar.jsp" %>
 
- <main role="main" class="container">
+ <main role="main" class="container" >
 		<h1>LOGIN</h1>
 		<p class="font-italic text-secondary">Los campos con * son obligatorios</p>
 		
 		<form action="login" method="post">
 		
-	<!-- .form-nombre -->	
-		<div class="form-row">
-			<div class="col">
-		 		<div class="form-group">
-		 			<label for="nombre" class="obligatorio">Nombre:</label>
-					<input type="text" name="nombre" autofocus class="form-control" required placeholder="Nombre" tabindex="1">				
-				</div>	
-			</div>	
-		</div>
 		
 	<!-- .form-password -->	
 		<div class="form-row">
@@ -39,15 +30,8 @@
 	</div>
 	
 	<div class="form-group">
-				<input type="submit" value="Nueva Alta" class="btn btn-primary btn-block">
+				<input type="submit" value="Entrar" class="btn btn-primary btn-block">
 			</div>			
-			
-			
-			
-			
-			
-			
-				
 		</form>
 		
 		

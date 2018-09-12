@@ -75,18 +75,7 @@
 				<input type="submit" value="Nueva Alta" class="btn btn-primary btn-block">
 			</div>
 			
-			<!-- .Editar -->
 			
-			<div class="form-group">
-				<input type="submit" value="Editar" class="btn btn-primary btn-block">
-			</div>
-				
-			<!-- .Eliminar -->
-			
-			<div class="form-group">
-				<input type="submit" value="Eliminar" class="btn btn-primary btn-block">
-			</div>	
-				
 		</form>
 		
 		
