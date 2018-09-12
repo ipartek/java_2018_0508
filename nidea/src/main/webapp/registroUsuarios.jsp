@@ -13,8 +13,8 @@
 		<div class="form-row">
 			<div class="col">
 		 		<div class="form-group">
-		 			<label for="nombre" class="obligatorio">Nombre:</label>
-					<input type="text" name="nombre" autofocus class="form-control" required placeholder="Nombre" tabindex="1">				
+		 			<label for="nombre" class="obligatorio"> * Nombre:</label>
+					<input type="text" name="nombre" autofocus class="form-control" required placeholder="Minimo 4 caracteres">				
 				</div>	
 			</div>	
 		</div>
@@ -23,8 +23,8 @@
 		<div class="form-row">
 			<div class="col">
 				<div class="form-group">
-					<label for="password" class="obligatorio">Password:</label>
-					<input type="password" name="password" autofocus class="form-control" required placeholder="Password" tabindex="1">	
+					<label for="password" class="obligatorio"> * Contraseña:</label>
+					<input type="password" name="password" autofocus class="form-control" required placeholder="Minimo 8 caracteres"  minlength="5" maxlength="10">	
 			</div>
 		</div>	
 	</div>	
@@ -33,8 +33,8 @@
 		<div class="form-row">
 			<div class="col">
 				<div class="form-group">
-					<label for="password" class="obligatorio">Repetir Password:</label>
-					<input type="password" name="password" autofocus class="form-control" required placeholder="Password" tabindex="1">	
+					<label for="password" class="obligatorio"> * Vuelve a insertar la contraseña:</label>
+					<input type="password" name="password" autofocus class="form-control" required placeholder="Minimo 8 catacteres" minlength="5">	
 			</div>
 		</div>	
 	</div>	
@@ -44,8 +44,8 @@
 		<div class="form-row">
 			<div class="col">
 				<div class="form-group">
-					<label for="email" class="obligatorio">Email:</label>
-					<input type="email" name="email" autofocus class="form-control" required placeholder="Email" tabindex="1">	
+					<label for="email" class="obligatorio"> * Email:</label>
+					<input type="email" name="email" autofocus class="form-control" required placeholder="nidea@hotmail.com" tabindex="1">	
 			</div>
 		</div>	
 	</div>

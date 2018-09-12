@@ -1,6 +1,9 @@
+
+@import url("navbar.css");
 /*
 *  Estilos Propios
 */
+
 
 body{
 	background-color: #F8F9FA;
@@ -63,4 +66,5 @@ label .obligatorio:before{
 	content: "*";	
     padding-right: 3px;
 }
+
 

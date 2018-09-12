@@ -25,7 +25,7 @@
 			<div class="col">
 				<div class="form-group">
 					<label for="password" class="obligatorio">*Contraseña:</label>
-					<input type="password" name="password" autofocus class="form-control" required placeholder="Minimo 5 caracteres y Maximo 10 caracteres" tabindex="1"  minlength="5" maxlength="10">	
+					<input type="password" name="password" autofocus class="form-control" required placeholder="Escribe Contraseña" tabindex="1"  minlength="5" maxlength="10">	
 			</div>
 		</div>	
 	</div>	
