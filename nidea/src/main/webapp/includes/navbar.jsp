@@ -1,5 +1,4 @@
-  
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+   <nav class="navbar navbar-expand-lg navbar-light bg-light">
   <a class="navbar-brand" href="index.jsp"><img src="images/Nikea.png" class="logo"></a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
@@ -35,18 +34,19 @@
           Pantallas
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <a class="dropdown-item" href="formulario">Formulario</a>
-          <a class="dropdown-item" href="loggin.jsp">Loggin</a>
-          <a class="dropdown-item" href="listado.jsp">Listado</a>
-          <a class="dropdown-item" href="listadoback.jsp">Listado Back</a>
+          <a class="dropdown-item" href="login.jsp">Login</a>
           <a class="dropdown-item" href="nuevousuario.jsp">Nuevo usuario</a>
+          <a class="dropdown-item" href="formulario">Formulario</a>
+          <a class="dropdown-item" href="listadoback.jsp">Listado</a>
+          <a class="dropdown-item" href="listado.jsp">Listado Back</a>
+          
         </div>
       </li>
       
     </ul>
     <form class="form-inline my-2 my-lg-0">
-      <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+      <input class="form-control mr-sm-2" type="search" placeholder="Buscar" aria-label="Search">
+      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Buscar</button>
     </form>
   </div>
 </nav>

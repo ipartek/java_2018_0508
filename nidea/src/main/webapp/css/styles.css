@@ -7,10 +7,18 @@ width:50px;
 height:50px;	
 	
 }	
+
+.myCanvas{
+	position: relative;
+	 top: 15px;
+    right: -250px;
+}
 .card-custom-header{
 	position: relative;
 }
-
+.col{
+	padding-bottom:10px;
+}
 .card .badge{
 	position: absolute;
     bottom: 10px;
@@ -38,9 +46,6 @@ position: absolute;
    background-color: #FFF;
    border-top: none;
 }
-* { padding: 0; margin: 0; }
-    	canvas { background: #eee; display: block; margin: 0 auto; 
-  }
 
 label.obligatorio:before{
 	content:"*";

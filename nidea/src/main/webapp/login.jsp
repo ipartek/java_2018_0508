@@ -6,22 +6,22 @@
 <main class="container" role="main">
 	<div class="row justify-content-center">
 		<div class="col col-md-6">
-			<h1><i class="fas fa-users"></i> Loggin</h1>
+			<h1><i class="fas fa-users"></i> Login</h1>
 			<form>
 	  		<div class="form-group">
 	    		<label for="usuario">Usuario</label>
-	    		<input type="email" class="form-control" id="usuario" aria-describedby="emailHelp" placeholder="nombre@email.com">
+	    		<input type="email" class="form-control" id="usuario" aria-describedby="emailHelp" autofocus class="form-control" placeholder="Ejemplo: nombre@gmail.com">
 	    		<small id="emailHelp" class="form-text text-muted">El usuario es el correo electronico.</small>
 	  		</div>
 	  		<div class="form-group">
 	    		<label for="pass">Contraseña</label>
-	    		<input type="password" class="form-control" id="pass" placeholder="Password">
+	    		<input type="password" class="form-control" id="pass" placeholder="Escriba 6 caracteres">
 	  		</div>
 	  		<div class="form-group form-check">
 	    		<input type="checkbox" class="form-check-input" id="exampleCheck1">
-	    		<label class="form-check-label" for="exampleCheck1">Conectarse</label>
+	    		<label class="form-check-label" for="exampleCheck1">Recordar usuario</label>
 	  		</div>
-	  		<button type="submit" class="btn btn-primary">Submit</button>
+	  		<button type="submit" class="btn btn-primary btn-lg btn-block">Iniciar sesión</button>
 			</form>
 		</div>
 	</div>

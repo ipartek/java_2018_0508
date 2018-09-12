@@ -6,7 +6,7 @@
     <h1 class="text-center font-weight-light text-primary">Arkanoid Canvas Game</h1>
     <div class="row justify-content-center">
     	<div class="col-12 mb-3">
-    		<canvas id="myCanvas" width="480" height="320"></canvas>
+    		<canvas class="myCanvas" id="myCanvas" width="480" height="320"></canvas>
 
 			<script src="js/arkanoid.js"></script>
 		</div>
