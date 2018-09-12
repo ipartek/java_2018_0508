@@ -12,22 +12,16 @@
 			<div class="row justify-content-center">
 				<div class="col  col-md-5">
 				 
-				 		<label for="nombre" class="required obligatorio">Nombre:</label>
-						<input type="text" name="nombre" autofocus class="form-control" required placeholder="Nombre" tabindex="1">				
+				 		<label for="nombre" class="required obligatorio" >Nombre:</label>
+						<input type="text" name="nombre" autofocus class="form-control"  minlength="4" maxlength="15"required  placeholder="Nombre" tabindex="1">				
 					
 			
 			
 				
 					
 						<label for="pass" class="obligatorio">Contraseña:</label>			
-						<input type="password" name="pass" class="form-control" required placeholder="Introduce la contraseña">
-					
-				
+						<input type="password" name="pass" class="form-control" minlength="8" maxlength="20"required placeholder="Introduce la contraseña">
 		
-						
-							<label for="pass2" class="obligatorio"> Repite la contraseña:</label>			
-							<input type="password" name="pass2" class="form-control" required placeholder="Introduce de nuevo tu caontraseña">
-					
 				
 				
 					

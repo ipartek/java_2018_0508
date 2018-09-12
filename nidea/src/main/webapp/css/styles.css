@@ -42,6 +42,13 @@ canvas {
 	margin: 0 auto; 
 }
 
+.card-deck{
+	margin-top:20px;
+	display:flex;
+	flex-wrap: wrap;
+	flex-direction: row;
+	
+}
 .card-custom-header{
 	position: relative;
 }
@@ -97,5 +104,15 @@ label .obligatorio:before{
 	margin-top: 10px;
 	
 }
+.form-check-input{
+	margin-left: 28px;
+}
 
+.odd.form-check-input:checked{
+	
+	background-color: red;
+}
 
+input:invalid{
+  background:#fc5353;
+}

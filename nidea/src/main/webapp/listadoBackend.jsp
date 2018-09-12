@@ -1,64 +1,201 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@page import="com.ipartek.formacion.nidea.pojo.Producto"%>
-<%@page import="java.util.ArrayList"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <%@include file="includes/header.jsp" %>
 <%@include file="includes/navbar.jsp" %>
-<%
-ArrayList <Producto> lista = new ArrayList<Producto>();
-lista.add(new Producto("Mesa","M0","Basura",false,25.0f));
-lista.add(new Producto("Silla","S0","Banco",true,45.0f));
-lista.add(new Producto("Cama","C0","Nido",false,65.0f));
-lista.add(new Producto("Sofa","SO0","Cuero",true,265.55f));
-%>
+<link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.css">
 
-
-
-<main role="main" class="container">
-	<table class="table table-striped">
-  <thead>
-    <tr>
-      <th scope="col">id</th>
-      <th scope="col">Codigo</th>
-      <th scope="col">Nombre</th>
-      <th scope="col">Descripcion</th>
-      <th scope="col">Oferta</th>
-    </tr>
-  </thead>
-  <tbody>
-<!-- <% for (Producto p: lista){%>
-  
-  <tr>
-  	<th scope="row">0</th>
-  	  <td><%p.getCodigo(); %></td>
-      <td><%p.getNombre(); %></td>
-      <td><%p.getDescripcion(); %></td>
-  <%} %> -->  
-    <tr>
-      <th scope="row">1</th>
-      <td>Mark</td>
-      <td>Otto</td>
-      <td>@mdo</td>
-      <td><input type="checkbox" name="oferta" class="form-control" tabindex="2"></td>
-    </tr>
-    <tr>
-      <th scope="row">2</th>
-      <td>Jacob</td>
-      <td>Thornton</td>
-      <td>@fat</td>
-       <td><input type="checkbox" name="oferta" class="form-control" tabindex="2"></td>
-    </tr>
-    <tr>
-      <th scope="row">3</th>
-      <td>Larry</td>
-      <td>the Bird</td>
-      <td>@twitter</td>
-       <td><input type="checkbox" name="oferta" class="form-control" tabindex="2"></td>
-    </tr>
-  </tbody>
-</table>
-
-</main>
-
-
-
+	<main class="container" role="main">
+		<h1 class="text-center">Listado de Productos</h1>
+		
+		<table id="example" class="display" style="width:100%">
+        <thead>
+            <tr>
+                <th>id</th>
+                <th>Código</th>
+                <th>Nombre</th>
+                <th>Descripción</th>
+                <th>Precio</th>
+                <th>Oferta</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>0</td>
+                <td>M0</td>
+                <td>Mesa</td>
+                <td>bslblsblsblsblslbslblsblsblslbslblsblslbslblsblslblsblslblsblsblslblsblsblslbl</td>
+                <td>61&euro;</td>
+                <td><input class="form-check-input position-static" type="checkbox" id="blankCheckbox" value="option1" aria-label="..."></td>
+            </tr>
+            <tr>
+                <td>1</td>
+                <td>S0</td>
+                <td>Sofá</td>
+                <td>El mejor sofá around the world</td>
+                <td>250&euro;</td>
+                <td><input class="form-check-input position-static" type="checkbox" id="blankCheckbox" value="option1" aria-label="..."></td>
+            </tr>
+            <tr>
+                <td>2</td>
+                <td>M0</td>
+                <td>Mesa</td>
+                <td>bslblsblsblsblslbslblsblsblslbslblsblslbslblsblslblsblslblsblsblslblsblsblslbl</td>
+                <td>61&euro;</td>
+                <td><input class="form-check-input position-static" type="checkbox" id="blankCheckbox" value="option1" aria-label="..."></td>
+            </tr>
+            <tr>
+                <td>3</td>
+                <td>S0</td>
+                <td>Sofá</td>
+                <td>El mejor sofá around the world</td>
+                <td>250&euro;</td>
+                <td><input class="form-check-input position-static" type="checkbox" id="blankCheckbox" value="option1" aria-label="..."></td>
+            </tr>
+            <tr>
+                <td>4</td>
+                <td>M0</td>
+                <td>Mesa</td>
+                <td>bslblsblsblsblslbslblsblsblslbslblsblslbslblsblslblsblslblsblsblslblsblsblslbl</td>
+                <td>61&euro;</td>
+                <td><input class="form-check-input position-static" type="checkbox" id="blankCheckbox" value="option1" aria-label="..."></td>
+            </tr>
+            <tr>
+                <td>5</td>
+                <td>S0</td>
+                <td>Sofá</td>
+                <td>El mejor sofá around the world</td>
+                <td>250&euro;</td>
+                <td><input class="form-check-input position-static" type="checkbox" id="blankCheckbox" value="option1" aria-label="..."></td>
+            </tr>
+            <tr>
+                <td>6</td>
+                <td>M0</td>
+                <td>Mesa</td>
+                <td>bslblsblsblsblslbslblsblsblslbslblsblslbslblsblslblsblslblsblsblslblsblsblslbl</td>
+                <td>61&euro;</td>
+                <td><input class="form-check-input position-static" type="checkbox" id="blankCheckbox" value="option1" aria-label="..."></td>
+            </tr>
+            <tr>
+                <td>7</td>
+                <td>S0</td>
+                <td>Sofá</td>
+                <td>El mejor sofá around the world</td>
+                <td>250&euro;</td>
+                <td><input class="form-check-input position-static" type="checkbox" id="blankCheckbox" value="option1" aria-label="..."></td>
+            </tr>
+            <tr>
+                <td>8</td>
+                <td>M0</td>
+                <td>Mesa</td>
+                <td>bslblsblsblsblslbslblsblsblslbslblsblslbslblsblslblsblslblsblsblslblsblsblslbl</td>
+                <td>61&euro;</td>
+                <td><input class="form-check-input position-static" type="checkbox" id="blankCheckbox" value="option1" aria-label="..."></td>
+            </tr>
+            <tr>
+                <td>9</td>
+                <td>S0</td>
+                <td>Sofá</td>
+                <td>El mejor sofá around the world</td>
+                <td>250&euro;</td>
+                <td><input class="form-check-input position-static" type="checkbox" id="blankCheckbox" value="option1" aria-label="..."></td>
+            </tr>
+           <tr>
+                <td>10</td>
+                <td>M0</td>
+                <td>Mesa</td>
+                <td>bslblsblsblsblslbslblsblsblslbslblsblslbslblsblslblsblslblsblsblslblsblsblslbl</td>
+                <td>61&euro;</td>
+                <td><input class="form-check-input position-static" type="checkbox" id="blankCheckbox" value="option1" aria-label="..."></td>
+            </tr>
+            <tr>
+                <td>1</td>
+                <td>S0</td>
+                <td>Sofá</td>
+                <td>El mejor sofá around the world</td>
+                <td>250&euro;</td>
+                <td><input class="form-check-input position-static" type="checkbox" id="blankCheckbox" value="option1" aria-label="..."></td>
+            </tr>
+            <tr>
+                <td>0</td>
+                <td>M0</td>
+                <td>Mesa</td>
+                <td>bslblsblsblsblslbslblsblsblslbslblsblslbslblsblslblsblslblsblsblslblsblsblslbl</td>
+                <td>61&euro;</td>
+                <td><input class="form-check-input position-static" type="checkbox" id="blankCheckbox" value="option1" aria-label="..."></td>
+            </tr>
+            <tr>
+                <td>1</td>
+                <td>S0</td>
+                <td>Sofá</td>
+                <td>El mejor sofá around the world</td>
+                <td>250&euro;</td>
+                <td><input class="form-check-input position-static" type="checkbox" id="blankCheckbox" value="option1" aria-label="..."></td>
+            </tr>
+            <tr>
+                <td>0</td>
+                <td>M0</td>
+                <td>Mesa</td>
+                <td>bslblsblsblsblslbslblsblsblslbslblsblslbslblsblslblsblslblsblsblslblsblsblslbl</td>
+                <td>61&euro;</td>
+                <td><input class="form-check-input position-static" type="checkbox" id="blankCheckbox" value="option1" aria-label="..."></td>
+            </tr>
+            <tr>
+                <td>1</td>
+                <td>S0</td>
+                <td>Sofá</td>
+                <td>El mejor sofá around the world</td>
+                <td>250&euro;</td>
+                <td><input class="form-check-input position-static" type="checkbox" id="blankCheckbox" value="option1" aria-label="..."></td>
+            </tr>
+           <tr>
+                <td>0</td>
+                <td>M0</td>
+                <td>Mesa</td>
+                <td>bslblsblsblsblslbslblsblsblslbslblsblslbslblsblslblsblslblsblsblslblsblsblslbl</td>
+                <td>61&euro;</td>
+                <td><input class="form-check-input position-static" type="checkbox" id="blankCheckbox" value="option1" aria-label="..."></td>
+            </tr>
+            <tr>
+                <td>1</td>
+                <td>S0</td>
+                <td>Sofá</td>
+                <td>El mejor sofá around the world</td>
+                <td>250&euro;</td>
+                <td><input class="form-check-input position-static" type="checkbox" id="blankCheckbox" value="option1" aria-label="..."></td>
+            </tr>
+            <tr>
+                <td>0</td>
+                <td>M0</td>
+                <td>Mesa</td>
+                <td>bslblsblsblsblslbslblsblsblslbslblsblslbslblsblslblsblslblsblsblslblsblsblslbl</td>
+                <td>61&euro;</td>
+                <td><input class="form-check-input position-static" type="checkbox" id="blankCheckbox" value="option1" aria-label="..."></td>
+            </tr>
+            <tr>
+                <td>1</td>
+                <td>S0</td>
+                <td>Sofá</td>
+                <td>El mejor sofá around the world</td>
+                <td>250&euro;</td>
+                <td><input class="form-check-input position-static" type="checkbox" id="blankCheckbox" value="option1" aria-label="..."></td>
+            </tr>
+            
+        </tbody>
+        <tfoot>
+            <tr>
+                <th>Id</th>
+                <th>Código</th>
+                <th>Nombre</th>
+                <th>Descripción</th>
+                <th>Precio</th>
+                <th>Oferta</th>
+            </tr>
+        </tfoot>
+    </table>
+			
+		
+	</main>
+	
+		
+	
 <%@include file="includes/footer.jsp" %>
