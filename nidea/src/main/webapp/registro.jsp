@@ -12,30 +12,31 @@
              <form>
               <div class="form-group">
 			    <label class="requiered" for="nombre">Nombre</label>
-                        <input name="nombre" type="text" class="form-control" requiered tabindex="3" placeholder="nombre">
+                        <input name="nombre" type="text" class="form-control" requiered placeholder="nombre de usuario" autofocus>
 			  </div>
 			  <div class="form-group">
 			     <label class="requiered" for="apellidos">Apellidos</label>
-                 <input name="apellidos" type="number" class="form-control" requiered tabindex="4" placeholder="apellidos">
+                 <input name="apellidos" type="number" class="form-control" requiered placeholder="apellidos del usuario">
 			  </div>
 			  <div class="form-group">
-			    <label class="requiered" for="username">Nombre de usuario</label>
-                <input name="username" type="text" class="form-control" requiered tabindex="3" placeholder="nombre usuario">
+			    <label class="requiered" for=mail>Email</label>
+			    <input type="email" class="form-control" name="mail" aria-describedby="emailHelp" placeholder="ejemplo@dominio.com">
 			  </div>
 			  <div class="form-group">
-			    <label for=mail>Email address</label>
-			    <input type="email" class="form-control" name="mail" aria-describedby="emailHelp" placeholder="Enter email">
+			    <label class="requiered" for="password">Contraseña</label>
+			    <input type="password" class="form-control" name="password" placeholder="Mínimo 6 caracteres" onkeyup="validate()">
 			  </div>
 			  <div class="form-group">
-			    <label for="password">Password</label>
-			    <input type="password" class="form-control" name="password" placeholder="Password">
+			    <label class="requiered" for="passwordrep">Repetir contraseña</label>
+			    <input type="password" class="form-control" name="passwordrep" placeholder="Repetir la contraseña anterior" onkeyup="validate()">
 			  </div>
 			 
-			  <button type="submit" class="btn btn-primary btn-lg btn-block">Submit</button>
+			  <button type="submit" class="btn btn-primary btn-lg btn-block">Enviar</button>
 			</form>
         </div>
 
     </div>
 </main>
+
 
 <%@ include file="includes/footer.jsp" %>

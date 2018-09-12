@@ -32,14 +32,14 @@ index-page .card-footer {
 }
 
 /* Formulario */
-#formulario-page .container form .oferta{
+#formulario-page form .oferta{
     justify-content: flex-end;
     display: flex;
     align-items: center;
     flex-direction: column-reverse;
 }
 
-#formulario-page .container form .oferta input {
+#formulario-page form .oferta input {
     margin: 0 10px;
     width: 25px;
     height: 25px;
@@ -69,7 +69,7 @@ index-page .card-footer {
     font-size: 1.3em;
 }
 
-#formulario-page label.requiered:before{
+#formulario-page label.requiered:before, #registro-page label.requiered:before {
 	content:"*";
 }
 
@@ -89,5 +89,16 @@ index-page .card-footer {
 	background-color: #eee;
     padding: 25px 20px;
     border: 1px solid #ddd;
+}
+
+.error{
+	border: 1px solid #ff0000!important;
+	
+}
+
+.form-control:focus.error{
+	
+	box-shadow: 0 0 0 0.2rem rgba(255, 0, 0, 0.25);
+	
 }
 

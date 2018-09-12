@@ -10,14 +10,14 @@
             <h1 class="text-center text-primary font-weight-light">Login</h1>
             <form>
 			  <div class="form-group">
-			    <label for=mail>Email address</label>
-			    <input type="email" class="form-control" name="mail" aria-describedby="emailHelp" placeholder="Enter email">
+			    <label for=mail>Email</label>
+			    <input type="email" class="form-control" name="mail" aria-describedby="emailHelp" placeholder="ejemplo@dominio.com" autofocus>
 			  </div>
 			  <div class="form-group">
-			    <label for="password">Password</label>
-			    <input type="password" class="form-control" name="password" placeholder="Password">
+			    <label for="password">Contraseña</label>
+			    <input type="password" class="form-control" name="password" placeholder="Mínimo 6 caracteres">
 			  </div>
-			  <button type="submit" class="btn btn-primary btn-lg btn-block">Submit</button>
+			  <button type="submit" class="btn btn-primary btn-lg btn-block">Enviar</button>
 			</form>
 
         </div>

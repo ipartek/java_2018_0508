@@ -8,7 +8,7 @@
 	<div class="row">
 	 <div class="col-12 mb-3">
 		<h1 class="text-center text-primary font-weight-light">Listado de Productos</h1>
-		<table id="example" class="table table-striped table-bordered" style="width:100%">
+		<table id="tabla-dashboard" class="table table-striped table-bordered" style="width:100%">
         <thead>
             <tr>
                 <th>Name</th>
@@ -86,11 +86,8 @@
 	
  </div>
 </main>
-<script>
-		$(document).ready(function() {
-		    $('#example').DataTable();
-		} );
-</script>
 
+
+ 		
 
 <%@ include file="includes/footer.jsp" %>
