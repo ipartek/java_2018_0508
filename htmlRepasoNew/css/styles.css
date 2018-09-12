@@ -1,0 +1,38 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+
+h1{
+    font-family: 'Gamja Flower', cursive;
+   font-size: 20mm;
+   text-align: center;
+}
+
+#cuerpo{
+    width: 457px;
+    margin-bottom: -151px;
+    display: block;
+    margin: auto;
+    
+}
+
+#cuerpo img{
+    width: 457px;
+    margin-bottom: -151px;
+    display: block;
+    margin: auto;
+   
+}
+
+#cuerpo p{
+    font-family: 'Gamja Flower', cursive;
+   font-size: 20mm;
+   text-align: left;
+
+
+}
+
+#cuerpo a.icono{
+    float: right;
+}
