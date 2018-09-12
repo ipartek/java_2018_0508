@@ -34,7 +34,7 @@
 			
 				<div class="card" style="width: 18rem;">
 				
-					<div class="card-header">
+					<div class="card-header cabecera-carta">
 					
 				  		<img class="card-img-top" src="http://www.boss-development.biz/sites/default/files/bootstrap-02.png" alt="Bootstrap components image cap">
 				  
@@ -55,7 +55,7 @@
 			
 				<div class="card" style="width: 18rem;">
 				
-					<div class="card-header">
+					<div class="card-header cabecera-carta">
 					
 				  		<img class="card-img-top" src="https://www.classicgame.com/uploaded/thumb/arkanoid-mx300.jpg" alt="Arkanoid image cap">
 				  
@@ -74,7 +74,7 @@
 			
 				<div class="card" style="width: 18rem;">
 				
-					<div class="card-header">
+					<div class="card-header cabecera-carta">
 				
 				  		<img class="card-img-top" src="images/form.jpg" alt="Form image cap">
 				  

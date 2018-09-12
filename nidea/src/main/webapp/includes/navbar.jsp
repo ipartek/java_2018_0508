@@ -35,9 +35,6 @@
 				<a class="dropdown-item" href="listado-backend.jsp">Listado backend</a>
 		  </div>
 		  </li>
-          <li class="nav-item">
-            <a class="nav-link" href="alertas.jsp">Alertas</a>
-          </li>
         </ul>
       </div>
     </nav>

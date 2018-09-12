@@ -43,8 +43,7 @@ label.required::before{
 
 .cabecera-carta{
 	padding:0;
-	height:9em;
-	border:none;
+	height:10em;
 }
 
 .fa-gift{
@@ -62,9 +61,16 @@ label.required::before{
 	font-size:1.2em;
 }
 
-#listado-publico-h1{
-	margin-bottom:1em;
+#login-h1{
+	padding-left:0.3em;
 }
+
+#login-small{
+	padding-left:0.8em;
+	margin-bottom:0.7em;
+	font-style:italic;
+}
+
 
 .listado-publico .card-deck{
 	margin-bottom:2em;
@@ -80,5 +86,9 @@ label.required::before{
 	right:10px;
 	height:50px;
 	width:50px;
+}
+
+#listado-h1{
+	margin-bottom:0.7em;
 }
 
