@@ -1,19 +1,24 @@
 package com.ipartek.formacion.nidea.pojo;
 
 public class Usuario {
+	private long id;
 	private String nombre;
 	private String email;
 	private String password;
 	
+	
+	
 	public Usuario() {
 		super();
+		this.id =-1;
 		this.nombre = "";
 		this.email = "";
 		this.password = "";
 	}
 	
-	public Usuario(String nombre, String email, String password) {
+	public Usuario(long id ,String nombre, String email, String password) {
 		this();
+		this.id = id;
 		this.nombre = nombre;
 		this.email = email;
 		this.password = password;
@@ -41,6 +46,14 @@ public class Usuario {
 
 	public void setPassword(String password) {
 		this.password = password;
+	}
+	
+	public long getId() {
+		return id;
+	}
+	
+	public void setId(long id) {
+		this.id = id;
 	}
 
 	@Override

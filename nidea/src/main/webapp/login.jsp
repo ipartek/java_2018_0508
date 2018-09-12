@@ -7,18 +7,19 @@
 
 	<fieldset>
 			<legend>Identificacion de usuarios</legend>
-			<form action="identificacionUsuarioControler" method="post">
+			<form action="LoginUsuariosControler" method="post">
 				<div class="form-group login">
 					<label for="nombreUsuario">Nombre:</label> 
-			        <input type="text" autofocus placeholder="Escribe tu nombre" name="nombreUsuario" required="required" pattern="[a-zA-Z\s]{5,}"/>
+			        <input class="form-control" type="text" autofocus placeholder="Escribe tu nombre" name="nombreUsuario" required="required" pattern="[a-zA-Z\s]{5,}"/>
+			        <span class="invalid" >*El nombre es requerido</span><br>
 			        <br>
 
 			        <label for="passwordusuario">Password:</label>
-			        <input id="pass1" type="password" name="passwordusuario" required="required" placeholder="Introduce su password"/>
+			        <input class="form-control" id="pass1" type="password" name="passUsuario" required="required" placeholder="Introduce su password"/>
 			        <span class="invalid" >*El password es requerido</span><br>
-
+					<input class="form-control" type="submit" value="Enviar" id="enviar"/>
 		        <div>
-		        	<input type="submit" value="Enviar" id="enviar"/>
+		        	
 		        </div>
 		       
 
