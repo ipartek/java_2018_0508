@@ -46,7 +46,7 @@
 	        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
 	          <a class="dropdown-item" href="formulario">Añadir productos</a>
 	          <a class="dropdown-item" href="listarControler">Listar productos(User zone)</a>
-	          <a class="dropdown-item" href="listarControler">Listar productos(Backoffice)</a>
+	          <a class="dropdown-item" href="listarProductosAdmin">Listar productos(Backoffice)</a>
 			
 	          
       </li>

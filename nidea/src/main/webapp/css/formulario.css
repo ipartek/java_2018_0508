@@ -1,5 +1,6 @@
 input:invalid {
   border: 1px solid #CC0000;
+  margin-top:-30px;
 }
 
 input:valid{

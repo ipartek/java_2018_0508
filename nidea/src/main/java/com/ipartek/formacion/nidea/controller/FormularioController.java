@@ -36,18 +36,25 @@ public class FormularioController extends HttpServlet {
 		//LLamar al modelo para recuperar categorias
 		//metodo de recuperar categorias
 		//doGet cuando necesitamos que algo este cargado de ante-mano.
-		ArrayList<Categoria> cats = recuperarCategorias();
-		if(cats != null) {
-			request.setAttribute("categorias", cats);
+		try {
+			ArrayList<Categoria> cats = recuperarCategorias();
+			if(cats != null) {
+				request.setAttribute("categorias", cats);
+				//request.getRequestDispatcher("formulario.jsp").forward(request, response);
+			}
+			String listar = (String) request.getParameter("signal");
+			if("listar".equals(listar)){
+				request.getRequestDispatcher("listar.jsp").forward(request, response);
+				
+			}else {
+				//request.getRequestDispatcher("formulario.jsp").forward(request, response);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}finally {
 			request.getRequestDispatcher("formulario.jsp").forward(request, response);
 		}
-		String listar = (String) request.getParameter("signal");
-		if("listar".equals(listar)){
-			request.getRequestDispatcher("listar.jsp").forward(request, response);
-			
-		}else {
-			request.getRequestDispatcher("formulario.jsp").forward(request, response);
-		}
+		
 		
 		
 	}

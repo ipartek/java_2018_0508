@@ -26,7 +26,7 @@ public class RegistroUsuarioController extends HttpServlet {
 	private static UsuariosDao usuariosDao;
 	private static ArrayList<Usuario> usuarios;
 	private String msg;
-	private static boolean error;
+	private static boolean error = false;
        
     /**
      * @see HttpServlet#HttpServlet()
@@ -70,12 +70,15 @@ public class RegistroUsuarioController extends HttpServlet {
 			boolean errorEmail = comprobarUsuarioEmail(emailUsuario);
 			
 			if (errorPassReg || errorNombre || errorEmail) {
+				error= true;
 				request.setAttribute("msg", msg);
-				request.setAttribute("error", error);
+				
 			}else {
 				id = getIdOnDao();
 				usuariosDao.insert(new Usuario(id,nombreUsuario,emailUsuario,passUsuario));
+				
 				request.setAttribute("nombre", nombreUsuario);
+				
 			}
 			
 			
@@ -83,6 +86,7 @@ public class RegistroUsuarioController extends HttpServlet {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}finally {
+			request.setAttribute("error", error);
 			request.getRequestDispatcher("usuarioBienvenida.jsp").forward(request, response);
 		}
 			

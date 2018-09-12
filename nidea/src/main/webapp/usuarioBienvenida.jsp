@@ -6,10 +6,11 @@
 <%@include file="includes/navbar.jsp" %>
 <h1>Mensaje de registro de usuarios</h1>
 <%
+	
 	String msg = (String) request.getAttribute("msg");
 	boolean error = (boolean) request.getAttribute("error");
 	String nombreUsuario = (String) request.getAttribute("nombre");
-	if (error == false){
+	if (!error){
 		
 	
 %>
@@ -24,7 +25,7 @@
 	
 %>
 <div class="alert alert-danger" role="alert">
-  <h2>Mensaje Error si el registro a sido in	correcto</h2>
+  <h2>Mensaje Error si el registro a sido incorrecto</h2>
   <p>${msg}</p>
   <p>Intentelo de nuevo gracias</p>
 </div>	
