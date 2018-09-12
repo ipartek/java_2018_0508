@@ -11,20 +11,17 @@
 
 	
 	<script>
-	window.addEventListener("load", function(event) {
+	
 		$(document).ready(function() {
 	           // $('#example')==> selecciona un objeto por id="example"
 	           //.DataTable() ==> ejecuta el pluging de datatable
 	            $('#example').DataTable({
-	             "language": {
-	            	 "url": "vendors/datatable/i18n/Spanish.json"
+	             	"language": {
+	            	 	"url": "vendors/datatable/i18n/Spanish.json"
 	             }
 	            });
-	        } );
+	    } );
 
-		
-	});
-		
 	</script>
 	
 	

@@ -10,28 +10,28 @@
             <div class="main-div">
                 <div class="panel">
                     <h2>Login</h2>
-                    </br>
+                    <br>
                 </div>
                 <form action="formulario" method="post"id="Login">
                             
                     <div class="form-group">
                     
                     
-                        <input type="email" class="form-control" id="inputEmail" placeholder="Email" autofocus tabindex="1">
+                        <input type="email" required class="form-control" id="inputEmail" placeholder="Email" autofocus >
                     
                     </div>
                     
                     <div class="form-group">
                     
-                        <input type="password" class="form-control" id="inputPassword" placeholder="********" tabindex="2">
+                        <input type="password"  required class="form-control" minlength=8 maxlength=8 class="inputPassword" placeholder="Contraseña" >
                     
                     </div>
                     <div class="forgot">
-                        <a href="#">¿No recuerdas el password?</a>
+                        <a href="#">¿No recuerdas la contraseña?</a>
                     </div>
                     
               
-                    <input type="submit" value="login" class="btn btn-primary btn-block" tabindex="3">
+                    <input type="submit" value="Entrar" class="btn btn-primary btn-block" >
                     
                 </form>                                
              </div>

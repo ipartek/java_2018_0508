@@ -4,8 +4,8 @@
 
  <main role="main" class="container">
       <div class="jumbotron">
-        <h1>Exemplos</h1>
-        <p class="lead">ejemplos con bootstrap4 y Java Enterprise E Edition.</p>
+        <h1>Ejemplos</h1>
+        <p class="lead text-center"">ejemplos con bootstrap4 y Java Enterprise E Edition.</p>
         
       </div>
       
