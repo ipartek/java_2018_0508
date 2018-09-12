@@ -13,7 +13,7 @@
 				
 				 	<div class="form-group">
 				 		<label for="nombre" class="required obligatorio">Nombre:</label>
-						<input type="text" name="nombre" autofocus class="form-control" minlength="4" maxlength="15"required placeholder="Nombre" tabindex="1">				
+						<input type="text" name="nombre" autofocus class="form-control" minlength="4" maxlength="15"required placeholder="Introduce tu nombre">				
 						
 					</div>
 				
@@ -21,12 +21,12 @@
 				<div class=" form-row">
 						<div class="form-group col">
 								<label for="pass" class="obligatorio">Contraseña:</label>			
-								<input type="password" name="pass" class="form-control" minlength="8" maxlength="20"required placeholder="Introduce la contraseña" tabindex="2">
+								<input type="password" name="pass" class="form-control" minlength="8" maxlength="20"required placeholder="Introduce la contraseña">
 							
 						</div>
 						<div class="form-group col">
 								<label for="pass2" class="obligatorio"> Repite la contraseña:</label>			
-								<input type="password" name="pass2" class="form-control" required placeholder="Introduce de nuevo tu contraseña"tabindex="3">
+								<input type="password" name="pass2" class="form-control" required placeholder="Introduce de nuevo tu contraseña">
 							
 							
 						</div>

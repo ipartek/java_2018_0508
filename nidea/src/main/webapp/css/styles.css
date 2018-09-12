@@ -114,5 +114,5 @@ label .obligatorio:before{
 }
 
 input:invalid{
-  background:#fc5353;
+  border-color:#fc5353;
 }

@@ -13,7 +13,7 @@
 				<div class="col  col-md-5">
 				 
 				 		<label for="nombre" class="required obligatorio" >Nombre:</label>
-						<input type="text" name="nombre" autofocus class="form-control"  minlength="4" maxlength="15"required  placeholder="Nombre" tabindex="1">				
+						<input type="text" name="nombre" autofocus class="form-control"  minlength="4" maxlength="15"required  placeholder="Introduce tu nombre">				
 					
 			
 			
@@ -25,7 +25,7 @@
 				
 				
 					
-						<button type="submit" class="btn btn-outline-primary btn-lg btn-block">Login</button>
+						<button type="submit" class="btn btn-outline-primary btn-lg btn-block">Acceder</button>
 						
 				</div>
 			</div>
