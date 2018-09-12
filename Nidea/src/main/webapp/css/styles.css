@@ -1,3 +1,9 @@
+/*Hoja de estilos principal*/
+
+@import 'navbar.css';
+
+@import url("tablas.css");
+
 body{
     background-color: #F8F9FA;
 }
@@ -79,3 +85,5 @@ a img{
 	width: 3.5em;
     height: 2em;
 }
+
+

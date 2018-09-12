@@ -9,7 +9,6 @@
         <title>NIDEA</title>
         
         <link rel="stylesheet" href="vendors/dataTables/1.10.19/css/jquery.dataTables.min.css">
-  	  	<link rel="stylesheet" href="css/tablas.css">
   	  	
   	  	<link href="vendors/dataTables/2.1.0/css/responsive.dataTables.css" rel="stylesheet" type="text/css" />
         
