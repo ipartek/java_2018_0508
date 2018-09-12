@@ -44,7 +44,7 @@ canvas {
 .required::before{
 	content: "*";
 	padding-right=3em;
-	color: #f8ff26;
+	color: #ff0000;
 }
 
 card-custom-header{
@@ -64,6 +64,5 @@ span.fas.fa-certificate.simbolo {
     
     font-size: 3em;
 }
-
 
 

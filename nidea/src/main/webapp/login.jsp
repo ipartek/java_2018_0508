@@ -17,13 +17,13 @@
                     <div class="form-group">
                     
                     
-                        <input type="email" class="form-control" id="inputEmail" placeholder="Email">
+                        <input type="email" class="form-control" id="inputEmail" placeholder="Email" autofocus tabindex="1">
                     
                     </div>
                     
                     <div class="form-group">
                     
-                        <input type="password" class="form-control" id="inputPassword" placeholder="********">
+                        <input type="password" class="form-control" id="inputPassword" placeholder="********" tabindex="2">
                     
                     </div>
                     <div class="forgot">
@@ -31,7 +31,7 @@
                     </div>
                     
               
-                    <input type="submit" value="login" class="btn btn-primary btn-block">
+                    <input type="submit" value="login" class="btn btn-primary btn-block" tabindex="3">
                     
                 </form>                                
              </div>

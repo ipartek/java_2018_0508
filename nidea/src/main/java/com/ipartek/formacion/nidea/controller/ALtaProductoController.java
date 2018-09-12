@@ -19,7 +19,7 @@ import com.ipartek.formacion.nidea.pojo.Producto;
  * Servlet implementation class FormularioController
  */
 @WebServlet("/formulario")
-public class FormularioController extends HttpServlet {
+public class ALtaProductoController extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
 	

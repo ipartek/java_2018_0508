@@ -13,6 +13,9 @@
 	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
 	<link rel="stylesheet" href="css/styles.css?<%=System.currentTimeMillis()%>">
 	<link rel="stylesheet" href="css/login.css?<%=System.currentTimeMillis()%>">
-
+	
+	<!-- Enlaces dataTable -->
+	<link rel="stylesheet" href="vendors/datatable/css/jquery.dataTables.min.css">  
+	<link href="vendors/datatable/css/responsive.dataTables.css" rel="stylesheet" type="text/css" />
 </head>
 <body>
