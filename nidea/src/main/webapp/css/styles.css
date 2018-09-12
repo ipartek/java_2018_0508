@@ -1,0 +1,79 @@
+/*
+*	Custom Styles
+*/
+/*
+body{
+	background-color: #dcdce6;
+	color: #DDD;
+}
+img{
+	width: 150px;
+	height: 150px;
+}
+.row header{
+	background-color: #513c79;
+	height: 150px;
+}
+.main div section{
+	background-color: #800080;
+	height: 400px;
+}
+.main div aside{
+	background-color: #463066;
+	height: 200px;
+}
+.destacados div{
+	background-color: #8164b0;
+	margin:auto;
+}
+.row footer{
+	background-color: #513c79;
+	height: 150px;
+}
+.ult-ofertas{
+	position: absolute;
+	top: -20px;
+	right: -40px;
+}
+.proc-new{
+	position: absolute;
+	top: 0;
+	right: 0;
+}
+.bg-navbar{
+	background-color: #8164b0;
+}
+*/
+.card-footer {
+	background-color: #FFF;
+	border-top: none;
+}
+
+canvas {
+	background: #eee;
+	display: block;
+	margin: 0 auto;
+}
+
+.card .oferta{
+	position: absolute;
+	top: 20px;
+	right: 15px;
+}
+
+.nav-link:hover {
+	text-decoration: underline;
+}
+
+.nope{
+	display:none;
+}
+.nav-link:hover .nope {
+	display: inline-block;
+}
+.card-img-top:hover{
+	border:1px solid #000;
+	transform: scale(1.4);
+	z-index: 5;
+	transition: transform 2s;
+}
