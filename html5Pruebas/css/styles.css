@@ -1,0 +1,17 @@
+/*Hoja de estilos principal*/
+h1{
+    font-family: Noto;
+    text-align: center;
+
+}
+section {
+    background-color: lightgray;
+    border: 1px solid #000;
+    margin-bottom: 1em;
+    padding: 1.5em 2em;
+    width: 25rem;
+    text-align: center;
+    position: absolute;
+    top: 63px;
+    right: 27rem;
+}

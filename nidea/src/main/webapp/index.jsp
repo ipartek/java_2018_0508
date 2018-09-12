@@ -6,7 +6,7 @@
       <div class="jumbotron">
         <h1>Ejemplos</h1>
         <p class="lead">Ejemplos con Bootstrap 4 y Java Enterprise Edition</p>
-      
+      </div>
       <div class="row">
       	<div class="col">
       	   <div class="card text-center h-100">
@@ -57,7 +57,7 @@
 			</div>
       	</div>
       	</div>
-     </div>
+     
 	
 </main> 
     	

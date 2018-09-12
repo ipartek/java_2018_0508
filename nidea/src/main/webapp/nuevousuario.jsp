@@ -11,21 +11,21 @@
   			<div class="form-row">
     			<div class="form-group col-md-6">
       				<label for="usuario">Nombre usuario</label>
-      				<input type="email" class="form-control" id="inputEmail4" autofocus class="form-control" placeholder="Longitud entre 5 y 11 caracteres">
+      				<input type="email" required class="form-control" id="inputEmail4" autofocus class="form-control" placeholder="Longitud entre 5 y 11 caracteres">
     			</div>
 	    		<div class="form-group col-md-6">
       				<label for="confirmusuario">Email</label>
-      				<input type="email" class="form-control" id="inputEmail4" placeholder="Ejemplo: nombre@gmail.com">
+      				<input type="email" required class="form-control" id="inputEmail4" placeholder="Ejemplo: nombre@gmail.com">
     			</div>
   			</div>
 	  		<div class="form-row">
 	    		<div class="form-group col-md-6">
 	      			<label for="pass">Contraseña</label>
-	      			<input type="password" class="form-control" id="pass" placeholder="Escriba 6 caracteres">
+	      			<input type="password" required class="form-control" id="pass" placeholder="Escriba 6 caracteres">
 	    		</div>
 	    		<div class="form-group col-md-6">
 	      			<label for="confimpass">Confirmar contraseña</label>
-	      			<input type="password" class="form-control" id="pass" placeholder="Vuelve a escribir la contraseña">
+	      			<input type="password" required class="form-control" id="pass" placeholder="Vuelve a escribir la contraseña">
 	    		</div>
   			</div>
 	  		<button type="submit" class="btn btn-primary btn-lg btn-block">Registrarse</button>

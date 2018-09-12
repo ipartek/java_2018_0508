@@ -1,16 +1,13 @@
+
+@import url("navbar.css");
+
 body{
 	background-color: #F8F9FA;
 }
 
-.logo{
-width:50px;
-height:50px;	
-	
-}	
-
 .myCanvas{
 	position: relative;
-	 top: 15px;
+	top: 15px;
     right: -250px;
 }
 .card-custom-header{
@@ -28,7 +25,7 @@ height:50px;
 }
 
 .card-custom-header i.fas{
-position: absolute;
+	position: absolute;
     top: 0px;
     right: -5px;
     padding: 5px 10px;
@@ -42,9 +39,13 @@ position: absolute;
 }
 
 .card-footer {
-    padding: .75rem 1.25rem;
+   padding: .75rem 1.25rem;
    background-color: #FFF;
    border-top: none;
+}
+
+.jumbotron{
+	padding: 1rem 2rem;
 }
 
 label.obligatorio:before{
