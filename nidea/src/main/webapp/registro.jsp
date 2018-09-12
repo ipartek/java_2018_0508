@@ -24,7 +24,7 @@
 			  </div>
 			  <div class="form-group">
 			    <label class="requiered" for="password">Contraseña</label>
-			    <input type="password" class="form-control" name="password" placeholder="Mínimo 6 caracteres" onkeyup="validate()">
+			    <input type="password" class="form-control" name="password" placeholder="Mínimo 6 caracteres" onkeyup="validate()" minlength=6 >
 			  </div>
 			  <div class="form-group">
 			    <label class="requiered" for="passwordrep">Repetir contraseña</label>
