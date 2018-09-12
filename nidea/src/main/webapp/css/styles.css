@@ -77,3 +77,6 @@ canvas {
 	z-index: 5;
 	transition: transform 2s;
 }
+.card{
+	max-width: 300px;
+}
