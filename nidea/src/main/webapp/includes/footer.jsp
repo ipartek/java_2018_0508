@@ -20,6 +20,7 @@
 		 
 				 
 		<script>
+		
 				function validate(){
 					console.log("holi!!");
 					var pass = document.querySelector("#registro-page form input[name='password']");
@@ -42,6 +43,18 @@
 					}
 				
 				}
+				
+					//Esperamos a que todo el HTML este cargado
+					$('#tabla-dashboard').DataTable({
+		                "responsive": true,
+		                "language": {
+		                    "url": "vendors/datatable/1.10.19/languages/spanish.json"
+		                }
+		            });
+				
+					
+				
+		
 				/* JQUERY
 				$(document).ready(function(){
 					//Esperamos a que todo el HTML este cargado

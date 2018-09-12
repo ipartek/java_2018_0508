@@ -11,11 +11,11 @@
             <form>
 			  <div class="form-group">
 			    <label for=mail>Email</label>
-			    <input type="email" class="form-control" name="mail" aria-describedby="emailHelp" placeholder="ejemplo@dominio.com" autofocus>
+			    <input required type="email" class="form-control" name="mail" aria-describedby="emailHelp" placeholder="ejemplo@dominio.com" autofocus>
 			  </div>
 			  <div class="form-group">
 			    <label for="password">Contraseña</label>
-			    <input type="password" class="form-control" name="password" placeholder="Mínimo 6 caracteres" minlength=6>
+			    <input required  type="password" class="form-control" name="password" placeholder="Introduce la contraseña" minlength="6">
 			  </div>
 			  <button type="submit" class="btn btn-primary btn-lg btn-block">Enviar</button>
 			</form>
