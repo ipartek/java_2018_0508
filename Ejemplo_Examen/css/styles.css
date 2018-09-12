@@ -1,0 +1,61 @@
+/*Hoja de estilos principal*/
+
+/*Reset
+******************************************************/
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body{
+    font-family: 'Bangers', cursive;
+}
+
+h1{
+    text-align: center;
+    font-size: 70px;
+    margin: 20px;
+}
+
+.main-content{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.container{
+    height: 500px;
+    margin: 15px 100px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.card{
+    width: 300px;
+    height: 400px;
+    background-color: blueviolet;
+    left: 100px;
+
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+.bottom-box{
+    text-align: center;
+    display: flex;
+    
+}
+
+.card .titulo-card{
+    color: white;
+}
+
+.description{
+    padding: 10px;
+}
