@@ -18,7 +18,8 @@ h1 {
     height: 100vh;
     padding: 1em;
 }
-.container{
+
+.container {
     background-color: #88499C;
     padding: 3em;
     display: flex;
@@ -27,13 +28,53 @@ h1 {
     justify-content: center;
     align-items: stretch;
 }
-.item{
-    background-color:  #E77F24;
+
+.item {
+    background-color: #E77F24;
     font-size: 3em;
     text-align: center;
     margin: 1%;
     width: 20%;
 }
-.primero{order: 1;}
-.segundo{order: 2; flex-grow: 2;}
-.tercero{order: 3;}
+
+.primero {
+    order: 1;
+}
+
+.segundo {
+    order: 2;
+    flex-grow: 2;
+}
+
+.tercero {
+    order: 3;
+}
+
+.flex-container {
+    padding: 0;
+    margin: 0;
+    list-style: none;
+
+    display: -webkit-box;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+
+    flex-flow: row-reverse wrap;
+    justify-content: space-around;
+}
+
+.flex-item {
+    background: tomato;
+    padding: 5px;
+    width: 200px;
+    height: 150px;
+    margin-top: 10px;
+
+    line-height: 150px;
+    color: white;
+    font-weight: bold;
+    font-size: 3em;
+    text-align: center;
+}

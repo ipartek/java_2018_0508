@@ -31,40 +31,54 @@ Estilos principal para las paginas de pruebas
 
 /* Tags
 *********************************************************************/
+body{
+    color: #EEE;
+
+}
 h1 {
     text-align: center;
-    color: teal;
+    color: #FF4500;
     font-size: 5em;
 }
 
 #menu {
     list-style: none;
     display: flex;
-    justify-content: center;
+    justify-content: space-evenly;
     background-color: #000;
     flex-wrap: wrap;
 
 }
 
 #menu>li {
+    flex: 1 30%;
     display: flex;
-    justify-content: flex-start;
-    flex-wrap: wrap;
+    flex-wrap: nowrap;
 
 }
-#menu>li>a{
-    text-align: center;
+
+#menu>li>a {
     color: #EEE;
     padding: .75em;
     text-decoration: none;
     text-transform: uppercase;
     letter-spacing: .1em;
 }
-#menu>li>a:hover{
+
+#menu>li>a:hover {
     text-decoration: underline;
-    color: orangered;
-    transition: text-decoration 5s;
+    color: #FF4500;
+    transition: .15s;
 }
-#menu>li>a:hover::after{
-    content: "*";
+
+#menu>li>a::before {
+    content: "\025b6";
+    color: #000;
+}
+
+#menu>li>a:hover::before {
+    content: "\025b6";
+    color: #FF4500;
+    transition: .20s;
+
 }
