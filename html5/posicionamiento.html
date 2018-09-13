@@ -76,7 +76,20 @@
             padding: 50px;
             font-size: 60px;
             font-style: oblique;
+
+
         }
+
+        
+            #paginacion {
+                border: 1px solid #CCC;
+                background-color: rgb(236, 22, 22);
+                padding: .5em;
+                overflow: hidden;
+            }
+            .derecha   { float: right; }
+            .izquierda { float: left;  }
+        
     </style>
 
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU"
@@ -84,6 +97,13 @@
 </head>
 
 <body id="top">
+        <div id="paginacion">
+            <h2>CLEARFIX</h2>
+                <span class="izquierda">&laquo; Anterior</span>
+                <span class="derecha">Siguiente &raquo;</span>
+              </div>
+
+
     <div class="sticky">Posicionamiento sticky</div>
     <h1>Posicinamientos</h1>
 

@@ -1,46 +1,54 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
     <style>
-
-        *{
+        * {
             margin: 0;
             padding: 0;
         }
-        body{
+
+        body {
             background-color: #008080;
         }
-        .main-content{
+
+        .main-content {
             background-color: #fff;
-            max-width: 1024px;
+           
             min-height: 400px;
             margin: auto;
-            height: 100vh; /*device height*/
+            height: 100vh;
+            /*device height*/
             padding: 1em;
         }
-        h1{
+
+        h1 {
             text-align: center;
         }
-        .container{
+
+        .container {
             background-color: #88499C;
             padding: 3em;
-            
+
             /*Por defecto*/
-            flex-direction: row; /* OR flex-direction: row | row-reverse | column | column-reverse;*/
-            display: flex; /* or inline-flex */
-            
+            flex-direction: row;
+            /* OR flex-direction: row | row-reverse | column | column-reverse;*/
+            display: flex;
+            /* or inline-flex */
             /*por defecto*/
-            flex-wrap: nowrap; /* OR flex-wrap: nowrap | wrap | wrap-reverse;*/
-            
-            justify-content:center; /*OR justify-content: flex-start | flex-end | center | space-between | space-around | space-evenly;*/
-       
-            align-items:stretch; /*OR   align-items: flex-start | flex-end | center | baseline | stretch;*/
+            flex-wrap: nowrap;
+            /* OR flex-wrap: nowrap | wrap | wrap-reverse;*/
+            justify-content: center;
+            /*OR justify-content: flex-start | flex-end | center | space-between | space-around | space-evenly;*/
+            align-items: stretch;
+            /*OR   align-items: flex-start | flex-end | center | baseline | stretch;*/
         }
-        .item{
+
+        .item {
             background-color: #E77F24;
             font-size: 3em;
             width: 23%;
@@ -49,14 +57,23 @@
         }
 
         /*Cambiamos el orden natural de los items*/
-        .primero{order: 1;}
-        .segundo{
-            order:2;
-            width: 10em;}
-        .tercero{order:3;}
+
+        .primero {
+            order: 1;
+        }
+
+        .segundo {
+            order: 2;
+            width: 10em;
+        }
+
+        .tercero {
+            order: 3;
+        }
     </style>
 </head>
-<body>    
+
+<body>
     <div class="main-content">
         <h1>FLEXBOX</h1>
         <a href="https://css-tricks.com/snippets/css/a-guide-to-flexbox/" target="blak">Documentacion</a>
@@ -67,7 +84,45 @@
             <div class="item primero">2</div>
             <div class="item segundo">3</div>
         </section>
-    </div>
 
+
+        <section>
+            <h2>Ejemplo CSS-trix de la Documentacion</h2>
+            <ul class="flex-container">
+                <li class="flex-item">1</li>
+                <li class="flex-item">2</li>
+                <li class="flex-item">3</li>
+                <li class="flex-item">4</li>
+                <li class="flex-item">5</li>
+                <li class="flex-item">6</li>
+            </ul>
+
+
+            <style>
+
+                
+                .flex-container {
+                    
+                    list-style: none;                    
+                    display: flex;
+                    flex-wrap: wrap;
+                }
+
+                .flex-item {
+                    background: tomato;
+                    padding: 5px;
+                    width: 25%;
+                    height: 150px;
+                    margin-top: 10px;
+                    line-height: 150px;
+                    color: white;
+                    font-weight: bold;
+                    font-size: 3em;
+                    text-align: center;
+                }
+            </style>
+        </section>
+    </div>
 </body>
+
 </html>
