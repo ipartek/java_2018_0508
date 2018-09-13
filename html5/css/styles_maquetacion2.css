@@ -1,0 +1,175 @@
+body{
+    width:90%;
+    margin:auto;
+}
+h1{
+    text-align: center;
+}
+i {
+    font-size: 7em;
+    
+}
+header{
+    display:flex;
+    flex-flow:row nowrap;
+}
+footer{
+    text-align: center;
+}
+
+.icono {
+    width: 70%;
+    height: 120px;
+
+    margin:auto;
+
+    display:flex;
+    flex-flow: row wrap;
+    justify-content: flex-end;
+}
+.cuerpo {
+    width: 70%;
+    height: 120px;
+    
+    margin:auto;
+    display:flex;
+    
+}
+.cuerpo > div > img{
+    width:300;
+    height: 200px;
+}
+.principal{ 
+    width: 100;
+    /*border: 1px solid black; */
+    
+    display:flex;
+    flex-flow: row wrap;
+}
+.custom-body{
+    height: 500px;
+    
+   
+}
+.foot{
+    margin:auto;
+    height: 100px;
+    width: 100%;
+    
+    display: flex;
+    justify-content: center; 
+    align-items:flex-end;
+
+}
+.centrado{
+    margin:auto;
+}
+.contenedorEspacio{
+    width: 100%;
+    
+    border:1px solid black;
+    position: relative;
+
+    
+    
+    
+}
+
+nav .menu {
+
+    text-align: center;
+ 
+    }
+ 
+   nav .menu li{
+ 
+    display: inline-block;
+    padding: 15px 29px;
+    list-style: none;
+ 
+     }
+ 
+   nav .menu li a{
+ 
+     text-decoration: none;
+     color: #000;
+     text-transform: uppercase;
+     font-family: 'Signika Negative', sans-serif;
+     font-size: 0.9em;
+ 
+     }
+ 
+ 
+    nav .menu li a:hover{
+ 
+       border-bottom: 2px solid #F13006;
+       border-radius: 4px;
+ 
+     }
+ 
+    /*ACÁ COMIENZA CSS PARA SUBMENU*/
+ 
+    .submenu{
+       display: none;
+       position: absolute;
+     }
+     
+     .linkprod:hover ~ .submenu {
+       display: block;
+     }
+
+.contenedorRelativo{
+    width: 200px;
+    height: 200px;
+    background: orange;
+    position: relative;
+
+
+   
+}
+.contenidorAbsoluto{
+    width: 100px;
+    height: 100px;
+    background: green;
+    position: absolute;
+    top:50px;   
+    left: 50px;
+    margin-left:auto;
+    margin-right: auto;
+    
+}
+.contenidorAbsolutoAnidado{
+    width: 50px;
+    height: 50px;
+    background: blue;
+    position: absolute;
+    top:75px;   
+    left: 75px;
+    margin-left:auto;
+    margin-right: auto;
+}
+.contenidorAbsolutoAnidado2{
+    width: 25px;
+    height: 25px;
+    background: red;
+    position: absolute;
+    top: 88px;
+    left: 88px;
+    margin-left:auto;
+    margin-right: auto;
+}
+.principal > header{
+    width: 100%;
+    display:flex;
+    flex-flow: row nowrap;
+    justify-content: space-between;
+    align-items:flex-end;
+
+
+    display:flex;
+    flex-flow: row wrap;
+}
+.contenido{
+    display: flex;
+    flex-flow: row nowrap;
+}

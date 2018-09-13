@@ -22,6 +22,35 @@ div[class^="elemento"]{
 	border:1px solid black;
 	margin:20px;
 }
+/*Inicio estilos ultimos ejemplo repaso flexbox*/
+.flex-container {
+	
+    padding: 0;
+    margin: 0;
+	list-style: none;
+	min-height: 200px;
+    display: -webkit-box;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-flex-flow: row nowrap;
+    justify-content: center;
+  }
+  
+  .flex-item {
+	border:1px solid black;
+    background: tomato;
+    padding: 5px;
+    width: 200px;
+    height: 150px;
+    margin-top: 10px;
+    line-height: 150px;
+    color: white;
+    font-weight: bold;
+    font-size: 3em;
+    text-align: center;
+  }
 
 /*Contenedor padre*/
 .main-container{
@@ -33,13 +62,10 @@ div[class^="elemento"]{
 	flex-flow: column nowrap;
 	/*flex-flow: row wrap,*/
 }
-.container{
-	
-	
-}
+
 
 .container1{
-	//*adding: 20px;*/
+	/*adding: 20px;*/
 	
 	width: 500px;
 	padding: 10px;
@@ -49,7 +75,7 @@ div[class^="elemento"]{
 	flex-flow: row wrap;
 }
 .container10{
-	//*adding: 20px;*/
+	/*adding: 20px;*/
 	
 	width: 500px;
 	padding: 10px;
@@ -62,7 +88,7 @@ div[class^="elemento"]{
 	width:100px;
 }
 .container2{
-	//*adding: 20px;*/
+	/*adding: 20px;*/
 	
 	width: 500px;
 	padding: 10px;
@@ -74,7 +100,7 @@ div[class^="elemento"]{
 	
 }
 .container3{
-	//*adding: 20px;*/
+	/*adding: 20px;*/
 	
 	width: 300px;
 	padding: 10px;
@@ -86,7 +112,7 @@ div[class^="elemento"]{
 	
 }
 .container4{
-	//*adding: 20px;*/
+	/*adding: 20px;*/
 	
 	width: 300px;
 	padding: 10px;
@@ -98,7 +124,7 @@ div[class^="elemento"]{
 	
 }
 .container5{
-	//*adding: 20px;*/
+	/*adding: 20px;*/
 	
 	width: 300px;
 	padding: 10px;
@@ -110,7 +136,7 @@ div[class^="elemento"]{
 	
 }
 .container6{
-	//*adding: 20px;*/
+	/*adding: 20px;*/
 	
 	width: 300px;
 	padding: 10px;
@@ -120,7 +146,7 @@ div[class^="elemento"]{
 	justify-content:space-around;	
 }
 .container7{
-	//*adding: 20px;*/
+	/*adding: 20px;*/
 	
 	width: 300px;
 	padding: 10px;
@@ -130,7 +156,7 @@ div[class^="elemento"]{
 	justify-content:flex-start;	
 }
 .container8{
-	//*adding: 20px;*/
+	/*adding: 20px;*/
 	
 	width: 300px;
 	padding: 10px;
@@ -142,7 +168,7 @@ div[class^="elemento"]{
 	align-items: flex-end;
 }
 .container9{
-	//*adding: 20px;*/
+	/*adding: 20px;*/
 	
 	width: 300px;
 	padding: 10px;
@@ -155,7 +181,7 @@ div[class^="elemento"]{
 	align-items: stretch ;
 }
 .container11{
-	//*adding: 20px;*/
+	/*adding: 20px;*/
 	
 	width: 500px;
 	height:300px;
@@ -171,7 +197,7 @@ div[class^="elemento"]{
 	width:300px;
 }
 .container12{
-	//*adding: 20px;*/
+	/*adding: 20px;*/
 	
 	width: 500px;
 	height:200px;
@@ -184,7 +210,7 @@ div[class^="elemento"]{
 	align-content: center;
 }
 .container13{
-	//*adding: 20px;*/
+	/*adding: 20px;*/
 	
 	width: 500px;
 	height:200px;
@@ -197,7 +223,7 @@ div[class^="elemento"]{
 	align-content: center;
 }
 .container14{
-	//*adding: 20px;*/
+	/*adding: 20px;*/
 	
 	width: 500px;
 	height:200px;

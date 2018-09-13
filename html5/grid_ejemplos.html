@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+
+    <link rel="stylesheet" href="css/grid_repaso.css"/>
+    <title>Grid repaso</title>
+</head>
+<body>
+    <header><h1>Ejemplos de grid</h1></header>
+    <div class="container">
+        <h2>class: col distribuye las colunmas repartiendo el espacio</h2>
+        <div class="row">
+            <div class="col bordeado">1</div>
+            <div class="col bordeado">2</div>
+            <div class="col bordeado">3</div>
+        </div>
+
+        <h2>class: w-100 nos crea una division (Rotura de linea)</h2>
+        <div class="row">
+            <div class="col bordeado">Column</div>
+            <div class="col bordeado">Column</div>
+            <div class="w-100"></div>
+            <div class="col bordeado">Column</div>
+            <div class="col bordeado">Column</div>
+        </div>
+        <h2>Alinieamiento de filas</h2>
+        <div class="row align-items-start">
+                
+                <div class="col">
+                        align-items-start
+                </div>
+                <div class="col">
+                        align-items-start
+                </div>
+                <div class="col">
+                        align-items-start
+                </div>
+              </div>
+              <div class="row align-items-center">
+                  
+                <div class="col">
+                        align-items-center
+                </div>
+                <div class="col">
+                        align-items-center
+                </div>
+                <div class="col">
+                        align-items-center
+                </div>
+              </div>
+              <div class="row align-items-end">
+                  
+                <div class="col">
+                        align-items-end
+                </div>
+                <div class="col">
+                        align-items-end
+                </div>
+                <div class="col">
+                        align-items-end
+                </div>
+        </div>   
+        <h2>Alinieamiento de columnas</h2> 
+        <div class="row">
+                <div class="col align-self-start">
+                One of three columns(align-self-start)
+                </div>
+                <div class="col align-self-center">
+                One of three columns(align-self-center)
+                </div>
+                <div class="col align-self-end">
+                One of three columns(align-self-end)
+                </div>
+        </div>
+        <h2>Justifacdo de columnas</h2>
+        <div class="row justify-content-start">
+                <div class="col-4">
+                        col-4  justify-content-start
+                </div>
+                <div class="col-4">
+                        col-4  justify-content-start
+                </div>
+              </div>
+              <div class="row justify-content-center">
+                <div class="col-4">
+                        col-4  justify-content-center
+                </div>
+                <div class="col-4">
+                        col-4  justify-content-center
+                </div>
+              </div>
+              <div class="row justify-content-end">
+                <div class="col-4">
+                        col-4  justify-content-end
+                </div>
+                <div class="col-4">
+                        col-4  justify-content-end
+                </div>
+              </div>
+              <div class="row justify-content-around">
+                <div class="col-4">
+                        col-4  justify-content-around
+                </div>
+                <div class="col-4">
+                        col-4  justify-content-around
+                </div>
+              </div>
+              <div class="row justify-content-between">
+                <div class="col-4">
+                        col-4   justify-content-between
+                </div>
+                <div class="col-4">
+                        col-4   justify-content-between
+                </div>
+        </div>
+        <h2>Ordenamiento de columnas</h2>
+        <div class="row">
+                <div class="col">
+                  Primera columna sin orden establecido
+                </div>
+                <div class="col order-12">
+                  Segunda columna con el orden 12
+                </div>
+                <div class="col order-1">
+                  Tercera columna con el orden 1
+                </div>
+        </div>
+        <h2>Ordenamiento de columnas</h2>
+        <div class="row">
+                <div class="col order-last">
+                  Primera con order-last
+                </div>
+                <div class="col">
+                  segunda sin parametro
+                </div>
+                <div class="col order-first">
+                  tercera, con order-first
+                </div>
+        </div>
+        <h2>Offset</h2>
+        
+        <div class="row">
+            <div class="col-md-4">.col-md-4</div>
+            <div class="col-md-4 offset-md-4">.col-md-4 .offset-md-4 (Se desplaza 4 columnas)</div>
+        </div>
+        <div class="row">
+            <div class="col-md-3 offset-md-3">.col-md-3 .offset-md-3 (Se desplaza 3 columnas)</div>
+            <div class="col-md-3 offset-md-3">.col-md-3 .offset-md-3 (Se desplaza 3 columnas)</div>
+        </div>
+        <div class="row">
+            <div class="col-md-6 offset-md-3">.col-md-6 .offset-md-3 (Se desplaza 3 columnas)</div>
+        </div>
+        <h2>Margenes</h2>
+        <div class="row">
+            <div class="col-md-4">.col-md-4 (Margen de 4 columnas)</div>
+            <div class="col-md-4 ml-auto">.col-md-4 .ml-auto (Margen de 4 columnas)</div>
+        </div>
+        <div class="row">
+            <div class="col-md-3 ml-md-auto">.col-md-3 .ml-md-auto (Margen de 3 columnas)</div>
+            <div class="col-md-3 ml-md-auto">.col-md-3 .ml-md-auto (Margen de 3 columnas)</div>
+        </div>
+        <div class="row">
+            <div class="col-auto mr-auto">.col-auto .mr-auto(Margen derecho auto)</div>
+            <div class="col-auto">.col-auto</div>
+        </div>
+        
+    </div>
+</body>
+</html>

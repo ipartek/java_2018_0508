@@ -1,0 +1,24 @@
+body {
+    background: blue;
+
+}
+.container {
+    background: white;
+}
+h1, h2{
+    text-align: center;
+}
+.bordeado{
+    border:1px solid black;
+}
+
+div [class^="col"]{
+    border:1px solid black;
+}
+.col{
+    border:1px solid black;
+}
+.row{
+    min-height: 100px;
+    border:1px solid black;
+}
