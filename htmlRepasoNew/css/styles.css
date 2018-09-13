@@ -2,37 +2,63 @@
     margin: 0;
     padding: 0;
 }
-
-h1{
-    font-family: 'Gamja Flower', cursive;
-   font-size: 20mm;
-   text-align: center;
+body{    
+    background-color: purple;
 }
 
-#cuerpo{
-    width: 457px;
-    margin-bottom: -151px;
+
+#contenedor-main {
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.item-contenedor{
+    margin-top: 38px;
+    background-color: aliceblue;
+    width: 300px;
+}
+
+img {
+    width: 100%;
+    height: auto;
+}
+
+/*Styles menu*/
+
+nav.menu{
+    background-color: coral;
+    width: 500px;
+    
+    
+}
+ul{
+    list-style: none;
+}
+ul.menu-seccion {
+    display: flex;
+}
+
+ul.menu-seccion li a{
+    
+    background-color: black;
+    color: white;
     display: block;
-    margin: auto;
+    padding: 10px 15px;
+    text-decoration: none;
+    
+}
+ul.menu-seccion li:hover>ul{
+    background-color: black;
+    color: white;
+    display: block;
+    padding: 10px 15px;
+    text-decoration: none;
+    
     
 }
 
-#cuerpo img{
-    width: 457px;
-    margin-bottom: -151px;
-    display: block;
-    margin: auto;
-   
-}
-
-#cuerpo p{
-    font-family: 'Gamja Flower', cursive;
-   font-size: 20mm;
-   text-align: left;
-
-
-}
-
-#cuerpo a.icono{
-    float: right;
+ul.menu-seccion li ul{
+   display: none;
+    
+    
 }
