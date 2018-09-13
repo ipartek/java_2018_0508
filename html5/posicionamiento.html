@@ -82,8 +82,23 @@
             position: fixed;
             top: 0;
             right: 0;
-            font-size: .9em;
+            font-size: 1.2em;
             color: #FF0505;
+        }
+
+        #paginacion {
+            border: 1px solid #CCC;
+            background-color: tomato;
+            padding: .5em;
+            overflow: hidden;
+        }
+
+        .derecha {
+            float: right;
+        }
+
+        .izquierda {
+            float: left;
         }
     </style>
 </head>
@@ -103,7 +118,7 @@
         <p>BLOCK, ocupa todo el ancho.</p>
         <span>INLINE, ocupa lo que necesita su contenido.</span>
     </section>
-    <section class="pegajoso" >
+    <section class="pegajoso">
         <h2>Posicionamiento Sticky</h2>
         <img src="images/pirate.svg" alt="CrocoPirate">
     </section>
@@ -177,6 +192,14 @@
             <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Repellendus, eligendi earum! At possimus
                 dolores non odio, neque tenetur molestiae maiores aperiam, fuga ullam deleniti porro, blanditiis
                 expedita ut facilis eveniet.</p>
+        </div>
+    </section>
+    <section>
+        <h2>Clearfix</h2>
+
+        <div id="paginacion">
+            <span class="izquierda">&laquo; Anterior</span>
+            <span class="derecha">Siguiente &raquo;</span>
         </div>
     </section>
 
