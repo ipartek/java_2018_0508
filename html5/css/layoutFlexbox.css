@@ -32,7 +32,8 @@ movil:375px width
 *********************************************/
 .contenedor{
     background:#ccc;
-    width: 1024px; 
+    max-width: 1024px; 
+   
     margin: auto;
     display: flex;
     flex-flow: row wrap;
@@ -136,8 +137,8 @@ aside {
 aside .widget{
     
     background: #d35400;
-    height: 150px;
-    margin: 10px;
+    height:150px;
+	margin:10px;
 }
 
 footer {
@@ -222,15 +223,19 @@ movil:375px width
     }
 
     aside{
-        flex-direction: row;
+        flex-direction: column;
     }
     aside .widget{
-        
-    }
+        width: 100%;
+        }
 }
 
 @media screen and (max-width:375px){
     header{
         background-color: var(--orange-dark);
+    }
+
+    aside .widget{
+        width: 100%;
     }
 }

@@ -70,21 +70,50 @@
             margin-bottom: 2em;
         }
 
-       .sticky{
-           position: sticky;
-           top: 0;
-       }
+        .sticky {
+            position: sticky;
+            top: 0;
+            z-index: 999;
+
+        }
+
+        #paginacion {
+            border: 1px solid #CCC;
+            background-color: #E0E0E0;
+            padding: .5em;
+            overflow: hidden;
+        }
+
+        .derecha {
+            float: right;
+        }
+
+        .izquierda {
+            float: left;
+        }
     </style>
 
 </head>
 
 <body id="top">
-        <section class="sticky">
-                <h2>Posicionamiento Sticky</h2>
-                <p>Esta seccion se quedara arriba del todo de forma fixed al realizar el scroll.</p>
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Porro architecto alias, est nulla optio eveniet hic qui recusandae cum consequatur laudantium rem vel voluptas accusamus natus officia illum illo labore.</p>
-            
-            </section>
+
+    <section class="sticky">
+        <h2>Posicionamiento ClearFix</h2>
+        <div id="paginacion">
+            <span class="izquierda">&laquo; Anterior</span>
+            <span class="derecha">Siguiente &raquo;</span>
+        </div>
+    </section>
+
+
+
+    <section class="sticky">
+        <h2>Posicionamiento Sticky</h2>
+        <p>Esta seccion se quedara arriba del todo de forma fixed al realizar el scroll.</p>
+        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Porro architecto alias, est nulla optio eveniet hic qui
+            recusandae cum consequatur laudantium rem vel voluptas accusamus natus officia illum illo labore.</p>
+
+    </section>
 
 
     <section>
@@ -145,7 +174,7 @@
             nihil nostrum voluptate atque harum deserunt fugiat consequuntur expedita id rem, obcaecati reprehenderit odio.</p>
     </section>
 
-    
+
 
 </body>
 
