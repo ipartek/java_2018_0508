@@ -157,6 +157,41 @@
                 
     </section>
 
+    <section>
+        <h2>ClearFix</h2>
+
+
+        <div id="paginacion" class="clearfix">
+            <span class="izquierda">&laquo; Anterior</span>
+            <span class="derecha">Siguiente &raquo;</span>
+        </div>
+
+        <style>
+
+            .clearfix:after {
+            visibility: hidden;
+            display: block;
+            font-size: 0;
+            content: " ";
+            clear: both;
+            height: 0;
+            }
+            * html .clearfix             { zoom: 1; } /* IE6 */
+            *:first-child+html .clearfix { zoom: 1; } /* IE7 */
+
+
+            #paginacion {
+                border: 1px solid #CCC;
+                background-color: tomato;
+                padding: .5em;
+            }
+            
+            .derecha   { float: right; }
+            .izquierda { float: left;  }
+        </style>
+
+    </section>    
+
 
     <section class="sticky">
         <h2>Poscionamiento Sticky</h2>            
