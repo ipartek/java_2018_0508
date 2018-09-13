@@ -5,7 +5,7 @@
 
 <div class="container">
 
-	<fieldset>
+	
 			<legend>Registro de usuarios</legend>
 			<form action="RegistroUsuarioControler" method="post">
 				<div class="form-group login">
@@ -32,10 +32,10 @@
 		       		</div>
 
 		        <div>
-		        	<input class="form-control" type="submit" value="Enviar" id="enviar"/>
+		        	<input class="btn secondary btn-lg btn-block" type="submit" value="Enviar" id="enviar"/>
 		        </div>
 		       
 
 			</form>
-		</fieldset>
+		
 </div>

@@ -15,7 +15,7 @@
 				  <input type="file" class="custom-file-input" id="customFile">
 				  <label class="custom-file-label" for="customFile">Choose file</label>
 				  <input type="button" class="custom-file-input" >
-				  <a href="" value="listar" class="btn btn-primary btn-block">Borrar productos</a>
+				  <a href="subida-fichero" value="subir" class="btn btn-primary btn-block">Subir</a>
 		</div>
 			
 			

@@ -14,7 +14,7 @@
 %>
 	<h1>Tras intentar hacer login</h1>
 	<div class="alert alert-success" role="alert">
-	  <h2>Mensaje bienvenida si el usuario se logueo correctamente</h2>
+	  <h2>Su autentificacion a sido satiscactoria. Gracias por visitarnos</h2>
 	</div>
 <%
 	}else{
@@ -22,7 +22,8 @@
 	
 %>
 	<div class="alert alert-danger" role="alert">
-	  <h2>Mensaje error si el usuario no pudo hacer login</h2>
+	  <h2>Lo sentimos pero no hemos encontrado coincidencias con las datos facilitados</h2>
+	  <h3>Intentelo de nuevo <a href="registroUsuarios.jsp">Registro</a></h3>
 	</div>
 <% 
 	}

@@ -1,5 +1,6 @@
+
 <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
-      <a class="navbar-brand" href="#">NiDear</a>
+      <a class="navbar-brand" href="#"><img class="logo" src="images/nidea.png"></a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
@@ -35,8 +36,8 @@
 	        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
 	          <a class="dropdown-item" href="registroUsuarios.jsp">Registro</a>
 	          <a class="dropdown-item" href="login.jsp">Login</a>
-	          <a class="dropdown-item" href="altaUsuarios.jsp">Listado de usuarios</a>
-	          <a class="dropdown-item" href="altaUsuarios.jsp">Listado de usuarios(Administracion)</a>
+	          <a class="dropdown-item" href="listarUsuariosControler">Listado de usuarios</a>
+	          <a class="dropdown-item" href="listarUsuariosAdmin">Listado de usuarios(Administracion)</a>
 	          
       </li>
       <li class="nav-item dropdown">
@@ -46,15 +47,15 @@
 	        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
 	          <a class="dropdown-item" href="formulario">Añadir productos</a>
 	          <a class="dropdown-item" href="listarControler">Listar productos(User zone)</a>
-	          <a class="dropdown-item" href="listarProductosAdmin">Listar productos(Backoffice)</a>
+	          <a class="dropdown-item" href="listarProductosAdmin">Listar productos(Administracion)</a>
 			
 	          
       </li>
         </ul>
-        <form class="form-inline mt-2 mt-md-0">
+        <!-- <form class="form-inline mt-2 mt-md-0">
           <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
           <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-        </form>
+        </form> -->
       </div>
     </nav>
 <%@include file="alert.jsp" %>

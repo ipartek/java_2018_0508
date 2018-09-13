@@ -25,7 +25,7 @@ public class LoginUsuariosController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private static UsuariosDao usuariosDao;
 	private static ArrayList<Usuario> Usuarios;
-	private boolean accessSignal;
+	private boolean accessSignal = false;
 	private String estilos;
        
     /**
@@ -54,6 +54,7 @@ public class LoginUsuariosController extends HttpServlet {
 		try {
 			System.out.println("***POST***");
 			//recogemos parametros
+			accessSignal = false;
 			String nombreUsuario = request.getParameter("nombreUsuario");
 			String passUsuario = request.getParameter("passUsuario");
 			usuariosDao = usuariosDao.getInstance();

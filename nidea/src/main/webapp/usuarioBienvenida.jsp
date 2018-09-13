@@ -17,7 +17,7 @@
 	<div class="alert alert-success" role="alert">
 	  <h2>Mensaje satisfactorio si el registro a sido correcto</h2>
 	   <p>${msg}</p>
-	   <p>Gracias por haberse registrado {nombreUsuario}</p>
+	   <p>Gracias por haberse registrado <%= nombreUsuario %></p>
 	</div>
 <%
 	}else{
@@ -27,7 +27,7 @@
 <div class="alert alert-danger" role="alert">
   <h2>Mensaje Error si el registro a sido incorrecto</h2>
   <p>${msg}</p>
-  <p>Intentelo de nuevo gracias</p>
+  <p>Intentelo de nuevo haciendo click <a href="registroUsuarios.jsp">Registro</a></p>
 </div>	
 <%
 	}

@@ -105,6 +105,7 @@ public class RegistroUsuarioController extends HttpServlet {
 		}
 		else {
 			error = true ;
+			msg = "Error revisa las contraseñas introducidas";
 		}
 		return error;
 	}
@@ -117,9 +118,7 @@ public class RegistroUsuarioController extends HttpServlet {
 					msg = "Error intentelo con otro nombre de usuario";
 				}
 			}
-			if (error == false) {
-				msg = "Ya tenemos un usuario con esta direcion de correo";
-			}
+			
 		}
 		return error;
 	}

@@ -19,7 +19,7 @@
 	  			<img class="card-img-top" src="<%=p.getImagen()%>" alt="Card image cap">
   			</div>
   			<div class="card-body">
-    			<h5 class="card-title text-center">
+    			<h5 class="card-title text-center text-primary font-weight-bold">
 	    			<%=p.getNombre()%>
     			</h5>
     			<p class="card-text">Codigo: <%=p.getCodigo()%></p>

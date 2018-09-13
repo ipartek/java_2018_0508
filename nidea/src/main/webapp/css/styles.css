@@ -34,15 +34,41 @@ img{
 	height: 200px;
 	
 }
+h1{
+	text-align: center;
+}
 
+.ustom-file-input{
+	
+}
 
-/* .login > label{
-	width: 75px;
-	margin:auto;
-} */
+.logo{
+	width: 60px;
+	height:40px;
+	
+}
+
+.login {
+	width: 100%;
+	text-align: center;
+	
+} 
+.fixed-top {
+
+    position: inherit;
+}
+.logueo{
+	
+	height:500px;
+	display:flex;
+	flex-flow:row wrap;
+	justify-content: center;
+	align-items:center
+	
+}
 .card-custom-header-temp i.fas{
 	position: absolute;
-	top10px;
+	top:10px;
 	right:10px;
 	
 }
@@ -80,7 +106,9 @@ img{
 	color:#fff;
 }
 
-
+label {
+	text-align: center;
+}
 label.obligatorio:before{
 	content: "*";	
     padding-right: 3px;
@@ -125,7 +153,6 @@ label.obligatorio:before{
 
 
 /* @media  (max-width: 1074px) {
-
 #tresColumnas{
 	display:flex;
 	flex-direction: column;
@@ -172,6 +199,3 @@ aside h2,p{
 	font-size: 9px;
 }
 @import url('navbar.css');
-
-
-

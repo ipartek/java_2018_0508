@@ -1,5 +1,5 @@
 
-<%@page import="com.ipartek.formacion.nidea.pojo.Producto"%>
+<%@page import="com.ipartek.formacion.nidea.pojo.Usuario"%>
 <%@page import="java.text.DecimalFormat" %>
 <%@page import="java.util.ArrayList"%>
 <%@page import="java.text.DecimalFormat" %>
@@ -29,37 +29,32 @@
 </head>
 <body>
 
-     <h1>Vista admin : productos</h1>
+     <h1>Vista admin usuarios del sistema</h1>
      <a href="https://datatables.net" target="_blank">Documentacion oficial DataTables</a>
 		<%
-			ArrayList<Producto> productos = (ArrayList<Producto>) request.getAttribute("productos");
-			DecimalFormat df = new DecimalFormat("#0.00€");
+			ArrayList<Usuario> usuarios = (ArrayList<Usuario>) request.getAttribute("usuarios");
 		%>
 		<table id="example" class="display responsive nowrap" width="100%">
 			<thead>
                     <tr>
                     	<th>Id</th>
                         <th>Nombre</th>
-                        <th>Codigo</th>
-                        <th>Descripcion</th>
-                        <th>Oferta</th>
-                        <th>Precio</th>
-                       
+                        <th>email</th>
+                        <th>password</th>
                     </tr>
                 </thead>
                 <tbody>
                 <%
-                	for( Producto p : productos){
+                	for( Usuario u : usuarios){
                 		
                 	
                 %>
                     <tr>
-                    	<td><%=p.getId()%></td>
-                        <td><%=p.getNombre()%></td>
-                        <td><%=p.getCodigo()%></td>
-                        <td><%=p.getDescripcion()%></td>
-                        <td><%=p.isOferta()%></td>
-                        <td><%=df.format(p.getPrecio())%></td>
+                    	<td><%=u.getId()%></td>
+                        <td><%=u.getNombre()%></td>
+                        <td><%=u.getEmail()%></td>
+                        <td><%=u.getPassword()%></td>
+
                         
                     </tr>
 				<%
@@ -70,10 +65,8 @@
                     <tr>
                         <th>Id</th>
                         <th>Nombre</th>
-                        <th>Codigo</th>
-                        <th>Descripcion</th>
-                        <th>Oferta</th>
-                        <th>Precio</th>
+                        <th>email</th>
+                        <th>password</th>
                     </tr>
                 </tfoot>
        		</table> 

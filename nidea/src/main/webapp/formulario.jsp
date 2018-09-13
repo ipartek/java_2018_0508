@@ -11,10 +11,10 @@
 	<main role="main" class="container">
 		<h1>Formulario Alta Producto</h1>
 		<form action="formulario" method="post">	
-			
+			<p class="font-italic text-secondary">Los campos con * son obligatorios</p>
 			<div class="form-row">
 				<div class="col">
-					<p class="font-italic text-secondary">Los campos con * son obligatorios</p>
+					
 					<label for="nombre" class="obligatorio">Nombre</label>
 					<input type="text" class="form-control" autofocus name="nombre" required="required" placeholder="Nombre del Producto" tabindex="1" pattern="[a-zA-Z\s]{5,}"></p>
 				</div>
@@ -24,7 +24,7 @@
 			
 			%>
 				<div class="col">
-				<p class="font-italic text-secondary">Los campos con * son obligatorios</p>
+				<!-- <p class="font-italic text-secondary">Los campos con * son obligatorios</p> -->
 					<label for="categoria">Categoria</label>
 					<select name="categoria" class="custom-select">
 						
@@ -64,18 +64,21 @@
 					
 				</div>
 				<div class="form-group">
-					p><label for="descripcion">Descripcion: </label></p>
+					<p><label for="descripcion">Subir Imagen: </label></p>
+					<input type=file name="imagen" class="form-control-file" id="customFile"   ></input>
+				
+				</div>
+				<div class="form-group">
+					<p><label for="descripcion">Descripcion: </label></p>
 					<textarea type=text name="descripcion" required placeholder="Descripcion" tabindex="6" rows="10" cols="82"></textarea>
 				
 				</div>
 				<div class="form-group">
-	        	<input type="submit" value="Enviar" id="enviar"/>
+	        	<input class="btn secondary btn-lg btn-block" type="submit" value="Enviar" id="enviar"/>
 	        </div>	
 			</div>	
 			
-			<div>
-	        	<input type="submit" value="Enviar" id="enviar"/>
-	        </div>	
+			
 					
 			
 		</form>
