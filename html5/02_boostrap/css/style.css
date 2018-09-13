@@ -1,0 +1,68 @@
+/*
+Estilos principal para las paginas de pruebas
+@author: Adrian Perozzo
+@Date: 13/09/2018
+@version 1.0
+*/
+.nav-sticky-container {
+    position: relative;
+}
+
+.nav-sticky {
+    position: sticky;
+    top: 0;
+}
+
+.ultimas {
+    position: relative;
+    max-width: 300px;
+}
+
+.ultimas img {
+    margin-top: .75em;
+    max-width: 300px;
+    max-height: 300px;
+    border: 1px solid #111;
+    border-radius: 50%;
+}
+
+.ultimas img:hover {
+    border: 1px solid #111;
+    border-radius: 0;
+    transition: 1.2s;
+}
+
+.ultimas span {
+    position: absolute;
+    top: 13px;
+    right: 0;
+    background-color: #FF4500;
+    color: #DDD;
+    border-radius: 15px 0 25px 25px;
+    font-weight: bold;
+}
+
+.ultimas .texto {
+    opacity: 0;
+    margin-bottom: .75em;
+    border: 1px solid #111;
+}
+
+.ultimas img:hover~.texto {
+    opacity: 1;
+    transition: 1.2s;
+}
+.social ul{
+    list-style: none;
+    display: flex;
+}
+.social ul li{
+    flex: 1 25%;
+}
+.social  i{
+    color: #FF4500;
+}
+.social  i:hover{
+    opacity: .5;
+    transition: 0.3s;
+}
