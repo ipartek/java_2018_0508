@@ -23,7 +23,7 @@
 
         .main-content{
             background-color: white;
-            width: 1024px;
+           /* width: 1024px;*/
             margin: auto;
             height: 100vh;
             padding: 1em;
@@ -68,9 +68,45 @@
             <div class="item segundo">3</div>
         </section>
         
-    </div>
+    
    
-
-
+		<section>
+			<h2>Ejemplos CSS Tricks de la documentacion</h2>
+			<ul class="flex-container">
+			  <li class="flex-item">1</li>
+			  <li class="flex-item">2</li>
+			  <li class="flex-item">3</li>
+			  <li class="flex-item">4</li>
+			  <li class="flex-item">5</li>
+			  <li class="flex-item">6</li>
+			</ul>
+			
+			<style>
+				.flex-container {
+				  list-style: none;
+				  display: flex;
+				  flex-wrap: wrap;
+				  justify-content: start;
+				  background-color: darkred;
+				  height: 500px;
+				  align-items: stretch;
+				}
+				
+				.flex-item {
+				  background: tomato;
+				  padding: 5px;
+				  width: 200px;
+				  min-height: 150px;
+				  margin-top: 10px;
+				  line-height: 150px;
+				  color: white;
+				  font-weight: bold;
+				  font-size: 3em;
+				  text-align: center;
+				}		
+			</style>
+			
+		</section>
+	</div>
 </body>
 </html>

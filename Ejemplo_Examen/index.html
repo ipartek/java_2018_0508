@@ -12,40 +12,88 @@
     <link href="https://fonts.googleapis.com/css?family=Bangers" rel="stylesheet">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
 </head>
-<body>
-    <h1>Título</h1>
-    <div class="main-content">
-        <section class="container">
-            <section class="card">
-                <div class="top-box">
-                    <!--
-                        <i class="fas fa-heart"></i>
-                    -->
-                    <img src="https://picsum.photos/300/?random" alt="Imagen">
-                    <h2 class="titulo-card">Titulo Card </h2>
-                </div>
-                <div class="bottom-box">
-                    <p class="description">
-                            Lorem ipsum dolor sit amet consectetur adipiscing elit libero, blandit sociis risus fames metus quisque.
-                    </p>
-                </div>
-            </section>
-        </section>
 
-        <section class="container">
-                <section class="card">
-                    <div class="top-box">
-                        <img src="https://picsum.photos/300/?random" alt="Imagen">
-                        <h2 class="titulo-card">Titulo Card </h2>
-                    </div>
-                    <div class="bottom-box">
-                        <p class="description">
-                                Lorem ipsum dolor sit amet consectetur adipiscing elit libero, blandit sociis risus fames metus quisque.
-                        </p>
-                    </div>
-                </section>
-        </section>
+<body>
+	<div class="header">
+        <h1>Título</h1>
+        <nav class="menu-bar">
+            <ul>
+                <li><a href="#">Menu 1</a>
+                    <ul>
+                        <li><a href="#">Submenu 1</a></li>
+                        <li><a href="#">Submenu 2</a>
+                            <ul>
+                                <li><a href="#">Subsubmenu 1</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+
+                <li><a href="#">Menu 2</a></li>
+                <li><a href="#">Menu 3</a>
+                    <ul>
+                        <li><a href="#">Submenu 4</a></li>
+                        <li><a href="#">Submenu 5</a>
+                        	<ul>
+                                <li><a href="#">Subsubmenu 2</a></li>
+                            </ul>
+                        </li>
+                        <li><a href="#">Submenu 6</a></li>
+                    </ul>
+                </li>
+                <li><a href="#">Menu 4</a></li>
+                <li><a href="#">Menu 5</a>
+                    <ul>
+                        <li><a href="#">Submenu 7</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </nav>
+        <!-- /.menu-bar -->
     </div>
+    <!-- /.header -->
+    
+    <div class="main-content">
+        <section class="card">
+            <div class="top-box">
+                <img src="https://picsum.photos/300/?random" alt="Imagen" style="width:100%">
+                <span class="icon">
+                        <i class="fas fa-heart"></i>
+                </span>
+                <h2 class="titulo-card">Titulo Card </h2>
+            </div>
+            <div class="bottom-box">
+                <p class="description">
+                        Lorem ipsum dolor sit amet consectetur adipiscing elit libero, blandit sociis risus fames metus quisque.
+                </p>
+            </div>
+        </section>
+        <!-- /.card -->
+
+        <section class="card">
+            <div class="top-box">
+                <img src="https://picsum.photos/300/?random" alt="Imagen" style="width:100%">
+                <span class="icon">
+                    <i class="fas fa-heart"></i>
+                </span>
+                <h2 class="titulo-card">Titulo Card </h2>
+            </div>
+            <div class="bottom-box">
+                <p class="description">
+                        Lorem ipsum dolor sit amet consectetur adipiscing elit libero, blandit sociis risus fames metus quisque.
+                </p>
+            </div>
+        </section>
+        <!-- /.card -->
+    </div>
+    <!-- /.main-container -->
+
+    <div class="footer">
+       <span class="footer-icon"> <i class="fas fa-certificate"></i> </span> 
+       <p class="footer-text">Prueba de ejercicio con Flexbox desde 0</p>
+       <span class="footer-icon"> <i class="fas fa-code"> </i> </span>
+    </div>
+    <!-- /.footer -->
     
 </body>
 </html>
