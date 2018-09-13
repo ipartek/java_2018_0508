@@ -12,7 +12,7 @@ body{
     /*width: 1024px;*/  
     width: 80%;
     margin: auto;
-    height: 100vh;
+    min-height: 100vh;
     padding: 1em;
 }
 
@@ -21,22 +21,44 @@ h1{
 }
 
 .container{
-    padding: 3em;
     background-color: #88499C;
     display: flex;
     flex-direction: row;
-    flex-wrap: nowrap;
-    justify-items: center;
-    align-items: baseline;
+    flex-wrap: wrap;
+    justify-content: center;
+    padding: 10px;
 }
 
 .container div {
     padding: 1em;
     background-color: #E77F24;
-    color:#fff;
+    color: #fff;
     font-size: 3em;
     font-weight: bold;
     text-align: center;
-    margin: .2em;
-    width: 33%;
+    width: 30%;
+
 }
+
+/**/
+.flex-container {
+
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  
+  .flex-item {
+    background: tomato;
+    padding: 5px;
+    width: 200px;
+    height: 150px;
+    margin-top: 10px;
+    line-height: 150px;
+    color: white;
+    font-weight: bold;
+    font-size: 3em;
+    text-align: center;
+  }
+  

@@ -72,3 +72,13 @@ span{
     border: 8px outset #fff;
     z-index: 99;
 }
+
+#paginacion {
+    border: 1px solid #CCC;
+    background-color: rgb(255, 202, 57);
+    padding: .5em;
+    overflow: auto;
+  }
+   
+  .derecha   { float: right; }
+  .izquierda { float: left;  }
