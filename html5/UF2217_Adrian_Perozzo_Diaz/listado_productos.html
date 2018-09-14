@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+    <!-- FontAwesome CSS -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css">
+    <!-- Datatables/Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap4.min.css">
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/style.css">
+
+    <title>Listado Datatable</title>
+
+</head>
+
+<body>
+    <!-- Cabecera -->
+    <header id="cabecera-ancla">
+        <nav class="navbar navbar-expand-lg navbar-light bg-dark">
+            <a class="navbar-brand text-light" href="#"><img src="images/criatura-cookies.svg" alt="logo de la empresa" width="100"
+                    height="100">Nidea</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav"
+                aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html">Home <span class="sr-only">(current)</span></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="login.html">Login</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="form_producto.html">Nuevo Producto</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="form_producto.html">Editar Producto</a>
+                    </li>
+                    <li class="nav-item active">
+                        <a class="nav-link" href="listado_productos.html">Listado Productos</a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+    <!-- /Cabecera -->
+    <!-- Contenido de la pagina actual -->
+    <main class="container mt-5 mb-5"  role="main">
+        <div class="row">
+            <div class="col">
+                <h1 class="text-nidea">Listado de Productos</h1>
+                <table id="productos" class="table table-striped table-bordered" style="width:100%">
+                    <thead>
+                        <tr>
+                            <th>Nombre</th>
+                            <th>Codigo</th>
+                            <th>Precio</th>
+                            <th>Oferta</th>
+                            <th>Descripcion</th>
+                            <th>Imagen</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Ginebra BEEFEATER</td>
+                            <td>123456789</td>
+                            <td>12,95€</td>
+                            <td><i class="fas fa-check"></i></td>
+                            <td>BEEFEATER ginebra inglesa botella 70cl</td>
+                            <td><img src="images/ginebra_beefeater.jpg" alt="detalle producto"></td>
+                        </tr>
+                        <tr>
+                            <td>Ginebra BEEFEATER</td>
+                            <td>123456789</td>
+                            <td>7,90€</td>
+                            <td><i class="fas fa-times"></i></td>
+                            <td>BEEFEATER ginebra inglesa botella 70cl</td>
+                            <td><img src="images/ginebra_beefeater.jpg" alt="detalle producto"></td>
+                        </tr>
+                        <tr>
+                            <td>Ginebra BEEFEATER</td>
+                            <td>123456789</td>
+                            <td>12,95€</td>
+                            <td><i class="fas fa-check"></i></td>
+                            <td>BEEFEATER ginebra inglesa botella 70cl</td>
+                            <td><img src="images/ginebra_beefeater.jpg" alt="detalle producto"></td>
+                        </tr>
+                        <tr>
+                            <td>Ginebra BEEFEATER</td>
+                            <td>123456789</td>
+                            <td>7,90€</td>
+                            <td><i class="fas fa-times"></i></td>
+                            <td>BEEFEATER ginebra inglesa botella 70cl</td>
+                            <td><img src="images/ginebra_beefeater.jpg" alt="detalle producto"></td>
+                        </tr>
+                        <tr>
+                            <td>Ginebra BEEFEATER</td>
+                            <td>123456789</td>
+                            <td>12,95€</td>
+                            <td><i class="fas fa-check"></i></td>
+                            <td>BEEFEATER ginebra inglesa botella 70cl</td>
+                            <td><img src="images/ginebra_beefeater.jpg" alt="detalle producto"></td>
+                        </tr>
+                        <tr>
+                            <td>Ginebra BEEFEATER</td>
+                            <td>123456789</td>
+                            <td>7,90€</td>
+                            <td><i class="fas fa-times"></i></td>
+                            <td>BEEFEATER ginebra inglesa botella 70cl</td>
+                            <td><img src="images/ginebra_beefeater.jpg" alt="detalle producto"></td>
+                        </tr>
+                        <tr>
+                            <td>Ginebra BEEFEATER</td>
+                            <td>123456789</td>
+                            <td>12,95€</td>
+                            <td><i class="fas fa-check"></i></td>
+                            <td>BEEFEATER ginebra inglesa botella 70cl</td>
+                            <td><img src="images/ginebra_beefeater.jpg" alt="detalle producto"></td>
+                        </tr>
+                        <tr>
+                            <td>Ginebra BEEFEATER</td>
+                            <td>123456789</td>
+                            <td>7,90€</td>
+                            <td><i class="fas fa-times"></i></td>
+                            <td>BEEFEATER ginebra inglesa botella 70cl</td>
+                            <td><img src="images/ginebra_beefeater.jpg" alt="detalle producto"></td>
+                        </tr>
+                        <tr>
+                            <td>Ginebra BEEFEATER</td>
+                            <td>123456789</td>
+                            <td>12,95€</td>
+                            <td><i class="fas fa-check"></i></td>
+                            <td>BEEFEATER ginebra inglesa botella 70cl</td>
+                            <td><img src="images/ginebra_beefeater.jpg" alt="detalle producto"></td>
+                        </tr>
+                        <tr>
+                            <td>Ginebra BEEFEATER</td>
+                            <td>123456789</td>
+                            <td>7,90€</td>
+                            <td><i class="fas fa-times"></i></td>
+                            <td>BEEFEATER ginebra inglesa botella 70cl</td>
+                            <td><img src="images/ginebra_beefeater.jpg" alt="detalle producto"></td>
+                        </tr>
+                        <tr>
+                            <td>Ginebra BEEFEATER</td>
+                            <td>123456789</td>
+                            <td>12,95€</td>
+                            <td><i class="fas fa-check"></i></td>
+                            <td>BEEFEATER ginebra inglesa botella 70cl</td>
+                            <td><img src="images/ginebra_beefeater.jpg" alt="detalle producto"></td>
+                        </tr>
+                        <tr>
+                            <td>Ginebra BEEFEATER</td>
+                            <td>123456789</td>
+                            <td>7,90€</td>
+                            <td><i class="fas fa-times"></i></td>
+                            <td>BEEFEATER ginebra inglesa botella 70cl</td>
+                            <td><img src="images/ginebra_beefeater.jpg" alt="detalle producto"></td>
+                        </tr>
+                        <tr>
+                            <td>Ginebra BEEFEATER</td>
+                            <td>123456789</td>
+                            <td>12,95€</td>
+                            <td><i class="fas fa-check"></i></td>
+                            <td>BEEFEATER ginebra inglesa botella 70cl</td>
+                            <td><img src="images/ginebra_beefeater.jpg" alt="detalle producto"></td>
+                        </tr>
+                        <tr>
+                            <td>Ginebra BEEFEATER</td>
+                            <td>123456789</td>
+                            <td>7,90€</td>
+                            <td><i class="fas fa-times"></i></td>
+                            <td>BEEFEATER ginebra inglesa botella 70cl</td>
+                            <td><img src="images/ginebra_beefeater.jpg" alt="detalle producto"></td>
+                        </tr>
+                        <tr>
+                            <td>Ginebra BEEFEATER</td>
+                            <td>123456789</td>
+                            <td>12,95€</td>
+                            <td><i class="fas fa-check"></i></td>
+                            <td>BEEFEATER ginebra inglesa botella 70cl</td>
+                            <td><img src="images/ginebra_beefeater.jpg" alt="detalle producto"></td>
+                        </tr>
+                        <tr>
+                            <td>Ginebra BEEFEATER</td>
+                            <td>123456789</td>
+                            <td>7,90€</td>
+                            <td><i class="fas fa-times"></i></td>
+                            <td>BEEFEATER ginebra inglesa botella 70cl</td>
+                            <td><img src="images/ginebra_beefeater.jpg" alt="detalle producto"></td>
+                        </tr>
+                        <tr>
+                            <td>Ginebra BEEFEATER</td>
+                            <td>123456789</td>
+                            <td>12,95€</td>
+                            <td><i class="fas fa-check"></i></td>
+                            <td>BEEFEATER ginebra inglesa botella 70cl</td>
+                            <td><img src="images/ginebra_beefeater.jpg" alt="detalle producto"></td>
+                        </tr>
+                        <tr>
+                            <td>Ginebra BEEFEATER</td>
+                            <td>123456789</td>
+                            <td>7,90€</td>
+                            <td><i class="fas fa-times"></i></td>
+                            <td>BEEFEATER ginebra inglesa botella 70cl</td>
+                            <td><img src="images/ginebra_beefeater.jpg" alt="detalle producto"></td>
+                        </tr>
+                        <tr>
+                            <td>Ginebra BEEFEATER</td>
+                            <td>123456789</td>
+                            <td>12,95€</td>
+                            <td><i class="fas fa-check"></i></td>
+                            <td>BEEFEATER ginebra inglesa botella 70cl</td>
+                            <td><img src="images/ginebra_beefeater.jpg" alt="detalle producto"></td>
+                        </tr>
+                        <tr>
+                            <td>Ginebra BEEFEATER</td>
+                            <td>123456789</td>
+                            <td>7,90€</td>
+                            <td><i class="fas fa-times"></i></td>
+                            <td>BEEFEATER ginebra inglesa botella 70cl</td>
+                            <td><img src="images/ginebra_beefeater.jpg" alt="detalle producto"></td>
+                        </tr>
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <th>Nombre</th>
+                            <th>Codigo</th>
+                            <th>Precio</th>
+                            <th>Oferta</th>
+                            <th>Descripcion</th>
+                            <th>Imagen</th>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+        </div>
+    </main>
+    <!-- /Contenido de la pagina actual -->
+    <!-- Pie de pagina -->
+    <footer class="bg-light">
+        <div class="row text-center pt-3">
+            <div class="col-md-6">
+                <nav>
+                    <ul>
+                        <li><a href=""><i class="fab fa-facebook-square fa-3x"></i></a></li>
+                        <li><a href=""><i class="fab fa-twitter-square fa-3x"></i></a></li>
+                    </ul>
+                </nav>
+            </div>
+            <div class="col-md-6">
+                <nav class="pt-05">
+                    <ul>
+                        <li><a href="">Política de privacidad</a></li>
+                        <li><a href="">Contacto</a></li>
+                        <li><a href="">Localización</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+        <p class="text-center">&copy; 2018 Adrian Perozzo</p>
+
+    </footer>
+    <!-- /Pie de pagina -->
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+	<script src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap4.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('#productos').DataTable();
+        });
+    </script>
+</body>
+
+</html>
