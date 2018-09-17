@@ -3,17 +3,22 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=<device-width>, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Posicionamiento</title>
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
+    <title>Document</title>
+
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
 
     <style>
-        section{
+        body {
+            /* font-size: 20px; */
+        }
+
+        section {
             background-color: lightgray;
             border: 1px solid #000;
             margin-bottom: 1em;
-            padding: 1.5em 2em; 
+            padding: 1.5em 2em;
         }
 
         p {
@@ -25,7 +30,7 @@
             margin-right: 1em;
         }
 
-        .box{
+        .box {
             display: inline-block;
             width: 100px;
             height: 100px;
@@ -37,41 +42,50 @@
             font-family: arial, Courier, monospace;
         }
 
-        .relativa{
+        .relativa {
             background-color: orange;
             position: relative;
-            bottom: -50px;
-            right: -50px;
+            bottom: -36px;
+            right: -27px;
         }
 
-        .contenedor-relativo{
-            position: relative;
-        }
-
-        .absoluta{
+        .absoluta {
             background-color: orange;
             position: absolute;
             top: 110px;
             left: 210px;
         }
 
-        #fija{
-            position: absolute;
-            right: 25px;
+        .contenerdor-relativo {
+            position: relative;
         }
 
-        #contenedor-flotante div{
-            float: right;
-            width: 460px;
-            margin-right: 1em;
+
+        .fixed{
+            position: fixed;
+            bottom: .25em;
+            right: .25em;
+            font-size: 3em;
         }
 
+       
+        .imagen-flotante {
+            float: left;
+            margin-right: 2em;
+            margin-bottom: 2em;
+        }
+
+        .sticky{
+            position: sticky;
+            top: 0;
+        }
+     
     </style>
 
 </head>
 
-<body>
-    <h1 id="top">Posicionamiento</h1>
+<body id="top">
+    <h1>Posicionamiento</h1>
 
     <section>
         <h2>Elementos inline y block</h2>
@@ -82,45 +96,154 @@
         <span>INLINE, ocupa lo que necesita su contenido</span>
         <span>INLINE, ocupa lo que necesita su contenido</span>
         <span>INLINE, ocupa lo que necesita su contenido</span>
+
     </section>
 
     <section>
-        <h2>Otro ejercicio de posicionamiento</h2>
-
-        <p>BLOCK, ocupa todo el ancho</p>
-        <span>INLINE, ocupa lo que necesita su contenido</span>
-    </section>
-
-    <section>
-        <h2>Posicionamiento relativo</h2>
-
+        <h2>Poscionamiento Relativo</h2>
         <div class="box">1</div>
         <div class="box relativa">2</div>
         <div class="box">3</div>
-
     </section>
-    
-    <section class="contenedor-relativo">
-        <h2>Posicionamiento absoluto</h2>
-    
+
+
+    <section class="contenerdor-relativo">
+        <h2>Poscionamiento Absoluto</h2>
         <div class="box">1</div>
         <div class="box absoluta">2</div>
         <div class="box">3</div>
+    </section>
+
+    <section>
+            <h2>Poscionamiento Fijo</h2>            
+            <p>Ejemplo con el boton derecho inferior para subir hasta arriba de la pagina</p>
+            <a href="#top"><i class="fixed fas fa-arrow-circle-up"></i></a>
+            <i class="fas fa-arrow-circle-up"></i>
+        </section>
     
+
+    <section>
+        <h2>Poscionamiento Flotante</h2>
+        <img class="imagen-flotante" src="https://picsum.photos/200/200/?random" alt="lorem image">
+        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Fuga odit vel voluptates voluptas blanditiis ut nulla, quo
+            quam assumenda facere quod nesciunt in eum eveniet ea natus eaque aliquam laudantium!</p>
+        <p>Consequatur modi soluta veritatis odio voluptatibus necessitatibus asperiores ducimus excepturi. Exercitationem voluptates
+            fuga sunt a! Fugiat iusto eum, ab accusantium excepturi nihil quidem illum esse unde! Aperiam assumenda consequatur
+            suscipit.</p>
+        <p>Sed quae modi architecto natus, placeat distinctio, minima fugit nobis ducimus sunt vero. Recusandae placeat fuga
+            nihil nostrum voluptate atque harum deserunt fugiat consequuntur expedita id rem, obcaecati reprehenderit odio.</p>
+        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Fuga odit vel voluptates voluptas blanditiis ut nulla, quo
+            quam assumenda facere quod nesciunt in eum eveniet ea natus eaque aliquam laudantium!</p>
+        <p>Consequatur modi soluta veritatis odio voluptatibus necessitatibus asperiores ducimus excepturi. Exercitationem voluptates
+            fuga sunt a! Fugiat iusto eum, ab accusantium excepturi nihil quidem illum esse unde! Aperiam assumenda consequatur
+            suscipit.</p>
+        <p>Sed quae modi architecto natus, placeat distinctio, minima fugit nobis ducimus sunt vero. Recusandae placeat fuga
+            nihil nostrum voluptate atque harum deserunt fugiat consequuntur expedita id rem, obcaecati reprehenderit odio.</p>
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Fuga odit vel voluptates voluptas blanditiis ut nulla, quo
+                quam assumenda facere quod nesciunt in eum eveniet ea natus eaque aliquam laudantium!</p>
+            <p>Consequatur modi soluta veritatis odio voluptatibus necessitatibus asperiores ducimus excepturi. Exercitationem voluptates
+                fuga sunt a! Fugiat iusto eum, ab accusantium excepturi nihil quidem illum esse unde! Aperiam assumenda consequatur
+                suscipit.</p>
+            <p>Sed quae modi architecto natus, placeat distinctio, minima fugit nobis ducimus sunt vero. Recusandae placeat fuga
+                nihil nostrum voluptate atque harum deserunt fugiat consequuntur expedita id rem, obcaecati reprehenderit odio.</p>
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Fuga odit vel voluptates voluptas blanditiis ut nulla, quo
+                quam assumenda facere quod nesciunt in eum eveniet ea natus eaque aliquam laudantium!</p>
+            <p>Consequatur modi soluta veritatis odio voluptatibus necessitatibus asperiores ducimus excepturi. Exercitationem voluptates
+                fuga sunt a! Fugiat iusto eum, ab accusantium excepturi nihil quidem illum esse unde! Aperiam assumenda consequatur
+                suscipit.</p>
+            <p>Sed quae modi architecto natus, placeat distinctio, minima fugit nobis ducimus sunt vero. Recusandae placeat fuga
+                nihil nostrum voluptate atque harum deserunt fugiat consequuntur expedita id rem, obcaecati reprehenderit odio.</p>
+                
+                
     </section>
 
-    <section id="contenedor-flotante">
-        <h2>Posicionamiento flotante</h2>
+    <style>
+
+        .clearfix:after {
+            visibility: hidden;
+            display: block;
+            font-size: 0;
+            content: " ";
+            clear: both;
+            height: 0;
+        }
+        .clearfix { display: inline-block; }
+        /* start commented backslash hack \*/
+        * html .clearfix { height: 1%; }
+        .clearfix { display: block; }
+        /* close commented backslash hack */
+
+        #paginacion {
+            border: 1px solid #CCC;
+            background-color: tomato;
+            padding: .5em;
+            /*overflow: hidden; Necesario para mantener el height del contenedor*/
+        }
         
-        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/79/Herbstlandschaft_%28am_Rebhang%29.jpg/270px-Herbstlandschaft_%28am_Rebhang%29.jpg" alt="">
-        <div><p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Nulla ducimus magnam nesciunt harum qui ratione id quaerat dolore unde asperiores, beatae tenetur veniam vel error consequuntur molestias at. Alias, ipsum!</p></div>
-        <div><p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Magnam fugiat molestiae totam pariatur numquam blanditiis obcaecati eveniet ipsam inventore sint, cum nisi labore consequuntur animi excepturi amet neque est beatae.</p></div>
-        
+        .derecha   { float: right; }
+        .izquierda { float: left;  }
+    </style>
+
+    <section>
+        <h2>ClearFix</h2>
+
+        <div id="paginacion" class="clearfix">
+            <span class="izquierda">&laquo; Anterior</span>
+            <span class="derecha">Siguiente &raquo;</span>
+        </div>
     </section>
 
-    <div id="fija">
-        <a href="#top"><i class="fas fa-arrow-alt-circle-up"></i></a>
-    </div>
+
+    <section class="sticky">
+        <h2>Poscionamiento Sticky</h2>            
+        <p>Esta seccion se quedara arriba del todo de forma "fixed" al realizar el scroll</p>       
+    </section>
+
+
+    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Fuga odit vel voluptates voluptas blanditiis ut nulla, quo
+        quam assumenda facere quod nesciunt in eum eveniet ea natus eaque aliquam laudantium!</p>
+    <p>Consequatur modi soluta veritatis odio voluptatibus necessitatibus asperiores ducimus excepturi. Exercitationem voluptates
+        fuga sunt a! Fugiat iusto eum, ab accusantium excepturi nihil quidem illum esse unde! Aperiam assumenda consequatur
+        suscipit.</p>
+    <p>Sed quae modi architecto natus, placeat distinctio, minima fugit nobis ducimus sunt vero. Recusandae placeat fuga
+        nihil nostrum voluptate atque harum deserunt fugiat consequuntur expedita id rem, obcaecati reprehenderit odio.</p>
+    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Fuga odit vel voluptates voluptas blanditiis ut nulla, quo
+        quam assumenda facere quod nesciunt in eum eveniet ea natus eaque aliquam laudantium!</p>
+    <p>Consequatur modi soluta veritatis odio voluptatibus necessitatibus asperiores ducimus excepturi. Exercitationem voluptates
+        fuga sunt a! Fugiat iusto eum, ab accusantium excepturi nihil quidem illum esse unde! Aperiam assumenda consequatur
+        suscipit.</p>
+    <p>Sed quae modi architecto natus, placeat distinctio, minima fugit nobis ducimus sunt vero. Recusandae placeat fuga
+        nihil nostrum voluptate atque harum deserunt fugiat consequuntur expedita id rem, obcaecati reprehenderit odio.</p>
+
+        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Fuga odit vel voluptates voluptas blanditiis ut nulla, quo
+            quam assumenda facere quod nesciunt in eum eveniet ea natus eaque aliquam laudantium!</p>
+        <p>Consequatur modi soluta veritatis odio voluptatibus necessitatibus asperiores ducimus excepturi. Exercitationem voluptates
+            fuga sunt a! Fugiat iusto eum, ab accusantium excepturi nihil quidem illum esse unde! Aperiam assumenda consequatur
+            suscipit.</p>
+        <p>Sed quae modi architecto natus, placeat distinctio, minima fugit nobis ducimus sunt vero. Recusandae placeat fuga
+            nihil nostrum voluptate atque harum deserunt fugiat consequuntur expedita id rem, obcaecati reprehenderit odio.</p>
+        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Fuga odit vel voluptates voluptas blanditiis ut nulla, quo
+            quam assumenda facere quod nesciunt in eum eveniet ea natus eaque aliquam laudantium!</p>
+        <p>Consequatur modi soluta veritatis odio voluptatibus necessitatibus asperiores ducimus excepturi. Exercitationem voluptates
+            fuga sunt a! Fugiat iusto eum, ab accusantium excepturi nihil quidem illum esse unde! Aperiam assumenda consequatur
+            suscipit.</p>
+        <p>Sed quae modi architecto natus, placeat distinctio, minima fugit nobis ducimus sunt vero. Recusandae placeat fuga
+            nihil nostrum voluptate atque harum deserunt fugiat consequuntur expedita id rem, obcaecati reprehenderit odio.</p>
+
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Fuga odit vel voluptates voluptas blanditiis ut nulla, quo
+        quam assumenda facere quod nesciunt in eum eveniet ea natus eaque aliquam laudantium!</p>
+    <p>Consequatur modi soluta veritatis odio voluptatibus necessitatibus asperiores ducimus excepturi. Exercitationem voluptates
+        fuga sunt a! Fugiat iusto eum, ab accusantium excepturi nihil quidem illum esse unde! Aperiam assumenda consequatur
+        suscipit.</p>
+    <p>Sed quae modi architecto natus, placeat distinctio, minima fugit nobis ducimus sunt vero. Recusandae placeat fuga
+        nihil nostrum voluptate atque harum deserunt fugiat consequuntur expedita id rem, obcaecati reprehenderit odio.</p>
+    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Fuga odit vel voluptates voluptas blanditiis ut nulla, quo
+        quam assumenda facere quod nesciunt in eum eveniet ea natus eaque aliquam laudantium!</p>
+    <p>Consequatur modi soluta veritatis odio voluptatibus necessitatibus asperiores ducimus excepturi. Exercitationem voluptates
+        fuga sunt a! Fugiat iusto eum, ab accusantium excepturi nihil quidem illum esse unde! Aperiam assumenda consequatur
+        suscipit.</p>
+    <p>Sed quae modi architecto natus, placeat distinctio, minima fugit nobis ducimus sunt vero. Recusandae placeat fuga
+        nihil nostrum voluptate atque harum deserunt fugiat consequuntur expedita id rem, obcaecati reprehenderit odio.</p>
 
 </body>
 

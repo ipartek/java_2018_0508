@@ -1,3 +1,6 @@
+<%@page import="com.ipartek.formacion.nidea.pojo.Categoria"%>
+<%@page import="java.util.ArrayList"%>
+
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@include file="includes/header.jsp" %>
 <%@include file="includes/navbar.jsp" %>
@@ -10,10 +13,31 @@
 		
 		<form action="formulario" method="post">
 		
-		 	<div class="form-group">
-		 		<label for="nombre" class="obligatorio">Nombre:</label>
-				<input type="text" name="nombre" autofocus class="form-control" required placeholder="Nombre" tabindex="1">				
-			</div>	
+			<div class="form-row">			
+				<div class="col">
+				 	<div class="form-group">
+				 		<label for="nombre" class="obligatorio">Nombre:</label>
+						<input type="text" name="nombre" autofocus class="form-control" required placeholder="Nombre" tabindex="1">				
+					</div>
+				</div>		
+			
+				<div class="col">
+					<label for="categoria">Selecciona Categoria:</label>
+					<%
+						//recuperar atributo enviado desde el Controlador
+						ArrayList<Categoria> categorias = (ArrayList<Categoria>)request.getAttribute("categorias");
+					
+					%>
+					<select name="categoria" class="custom-select">
+					  <% for( Categoria c : categorias ){ %>					  
+					 	 <option value="<%=c.getId()%>"><%=c.getCodigo() + " - " + c.getNombre()%></option>					  
+					  <% } %>
+					</select>
+				</div>
+			</div>
+			<!-- .form-row -->
+			
+			
 			
 			<div class="form-row">
 			

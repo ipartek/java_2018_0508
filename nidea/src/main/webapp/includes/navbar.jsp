@@ -33,10 +33,10 @@
 	        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
 	          <a class="dropdown-item" href="login.jsp">Login</a>
 	          <a class="dropdown-item" href="registro.jsp">Registro</a>
-	          <a class="dropdown-item" href="formulario">Formulario</a>
+	          <a class="dropdown-item" href="formulario.jsp">Formulario</a>
 	          <a class="dropdown-item" href="listado.jsp">Listado</a>
 	        </div>
-	      </li>  
+	      </li>   
         </ul>        
       </div>
     </nav>

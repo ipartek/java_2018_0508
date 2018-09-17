@@ -1,5 +1,17 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@include file="includes/header.jsp" %>
+
+		<script>
+	        $(document).ready(function() {
+	            $('#tabla-productos').DataTable( {
+	                "language": {
+	                    "url": "vendors/datatables/i18n/Spanish.json"
+	                }
+	            } );
+	            
+	        } );
+	    </script>
+
 <%@include file="includes/navbar.jsp" %>
 
 	<main class="container" role="main">
