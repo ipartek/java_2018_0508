@@ -59,17 +59,17 @@ public class LoginController extends HttpServlet {
 				
 				// Pasamos el usuario 
 				session.setAttribute("usuario", usuario);
-				session.setMaxInactiveInterval(60*5); // 5 min.
-			} else {	// Loguin incorrecto
 				
+				// Establecemos el máximo tiempo inactivo
+				session.setMaxInactiveInterval(60*5); // 5 min.
+			
+			} else {	// Loguin incorrecto	
 				alert = new Alert(ERROR_LOGIN_MSG, Alert.WARNING);
 			}
 			
-			
 		} catch (Exception e) {
 			alert = new Alert();
-		} finally {
-			
+		} finally {	
 			session.setAttribute("alert", alert);
 			response.sendRedirect(request.getContextPath() + "/");
 		}

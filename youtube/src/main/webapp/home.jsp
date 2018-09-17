@@ -18,7 +18,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Youtube Video Play List</title>
+    <title>Youtube Video PlayList</title>
 
 	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
 	
@@ -39,7 +39,7 @@
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
       <div class="container">
      
-        <a class="navbar-brand" href="#">Youtube PlayList</a>
+        <a class="navbar-brand" href="#">Lista de Reproducción de Youtube</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
@@ -50,7 +50,7 @@
             <%
             
             // Gestión para el login
-            Usuario user = (Usuario) request.getAttribute("usuario");
+            Usuario user = (Usuario) session.getAttribute("usuario");
            
             if (user == null) { %> 
            
@@ -59,15 +59,20 @@
 	            <input name="user" class="form-control mr-sm-2" type="text" placeholder="Nombre usuario" required pattern=".{3,30}">
 	            <input name="psw" class="form-control mr-sm-2" type="password" placeholder="Contraseña" required pattern=".{2,50}">
 	            <button class="btn btn-outline-info my-2 my-sm-0" type="submit">Entrar</button>
+	            <span class="ml-3"><i class="fas fa-user-times"></i></span>
 	         </form>
             
-            <% } else {%>		
+            <% } else { %>		
             
             <!--  Fomulario para insertar video -->
-             <form action="" method="post" class="form-inline mt-2 mt-md-0">
-	            <input name="id" class="form-control mr-sm-2" type="text" placeholder="ID (11 caracerteres)" title="11 caracteres" required pattern=".{11,11}">
-	            <input name="nombre" class="form-control mr-sm-2" type="text" placeholder="Título (min. 2 caracteres)" required pattern=".{2,125}">
+             <form action="" method="post" class="form-inline mt-2 mt-md-0"> 
+	      
+	            <input name="id" class="form-control mr-sm-2" type="text" placeholder="ID (11 caracteres)" title="11 caracteres" required pattern=".{11,11}">
+	            <input name="nombre" class="form-control mr-sm-2" type="text" placeholder="Título (mín. 2 caract.)" required pattern=".{2,125}">
 	            <button class="btn btn-outline-info my-2 my-sm-0" type="submit">Añadir</button>
+	            <span class="ml-3"><i class="fas fa-user"></i></span>
+	            <span class="ml-2">${usuario.user}</span>
+	            <a href="logout" class="ml-2"><i class="fas fa-power-off"></i></a>
 	         </form>
             
            <% } %> 
@@ -85,7 +90,7 @@
       <div class="row">
 
         <div class="col-lg-3">        	
-          <h1 class="my-4">Lista Reproduccion</h1>
+          <h1 class="my-2">Lista de Reproduccion</h1>
           <ul class="list-group">
           	<%
           		ArrayList<Video> videos = (ArrayList<Video>) request.getAttribute("videos");
@@ -105,7 +110,27 @@
 	          	  	<a href="?id=<%=v.getId()%>&op=<%=HomeController.OP_ELIMINAR%>"><i style="color:red;" class="float-right fas fa-trash-alt"></i></a>
 	            </li>
             <%
-          		} //end for
+          		} //End FOR
+            %>
+            </ul>
+            
+          </div>
+          
+           <div class="col-lg-3">        	
+          <h1 class="my-2">Últimas reproducciones</h1>
+          <ul class="list-group">
+          	<%
+          		ArrayList<Video> historial = (ArrayList<Video>) session.getAttribute("historial");
+          		historial.add(videoInicio);
+  	
+          		for( Video v : historial ){
+          	%>
+	            <li class="list-group-item d-flex justify-content-between align-items-center">     
+	          	  	<a href="?id=<%=v.getId()%>"><%=v.getNombre()%></a>
+	          	  	<a href="?id=<%=v.getId()%>&op=<%=HomeController.OP_ELIMINAR%>"><i style="color:red;" class="float-right fas fa-trash-alt"></i></a>
+	            </li>
+            <%
+          		} //End FOR
             %>
             </ul>
             

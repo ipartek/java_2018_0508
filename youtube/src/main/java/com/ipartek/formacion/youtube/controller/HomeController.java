@@ -9,6 +9,8 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
 import com.ipartek.formacion.youtube.pojo.Video;
 import com.ipartek.formacion.youtube.model.VideoArrayListDAO;
 
@@ -23,7 +25,10 @@ public class HomeController extends HttpServlet {
 	public static final String OP_ELIMINAR = "1";
 	private static VideoArrayListDAO dao;
 	private ArrayList<Video> videos;
+	private ArrayList<Video> videosReproducidos;
 	private Video videoInicio;
+	
+	private HttpSession session;
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
@@ -45,7 +50,7 @@ public class HomeController extends HttpServlet {
 
 			// Listado videos
 			videos = (ArrayList<Video>) dao.getAll();
-
+			
 			// Video de inicio
 			videoInicio = new Video();
 			
