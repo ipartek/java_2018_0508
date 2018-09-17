@@ -55,6 +55,8 @@
 					
 						<label for="precio">Precio</label>
 						<input type="number" class="form-control" name="precio" required placeholder="Precio del Producto" tabindex="4">
+						<label for="oferta">Oferta: </label>
+						<input type="checkbox" class="form-control" name="oferta" tabindex="2">
 					
 				</div>
 				<div class="form-group">

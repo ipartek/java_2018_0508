@@ -1,171 +1,219 @@
-<%@page
-	import="com.ipartek.formacion.youtube.controller.VideoYoutubeController"%>
+<%@page import="com.ipartek.formacion.pojo.Usuario"%>
+<%@page import="com.ipartek.formacion.pojo.Alerts"%>
 <%@page import="com.ipartek.formacion.pojo.Video"%>
+<%@page import="com.ipartek.formacion.youtube.controller.VideoYoutubeController"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@page import="java.util.ArrayList"%>
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1"%>
+
+
 <!DOCTYPE html>
 <html lang="en">
 
-<head>
+  <head>
 
-<meta charset="utf-8">
-<meta name="viewport"
-	content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<meta name="description" content="">
-<meta name="author" content="">
+	<!-- Comenza todas las URLs desde el href indicado -->
+	<base href="<%=request.getContextPath()%>/">
+	
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
 
-<title>Youtube app</title>
+    <title>Youtube Video Play List</title>
 
-<!-- Bootstrap core CSS -->
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
+	
+    <!-- Bootstrap core CSS -->
+    <link href="https://blackrockdigital.github.io/startbootstrap-shop-item/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
-<link
-	href="https://blackrockdigital.github.io/startbootstrap-shop-item/vendor/bootstrap/css/bootstrap.min.css"
-	rel="stylesheet">
+    <!-- Custom styles for this template -->
+    <link href="https://blackrockdigital.github.io/startbootstrap-shop-item/css/shop-item.css" rel="stylesheet">
+	<!-- Fontawasome -->
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+	<link rel="stylesheet" href="css/styles.css" >
+	
 
-<!-- Custom styles for this template -->
-<link
-	href="https://blackrockdigital.github.io/startbootstrap-shop-item/css/shop-item.css"
-	rel="stylesheet">
+  </head>
 
-</head>
+  <body>
 
-<body>
-	<link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-	<!-- Navigation -->
-	<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
-		<div class="container">
-			<a class="navbar-brand" href="#">Youtube</a>
-			<button class="navbar-toggler" type="button" data-toggle="collapse"
-				data-target="#navbarResponsive" aria-controls="navbarResponsive"
-				aria-expanded="false" aria-label="Toggle navigation">
-				<span class="navbar-toggler-icon"></span>
-			</button>
-			<div class="" id="navbarResponsive" align="right">
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+      <div class="container">
+        <a class="navbar-brand" href="#">Youtube PlayList</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+          <ul class="navbar-nav ml-auto">
+            <li class="nav-item active">
+            
+            <% 
+            	//Gestion Usuario Logeado   
+            	Usuario usuario = (Usuario)session.getAttribute("usuario");
+            	if ( usuario == null ){            
+            %>	            
+              <!-- formulario Login -->
+              <form action="login" method="post" class="form-inline mt-2 mt-md-0">
+	            <input name="usuario" class="form-control mr-sm-2" type="text" placeholder="Nombre Usuario" required pattern=".{3,30}">
+	            <input name="pass" class="form-control mr-sm-2" type="password" placeholder="Contraseña" required pattern=".{2,50}">
+	            <button class="btn btn-outline-info my-2 my-sm-0" type="submit">Entrar</button>
+	          </form>            
+            <%
+            	} else {
+            %>              
+              <!-- formulario Crear Video -->
+              
+              <form action="" method="post" class="form-inline mt-2 mt-md-0">
+	            <input name="id" class="form-control mr-sm-2" type="text" placeholder="ID 11 caracerteres" title="11 caracteres" required pattern=".{11,11}">
+	            <input name="nombre" class="form-control mr-sm-2" type="text" placeholder="Nombre minimo 2 letras" required pattern=".{2,125}">
+	            <button class="btn btn-outline-info my-2 my-sm-0" type="submit">Añadir</button>
+	            <i class="fas fa-user" style="color:red; margin-left:5px;"> <%=usuario.getNombre() %> </i>
+	            <p><a  href="logout">Cerrar Sesion</a></p>
+	          </form>	  
+				     
+	          <%
+            	} 
+              %>  
+	          
+            </li>            
+          </ul>
+          
+          
+          
+        </div>
+      </div>
+    </nav>
 
-				<form class="form-inline">
-
-					<div class="form-group mx-sm-3 mb-2">
-						<label for="id-label" class="sr-only">id</label> <input
-							type="text" class="form-control" name="id" id="id" placeholder="ID">
-						<label for="nombreCancion" class="sr-only">nombre</label> <input
-							type="text" class="form-control" name="nombreCancion" id="nombreCancion"
-							placeholder="NOMBRE">
-
-					</div>
-					<button name="anadir" id="anadir" value="anadir" type="submit"
-						class="btn btn-primary mb-2">Anadir</button>
-				</form>
-			</div>
-		</div>
-	</nav>
-
-	<!-- Page Content -->
-	<div class="container">
-
-		<div class="row">
-
-			<div class="col-lg-3">
-				<h1 class="my-4">Lista de reproduccion</h1>
-				<div class="list-group active">
-
-
-					<%
-						ArrayList<Video> videos = (ArrayList<Video>) request.getAttribute("videos");
-						if (videos.isEmpty()) {
-
-							Video vSeleccionado = new Video();
-
-						}
-						for (Video video : videos) {
-					%>
-
-
-
-					<a name="enlaceClickado" value="<%=video.getId()%>" href="?id=<%=video.getId()%>" class="list-group-item "><%=video.getNombreCancion()%></a>
-					<div id="iconos" class="text-center">
-						<i class="text-center fab fa-youtube"></i> <i
-							class="text-center  fas fa-trash-alt"></i>
-							
-					</div>
-
-
-					<%
-						}
-					%>
-
-
+    <!-- Page Content -->
+    <div class="container">
+    
+      <%
+      	//Gestion de Alertas para el usuario      	
+        Alerts alert = (Alerts)request.getAttribute("alert");
+      	if ( alert == null ){
+      		alert = (Alerts)session.getAttribute("alert");
+      		session.setAttribute("alert", null); // eliminar atributo de session
+      	}
+      
+      	if( alert != null){
+      	%>
+      		<div class="container">
+				<div class="alert <%=alert.getTipo()%> alert-dismissible fade show" role="alert">
+				  <p><%=alert.getTexto()%></p>
+				  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+				    <span aria-hidden="true">&times;</span>
+				  </button>
 				</div>
-
-
 			</div>
-			<!-- /.col-lg-3 -->
+      	<%	
+      	}      
+      %>	
+    
 
-			<div class="col-lg-9">
+      <div class="row">
 
-				<div class="card mt-4">
-					<iframe width="560" height="315" src="${idSeleccionado}" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
-					
-					<div class="card-body">
-						<h3 class="card-title">Ricky hombre libre(titulo)</h3>
-						<!--  <h4>$24.99</h4> -->
-						<p class="card-text">Lorem ipsum dolor sit amet, consectetur
-							adipisicing elit. Sapiente dicta fugit fugiat hic aliquam itaque
-							facere, soluta. Totam id dolores, sint aperiam sequi pariatur
-							praesentium animi perspiciatis molestias iure, ducimus!</p>
-						<span class="text-warning">&#9733; &#9733; &#9733; &#9733;
-							&#9734;</span> 4.0 stars
-					</div>
-				</div>
-				<!-- /.card -->
+        <div class="col-lg-3">        	
+          <h1 class="my-4">Lista Reproduccion</h1>
+          <ul class="list-group">
+          	<%
+          		ArrayList<Video> videos = (ArrayList<Video>) request.getAttribute("videos");
+          		if ( videos == null ){
+          			videos = new ArrayList<Video>();
+          		}
+          		
+          		Video videoInicio = (Video)request.getAttribute("videoInicio");
+          		if ( videoInicio == null){
+          			videoInicio = new Video();
+          		}
+    			
+          		for( Video v : videos ){
+          	%>
+	            <li class="list-group-item d-flex justify-content-between align-items-center">     
+	          	  	<a href="?id=<%=v.getId()%>"><%=v.getNombreCancion()%></a>
+	          	  	<a href="?id=<%=v.getId()%>&op=<%=VideoYoutubeController.OP_ELIMINAR%>"><i style="color:red;" class="float-right fas fa-trash-alt"></i></a>
+	            </li>
+            <%
+          		} //end for
+            %>
+            </ul>
+            
+          </div>
+        
+        <!-- /.col-lg-3 -->
 
-				<div class="card card-outline-secondary my-4">
-					<div class="card-header">Product Reviews</div>
-					<div class="card-body">
-						<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-							Omnis et enim aperiam inventore, similique necessitatibus neque
-							non! Doloribus, modi sapiente laboriosam aperiam fugiat laborum.
-							Sequi mollitia, necessitatibus quae sint natus.</p>
-						<small class="text-muted">Posted by Anonymous on 3/1/17</small>
-						<hr>
-						<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-							Omnis et enim aperiam inventore, similique necessitatibus neque
-							non! Doloribus, modi sapiente laboriosam aperiam fugiat laborum.
-							Sequi mollitia, necessitatibus quae sint natus.</p>
-						<small class="text-muted">Posted by Anonymous on 3/1/17</small>
-						<hr>
-						<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-							Omnis et enim aperiam inventore, similique necessitatibus neque
-							non! Doloribus, modi sapiente laboriosam aperiam fugiat laborum.
-							Sequi mollitia, necessitatibus quae sint natus.</p>
-						<small class="text-muted">Posted by Anonymous on 3/1/17</small>
-						<hr>
-						<a href="#" class="btn btn-success">Leave a Review</a>
-					</div>
-				</div>
-				<!-- /.card -->
+        <div class="col-lg-9">
 
-			</div>
-			<!-- /.col-lg-9 -->
+          <div class="card mt-4">
+          
+            <iframe id="iframe" width="823" height="415" src="https://www.youtube.com/embed/<%=videoInicio.getId()%>?autoplay=1" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+            
+            <div class="card-body">
+              <h3 class="card-title"><%=videoInicio.getNombreCancion()%></h3>              
+              <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sapiente dicta fugit fugiat hic aliquam itaque facere, soluta. Totam id dolores, sint aperiam sequi pariatur praesentium animi perspiciatis molestias iure, ducimus!</p>
+              <span class="text-warning">&#9733; &#9733; &#9733; &#9733; &#9734;</span>
+              4.0 stars
+            </div>
+          </div>
+          <!-- /.card -->
 
-		</div>
+          <div class="card card-outline-secondary my-4">
+            <div class="card-header">
+              Comentarios
+            </div>
+            <div class="card-body">
+              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Omnis et enim aperiam inventore, similique necessitatibus neque non! Doloribus, modi sapiente laboriosam aperiam fugiat laborum. Sequi mollitia, necessitatibus quae sint natus.</p>
+              <small class="text-muted">Posted by Anonymous on 3/1/17</small>
+              <hr>
+              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Omnis et enim aperiam inventore, similique necessitatibus neque non! Doloribus, modi sapiente laboriosam aperiam fugiat laborum. Sequi mollitia, necessitatibus quae sint natus.</p>
+              <small class="text-muted">Posted by Anonymous on 3/1/17</small>
+              <hr>
+              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Omnis et enim aperiam inventore, similique necessitatibus neque non! Doloribus, modi sapiente laboriosam aperiam fugiat laborum. Sequi mollitia, necessitatibus quae sint natus.</p>
+              <small class="text-muted">Posted by Anonymous on 3/1/17</small>
+              
+            </div>
+          </div>
+          <!-- /.card -->
 
-	</div>
-	<!-- /.container -->
+        </div>
+        <!-- /.col-lg-9 -->
 
-	<!-- Footer -->
-	<footer class="py-5 bg-dark">
-		<div class="container">
-			<p class="m-0 text-center text-white">Copyright &copy; Your
-				Website 2017</p>
-		</div>
-		<!-- /.container -->
-	</footer>
+      </div>
+      <div class="row" style="border:1px solid black; height:200px;">
+      	<div class="col-6" style="border:1px solid black">
+      	<%
+      		ArrayList<Video> listaVideos= (ArrayList<Video>) request.getAttribute("listaVideos");
+      		if(listaVideos != null){
+      			for(Video v: listaVideos){
+      				
+      			
+      		
+      	%>
+      		<p>v.getNombreCancion()</p>
+      	<%
+      		}
+      		}
+      	%>
+      	</div>
+      	<div class="col-6" style="border:1px solid black">
+      	</div>
+      </div>
 
-	<!-- Bootstrap core JavaScript -->
-	<script src="vendor/jquery/jquery.min.js"></script>
-	<script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    </div>
+    <!-- /.container -->
 
-</body>
+    <!-- Footer -->
+    <footer class="py-5 bg-dark">
+      <div class="container">
+        <p class="m-0 text-center text-white">Copyright &copy; Your Website 2017</p>
+      </div>
+      <!-- /.container -->
+    </footer>
+
+    <!-- Bootstrap core JavaScript -->
+    <script src="https://blackrockdigital.github.io/startbootstrap-shop-item/vendor/jquery/jquery.min.js"></script>
+    <script src="https://blackrockdigital.github.io/startbootstrap-shop-item/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+  </body>
 
 </html>

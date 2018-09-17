@@ -1,30 +1,72 @@
 package com.ipartek.formacion.youtube.controller;
 
-
 import java.io.IOException;
 import java.util.ArrayList;
 
+import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
-import com.ipartek.formacion.model.VideoArrayListDao;
+import com.ipartek.formacion.model.VideoArrayListDAO;
 import com.ipartek.formacion.pojo.Video;
 
 /**
- * Servlet implementation class VideoYoutubeController
+ * Servlet implementation class HomeController
  */
 @WebServlet("/")
 public class VideoYoutubeController extends HttpServlet {
-	private static final long serialVersionUID = 1L;
-	private static VideoArrayListDao videosDao;
-	private static ArrayList<Video> videos;
-	private static String enlaceClickado;
-	String urlYoutube="https://www.youtube.com/" ;
-	
 
+	private static final long serialVersionUID = 1L;
+	
+	public static final String OP_ELIMINAR = "1";
+	private static VideoArrayListDAO dao;
+	private ArrayList<Video> videos;
+	private Video videoInicio;
+	private ArrayList<Video> listaVideos = new ArrayList<Video>();
+
+	
+	@Override
+	public void init(ServletConfig config) throws ServletException {	
+		super.init(config);
+		//Se ejecuta solo con la 1º petición, el resto de peticiones iran a "service"
+		dao = VideoArrayListDAO.getInstance();
+	}
+	
+	
+	@Override
+	public void destroy() {	
+		super.destroy();
+		//se ejecuta al parar el servidor
+		dao = null;
+	}
+	
+	
+	/**
+	 * Cada request se ejecuta en un hilo o thread
+	 */
+	@Override
+	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	
+		System.out.println("Antes de realizar GET o POST");
+		
+		super.service(request, response);  //llama a los metodos GET o POST
+				
+		//despues de realizar GET o POST
+		if(listaVideos != null) {
+			request.setAttribute("listaVideos", listaVideos);
+		}
+		
+		request.setAttribute("videos", videos);
+		request.setAttribute("videoInicio", videoInicio);
+		request.getRequestDispatcher("home.jsp").forward(request, response);
+		
+	}
+	
+	
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
 	 *      response)
@@ -33,35 +75,43 @@ public class VideoYoutubeController extends HttpServlet {
 			throws ServletException, IOException {
 		
 		try {
-			//entrada de parametros
-			String senal = request.getParameter("anadir") ;
-			String enlaceClickado = request.getParameter("id");
 			
+			//parametros
+			String id = request.getParameter("id");
+			String op = request.getParameter("op");
 			
-			if(enlaceClickado != null ) {
-				System.out.println(enlaceClickado);
-				urlYoutube += enlaceClickado;
+			//eliminar ?			
+			if ( op != null && OP_ELIMINAR.equals(op) ) {
+				dao.delete(id);
 			}
 			
-			if (senal != null && senal.contains("anadir")){
-				String id = request.getParameter("id");
-				String nombreCancion = request.getParameter("nombreCancion");
-				Video v = new Video(id,nombreCancion);
-				videosDao.insert(v);
+			//listado videos			
+			videos = (ArrayList<Video>) dao.getAll();
+			//guardo historial
+			if(id != null) {
+				for(Video v : videos) {
+					if (id.contentEquals(v.getId()) ) {
+						listaVideos.add(v);
+					}
+				}
 			}
 			
-			//listado de videos
-			videosDao = VideoArrayListDao.getInstance();
-			videos = (ArrayList<Video>) videosDao.getAll();	
-
-			System.out.println("doGet");
+			
+			
+			
+			//video de inicio
+			videoInicio = new Video();
+			if ( id != null && !OP_ELIMINAR.equals(op) ) {
+				videoInicio = dao.getById(id);
+			}else if ( !videos.isEmpty()) {
+				videoInicio = videos.get(0);
+			}
+			
 
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
-			request.setAttribute("idSeleccionado", urlYoutube);
-			request.setAttribute("videos", videos);
-			request.getRequestDispatcher("home.jsp").forward(request, response);
+			
 		}
 	}
 
@@ -72,11 +122,23 @@ public class VideoYoutubeController extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		try {
-			System.out.println("doPost");
+			
+			//recoger parametros
+			String id = request.getParameter("id");
+			String nombre = request.getParameter("nombre");
+			
+			//insertar
+			videoInicio = new Video(id, nombre);
+			dao.insert(videoInicio);
+			
+			//pedir listado			
+			videos = (ArrayList<Video>) dao.getAll();
+			
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
-			request.getRequestDispatcher("home.jsp").forward(request, response);
+			
 		}
 	}
 
