@@ -71,11 +71,6 @@ public class HomeController extends HttpServlet {
 		
 		try {
 			
-			
-			HttpSession session = request.getSession();
-			session.setAttribute("usuario", null );
-			
-			
 			//parametros
 			String id = request.getParameter("id");
 			String op = request.getParameter("op");

@@ -1,3 +1,4 @@
+<%@page import="com.ipartek.formacion.youtube.pojo.Usuario"%>
 <%@page import="com.ipartek.formacion.youtube.pojo.Alert"%>
 <%@page import="com.ipartek.formacion.youtube.pojo.Video"%>
 <%@page import="com.ipartek.formacion.youtube.controller.HomeController"%>
@@ -43,8 +44,9 @@
             <li class="nav-item active">
             
             <% 
-            	//Gestion Usuario Logeado            	
-            	if ( session.getAttribute("usuario") == null ){            
+            	//Gestion Usuario Logeado   
+            	Usuario usuario = (Usuario)session.getAttribute("usuario");
+            	if ( usuario == null ){            
             %>	            
               <!-- formulario Login -->
               <form action="login" method="post" class="form-inline mt-2 mt-md-0">
@@ -80,6 +82,11 @@
       <%
       	//Gestion de Alertas para el usuario      	
         Alert alert = (Alert)request.getAttribute("alert");
+      	if ( alert == null ){
+      		alert = (Alert)session.getAttribute("alert");
+      		session.setAttribute("alert", null); // eliminar atributo de session
+      	}
+      
       	if( alert != null){
       	%>
       		<div class="container">
