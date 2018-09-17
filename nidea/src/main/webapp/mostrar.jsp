@@ -3,7 +3,7 @@
 <%@ include file="includes/navbar.jsp" %>
 
 	<main  class="container">
-		<di id="mostrar-page" class="justify-content-center">
+		<div id="mostrar-page" class="justify-content-center">
 			<div class="col-12 mb-3">
 				<h1 class="text-center text-primary font-weight-light">Productos</h1>
 				<div class="row d-flex flex-wrap card-deck">
