@@ -3,14 +3,16 @@ package com.ipartek.formacion.youtube.controller;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
-import com.ipartek.formacion.youtube.Video;
 import com.ipartek.formacion.youtube.model.VideoArrayListDAO;
+import com.ipartek.formacion.youtube.pojo.Video;
 
 /**
  * Servlet implementation class HomeController
@@ -25,6 +27,41 @@ public class HomeController extends HttpServlet {
 	private ArrayList<Video> videos;
 	private Video videoInicio;
 
+	
+	@Override
+	public void init(ServletConfig config) throws ServletException {	
+		super.init(config);
+		//Se ejecuta solo con la 1º petición, el resto de peticiones iran a "service"
+		dao = VideoArrayListDAO.getInstance();
+	}
+	
+	
+	@Override
+	public void destroy() {	
+		super.destroy();
+		//se ejecuta al parar el servidor
+		dao = null;
+	}
+	
+	
+	/**
+	 * Cada request se ejecuta en un hilo o thread
+	 */
+	@Override
+	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	
+		System.out.println("Antes de realizar GET o POST");
+		
+		super.service(request, response);  //llama a los metodos GET o POST
+				
+		//despues de realizar GET o POST
+		request.setAttribute("videos", videos);
+		request.setAttribute("videoInicio", videoInicio);
+		request.getRequestDispatcher("home.jsp").forward(request, response);
+		
+	}
+	
+	
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
 	 *      response)
@@ -33,6 +70,11 @@ public class HomeController extends HttpServlet {
 			throws ServletException, IOException {
 		
 		try {
+			
+			
+			HttpSession session = request.getSession();
+			session.setAttribute("usuario", null );
+			
 			
 			//parametros
 			String id = request.getParameter("id");
@@ -43,8 +85,7 @@ public class HomeController extends HttpServlet {
 				dao.delete(id);
 			}
 			
-			//listado videos
-			dao = VideoArrayListDAO.getInstance();
+			//listado videos			
 			videos = (ArrayList<Video>) dao.getAll();
 			
 			
@@ -60,9 +101,7 @@ public class HomeController extends HttpServlet {
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
-			request.setAttribute("videos", videos);
-			request.setAttribute("videoInicio", videoInicio);
-			request.getRequestDispatcher("home.jsp").forward(request, response);
+			
 		}
 	}
 
@@ -82,17 +121,14 @@ public class HomeController extends HttpServlet {
 			videoInicio = new Video(id, nombre);
 			dao.insert(videoInicio);
 			
-			//pedir listado
-			dao = VideoArrayListDAO.getInstance();
+			//pedir listado			
 			videos = (ArrayList<Video>) dao.getAll();
 			
 
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
-			request.setAttribute("videos", videos);
-			request.setAttribute("videoInicio", videoInicio);
-			request.getRequestDispatcher("home.jsp").forward(request, response);
+			
 		}
 	}
 
