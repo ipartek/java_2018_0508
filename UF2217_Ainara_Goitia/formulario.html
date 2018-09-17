@@ -1,0 +1,163 @@
+<!doctype html>
+<html lang="es">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>UF2217 - HTML y CSS</title>
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+        crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU"
+        crossorigin="anonymous">
+
+    <link rel="stylesheet" href="css/styles.css?v2">
+
+    <!-- Bootstrap core CSS -->
+    <link href="https://getbootstrap.com/docs/4.1/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="jumbotron.css" rel="stylesheet">
+</head>
+
+<body>
+
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="index.html">
+            <img src="images/logo.png" class="logo">
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" href="index.html">Inicio</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="login.html">Login</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link disabled" href="formulario.html">Nuevo producto</a>
+                </li>
+                <li class="nav-item"><a class="nav-link disabled" href="listado.html">Listado de productos</a></li>
+            </ul>
+            <form class="form-inline my-2 my-lg-0">
+                <input class="form-control mr-sm-2" type="search" placeholder="Buscar" aria-label="Search">
+                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Buscar</button>
+            </form>
+        </div>
+    </nav>
+
+    <main role="main" class="container">
+        <h1>Formulario Alta Producto</h1>
+        <p class="font-italic text-secondary">Los campos con * son obligatorios</p>
+
+        <form action="formulario" method="post">
+            <div class="form-row">
+                <div class="col">
+                    <div class="form-group">
+                        <label for="codigo" class="obligatorio">Código:</label>
+                        <input type="text" name="codigo" autofocus class="form-control" required placeholder="Código del Producto">
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="form-group">
+                        <label for="nombre" class="obligatorio">Nombre:</label>
+                        <input type="text" name="nombre" class="form-control" required placeholder="Nombre">
+                    </div>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="col">
+                    <div class="form-group">
+                        <label for="Precio" class="obligatorio">Precio:</label>
+                        <input type="number" name="precio" class="form-control" required step="0.1" placeholder="precio">
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="form-group">
+                        <label for="Precioxpeso" class="obligatorio">Precio x litro/kilo:</label>
+                        <input type="number" name="Precioxpeso" class="form-control" required step="0.1" placeholder="Precio por litro/kilo">
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="form-group">
+                        <label for="oferta" class="d-block text-center">Oferta</label>
+                        <input type="checkbox" name="oferta" class="form-control">
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="ofertaRadio" id="descuento10" value="option1">
+                        <label class="form-check-label" for="descuento10">
+                            10%
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="ofertaRadio" id="decuento20" value="option2">
+                        <label class="form-check-label" for="decuento20">
+                            20%
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="ofertaRadio" id="decuento30" value="option3">
+                        <label class="form-check-label" for="decuento30">
+                            30%
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="ofertaRadio" id="decuento50" value="option4">
+                        <label class="form-check-label" for="decuento50">
+                            50%
+                        </label>
+                    </div>
+                </div>
+
+            </div>
+            <div class="form-group">
+                <label for="descripcion" class="obligatorio">Descripcion:</label>
+                <textarea name="descripcion" rows="5" class="form-control"></textarea>
+            </div>
+
+            <div class="form-group">
+                <input type="submit" value="Nuevo Producto" class="btn btn-primary btn-block">
+            </div>
+        </form>
+        <hr>
+
+        </div> <!-- /container -->
+
+    </main>
+
+    <footer class="container">
+        <nav class="nav-socials">
+            <a href="#"><i class="fab fa-facebook fa-2x"></i></a>
+            <a href="#"><i class="fab fa-twitter-square fa-2x"></i></a>
+        </nav>
+        <nav class="nav-links">
+            <a href="#">Política de privacidad</a>
+            <a href="#" class="barra">Contacto</a>
+            <a href="#" class="barra">Localización</a>
+            <a href="#" class="barra"><i class="far fa-copyright">2018</i></a>
+        </nav>
+    </footer>
+
+    <!-- Bootstrap core JavaScript
+================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+    <script>
+        window.jQuery || document.write(
+            '<script src="https://getbootstrap.com/docs/4.1/assets/js/vendor/jquery-slim.min.js"><\/script>')
+    </script>
+    <script src="https://getbootstrap.com/docs/4.1/assets/js/vendor/popper.min.js"></script>
+    <script src="https://getbootstrap.com/docs/4.1/dist/js/bootstrap.min.js"></script>
+</body>
+
+</html>

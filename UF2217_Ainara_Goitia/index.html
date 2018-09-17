@@ -1,0 +1,549 @@
+<!doctype html>
+<html lang="es">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>UF2217 - HTML y CSS</title>
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+        crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU"
+        crossorigin="anonymous">
+
+    <link rel="stylesheet" href="css/styles.css?v4">
+
+    <!-- Bootstrap core CSS -->
+    <link href="https://getbootstrap.com/docs/4.1/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="jumbotron.css" rel="stylesheet">
+</head>
+
+<body id="top">
+    <!--Barra de menu-->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="index.html">
+            <img src="images/logo.png" class="logo">
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" href="index.html">Inicio</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="login.html">Login</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link disabled" href="formulario.html">Nuevo producto</a>
+                </li>
+                <li class="nav-item"><a class="nav-link disabled" href="listado.html">Listado de productos</a></li>
+            </ul>
+            <form class="form-inline my-2 my-lg-0">
+                <input class="form-control mr-sm-2" type="search" placeholder="Buscar" aria-label="Search">
+                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Buscar</button>
+            </form>
+        </div>
+    </nav>
+    <!--Fin de menu-->
+
+    <main role="main">
+        <section class="container-main">
+            <div class="item ">
+                <div class="card border-light text-center h-100">
+                    <div class="card-custom-header">
+                        <span class="badge badge-secondary badge-danger">20%</span>
+                        <img class="card-img-top" src="images/producto.png" alt="Imagen detalle">
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col">
+                                <h6 class="card-title">13,35€</h6>
+
+                            </div>
+                            <div class="col">
+                                <h6 class="card-title">12,95€</h6>
+                            </div>
+
+                        </div>
+                        <p class="card-title precio">(18,50 €/litro)</p>
+                        <p class="card-text">BEEFEATER ginebra inglesa botella 70cl</p>
+                        <div class="row">
+                            <div class="col">
+                                <button type="button" class="btn btn-light">-</button>
+
+                            </div>
+                            <div class="col">
+                                <input type="text" class="form-control" id="producto" placeholder="1">
+                            </div>
+                            <div class="col">
+                                <button type="button" class="btn btn-light">+</button>
+                            </div>
+                        </div>
+                        <a href="#" class="btn btn-secondary btn-lg btn-block">AÑADIR AL CARRO</a>
+                    </div>
+                </div>
+            </div>
+            <div class="item">
+
+                <div class="card border-light text-center h-100">
+                    <div class="card-custom-header">
+                        <img class="card-img-top" src="images/producto.png" alt="Imagen detalle">
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col">
+                                <h6 class="card-title">13,35€</h6>
+
+                            </div>
+                            <div class="col">
+                                <h6 class="card-title">12,95€</h6>
+                            </div>
+
+                        </div>
+                        <p class="card-title precio">(18,50 €/litro)</p>
+                        <p class="card-text">BEEFEATER ginebra inglesa botella 70cl</p>
+                        <div class="row">
+                            <div class="col">
+                                <button type="button" class="btn btn-light">-</button>
+
+                            </div>
+                            <div class="col">
+                                <input type="text" class="form-control" id="producto" placeholder="1">
+                            </div>
+                            <div class="col">
+                                <button type="button" class="btn btn-light">+</button>
+                            </div>
+                        </div>
+
+                        <a href="#" class="btn btn-secondary btn-lg btn-block">AÑADIR AL CARRO</a>
+                    </div>
+                </div>
+
+            </div>
+            <div class="item">
+
+                <div class="card border-light text-center h-100">
+                    <div class="card-custom-header">
+                        <span class="badge badge-secondary badge-danger">30%</span>
+                        <img class="card-img-top" src="images/producto.png" alt="Imagen detalle">
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col">
+                                <h6 class="card-title">13,35€</h6>
+
+                            </div>
+                            <div class="col">
+                                <h6 class="card-title">12,95€</h6>
+                            </div>
+
+                        </div>
+                        <p class="card-title precio">(18,50 €/litro)</p>
+                        <p class="card-text">BEEFEATER ginebra inglesa botella 70cl</p>
+                        <div class="row">
+                            <div class="col">
+                                <button type="button" class="btn btn-light">-</button>
+
+                            </div>
+                            <div class="col">
+                                <input type="text" class="form-control" id="producto" placeholder="1">
+                            </div>
+                            <div class="col">
+                                <button type="button" class="btn btn-light">+</button>
+                            </div>
+                        </div>
+
+                        <a href="#" class="btn btn-secondary btn-lg btn-block">AÑADIR AL CARRO</a>
+                    </div>
+                </div>
+
+            </div>
+            <div class="item">
+
+                <div class="card border-light text-center h-100">
+                    <div class="card-custom-header">
+                        <img class="card-img-top" src="images/producto.png" alt="Imagen detalle">
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col">
+                                <h6 class="card-title">13,35€</h6>
+
+                            </div>
+                            <div class="col">
+                                <h6 class="card-title">12,95€</h6>
+                            </div>
+
+                        </div>
+                        <p class="card-title precio">(18,50 €/litro)</p>
+                        <p class="card-text">BEEFEATER ginebra inglesa botella 70cl</p>
+                        <div class="row">
+                            <div class="col">
+                                <button type="button" class="btn btn-light">-</button>
+
+                            </div>
+                            <div class="col">
+                                <input type="text" class="form-control" id="producto" placeholder="1">
+                            </div>
+                            <div class="col">
+                                <button type="button" class="btn btn-light">+</button>
+                            </div>
+                        </div>
+
+                        <a href="#" class="btn btn-secondary btn-lg btn-block">AÑADIR AL CARRO</a>
+                    </div>
+                </div>
+
+            </div>
+            <div class="item">
+
+                <div class="card border-light text-center h-100">
+                    <div class="card-custom-header">
+                        <span class="badge badge-secondary badge-danger">10%</span>
+                        <img class="card-img-top" src="images/producto.png" alt="Imagen detalle">
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col">
+                                <h6 class="card-title">13,35€</h6>
+
+                            </div>
+                            <div class="col">
+                                <h6 class="card-title">12,95€</h6>
+                            </div>
+
+                        </div>
+                        <p class="card-title precio">(18,50 €/litro)</p>
+                        <p class="card-text">BEEFEATER ginebra inglesa botella 70cl</p>
+                        <div class="row">
+                            <div class="col">
+                                <button type="button" class="btn btn-light">-</button>
+
+                            </div>
+                            <div class="col">
+                                <input type="text" class="form-control" id="producto" placeholder="1">
+                            </div>
+                            <div class="col">
+                                <button type="button" class="btn btn-light">+</button>
+                            </div>
+                        </div>
+
+                        <a href="#" class="btn btn-secondary btn-lg btn-block">AÑADIR AL CARRO</a>
+                    </div>
+                </div>
+
+
+            </div>
+
+            </div>
+
+            <div class="item">
+
+                <div class="card border-light text-center h-100">
+                    <div class="card-custom-header">
+                        <span class="badge badge-secondary badge-danger">20%</span>
+                        <img class="card-img-top" src="images/producto.png" alt="Imagen detalle">
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col">
+                                <h6 class="card-title">13,35€</h6>
+
+                            </div>
+                            <div class="col">
+                                <h6 class="card-title">12,95€</h6>
+                            </div>
+
+                        </div>
+                        <p class="card-title precio">(18,50 €/litro)</p>
+                        <p class="card-text">BEEFEATER ginebra inglesa botella 70cl</p>
+                        <div class="row">
+                            <div class="col">
+                                <button type="button" class="btn btn-light">-</button>
+
+                            </div>
+                            <div class="col">
+                                <input type="text" class="form-control" id="producto" placeholder="1">
+                            </div>
+                            <div class="col">
+                                <button type="button" class="btn btn-light">+</button>
+                            </div>
+                        </div>
+
+                        <a href="#" class="btn btn-secondary btn-lg btn-block">AÑADIR AL CARRO</a>
+                    </div>
+                </div>
+
+            </div>
+            <div class="item">
+
+                <div class="card border-light text-center h-100">
+                    <div class="card-custom-header">
+                        <img class="card-img-top" src="images/producto.png" alt="Imagen detalle">
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col">
+                                <h6 class="card-title">13,35€</h6>
+
+                            </div>
+                            <div class="col">
+                                <h6 class="card-title">12,95€</h6>
+                            </div>
+
+                        </div>
+                        <p class="card-title precio">(18,50 €/litro)</p>
+                        <p class="card-text">BEEFEATER ginebra inglesa botella 70cl</p>
+                        <div class="row">
+                            <div class="col">
+                                <button type="button" class="btn btn-light">-</button>
+
+                            </div>
+                            <div class="col">
+                                <input type="text" class="form-control" id="producto" placeholder="1">
+                            </div>
+                            <div class="col">
+                                <button type="button" class="btn btn-light">+</button>
+                            </div>
+                        </div>
+
+                        <a href="#" class="btn btn-secondary btn-lg btn-block">AÑADIR AL CARRO</a>
+                    </div>
+                </div>
+
+            </div>
+            <div class="item">
+
+                <div class="card border-light text-center h-100">
+                    <div class="card-custom-header">
+                        <span class="badge badge-secondary badge-danger">30%</span>
+                        <img class="card-img-top" src="images/producto.png" alt="Imagen detalle">
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col">
+                                <h6 class="card-title">13,35€</h6>
+
+                            </div>
+                            <div class="col">
+                                <h6 class="card-title">12,95€</h6>
+                            </div>
+
+                        </div>
+                        <p class="card-title precio">(18,50 €/litro)</p>
+                        <p class="card-text">BEEFEATER ginebra inglesa botella 70cl</p>
+                        <div class="row">
+                            <div class="col">
+                                <button type="button" class="btn btn-light">-</button>
+
+                            </div>
+                            <div class="col">
+                                <input type="text" class="form-control" id="producto" placeholder="1">
+                            </div>
+                            <div class="col">
+                                <button type="button" class="btn btn-light">+</button>
+                            </div>
+                        </div>
+
+                        <a href="#" class="btn btn-secondary btn-lg btn-block">AÑADIR AL CARRO</a>
+                    </div>
+                </div>
+
+            </div>
+            <div class="item">
+
+                <div class="card border-light text-center h-100">
+                    <div class="card-custom-header">
+                        <img class="card-img-top" src="images/producto.png" alt="Imagen detalle">
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col">
+                                <h6 class="card-title">13,35€</h6>
+
+                            </div>
+                            <div class="col">
+                                <h6 class="card-title">12,95€</h6>
+                            </div>
+
+                        </div>
+                        <p class="card-title precio">(18,50 €/litro)</p>
+                        <p class="card-text">BEEFEATER ginebra inglesa botella 70cl</p>
+                        <div class="row">
+                            <div class="col">
+                                <button type="button" class="btn btn-light">-</button>
+
+                            </div>
+                            <div class="col">
+                                <input type="text" class="form-control" id="producto" placeholder="1">
+                            </div>
+                            <div class="col">
+                                <button type="button" class="btn btn-light">+</button>
+                            </div>
+                        </div>
+                        <a href="#" class="btn btn-secondary btn-lg btn-block">AÑADIR AL CARRO</a>
+                    </div>
+                </div>
+
+            </div>
+            <div class="item">
+
+                <div class="card border-light text-center h-100">
+                    <div class="card-custom-header">
+                        <span class="badge badge-secondary badge-danger">10%</span>
+                        <img class="card-img-top" src="images/producto.png" alt="Imagen detalle">
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col">
+                                <h6 class="card-title">13,35€</h6>
+
+                            </div>
+                            <div class="col">
+                                <h6 class="card-title">12,95€</h6>
+                            </div>
+
+                            <p class="card-title precio">(18,50 €/litro)</p>
+                            <p class="card-text">BEEFEATER ginebra inglesa botella 70cl</p>
+                            <div class="row">
+                                <div class="col">
+                                    <button type="button" class="btn btn-light">-</button>
+
+                                </div>
+                                <div class="col">
+                                    <input type="text" class="form-control" id="producto" placeholder="1">
+                                </div>
+                                <div class="col">
+                                    <button type="button" class="btn btn-light">+</button>
+                                </div>
+                            </div>
+                        </div>
+                        <a href="#" class="btn btn-secondary btn-lg btn-block">AÑADIR AL CARRO</a>
+                    </div>
+                </div>
+
+
+            </div>
+
+            </div>
+            <div class="item">
+
+                <div class="card border-light text-center h-100">
+                    <div class="card-custom-header">
+                        <span class="badge badge-secondary badge-danger">20%</span>
+                        <img class="card-img-top" src="images/producto.png" alt="Imagen detalle">
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col">
+                                <h6 class="card-title">13,35€</h6>
+
+                            </div>
+                            <div class="col">
+                                <h6 class="card-title">12,95€</h6>
+                            </div>
+
+                        </div>
+                        <p class="card-title precio">(18,50 €/litro)</p>
+                        <p class="card-text">BEEFEATER ginebra inglesa botella 70cl</p>
+                        <div class="row">
+                            <div class="col">
+                                <button type="button" class="btn btn-light">-</button>
+
+                            </div>
+                            <div class="col">
+                                <input type="text" class="form-control" id="producto" placeholder="1">
+                            </div>
+                            <div class="col">
+                                <button type="button" class="btn btn-light">+</button>
+                            </div>
+                        </div>
+
+                        <a href="#" class="btn btn-secondary btn-lg btn-block">AÑADIR AL CARRO</a>
+                    </div>
+                </div>
+
+            </div>
+            <div class="item">
+
+                <div class="card border-light text-center h-100">
+                    <div class="card-custom-header">
+                        <img class="card-img-top" src="images/producto.png" alt="Imagen detalle">
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col">
+                                <h6 class="card-title">13,35€</h6>
+
+                            </div>
+                            <div class="col">
+                                <h6 class="card-title">12,95€</h6>
+                            </div>
+
+                        </div>
+                        <p class="card-title precio">(18,50 €/litro)</p>
+                        <p class="card-text">BEEFEATER ginebra inglesa botella 70cl</p>
+                        <div class="row">
+                            <div class="col">
+                                <button type="button" class="btn btn-light">-</button>
+
+                            </div>
+                            <div class="col">
+                                <input type="text" class="form-control" id="producto" placeholder="1">
+                            </div>
+                            <div class="col">
+                                <button type="button" class="btn btn-light">+</button>
+                            </div>
+                        </div>
+                        <a href="#" class="btn btn-secondary btn-lg btn-block">AÑADIR AL CARRO</a>
+                    </div>
+                </div>
+
+            </div>
+
+
+            </div>
+
+        </section>
+        <section>
+            <a href="#top"><i class="fixed fas fa-arrow-circle-up" visible="false"></i></a>
+        </section>
+
+
+    </main>
+
+    <footer class="container">
+        <nav class="nav-socials">
+            <a href="#"><i class="fab fa-facebook fa-2x"></i></a>
+            <a href="#"><i class="fab fa-twitter-square fa-2x"></i></a>
+        </nav>
+        <nav class="nav-links">
+            <a href="#">Política de privacidad</a>
+            <a href="#" class="barra">Contacto</a>
+            <a href="#" class="barra">Localización</a>
+            <a href="#">Copiright</a>
+        </nav>
+    </footer>
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+    <script>
+        window.jQuery || document.write(
+            '<script src="https://getbootstrap.com/docs/4.1/assets/js/vendor/jquery-slim.min.js"><\/script>')
+    </script>
+    <script src="https://getbootstrap.com/docs/4.1/assets/js/vendor/popper.min.js"></script>
+    <script src="https://getbootstrap.com/docs/4.1/dist/js/bootstrap.min.js"></script>
+</body>
+
+</html>

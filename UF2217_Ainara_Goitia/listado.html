@@ -1,0 +1,179 @@
+<!doctype html>
+<html lang="es">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>UF2217 - HTML y CSS</title>
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+        crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU"
+        crossorigin="anonymous">
+
+    <link rel="stylesheet" href="css/styles.css?v3">
+
+    <!-- Bootstrap core CSS -->
+    <link href="https://getbootstrap.com/docs/4.1/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="jumbotron.css" rel="stylesheet">
+    <link rel="stylesheet" href="vendors/datatables/1.10.19/css/jquery.dataTables.min.css">
+
+    <script src="vendors/jquery/jquery-3.3.1.js"></script>
+    <script src="vendors/datatables/1.10.19/js/jquery.dataTables.min.js"></script>
+    <link href="vendors/datatables/responsive/2.1.0/css/responsive.dataTables.css" rel="stylesheet" type="text/css" />
+    <script src="vendors/datatables/responsive/2.1.0/js/dataTables.responsive.js"></script>
+    <script>
+        //Esperamos a que todo el HTML este cargado == body onload
+        $(document).ready(function () {
+            //$('#example')--> selecciona un objeto por id="example"
+            //.DataTable({})--> ejecutar el plugin de DataTable
+            $('#example').DataTable({
+                "language": {
+                    "url": "vendors/plug-ins/9dcbecd42ad/i18n/Spanish.json"
+                }
+
+            });
+        });
+    </script>
+</head>
+
+<body>
+
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="index.html">
+            <img src="images/logo.png" class="logo">
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" href="index.html">Inicio</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="login.html">Login</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link disabled" href="formulario.html">Nuevo producto</a>
+                </li>
+                <li class="nav-item"><a class="nav-link disabled" href="listado.html">Listado de productos</a></li>
+            </ul>
+            <form class="form-inline my-2 my-lg-0">
+                <input class="form-control mr-sm-2" type="search" placeholder="Buscar" aria-label="Search">
+                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Buscar</button>
+            </form>
+        </div>
+    </nav>
+
+    <main role="main">
+
+            <div class="container">
+                <h2><i class="fas fa-list-ul"> Listado</i></h2>
+            </div>
+
+
+        <div class="container">
+                <table id="example" class="display responsive nowrap" width="100%">
+                        <thead>
+                            <tr>
+                                <th>Código</th>
+                                <th>Nombre</th>
+                                <th>Precio</th>
+                                <th>Precio con oferta</th>
+                                <th>Precio x litro</th>
+                                <th>Oferta</th>
+                                <th>Descripción</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>01</td>
+                                <td>BEEFEATER</td>
+                                <td>13.35 €</td>
+                                <td>12.95 €</td>
+                                <td>18.50 €/litro</td>
+                                <td>20%</td>
+                                <td>Ginebra inglesa botella 70cl</td>
+                            </tr>
+                            <tr>
+                                    <td>02</td>
+                                    <td>BEEFEATER</td>
+                                    <td>7.90 €</td>
+                                    <td>----</td>
+                                    <td>18.50 €/litro</td>
+                                    <td>----</td>
+                                    <td>Ginebra inglesa botella 70cl</td>
+                                </tr>
+                        </tbody>
+                        <tfoot>
+                                <tr>
+                                        <th>Código</th>
+                                        <th>Nombre</th>
+                                        <th>Precio</th>
+                                        <th>Precio con oferta</th>
+                                        <th>Precio x litro</th>
+                                        <th>Oferta</th>
+                                        <th>Descripción</th>
+                                    </tr>
+                        </tfoot>
+                    </table>
+                    <hr>
+        </div> <!-- /container -->
+
+    </main>
+
+    <footer class="container">
+        <nav class="nav-socials">
+            <a href="#"><i class="fab fa-facebook fa-2x"></i></a>
+            <a href="#"><i class="fab fa-twitter-square fa-2x"></i></a>
+        </nav>
+        <nav class="nav-links">
+            <a href="#">Política de privacidad</a>
+            <a href="#" class="barra">Contacto</a>
+            <a href="#" class="barra">Localización</a>
+            <a href="#" class="barra"><i class="far fa-copyright">2018</i></a>
+        </nav>
+    </footer>
+
+
+<!-- Placed at the end of the document so the pages load faster -->
+<link rel="stylesheet" href="vendors/datatables/1.10.19/css/jquery.dataTables.min.css">
+
+<script src="vendors/jquery/jquery-3.3.1.js"></script>
+<script src="vendors/datatables/1.10.19/js/jquery.dataTables.min.js"></script>
+<link href="vendors/datatables/responsive/2.1.0/css/responsive.dataTables.css" rel="stylesheet" type="text/css" />
+<script src="vendors/datatables/responsive/2.1.0/js/dataTables.responsive.js"></script>
+<script>
+	//Esperamos a que todo el HTML este cargado == body onload
+	$(document).ready(function() {
+		//$('#example')--> selecciona un objeto por id="example"
+		//.DataTable({})--> ejecutar el plugin de DataTable
+		$('#tablaordenada').DataTable({
+			"language" : {
+				"url" : "vendors/plug-ins/9dcbecd42ad/i18n/Spanish.json"
+			}
+
+		});
+	});
+</script>
+
+
+
+
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
+	integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+	crossorigin="anonymous"></script>
+<script
+	src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"
+	integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
+	crossorigin="anonymous"></script>
+</body>
+</html>
