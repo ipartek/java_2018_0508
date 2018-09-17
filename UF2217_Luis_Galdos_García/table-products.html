@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <title>Bienvenido a Wolf Supermercado</title>
+
+  <!-- Bootstrap core CSS -->
+  <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Fontawsome core CSS -->
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU"
+    crossorigin="anonymous">
+  <!-- Datatable core CSS -->
+  <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.css">
+  <!-- Custom styles for this template -->
+  <link href="css/heroic-features.css" rel="stylesheet">
+  <!--My own CSS-->
+  <link rel="stylesheet" href="css/styles.css">
+
+  <!-- Bootstrap core JavaScript -->
+  <script src="vendor/jquery/jquery-3.3.1.min.js"></script>
+  <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+  <!--Datatable core JavaScript-->
+  <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.js"></script>
+
+</head>
+
+<body>
+  <header>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+      <div class="container">
+
+        <a class="navbar-brand" href="index.html">
+          <img class="logo" src="img/logo.png" alt="Logo.png">
+        </a>
+
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive"
+          aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+          <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+              <a class="nav-link" href="index.html">Inicio</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link active" href="table-products.html">Ver Productos</a>
+              <span class="sr-only">(current)</span>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="add-product.html">Añadir Productos</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="admin-login.html">Accede/Registrate</a>
+            </li>
+          </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+      </div>
+      <!-- /.container -->
+    </nav>
+  </header>
+
+
+  <!-- Page Content with Jumbotron-->
+  <main class="container jumbotron my-4">
+    <table id="example" class="display responsive nowrap" width="100%">
+      <thead>
+        <tr>
+          <th>Producto</th>
+          <th>Categoría</th>
+          <th>Precio</th>
+          <th>Descuento</th>
+          <th>Descripción</th>
+          <th>Imagen</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Coca cola</td>
+          <td>Alimentación y Bebidas</td>
+          <td>4,50 €</td>
+          <td>20 %</td>
+          <td>Coca cola refresco de cola botella de 1,5L</td>
+          <td><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTUzPbJA-qQyH-Y_tL9jl7_K1Sk4Z7_HCVw5U7bS4KvUfhuxskAAQ"
+              alt="Coca-cola.jpg"></td>
+        </tr>
+        <tr>
+          <td>Fanta Naranja</td>
+          <td>Alimentación y Bebidas</td>
+          <td>4,50 €</td>
+          <td>20 %</td>
+          <td>Fanta refresco de naranja botella de 1,5L</td>
+          <td><img src="https://www.carulla.com/images/products/839/0001363469173839/0001363470095157_lrg_a.jpg" alt="Fanta de naranja.jpg"></td>
+        </tr>
+        <tr>
+          <td>Sprite</td>
+          <td>Alimentación y Bebidas</td>
+          <td>4,50 €</td>
+          <td> - </td>
+          <td>Sprite refresco de limón botella de 1,5L</td>
+          <td><img src="data:image/jpeg;base64,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"
+              alt="Sprite.jpg"></td>
+        </tr>
+        <tr>
+          <td>Beefeter</td>
+          <td>Alimentación y Bebidas</td>
+          <td>13,95 €</td>
+          <td> 20% </td>
+          <td>Beefeter ginebra inglesa botella de 0,70L</td>
+          <td><img src="data:image/webp;base64,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"
+              alt="Beefeter.jpg"></td>
+        </tr>
+        <tr>
+          <td>Jack Daniels</td>
+          <td>Alimentación y Bebidas</td>
+          <td>13,35 €</td>
+          <td> 15% </td>
+          <td>Jack Daniels whiskey de cebada botella de 0,70L</td>
+          <td><img src="data:image/webp;base64,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"
+              alt="Jack Daniels.jpg"></td>
+        </tr>
+        <tr>
+          <td>Coca cola</td>
+          <td>Alimentación y Bebidas</td>
+          <td>4,50 €</td>
+          <td>20 %</td>
+          <td>Coca cola refresco de cola botella de 1,5L</td>
+          <td><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTUzPbJA-qQyH-Y_tL9jl7_K1Sk4Z7_HCVw5U7bS4KvUfhuxskAAQ"
+              alt="Coca-cola.jpg"></td>
+        </tr>
+        <tr>
+          <td>Fanta Naranja</td>
+          <td>Alimentación y Bebidas</td>
+          <td>4,50 €</td>
+          <td>20 %</td>
+          <td>Fanta refresco de naranja botella de 1,5L</td>
+          <td><img src="https://www.carulla.com/images/products/839/0001363469173839/0001363470095157_lrg_a.jpg" alt="Fanta de naranja.jpg"></td>
+        </tr>
+        <tr>
+          <td>Sprite</td>
+          <td>Alimentación y Bebidas</td>
+          <td>4,50 €</td>
+          <td> - </td>
+          <td>Sprite refresco de limón botella de 1,5L</td>
+          <td><img src="data:image/jpeg;base64,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"
+              alt="Sprite.jpg"></td>
+        </tr>
+        <tr>
+          <td>Beefeter</td>
+          <td>Alimentación y Bebidas</td>
+          <td>13,95 €</td>
+          <td> 20% </td>
+          <td>Beefeter ginebra inglesa botella de 0,70L</td>
+          <td><img src="data:image/webp;base64,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"
+              alt="Beefeter.jpg"></td>
+        </tr>
+        <tr>
+          <td>Jack Daniels</td>
+          <td>Alimentación y Bebidas</td>
+          <td>13,35 €</td>
+          <td> 15% </td>
+          <td>Jack Daniels whiskey de cebada botella de 0,70L</td>
+          <td><img src="data:image/webp;base64,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"
+              alt="Jack Daniels.jpg"></td>
+        </tr>
+        <tr>
+          <td>Beefeter</td>
+          <td>Alimentación y Bebidas</td>
+          <td>13,95 €</td>
+          <td> 20% </td>
+          <td>Beefeter ginebra inglesa botella de 0,70L</td>
+          <td><img src="data:image/webp;base64,UklGRggKAABXRUJQVlA4IPwJAABwLQCdASqfAJ8APj0cjESiIaESmgT0IAPEs7dwufiDbnWkTwHEelfhV7c3zF/p5+wHuuej7yAOti9A/9gPTI/ZD4Wf3P/WD2t9W5Zh3u+Lj2P7Uce+Iv2X/ofy39df8x4a/DHUC9gf4ffNdV/xX+n9QL1r+ff5H82f7h6bOpT3i/3noif43j0fL/YH/ln9K/2X97/a7+zfHj/v/dv7hvpn/of5X4CP5f/W/99/fO1B+0nsh/q1/9SPtKWz2YNlBZZ6/ZzlIxvFYfBnZiBTTgGJCxErZ/KwXdaLxwRjo3hTvCle/pEEQg4sdV1JlSLcOEnf6IonK8q7wsSCHTRv84XC1dwOLTuxUb2wh+Dud68UA6L5z5bJGjtVFnMHnw3a+sCas4kqi9JuFAnpNUgsM99oDrOfzaHyQ/v9ZreeFlb2HWZ31sAzi8Ynv80Hxc4R8EvstKLpT4k/3R8/X0KstSUx2Bu1eiPB2bW3hpm4VqGRFRL6K+AA/v/Pk+myhf8oe+6qz8Jp5iL4k+PkszYO3+6crt14ushFMyZ1319++sOwpkER2vy2VbYTcWWYisAvbdRHJCDtwco/6bk++iGtQ39n5LjPxm2oPdJplhL7Gux/54H//0jz9U45SbzufuN/h+n9nF2Pe/3zDveJLYL5Dc/QlS3/zMkGIwgLGp9zH9WAS5Gl++HOr2dXIIzQpOFolckeGepXwS+6IJK0qt9ZYsvRba+Er7bklf8ftqe3Guty9yYMQkvcXd26wI3lcdIm+1JY3WTp7N0X9T2N/86kb5H/YiEU1yeuLApDbTISNcb9pKXObLYPMnLvj0dlRLVHSud0jTppOa7G/rWobab8TQKMqvukUYPzpZPeSH05qVePQJGeWnKhz8tqrEWBHtcwAG9K1dv2VM6+razYtfcrHM+/LlOv+BJAcCGwWfDJviVuolxBrjD/v2i41AzF0xFK2TgkiUROUfmUjKm2bopfcc/9yLx17QwRWsUR/yIROP85zlKU48eLscmdjRQb9OlYjtTRjYrCPWXGFuqsBn6VIwjHMfqa2P4/BGsJ4i2E60/F+Dc6rTUa6Ar2duJ41CwWwzhERKo4Fpv1o0jTrkL9BWxeQ8TnMLIE7hArSxVYMRiiaoX+kTAooAZ8nRS74waKFOPx28YPXqrBg0XwKuVjo2+rikOi8gizWeTFB/hq/rQbXiJYDIwo4uW+M5/VvvpOdWT5ikImkZN8pn8liUufmKx6QR4wNQFlFWjQkuYWVROqDjwGjwcFCX1DWmgwhIBcmX3hnJDvT+TesW3UC8j6Jg2awgxN2OFyoqf/y7xkJfPbQ+6J/6UR8jaFZiT5CYTQp2Za9nv8quGMqbIB6zlfAwngOu/zioFEFju3ViyNBijP5ve5PIvsBA4gbyuf/UmFfoMth+e45AADCYo9B+JWPBxMpgs6VPeiFEF1na5JhG+8c9L5lRwFvW9/B6StaBiT5nykoTJf83DKGorATGcK9c/iuEY8wllkrX7r10Uu5jgGem0OcMWnCcBEG01LH8gg2mp2bLbVUb/1XYt+Gt//GsbOmqAM1JaM5WpdkjjydJnDQVf4wYK+D1j1aFaottbETCw42JnEvjiu1u32oDpfG3grvVsgzX8W7UX6adDxFWWPucDW+EtLhd9qPqfoBbfqrVDrfAPiLJt+1Hqaj4X8WMXpiXnhfrlWS9tJC2Iz+fiuXm70yXeTG/vziePl7aaOZt9ty7/PnVlSZhpFmTp+68u5yiHsvJfRrRuxk/EYT9wijxxy/tjtL7yWD05U+mfQcFaW9bJ9pB6PLsGXOldn/EesCmM6nS7GGNajpTNvo/LEQodnX8IxFZVkcuXfMjT36O+e9A4L+2lLRieg/S45nWcU0TFjKysgCnWilrCPxGvAQZw6cTkl56GSitDeo+0UxgtXR/U1BDPvn0wFwqMgWehntzA//n2wdoFStHJPTbVuZGhtxJlTZF3g0+nLddx8ZoEYgwBne5Km2gULGicucgpD62cWGHy6AYn3U8qm2rTGjQ+2pgLLO7Dqis0Nh2C0n/kD+yH/47P0ZTxE0za0q3sf+0aynZZa5vvqft0CPt1O5ow4RKlXyEttaT010pOJmzMAxUe7d7D10p04y6uFFT+yGR2I2Pnzg2csyfvuj4pVBpBCVa1x8fmwp9r51X3mrLWLJlZ1lytpisyOTstPDpDdoKFZQCUPLiThH3rCPw+epRotSniuNhenjQNzXAGSJtr6cxcnOyt4TIo9OA82aFu+6Qb7TroNV0SBtZOjTnKdgC9n30BvwzxRPJvfqdBfG67KXvzblnq9x6fVkbjUWfLagE+L2GdhNFO/HVz6KOdKvktRNWw/fxMs2Wfe/rhAasJ6o7yFf8C+taEQT4d6rUkyQ9AqZppjfCr8f8KosdlvKXNr6T+ENRoHwoKvbAWfRoVTLgIynDXRbY/wSMJaGohQFji/9QPUUUlZJ4ZQHAuzHKt6i5ziKUT1el8J8yZJ7jk4DRC9rvi0aou5hX3ecf1U3l9GKxttB7FjBSyDbZpaMybNiP0csr2vmbbiWP2igAhtZdgtGacSTXN3a7ooHZKzKw7IbQpk67a9CEB9JbGfyKYgeHZIz2lFriZYd/Kgv8JUYaS6ZhPzhNv/k0Ow95M5t3by+OQxCuVtCu1dnoouD6St6jzfkol8oywtRRExoQk1KbRkdgr2etFKVWT0HN23GmyFFKgMRHrhJLx+pDAp7nHBmbQAGPQOnot+yQYvZKKgZmncagP/YgbEWXI5woS9Jwko78VVP05m+4yI+8ZdVaZ2h7ZGSiykA5RVzLBjb+oDkjUQNApi5Vcp7EZUWbhf53kIlysoOd3vvwlMpbqtwEs5cUt14O67UxjWTrRCO6D447vf/9274rx7f6wjl8LTEfa/JZDfcHQ3AdAWcUB3oOg/pngAQkA3Q0QGrDbEQSghOD36+v7t1NQ2U7MTfvrMmQ0H5N8pV9uGg/C/KmkSUg0V+ARGF7X+QR6JoBryDABpIMvMjj4lRIpVrbtFqXdBTzsKOrs2L+p9sXYjM7nioSr56EdfC1YKzf7r3Ol8Vu83aAXwnPOV1Fa0d2xszA5GmRXwZfVKfM2NfpmdSfBmM996MYrb5eMNcMXtZN1Ln8pBBl++48sAcUgP/yUhggdGotL4q5hEbsRMJ9xUca2YlDXzIU6XK6YczaYl9qX8akbTxkrIcBOtUiKbZmq/R1bZA6iFbstu1tAcp0Sb+bOjPmMNuKDkXAKV0QHmPbgVLRdGhF4AGzUUzn+1amnxEimC9ZYclvsFFw9pQmwaZFnbu367JhdlP5UHZaA1pm7e6m/DHIj2cTDkpzXZCFj7P0uv0834OFigqjRYBdRCN30HST0IQO40K7fpHDv1JVbQqPgaSLgtYOqL252IAAA="
+              alt="Beefeter.jpg"></td>
+        </tr>
+        <tr>
+          <td>Jack Daniels</td>
+          <td>Alimentación y Bebidas</td>
+          <td>13,35 €</td>
+          <td> 15% </td>
+          <td>Jack Daniels whiskey de cebada botella de 0,70L</td>
+          <td><img src="data:image/webp;base64,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"
+              alt="Jack Daniels.jpg"></td>
+        </tr>
+
+      </tbody>
+      <tfoot>
+        <tr>
+          <th>Producto</th>
+          <th>Categoría</th>
+          <th>Precio</th>
+          <th>Descuento</th>
+          <th>Descripción</th>
+          <th>Imagen</th>
+        </tr>
+      </tfoot>
+    </table>
+    <script src="vendor/js/tablas.js"></script>
+  </main>
+  <!-- /.container -->
+
+  <!-- Footer -->
+  <footer class="py-5 bg-dark">
+
+    <nav class="footer-nav">
+      <ul>
+        <li><a href="#">Privacy Policy</a></li>
+        <li><a href="#">Contact Us</a></li>
+        <li><a href="#">Location</a></li>
+      </ul>
+    </nav>
+
+    <div class="social-link text-center text-white">
+      <span class="fb"><a href="https://es-es.facebook.com/"><i class="fab fa-facebook-square"></i></a></span>
+      <span class="tw"><a href="https://twitter.com/?lang=es"><i class="fab fa-twitter-square"></i></a></i></span>
+    </div>
+
+    <div class="container">
+      <p class="m-0 text-center text-white">Copyright &copy; Wolf's Market 2018</p>
+    </div>
+    <!-- /.container -->
+  </footer>
+
+</body>
+
+</html>

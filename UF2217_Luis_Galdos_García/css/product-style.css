@@ -1,0 +1,36 @@
+body {
+    font-size: 1em;
+}
+
+body {
+    padding-top: 30px;
+    min-width: 500px;
+  }
+  
+  /****Shopping Cart Icon****/
+  div#cartStatus {
+   
+    top: 27px;
+    text-align: right;
+     
+  }
+  i.glyphicon-shopping-cart {
+   font-size: 2em;
+  }
+  
+  span#cartCount {
+   font-size: 1.5em; 
+  }
+  
+  /****Nav Bar****/
+  button.navbar-toggle {
+  
+    float: left;
+    margin-left: 10px;
+  
+  }
+
+  /****Footer****/
+  footer {
+   margin-top: 100px;  
+  }
