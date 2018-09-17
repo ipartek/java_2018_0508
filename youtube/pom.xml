@@ -2,11 +2,11 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.ipartek.formacion</groupId>
-	<artifactId>Youtube</artifactId>
+	<artifactId>youtube</artifactId>
 	<packaging>war</packaging>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>Youtube</name>
-	<url>http://localhost:8080/Youtube/</url>
+	<name>youtube</name>
+	<url>http://localhost:8080/youtube/</url>
 
 	<!-- variables comunes para todo el POM -->
 	<properties>
@@ -135,6 +135,6 @@
 		</plugins>
 
 
-		<finalName>Youtube</finalName>
+		<finalName>youtube</finalName>
 	</build>
 </project>

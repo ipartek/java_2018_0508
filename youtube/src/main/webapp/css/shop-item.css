@@ -13,15 +13,3 @@ body {
     padding-top: 56px;
   }
 }
-
-#iconos {
-	float: right;
-	text-align: center;
-	padding: 10px;
-}
-
-i {
-	float: right;
-	font-size: 1.5em;
-	margin: 20px;
-}

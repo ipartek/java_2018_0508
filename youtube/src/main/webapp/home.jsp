@@ -1,55 +1,80 @@
-<!DOCTYPE html>
-<%@page import="com.ipartek.formacion.youtube.pojo.VideoYoutubePOJO"%>
+<%@page import="com.ipartek.formacion.youtube.pojo.Usuario"%>
+<%@page import="com.ipartek.formacion.youtube.pojo.Alert"%>
+<%@page import="com.ipartek.formacion.youtube.controller.HomeController"%>
+<%@page import="com.ipartek.formacion.youtube.pojo.Video"%>
 <%@page import="java.util.ArrayList"%>
-<html lang="es">
+
+
+<!DOCTYPE html>
+<html lang="en">
 
   <head>
 
+	<!--  Etiqueta que comienza las URLs desde el href indicado -->
+	<base href="<%=request.getContextPath()%>/">
+	
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Youtube App</title>
-    
+    <title>Youtube Video Play List</title>
+
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
+	
     <!-- Bootstrap core CSS -->
-    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://blackrockdigital.github.io/startbootstrap-shop-item/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
     <!-- Custom styles for this template -->
-    <link href="css/shop-item.css" rel="stylesheet">
-    
-    <!-- Font Awsome core CSS -->
-	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
+    <link href="https://blackrockdigital.github.io/startbootstrap-shop-item/css/shop-item.css" rel="stylesheet">
 
+	<link href="css/styles.css" rel="stylesheet">
   </head>
 
   <body>
   
-  <div class="alert ${claseAlert}" role="alert">
-  ${msg}
- </div>
+  <%@include file="include/alert.jsp"%>
 
     <!-- Navigation -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
       <div class="container">
-        <a class="navbar-brand" href="#">Start Bootstrap</a>
+     
+        <a class="navbar-brand" href="#">Youtube PlayList</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
-        <div class="collapse navbar-collapse float-right" id="navbarResponsive">
-         <form action="" method="post" >
-  			<div class="row pull-right">
-    			<div class="col">
-     				<input type="text" name="id" class="form-control " placeholder="ID">
-    			</div>
-    			<div class="col">
-      				<input type="text" name="titulo" class="form-control" placeholder="Título">
-    			</div>
-    			<div class="col">
-    				<button type="submit" class="btn btn-info">Add</button>
-    			</div>
-  			</div>
-		</form>
+        <div class="collapse navbar-collapse align-middle" id="navbarResponsive">
+          <ul class="navbar-nav ml-auto">
+            <li class="nav-item active">
+            
+            <%
+            
+            // Gestión para el login
+            Usuario user = (Usuario) request.getAttribute("usuario");
+           
+            if (user == null) { %> 
+           
+            <!--  Fomulario para login -->
+             <form action="login" method="post" class="form-inline mt-2 mt-md-0">
+	            <input name="user" class="form-control mr-sm-2" type="text" placeholder="Nombre usuario" required pattern=".{3,30}">
+	            <input name="psw" class="form-control mr-sm-2" type="password" placeholder="Contraseña" required pattern=".{2,50}">
+	            <button class="btn btn-outline-info my-2 my-sm-0" type="submit">Entrar</button>
+	         </form>
+            
+            <% } else {%>		
+            
+            <!--  Fomulario para insertar video -->
+             <form action="" method="post" class="form-inline mt-2 mt-md-0">
+	            <input name="id" class="form-control mr-sm-2" type="text" placeholder="ID (11 caracerteres)" title="11 caracteres" required pattern=".{11,11}">
+	            <input name="nombre" class="form-control mr-sm-2" type="text" placeholder="Título (min. 2 caracteres)" required pattern=".{2,125}">
+	            <button class="btn btn-outline-info my-2 my-sm-0" type="submit">Añadir</button>
+	         </form>
+            
+           <% } %> 
+	         
+            </li>            
+          </ul>  
+           
         </div>
       </div>
     </nav>
@@ -59,45 +84,43 @@
 
       <div class="row">
 
-        <div class="col-lg-3">
-          <h1 class="my-4">Lista de Reproducción</h1>
-          <div class="list-group">
-          
-          <%
-          
-          ArrayList<VideoYoutubePOJO> videos = (ArrayList<VideoYoutubePOJO>) request.getAttribute("videos");
-    		
-          if (videos.isEmpty()) {
-        	  
-        	  VideoYoutubePOJO vSeleccionado = new VideoYoutubePOJO();
-        	  
-          } 
-          for( VideoYoutubePOJO video: videos) {
-           
-          %>
-          
-
-          
-          <a href="?id=<%= video.getId() %>" class="list-group-item "><%= video.getTitulo() %></a>
-          <div id="iconos" class="text-center">
-          	<i class="text-center fab fa-youtube"></i>
-          	<i class="text-center  fas fa-trash-alt"></i>
+        <div class="col-lg-3">        	
+          <h1 class="my-4">Lista Reproduccion</h1>
+          <ul class="list-group">
+          	<%
+          		ArrayList<Video> videos = (ArrayList<Video>) request.getAttribute("videos");
+          		if ( videos == null ){
+          			videos = new ArrayList<Video>();
+          		}
+          		
+          		Video videoInicio = (Video)request.getAttribute("videoInicio");
+          		if ( videoInicio == null){
+          			videoInicio = new Video();
+          		}
+    			
+          		for( Video v : videos ){
+          	%>
+	            <li class="list-group-item d-flex justify-content-between align-items-center">     
+	          	  	<a href="?id=<%=v.getId()%>"><%=v.getNombre()%></a>
+	          	  	<a href="?id=<%=v.getId()%>&op=<%=HomeController.OP_ELIMINAR%>"><i style="color:red;" class="float-right fas fa-trash-alt"></i></a>
+	            </li>
+            <%
+          		} //end for
+            %>
+            </ul>
+            
           </div>
-          
-              
-          <% 
-         	 }
-          %>
-          </div>
-        </div>
+        
         <!-- /.col-lg-3 -->
 
         <div class="col-lg-9">
 
           <div class="card mt-4">
-           <iframe width="100%" height="500px" src="https://www.youtube.com/embed/${vSeleccionado.id}?autoplay=1" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+          
+            <iframe id="iframe" width="823" height="415" src="https://www.youtube.com/embed/<%=videoInicio.getId()%>?autoplay=1" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+            
             <div class="card-body">
-              <h3 class="card-title">${vSeleccionado.titulo}</h3>
+              <h3 class="card-title"><%=videoInicio.getNombre()%></h3>              
               <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sapiente dicta fugit fugiat hic aliquam itaque facere, soluta. Totam id dolores, sint aperiam sequi pariatur praesentium animi perspiciatis molestias iure, ducimus!</p>
               <span class="text-warning">&#9733; &#9733; &#9733; &#9733; &#9734;</span>
               4.0 stars
@@ -106,9 +129,8 @@
           <!-- /.card -->
 
           <div class="card card-outline-secondary my-4">
-            <div class="card-header">
-              Comentarios
-            </div>
+            <div class="card-header">Comentarios</div>
+            
             <div class="card-body">
               <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Omnis et enim aperiam inventore, similique necessitatibus neque non! Doloribus, modi sapiente laboriosam aperiam fugiat laborum. Sequi mollitia, necessitatibus quae sint natus.</p>
               <small class="text-muted">Posted by Anonymous on 3/1/17</small>
@@ -116,7 +138,9 @@
               <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Omnis et enim aperiam inventore, similique necessitatibus neque non! Doloribus, modi sapiente laboriosam aperiam fugiat laborum. Sequi mollitia, necessitatibus quae sint natus.</p>
               <small class="text-muted">Posted by Anonymous on 3/1/17</small>
               <hr>
-              <a href="#" class="btn btn-success">Leave a Review</a>
+              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Omnis et enim aperiam inventore, similique necessitatibus neque non! Doloribus, modi sapiente laboriosam aperiam fugiat laborum. Sequi mollitia, necessitatibus quae sint natus.</p>
+              <small class="text-muted">Posted by Anonymous on 3/1/17</small>
+              
             </div>
           </div>
           <!-- /.card -->
@@ -138,18 +162,8 @@
     </footer>
 
     <!-- Bootstrap core JavaScript -->
-    <script src="vendor/jquery/jquery.min.js"></script>
-    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-    <script>
-    	
-    	function reproducir(id) {
-    		
-    			
-    	
-    	}
-    	
-    	
-    </script>
+    <script src="https://blackrockdigital.github.io/startbootstrap-shop-item/vendor/jquery/jquery.min.js"></script>
+    <script src="https://blackrockdigital.github.io/startbootstrap-shop-item/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
   </body>
 
