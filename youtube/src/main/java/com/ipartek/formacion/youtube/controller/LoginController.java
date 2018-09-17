@@ -1,0 +1,65 @@
+package com.ipartek.formacion.youtube.controller;
+
+import java.io.IOException;
+import java.util.ArrayList;
+
+import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
+import com.ipartek.formacion.youtube.pojo.Alert;
+import com.ipartek.formacion.youtube.pojo.Usuario;
+import com.ipartek.formacion.youtube.pojo.Video;
+
+/**
+ * Servlet implementation class LoginController
+ */
+@WebServlet("/login")
+public class LoginController extends HttpServlet {
+	private static final long serialVersionUID = 1L;
+ 
+	private RequestDispatcher dispatch = null;
+
+	private static final String VIEW_YTB = "home.jsp";
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		doPost(request, response);
+	}
+
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		try {
+			dispatch = request.getRequestDispatcher(VIEW_YTB);
+			
+			String nombre = (String) request.getParameter("usuario");
+			String contrasenya = (String) request.getParameter("pass");
+			
+			if ("admin".equals(nombre) && "admin".equals(contrasenya) ) {
+				HttpSession session = request.getSession();
+				session.setAttribute("usuario", new Usuario(nombre, contrasenya));
+				session.setMaxInactiveInterval(60*5);
+				session.setAttribute("videos", new ArrayList<Video>());
+			}else {
+				request.setAttribute("alert", new Alert("Usuario o contraseña incorrectos", Alert.DANGER));
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			// Ir a la vista
+			// dispatch.forward(request, response);
+			response.sendRedirect(request.getContextPath()+"/");
+		}
+		
+	}
+
+}

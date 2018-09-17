@@ -1,3 +1,4 @@
+<%@page import="com.ipartek.formacion.youtube.pojo.Usuario"%>
 <%@page import="com.ipartek.formacion.youtube.pojo.Alert"%>
 <%@page import="com.ipartek.formacion.youtube.controller.HomeController"%>
 <%@page import="com.ipartek.formacion.youtube.pojo.Video"%>
@@ -32,7 +33,7 @@
   <body>
 
     <!-- Navigation -->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
       <div class="container">
         <a class="navbar-brand" href="#">Youtube PlayList</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
@@ -45,27 +46,36 @@
               <%
               	//Gestion de usuario logueado
               	
-              	
+              	session = request.getSession();
+              	Usuario u = (Usuario)session.getAttribute("usuario");
+              	if(u == null){
+              		%>
+              		<!-- Formulario de login -->
+		              <form action="login" method="post" class="form-inline mt-2 mt-md-0">
+			            <input name="usuario" class="form-control mr-sm-2" type="text" placeholder="Nombre de usuario" required pattern=".{3,30}">
+			            <input name="pass" class="form-control mr-sm-2" type="password" placeholder="Contraseña" required pattern=".{2,50}">
+			            <button class="btn btn-outline-info my-2 my-sm-0" type="submit">Entrar</button>
+			          </form>
+              		<%
+              	}
+              	else{
+              		ArrayList<Video> listaVideos = (ArrayList<Video>)session.getAttribute("videos");
+              		listaVideos.add((Video)request.getAttribute("videoInicio"));
+              		session.setAttribute("videos", listaVideos);
+              		%>
+              		<h3 class="text-light">Bienvenido <i class="fas fa-user-circle"></i> <%=u.getNombre() %> <a href="logout">Cerrar Sesion</a></h3>
+		              <!-- Formulario para dar de alta un nuevo video -->
+		              <form action="" method="post" class="form-inline mt-2 mt-md-0">
+			            <input name="id" class="form-control mr-sm-2" type="text" placeholder="ID 11 caracerteres" title="11 caracteres" required pattern=".{11,11}">
+			            <input name="nombre" class="form-control mr-sm-2" type="text" placeholder="Nombre minimo 2 letras" required pattern=".{2,125}">
+			            <button class="btn btn-outline-info my-2 my-sm-0" type="submit">Añadir</button>
+			          </form>
+              		<%              		
+              	}
               %>
               
-              <!-- Formulario de login -->
-              <form action="login" method="post" class="form-inline mt-2 mt-md-0">
-	            <input name="usuario" class="form-control mr-sm-2" type="text" placeholder="Nombre de usuario" required pattern=".{3,30}">
-	            <input name="pass" class="form-control mr-sm-2" type="password" placeholder="Contraseña" required pattern=".{2,50}">
-	            <button class="btn btn-outline-info my-2 my-sm-0" type="submit">Entrar</button>
-	          </form>
-	          
-              <!-- Formulario para dar de alta un nuevo video -->
-              <form action="" method="post" class="form-inline mt-2 mt-md-0">
-	            <input name="id" class="form-control mr-sm-2" type="text" placeholder="ID 11 caracerteres" title="11 caracteres" required pattern=".{11,11}">
-	            <input name="nombre" class="form-control mr-sm-2" type="text" placeholder="Nombre minimo 2 letras" required pattern=".{2,125}">
-	            <button class="btn btn-outline-info my-2 my-sm-0" type="submit">Añadir</button>
-	          </form>
             </li>            
           </ul>
-          
-          
-          
         </div>
       </div>
     </nav>
@@ -76,6 +86,10 @@
     <%
     	//Gestion de alertas para el usuario
     	Alert alert = (Alert)request.getAttribute("alert");
+    	if(alert == null){
+    		alert=(Alert)session.getAttribute("alert");
+    		session.setAttribute("alert",null);
+    	}
     	if (alert != null){
     		%>
     		<div class="container">
@@ -116,7 +130,31 @@
           		} //end for
             %>
             </ul>
-            
+          <section>
+          	<h2>Lista del Usuario</h2>
+          	<%
+          		if(u != null){
+          			%>
+          				<ul>
+          					<%
+          					ArrayList<Video> listaVideos = (ArrayList<Video>)session.getAttribute("videos");
+          					for( Video v : listaVideos ){
+          			          	%>
+          				            <li class="list-group-item d-flex justify-content-between align-items-center">     
+          				          	  	<a href="?id=<%=v.getId()%>"><%=v.getNombre()%></a>
+          				            </li>
+          			            <%
+          			          		} 
+          					%>
+          				</ul>
+          			<%
+          		}else{
+          			%>
+          				<a href="#">Accede con tu usuario</a>
+          			<%
+          		}
+          	%>
+          </section>
           </div>
         
         <!-- /.col-lg-3 -->
