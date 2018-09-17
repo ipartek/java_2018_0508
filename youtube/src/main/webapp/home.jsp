@@ -1,13 +1,15 @@
+<%@page import="com.ipartek.formacion.youtube.pojo.Alert"%>
 <%@page import="com.ipartek.formacion.youtube.controller.HomeController"%>
-<%@page import="com.ipartek.formacion.youtube.Video"%>
+<%@page import="com.ipartek.formacion.youtube.pojo.Video"%>
 <%@page import="java.util.ArrayList"%>
 
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 
   <head>
 
+	<!-- Etiqueta HTML para comenzar las urls desde href indicado. -->
 	<base href="<%=request.getContextPath()%>/">
 	
     <meta charset="utf-8">
@@ -39,6 +41,21 @@
         <div class="collapse navbar-collapse" id="navbarResponsive">
           <ul class="navbar-nav ml-auto">
             <li class="nav-item active">
+              
+              <%
+              	//Gestion de usuario logueado
+              	
+              	
+              %>
+              
+              <!-- Formulario de login -->
+              <form action="login" method="post" class="form-inline mt-2 mt-md-0">
+	            <input name="usuario" class="form-control mr-sm-2" type="text" placeholder="Nombre de usuario" required pattern=".{3,30}">
+	            <input name="pass" class="form-control mr-sm-2" type="password" placeholder="Contraseña" required pattern=".{2,50}">
+	            <button class="btn btn-outline-info my-2 my-sm-0" type="submit">Entrar</button>
+	          </form>
+	          
+              <!-- Formulario para dar de alta un nuevo video -->
               <form action="" method="post" class="form-inline mt-2 mt-md-0">
 	            <input name="id" class="form-control mr-sm-2" type="text" placeholder="ID 11 caracerteres" title="11 caracteres" required pattern=".{11,11}">
 	            <input name="nombre" class="form-control mr-sm-2" type="text" placeholder="Nombre minimo 2 letras" required pattern=".{2,125}">
@@ -55,6 +72,23 @@
 
     <!-- Page Content -->
     <div class="container">
+    
+    <%
+    	//Gestion de alertas para el usuario
+    	Alert alert = (Alert)request.getAttribute("alert");
+    	if (alert != null){
+    		%>
+    		<div class="container">
+				<div class="alert alert-<%=alert.getTipo() %> alert-dismissible fade show" role="alert">
+				  <strong><%=alert.getTexto() %></strong>
+				  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+				    <span aria-hidden="true">&times;</span>
+				  </button>
+				</div>
+			</div>
+    		<%
+    	}
+    %>
 
       <div class="row">
 
@@ -91,7 +125,7 @@
 
           <div class="card mt-4">
           
-            <iframe id="iframe" width="823" height="415" src="https://www.youtube.com/embed/<%=videoInicio.getId()%>?autoplay=1" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+            <iframe id="iframe" width="823" height="415" src="https://www.youtube.com/embed/<%=videoInicio.getId()%>?autoplay=0" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
             
             <div class="card-body">
               <h3 class="card-title"><%=videoInicio.getNombre()%></h3>              
