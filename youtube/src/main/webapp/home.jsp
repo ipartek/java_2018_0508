@@ -4,33 +4,9 @@
 <%@page import="com.ipartek.formacion.youtube.pojo.Video"%>
 <%@page import="java.util.ArrayList"%>
 
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
-<!DOCTYPE html>
-<html lang="es">
-
-  <head>
-
-	<!-- Etiqueta HTML para comenzar las urls desde href indicado. -->
-	<base href="<%=request.getContextPath()%>/">
-	
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
-    <meta name="author" content="">
-
-    <title>Youtube Video Play List</title>
-
-	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
-	
-    <!-- Bootstrap core CSS -->
-    <link href="https://blackrockdigital.github.io/startbootstrap-shop-item/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-
-    <!-- Custom styles for this template -->
-    <link href="https://blackrockdigital.github.io/startbootstrap-shop-item/css/shop-item.css" rel="stylesheet">
-
-  </head>
-
-  <body>
+<%@ include file="includes/header.jsp" %>
 
     <!-- Navigation -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
@@ -53,22 +29,20 @@
               		<!-- Formulario de login -->
 		              <form action="login" method="post" class="form-inline mt-2 mt-md-0">
 			            <input name="usuario" class="form-control mr-sm-2" type="text" placeholder="Nombre de usuario" required pattern=".{3,30}">
-			            <input name="pass" class="form-control mr-sm-2" type="password" placeholder="Contraseña" required pattern=".{2,50}">
+			            <input name="pass" class="form-control mr-sm-2" type="password" placeholder="ContraseÃ±a" required pattern=".{2,50}">
 			            <button class="btn btn-outline-info my-2 my-sm-0" type="submit">Entrar</button>
 			          </form>
               		<%
               	}
               	else{
-              		ArrayList<Video> listaVideos = (ArrayList<Video>)session.getAttribute("videos");
-              		listaVideos.add((Video)request.getAttribute("videoInicio"));
-              		session.setAttribute("videos", listaVideos);
+              		
               		%>
               		<h3 class="text-light">Bienvenido <i class="fas fa-user-circle"></i> <%=u.getNombre() %> <a href="logout">Cerrar Sesion</a></h3>
 		              <!-- Formulario para dar de alta un nuevo video -->
 		              <form action="" method="post" class="form-inline mt-2 mt-md-0">
 			            <input name="id" class="form-control mr-sm-2" type="text" placeholder="ID 11 caracerteres" title="11 caracteres" required pattern=".{11,11}">
 			            <input name="nombre" class="form-control mr-sm-2" type="text" placeholder="Nombre minimo 2 letras" required pattern=".{2,125}">
-			            <button class="btn btn-outline-info my-2 my-sm-0" type="submit">Añadir</button>
+			            <button class="btn btn-outline-info my-2 my-sm-0" type="submit">AÃ±adir</button>
 			          </form>
               		<%              		
               	}
@@ -81,7 +55,7 @@
     </nav>
 
     <!-- Page Content -->
-    <div class="container">
+    <main class="container" role="main">
     
     <%
     	//Gestion de alertas para el usuario
@@ -103,41 +77,45 @@
     		<%
     	}
     %>
-
-      <div class="row">
-
-        <div class="col-lg-3">        	
-          <h1 class="my-4">Lista Reproduccion</h1>
-          <ul class="list-group">
-          	<%
-          		ArrayList<Video> videos = (ArrayList<Video>) request.getAttribute("videos");
-          		if ( videos == null ){
-          			videos = new ArrayList<Video>();
-          		}
-          		
-          		Video videoInicio = (Video)request.getAttribute("videoInicio");
-          		if ( videoInicio == null){
-          			videoInicio = new Video();
-          		}
-    			
-          		for( Video v : videos ){
-          	%>
-	            <li class="list-group-item d-flex justify-content-between align-items-center">     
-	          	  	<a href="?id=<%=v.getId()%>"><%=v.getNombre()%></a>
-	          	  	<a href="?id=<%=v.getId()%>&op=<%=HomeController.OP_ELIMINAR%>"><i style="color:red;" class="float-right fas fa-trash-alt"></i></a>
-	            </li>
-            <%
-          		} //end for
-            %>
-            </ul>
+	<h1 class="text-center text-success">Youtube Java Edition</h1>
+      <div class="row pt-4">
+        <div class="col-lg-4">
+          <section>        	
+	          <h1 class="text-primary">Lista Reproduccion</h1>
+	          <ul class="list-group">
+	          	<%
+	          		ArrayList<Video> videos = (ArrayList<Video>) request.getAttribute("videos");
+	          		if ( videos == null ){
+	          			videos = new ArrayList<Video>();
+	          		}
+	          		
+	          		Video videoInicio = (Video)request.getAttribute("videoInicio");
+	          		if ( videoInicio == null){
+	          			videoInicio = new Video();
+	          		}
+	    			
+	          		for( Video v : videos ){
+	          	%>
+		            <li class="list-group-item d-flex justify-content-between align-items-center">     
+		          	  	<a href="?id=<%=v.getId()%>"><%=v.getNombre()%></a>
+		          	  	<a href="?id=<%=v.getId()%>&op=<%=HomeController.OP_ELIMINAR%>"><i class="fas fa-trash-alt text-danger"></i></a>
+		            </li>
+	            <%
+	          		} //end for
+	            %>
+	            </ul>
+          </section>
           <section>
           	<h2>Lista del Usuario</h2>
           	<%
           		if(u != null){
           			%>
-          				<ul>
+          				<ul class="list-group">
           					<%
           					ArrayList<Video> listaVideos = (ArrayList<Video>)session.getAttribute("videos");
+                      		listaVideos.add((Video)request.getAttribute("videoInicio"));
+                      		session.setAttribute("videos", listaVideos);
+          					//ArrayList<Video> listaVideos = (ArrayList<Video>)session.getAttribute("videos");
           					for( Video v : listaVideos ){
           			          	%>
           				            <li class="list-group-item d-flex justify-content-between align-items-center">     
@@ -155,13 +133,12 @@
           		}
           	%>
           </section>
-          </div>
-        
-        <!-- /.col-lg-3 -->
+        </div>
+        <!-- /.col-lg-4 -->
 
-        <div class="col-lg-9">
+        <div class="col-lg-8">
 
-          <div class="card mt-4">
+          <div class="card">
           
             <iframe id="iframe" width="823" height="415" src="https://www.youtube.com/embed/<%=videoInicio.getId()%>?autoplay=0" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
             
@@ -174,7 +151,7 @@
           </div>
           <!-- /.card -->
 
-          <div class="card card-outline-secondary my-4">
+          <div class="card card-outline-secondary">
             <div class="card-header">
               Comentarios
             </div>
@@ -197,21 +174,16 @@
 
       </div>
 
-    </div>
+    </main>
     <!-- /.container -->
 
     <!-- Footer -->
-    <footer class="py-5 bg-dark">
+    <footer class="bg-dark">
       <div class="container">
-        <p class="m-0 text-center text-white">Copyright &copy; Your Website 2017</p>
+        <p class="text-center text-white">Copyright &copy; Adrian Perozzo</p>
       </div>
       <!-- /.container -->
     </footer>
 
-    <!-- Bootstrap core JavaScript -->
-    <script src="https://blackrockdigital.github.io/startbootstrap-shop-item/vendor/jquery/jquery.min.js"></script>
-    <script src="https://blackrockdigital.github.io/startbootstrap-shop-item/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+<%@ include file="includes/footer.jsp" %>
 
-  </body>
-
-</html>

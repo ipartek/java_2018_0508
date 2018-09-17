@@ -20,11 +20,9 @@ import com.ipartek.formacion.youtube.pojo.Video;
  */
 @WebServlet("/login")
 public class LoginController extends HttpServlet {
+	
 	private static final long serialVersionUID = 1L;
- 
-	private RequestDispatcher dispatch = null;
-
-	private static final String VIEW_YTB = "home.jsp";
+	
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
@@ -38,7 +36,6 @@ public class LoginController extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		try {
-			dispatch = request.getRequestDispatcher(VIEW_YTB);
 			
 			String nombre = (String) request.getParameter("usuario");
 			String contrasenya = (String) request.getParameter("pass");
@@ -47,6 +44,7 @@ public class LoginController extends HttpServlet {
 				HttpSession session = request.getSession();
 				session.setAttribute("usuario", new Usuario(nombre, contrasenya));
 				session.setMaxInactiveInterval(60*5);
+				
 				session.setAttribute("videos", new ArrayList<Video>());
 			}else {
 				request.setAttribute("alert", new Alert("Usuario o contraseña incorrectos", Alert.DANGER));
@@ -56,7 +54,6 @@ public class LoginController extends HttpServlet {
 			e.printStackTrace();
 		}finally {
 			// Ir a la vista
-			// dispatch.forward(request, response);
 			response.sendRedirect(request.getContextPath()+"/");
 		}
 		
