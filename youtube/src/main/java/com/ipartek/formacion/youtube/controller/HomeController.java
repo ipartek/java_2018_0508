@@ -3,14 +3,16 @@ package com.ipartek.formacion.youtube.controller;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
-import com.ipartek.formacion.youtube.Video;
 import com.ipartek.formacion.youtube.model.VideoArrayListDAO;
+import com.ipartek.formacion.youtube.pojo.Video;
 
 /**
  * Servlet implementation class HomeController
@@ -19,11 +21,49 @@ import com.ipartek.formacion.youtube.model.VideoArrayListDAO;
 public class HomeController extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
-	
+
 	public static final String OP_ELIMINAR = "1";
 	private static VideoArrayListDAO dao;
 	private ArrayList<Video> videos;
+	private ArrayList<Video> videosUsuario;
 	private Video videoInicio;
+
+	@Override
+	public void init(ServletConfig config) throws ServletException {
+		super.init(config);
+		// Se ejecuta solo con la primera peticion, el resto de peticiones iran a
+		// service.
+		dao = VideoArrayListDAO.getInstance();
+		videosUsuario = new ArrayList<Video>();
+
+	}
+
+	@Override
+	public void destroy() {
+		super.destroy();
+
+		// Se ejcuta cuando se para el servidor
+		dao = null;
+	}
+	
+	
+	/**
+	 * Cada request se ejecuta en un hilo o thread
+	 */
+	
+	@Override
+	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		//Se ejecutaran antes del GET y POST
+		System.out.println("Antes de realizar GET o POST");
+		
+		super.service(request, response);//Llama al GET o POST
+		
+		
+		//despues de realizar GET o POST
+		request.setAttribute("videos", videos);
+		request.setAttribute("videoInicio", videoInicio);
+		request.getRequestDispatcher("home.jsp").forward(request, response);
+	}
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
@@ -31,38 +71,44 @@ public class HomeController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		
+
 		try {
-			
-			//parametros
+
+			// parametros
 			String id = request.getParameter("id");
 			String op = request.getParameter("op");
-			
-			//eliminar ?			
-			if ( op != null && OP_ELIMINAR.equals(op) ) {
+
+			// eliminar ?
+			if (op != null && OP_ELIMINAR.equals(op)) {
 				dao.delete(id);
 			}
-			
-			//listado videos
-			dao = VideoArrayListDAO.getInstance();
+
+			// listado videos
 			videos = (ArrayList<Video>) dao.getAll();
-			
-			
-			//video de inicio
+
+			// video de inicio
 			videoInicio = new Video();
-			if ( id != null && !OP_ELIMINAR.equals(op) ) {
+			if (id != null && !OP_ELIMINAR.equals(op)) {
 				videoInicio = dao.getById(id);
-			}else if ( !videos.isEmpty()) {
+			} else if (!videos.isEmpty()) {
 				videoInicio = videos.get(0);
 			}
 			
+			HttpSession sesion= request.getSession();
+			if (sesion.getAttribute("usuario")!=null) {
+				
+				videosUsuario.add(videoInicio);
+				request.setAttribute("vReproducidos", videosUsuario);
+				
+			} else {
 
+			}
+			
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
-			request.setAttribute("videos", videos);
-			request.setAttribute("videoInicio", videoInicio);
-			request.getRequestDispatcher("home.jsp").forward(request, response);
+			
 		}
 	}
 
@@ -73,26 +119,22 @@ public class HomeController extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		try {
-			
-			//recoger parametros
+
+			// recoger parametros
 			String id = request.getParameter("id");
 			String nombre = request.getParameter("nombre");
-			
-			//insertar
+
+			// insertar
 			videoInicio = new Video(id, nombre);
 			dao.insert(videoInicio);
-			
-			//pedir listado
-			dao = VideoArrayListDAO.getInstance();
+
+			// pedir listado
 			videos = (ArrayList<Video>) dao.getAll();
-			
 
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
-			request.setAttribute("videos", videos);
-			request.setAttribute("videoInicio", videoInicio);
-			request.getRequestDispatcher("home.jsp").forward(request, response);
+			
 		}
 	}
 

@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<!-- saved from url=(0032)http://127.0.0.1:5500/login.html -->
+<html lang="es"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="./Web de compras_files/styles.css">
+    <link rel="stylesheet" href="./Web de compras_files/bootstrap.min.css">
+    <title>Web de compras</title>
+
+</head>
+
+<body cz-shortcut-listen="true">
+    <header>
+
+        <nav class="navbar navbar-expand-md navbar-dark bg-dark mb-4">
+            <img class="navbar-brand" alt="" src="./Web de compras_files/Logo.png" width="70" height="70">
+            <a class="navbar-brand" href="http://127.0.0.1:5500/login.html#">Menu</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarCollapse">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="http://127.0.0.1:5500/index.html">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="http://127.0.0.1:5500/login.html">Login</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="http://127.0.0.1:5500/formulario.html">Formulario</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="http://127.0.0.1:5500/listado_productos.html">Formulario</a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+
+
+    <main role="main" class="container">
+        <h1>Login</h1>
+
+
+        <form action="http://127.0.0.1:5500/formulario" method="post">
+
+            <div class="row justify-content-center">
+                <div class="col  col-md-5">
+
+                    <label for="nombre" class="required obligatorio">Nombre:</label>
+                    <input type="text" name="nombre" autofocus="" class="form-control" minlength="4" maxlength="15" required="" placeholder="Introduce tu nombre">
+
+
+                    <label for="pass" class="obligatorio">Contraseña:</label>
+                    <input type="password" name="pass" class="form-control" minlength="8" maxlength="20" required="" placeholder="Introduce la contraseña">
+
+                    <button type="submit" class="btn btn-outline-success btn-lg btn-block">Acceder</button>
+
+                </div>
+            </div>
+        </form>
+
+
+    </main>
+
+
+
+
+<!-- Code injected by live-server -->
+<script type="text/javascript">
+	// <![CDATA[  <-- For SVG support
+	if ('WebSocket' in window) {
+		(function () {
+			function refreshCSS() {
+				var sheets = [].slice.call(document.getElementsByTagName("link"));
+				var head = document.getElementsByTagName("head")[0];
+				for (var i = 0; i < sheets.length; ++i) {
+					var elem = sheets[i];
+					head.removeChild(elem);
+					var rel = elem.rel;
+					if (elem.href && typeof rel != "string" || rel.length == 0 || rel.toLowerCase() == "stylesheet") {
+						var url = elem.href.replace(/(&|\?)_cacheOverride=\d+/, '');
+						elem.href = url + (url.indexOf('?') >= 0 ? '&' : '?') + '_cacheOverride=' + (new Date().valueOf());
+					}
+					head.appendChild(elem);
+				}
+			}
+			var protocol = window.location.protocol === 'http:' ? 'ws://' : 'wss://';
+			var address = protocol + window.location.host + window.location.pathname + '/ws';
+			var socket = new WebSocket(address);
+			socket.onmessage = function (msg) {
+				if (msg.data == 'reload') window.location.reload();
+				else if (msg.data == 'refreshcss') refreshCSS();
+			};
+			if (sessionStorage && !sessionStorage.getItem('IsThisFirstTime_Log_From_LiveServer')) {
+				console.log('Live reload enabled.');
+				sessionStorage.setItem('IsThisFirstTime_Log_From_LiveServer', true);
+			}
+		})();
+	}
+	else {
+		console.error('Upgrade your browser. This Browser is NOT supported WebSocket for Live-Reloading.');
+	}
+	// ]]>
+</script>
+
+
+<footer>
+    <nav class="nav-links">
+        <a href="http://127.0.0.1:5500/login.html#">Politica de privacidad</a>
+        <a href="http://127.0.0.1:5500/login.html#">Localizacion</a>
+        <a href="http://127.0.0.1:5500/login.html#">Contacto</a>
+        <a href="http://127.0.0.1:5500/login.html#">
+            <font size="2">Copyright ©2013-2018 Weebly Tricks, All Rights Reserved</font>
+        </a>
+    </nav>
+
+    <nav class="nav-socials">
+        <a href="http://127.0.0.1:5500/login.html#">
+            <i class="fab fa-facebook fa-2x"></i>
+        </a>
+        <a href="http://127.0.0.1:5500/login.html#">
+            <i class="fab fa-twitter-square fa-2x"></i>
+        </a>
+    </nav>
+</footer>
+
+
+
+</body></html>

@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+    <title>Web de compras</title>
+
+</head>
+
+<body>
+    <header>
+
+        <nav class="navbar navbar-expand-md">
+            <img class="navbar-brand" alt="Iamgen del logotipo" width="50" height="50" src="data:image/jpeg;base64,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AREQEREBERAREQEREBERAREQEREBERAREQEREBERAREQEREBERAREQEREBERAREQEREBERAREQEREBERAREQEREBERAREQEREBERAREQEREBERAREQEREH//2Q==">
+                <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="index.html">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="login.html">Login</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="formulario.html">Formulario</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="listado_productos.html">Listado de productos</a>
+                </li>
+
+            </ul>
+            </div>
+        </nav>
+    </header>
+
+    <main role="main" class="contenedor">
+        <h1>Registro de nuevo producto</h1>
+
+
+        <form action="formulario" method="post">
+		
+                <div class="form-row">
+                    <div class="col">
+                         <div class="form-group">
+                             <label for="nombre" class="required obligatorio">Nombre:</label>
+                            <input type="text" name="nombre" autofocus class="form-control" required placeholder="Introduce el nombre del producto">				
+                        </div>	
+                    </div>
+                    
+                    
+                </div>
+
+                <div class="form-row">
+                
+                    <div class="col">
+                        
+                        <div class="form-group">
+                            <label for="precio" class="obligatorio">Precio:</label>			
+                            <input type="number" name="precio" class="form-control" required placeholder="Introduce el precio del producto">
+                        </div>
+                    </div>	
+                    
+                    	
+                        <div class="form-group">
+                            <label for="precio_oferta" class="obligatorio">Precio en oferta:</label>	
+                            <input type="number" name="precio_oferta" class="form-control" required step="0.1" placeholder="Introduce el precio con oferta">
+                        </div>
+                   	
+                        
+                </div>		
+                <!-- .form-row -->		
+                
+                <div class="form-group">
+                    <label for="descripcion">Descripcion:</label>
+                    <textarea name="descripcion" rows="5" class="form-control"></textarea>
+                </div>
+                
+                <div class="form-group">
+                    <label for="imagen">Imagen</label>
+                    <input type="file" class="file" name="archivo" data-preview-file-type="any">
+                </div>
+            
+                <div class="form-group">
+                    <input type="submit" value="Agregar producto" class="btn btn-primary btn-block">
+                </div>	
+            </form>
+
+
+    </main>
+    <div>
+        <footer>
+            <nav class="nav-links">
+                <a href="#">Politica de privacidad</a>
+                <a href="#">Localizacion</a>
+                <a href="#">Contacto</a>
+                <a href="#">
+                    <font size="2">Copyright ©2018 Weebly Tricks, All Rights Reserved</font>
+                </a>
+            </nav>
+
+            <nav class="nav-socials">
+                <a href="#">
+                    <i class="fab fa-facebook fa-2x"></i>
+                </a>
+                <a href="#">
+                    <i class="fab fa-twitter-square fa-2x"></i>
+                </a>
+            </nav>
+        </footer>
+    </div>
+
+</body>
+
+</html>
