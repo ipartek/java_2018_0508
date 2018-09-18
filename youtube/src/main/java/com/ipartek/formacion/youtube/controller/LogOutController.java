@@ -41,9 +41,11 @@ public class LogOutController extends HttpServlet {
 		HttpSession session = request.getSession();
 		
 		try {
+			if(session != null) {
+				session.invalidate();
+				session = null;
+			}
 			
-			session.invalidate();
-			session = null;
 			
 			
 		}catch (Exception e) {

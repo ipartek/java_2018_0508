@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.ipartek.formacion.model.VideoArrayListDAO;
+import com.ipartek.formacion.pojo.Usuario;
 import com.ipartek.formacion.pojo.Video;
 
 /**
@@ -89,13 +90,21 @@ public class VideoYoutubeController extends HttpServlet {
 			//listado videos			
 			videos = (ArrayList<Video>) dao.getAll();
 			//guardo historial
-			if(id != null) {
-				for(Video v : videos) {
-					if (id.contentEquals(v.getId()) ) {
-						listaVideos.add(v);
+			HttpSession session = request.getSession();
+			Usuario usaurio = (Usuario) session.getAttribute("usuario");
+			
+			//Nos aseguramos que haya sesion de usuario logueado
+			if (usaurio != null) {
+				//Vemos que se haya clickado algun video
+				if(id != null) {
+					for(Video v : videos) {
+						if (id.contentEquals(v.getId()) ) {
+							listaVideos.add(v);
+						}
 					}
 				}
 			}
+			
 			
 			
 			

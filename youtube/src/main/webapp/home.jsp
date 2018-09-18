@@ -77,7 +77,7 @@
             </li>      
             <li>
             	 <i class="fas fa-user" style="color:red; margin-left:5px;"> <%=usuario.getNombre() %> </i>
-	            <a  href="logout">Cerrar Sesion</a>
+	            <a href="logout">Cerrar Sesion</a>
             </li> 
             <%
             	} 
@@ -147,7 +147,7 @@
             	
            
             %>
-            	<h1 class="my-4">Historial de Reproduccion</h1>
+            	<h2 class="my-4">Historial de Reproduccion</h1>
 	          	<ul class="list-group">
 	          	<%
 		      		ArrayList<Video> listaVideos= (ArrayList<Video>) request.getAttribute("listaVideos");
