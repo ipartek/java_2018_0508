@@ -68,7 +68,7 @@ public class LoginController extends HttpServlet {
 		}finally {
 			session.setAttribute("alert", alert);
 			//request.getRequestDispatcher("home.jsp").forward(request, response);
-			response.sendRedirect(request.getContextPath() + "/" ); 
+			response.sendRedirect(request.getContextPath() + "/inicio" ); 
 		}
 		
 		
