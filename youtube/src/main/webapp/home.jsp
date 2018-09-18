@@ -124,46 +124,42 @@
 						</div>
 						
 					</div>
-					<div class="card-body">
+					<div class="card-body m-2">
 					<%
 					session = request.getSession();
 					ArrayList<Comentario> listaComentarios = (ArrayList<Comentario>) session.getAttribute("comentario");
 					if(listaComentarios != null){
-						for( Comentario c : listaComentarios ){
-							%>
+					%>
+					<ul class="group-list">
+					<%
+					for( Comentario c : listaComentarios ){
+						%>
+						<li class="list-group-item">
 							<p class="card-text"><%=c.getTexto()%></p>
 							<small class="text-muted">Escrito por  <%=c.getAutor()%></small>
+						</li>
 						<%
 						}
+					%>
+					</ul>
+					<%
 					}else{
 						%>
 						<h4 class="text-danger">Aun no hay ningun comentario...</h4>
 					<%
 					}
+					if(u != null){
 					%>
-					<!--
-						<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Omnis et enim aperiam inventore, similique
-							necessitatibus neque non! Doloribus, modi sapiente laboriosam aperiam fugiat laborum. Sequi mollitia,
-							necessitatibus quae sint natus.</p>
-						<small class="text-muted">Posted by Anonymous on 3/1/17</small>
-						<hr>
-						<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Omnis et enim aperiam inventore, similique
-							necessitatibus neque non! Doloribus, modi sapiente laboriosam aperiam fugiat laborum. Sequi mollitia,
-							necessitatibus quae sint natus.</p>
-						<small class="text-muted">Posted by Anonymous on 3/1/17</small>
-						<hr>
-						<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Omnis et enim aperiam inventore, similique
-							necessitatibus neque non! Doloribus, modi sapiente laboriosam aperiam fugiat laborum. Sequi mollitia,
-							necessitatibus quae sint natus.</p>
-						<small class="text-muted">Posted by Anonymous on 3/1/17</small>
-					-->
-						<form id="form-comentario" action="comentario" method="post">
+					<form id="form-comentario" action="comentario" method="post">
 							<div class="form-group">
 							    <label for="comentario-usuario">Escribe tu comentario:</label>
 							    <textarea name="comentario-usuario" class="form-control" id="comentario-usuario" rows="3"></textarea>
 							  </div>
 							  <input type="submit" class="btn btn-outline-success mb-2" value="Enviar comentario">
 						</form>
+					<%
+					}
+					%>						
 					</div>
 				</div>
 				<!-- /.card -->
