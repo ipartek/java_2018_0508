@@ -166,9 +166,17 @@
 				</div>
 				<!-- /.card -->
 	
-				<div class="card card-outline-secondary">
-					<div class="card-header">
-						Comentarios
+				<div class="card card-outline-secondary m-2">
+					<div class="card-header bg-primary">
+						<div class="row align-items-center">
+							<div class="col-6">
+								<h2>Comentarios</h2>
+							</div>
+							<div class="col-6 text-right">
+								<a href="#form-comentario" class="btn btn-outline-dark">Escribe un comentario</a>
+							</div>
+						</div>
+						
 					</div>
 					<div class="card-body">
 						<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Omnis et enim aperiam inventore, similique
@@ -185,7 +193,13 @@
 							necessitatibus neque non! Doloribus, modi sapiente laboriosam aperiam fugiat laborum. Sequi mollitia,
 							necessitatibus quae sint natus.</p>
 						<small class="text-muted">Posted by Anonymous on 3/1/17</small>
-	
+						<form id="form-comentario" action="" method="post">
+							<div class="form-group">
+							    <label for="comentario-usuario">Escribe tu comentario:</label>
+							    <textarea name="comentario-usuario" class="form-control" id="comentario-usuario" rows="3"></textarea>
+							  </div>
+							  <input type="submit" class="btn btn-outline-success mb-2" value="Enviar comentario">
+						</form>
 					</div>
 				</div>
 				<!-- /.card -->
