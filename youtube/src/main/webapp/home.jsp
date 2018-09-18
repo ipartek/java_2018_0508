@@ -27,6 +27,8 @@
 
     <!-- Custom styles for this template -->
     <link href="https://blackrockdigital.github.io/startbootstrap-shop-item/css/shop-item.css" rel="stylesheet">
+    
+    <link rel="stylesheet" href="css/styles.css">
 
   </head>
 
@@ -53,22 +55,23 @@
             
               <!-- formulario Login -->
               <form action="login" method="post" class="form-inline mt-2 mt-md-0">
-	            <input name="usuario" class="form-control mr-sm-2" type="text" placeholder="Nombre Usuario" required pattern=".{3,30}">
-	            <input name="pass" class="form-control mr-sm-2" type="password" placeholder="Contraseña" required pattern=".{2,50}">
+	            <input name="usuario" class="form-control mr-sm-2" type="text" value="admin" placeholder="Nombre Usuario" required pattern=".{3,30}">
+	            <input name="pass" class="form-control mr-sm-2" type="password" value="admin" placeholder="Contraseña" required pattern=".{2,50}">
 	            <button class="btn btn-outline-info my-2 my-sm-0" type="submit">Entrar</button>
 	          </form>            
             <%
             	} else {
             %>              
             
-             <div class="nav-user">
-             	<i class="fas fa-user"><%=usuario.getNombre()%></i>
-             	<a href="logout">Cerrar Session</a>
+             <div class="nav-user logeado">
+             	<i class="fas fa-user"> <%=usuario.getNombre()%></i>
+             	<a href="backoffice/index.jsp">Acceder al backoffice</a>
+             	<a href="logout">Cerrar Sesión</a>
              </div>	
              
             
               <!-- formulario Crear Video -->
-              <form action="" method="post" class="form-inline mt-2 mt-md-0">
+              <form action="inicio" method="post" class="form-inline mt-2 mt-md-0">
 	            <input name="id" class="form-control mr-sm-2" type="text" placeholder="ID 11 caracerteres" title="11 caracteres" required pattern=".{11,11}">
 	            <input name="nombre" class="form-control mr-sm-2" type="text" placeholder="Nombre minimo 2 letras" required pattern=".{2,125}">
 	            <button class="btn btn-outline-info my-2 my-sm-0" type="submit">Añadir</button>
@@ -131,8 +134,8 @@
           		for( Video v : videos ){
           	%>
 	            <li class="list-group-item d-flex justify-content-between align-items-center">     
-	          	  	<a href="?id=<%=v.getId()%>"><%=v.getNombre()%></a>
-	          	  	<a href="?id=<%=v.getId()%>&op=<%=HomeController.OP_ELIMINAR%>"><i style="color:red;" class="float-right fas fa-trash-alt"></i></a>
+	          	  	<a href="inicio?id=<%=v.getId()%>"><%=v.getNombre()%></a>
+	          	  	<a href="inicio?id=<%=v.getId()%>&op=<%=HomeController.OP_ELIMINAR%>"><i style="color:red;" class="float-right fas fa-trash-alt"></i></a>
 	            </li>
             <%
           		} //end for
@@ -149,14 +152,14 @@
 		          		for( Video r : reproducidos ){
 		          	%>
 			            <li class="list-group-item d-flex justify-content-between align-items-center">     
-			          	  	<a href="?id=<%=r.getId()%>"><%=r.getNombre()%></a>	          	  	
+			          	  	<a href="inicio?id=<%=r.getId()%>"><%=r.getNombre()%></a>	          	  	
 			            </li>
 		            <%
 	          			} //end for
 	          		}else{
 	          		%>
 	          			<li class="list-group-item d-flex justify-content-between align-items-center">
-	          				<p>*Por favor Inicia Session para guardar tus video reproducidos</p>
+	          				<p>*Por favor Inicia Sesión para guardar tus video reproducidos</p>
 	          			</li>
 	          		<%		
 	          		}

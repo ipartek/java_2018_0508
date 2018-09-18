@@ -45,7 +45,7 @@ public class LogoutController extends HttpServlet {
 			e.printStackTrace();
 			
 		}finally {
-			response.sendRedirect(request.getContextPath() + "/");
+			response.sendRedirect(request.getContextPath() + "/inicio");
 		}
 		
 		

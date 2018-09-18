@@ -18,7 +18,7 @@ import com.ipartek.formacion.youtube.pojo.Video;
 /**
  * Servlet implementation class HomeController
  */
-@WebServlet("/")
+@WebServlet("/inicio")
 public class HomeController extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
@@ -52,7 +52,7 @@ public class HomeController extends HttpServlet {
 	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 	
 		//System.out.println("Antes de realizar GET o POST");
-		
+			
 		super.service(request, response);  //llama a los metodos GET o POST
 				
 		//despues de realizar GET o POST
