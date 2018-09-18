@@ -102,6 +102,7 @@ public class HomeController extends HttpServlet {
 					if(reproducidos == null) {
 						reproducidos = new ArrayList<Video>();
 					}
+					
 					reproducidos.add(videoInicio);
 					session.setAttribute("reproducidos", reproducidos);
 					
