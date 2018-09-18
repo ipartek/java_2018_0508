@@ -1,7 +1,6 @@
 package com.ipartek.formacion.youtube.controller;
 
 import java.io.IOException;
-import java.util.ArrayList;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -12,7 +11,6 @@ import javax.servlet.http.HttpSession;
 
 import com.ipartek.formacion.youtube.pojo.Alert;
 import com.ipartek.formacion.youtube.pojo.Usuario;
-import com.ipartek.formacion.youtube.pojo.Video;
 
 /**
  * Servlet implementation class LoginController
@@ -43,8 +41,6 @@ public class LoginController extends HttpServlet {
 				HttpSession session = request.getSession();
 				session.setAttribute("usuario", new Usuario(nombre, contrasenya));
 				session.setMaxInactiveInterval(60*5);
-				
-				session.setAttribute("videos", new ArrayList<Video>());
 			}else {
 				request.setAttribute("alert", new Alert("Usuario o contraseña incorrectos", Alert.DANGER));
 			}
@@ -53,7 +49,7 @@ public class LoginController extends HttpServlet {
 			e.printStackTrace();
 		}finally {
 			// Ir a la vista
-			response.sendRedirect(request.getContextPath()+"/");
+			response.sendRedirect(request.getContextPath()+"/inicio");
 		}
 		
 	}

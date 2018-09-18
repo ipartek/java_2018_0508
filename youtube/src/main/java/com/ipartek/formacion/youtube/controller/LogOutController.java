@@ -14,30 +14,35 @@ import javax.servlet.http.HttpSession;
 @WebServlet("/logout")
 public class LogOutController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
- 
+
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+	 *      response)
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		doPost(request, response);
 	}
 
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+	 *      response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 
 		try {
 			HttpSession session = request.getSession();
-			session.invalidate();
-			session = null;
+			if (session != null) {
+				session.invalidate();
+				session = null;
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
-		}finally {
-			response.sendRedirect(request.getContextPath()+"/");
+		} finally {
+			response.sendRedirect(request.getContextPath() + "/inicio");
 		}
 
-		
 	}
 
 }

@@ -9,14 +9,16 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.ipartek.formacion.youtube.model.VideoArrayListDAO;
+import com.ipartek.formacion.youtube.pojo.Usuario;
 import com.ipartek.formacion.youtube.pojo.Video;
 
 /**
  * Servlet implementation class HomeController
  */
-@WebServlet("/")
+@WebServlet("/inicio")
 public class HomeController extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
@@ -68,7 +70,7 @@ public class HomeController extends HttpServlet {
 			throws ServletException, IOException {
 
 		try {
-			
+
 			// parametros
 			String id = request.getParameter("id");
 			String op = request.getParameter("op");
@@ -85,6 +87,23 @@ public class HomeController extends HttpServlet {
 			videoInicio = new Video();
 			if (id != null && !OP_ELIMINAR.equals(op)) {
 				videoInicio = dao.getById(id);
+
+				// guardar video si el usuario esta en session
+
+				HttpSession session = request.getSession();
+				Usuario u = (Usuario) session.getAttribute("usuario");
+
+				if (u != null) {
+
+					ArrayList<Video> reproducidos = (ArrayList<Video>) session.getAttribute("videosUsuario");
+					if (reproducidos == null) {
+						reproducidos = new ArrayList<Video>();
+					}
+					reproducidos.add(videoInicio);
+					session.setAttribute("videosUsuario", reproducidos);
+					
+				}
+
 			} else if (!videos.isEmpty()) {
 				videoInicio = videos.get(0);
 			}

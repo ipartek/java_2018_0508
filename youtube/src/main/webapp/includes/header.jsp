@@ -20,7 +20,7 @@
     <!-- Fonts -->
     <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
     <!-- Custom CSS -->
-	<link rel="stylesheet" href="css/style.css">
+	 <link href="css/style.css" rel="stylesheet" type="text/css"/>
 
   </head>
 
