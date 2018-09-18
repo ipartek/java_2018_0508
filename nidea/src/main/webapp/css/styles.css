@@ -91,3 +91,8 @@ label.required::before{
 	margin-bottom:0.7em;
 }
 
+#comentario-info{
+	background-color: #F7F7F7;
+    margin: 1em 0;
+    padding: 1em;
+}

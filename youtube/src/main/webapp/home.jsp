@@ -1,3 +1,6 @@
+<%@page import="java.text.SimpleDateFormat"%>
+<%@page import="java.text.DateFormat"%>
+<%@page import="java.util.Date"%>
 <%@page import="com.ipartek.formacion.youtube.pojo.Usuario"%>
 <%@page import="com.ipartek.formacion.youtube.pojo.Alert"%>
 <%@page import="com.ipartek.formacion.youtube.pojo.Video"%>
@@ -166,15 +169,7 @@
 	            %>
 	            </ul>
             
-          </div>
-          
-          
-         	
-	          
-          
-          
-        
-        <!-- /.col-lg-3 -->
+          </div> <!-- /.col-lg-3 -->
 
         <div class="col-lg-9">
 
@@ -191,10 +186,47 @@
           </div>
           <!-- /.card -->
 
-          <div class="card card-outline-secondary my-4">
-            <div class="card-header">
-              Comentarios
-            </div>
+          
+            
+            <%
+              
+              	Usuario u = (Usuario)session.getAttribute("usuario");
+            
+	            Date date = new Date();
+	          	//Caso 1: obtener la hora y salida por pantalla con formato:
+	          	DateFormat hourdateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm");
+            
+            	if(u != null){
+            		
+              
+             %>
+             
+             	<div id="comentario-info" class="row justify-content-between">
+             	
+             		<span><%=u.getNombre() %></span>
+             		<span><%=hourdateFormat.format(date) %></span>
+             	
+             	</div>
+             
+             	<form>
+             		<div class="form-group">
+						<label for="comentario">Comentario:</label>
+					    <textarea class="form-control" id="comentario" rows="3"></textarea>
+						<button type="submit" class="btn btn-primary">Enviar comentario</button>
+					</div>
+             	</form>
+             
+             <%
+             
+            	}else{
+             
+             %>
+             
+        <div class="card card-outline-secondary my-4">
+	    	<div class="card-header">
+	        	Comentarios
+	        </div>
+             
             <div class="card-body">
               <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Omnis et enim aperiam inventore, similique necessitatibus neque non! Doloribus, modi sapiente laboriosam aperiam fugiat laborum. Sequi mollitia, necessitatibus quae sint natus.</p>
               <small class="text-muted">Posted by Anonymous on 3/1/17</small>
@@ -204,6 +236,10 @@
               <hr>
               <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Omnis et enim aperiam inventore, similique necessitatibus neque non! Doloribus, modi sapiente laboriosam aperiam fugiat laborum. Sequi mollitia, necessitatibus quae sint natus.</p>
               <small class="text-muted">Posted by Anonymous on 3/1/17</small>
+              
+              <%
+            	}
+              %>
               
             </div>
           </div>
