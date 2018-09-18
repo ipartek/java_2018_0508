@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <meta name="description" content="">
+        <meta name="author" content="">
+        <title>EROSKI</title>
+        
+        <!-- Bootstrap core CSS -->
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+        
+        <!-- Google Fonts -->
+        <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+        <!-- Fontawesome CSS -->
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+        
+        <link rel="stylesheet" href="css/styles.css?<%=System.currentTimeMillis()%>">
+    </head>
+
+    <body>
+        <!-- Menu -->
+        <nav class="navbar navbar-expand-md navbar navbar-dark bg-primary mb-4">
+            <a class="navbar-brand" href="index.html"><img src="img/eroski-logo.png" width="40" height="40" alt="eroski-logo"></a>
+            
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarCollapse">
+                <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="index.html">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="login.html">Iniciar Sesión</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="registroProducto.html">Registrar Producto</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="listaProductos.html">Listado de Productos</a>
+                </li>
+                </ul>
+            </div>
+        </nav>
+        <!-- /menu -->
+
+        <!-- Main -->
+        <main class="container" role="main" >
+            <h1 class="text-center">Inicio de Sesión</h1>
+
+            <form action="login" method="post">
+                <div class="form-row">
+                    <div class="col">
+                        <div class="form-group">
+                            <label class="required" for="email">Correo electrónico: </label>
+                            <input class="form-control" type="email" name="email" step="0.1" placeholder="example@example.com" autofocus required>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="form-row">
+                    <div class="col">
+                        <div class="form-group">
+                            <label for="pswd">Contraseña: </label>
+                            <input class="form-control" type="password" name="pswd" placeholder="Mínimo 5 caracteres" required minlength="5">
+                        </div>
+                    </div>	
+                </div>
+                
+                <input class="form-control btn btn-outline-primary" type="submit" value="Entrar">
+            </form>
+        </main>
+       <!-- /Main -->
+
+    </body>
+</html>

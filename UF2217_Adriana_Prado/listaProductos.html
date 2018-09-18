@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <meta name="description" content="">
+        <meta name="author" content="">
+        <title>EROSKI</title>
+        
+        <!-- Data Table CSS-->
+        <link rel="stylesheet" href="vendors/dataTables/1.10.19/css/jquery.dataTables.min.css">
+        <link href="vendors/dataTables/2.1.0/css/responsive.dataTables.css" rel="stylesheet" type="text/css" />
+            
+        <!-- Google Fonts link CSS-->
+        <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+        <!-- Bootstrap core CSS -->
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+        
+        <!-- Font Awesome CSS-->
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+        
+        <!-- CSS Principal -->
+        <link rel="stylesheet" href="css/styles.css?<%=System.currentTimeMillis()%>">
+    </head>
+    <body>
+
+        <!-- Menu -->
+        <nav class="navbar navbar-expand-md navbar navbar-dark bg-primary mb-4">
+            <a class="navbar-brand" href="index.html"><img src="img/eroski-logo.png" width="40" height="40" alt="eroski-logo"></a>
+            
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarCollapse">
+                <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="index.html">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="login.html">Iniciar Sesión</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="registroProducto.html">Registrar Producto</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="listaProductos.html">Listado de Productos</a>
+                </li>
+                </ul>
+            </div>
+        </nav>
+        <!-- /menu -->
+
+        <!-- Main -->
+        <main class="container" role="main" >
+            <h1 class="text-center mb-3 ">Listado de productos</h1>
+            
+            <table id="listaProductos" class="display text-center" style="width:100%">
+                <thead>
+                    <tr>
+                        <th>Nombre</th>
+                        <th>Precio &euro;</th>
+                        <th>Precio/(L ó Kg) &euro;</th>
+                        <th>Descuento</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Coca Cola Zero Zero 2 litros</td>
+                        <td>1,46 &euro;</td>
+                        <td>0,73 &euro;</td>
+                        <td>No</td>
+                    </tr>
+                    
+                    <tr>
+                        <td>Coca Cola 2 litros</td>
+                        <td>1,46 &euro;</td>
+                        <td>0,73 &euro;</td>
+                        <td>Si</td>
+                    </tr>
+                    
+                    <tr>
+                        <td>PRINGLES patatas fritas sabor sour cream & onion envase 190 gr.</td>
+                        <td>2,15 &euro;</td>
+                        <td>11,32 &euro;</td>
+                        <td>No</td>
+                    </tr>
+
+                    <tr>
+                        <td>Coca Cola Zero Limón 2 litros</td>
+                        <td>1,46 &euro;</td>
+                        <td>0,73 &euro;</td>
+                        <td>No</td>
+                    </tr>
+
+                    <tr>
+                        <td>LINDT chocolate con doble de leche tableta 100 gr.</td>
+                        <td>1,94 &euro;</td>
+                        <td>17,30 &euro;</td>
+                        <td>No</td>
+                    </tr>
+
+                    <tr>
+                        <td>Coca Cola Sin Cafeína 2 litros</td>
+                        <td>1,46 &euro;</td>
+                        <td>0,73 &euro;</td>
+                        <td>No</td>
+                    </tr>
+
+                    <tr>
+                        <td>Galletas Oreo 440 gr.</td>
+                        <td>3,19 &euro;</td>
+                        <td>7,25 &euro;</td>
+                        <td>No</td>
+                    </tr>
+                        
+                    <tr>
+                        <td>LA BELLA EASO magdalenas envasadas individualmente sin colorantes ni conservantes bolsa 290gr. 10 unidades.</td>
+                        <td>1,29 &euro;</td>
+                        <td>4,45 &euro;</td>
+                        <td>No</td>
+                    </tr>
+                        
+                    <tr>
+                        <td>Coca Cola Zero Zero 2 litros</td>
+                        <td>1,46 &euro;</td>
+                        <td>0,73 &euro;</td>
+                        <td>Si</td>
+                    </tr>
+    
+                    <tr>
+                        <td>Coca Cola Zero Zero 2 litros</td>
+                        <td>1,46 &euro;</td>
+                        <td>0,73 &euro;</td>
+                        <td>No</td>
+                    </tr>
+    
+                    <tr>
+                        <td>Coca Cola Zero Zero 2 litros</td>
+                        <td>1,46 &euro;</td>
+                        <td>0,73 &euro;</td>
+                        <td>No</td>
+                    </tr>
+
+                    <tr>
+                        <td>Coca Cola Zero Zero 2 litros</td>
+                        <td>1,46 &euro;</td>
+                        <td>0,73 &euro;</td>
+                        <td>Si</td>
+                    </tr>
+                </tbody>
+            </table>
+
+        </main>
+        <!-- /Main -->
+
+        <!-- Place at the end of the page to load it faster -->
+        <script src="vendors/jquery/jquery-3.3.1.js"></script>
+        <script src="vendors/dataTables/1.10.19/js/jquery.dataTables.min.js"></script>
+        <script src="vendors/dataTables/2.1.0/js/dataTables.responsive.js"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+            
+        <script>  
+            window.addEventListener("load", function(event) {
+            $('#listaProductos').DataTable({
+                "language": {
+                    "url": "vendors/dataTables/i18n/Spanish.json"
+                }                  
+            });
+    });
+        </script>
+    </body>
+</html>

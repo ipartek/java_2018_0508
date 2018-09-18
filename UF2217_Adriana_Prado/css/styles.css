@@ -1,0 +1,109 @@
+/*Hoja de estilos principal*/
+
+/*Reset
+******************************************************/
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+/*Tags
+******************************************************/
+body{
+    font-family: 'Roboto', sans-serif;
+    
+}
+
+footer{
+    background-color: #007BFF;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 10px;
+}
+
+/*Layouts
+******************************************************/
+.main-container{
+    background-color: #E9ECEF;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    justify-content: space-evenly;
+    margin-bottom: 30px;
+    padding: 10px 0;
+}
+
+.card{
+    margin-bottom: 20px;
+}
+
+.card .circle {
+    background-color: #ED5A5A;
+    color: #FFF;
+    font-size: 20px;
+    position: absolute;
+    top: 5px;
+    right: 140px;
+    border-radius: 30%;
+    height: 30px;
+    width: 50px;
+    display: inline-block;
+    text-align: center;
+}
+
+.card-footer {
+    background-color: #FFF;
+    border-top: none;
+}
+
+tr:hover td{
+    background-color: #007BFF !important;
+}
+
+.required::before{
+	content: "* ";
+	color: #F00;
+}
+
+.fixed{
+    position: fixed;
+    bottom: .25em;
+    right: .25em;
+    font-size: 3em;
+    display: none;
+    color: #F00 !important;
+    z-index: 1;
+}
+
+span.descuento{
+    color: #F00;
+    font-size: 25px;
+}
+
+/*Footer
+******************************************************/
+footer nav.redes-sociales a{
+    font-size: 2em;
+    color: #FF0;
+}
+
+footer nav.enlaces a{
+    color: #56C5FF;
+    text-decoration: none;
+    padding: 0 10px;
+}
+
+footer nav.enlaces a:hover{
+    color: #BFD8FF;
+}
+
+/*Media Queries
+*************************************************/
+@media screen and (max-width: 576px){
+    .fixed{
+        display: block;
+    }
+}
