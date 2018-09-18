@@ -1,39 +1,43 @@
 package com.ipartek.formacion.youtube.pojo;
 
 public class Usuario {
-
-	private String user;
-	private String password;
+	
+	private String nombre;
+	private String pass;
 	
 	public Usuario() {
 		super();
-	}
-	
-	public Usuario(String user, String password) {
-		super();
-		this.user = user;
-		this.password = password;
+		this.nombre = "";
+		this.pass = "";
 	}
 
-	public String getUser() {
-		return user;
+		
+	public Usuario(String nombre, String pass) {
+		this();
+		this.nombre = nombre;
+		this.pass = pass;
 	}
 
-	public void setUser(String user) {
-		this.user = user;
+
+	public String getNombre() {
+		return nombre;
 	}
 
-	public String getPassword() {
-		return password;
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
 	}
 
-	public void setPassword(String password) {
-		this.password = password;
+	public String getPass() {
+		return pass;
+	}
+
+	public void setPass(String pass) {
+		this.pass = pass;
 	}
 
 	@Override
 	public String toString() {
-		return "Usuario [User=" + user + ", Password=" + password + "]";
+		return "Usuario [nombre=" + nombre + ", pass=" + pass + "]";
 	}
 	
 }

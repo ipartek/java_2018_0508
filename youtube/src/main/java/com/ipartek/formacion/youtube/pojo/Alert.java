@@ -1,59 +1,56 @@
 package com.ipartek.formacion.youtube.pojo;
 
 public class Alert {
-
-	public static final String PRIMARY = "primary";
-	public static final String SECONDARY = "secondary";
-	public static final String SUCCESS = "success";
-	public static final String DANGER = "danger";
-	public static final String WARNING = "warning";
-	public static final String INFO = "info";
-	public static final String LIGHT = "light";
-	public static final String DARK = "dark";
 	
-	private static final String DEFAULT_MSG = "Lo sentimos. Ha ocurrido un error inesperado.";
-
-	private String msg;
-	private String priority;
-
+	public static final String PRIMARY = "alert-primary";
+	public static final String SECONDARY = "alert-secondary";
+	public static final String SUCCESS = "alert-success";
+	public static final String DANGER = "alert-danger";
+	public static final String WARNING = "alert-warning";
+	public static final String TEXTO_POR_DEFECTO = "Lo Sentimos pero tenemos un error inexsperado.";
+	
+	
+	private String tipo;
+	private String texto;
+	
+	
 	public Alert() {
 		super();
-		this.msg = DEFAULT_MSG;
-		this.priority = DANGER;
+		this.tipo = DANGER;
+		this.texto = TEXTO_POR_DEFECTO;
 	}
 
-	public Alert(String msg) {
+
+	public Alert(String tipo, String texto) {
 		this();
-		if (msg != null && !msg.trim().isEmpty()) {
-			this.msg = msg;
-		}
+		this.tipo = tipo;
+		this.texto = texto;
 	}
 
-	public Alert(String msg, String priority) {
-		this();
-		if (msg != null && !msg.trim().isEmpty()) {
-			this.msg = msg;
-		}
-		if (priority != null && !priority.trim().isEmpty()) {
-			this.priority = priority;
-		}
 
+	public String getTipo() {
+		return tipo;
 	}
 
-	public String getMsg() {
-		return msg;
+
+	public void setTipo(String tipo) {
+		this.tipo = tipo;
 	}
 
-	public void setMsg(String msg) {
-		this.msg = msg;
+
+	public String getTexto() {
+		return texto;
 	}
 
-	public String getPriority() {
-		return priority;
+
+	public void setTexto(String texto) {
+		this.texto = texto;
 	}
 
-	public void setPriority(String priority) {
-		this.priority = priority;
-	}
 
+	@Override
+	public String toString() {
+		return "Alert [tipo=" + tipo + ", texto=" + texto + "]";
+	}
+		
 }

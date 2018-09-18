@@ -16,63 +16,62 @@ import com.ipartek.formacion.youtube.pojo.Usuario;
  */
 @WebServlet("/login")
 public class LoginController extends HttpServlet {
-
 	private static final long serialVersionUID = 1L;
-	private static String ERROR_LOGIN_MSG = "El usuario o la contraseña introducidos son incorrectos.";
-
-	private Alert alert;
-	private Usuario usuario;
-	private HttpSession session;
-
-	@Override
-	protected void doGet(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-		doProcces(request, response);
+       
+    
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		doProcess(request, response);
 	}
 
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
-	 *      response)
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-
-		doProcces(request, response);
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		doProcess(request, response);
 	}
 
-	private void doProcces(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	private void doProcess(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		Alert alert = new Alert();
+		HttpSession session = request.getSession();
+		
 		try {
 			
-			// Parámetros
-			String nombre = (String) request.getParameter("user");
-			String psw = (String) request.getParameter("psw");
-				
-			if ("admin".equals(nombre) && "admin".equals(psw)) {
-				// Creamos el alerta de bienvenida
-				alert = new Alert("Bienvenido/a " + nombre, Alert.PRIMARY);
-				
-				// Creamos el objeto Usuario
-				usuario = new Usuario(nombre, psw);
-				
-				// Obtenemos el objeto session
-				session = request.getSession();
-				
-				// Pasamos el usuario 
-				session.setAttribute("usuario", usuario);
-				
-				// Establecemos el máximo tiempo inactivo
-				session.setMaxInactiveInterval(60*5); // 5 min.
+			//recoger parametros
+			String usuarioNombre = request.getParameter("usuario");
+			String pass = request.getParameter("pass");
 			
-			} else {	// Loguin incorrecto	
-				alert = new Alert(ERROR_LOGIN_MSG, Alert.WARNING);
+			//comprobar usuario
+			if ( "admin".equals(pass) && "admin".equals(usuarioNombre))  {
+				
+				alert.setTexto("BienVenido " + usuarioNombre );
+				alert.setTipo(Alert.PRIMARY);
+				
+				//guardar Usuario en session
+				Usuario u = new Usuario(usuarioNombre, pass);
+				
+				session.setAttribute("usuario", u);
+				session.setMaxInactiveInterval(60*5); // 5min
+				
+				
+			}else{
+				
+				alert.setTexto("Credenciales incorrectas" );
 			}
 			
-		} catch (Exception e) {
-			alert = new Alert();
-		} finally {	
+			
+		}catch (Exception e) {
+			e.printStackTrace();
+		}finally {
 			session.setAttribute("alert", alert);
-			response.sendRedirect(request.getContextPath() + "/");
+			//request.getRequestDispatcher("home.jsp").forward(request, response);
+			response.sendRedirect(request.getContextPath() + "/inicio" ); 
 		}
+		
+		
 	}
 
 }
