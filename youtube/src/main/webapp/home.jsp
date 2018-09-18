@@ -30,6 +30,7 @@
     <link href="https://blackrockdigital.github.io/startbootstrap-shop-item/css/shop-item.css" rel="stylesheet">
 	<!-- Fontawasome -->
 	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+	<!-- Estilos propios pero no termina de cogerlos -->
 	<link rel="stylesheet" href="css/styles.css" >
 	
 
@@ -68,15 +69,19 @@
 	            <input name="id" class="form-control mr-sm-2" type="text" placeholder="ID 11 caracerteres" title="11 caracteres" required pattern=".{11,11}">
 	            <input name="nombre" class="form-control mr-sm-2" type="text" placeholder="Nombre minimo 2 letras" required pattern=".{2,125}">
 	            <button class="btn btn-outline-info my-2 my-sm-0" type="submit">Añadir</button>
-	            <i class="fas fa-user" style="color:red; margin-left:5px;"> <%=usuario.getNombre() %> </i>
-	            <p><a  href="logout">Cerrar Sesion</a></p>
+	           
 	          </form>	  
 				     
-	          <%
-            	} 
-              %>  
 	          
-            </li>            
+	          
+            </li>      
+            <li>
+            	 <i class="fas fa-user" style="color:red; margin-left:5px;"> <%=usuario.getNombre() %> </i>
+	            <a  href="logout">Cerrar Sesion</a>
+            </li> 
+            <%
+            	} 
+              %>       
           </ul>
           
           
@@ -137,6 +142,32 @@
           		} //end for
             %>
             </ul>
+            <%
+            if ( usuario != null ){
+            	
+           
+            %>
+            	<h1 class="my-4">Historial de Reproduccion</h1>
+	          	<ul class="list-group">
+	          	<%
+		      		ArrayList<Video> listaVideos= (ArrayList<Video>) request.getAttribute("listaVideos");
+		      		if(listaVideos != null){
+		      			for(Video v: listaVideos){
+      					
+      			%>
+      				<li class="list-group-item d-flex justify-content-between align-items-center">     
+	          	  	<a href="?id=<%=v.getId()%>"><%=v.getNombreCancion()%></a>
+	          	  	
+	           		 </li>
+            	<%
+      			
+      					}
+      				}
+      			%>
+	            </ul>
+            <%
+            }
+            %>
             
           </div>
         
@@ -179,7 +210,7 @@
         <!-- /.col-lg-9 -->
 
       </div>
-      <div class="row" style="border:1px solid black; height:200px;">
+      <%-- <div class="row" style="border:1px solid black; height:200px;">
       	<div class="col-6" style="border:1px solid black">
       	<%
       		ArrayList<Video> listaVideos= (ArrayList<Video>) request.getAttribute("listaVideos");
@@ -189,7 +220,7 @@
       			
       		
       	%>
-      		<p>v.getNombreCancion()</p>
+      		<p><%=v.getNombreCancion() %></p>
       	<%
       		}
       		}
@@ -197,7 +228,7 @@
       	</div>
       	<div class="col-6" style="border:1px solid black">
       	</div>
-      </div>
+      </div> --%>
 
     </div>
     <!-- /.container -->

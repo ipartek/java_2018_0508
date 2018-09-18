@@ -1,5 +1,8 @@
-i{
+i {
 	font-size:25px;
 	color:red;
 	background: white !important;
+}
+body{
+	background: black;
 }

@@ -1,6 +1,7 @@
 body{
     width:90%;
     margin:auto;
+    display: flex;
 }
 h1{
     text-align: center;
@@ -15,7 +16,9 @@ header{
 }
 footer{
     text-align: center;
+
 }
+
 
 .icono {
     width: 70%;
@@ -81,42 +84,53 @@ nav .menu {
  
     }
  
-   nav .menu li{
+nav .menu li{
+
+display: inline-block;
+padding: 15px 29px;
+list-style: none;
+
+ }
+ nav .menu li > ul > li{
+
+
+padding: 15px 29px;
+list-style: none;
+
+ }
+
+nav .menu li a{
+
+ text-decoration: none;
+ color: #000;
+ text-transform: uppercase;
+ font-family: 'Signika Negative', sans-serif;
+ font-size: 0.9em;
+
+ }
+
+
+nav .menu li a:hover{
+
+   border-bottom: 2px solid #F13006;
+   border-radius: 4px;
+
+ }
+
+/*SUBMENU*/
+
+.submenu{
+   display: none;
+   position: absolute;
+ }
+ .submenu:hover{
+   display: block;
+   
+ }
  
-    display: inline-block;
-    padding: 15px 29px;
-    list-style: none;
- 
-     }
- 
-   nav .menu li a{
- 
-     text-decoration: none;
-     color: #000;
-     text-transform: uppercase;
-     font-family: 'Signika Negative', sans-serif;
-     font-size: 0.9em;
- 
-     }
- 
- 
-    nav .menu li a:hover{
- 
-       border-bottom: 2px solid #F13006;
-       border-radius: 4px;
- 
-     }
- 
-    /*ACÁ COMIENZA CSS PARA SUBMENU*/
- 
-    .submenu{
-       display: none;
-       position: absolute;
-     }
-     
-     .linkprod:hover ~ .submenu {
-       display: block;
-     }
+ .linkprod:hover ~ .submenu {
+   display: block;
+ }
 
 .contenedorRelativo{
     width: 200px;

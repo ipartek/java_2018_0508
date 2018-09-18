@@ -2,7 +2,6 @@
 <%@page import="com.ipartek.formacion.nidea.pojo.Producto"%>
 <%@page import="java.text.DecimalFormat" %>
 <%@page import="java.util.ArrayList"%>
-<%@page import="java.text.DecimalFormat" %>
 <%@include file="includes/header.jsp" %>
 <%@include file="includes/navbar.jsp" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>

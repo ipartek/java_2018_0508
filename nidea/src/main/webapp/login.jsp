@@ -17,7 +17,15 @@
 			       
 					
 		        	<label  for="passwordusuario">Password:</label>	        
-			        <input class="form-control" id="pass1" type="password" name="passUsuario" required="required" placeholder="Introduce su password (Requerido)"/>        
+			        <input class="form-control" id="pass1" type="password" name="passUsuario" required="required" placeholder="Introduce su password (Requerido)"/>
+			        <div class="input-group mb-3">
+					  <div class="input-group-prepend">
+					    <div class="input-group-text">
+					      <input type="checkbox" aria-label="Checkbox for following text input">
+					    </div>
+					  </div>
+					  <input type="text" readonly class="form-control" placeholder="No Soy un robot" aria-label="Text input with checkbox">
+					</div>        
 					<input class="btn secondary btn-lg btn-block"  type="submit" value="Enviar" id="enviar"/>
 		        
 		        	

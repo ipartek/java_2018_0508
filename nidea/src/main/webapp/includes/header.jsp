@@ -21,9 +21,9 @@
 	
 	<!-- No aconsejable para produccion ya que contiamenten estamos descargando el css -->
 	<link rel="stylesheet" href="css/styles.css?<%=System.currentTimeMillis() %>" >
-	<link rel="stylesheet" href="../css/arkanoid.css">
+	<link rel="stylesheet" href="/css/arkanoid.css">
 	<link rel="stylesheet" href="css/formulario.css">
-	<link rel="stylesheet" href="../css/listar.css">
+	<link rel="stylesheet" href="/css/listar.css">
 
 
 	<title>nidea</title>
