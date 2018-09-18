@@ -48,6 +48,9 @@
             	Usuario usuario = (Usuario)session.getAttribute("usuario");
             	if ( usuario == null ){            
             %>	            
+            	
+             
+            
               <!-- formulario Login -->
               <form action="login" method="post" class="form-inline mt-2 mt-md-0">
 	            <input name="usuario" class="form-control mr-sm-2" type="text" placeholder="Nombre Usuario" required pattern=".{3,30}">
@@ -57,6 +60,13 @@
             <%
             	} else {
             %>              
+            
+             <div class="nav-user">
+             	<i class="fas fa-user"><%=usuario.getNombre()%></i>
+             	<a href="logout">Cerrar Session</a>
+             </div>	
+             
+            
               <!-- formulario Crear Video -->
               <form action="" method="post" class="form-inline mt-2 mt-md-0">
 	            <input name="id" class="form-control mr-sm-2" type="text" placeholder="ID 11 caracerteres" title="11 caracteres" required pattern=".{11,11}">
@@ -105,7 +115,7 @@
       <div class="row">
 
         <div class="col-lg-3">        	
-          <h1 class="my-4">Lista Reproduccion</h1>
+          <h4 class="my-4">Lista Reproduccion</h4>
           <ul class="list-group">
           	<%
           		ArrayList<Video> videos = (ArrayList<Video>) request.getAttribute("videos");
@@ -129,7 +139,37 @@
             %>
             </ul>
             
+            <hr>
+            
+            <h4 class="my-4">Videos Visualizados</h4>
+	          <ul class="list-group">
+	          	<%
+	          		ArrayList<Video> reproducidos = (ArrayList<Video>) session.getAttribute("reproducidos");
+	          		if ( reproducidos != null ){
+		          		for( Video r : reproducidos ){
+		          	%>
+			            <li class="list-group-item d-flex justify-content-between align-items-center">     
+			          	  	<a href="?id=<%=r.getId()%>"><%=r.getNombre()%></a>	          	  	
+			            </li>
+		            <%
+	          			} //end for
+	          		}else{
+	          		%>
+	          			<li class="list-group-item d-flex justify-content-between align-items-center">
+	          				<p>*Por favor Inicia Session para guardar tus video reproducidos</p>
+	          			</li>
+	          		<%		
+	          		}
+	            %>
+	            </ul>
+            
           </div>
+          
+          
+         	
+	          
+          
+          
         
         <!-- /.col-lg-3 -->
 

@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.ipartek.formacion.youtube.model.VideoArrayListDAO;
+import com.ipartek.formacion.youtube.pojo.Usuario;
 import com.ipartek.formacion.youtube.pojo.Video;
 
 /**
@@ -24,7 +25,7 @@ public class HomeController extends HttpServlet {
 	
 	public static final String OP_ELIMINAR = "1";
 	private static VideoArrayListDAO dao;
-	private ArrayList<Video> videos;
+	private ArrayList<Video> videos;	
 	private Video videoInicio;
 
 	
@@ -88,6 +89,21 @@ public class HomeController extends HttpServlet {
 			videoInicio = new Video();
 			if ( id != null && !OP_ELIMINAR.equals(op) ) {
 				videoInicio = dao.getById(id);
+				
+				//guardar video reproducido si esta usuario en session
+				HttpSession session = request.getSession();
+				Usuario usuario = (Usuario)session.getAttribute("usuario");
+				if ( usuario != null ) { //Logeado
+				
+					ArrayList<Video> reproducidos = (ArrayList<Video>)session.getAttribute("reproducidos");
+					if ( reproducidos == null ) {
+						reproducidos = new ArrayList<Video>();
+					}
+					reproducidos.add(videoInicio);
+					session.setAttribute("reproducidos", reproducidos);										
+					
+				}				
+				
 			}else if ( !videos.isEmpty()) {
 				videoInicio = videos.get(0);
 			}
