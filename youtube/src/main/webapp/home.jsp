@@ -43,6 +43,7 @@
 							<div class="text-light text-right m-1">
 								Bienvenido <i class="fas fa-user-circle"></i>
 								<%=u.getNombre() %>
+								<a href="backoffice/index.jsp">Acceder BackOffice</a>
 								<a href="logout">Cerrar Sesion</a>
 							</div>
 						</li>
