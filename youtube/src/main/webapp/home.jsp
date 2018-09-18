@@ -19,7 +19,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Youtube Video Play List</title>
+    <title>Registro de usuarios</title>
 
 	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
 	
@@ -56,7 +56,7 @@
             %>	            
               <!-- formulario Login -->
               <form action="login" method="post" class="form-inline mt-2 mt-md-0">
-	            <input name="usuario" class="form-control mr-sm-2" type="text" placeholder="Nombre Usuario" required pattern=".{3,30}">
+	            <input id="usuario" name="usuario" class="form-control mr-sm-2" type="text" placeholder="Nombre Usuario" required pattern=".{3,30}">
 	            <input name="pass" class="form-control mr-sm-2" type="password" placeholder="Contraseña" required pattern=".{2,50}">
 	            <button class="btn btn-outline-info my-2 my-sm-0" type="submit">Entrar</button>
 	          </form>            
@@ -78,6 +78,7 @@
             <li>
             	 <i class="fas fa-user" style="color:red; margin-left:5px;"> <%=usuario.getNombre() %> </i>
 	            <a href="logout">Cerrar Sesion</a>
+	             <a href="backoffice/index.jsp">Backoffice</a>
             </li> 
             <%
             	} 
@@ -135,8 +136,8 @@
           		for( Video v : videos ){
           	%>
 	            <li class="list-group-item d-flex justify-content-between align-items-center">     
-	          	  	<a href="?id=<%=v.getId()%>"><%=v.getNombreCancion()%></a>
-	          	  	<a href="?id=<%=v.getId()%>&op=<%=VideoYoutubeController.OP_ELIMINAR%>"><i style="color:red;" class="float-right fas fa-trash-alt"></i></a>
+	          	  	<a href="inicio?id=<%=v.getId()%>"><%=v.getNombreCancion()%></a>
+	          	  	<a href="inicio?id=<%=v.getId()%>&op=<%=VideoYoutubeController.OP_ELIMINAR%>"><i style="color:red;" class="float-right fas fa-trash-alt"></i></a>
 	            </li>
             <%
           		} //end for
@@ -166,8 +167,18 @@
       			%>
 	            </ul>
             <%
+            }else{
+            	 %>
+            	  <p>Por favor autentifiquese primero <a href="registroUsuariosFormulario.jsp" onclick="autoFocus()">Login</a></p>
+            	  <script>
+            	  		var b = document.querySelector("usuario"); 
+            	  		var a = document.getElementById("usuario");
+            	  </script>
+            	  <%
             }
-            %>
+            	  %>
+            
+           
             
           </div>
         

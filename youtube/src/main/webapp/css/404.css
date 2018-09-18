@@ -1,0 +1,30 @@
+body{
+	margin:auto;
+	width: 65%;
+	background: white;
+	text-align: center;
+	
+}
+
+h1{
+	color:red;
+}
+h3{
+	text-align: left;
+}
+
+.destello{
+	animation: blinker 1s linear infinite;
+}
+
+@keyframes blinker {
+  50% {
+    opacity: 0;
+  }
+}
+
+@keyframes blinker {
+  50% {
+    opacity: 0;
+  }
+

@@ -2,6 +2,8 @@ package com.ipartek.formacion.model;
 
 import java.util.List;
 
+import com.ipartek.formacion.pojo.Usuario;
+
 /**
  * Interfaz para especificar los métodos de <b>CRUD</b>
  * 
@@ -53,5 +55,7 @@ public interface CrudAble<P> {
 	 * @return result, boolean Si no encuentra el <b>id</b>, devuelve <b>false</b>
 	 */
 	boolean delete(String id); // Delete
+
+
 
 }

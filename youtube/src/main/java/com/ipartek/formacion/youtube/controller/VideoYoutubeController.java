@@ -18,7 +18,7 @@ import com.ipartek.formacion.pojo.Video;
 /**
  * Servlet implementation class HomeController
  */
-@WebServlet("/")
+@WebServlet("/inicio")
 public class VideoYoutubeController extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
@@ -93,6 +93,7 @@ public class VideoYoutubeController extends HttpServlet {
 			HttpSession session = request.getSession();
 			Usuario usaurio = (Usuario) session.getAttribute("usuario");
 			
+			//Historico de canciones reproducidas
 			//Nos aseguramos que haya sesion de usuario logueado
 			if (usaurio != null) {
 				//Vemos que se haya clickado algun video
@@ -104,9 +105,6 @@ public class VideoYoutubeController extends HttpServlet {
 					}
 				}
 			}
-			
-			
-			
 			
 			
 			//video de inicio

@@ -52,7 +52,7 @@ public class LogOutController extends HttpServlet {
 			e.printStackTrace();
 		}finally {
 			/*request.getRequestDispatcher("home.jsp").forward(request, response);*/
-			response.sendRedirect(request.getContextPath() + "/" ); 
+			response.sendRedirect(request.getContextPath() + "/inicio" ); 
 		}
 		
 		
