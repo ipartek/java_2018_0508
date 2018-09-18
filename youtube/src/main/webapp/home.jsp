@@ -63,8 +63,9 @@
             	} else {
             %>              
             
-             <div class="nav-user">
-             	<i class="fas fa-user"><%=usuario.getNombre()%></i>
+             <div class="nav-user">             	
+             	<i class="fas fa-user"><%=usuario.getNombre()%></i>             	
+             	<a href="backoffice/index.jsp">Acceder Backoffice</a>
              	<a href="logout">Cerrar Session</a>
              </div>	
              
