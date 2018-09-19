@@ -67,6 +67,7 @@ public class LoginController extends HttpServlet {
 			String pass = request.getParameter("pass");
 			accessSignal = false;
 			//comprobar usuario
+			//En futuro contra la base de dato
 			accessSignal = comprobarUsuario(usuarioNombre, pass);
 			
 			/*if ( "admin".equals(pass) && "admin".equals(usuarioNombre))  {

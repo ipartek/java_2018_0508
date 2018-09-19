@@ -207,7 +207,9 @@
             <div id="comentarios" class="comentarios" style="display:none;">
 	            <form action="ComentariosControler" method="post">
 	            	<input name="videoId" id="videoId" value="<%=videoInicio.getId()%>"></input>
-	            	<input id="textArea" name="text" ></input>
+	            	<%-- <p name="videoId" value="<%=videoInicio.getId()%>"><%=videoInicio.getId()%></p> --%>
+	            	<textarea name=text rows="" cols=""></textarea>
+	            	<!-- <input id="textArea" name="text" ></input> -->
 	            	<!-- <p><a href="ComentariosControler" class="badge badge-dark">Añadir comentario</a></p> -->
 	            	<button  type="submit" class="btn btn-primary">Date de alta</button>
 	            </form>

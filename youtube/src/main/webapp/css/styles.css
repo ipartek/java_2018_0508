@@ -16,6 +16,6 @@ body{
 }
 
 #videoID{
-	visibility: hidden;
+	visibility: hidden !important;
 	color:white;
 }
