@@ -10,9 +10,13 @@ public class UsuariosDAO implements CrudAble<Usuario> {
 
 	private static UsuariosDAO INSTANCE = null;
 	private static List<Usuario> usuarios = null;
-
+	private Usuario usuariosObj;
 	private UsuariosDAO() {
 		usuarios = new ArrayList<Usuario>();
+		usuarios.add(new Usuario(1,"admin","admin@gmail.com","admin"));
+		usuarios.add(new Usuario(2,"pepep","pepe@gmail.com","pepep"));
+		usuarios.add(new Usuario(3,"manoli","manoli@gmail.com","manoli"));
+		usuarios.add(new Usuario(3,"josepo","josepo@gmail.com","josepo"));
 		
 	}
 

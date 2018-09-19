@@ -91,7 +91,7 @@ public class LoginController extends HttpServlet {
 				
 				request.setAttribute("usuario", usuarioCoincidencia);
 				session.setAttribute("usuario", usuarioCoincidencia);
-				session.setMaxInactiveInterval(60*5); // 5min
+				session.setMaxInactiveInterval(60*1); // 5min
 			}
 			else{
 				

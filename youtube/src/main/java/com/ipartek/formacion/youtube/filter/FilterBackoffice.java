@@ -1,6 +1,9 @@
 package com.ipartek.formacion.youtube.filter;
 
 import java.io.IOException;
+import java.util.Enumeration;
+import java.util.Map;
+
 import javax.servlet.DispatcherType;
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
@@ -54,6 +57,8 @@ public class FilterBackoffice implements Filter {
 			if(usuario != null) {
 				chain.doFilter(request, response);
 			}else {
+				//se le pasa la request de http
+				informacionCliente(req);
 				//si el usuario es nulo por lo que no tiene datos de sesion lo rediccionamos a inicio
 				res.sendRedirect(req.getContextPath() + "/inicio");
 			}
@@ -61,6 +66,37 @@ public class FilterBackoffice implements Filter {
 			e.printStackTrace();
 			res.sendRedirect(req.getContextPath() + "/inicio");
 		}	
+	}
+	/**
+	 * Mostramos la informacion de la request del cliente
+	 * @param req
+	 */
+	private void informacionCliente(HttpServletRequest req) {
+		System.out.println("*******************************");
+		
+		
+		System.out.println(req.getRemoteAddr());
+		System.out.println(req.getRemoteHost());
+		System.out.println(req.getRemotePort());
+		System.out.println(req.getRemoteUser());
+		System.out.println(req.getHeaderNames());
+		System.out.println(req.getParameter("id"));
+		System.out.println(req.getParameter("nombre"));
+		
+		
+		Enumeration nombresCabeceras = req.getHeaderNames();
+		
+		String metaDato;
+		System.out.println("Metadatos");
+		while(nombresCabeceras.hasMoreElements()) {
+			metaDato = (String) nombresCabeceras.nextElement();
+			System.out.println(metaDato + ":" + req.getHeader(metaDato));
+		}
+		System.out.println("***Parametros***");
+		//Map hmParametros = req.getParameterMap();
+		
+		System.out.println("*******************************");
+		
 	}
 
 	/**

@@ -3,43 +3,42 @@
 
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
+<meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Tablas</title>
-
-    
-    
+    <title>Listado productos Administracion</title>
+    <!-- Css Bootstrap-->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <!--Css fontawasome-->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+    <!--Google fonts-->
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300" rel="stylesheet">
+    <!--Custom css-->
+    <link rel="stylesheet" href="css/styles.css">
+    <!--Datatable css-->
     <link rel="stylesheet" href="vendors/datatables/1.10.19/css/jquery.dataTables.min.css">    
-    <link href="vendors/datatables/2.1.0/css/responsive.dataTables.css" rel="stylesheet" type="text/css" />      
+    <link href="vendors/datatables/2.1.0/css/responsive.dataTables.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="css/tabla.css"/>  
+    <!--Plugin para el funcionamiento del datatable, deberia ponerse en la ultima parte del body
+    pero al colocarlo en la parte inferior me sigue dando problemas -->  
     <script src="vendors/jquery/jquery-3.3.1.js"></script>
     <script src="vendors/jquery/1.10.19/js/jquery.dataTables.min.js"></script>    
     <script src="vendors/datatables/2.1.0/js/dataTables.responsive.js"></script>
-    
-    <link rel="stylesheet" href="css/tabla.css"/> 
-    <!-- ***** -->
-    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.18/css/dataTables.bootstrap4.min.css">    
-    
-    <script src="https://cdn.datatables.net/1.10.18/js/jquery.dataTables.min.js"></script> 
-    <script src="https://cdn.datatables.net/1.10.18/js/dataTables.bootstrap4.min.js"></script> 
 
 
     <script>
-            //Esperamos a que todo el HTML este cargado == body onload
-            $(document).ready(function() { 
-                // $('#example')  => selecciona un objeto por id="example"
-                // .DataTable();  => ejecutar el plugin de dataTable
-                $('#example').DataTable({
-                    "language": {
-                        "url": "vendors/datatables/i18n/spanish/Spanish.json"
-                    }
-                });
-            } );
-        </script>
-    
-
-</head>
+        //Esperamos a que todo el HTML este cargado == body onload
+        $(document).ready(function() { 
+            // $('#example')  => selecciona un objeto por id="example"
+            // .DataTable();  => ejecutar el plugin de dataTable
+            $('#productosadmin').DataTable({
+                "language": {
+                    "url": "vendors/datatables/i18n/spanish/Spanish.json"
+                }
+            });
+        } );
+    </script>
+    </head>
 <body>
 
         <h1>Ejemplo Tabla con DataTables</h1>
