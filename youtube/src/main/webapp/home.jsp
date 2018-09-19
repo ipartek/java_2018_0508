@@ -9,7 +9,7 @@
     
 	<!-- Include the alert -->
 	<%@ include file="include/alert.jsp"%>
-    
+	
     <div class="row">
 
         <div class="col-lg-3">        	
@@ -66,7 +66,7 @@
         <div class="col-lg-9">
 
           <div class="card mt-4">
-          
+               
             <iframe id="iframe" width="820" height="415" src="https://www.youtube.com/embed/<%=videoInicio.getId()%>?autoplay=1" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
             
             <div class="card-body">
@@ -77,6 +77,7 @@
             </div>
           </div>
           <!-- /.card -->
+          
           <div class="card card-info">
                 <div class="card-block">
                     <textarea placeholder="Escribe aquí tu comentario..." class="pb-cmnt-textarea"></textarea>
@@ -84,10 +85,8 @@
                         <button class="btn" type="button"><span class="fas fa-file-upload"></span></button>
                         <button class="btn btn-primary ml-auto" type="button">Comparte!</button>
                     </form>
-                	</div>
-            	</div>
-        		</div>
-    		</div>
+                </div>
+            </div>
         </div>
         <!-- /.col-lg-9 -->
 

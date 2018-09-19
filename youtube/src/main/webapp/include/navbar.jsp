@@ -32,7 +32,7 @@
             
              <div class="nav-user">
              	<i class="fas fa-user"><%=usuario.getNombre()%></i>
-             	<a href="logout">Backoffice</a>
+             	<a href="backoffice/">Backoffice</a>
              	<a href="logout"><i class="fas fa-power-off"></i></a>
              </div>	
              

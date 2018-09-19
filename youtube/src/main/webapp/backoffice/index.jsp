@@ -17,5 +17,13 @@
 	
 </main>
 
+<h2>Usuarios conectados: </h2>
+<%
+	
+	int num = (Integer) application.getAttribute("numusuariosEnLinea");
+
+%>
+<p><%= num %></p>
+
 <!-- Include the footer -->
 <%@ include file="../include/footer.jsp"%>
