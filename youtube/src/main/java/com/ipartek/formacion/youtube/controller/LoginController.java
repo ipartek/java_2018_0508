@@ -1,6 +1,8 @@
 package com.ipartek.formacion.youtube.controller;
 
 import java.io.IOException;
+import java.util.HashMap;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -44,31 +46,54 @@ public class LoginController extends HttpServlet {
 			String usuarioNombre = request.getParameter("usuario");
 			String pass = request.getParameter("pass");
 			
-			//comprobar usuario
-			if ( "admin".equals(pass) && "admin".equals(usuarioNombre))  {
-				
-				alert.setTexto("Bienvenido " + usuarioNombre );
-				alert.setTipo(Alert.PRIMARY);
-				
-				//guardar Usuario en session
-				Usuario u = new Usuario(usuarioNombre, pass);
-				
-				session.setAttribute("usuario", u);
-				session.setMaxInactiveInterval(60*5); // 5min
-				
-				
-			}else{
-				
-				alert.setTexto("Credenciales incorrectas" );
+			Usuario u = new Usuario();
+			
+			switch(usuarioNombre) {
+				case "admin":
+					alert.setTexto("BienVenido " + usuarioNombre );
+					alert.setTipo(Alert.PRIMARY);
+					
+					//guardar Usuario en session
+					u.setNombre(usuarioNombre);
+					u.setPass(pass);
+					break;
+				case "pepe":
+					alert.setTexto("BienVenido " + usuarioNombre );
+					alert.setTipo(Alert.PRIMARY);
+					
+					//guardar Usuario en session
+					u.setNombre(usuarioNombre);
+					u.setPass(pass);
+					break;
+				case "manoli":
+					alert.setTexto("BienVenido " + usuarioNombre );
+					alert.setTipo(Alert.PRIMARY);
+					
+					//guardar Usuario en session
+					u.setNombre(usuarioNombre);
+					u.setPass(pass);
+					break;
+				case "josepo":
+					alert.setTexto("BienVenido " + usuarioNombre );
+					alert.setTipo(Alert.PRIMARY);
+					
+					//guardar Usuario en session
+					u.setNombre(usuarioNombre);
+					u.setPass(pass);
+					break;
+				default:
+					alert.setTexto("Credenciales incorrectas");
 			}
 			
+			session.setAttribute("usuario", u);
+			session.setMaxInactiveInterval(60*5); // 5min
 			
 		}catch (Exception e) {
 			e.printStackTrace();
 		}finally {
 			session.setAttribute("alert", alert);
 			//request.getRequestDispatcher("home.jsp").forward(request, response);
-			response.sendRedirect(request.getContextPath() + "/" ); 
+			response.sendRedirect(request.getContextPath() + "/inicio" ); 
 		}
 		
 		

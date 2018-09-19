@@ -27,6 +27,8 @@
 
     <!-- Custom styles for this template -->
     <link href="https://blackrockdigital.github.io/startbootstrap-shop-item/css/shop-item.css" rel="stylesheet">
+    
+    <link href="css/styles.css" rel="stylesheet"></link>
 
   </head>
 
@@ -48,6 +50,9 @@
             	Usuario usuario = (Usuario)session.getAttribute("usuario");
             	if ( usuario == null ){            
             %>	            
+            	
+             
+            
               <!-- formulario Login -->
               <form action="login" method="post" class="form-inline mt-2 mt-md-0">
 	            <input name="usuario" class="form-control mr-sm-2" type="text" placeholder="Nombre Usuario" required pattern=".{3,30}">
@@ -56,10 +61,17 @@
 	          </form>            
             <%
             	} else {
-            %>
-                          
+            %>              
+            
+             <div class="nav-user">             	
+             	<i class="fas fa-user"><%=usuario.getNombre()%></i>             	
+             	<a href="backoffice/index.jsp">Acceder Backoffice</a>
+             	<a href="logout">Cerrar Session</a>
+             </div>	
+             
+            
               <!-- formulario Crear Video -->
-              <form action="" method="post" class="form-inline mt-2 mt-md-0">
+              <form action="inicio" method="post" class="form-inline mt-2 mt-md-0">
 	            <input name="id" class="form-control mr-sm-2" type="text" placeholder="ID 11 caracerteres" title="11 caracteres" required pattern=".{11,11}">
 	            <input name="nombre" class="form-control mr-sm-2" type="text" placeholder="Nombre minimo 2 letras" required pattern=".{2,125}">
 	            <button class="btn btn-outline-info my-2 my-sm-0" type="submit">Añadir</button>
@@ -68,14 +80,7 @@
             	} 
               %>  
 	          
-            </li>
-            <li class="nav-item" style="margin-left: 20px;">
-            	<%
-            	if ( usuario != null ){ 
-            	%>
-            		<i class="far fa-user fa-2x"> <%=usuario.getNombre()%></i><a href="logout" class="btn btn-outline-secondary" style="margin-left: 10px;"> Cerrar sesion</a>
-            	<% } %>
-            </li>          
+            </li>            
           </ul>
           
           
@@ -113,7 +118,7 @@
       <div class="row">
 
         <div class="col-lg-3">        	
-          <h1 class="my-4">Lista Reproduccion</h1>
+          <h4 class="my-4">Lista Reproduccion</h4>
           <ul class="list-group">
           	<%
           		ArrayList<Video> videos = (ArrayList<Video>) request.getAttribute("videos");
@@ -129,15 +134,45 @@
           		for( Video v : videos ){
           	%>
 	            <li class="list-group-item d-flex justify-content-between align-items-center">     
-	          	  	<a href="?id=<%=v.getId()%>"><%=v.getNombre()%></a>
-	          	  	<a href="?id=<%=v.getId()%>&op=<%=HomeController.OP_ELIMINAR%>"><i style="color:red;" class="float-right fas fa-trash-alt"></i></a>
+	          	  	<a href="inicio?id=<%=v.getId()%>"><%=v.getNombre()%></a>
+	          	  	<a href="inicio?id=<%=v.getId()%>&op=<%=HomeController.OP_ELIMINAR%>"><i style="color:red;" class="float-right fas fa-trash-alt"></i></a>
 	            </li>
             <%
           		} //end for
             %>
             </ul>
             
+            <hr>
+            
+            <h4 class="my-4">Videos Visualizados</h4>
+	          <ul class="list-group">
+	          	<%
+	          		ArrayList<Video> reproducidos = (ArrayList<Video>) session.getAttribute("reproducidos");
+	          		if ( reproducidos != null ){
+		          		for( Video r : reproducidos ){
+		          	%>
+			            <li class="list-group-item d-flex justify-content-between align-items-center">     
+			          	  	<a href="?id=<%=r.getId()%>"><%=r.getNombre()%></a>	          	  	
+			            </li>
+		            <%
+	          			} //end for
+	          		}else{
+	          		%>
+	          			<li class="list-group-item d-flex justify-content-between align-items-center">
+	          				<p>*Por favor Inicia Session para guardar tus video reproducidos</p>
+	          			</li>
+	          		<%		
+	          		}
+	            %>
+	            </ul>
+            
           </div>
+          
+          
+         	
+	          
+          
+          
         
         <!-- /.col-lg-3 -->
 
@@ -155,15 +190,40 @@
             </div>
           </div>
           <!-- /.card -->
-
+		  <%
+            	//Gestion Usuario Logeado   
+            	if ( usuario != null ){            
+          %>
+		  <div class="card card-outline-secondary my-4">
+		  	<div class="card-header">
+              Introduce un comentario
+            </div>
+            <div class="card-body">
+            	<form action="comentario" method="post">
+				  <div class="form-group">
+				    <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" placeholder="Escribe aqui tu comentario..."></textarea>
+				  </div>
+				  <button type="submit" class="btn btn-primary float-right">Enviar</button>
+				</form>
+            </div>
+		  </div>
+		  <%
+            } else {
+		  %>
+			<div class="card card-outline-secondary my-4">
+				<div class="card-header">
+	              Introduce un comentario
+	            </div>
+				<div class="card-body">
+	          	<p>*Por favor Inicia Session para introducir comentarios</p>
+	          	</div>
+	        </div>
+		  <% } %>
           <div class="card card-outline-secondary my-4">
             <div class="card-header">
               Comentarios
             </div>
             <div class="card-body">
-              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Omnis et enim aperiam inventore, similique necessitatibus neque non! Doloribus, modi sapiente laboriosam aperiam fugiat laborum. Sequi mollitia, necessitatibus quae sint natus.</p>
-              <small class="text-muted">Posted by Anonymous on 3/1/17</small>
-              <hr>
               <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Omnis et enim aperiam inventore, similique necessitatibus neque non! Doloribus, modi sapiente laboriosam aperiam fugiat laborum. Sequi mollitia, necessitatibus quae sint natus.</p>
               <small class="text-muted">Posted by Anonymous on 3/1/17</small>
               <hr>
