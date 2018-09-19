@@ -1,6 +1,8 @@
 package com.ipartek.formacion.youtube.filter;
 
 import java.io.IOException;
+import java.util.Enumeration;
+
 import javax.servlet.DispatcherType;
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
@@ -51,6 +53,8 @@ public class FilterBackoffice implements Filter {
 				chain.doFilter(request, response);
 			}else {
 				
+				informacionCliente(req);
+				
 				//usuario no logeado
 				res.sendRedirect( req.getContextPath() + "/inicio");
 			}	
@@ -60,6 +64,8 @@ public class FilterBackoffice implements Filter {
 		}	
 	}
 
+	
+
 	/**
 	 * @see Filter#init(FilterConfig)
 	 */
@@ -67,4 +73,47 @@ public class FilterBackoffice implements Filter {
 		System.out.println("se ejecuta al inciar la App Web");
 	}
 
+	
+	/**
+	 * Mostramos informacion sobre la Request del cliente
+	 * 
+	 * @param req
+	 */
+	private void informacionCliente(HttpServletRequest req) {
+		
+		System.out.println("----------------------------------------");
+		
+				
+		System.out.println("RemoteHost: " + req.getRemoteHost() );
+		System.out.println("RemoteAddr: " + req.getRemoteAddr() );
+		System.out.println("RemotePort: " + req.getRemotePort() );
+		System.out.println("RemoteUser: " + req.getRemoteUser() );
+		
+		System.out.println("");
+		System.out.println("CABECERAS:");
+		Enumeration<String> nombresCabeceras = req.getHeaderNames();
+		String metadato;
+		while ( nombresCabeceras.hasMoreElements() ) {
+			metadato = (String)nombresCabeceras.nextElement();
+			System.out.println("    " + metadato + ": " + req.getHeader(metadato));
+		}
+		
+		System.out.println("");
+		System.out.println("PARAMETROS:");
+		Enumeration<String> parameterNames = req.getParameterNames();
+		while (parameterNames.hasMoreElements()) {
+			String paramName = parameterNames.nextElement();
+			String[] paramValues = req.getParameterValues(paramName);
+			for (int i = 0; i < paramValues.length; i++) {
+				String paramValue = paramValues[i];
+				System.out.println("    " + paramName + ": " + paramValue);
+			}
+
+		}
+		
+		
+			
+		System.out.println("----------------------------------------");
+	}
+	
 }
