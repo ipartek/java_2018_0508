@@ -25,6 +25,7 @@ public class LogOutController extends HttpServlet {
 			//invalidar la session del usuario
 			HttpSession session = request.getSession();
 			if ( session != null ) {
+				session.removeAttribute("usuario");
 				session.invalidate();
 				session = null;
 			}	
