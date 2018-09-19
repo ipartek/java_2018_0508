@@ -1,3 +1,5 @@
+<%@page import="java.util.Map.Entry"%>
+<%@page import="java.util.Map"%>
 <%@page import="java.util.Iterator"%>
 <%@page import="java.util.HashMap"%>
 <%@page import="com.ipartek.formacion.youtube.pojo.Usuario"%>
@@ -16,17 +18,17 @@
 
 <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQufLDB7IpkmblOHc1JCmAQ68EWpaOm4Pn0COA5oanwu55yNiTAtQ" alt="imagen backoffice">
 
-<h2>Listado Usuarios Conectados</h2>
+<h2>Listado Usuarios Conectados: </h2>
 <ol>
 <%
 	
-    HashMap<String, Usuario> usuariosConectados = (HashMap<String, Usuario>)application.getAttribute("uConectados");
-	for( HashMap.Entry<String,Usuario> uConectado : usuariosConectados.entrySet() ){
+   	Map<String, Usuario> usuariosConectados = (HashMap<String, Usuario>) application.getAttribute("uConectados");
+
+	for (Map.Entry<String, Usuario> entry : usuariosConectados.entrySet()) {
 		
-	    %>
-	    	<li><%=uConectado.getValue().getNombre()%></li>
-	    <%
-	
+		%>
+    	<li><%=entry.getValue().getNombre()%></li>
+    	<%
 	}
 %>
 </ol>

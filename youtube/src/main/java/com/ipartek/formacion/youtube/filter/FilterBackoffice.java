@@ -49,13 +49,13 @@ public class FilterBackoffice implements Filter {
 			Usuario usuario = (Usuario) session.getAttribute("usuario");
 			
 			if ( usuario != null ) {
-				// pass the request along the filter chain
+				// Pass the request along the filter chain
 				chain.doFilter(request, response);
 			}else {
 				
 				informacionCliente(req);
 				
-				//usuario no logeado
+				//Usuario no logeado
 				res.sendRedirect( req.getContextPath() + "/inicio");
 			}	
 		}catch (Exception e) {
@@ -82,7 +82,6 @@ public class FilterBackoffice implements Filter {
 	private void informacionCliente(HttpServletRequest req) {
 		
 		System.out.println("----------------------------------------");
-		
 				
 		System.out.println("RemoteHost: " + req.getRemoteHost() );
 		System.out.println("RemoteAddr: " + req.getRemoteAddr() );
@@ -90,9 +89,12 @@ public class FilterBackoffice implements Filter {
 		System.out.println("RemoteUser: " + req.getRemoteUser() );
 		
 		System.out.println("");
-		System.out.println("CABECERAS:");
+		System.out.println("CABECERA:");
+		
 		Enumeration<String> nombresCabeceras = req.getHeaderNames();
+		
 		String metadato;
+		
 		while ( nombresCabeceras.hasMoreElements() ) {
 			metadato = (String)nombresCabeceras.nextElement();
 			System.out.println("    " + metadato + ": " + req.getHeader(metadato));
@@ -100,7 +102,9 @@ public class FilterBackoffice implements Filter {
 		
 		System.out.println("");
 		System.out.println("PARAMETROS:");
+		
 		Enumeration<String> parameterNames = req.getParameterNames();
+		
 		while (parameterNames.hasMoreElements()) {
 			String paramName = parameterNames.nextElement();
 			String[] paramValues = req.getParameterValues(paramName);
@@ -110,9 +114,7 @@ public class FilterBackoffice implements Filter {
 			}
 
 		}
-		
-		
-			
+				
 		System.out.println("----------------------------------------");
 	}
 	

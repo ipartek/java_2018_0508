@@ -45,17 +45,17 @@ public class LoginController extends HttpServlet {
 
 		try {
 
-			// recoger parametros
+			// Recoger parametros
 			String usuarioNombre = request.getParameter("usuario");
 			String pass = request.getParameter("pass");
 
-			// comprobar usuario
+			// Comprobar usuario
 			if ("admin".equals(pass) && "admin".equals(usuarioNombre)) {
 
 				alert.setTexto("BienVenido " + usuarioNombre);
 				alert.setTipo(Alert.PRIMARY);
 
-				// guardar Usuario en session
+				// Guardar Usuario en session
 				Usuario u = new Usuario(usuarioNombre, pass);
 
 				session.setAttribute("usuario", u);
