@@ -3,6 +3,7 @@ package com.ipartek.formacion.youtube.controller;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -39,29 +40,34 @@ public class LoginController extends HttpServlet {
 			// Recoger parametros
 			String nombre = request.getParameter("usuario");
 			String pass = request.getParameter("pass");
+			ArrayList<Usuario>listaUsuarios= (ArrayList<Usuario>)request.getServletContext().getAttribute("usuariosPermitidos");
+			
+			for (Usuario u : listaUsuarios) {
+				if (!u.getNombre().equals(nombre) && !u.getPassword().equals(pass)) {
 
-			if (!nombre.equals("admin") && !pass.equals("admin")) {
+					alert.setTexto("Credenciales incorrectas ");
 
-				alert.setTexto("Credenciales incorrectas ");
+				} else {
 
-			} else {
+					alert.setTexto("Bienvenido " + nombre);
+					alert.setTipo(Alert.PRIMARY);
 
-				alert.setTexto("Bienvenido " + nombre);
-				alert.setTipo(Alert.PRIMARY);
-
-				Usuario user = new Usuario(nombre, pass);
-				sesion.setAttribute("usuario", user);
-				sesion.setMaxInactiveInterval(60 * 5);
-				ArrayList<Video>videosUsuario= new ArrayList<Video>();
-				sesion.setAttribute("vReproducidos", videosUsuario);
+					Usuario user = new Usuario(nombre, pass);
+					sesion.setAttribute("usuario", user);
+					sesion.setMaxInactiveInterval(10);
+					ArrayList<Video>videosUsuario= new ArrayList<Video>();
+					sesion.setAttribute("reproducidos", videosUsuario);
+				}
 			}
+
+			
 
 		} catch (Exception e) {
 			// TODO: handle exception
 		} finally {
 			sesion.setAttribute("alert", alert);
 			//request.getRequestDispatcher("home.jsp").forward(request, response);
-			response.sendRedirect( request.getContextPath()+"/");
+			response.sendRedirect( request.getContextPath()+"/inicio");
 		}
 	}
 

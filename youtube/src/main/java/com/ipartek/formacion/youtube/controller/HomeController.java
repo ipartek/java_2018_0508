@@ -12,12 +12,13 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.ipartek.formacion.youtube.model.VideoArrayListDAO;
+import com.ipartek.formacion.youtube.pojo.Usuario;
 import com.ipartek.formacion.youtube.pojo.Video;
 
 /**
  * Servlet implementation class HomeController
  */
-@WebServlet("/")
+@WebServlet("/inicio")
 public class HomeController extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
@@ -25,7 +26,6 @@ public class HomeController extends HttpServlet {
 	public static final String OP_ELIMINAR = "1";
 	private static VideoArrayListDAO dao;
 	private ArrayList<Video> videos;
-	private ArrayList<Video> videosUsuario;
 	private Video videoInicio;
 
 	@Override
@@ -34,7 +34,7 @@ public class HomeController extends HttpServlet {
 		// Se ejecuta solo con la primera peticion, el resto de peticiones iran a
 		// service.
 		dao = VideoArrayListDAO.getInstance();
-		videosUsuario = new ArrayList<Video>();
+		
 
 	}
 
@@ -45,21 +45,20 @@ public class HomeController extends HttpServlet {
 		// Se ejcuta cuando se para el servidor
 		dao = null;
 	}
-	
-	
+
 	/**
 	 * Cada request se ejecuta en un hilo o thread
 	 */
-	
+
 	@Override
-	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		//Se ejecutaran antes del GET y POST
-		System.out.println("Antes de realizar GET o POST");
+	protected void service(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		// Se ejecutaran antes del GET y POST
 		
-		super.service(request, response);//Llama al GET o POST
-		
-		
-		//despues de realizar GET o POST
+
+		super.service(request, response);// Llama al GET o POST
+
+		// despues de realizar GET o POST
 		request.setAttribute("videos", videos);
 		request.setAttribute("videoInicio", videoInicio);
 		request.getRequestDispatcher("home.jsp").forward(request, response);
@@ -90,25 +89,28 @@ public class HomeController extends HttpServlet {
 			videoInicio = new Video();
 			if (id != null && !OP_ELIMINAR.equals(op)) {
 				videoInicio = dao.getById(id);
+
+				// guardar video reproducido si esta usuario en sesion
+				HttpSession sesion = request.getSession();
+				Usuario usuario = (Usuario) sesion.getAttribute("usuario");
+				if (usuario != null) {
+					ArrayList<Video> videosUsuario =(ArrayList<Video>)sesion.getAttribute("reproducidos");
+					if (videosUsuario==null) {
+						videosUsuario= new ArrayList<Video>();
+						
+					} 
+					videosUsuario.add(videoInicio);
+					sesion.setAttribute("reproducidos", videosUsuario);
+				}
+
 			} else if (!videos.isEmpty()) {
 				videoInicio = videos.get(0);
 			}
-			
-			HttpSession sesion= request.getSession();
-			if (sesion.getAttribute("usuario")!=null) {
-				
-				videosUsuario.add(videoInicio);
-				request.setAttribute("vReproducidos", videosUsuario);
-				
-			} else {
 
-			}
-			
-			
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
-			
+
 		}
 	}
 
@@ -134,7 +136,7 @@ public class HomeController extends HttpServlet {
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
-			
+
 		}
 	}
 

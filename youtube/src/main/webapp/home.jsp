@@ -1,3 +1,4 @@
+<%@page import="com.ipartek.formacion.youtube.pojo.Comentario"%>
 <%@page import="com.ipartek.formacion.youtube.pojo.Usuario"%>
 <%@page import="com.ipartek.formacion.youtube.pojo.Alert"%>
 <%@page import="com.ipartek.formacion.youtube.controller.HomeController"%>
@@ -6,7 +7,7 @@
 
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 
   <head>
 
@@ -27,6 +28,7 @@
 
     <!-- Custom styles for this template -->
     <link href="https://blackrockdigital.github.io/startbootstrap-shop-item/css/shop-item.css" rel="stylesheet">
+ 
 
   </head>
 
@@ -48,6 +50,9 @@
             	Usuario usuario = (Usuario)session.getAttribute("usuario");
             	if ( usuario == null ){            
             %>	            
+            	
+             
+            
               <!-- formulario Login -->
               <form action="login" method="post" class="form-inline mt-2 mt-md-0">
 	            <input name="usuario" class="form-control mr-sm-2" type="text" placeholder="Nombre Usuario" required pattern=".{3,30}">
@@ -57,10 +62,17 @@
             <%
             	} else {
             %>              
+            
+             <li class="nav-user">
+             	<i class="fas fa-user"><span> Bienvenido <%=usuario.getNombre()%></span></i>
+             	<a  class="btn btn-outline-info my-2 my-sm-0"  href="logout">Cerrar Session</a>
+             	<a  class="btn btn-outline-info my-2 my-sm-0"  href="backoffice/index.jsp">Acceder al backoffice</a>
+             </li>
+             
+          
+            
               <!-- formulario Crear Video -->
-              <a href="logout" action="logout"class="btn btn-outline-info my-2 my-sm-0">Logout</a>
-              <form action="" method="post" class="form-inline mt-2 mt-md-0">
-              
+              <form action="inicio" method="post" class="form-inline mt-2 mt-md-0">
 	            <input name="id" class="form-control mr-sm-2" type="text" placeholder="ID 11 caracerteres" title="11 caracteres" required pattern=".{11,11}">
 	            <input name="nombre" class="form-control mr-sm-2" type="text" placeholder="Nombre minimo 2 letras" required pattern=".{2,125}">
 	            <button class="btn btn-outline-info my-2 my-sm-0" type="submit">Añadir</button>
@@ -69,7 +81,7 @@
             	} 
               %>  
 	          
-            </li>            
+                      
           </ul>
           
           
@@ -104,10 +116,10 @@
       %>	
     
 
-     
+      <div class="row">
 
         <div class="col-lg-3">        	
-          <h1 class="my-4">Lista Reproduccion</h1>
+          <h4 class="my-4">Lista Reproduccion</h4>
           <ul class="list-group">
           	<%
           		ArrayList<Video> videos = (ArrayList<Video>) request.getAttribute("videos");
@@ -123,50 +135,48 @@
           		for( Video v : videos ){
           	%>
 	            <li class="list-group-item d-flex justify-content-between align-items-center">     
-	          	  	<a href="?id=<%=v.getId()%>"><%=v.getNombre()%></a>
-	          	  	<a href="?id=<%=v.getId()%>&op=<%=HomeController.OP_ELIMINAR%>"><i style="color:red;" class="float-right fas fa-trash-alt"></i></a>
+	          	  	<a href="inicio?id=<%=v.getId()%>"><%=v.getNombre()%></a>
+	          	  	<a href="inicio?id=<%=v.getId()%>&op=<%=HomeController.OP_ELIMINAR%>"><i style="color:red;" class="float-right fas fa-trash-alt"></i></a>
 	            </li>
             <%
           		} //end for
             %>
             </ul>
             
+            <hr>
+            
+            <h4 class="my-4">Videos Visualizados</h4>
+	          <ul class="list-group">
+	          	<%
+	          		ArrayList<Video> reproducidos = (ArrayList<Video>) session.getAttribute("reproducidos");
+	          		if ( reproducidos != null ){
+		          		for( Video r : reproducidos ){
+		          	%>
+			            <li class="list-group-item d-flex justify-content-between align-items-center">     
+			          	  	<a href="inicio?id=<%=r.getId()%>"><%=r.getNombre()%></a>	 
+			          	  	<a href="inicio?id=<%=r.getId()%>&op=<%=HomeController.OP_ELIMINAR%>"><i style="color:red;" class="float-right fas fa-trash-alt"></i></a>         	  	
+			            </li>
+		            <%
+	          			} //end for
+	          		}else{
+	          		%>
+	          			<li class="list-group-item d-flex justify-content-between align-items-center">
+	          				<p>*Por favor Inicia Session para guardar tus video reproducidos</p>
+	          			</li>
+	          		<%		
+	          		}
+	            %>
+	            </ul>
+            
           </div>
           
-          <%
-          if(session.getAttribute("usuario")!=null){
-        	  
-        	  
-         
           
-          %>
-               <div class="col-lg-3">        	
-          <h1 class="my-4">Lista Reproduccion Usuario</h1>
-          <ul class="list-group">
-          <%
-          		ArrayList<Video> videosReproducidos = (ArrayList<Video>) request.getAttribute("vReproducidos");
-          		if ( videosReproducidos == null ){
-          			videosReproducidos = new ArrayList<Video>();
-          		}
-          		
-    			
-          		for( Video v : videosReproducidos ){
-          	%>
-	            <li class="list-group-item d-flex justify-content-between align-items-center">     
-	          	  	<a href="?id=<%=v.getId()%>"><%=v.getNombre()%></a>
-	          	  	<a href="?id=<%=v.getId()%>&op=<%=HomeController.OP_ELIMINAR%>"><i style="color:red;" class="float-right fas fa-trash-alt"></i></a>
-	            </li>
-            <%
-          		} //end for
-            
-          }
-          	%>
-            </ul>
-            
+         	
+	          
+          
+          
         
-        	
         <!-- /.col-lg-3 -->
-   
 
         <div class="col-lg-9">
 
@@ -187,6 +197,32 @@
             <div class="card-header">
               Comentarios
             </div>
+            <%
+            ArrayList<Comentario> com = (ArrayList<Comentario>) request.getAttribute("comentarios");
+            	if(com==null){
+            		com= new ArrayList<Comentario>();
+            	}
+            		
+            		for (Comentario c : com){
+            			
+            				
+            			
+            %>	
+             <div class="card-body">
+              <p><%=c.getTexto() %> </p>
+              <small class="text-muted">Posted by <%=c.getDueno().getNombre() %> on <%=c.getFecha() %></small>
+              <hr>
+            
+            	<% 	}
+            	
+            		
+            	%>
+            	</div>
+            	
+            
+            
+            
+            
             <div class="card-body">
               <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Omnis et enim aperiam inventore, similique necessitatibus neque non! Doloribus, modi sapiente laboriosam aperiam fugiat laborum. Sequi mollitia, necessitatibus quae sint natus.</p>
               <small class="text-muted">Posted by Anonymous on 3/1/17</small>
@@ -198,6 +234,8 @@
               <small class="text-muted">Posted by Anonymous on 3/1/17</small>
               
             </div>
+            
+            
           </div>
           <!-- /.card -->
 
@@ -205,9 +243,36 @@
         <!-- /.col-lg-9 -->
 
       </div>
-      
-      
-      
+
+    </div>
+    
+    		<% 
+            	//Gestion Usuario Logeado   
+            	Usuario u = (Usuario)session.getAttribute("usuario");
+            	if ( u == null ){            
+            %>	
+            
+            <%
+            	}else{
+            %>
+			    <form action="comentController">
+					<div class="input-group">
+					  <div class="input-group-prepend">
+					    <span class="input-group-text">Comentario</span>
+					  </div>
+					  <textarea class="form-control" aria-label="Comentario" name="comentario"></textarea>
+						<button class="btn btn-outline-info my-2 my-sm-0" type="submit">Añadir Comentario</button>
+					
+					
+					</div>
+					    
+			  <%
+			  }
+            	%>  
+			    
+			    
+			    
+			    </form>
     <!-- /.container -->
 
     <!-- Footer -->
