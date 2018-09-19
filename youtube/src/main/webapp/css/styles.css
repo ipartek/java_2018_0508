@@ -52,3 +52,10 @@ img{
 	color:#f00;
 	background-color:#fff;
 }
+
+#form-comentario{
+	margin: 2em 0;
+}
+
+#form-comentario button{
+	margin: 1em 0;}

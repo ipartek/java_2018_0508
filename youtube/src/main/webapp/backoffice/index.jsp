@@ -1,3 +1,5 @@
+<%@page import="java.util.Iterator"%>
+<%@page import="java.util.HashMap"%>
 <%@page import="com.ipartek.formacion.youtube.pojo.Usuario"%>
 
 
@@ -39,6 +41,22 @@
 	%>
 	
 	<img src="http://www.land-of-web.com/wp-content/uploads/2012/04/w394.jpg" alt="imagen-backoffice"/>
+	
+	<h2>Listado de usuarios conectados</h2>
+	
+	<%
+	
+		HashMap<String, Usuario> usuariosConectados = (HashMap<String, Usuario>) application.getAttribute("uConectados");
+		
+		Iterator it = usuariosConectados.entrySet().iterator();
+		for(HashMap.Entry<String, Usuario> uConectado : usuariosConectados.entrySet()){
+	        %>
+	        	<li><%=uConectado.getValue().getNombre() %></li>
+	        <%
+	        
+	    }
+	
+	%>
 
   </body>
 

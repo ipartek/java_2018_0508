@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.ipartek.formacion.youtube.model.VideoArrayListDAO;
+import com.ipartek.formacion.youtube.pojo.Comentario;
 import com.ipartek.formacion.youtube.pojo.Usuario;
 import com.ipartek.formacion.youtube.pojo.Video;
 
@@ -26,6 +27,7 @@ public class HomeController extends HttpServlet {
 	public static final String OP_ELIMINAR = "1";
 	private static VideoArrayListDAO dao;
 	private ArrayList<Video> videos;
+	private ArrayList<Comentario> comentarios;
 	private Video videoInicio;
 
 	
@@ -58,6 +60,7 @@ public class HomeController extends HttpServlet {
 		//despues de realizar GET o POST
 		request.setAttribute("videos", videos);
 		request.setAttribute("videoInicio", videoInicio);
+		request.setAttribute("comentario", comentarios);
 		request.getRequestDispatcher("home.jsp").forward(request, response);
 		
 	}
@@ -131,6 +134,11 @@ public class HomeController extends HttpServlet {
 			//recoger parametros
 			String id = request.getParameter("id");
 			String nombre = request.getParameter("nombre");
+			String comentario = request.getParameter("comentario");
+			
+			Comentario c = new Comentario(comentario);
+			
+			comentarios.add(c);
 			
 			//insertar
 			videoInicio = new Video(id, nombre);

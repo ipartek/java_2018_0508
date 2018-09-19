@@ -1,3 +1,4 @@
+<%@page import="com.ipartek.formacion.youtube.pojo.Comentario"%>
 <%@page import="java.text.SimpleDateFormat"%>
 <%@page import="java.text.DateFormat"%>
 <%@page import="java.util.Date"%>
@@ -58,8 +59,8 @@
             
               <!-- formulario Login -->
               <form action="login" method="post" class="form-inline mt-2 mt-md-0">
-	            <input name="usuario" class="form-control mr-sm-2" type="text" value="admin" placeholder="Nombre Usuario" required pattern=".{3,30}">
-	            <input name="pass" class="form-control mr-sm-2" type="password" value="admin" placeholder="Contraseña" required pattern=".{2,50}">
+	            <input name="usuario" class="form-control mr-sm-2" type="text" placeholder="Nombre Usuario" required pattern=".{3,30}">
+	            <input name="pass" class="form-control mr-sm-2" type="password" placeholder="Contraseña" required pattern=".{2,50}">
 	            <button class="btn btn-outline-info my-2 my-sm-0" type="submit">Entrar</button>
 	          </form>            
             <%
@@ -185,10 +186,8 @@
             </div>
           </div>
           <!-- /.card -->
-
           
-            
-            <%
+          <%
               
               	Usuario u = (Usuario)session.getAttribute("usuario");
             
@@ -196,38 +195,49 @@
 	          	//Caso 1: obtener la hora y salida por pantalla con formato:
 	          	DateFormat hourdateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm");
             
-            	if(u != null){
+            	if(usuario != null){
             		
               
              %>
              
-             	<div id="comentario-info" class="row justify-content-between">
-             	
-             		<span><%=u.getNombre() %></span>
-             		<span><%=hourdateFormat.format(date) %></span>
-             	
-             	</div>
-             
-             	<form>
-             		<div class="form-group">
-						<label for="comentario">Comentario:</label>
-					    <textarea class="form-control" id="comentario" rows="3"></textarea>
-						<button type="submit" class="btn btn-primary">Enviar comentario</button>
-					</div>
-             	</form>
-             
-             <%
-             
-            	}else{
-             
-             %>
-             
-        <div class="card card-outline-secondary my-4">
+            <form action="inicio" method="post" id="form-comentario">
+	            <div class="form-group">
+					<textarea name="comentario" class="form-control" id="comentario" rows="3" placeholder="Inserta un comentario"></textarea>
+					<button type="submit" class="btn btn-primary">Enviar comentario</button>
+				</div>
+            </form>
+            
+            <%
+            	} 
+            %>
+
+          <div class="card card-outline-secondary my-4">
 	    	<div class="card-header">
 	        	Comentarios
 	        </div>
-             
-            <div class="card-body">
+	        <div class="card-body">
+	        
+	        <%
+	        
+	        	ArrayList<Comentario> comentarios = (ArrayList<Comentario>)request.getAttribute("comentario");
+	        
+	        	if(comentarios != null){
+	        
+	        		for(Comentario c : comentarios){
+	        
+	        %>
+	        
+              <p><%=c.getComentario() %></p>
+              <small class="text-muted">Posted by <%=u.getNombre() %> on <%=hourdateFormat.format(date) %></small>
+              <hr>
+                      
+            <%
+	        		}// cierre for
+	        		
+	        	}// cierre if
+            
+            %>             
+            
               <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Omnis et enim aperiam inventore, similique necessitatibus neque non! Doloribus, modi sapiente laboriosam aperiam fugiat laborum. Sequi mollitia, necessitatibus quae sint natus.</p>
               <small class="text-muted">Posted by Anonymous on 3/1/17</small>
               <hr>
@@ -237,9 +247,6 @@
               <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Omnis et enim aperiam inventore, similique necessitatibus neque non! Doloribus, modi sapiente laboriosam aperiam fugiat laborum. Sequi mollitia, necessitatibus quae sint natus.</p>
               <small class="text-muted">Posted by Anonymous on 3/1/17</small>
               
-              <%
-            	}
-              %>
               
             </div>
           </div>

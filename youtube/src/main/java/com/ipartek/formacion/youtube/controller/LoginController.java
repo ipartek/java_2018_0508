@@ -1,6 +1,8 @@
 package com.ipartek.formacion.youtube.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -44,24 +46,29 @@ public class LoginController extends HttpServlet {
 			String usuarioNombre = request.getParameter("usuario");
 			String pass = request.getParameter("pass");
 			
-			//comprobar usuario
-			if ( "admin".equals(pass) && "admin".equals(usuarioNombre))  {
+			ArrayList<Usuario> usuariosPermitidos = (ArrayList<Usuario>) request.getServletContext().getAttribute("usuariosPermitidos");
+			
+			//comprobar usuario TODO contra BBDD
+			
+			for(Usuario usuarioPermitido : usuariosPermitidos) {
+				if ( usuarioPermitido.getNombre().equals(usuarioNombre) && usuarioPermitido.getPass().equals(pass) )  {
 				
 				alert.setTexto("BienVenido " + usuarioNombre );
 				alert.setTipo(Alert.PRIMARY);
 				
-				//guardar Usuario en session
+				//Guardar usuario en sesión
 				Usuario u = new Usuario(usuarioNombre, pass);
 				
 				session.setAttribute("usuario", u);
-				session.setMaxInactiveInterval(60*5); // 5min
+				session.setMaxInactiveInterval(60*5); // 5minutos
 				
 				
-			}else{
+				}else{
+					
+					alert.setTexto("Credenciales incorrectas" );
+				}
 				
-				alert.setTexto("Credenciales incorrectas" );
 			}
-			
 			
 		}catch (Exception e) {
 			e.printStackTrace();

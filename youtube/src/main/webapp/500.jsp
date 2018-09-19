@@ -35,7 +35,7 @@
 			<h2>Error en el servidor</h2>
 			<p>Lo sentimos, en estos momentos no podemos procesar su petición</p>
 			<a href="inicio" class="btn btn-danger">Volver a la página anterior</a><br/><br/>
-			 <a href="mailto:example@email.com" class="btn btn-danger">Contacte con el administrador</a> 
+			<a href="mailto:example@email.com" class="btn btn-danger">Contacte con el administrador</a> 
 		
 		</div>
 	
