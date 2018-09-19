@@ -36,10 +36,13 @@ public class LoginController extends HttpServlet {
 			
 			String nombre = (String) request.getParameter("usuario");
 			String contrasenya = (String) request.getParameter("pass");
+			
 			if ("admin".equals(nombre) && "admin".equals(contrasenya) ) {
+				
 				HttpSession session = request.getSession();
 				session.setAttribute("usuario", new Usuario(nombre, contrasenya));
 				session.setMaxInactiveInterval(60*5);
+				
 			}else {
 				request.setAttribute("alert", new Alert("Usuario o contraseña incorrectos", Alert.DANGER));
 			}

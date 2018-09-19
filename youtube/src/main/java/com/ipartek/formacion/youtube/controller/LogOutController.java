@@ -30,10 +30,11 @@ public class LogOutController extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-
+		
 		try {
 			HttpSession session = request.getSession();
 			if (session != null) {
+				session.removeAttribute("usuario");
 				session.invalidate();
 				session = null;
 			}

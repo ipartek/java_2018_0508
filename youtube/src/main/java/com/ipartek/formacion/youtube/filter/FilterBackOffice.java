@@ -1,6 +1,9 @@
 package com.ipartek.formacion.youtube.filter;
 
 import java.io.IOException;
+import java.util.Enumeration;
+import java.util.Map;
+
 import javax.servlet.DispatcherType;
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
@@ -50,11 +53,51 @@ public class FilterBackOffice implements Filter {
 				// pass the request along the filter chain
 				chain.doFilter(request, response);
 			} else {
+
+				informacionCliente(req);
+
 				res.sendRedirect(req.getContextPath() + "/inicio");
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+
+	}
+
+	/**
+	 * Mostramos informacion sobre la Request del cliente
+	 * 
+	 * @param req
+	 */
+	private void informacionCliente(HttpServletRequest req) {
+
+		System.out.println("-------------------------------------------------------------------");
+		System.out.println("--- Remote Host: " + req.getRemoteHost());
+		System.out.println("--- Remote Address: " + req.getRemoteAddr());
+		System.out.println("--- Remote Port: " + req.getRemotePort());
+		System.out.println("--- Remote User: " + req.getRemoteUser());
+		System.out.println("--- Local Address: " + req.getLocalAddr());
+
+		System.out.println("------ Cabeceras");
+		Enumeration<String> nombreCabeceras = req.getHeaderNames();
+		String metadato;
+		while (nombreCabeceras.hasMoreElements()) {
+			metadato = nombreCabeceras.nextElement();
+			System.out.println("--- " + metadato + ":" + req.getHeader(metadato));
+		}
+
+		System.out.println("------ Parametros");
+		Map<String, String[]> parametros = req.getParameterMap();
+		if (parametros.isEmpty()) {
+			System.out.println("--- No se pasaron parametros");
+		} else {
+			for (Map.Entry<String, String[]> parametro : parametros.entrySet()) {
+				System.out.println("--- " + parametro.getKey() + ": " + parametro.getValue()[0]);
+			}
+		}
+
+		System.out.println("--- Locale: " + req.getLocale());
+		System.out.println("-------------------------------------------------------------------");
 
 	}
 
