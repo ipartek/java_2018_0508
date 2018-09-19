@@ -1,7 +1,7 @@
 <%@page import="com.ipartek.formacion.pojo.Usuario"%>
 <%@page import="com.ipartek.formacion.pojo.Alerts"%>
 <%@page import="com.ipartek.formacion.pojo.Video"%>
-<%@page import="com.ipartek.formacion.youtube.controller.VideoYoutubeController"%>
+<%@page import="com.ipartek.formacion.youtube.controller.RegistroUsuarioController"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@page import="java.util.ArrayList"%>
 
@@ -92,31 +92,35 @@
   
 
     <!-- Page Content -->
-    <div class="container">
-	    <div class="formularioAlta">
-			<form>
+    <div class="container"><!-- align-self-center -->
+	    <div class="formularioAlta row" >
+	    <div class="col " >
+			<form action="RegistroUsuarioControler" method="post">
 				  <div class="form-row">
 				  <div class="form-group col-md-6">
-				      <label for="userName">Usuario</label>
-				      <input type="text" class="form-control" id="userName" placeholder="Nombre de usuario">
+				      <label for="nombreUsuario">Usuario</label>
+				      <input type="text" class="form-control" name="nombreUsuario" placeholder="Nombre de usuario">
 				    </div>
 				    <div class="form-group col-md-6">
-				      <label for="userEmail">Email</label>
-				      <input type="email" class="form-control" id="userEmail" placeholder="ejemplo@correo.com">
+				      <label for="emailUsuario">Email</label>
+				      <input type="email" class="form-control" name="emailUsuario" placeholder="ejemplo@correo.com">
 				    </div>
 				    <div class="form-group col-md-6">
-				      <label for="userPass">Password</label>
-				      <input type="password" class="form-control" id="userPass" placeholder="*******">
+				      <label for="passUsuario">Password</label>
+				      <input type="password" class="form-control" name="passUsuario" placeholder="*******">
 				    </div>
 				    <div class="form-group col-md-6">
-				      <label for="replyUserPass">Repita el password</label>
-				      <input type="password" class="form-control" id="replyUserPass" placeholder="*******">
+				      <label for="replyPassUsuario">Repita el password</label>
+				      <input type="password" class="form-control" name="replyPassUsuario" placeholder="*******">
 				    </div>
 				  </div>
-				  
-				  <button type="submit" class="btn btn-primary">Date de alta</button>
+				  <div class="center-button">
+				  	<button  type="submit" class="btn btn-primary">Date de alta</button>
+				  </div>
 			</form>
+			</div>
 	    </div>
+	    
     </div>
     <!-- /.container -->
 

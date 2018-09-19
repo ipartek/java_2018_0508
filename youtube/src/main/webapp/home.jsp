@@ -1,4 +1,5 @@
 <%@page import="com.ipartek.formacion.pojo.Usuario"%>
+<%@page import="com.ipartek.formacion.pojo.Comentarios"%>
 <%@page import="com.ipartek.formacion.pojo.Alerts"%>
 <%@page import="com.ipartek.formacion.pojo.Video"%>
 <%@page import="com.ipartek.formacion.youtube.controller.VideoYoutubeController"%>
@@ -169,7 +170,7 @@
             <%
             }else{
             	 %>
-            	  <p>Por favor autentifiquese primero <a href="registroUsuariosFormulario.jsp" onclick="autoFocus()">Login</a></p>
+            	  <p>Por favor autentifiquese primero o dese de alta en  <a href="registroUsuariosFormulario.jsp">Nuevo usuario</a></p>
             	  <script>
             	  		var b = document.querySelector("usuario"); 
             	  		var a = document.getElementById("usuario");
@@ -198,52 +199,47 @@
             </div>
           </div>
           <!-- /.card -->
-
+		<!-- ****** COMENTARIOS ****** -->
           <div class="card card-outline-secondary my-4">
             <div class="card-header">
-              Comentarios
+              <button type="button" class="btn btn-dark" onclick="visibleTextArea()">Comentarios</button>
             </div>
-            <div class="card-body">
-              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Omnis et enim aperiam inventore, similique necessitatibus neque non! Doloribus, modi sapiente laboriosam aperiam fugiat laborum. Sequi mollitia, necessitatibus quae sint natus.</p>
-              <small class="text-muted">Posted by Anonymous on 3/1/17</small>
-              <hr>
-              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Omnis et enim aperiam inventore, similique necessitatibus neque non! Doloribus, modi sapiente laboriosam aperiam fugiat laborum. Sequi mollitia, necessitatibus quae sint natus.</p>
-              <small class="text-muted">Posted by Anonymous on 3/1/17</small>
-              <hr>
-              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Omnis et enim aperiam inventore, similique necessitatibus neque non! Doloribus, modi sapiente laboriosam aperiam fugiat laborum. Sequi mollitia, necessitatibus quae sint natus.</p>
-              <small class="text-muted">Posted by Anonymous on 3/1/17</small>
-              
+            <div id="comentarios" class="comentarios" style="display:none;">
+	            <form action="ComentariosControler" method="post">
+	            	<input name="videoId" id="videoId" value="<%=videoInicio.getId()%>"></input>
+	            	<input id="textArea" name="text" ></input>
+	            	<!-- <p><a href="ComentariosControler" class="badge badge-dark">Añadir comentario</a></p> -->
+	            	<button  type="submit" class="btn btn-primary">Date de alta</button>
+	            </form>
             </div>
+            <%
+            	//ArrayList<Comentarios> comentarios = (ArrayList<Comentarios>) request.getAttribute("comentarios");
+            	ArrayList<Comentarios> comentarios = (ArrayList<Comentarios>)session.getAttribute("comentarios");
+            	if(comentarios != null){
+     		%>
+     			<div class="card-body">asd
+     				<% 
+            		for (Comentarios c: comentarios){
+            			if (c.getVideoId().contentEquals(videoInicio.getId())){
+            				
+       				%>				
+            				<p><%=c.getComentario() %></p>
+				              <small class="text-muted">Posted by <%=c.getAutor() %></small>
+				              <hr>
+				            </div>     
+			<%
+						}
+					}
+            	}
+				
+			%>	                       
+				            
+            
           </div>
           <!-- /.card -->
-
         </div>
         <!-- /.col-lg-9 -->
-
       </div>
-      <%-- <div class="row" style="border:1px solid black; height:200px;">
-      	<div class="col-6" style="border:1px solid black">
-      	<%
-      		ArrayList<Video> listaVideos= (ArrayList<Video>) request.getAttribute("listaVideos");
-      		if(listaVideos != null){
-      			for(Video v: listaVideos){
-      				
-      			
-      		
-      	%>
-      		<p><%=v.getNombreCancion() %></p>
-      	<%
-      		}
-      		}
-      	%>
-      	</div>
-      	<div class="col-6" style="border:1px solid black">
-      	</div>
-      </div> --%>
-
-    </div>
-    <!-- /.container -->
-
     <!-- Footer -->
     <footer class="py-5 bg-dark">
       <div class="container">
@@ -255,6 +251,7 @@
     <!-- Bootstrap core JavaScript -->
     <script src="https://blackrockdigital.github.io/startbootstrap-shop-item/vendor/jquery/jquery.min.js"></script>
     <script src="https://blackrockdigital.github.io/startbootstrap-shop-item/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="js/home.js"></script>
 
   </body>
 

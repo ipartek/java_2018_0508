@@ -1,11 +1,12 @@
 package com.ipartek.formacion.pojo;
 
-	
+import java.util.ArrayList;
 
 public class Video {
 	
 	private String id;
 	private String nombreCancion;
+	private ArrayList<Comentarios> comentarios;
 
 	
 	
@@ -44,6 +45,14 @@ public class Video {
 	}
 	public void setNombreCancion(String nombreCancion) {
 		this.nombreCancion = nombreCancion;
+	}
+	
+	public void setComentarios(Comentarios comentario) {
+		this.comentarios.add(comentario);
+	}
+	
+	public ArrayList<Comentarios> getComentarios() {
+		return comentarios;
 	}
 	
 

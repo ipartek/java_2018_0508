@@ -1,17 +1,40 @@
 body{
 	margin:auto;
-	min-height: 300px;
+	
 }
 
 
 
 footer{
 	width: 100%; 
-	margin:auto;
+	position:absolute;
+	bottom: 0px;
 	
+}
+label{
+	width: 100%;
+	text-align: center;
+}
+
+.center-button{
+	margin:auto;
+	text-align: center;
 }
 
 .formularioAlta{
 	margin:auto;
 	width: 50%;
+	min-height:500px;
+	display: flex;
+	align-items: center;	
+	
+}
+
+.container{
+	position:relative;
+}
+
+.col{
+	border:1px solid black;
+	box-shadow: 5px 10px #343A40;
 }

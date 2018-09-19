@@ -52,7 +52,7 @@ public class VideoYoutubeController extends HttpServlet {
 	@Override
 	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 	
-		System.out.println("Antes de realizar GET o POST");
+		System.out.println("Antes de realizar GET o POST VideoYoutubeController");
 		System.out.println(request.getContextPath());
 		
 		super.service(request, response);  //llama a los metodos GET o POST

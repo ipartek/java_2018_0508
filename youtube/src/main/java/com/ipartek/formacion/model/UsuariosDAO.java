@@ -6,20 +6,19 @@ import java.util.List;
 import com.ipartek.formacion.pojo.Usuario;
 import com.ipartek.formacion.pojo.Video;
 
-public class UsuarioArrayListDao implements CrudAble<Video> {
+public class UsuariosDAO implements CrudAble<Usuario> {
 
-	private static UsuarioArrayListDao INSTANCE = null;
+	private static UsuariosDAO INSTANCE = null;
 	private static List<Usuario> usuarios = null;
 
-	private UsuarioArrayListDao() {
+	private UsuariosDAO() {
 		usuarios = new ArrayList<Usuario>();
 		
-
 	}
 
-	public static synchronized UsuarioArrayListDao getInstance() {
+	public static synchronized UsuariosDAO getInstance() {
 		if (INSTANCE == null) {
-			INSTANCE = new UsuarioArrayListDao();
+			INSTANCE = new UsuariosDAO();
 		}
 
 		return INSTANCE;
@@ -49,20 +48,30 @@ public class UsuarioArrayListDao implements CrudAble<Video> {
 	}
 
 	@Override
-	public boolean update(Video pojo) {
-		// TODO Auto-generated method stub
-		return false;
+	public boolean update(Usuario pojo) {
+		Usuario usuarioActualizar = null;
+		boolean flag = false;
+		if(pojo != null) {
+			for(Usuario u : usuarios) {
+				if(pojo.getId() == u.getId()) {
+					u = pojo;
+					flag = true;
+				}
+			}
+			
+		}
+		return flag;
 	}
 
 	@Override
 	public boolean delete(String id) {
 		boolean resul = false;
-		Usuario u = null;
+		Usuario v = null;
 		if ( id != null ) { 
 			for (int i = 0; i < usuarios.size(); i++) {
-				u = usuarios.get(i); 
-				if (id.equals(u.getId()) ) { 
-					resul = usuarios.remove(u);
+				v = usuarios.get(i); 
+				if (id.equals(v.getId()) ) { 
+					resul = usuarios.remove(v);
 					break;
 				}
 			}
@@ -70,16 +79,6 @@ public class UsuarioArrayListDao implements CrudAble<Video> {
 		return resul;
 	}
 
-	@Override
-	public boolean insert(Video pojo) {
-		// TODO Auto-generated method stub
-		return false;
-	}
 
-	@Override
-	public Video getById(String id) {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
 }
