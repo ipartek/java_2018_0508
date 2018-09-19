@@ -1,6 +1,7 @@
 package com.ipartek.formacion.youtube.controller;
 
 import java.io.IOException;
+import java.util.HashMap;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -17,43 +18,67 @@ import com.ipartek.formacion.youtube.pojo.Usuario;
  */
 @WebServlet("/login")
 public class LoginController extends HttpServlet {
-	
+
 	private static final long serialVersionUID = 1L;
-	
+
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+	 *      response)
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		doPost(request, response);
 	}
 
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+	 *      response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+	
+		HttpSession session = request.getSession();
 		
 		try {
-			
+
 			String nombre = (String) request.getParameter("usuario");
 			String contrasenya = (String) request.getParameter("pass");
-			
-			if ("admin".equals(nombre) && "admin".equals(contrasenya) ) {
+
+			if (comprobarCredenciales(nombre, contrasenya)) {
 				
-				HttpSession session = request.getSession();
 				session.setAttribute("usuario", new Usuario(nombre, contrasenya));
-				session.setMaxInactiveInterval(60*5);
-				
-			}else {
-				request.setAttribute("alert", new Alert("Usuario o contraseña incorrectos", Alert.DANGER));
+				session.setMaxInactiveInterval(60);
+
+			} else {
+				session.setAttribute("alert", new Alert("Usuario o contraseña incorrectos", Alert.DANGER));
 			}
-			
+
 		} catch (Exception e) {
 			e.printStackTrace();
-		}finally {
+		} finally {
 			// Ir a la vista
-			response.sendRedirect(request.getContextPath()+"/inicio");
+			response.sendRedirect(request.getContextPath() + "/inicio");
 		}
-		
+
+	}
+
+	private boolean comprobarCredenciales(String nombre, String contrasenya) {
+
+		boolean existe = false;
+
+		HashMap<String, String> listaUsuarios = new HashMap<String, String>();
+		listaUsuarios.put("admin", "admin");
+		listaUsuarios.put("pepe", "pepe");
+		listaUsuarios.put("manoli", "manoli");
+		listaUsuarios.put("josepo", "josepo");
+
+		for (HashMap.Entry<String, String> uCredenciales : listaUsuarios.entrySet()) {
+			if (uCredenciales.getKey().equals(nombre) && uCredenciales.getValue().equals(contrasenya)) {
+				existe = true;
+			}
+		}
+
+		return existe;
 	}
 
 }

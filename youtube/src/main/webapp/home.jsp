@@ -9,18 +9,15 @@
 
 <%@ include file="includes/header.jsp" %>
 
+
 <%@ include file="includes/navbar.jsp" %>
 	
-	<!-- Contenido -->
-	<main class="container" role="main">
-	
+<!-- Contenido -->
+<main class="container" role="main">
+
 		<%
 	    	//Gestion de alertas para el usuario
-	    	Alert alert = (Alert)request.getAttribute("alert");
-	    	if(alert == null){
-	    		alert=(Alert)session.getAttribute("alert");
-	    		session.setAttribute("alert",null);
-	    	}
+	    	Alert alert = (Alert)session.getAttribute("alert");
 	    	if (alert != null){
 	    		%>
 		<div class="container">
@@ -33,6 +30,7 @@
 			</div>
 		</div>
 		<%
+			session.setAttribute("alert", null);
 	    	}
 	    %>
 		<h1 class="text-center text-success">Youtube Java Edition</h1>
