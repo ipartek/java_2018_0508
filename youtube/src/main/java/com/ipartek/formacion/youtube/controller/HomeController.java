@@ -1,11 +1,18 @@
 package com.ipartek.formacion.youtube.controller;
 
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Date;
 
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -22,6 +29,8 @@ import com.ipartek.formacion.youtube.pojo.Video;
 public class HomeController extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
+	
+	HttpSession session;
 
 	public static final String OP_ELIMINAR = "1";
 	private static VideoArrayListDAO dao;
@@ -52,6 +61,8 @@ public class HomeController extends HttpServlet {
 		System.out.println("Antes de realizar GET o POST");
 
 		super.service(request, response); // llama a los metodos GET o POST
+		
+		setCookieUltimaVisita(request, response);
 
 		// despues de realizar GET o POST
 		request.setAttribute("videos", videos);
@@ -59,6 +70,26 @@ public class HomeController extends HttpServlet {
 		request.getRequestDispatcher("home.jsp").forward(request, response);
 
 	}
+	
+	private void setCookieUltimaVisita(HttpServletRequest request, HttpServletResponse response) throws UnsupportedEncodingException {
+		
+		if (request.getSession() != session) {
+			session = request.getSession();
+			
+			//	Gestionar cookies para la Última visita	
+			Cookie [] cookies = request.getCookies();
+			ArrayList<Cookie> cookiesList = new ArrayList<Cookie>(Arrays.asList(cookies));
+				
+			DateFormat formatter = new SimpleDateFormat("dd-MMM-yyyy HH:mm:ss");
+			Cookie cVisita = new Cookie("cVisita", URLEncoder.encode(formatter.format(new Date()).toString(), "UTF-8"));
+				
+			cVisita.setMaxAge(60*60*24*365);	// 1 año
+			response.addCookie(cVisita);
+		}
+		
+		
+	}
+
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
