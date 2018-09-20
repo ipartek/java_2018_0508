@@ -1,8 +1,15 @@
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+
 <%@page import="com.ipartek.formacion.youtube.pojo.Usuario"%>
 <%@page import="com.ipartek.formacion.youtube.pojo.Alert"%>
-<%@page import="com.ipartek.formacion.youtube.controller.HomeController"%>
 <%@page import="com.ipartek.formacion.youtube.pojo.Video"%>
+
+<%@page import="com.ipartek.formacion.youtube.controller.HomeController"%>
+
 <%@page import="java.util.ArrayList"%>
+
 <!-- Cabecera -->
 	<header>
 		<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
@@ -12,15 +19,10 @@
 				 aria-expanded="false" aria-label="Toggle navigation">
 					<span class="navbar-toggler-icon"></span>
 				</button>
-				<div class="collapse navbar-collapse" id="navbarResponsive">	
-					<%
-	              	//Gestion de usuario logueado
-	              	
-	              	session = request.getSession();
-	              	Usuario u = (Usuario)session.getAttribute("usuario");
-	              	if(u == null){
-	              		%>
-	              		<ul class="navbar-nav ml-auto  align-items-center">
+				<div class="collapse navbar-collapse" id="navbarResponsive">
+					<c:if test="${empty usuario}">
+						<!-- Usuario Logueado en session -->
+						<ul class="navbar-nav ml-auto  align-items-center">
 							<li class="nav-item active">
 								<!-- Formulario de login -->
 								<form action="login" method="post" class="form-inline mt-2 mt-md-0">
@@ -30,35 +32,19 @@
 								</form>
 							</li>
 						</ul>
-						<%
-	              	}
-	              	else{
-	              		
-	              		%>
-	              		<ul class="navbar-nav ml-auto  align-items-center">
+					</c:if>
+					<c:if test="${not empty usuario}">
+						<!-- Usuario No Logueado -->
+						<ul class="navbar-nav ml-auto  align-items-center">
 							<li class="nav-item">
 								<div class="text-light text-right m-1">
-									Bienvenido <i class="fas fa-user-circle"></i>
-									<%=u.getNombre() %>
+									Bienvenido <i class="fas fa-user-circle"></i>${usuario.nombre}
 									<a href="backoffice/index.jsp">Acceder BackOffice</a>
 									<a href="logout">Cerrar Sesion</a>
 								</div>
 							</li>
 						</ul>
-						<ul class="navbar-nav ml-auto  align-items-center">
-							<li class="nav-item active">
-								<!-- Formulario para dar de alta un nuevo video -->
-								<form action="inicio" method="post" class="form-inline">
-									<input name="id" class="form-control m-1" type="text" placeholder="ID 11 caracerteres" title="11 caracteres"
-									 required pattern=".{11,11}">
-									<input name="nombre" class="form-control m-1" type="text" placeholder="Nombre minimo 2 letras" required pattern=".{2,125}">
-									<button class="btn btn-outline-info m-1" type="submit">Añadir</button>
-								</form>
-							</li>
-						</ul>
-						<%              		
-	              	}
-	              %>
+					</c:if>
 				</div>
 			</div>
 		</nav>

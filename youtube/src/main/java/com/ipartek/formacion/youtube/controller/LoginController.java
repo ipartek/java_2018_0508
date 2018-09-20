@@ -38,7 +38,7 @@ public class LoginController extends HttpServlet {
 			throws ServletException, IOException {
 	
 		HttpSession session = request.getSession();
-		
+		Alert alert = null;
 		try {
 
 			String nombre = (String) request.getParameter("usuario");
@@ -50,13 +50,14 @@ public class LoginController extends HttpServlet {
 				session.setMaxInactiveInterval(60);
 
 			} else {
-				session.setAttribute("alert", new Alert("Usuario o contraseña incorrectos", Alert.DANGER));
+				alert = new Alert("Usuario o contraseña incorrectos", Alert.DANGER);
 			}
 
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
 			// Ir a la vista
+			session.setAttribute("alert", alert);
 			response.sendRedirect(request.getContextPath() + "/inicio");
 		}
 
