@@ -70,6 +70,7 @@
      	<span class="text-warning ml-3">Ultima visita <%=fecha%></span> 
         
         <%
+        
 	      Locale locale = request.getLocale();
 	      String lang = locale.getLanguage();
 	      String country = locale.getCountry();
