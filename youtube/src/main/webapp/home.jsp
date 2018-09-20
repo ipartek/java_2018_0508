@@ -1,22 +1,20 @@
-<%@page import="com.ipartek.formacion.youtube.controller.HomeController"%>
-
 <%@ include file="includes/header.jsp" %>	
     
     <!-- Page Content -->
     <div class="container">
     	
+      <%@ include file="includes/nav.jsp"  %>
       <%@ include file="includes/alert.jsp"  %>	
-      <%@ include file="includes/nav.jsp"  %>	
-
+      	
       <div class="row">
 
         <div class="col-lg-3">        	
           <h4 class="my-4">Lista Reproduccion</h4>
-          <ul class="list-group">          
+          <ul class="list-group">                     
           	  <c:forEach items="${videos}" var="v">          
 	            <li class="list-group-item d-flex justify-content-between align-items-center">     
 	          	  	<a href="inicio?id=${v.id}">${v.nombre}</a>
-	          	  	<a href="inicio?id=${v.id}&op=<%=HomeController.OP_ELIMINAR%>"><i style="color:red;" class="float-right fas fa-trash-alt"></i></a>
+	          	  	<a href="inicio?id=${v.id}&op=${HomeController.OP_ELIMINAR}"><i style="color:red;" class="float-right fas fa-trash-alt"></i></a>
 	            </li>
 	          </c:forEach>
             </ul>
@@ -24,9 +22,8 @@
             <hr>
             
             <h4 class="my-4">Videos Visualizados</h4>
-	          <ul class="list-group">
-	          	
-          		    <c:forEach items="${reproducidos}" var="r">
+	          <ul class="list-group">	          	
+          		   <c:forEach items="${reproducidos}" var="r">
 			            <li class="list-group-item d-flex justify-content-between align-items-center">     
 			          	  	<a href="?id=${r.id}">${r.nombre}</a>	          	  	
 			            </li>
