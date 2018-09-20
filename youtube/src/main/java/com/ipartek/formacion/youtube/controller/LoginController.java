@@ -5,6 +5,7 @@ import java.util.ArrayList;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -45,6 +46,7 @@ public class LoginController extends HttpServlet {
 			//recoger parametros
 			String usuarioNombre = request.getParameter("usuario");
 			String pass = request.getParameter("pass");
+			boolean recordado = request.getParameter("recuerdame") != null;
 			
 			ArrayList<Usuario> usuariosPermitidos = (ArrayList<Usuario>) request.getServletContext().getAttribute("usuariosPermitidos");
 			
@@ -52,8 +54,18 @@ public class LoginController extends HttpServlet {
 			
 			for(Usuario usuarioPermitido : usuariosPermitidos) {
 				if ( usuarioPermitido.getNombre().equals(usuarioNombre) && usuarioPermitido.getPass().equals(pass) )  {
+					Cookie cUsuario = new Cookie("cUsuario", usuarioNombre);
+					if(recordado) {
+						cUsuario.setMaxAge(60*60*24*92);
+						response.addCookie(cUsuario);
+					}else {
+						cUsuario.setMaxAge(0);
+						response.addCookie(cUsuario);
+					}
+					
+				Cookie cookies[] = request.getCookies();
 				
-				alert.setTexto("BienVenido " + usuarioNombre );
+				alert.setTexto("Bienvenido " + usuarioNombre );
 				alert.setTipo(Alert.PRIMARY);
 				
 				//Guardar usuario en sesión
@@ -61,7 +73,7 @@ public class LoginController extends HttpServlet {
 				
 				session.setAttribute("usuario", u);
 				session.setMaxInactiveInterval(60*5); // 5minutos
-				
+				break;
 				
 				}else{
 					

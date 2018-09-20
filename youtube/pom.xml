@@ -36,6 +36,7 @@
 			<scope>provided</scope>
 		</dependency>
 
+		<!-- Taglib - Java Server Tag Library -->
 		<dependency>
 			<groupId>javax.servlet</groupId>
 			<artifactId>jstl</artifactId>

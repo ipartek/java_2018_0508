@@ -2,29 +2,29 @@ package com.ipartek.formacion.youtube.pojo;
 
 public class Comentario {
 	
-	private String comentario;
+	private String texto;
 
 	public Comentario() {
 		super();
-		this.comentario = "";
+		this.texto = "";
 	}
 
-	public Comentario(String comentario) {
+	public Comentario(String texto) {
 		super();
-		this.comentario = comentario;
+		this.texto = texto;
 	}
 
-	public String getComentario() {
-		return comentario;
+	public String gettexto() {
+		return texto;
 	}
 
-	public void setComentario(String comentario) {
-		this.comentario = comentario;
+	public void settexto(String texto) {
+		this.texto = texto;
 	}
 
 	@Override
 	public String toString() {
-		return "Comentario [comentario=" + comentario + "]";
+		return "texto [texto=" + texto + "]";
 	}
 
 }
