@@ -33,6 +33,10 @@ public class contadorUsuariosListner implements HttpSessionAttributeListener {
             ServletContext ctx = event.getSession().getServletContext();
             ctx.setAttribute("uConectados", usuariosConectados);
         }
+        if("recuerdame".equals(event.getName())) {
+        	System.out.println("Evento event.getName contiene recuerdame");
+
+        }
        
     }
 	/**

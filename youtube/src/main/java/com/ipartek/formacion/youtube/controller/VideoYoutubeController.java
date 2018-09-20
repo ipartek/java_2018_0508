@@ -1,11 +1,16 @@
 package com.ipartek.formacion.youtube.controller;
 
 import java.io.IOException;
+import java.net.URLEncoder;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -51,11 +56,32 @@ public class VideoYoutubeController extends HttpServlet {
 	 */
 	@Override
 	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-	
 		System.out.println("Antes de realizar GET o POST VideoYoutubeController");
 		System.out.println(request.getContextPath());
+
+		DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+		System.out.println(request.getSession().getAttribute("recuerdame"));
+
+		
+		
+		//recuperar todas las cookies
+		Cookie cVisita= new Cookie("cVisita",URLEncoder.encode(dateFormat.format(new Date()), "UTF-8")) ;
+		cVisita.setMaxAge(60*60*24*365);//1 año
+		//gestionar cookies ultima visita
+		response.addCookie(cVisita);
+		
+		
+		Cookie cocokies[]  = request.getCookies();
 		
 		super.service(request, response);  //llama a los metodos GET o POST
+		Cookie recuerdame = new Cookie("recuerdame",(String) request.getSession().getAttribute("recuerdame"));
+		System.out.println(recuerdame);
+		response.addCookie(recuerdame);
+		
+		System.out.println(request.getParameter("usuario"));
+		if("on".equals(request.getSession().getAttribute("recuerdame"))) {
+			System.out.println("Tenemos on en recuerdame");
+		}
 				
 		//despues de realizar GET o POST
 		if(listaVideos != null) {
@@ -134,6 +160,7 @@ public class VideoYoutubeController extends HttpServlet {
 			//recoger parametros
 			String id = request.getParameter("id");
 			String nombre = request.getParameter("nombre");
+			System.out.println(nombre);
 			
 			//insertar
 			videoInicio = new Video(id, nombre);

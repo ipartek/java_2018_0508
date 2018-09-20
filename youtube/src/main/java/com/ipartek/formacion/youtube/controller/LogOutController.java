@@ -1,8 +1,14 @@
 package com.ipartek.formacion.youtube.controller;
 
 import java.io.IOException;
+import java.net.URLEncoder;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -19,6 +25,37 @@ public class LogOutController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     
+	
+	@Override
+	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		String usuarioNombre = request.getParameter("usuario");
+		System.out.println("Antes de realizar GET o POST LogoutController");
+		System.out.println(request.getContextPath());
+		System.out.println(request.getSession().getAttribute("recuerdame"));
+		/*Cookie recuerdameUsuario = new Cookie("recuerdameUsuario");
+
+		System.out.println(recuerdame);
+		//recuperar todas las cookies
+
+		//gestionar cookies ultima visita
+
+		response.addCookie(recuerdame);*/
+		
+		Cookie cocokies[]  = request.getCookies();
+		
+		super.service(request, response);  //llama a los metodos GET o POST
+		System.out.println(request.getParameter("usuarioNombre"));
+		if("on".equals(request.getSession().getAttribute("recuerdame"))) {
+			System.out.println("Tenemos on en recuerdame");
+		}
+				
+		//despues de realizar GET o POST
+
+		request.getRequestDispatcher("home.jsp").forward(request, response);
+		
+	}
+	
+	
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */

@@ -65,6 +65,8 @@ public class LoginController extends HttpServlet {
 			//recoger parametros
 			String usuarioNombre = request.getParameter("usuario");
 			String pass = request.getParameter("pass");
+			String recuerdame = request.getParameter("recuerdame");
+			System.out.println(recuerdame);
 			accessSignal = false;
 			//comprobar usuario
 			//En futuro contra la base de dato
@@ -92,6 +94,7 @@ public class LoginController extends HttpServlet {
 				
 				request.setAttribute("usuario", usuarioCoincidencia);
 				session.setAttribute("usuario", usuarioCoincidencia);
+				session.setAttribute("recuerdame", recuerdame);
 				session.setMaxInactiveInterval(60*1); // 5min
 			}
 			else{
