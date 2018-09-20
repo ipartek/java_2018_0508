@@ -1,3 +1,8 @@
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+
+
 <%@page import="com.ipartek.formacion.youtube.pojo.Usuario"%>
 <%@page import="com.ipartek.formacion.youtube.pojo.Alert"%>
 <%@page import="com.ipartek.formacion.youtube.pojo.Video"%>
@@ -34,6 +39,8 @@
 
   <body>
 
+	
+
     <!-- Navigation -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
       <div class="container">
@@ -45,40 +52,35 @@
           <ul class="navbar-nav ml-auto">
             <li class="nav-item active">
             
-            <% 
-            	//Gestion Usuario Logeado   
-            	Usuario usuario = (Usuario)session.getAttribute("usuario");
-            	if ( usuario == null ){            
-            %>	            
+            
+            
             	
-             
             
-              <!-- formulario Login -->
-              <form action="login" method="post" class="form-inline mt-2 mt-md-0">
-	            <input name="usuario" class="form-control mr-sm-2" type="text" placeholder="Nombre Usuario" required pattern=".{3,30}">
-	            <input name="pass" class="form-control mr-sm-2" type="password" placeholder="Contraseña" required pattern=".{2,50}">
-	            <button class="btn btn-outline-info my-2 my-sm-0" type="submit">Entrar</button>
-	          </form>            
-            <%
-            	} else {
-            %>              
+            <!-- usuario sin pasar por login -->
+            <c:if test="${empty usuario}">
+	              <!-- formulario Login -->
+	              <form action="login" method="post" class="form-inline mt-2 mt-md-0">
+		            <input name="usuario" class="form-control mr-sm-2" type="text" placeholder="Nombre Usuario" required pattern=".{3,30}">
+		            <input name="pass" class="form-control mr-sm-2" type="password" placeholder="Contraseña" required pattern=".{2,50}">
+		            <button class="btn btn-outline-info my-2 my-sm-0" type="submit">Entrar</button>
+		          </form>
+	         </c:if>         
+           
+            <!-- usuario logeado -->
+            <c:if test="${not empty usuario}">
+	             <div class="nav-user">             	
+	             	<i class="fas fa-user">${usuario.nombre}</i>             	
+	             	<a href="backoffice/index.jsp">Acceder Backoffice</a>
+	             	<a href="logout">Cerrar Session</a>
+	             </div>            
             
-             <div class="nav-user">             	
-             	<i class="fas fa-user"><%=usuario.getNombre()%></i>             	
-             	<a href="backoffice/index.jsp">Acceder Backoffice</a>
-             	<a href="logout">Cerrar Session</a>
-             </div>	
-             
-            
-              <!-- formulario Crear Video -->
-              <form action="inicio" method="post" class="form-inline mt-2 mt-md-0">
-	            <input name="id" class="form-control mr-sm-2" type="text" placeholder="ID 11 caracerteres" title="11 caracteres" required pattern=".{11,11}">
-	            <input name="nombre" class="form-control mr-sm-2" type="text" placeholder="Nombre minimo 2 letras" required pattern=".{2,125}">
-	            <button class="btn btn-outline-info my-2 my-sm-0" type="submit">Añadir</button>
-	          </form>	          
-	          <%
-            	} 
-              %>  
+	              <!-- formulario Crear Video -->
+	              <form action="inicio" method="post" class="form-inline mt-2 mt-md-0">
+		            <input name="id" class="form-control mr-sm-2" type="text" placeholder="ID 11 caracerteres" title="11 caracteres" required pattern=".{11,11}">
+		            <input name="nombre" class="form-control mr-sm-2" type="text" placeholder="Nombre minimo 2 letras" required pattern=".{2,125}">
+		            <button class="btn btn-outline-info my-2 my-sm-0" type="submit">Añadir</button>
+		          </form>	          
+	         </c:if>
 	          
             </li>            
           </ul>
@@ -119,27 +121,13 @@
 
         <div class="col-lg-3">        	
           <h4 class="my-4">Lista Reproduccion</h4>
-          <ul class="list-group">
-          	<%
-          		ArrayList<Video> videos = (ArrayList<Video>) request.getAttribute("videos");
-          		if ( videos == null ){
-          			videos = new ArrayList<Video>();
-          		}
-          		
-          		Video videoInicio = (Video)request.getAttribute("videoInicio");
-          		if ( videoInicio == null){
-          			videoInicio = new Video();
-          		}
-    			
-          		for( Video v : videos ){
-          	%>
+          <ul class="list-group">          
+          	  <c:forEach items="${videos}" var="v">          
 	            <li class="list-group-item d-flex justify-content-between align-items-center">     
-	          	  	<a href="inicio?id=<%=v.getId()%>"><%=v.getNombre()%></a>
-	          	  	<a href="inicio?id=<%=v.getId()%>&op=<%=HomeController.OP_ELIMINAR%>"><i style="color:red;" class="float-right fas fa-trash-alt"></i></a>
+	          	  	<a href="inicio?id=${v.id}">${v.nombre}</a>
+	          	  	<a href="inicio?id=${v.id}&op=<%=HomeController.OP_ELIMINAR%>"><i style="color:red;" class="float-right fas fa-trash-alt"></i></a>
 	            </li>
-            <%
-          		} //end for
-            %>
+	          </c:forEach>
             </ul>
             
             <hr>
@@ -172,7 +160,7 @@
          	
 	          
           
-          
+            
         
         <!-- /.col-lg-3 -->
 
@@ -180,10 +168,13 @@
 
           <div class="card mt-4">
           
-            <iframe id="iframe" width="823" height="415" src="https://www.youtube.com/embed/<%=videoInicio.getId()%>?autoplay=1" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+            <iframe id="iframe" width="823" height="415" src="https://www.youtube.com/embed/XXXX?autoplay=1" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+            
+         
+            
             
             <div class="card-body">
-              <h3 class="card-title"><%=videoInicio.getNombre()%></h3>              
+              <h3 class="card-title"></h3>              
               <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sapiente dicta fugit fugiat hic aliquam itaque facere, soluta. Totam id dolores, sint aperiam sequi pariatur praesentium animi perspiciatis molestias iure, ducimus!</p>
               <span class="text-warning">&#9733; &#9733; &#9733; &#9733; &#9734;</span>
               4.0 stars
