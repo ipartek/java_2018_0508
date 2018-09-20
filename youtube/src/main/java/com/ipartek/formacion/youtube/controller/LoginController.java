@@ -5,6 +5,7 @@ import java.util.HashMap;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -36,18 +37,51 @@ public class LoginController extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-	
+
 		HttpSession session = request.getSession();
 		Alert alert = null;
 		try {
 
 			String nombre = (String) request.getParameter("usuario");
 			String contrasenya = (String) request.getParameter("pass");
+			String cookieNombre = (String) request.getParameter("recordar");
 
 			if (comprobarCredenciales(nombre, contrasenya)) {
-				
+
 				session.setAttribute("usuario", new Usuario(nombre, contrasenya));
-				session.setMaxInactiveInterval(60);
+				session.setMaxInactiveInterval(60*5);
+
+				Cookie cookies[] = request.getCookies();
+				boolean existe = false;
+				int pos = 0;
+
+				if ("on".equals(cookieNombre)) {
+					for (int i = 0; i < cookies.length; i++) {
+						if ("nombreRecordado".equals(cookies[i].getName())) {
+							existe = true;
+							pos = i;
+						}
+					}
+					if (existe) {
+						cookies[pos].setValue(nombre);
+					} else {
+						Cookie nombreRecordado = new Cookie("nombreRecordado", nombre);
+						nombreRecordado.setMaxAge(-1);
+						response.addCookie(nombreRecordado);
+					}
+				} else {
+					for (int i = 0; i < cookies.length; i++) {
+						if ("nombreRecordado".equals(cookies[i].getName())) {
+							existe = true;
+							pos = i;
+						}
+					}
+					if (existe) {
+						Cookie nombreRecordado = new Cookie("nombreRecordado", nombre);
+						nombreRecordado.setMaxAge(0);
+						response.addCookie(nombreRecordado);
+					}
+				}
 
 			} else {
 				alert = new Alert("Usuario o contraseña incorrectos", Alert.DANGER);

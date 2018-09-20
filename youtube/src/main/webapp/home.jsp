@@ -2,13 +2,6 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 
-<%@page import="com.ipartek.formacion.youtube.pojo.Comentario"%>
-<%@page import="com.ipartek.formacion.youtube.pojo.Usuario"%>
-<%@page import="com.ipartek.formacion.youtube.pojo.Alert"%>
-<%@page import="com.ipartek.formacion.youtube.pojo.Video"%>
-<%@page import="com.ipartek.formacion.youtube.controller.HomeController"%>
-<%@page import="java.util.ArrayList"%>
-
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
 <%@ include file="includes/header.jsp" %>
@@ -54,8 +47,8 @@
 <!-- /.container -->
 
 <!-- Footer -->
-<footer class="bg-dark p-3">
-	<p class="text-center text-white">Copyright &copy; Adrian Perozzo</p>
+<footer class="bg-pika text-pika p-3">
+	<p class="text-center">Copyright &copy; Adrian Perozzo</p>
 </footer>
 
 <%@ include file="includes/footer.jsp" %>

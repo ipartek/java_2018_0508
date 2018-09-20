@@ -8,5 +8,17 @@
 }
 
 .bg-pika{
-	background-color: #E65CFC !important;
+	background-color: #E65CFC;
+}
+.text-pika{
+	color: 	#72FC5C;
+}
+.btn-outline-pika {
+    color: #72FC5C;
+    border-color: #72FC5C;
+}
+.btn-outline-pika:hover {
+    color: #000;
+    background-color: #72FC5C;
+    border-color: #72FC5C;
 }

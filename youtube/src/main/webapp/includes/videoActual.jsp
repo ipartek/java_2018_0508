@@ -1,14 +1,3 @@
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
-
-<%@page import="com.ipartek.formacion.youtube.pojo.Comentario"%>
-<%@page import="com.ipartek.formacion.youtube.pojo.Usuario"%>
-<%@page import="com.ipartek.formacion.youtube.pojo.Alert"%>
-<%@page import="com.ipartek.formacion.youtube.pojo.Video"%>
-<%@page import="com.ipartek.formacion.youtube.controller.HomeController"%>
-<%@page import="java.util.ArrayList"%>
-
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
 <div class="col-lg-8">

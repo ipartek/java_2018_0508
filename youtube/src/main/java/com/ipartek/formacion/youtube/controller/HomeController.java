@@ -1,11 +1,16 @@
 package com.ipartek.formacion.youtube.controller;
 
 import java.io.IOException;
+import java.net.URLEncoder;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -52,10 +57,21 @@ public class HomeController extends HttpServlet {
 
 		// Antes de realizar GET o POST
 
-		System.out.println("Antes de GET o POST");
+		// System.out.println("Antes de GET o POST");
+
+		// Gestion de cookies
+
+		DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+		String fecha = dateFormat.format(new Date());
+		Cookie ultimaVisita = new Cookie("uVisita", URLEncoder.encode(fecha, "UTF-8"));
+		ultimaVisita.setMaxAge(60 * 60 * 24 * 365); // 1 año
+		response.addCookie(ultimaVisita);
+
+		// Cookie cookies[] = request.getCookies();
 
 		super.service(request, response); // llama a los metodos GET o POST
 
+		request.setAttribute("fecha",URLEncoder.encode(fecha, "UTF-8"));
 		// Despues de realizar GET o POST
 		request.setAttribute("videos", videos);
 		request.setAttribute("videoInicio", videoInicio);
@@ -101,7 +117,7 @@ public class HomeController extends HttpServlet {
 					}
 					reproducidos.add(videoInicio);
 					session.setAttribute("videosUsuario", reproducidos);
-					
+
 				}
 
 			} else if (!videos.isEmpty()) {

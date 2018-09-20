@@ -1,24 +1,26 @@
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
-
-<%@page import="com.ipartek.formacion.youtube.pojo.Usuario"%>
-<%@page import="com.ipartek.formacion.youtube.pojo.Alert"%>
-<%@page import="com.ipartek.formacion.youtube.pojo.Video"%>
-
-<%@page import="com.ipartek.formacion.youtube.controller.HomeController"%>
-
-<%@page import="java.util.ArrayList"%>
-
+<%@page import="java.net.URLDecoder"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!-- Cabecera -->
 	<header>
-		<nav class="navbar navbar-expand-lg navbar-dark bg-dark bg-pika">
+		<nav class="navbar navbar-expand-lg navbar-dark bg-pika">
 			<div class="container">
-				<a class="navbar-brand" href="#">Youtube PlayList<img id="logo" src="images/logo.png" alt="Logo de la APP"></a>
+				<a class="navbar-brand" href="#">Youtube PikaList<img id="logo" src="images/logo.png" alt="Logo de la APP"></a>
 				<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive"
 				 aria-expanded="false" aria-label="Toggle navigation">
 					<span class="navbar-toggler-icon"></span>
 				</button>
+				<% 
+			     	String fecha = "";
+			     	Cookie[] cookies = request.getCookies();
+			     	for( Cookie c : cookies ){
+			     		if ( "uVisita".equals(c.getName())){
+			     			fecha = URLDecoder.decode( c.getValue(), "UTF-8" );
+			     			break;
+			     		}	
+			     	}
+			     	
+			     %>
+				<small class="text-warning">Ultima visita <%=fecha%></small>
 				<div class="collapse navbar-collapse" id="navbarResponsive">
 					<c:if test="${empty usuario}">
 						<!-- Usuario Logueado en session -->
@@ -26,9 +28,17 @@
 							<li class="nav-item active">
 								<!-- Formulario de login -->
 								<form action="login" method="post" class="form-inline mt-2 mt-md-0">
-									<input name="usuario" class="form-control mr-sm-2" type="text" placeholder="Nombre de usuario" required pattern=".{3,30}">
-									<input name="pass" class="form-control mr-sm-2" type="password" placeholder="Contraseña" required pattern=".{2,50}">
-									<button class="btn btn-outline-info my-2 my-sm-0" type="submit">Entrar</button>
+									<c:if test="${not empty cookie.nombreRecordado}">
+										<input name="usuario" class="form-control mr-2" type="text" placeholder="Nombre de usuario" required pattern=".{3,30}" value="${cookie.nombreRecordado.value}">
+									</c:if>
+									<c:if test="${empty cookie.nombreRecordado}">
+										<input name="usuario" class="form-control mr-2" type="text" placeholder="Nombre de usuario" required pattern=".{3,30}">
+									</c:if>
+									<input name="pass" class="form-control mr-2" type="password" placeholder="Contraseña" required pattern=".{2,50}">
+									<button class="btn btn-outline-info btn-outline-pika mr-2" type="submit">Entrar</button>
+									<div class="form-group">
+										<input type="checkbox" name="recordar" checked><small>Recuerdame</small>
+									</div>
 								</form>
 							</li>
 						</ul>
