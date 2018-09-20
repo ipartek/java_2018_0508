@@ -5,6 +5,7 @@ import java.util.HashMap;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -45,47 +46,71 @@ public class LoginController extends HttpServlet {
 			//recoger parametros
 			String usuarioNombre = request.getParameter("usuario");
 			String pass = request.getParameter("pass");
+			String recuerda = request.getParameter("recuerdame");
+			
+			//TODO Que tambien se quede marchado el check
+			Cookie cRecuerda = new Cookie("cRecuerda", "5");
+			
+			if("1".equals(recuerda)) {
+				cRecuerda.setValue(usuarioNombre);
+			}else {
+				cRecuerda.setValue("");
+			}
+			
+			response.addCookie(cRecuerda);
 			
 			Usuario u = new Usuario();
 			
 			switch(usuarioNombre) {
 				case "admin":
-					alert.setTexto("BienVenido " + usuarioNombre );
-					alert.setTipo(Alert.PRIMARY);
+					if("admin".equals(pass)) {
+						alert.setTexto("BienVenido " + usuarioNombre );
+						alert.setTipo(Alert.PRIMARY);
 					
-					//guardar Usuario en session
-					u.setNombre(usuarioNombre);
-					u.setPass(pass);
+						//guardar Usuario en session
+						u.setNombre(usuarioNombre);
+						u.setPass(pass);
+						session.setAttribute("usuario", u);
+					}
 					break;
 				case "pepe":
-					alert.setTexto("BienVenido " + usuarioNombre );
-					alert.setTipo(Alert.PRIMARY);
+					if("pepe".equals(pass)) {
+						alert.setTexto("BienVenido " + usuarioNombre );
+						alert.setTipo(Alert.PRIMARY);
 					
-					//guardar Usuario en session
-					u.setNombre(usuarioNombre);
-					u.setPass(pass);
+						//guardar Usuario en session
+						u.setNombre(usuarioNombre);
+						u.setPass(pass);
+						session.setAttribute("usuario", u);
+					}
 					break;
 				case "manoli":
-					alert.setTexto("BienVenido " + usuarioNombre );
-					alert.setTipo(Alert.PRIMARY);
+					if("manoli".equals(pass)) {
+						alert.setTexto("BienVenido " + usuarioNombre );
+						alert.setTipo(Alert.PRIMARY);
 					
-					//guardar Usuario en session
-					u.setNombre(usuarioNombre);
-					u.setPass(pass);
+						//guardar Usuario en session
+						u.setNombre(usuarioNombre);
+						u.setPass(pass);
+						session.setAttribute("usuario", u);
+					}
 					break;
 				case "josepo":
-					alert.setTexto("BienVenido " + usuarioNombre );
-					alert.setTipo(Alert.PRIMARY);
+					if("josepo".equals(pass)) {
+						alert.setTexto("BienVenido " + usuarioNombre );
+						alert.setTipo(Alert.PRIMARY);
 					
-					//guardar Usuario en session
-					u.setNombre(usuarioNombre);
-					u.setPass(pass);
+						//guardar Usuario en session
+						u.setNombre(usuarioNombre);
+						u.setPass(pass);
+						session.setAttribute("usuario", u);
+					}
 					break;
 				default:
 					alert.setTexto("Credenciales incorrectas");
 			}
 			
-			session.setAttribute("usuario", u);
+			
 			session.setMaxInactiveInterval(60*5); // 5min
 			
 		}catch (Exception e) {
