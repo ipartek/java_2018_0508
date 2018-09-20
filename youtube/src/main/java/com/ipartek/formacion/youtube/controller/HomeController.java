@@ -85,8 +85,7 @@ public class HomeController extends HttpServlet {
 				
 			cVisita.setMaxAge(60*60*24*365);	// 1 año
 			response.addCookie(cVisita);
-		}
-		
+		}		
 		
 	}
 

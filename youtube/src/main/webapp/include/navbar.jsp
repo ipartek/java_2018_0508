@@ -42,10 +42,15 @@
             <c:if test="${empty usuario}"> 
         
 	              <form action="login" method="post" class="form-inline ">
-		            <input name="usuario" class="form-control mr-sm-2" type="text" placeholder="Nombre Usuario" required pattern=".{3,30}" value="${cookie.cUsuario.value}">
+		            <div class="form-group">
+			            <input name="usuario" class="form-control mr-sm-2" type="text" placeholder="Nombre Usuario" required pattern=".{3,30}" value="${cookie.cUsuario.value}">
+			            <input name="pass" class="form-control mr-sm-2" type="password" placeholder="Contraseña" required pattern=".{2,50}">
+			            <button class="btn btn-outline-info my-2 my-sm-0" type="submit">Entrar</button>
+		            </div>
 		            
-		            <input name="pass" class="form-control mr-sm-2" type="password" placeholder="Contraseña" required pattern=".{2,50}">
-		            <button class="btn btn-outline-info my-2 my-sm-0" type="submit">Entrar</button>
+		            <div class="form-group">
+		            	<input type="checkbox" name="recordar">Recordar
+		            </div>
 		          </form>
 	         	</c:if>     
               
