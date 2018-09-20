@@ -137,10 +137,17 @@ public class VideoYoutubeController extends HttpServlet {
 			
 			//insertar
 			videoInicio = new Video(id, nombre);
-			dao.insert(videoInicio);
+			//solo le dejamos insertar si hay valores en el video
+			if (videoInicio.getId() != null && videoInicio.getNombreCancion() != null) {
+				dao.insert(videoInicio);
+			}
+			
 			
 			//pedir listado			
 			videos = (ArrayList<Video>) dao.getAll();
+			if(videoInicio.getNombreCancion() == null) {
+				doGet(request,response);
+			}
 			
 
 		} catch (Exception e) {

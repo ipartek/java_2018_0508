@@ -7,7 +7,7 @@ body{
 
 footer{
 	width: 100%; 
-	position:absolute;
+	/*position:absolute;*/
 	bottom: 0px;
 	
 }
@@ -37,4 +37,15 @@ label{
 .col{
 	border:1px solid black;
 	box-shadow: 5px 10px #343A40;
+}
+
+@media (max-width: 736px) {
+
+footer{
+	margin-top:1px;
+	width: 100%; 
+	/*añadido debido a que el footer se volvia loco en estas resoluciones*/
+	position:relative;
+}	
+
 }

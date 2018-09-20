@@ -7,7 +7,7 @@ body{
 	
 }
 #textArea{
-	width: 100%;
+	width: auto;
 	height:100px;
 }
 
@@ -15,7 +15,25 @@ body{
 	display:none;
 }
 
-#videoID{
-	visibility: hidden !important;
+#videoId{
+	visibility: hidden ;
 	color:white;
+}
+#iframe{
+	width:823px;
+	height:415px:
+}
+footer{
+	width: 100%;
+}
+
+@media (max-width: 736px) {
+#iframe{
+	/*Se modifica el ancho del iframe para que no se estire el navbar*/
+	width:330px;
+	height:0px:
+}
+footer{
+	width: auto;
+}
 }

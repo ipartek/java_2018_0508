@@ -3,6 +3,8 @@ package com.ipartek.formacion.youtube.controller;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
@@ -30,6 +32,9 @@ public class RegistroUsuarioController extends HttpServlet {
 	private static ArrayList<Usuario> usuarios;
 	private String msg;
 	private static boolean error = false;
+	String emailPattern = "^[_a-z0-9-]+(\\.[_a-z0-9-]+)*@" + "[a-z0-9-]+(\\.[a-z0-9-]+)*(\\.[a-z]{2,4})$";
+	Pattern pattern = Pattern.compile(emailPattern);
+	String email ;
        
     
 	@Override
@@ -163,6 +168,11 @@ public class RegistroUsuarioController extends HttpServlet {
 	}
 
 	private boolean comprobarUsuarioNombrel(String nombreUsuario) {
+		if(nombreUsuario.length()< 5) {
+			error = true;
+			msg = "El nombre debe contener 5 caracteres minimo";
+			return error;
+		}
 		if(usuarios.size() > 0) {
 			for (Usuario u : usuarios) {
 				if ( nombreUsuario.equals( u.getNombre() ) ){
@@ -176,18 +186,26 @@ public class RegistroUsuarioController extends HttpServlet {
 	}
 
 	private boolean comprobarUsuarioEmail( String emailUsuario) {
-		
-		if(usuarios.size() > 0) {
-			for (Usuario u : usuarios) {
-				if ( emailUsuario.equals( u.getEmail() ) ){
-					error = true;
-					msg = "Ya tenemos un usuario con esta direcion de correo";
-				}
-			}
-			
+		if (emailUsuario != null) {
+			   Matcher matcher = pattern.matcher(emailUsuario);
+			   if (matcher.matches()) {
+			     System.out.println("Válido");
+			     if(usuarios.size() > 0) {
+						for (Usuario u : usuarios) {
+							if ( emailUsuario.equals( u.getEmail() ) ){
+								error = true;
+								msg = "Ya tenemos un usuario con esta direcion de correo";
+							}
+						}
+						
+					}
+			   }
+			   else {
+				   	error = true;
+					msg = "Email no valido";
+			   }	   
 		}
 		return error;
-		
+			 }
 	}
-
-}
+			

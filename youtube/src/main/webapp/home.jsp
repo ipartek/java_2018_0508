@@ -33,6 +33,10 @@
 	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
 	<!-- Estilos propios pero no termina de cogerlos -->
 	<link rel="stylesheet" href="css/styles.css" >
+	 <!-- Bootstrap core JavaScript -->
+    <script src="https://blackrockdigital.github.io/startbootstrap-shop-item/vendor/jquery/jquery.min.js"></script>
+    <script src="https://blackrockdigital.github.io/startbootstrap-shop-item/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="js/home.js"></script>
 	
 
   </head>
@@ -138,7 +142,14 @@
           	%>
 	            <li class="list-group-item d-flex justify-content-between align-items-center">     
 	          	  	<a href="inicio?id=<%=v.getId()%>"><%=v.getNombreCancion()%></a>
+	          	  	<%
+		          		if(session.getAttribute("usuario") != null){
+		          		
+		         	 %>	
 	          	  	<a href="inicio?id=<%=v.getId()%>&op=<%=VideoYoutubeController.OP_ELIMINAR%>"><i style="color:red;" class="float-right fas fa-trash-alt"></i></a>
+	          	  	<%
+		          		}
+	          	  	%>
 	            </li>
             <%
           		} //end for
@@ -170,11 +181,7 @@
             <%
             }else{
             	 %>
-            	  <p>Por favor autentifiquese primero o dese de alta en  <a href="registroUsuariosFormulario.jsp">Nuevo usuario</a></p>
-            	  <script>
-            	  		var b = document.querySelector("usuario"); 
-            	  		var a = document.getElementById("usuario");
-            	  </script>
+            	  <p>Por favor identifíquese primero o regístrese en  <a href="registroUsuariosFormulario.jsp">Nuevo usuario</a></p>
             	  <%
             }
             	  %>
@@ -188,7 +195,7 @@
         <div class="col-lg-9">
 
           <div class="card mt-4">
-          
+          	<!-- Lo saco del iframe width="823" height="415" -->
             <iframe id="iframe" width="823" height="415" src="https://www.youtube.com/embed/<%=videoInicio.getId()%>?autoplay=1" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
             
             <div class="card-body">
@@ -199,6 +206,10 @@
             </div>
           </div>
           <!-- /.card -->
+          <%
+          	if(session.getAttribute("usuario") != null){
+          		
+          %>	
 		<!-- ****** COMENTARIOS ****** -->
           <div class="card card-outline-secondary my-4">
             <div class="card-header">
@@ -206,20 +217,21 @@
             </div>
             <div id="comentarios" class="comentarios" style="display:none;">
 	            <form action="ComentariosControler" method="post">
-	            	<input name="videoId" id="videoId" value="<%=videoInicio.getId()%>"></input>
 	            	<%-- <p name="videoId" value="<%=videoInicio.getId()%>"><%=videoInicio.getId()%></p> --%>
-	            	<textarea name=text rows="" cols=""></textarea>
+	            	<textarea name=text rows="" cols="88"></textarea>
 	            	<!-- <input id="textArea" name="text" ></input> -->
 	            	<!-- <p><a href="ComentariosControler" class="badge badge-dark">Añadir comentario</a></p> -->
-	            	<button  type="submit" class="btn btn-primary">Date de alta</button>
+	            	<input name="videoId" id="videoId" value="<%=videoInicio.getId()%>"></input>
+	            	<p><button  type="submit" class="btn btn-primary">Date de alta</button></p>
 	            </form>
             </div>
             <%
             	//ArrayList<Comentarios> comentarios = (ArrayList<Comentarios>) request.getAttribute("comentarios");
-            	ArrayList<Comentarios> comentarios = (ArrayList<Comentarios>)session.getAttribute("comentarios");
+            	//ArrayList<Comentarios> comentarios = (ArrayList<Comentarios>)session.getAttribute("comentarios");
+            	ArrayList<Comentarios> comentarios = videoInicio.getComentarios();
             	if(comentarios != null){
      		%>
-     			<div class="card-body">asd
+     			<div class="card-body">
      				<% 
             		for (Comentarios c: comentarios){
             			if (c.getVideoId().contentEquals(videoInicio.getId())){
@@ -235,25 +247,24 @@
             	}
 				
 			%>	                       
-				            
-            
+		<%		            
+            }
+          %> 
           </div>
           <!-- /.card -->
+         
         </div>
         <!-- /.col-lg-9 -->
       </div>
     <!-- Footer -->
     <footer class="py-5 bg-dark">
       <div class="container">
-        <p class="m-0 text-center text-white">Copyright &copy; Your Website 2017</p>
+        <p class="m-0 text-center text-white"></p><!-- Copyright &copy; Your Website 2017 -->
       </div>
       <!-- /.container -->
     </footer>
 
-    <!-- Bootstrap core JavaScript -->
-    <script src="https://blackrockdigital.github.io/startbootstrap-shop-item/vendor/jquery/jquery.min.js"></script>
-    <script src="https://blackrockdigital.github.io/startbootstrap-shop-item/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-    <script src="js/home.js"></script>
+   
 
   </body>
 

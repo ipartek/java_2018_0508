@@ -6,7 +6,7 @@ public class Video {
 	
 	private String id;
 	private String nombreCancion;
-	private ArrayList<Comentarios> comentarios;
+	private ArrayList<Comentarios> comentarios = new ArrayList <Comentarios> ();;
 
 	
 	
@@ -14,6 +14,7 @@ public class Video {
 		super();
 		this.id = "";
 		this.nombreCancion = "";
+		
 
 	}
 	

@@ -14,27 +14,26 @@
     <link rel="stylesheet" href="https://cdn.datatables.net/1.10.18/css/dataTables.bootstrap4.min.css">    
     <!-- Bootstrap core CSS -->
     <link href="https://blackrockdigital.github.io/startbootstrap-shop-item/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-    <script src="https://cdn.datatables.net/1.10.18/js/jquery.dataTables.min.js"></script> 
-    <script src="https://cdn.datatables.net/1.10.18/js/dataTables.bootstrap4.min.js"></script> 
+    <!--Datatable css-->
+    <link rel="stylesheet" href="vendors/datatables/1.10.19/css/jquery.dataTables.min.css">    
+    <link href="vendors/datatables/2.1.0/css/responsive.dataTables.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="css/tabla.css"/>  
+    <!--Plugin para el funcionamiento del datatable, deberia ponerse en la ultima parte del body
+    pero al colocarlo en la parte inferior me sigue dando problemas -->  
+    <!-- <script src="Youtube/src/main/webapp/vendor/jquery/jquery-3.3.1.js"></script>
+    <script src="Youtube/src/main/webapp/vendor/jquery/1.10.19/js/jquery.dataTables.min.js"></script>    
+    <script src=".Youtube/src/main/webapp/vendor/datatables/2.1.0/js/dataTables.responsive.js"></script> -->
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.css">
+	<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.js"></script>
 
 
-    <script>
-            //Esperamos a que todo el HTML este cargado == body onload
-            $(document).ready(function() { 
-                // $('#example')  => selecciona un objeto por id="example"
-                // .DataTable();  => ejecutar el plugin de dataTable
-                $('#example').DataTable({
-                    "language": {
-                        "url": "vendors/datatables/i18n/spanish/Spanish.json"
-                    }
-                });
-            } );
-        </script>
+    
     
 
 </head>
 
 <body>
+
 <!-- Navigation -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
       <div class="container">
@@ -105,7 +104,7 @@
 	   
 
 	
-<table id="example" class="display responsive nowrap" width="100%">
+<table id="tabla" class="display responsive nowrap" width="100%">
                 <thead>
                     <tr>
                         <th>Nombre</th>

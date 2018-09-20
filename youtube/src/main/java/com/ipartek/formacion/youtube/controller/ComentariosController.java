@@ -13,9 +13,9 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.ipartek.formacion.model.*;
-import com.ipartek.formacion.pojo.Alerts;
 import com.ipartek.formacion.pojo.Comentarios;
 import com.ipartek.formacion.pojo.Usuario;
+import com.ipartek.formacion.pojo.Video;
 
 
 
@@ -28,11 +28,11 @@ import com.ipartek.formacion.pojo.Usuario;
 public class ComentariosController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private static ComentariosDao comentariosDao;
-	private static ArrayList<Usuario> usuarios;
+	private static VideoArrayListDAO videosDao;
+	private static ArrayList<Video> videos;
 	private static ArrayList<Comentarios> comentarios;
 	private static Comentarios comentario;
-	private String msg;
-	private static boolean error = false;
+
        
     
 	@Override
@@ -40,17 +40,16 @@ public class ComentariosController extends HttpServlet {
 		super.init(config);
 		//Se ejecuta solo con la 1º petición, el resto de peticiones iran a "service"
 		//inicializamos el arraydao de usuarios
-		comentariosDao =  comentariosDao.getInstance();
-		comentarios = (ArrayList<Comentarios>) comentariosDao.getAll();
+		
 	}
 	
-	@Override
+/*	@Override
 	public void destroy() {	
 		super.destroy();
 		//se ejecuta al parar el servidor
-		comentariosDao = null;
+		//comentariosDao = null;
 	}
-	
+	*/
 	@Override
 	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 	
@@ -100,7 +99,10 @@ public class ComentariosController extends HttpServlet {
 		try {
 			System.out.println("***POST***");
 			HttpSession session = request.getSession();
-			
+			comentariosDao =  ComentariosDao.getInstance();
+			comentarios = (ArrayList<Comentarios>) comentariosDao.getAll();
+			videosDao =  VideoArrayListDAO.getInstance();
+			videos = (ArrayList<Video>) videosDao.getAll();
 			//recogemos parametros
 			String comentarioUsuario = request.getParameter("text");
 			String videoId = request.getParameter("videoId");
@@ -111,6 +113,15 @@ public class ComentariosController extends HttpServlet {
 			System.out.println(u.getNombre());
 			comentario = new Comentarios(u.getNombre(),comentarioUsuario,videoId );
 			comentarios.add(comentario);
+			if(videos != null) {
+				for(Video v : videos) {
+					//si el videoId del comentario es igual al id del video añadimos al video el comentario 
+					if (comentario.getVideoId().contentEquals(v.getId())) {
+						v.setComentarios(comentario);
+					}
+				}
+			}
+			
 			request.setAttribute("comentarios", comentarios);
 			session.setAttribute("comentarios", comentarios);
 			

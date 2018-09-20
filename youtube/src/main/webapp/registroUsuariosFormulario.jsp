@@ -99,19 +99,19 @@
 				  <div class="form-row">
 				  <div class="form-group col-md-6">
 				      <label for="nombreUsuario">Usuario</label>
-				      <input type="text" class="form-control" name="nombreUsuario" placeholder="Nombre de usuario">
+				      <input type="text" class="form-control" name="nombreUsuario" autofocus required="required" placeholder="% caracteres minimo" pattern="[A-Za-z]{5,45}">
 				    </div>
 				    <div class="form-group col-md-6">
 				      <label for="emailUsuario">Email</label>
-				      <input type="email" class="form-control" name="emailUsuario" placeholder="ejemplo@correo.com">
+				      <input type="email" class="form-control" name="emailUsuario" required="required" placeholder="ejemplo@correo.com" pattern="[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{1,45}">
 				    </div>
 				    <div class="form-group col-md-6">
 				      <label for="passUsuario">Password</label>
-				      <input type="password" class="form-control" name="passUsuario" placeholder="*******">
+				      <input type="password" class="form-control" required="required" name="passUsuario" placeholder="*******">
 				    </div>
 				    <div class="form-group col-md-6">
 				      <label for="replyPassUsuario">Repita el password</label>
-				      <input type="password" class="form-control" name="replyPassUsuario" placeholder="*******">
+				      <input type="password" class="form-control" required="required" name="replyPassUsuario" placeholder="*******">
 				    </div>
 				  </div>
 				  <div class="center-button">
