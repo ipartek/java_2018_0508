@@ -27,12 +27,13 @@ public class ContadorUsuariosListener implements HttpSessionAttributeListener {
     	//Se acaba de logear un Usuario @see LoginController
     	if ("usuario".equals(event.getName()) ){    		
     		Usuario u = (Usuario)event.getValue();
-    		usuariosConectados.put(u.getNombre(), u);    		
-    	}
+    		usuariosConectados.put(u.getNombre(), u);
+    		
+    		//guardar en contexto aplicacion == ServletContext == aplicationScope
+        	ServletContext ctx = event.getSession().getServletContext();
+        	ctx.setAttribute("uConectados", usuariosConectados);
+    	}    	
     	
-    	//guardar en contexto aplicacion == ServletContext == aplicationScope
-    	ServletContext ctx = event.getSession().getServletContext();
-    	ctx.setAttribute("uConectados", usuariosConectados);
     }
 
 	/**
@@ -42,12 +43,13 @@ public class ContadorUsuariosListener implements HttpSessionAttributeListener {
     	//Se acaba de DESlogear un Usuario @see LoginController
     	if ("usuario".equals(event.getName()) ){    		
     		Usuario u = (Usuario)event.getValue();
-    		usuariosConectados.remove(u.getNombre() );    		
+    		usuariosConectados.remove(u.getNombre() );    	
+    		
+    		//guardar en contexto aplicacion == ServletContext == aplicationScope
+        	ServletContext ctx = event.getSession().getServletContext();
+        	ctx.setAttribute("uConectados", usuariosConectados);
     	}
-    	
-    	//guardar en contexto aplicacion == ServletContext == aplicationScope
-    	ServletContext ctx = event.getSession().getServletContext();
-    	ctx.setAttribute("uConectados", usuariosConectados);
+    	    	
     }
 
 	/**

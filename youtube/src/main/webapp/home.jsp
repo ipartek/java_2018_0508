@@ -1,121 +1,12 @@
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
-
-
-<%@page import="com.ipartek.formacion.youtube.pojo.Usuario"%>
-<%@page import="com.ipartek.formacion.youtube.pojo.Alert"%>
-<%@page import="com.ipartek.formacion.youtube.pojo.Video"%>
 <%@page import="com.ipartek.formacion.youtube.controller.HomeController"%>
-<%@page import="java.util.ArrayList"%>
 
-
-<!DOCTYPE html>
-<html lang="en">
-
-  <head>
-
-	<!-- Comenza todas las URLs desde el href indicado -->
-	<base href="<%=request.getContextPath()%>/">
-	
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
-    <meta name="author" content="">
-
-    <title>Youtube Video Play List</title>
-
-	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
-	
-    <!-- Bootstrap core CSS -->
-    <link href="https://blackrockdigital.github.io/startbootstrap-shop-item/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-
-    <!-- Custom styles for this template -->
-    <link href="https://blackrockdigital.github.io/startbootstrap-shop-item/css/shop-item.css" rel="stylesheet">
+<%@ include file="includes/header.jsp" %>	
     
-    <link href="css/styles.css" rel="stylesheet"></link>
-
-  </head>
-
-  <body>
-
-	
-
-    <!-- Navigation -->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
-      <div class="container">
-        <a class="navbar-brand" href="#">Youtube PlayList</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarResponsive">
-          <ul class="navbar-nav ml-auto">
-            <li class="nav-item active">
-            
-            
-            
-            	
-            
-            <!-- usuario sin pasar por login -->
-            <c:if test="${empty usuario}">
-	              <!-- formulario Login -->
-	              <form action="login" method="post" class="form-inline mt-2 mt-md-0">
-		            <input name="usuario" class="form-control mr-sm-2" type="text" placeholder="Nombre Usuario" required pattern=".{3,30}">
-		            <input name="pass" class="form-control mr-sm-2" type="password" placeholder="Contraseña" required pattern=".{2,50}">
-		            <button class="btn btn-outline-info my-2 my-sm-0" type="submit">Entrar</button>
-		          </form>
-	         </c:if>         
-           
-            <!-- usuario logeado -->
-            <c:if test="${not empty usuario}">
-	             <div class="nav-user">             	
-	             	<i class="fas fa-user">${usuario.nombre}</i>             	
-	             	<a href="backoffice/index.jsp">Acceder Backoffice</a>
-	             	<a href="logout">Cerrar Session</a>
-	             </div>            
-            
-	              <!-- formulario Crear Video -->
-	              <form action="inicio" method="post" class="form-inline mt-2 mt-md-0">
-		            <input name="id" class="form-control mr-sm-2" type="text" placeholder="ID 11 caracerteres" title="11 caracteres" required pattern=".{11,11}">
-		            <input name="nombre" class="form-control mr-sm-2" type="text" placeholder="Nombre minimo 2 letras" required pattern=".{2,125}">
-		            <button class="btn btn-outline-info my-2 my-sm-0" type="submit">Añadir</button>
-		          </form>	          
-	         </c:if>
-	          
-            </li>            
-          </ul>
-          
-          
-          
-        </div>
-      </div>
-    </nav>
-
     <!-- Page Content -->
     <div class="container">
-    
-      <%
-      	//Gestion de Alertas para el usuario      	
-        Alert alert = (Alert)request.getAttribute("alert");
-      	if ( alert == null ){
-      		alert = (Alert)session.getAttribute("alert");
-      		session.setAttribute("alert", null); // eliminar atributo de session
-      	}
-      
-      	if( alert != null){
-      	%>
-      		<div class="container">
-				<div class="alert <%=alert.getTipo()%> alert-dismissible fade show" role="alert">
-				  <p><%=alert.getTexto()%></p>
-				  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-				    <span aria-hidden="true">&times;</span>
-				  </button>
-				</div>
-			</div>
-      	<%	
-      	}      
-      %>	
-    
+    	
+      <%@ include file="includes/alert.jsp"  %>	
+      <%@ include file="includes/nav.jsp"  %>	
 
       <div class="row">
 
@@ -134,33 +25,23 @@
             
             <h4 class="my-4">Videos Visualizados</h4>
 	          <ul class="list-group">
-	          	<%
-	          		ArrayList<Video> reproducidos = (ArrayList<Video>) session.getAttribute("reproducidos");
-	          		if ( reproducidos != null ){
-		          		for( Video r : reproducidos ){
-		          	%>
+	          	
+          		    <c:forEach items="${reproducidos}" var="r">
 			            <li class="list-group-item d-flex justify-content-between align-items-center">     
-			          	  	<a href="?id=<%=r.getId()%>"><%=r.getNombre()%></a>	          	  	
+			          	  	<a href="?id=${r.id}">${r.nombre}</a>	          	  	
 			            </li>
-		            <%
-	          			} //end for
-	          		}else{
-	          		%>
-	          			<li class="list-group-item d-flex justify-content-between align-items-center">
+		           </c:forEach>
+		            
+		            <c:if test="${empty reproducidos}">
+		        		<li class="list-group-item d-flex justify-content-between align-items-center">
 	          				<p>*Por favor Inicia Session para guardar tus video reproducidos</p>
 	          			</li>
-	          		<%		
-	          		}
-	            %>
+          			</c:if>
+	          	
 	            </ul>
             
           </div>
-          
-          
-         	
-	          
-          
-            
+         
         
         <!-- /.col-lg-3 -->
 
@@ -168,10 +49,7 @@
 
           <div class="card mt-4">
           
-            <iframe id="iframe" width="823" height="415" src="https://www.youtube.com/embed/XXXX?autoplay=1" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
-            
-         
-            
+            <iframe id="iframe" width="823" height="415" src="https://www.youtube.com/embed/${videoInicio.id}?autoplay=1" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
             
             <div class="card-body">
               <h3 class="card-title"></h3>              
@@ -208,18 +86,4 @@
     </div>
     <!-- /.container -->
 
-    <!-- Footer -->
-    <footer class="py-5 bg-dark">
-      <div class="container">
-        <p class="m-0 text-center text-white">Copyright &copy; Your Website 2017</p>
-      </div>
-      <!-- /.container -->
-    </footer>
-
-    <!-- Bootstrap core JavaScript -->
-    <script src="https://blackrockdigital.github.io/startbootstrap-shop-item/vendor/jquery/jquery.min.js"></script>
-    <script src="https://blackrockdigital.github.io/startbootstrap-shop-item/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-
-  </body>
-
-</html>
+ <%@ include file="includes/footer.jsp" %> 
