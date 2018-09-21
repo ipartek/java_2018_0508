@@ -4,9 +4,14 @@
 
 <%@page import="com.ipartek.formacion.youtube.controller.HomeController"%>
 
+<c:set var="idioma" value="${(not empty sessionScope.idioma)?sessionScope.idioma:'es_ES'}" />
+<fmt:setLocale value="${idioma}" />
+<fmt:setBundle basename="idiomas" /> 
+
+
 
 <!DOCTYPE html>
-<html lang="es">
+<html lang="${idioma}">
 
   <head>
 
@@ -37,12 +42,10 @@
     <!-- Navigation -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
       <div class="container">
-        <a class="navbar-brand" href="#">Youtube PlayList</a>
+        <a class="navbar-brand" href="inicio"><i class="fab fa-youtube youtube-logo"></i> Youtube PlayList</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
-        
-        <span class="text-info">Última visita ${cookie['cVisita'].value }</span>
         
         <div class="collapse navbar-collapse" id="navbarResponsive">
           <ul class="navbar-nav ml-auto">
@@ -52,31 +55,37 @@
             <c:if test="${empty usuario }">
 	              <!-- formulario Login -->
 	              <form action="login" method="post" class="form-inline mt-2 mt-md-0">
-		            <input name="usuario" class="form-control mr-sm-2" type="text" value="${cookie['cUsuario'].value }" placeholder="Nombre Usuario" required pattern=".{3,30}">
+		            <input name="usuario" class="form-control mr-sm-2" type="text" value="${cookie.cNombre.value }" placeholder="Nombre Usuario" required pattern=".{3,30}">
 		            <input name="pass" class="form-control mr-sm-2" type="password" placeholder="Contraseña" required pattern=".{2,50}">
-		            <input type="checkbox" name="recuerdame" class="form-control mr-sm-2" /><span class="text-info">Recuérdame</span>
-		            <button class="btn btn-outline-info my-2 my-sm-0" type="submit">Entrar</button>
+		            <input type="checkbox" id="recuerdame" name="recuerdame" class="form-control mr-sm-2" ${not empty (cookie.cNombre.value)?"checked":"" } /><label for="recuerdame" class="text-info">Recuérdame</label>
+		            <button class="btn btn-outline-info ml-3 my-2 my-sm-0" type="submit">Entrar</button>
 		          </form>            
 	        </c:if>                  
 	         
 	         <!-- Usuario logeado -->
 	         <c:if test="${not empty usuario }">
 	         
-	             <div class="nav-user logeado">
-	             	<i class="fas fa-user">${usuario.nombre }</i>
-	             	<a href="backoffice/index.jsp">Acceder al backoffice</a>
-	             	<a href="logout">Cerrar Sesión</a>
-	             </div>	
-	             
 	              <!-- formulario Crear Video -->
 	              <form action="inicio" method="post" class="form-inline mt-2 mt-md-0">
 		            <input name="id" class="form-control mr-sm-2" type="text" placeholder="ID 11 caracerteres" title="11 caracteres" required pattern=".{11,11}">
 		            <input name="nombre" class="form-control mr-sm-2" type="text" placeholder="Nombre minimo 2 letras" required pattern=".{2,125}">
 		            <button class="btn btn-outline-info my-2 my-sm-0" type="submit">Añadir</button>
-		          </form>	          
+		          </form>
+		          
+		          <div class="nav-user logeado">
+	             	<i class="fas fa-user"> ${usuario.nombre }</i>
+	             	<a href="backoffice/index.jsp">Acceder al backoffice</a>
+	             	<a href="logout">Cerrar Sesión</a>
+	             </div>		 
+	                      
 	         </c:if>
 	          
-            </li>            
+            </li>
+            <ul class="navbar-nav ml-auto selector-idiomas">
+		        <li class="nav-item ml-2 mr-2"><a href="inicio?idioma=eu_ES" class="${(sessionScope.idioma eq 'eu_ES')?'idioma-activo':''}"><img src="https://image.flaticon.com/icons/png/128/555/555559.png" title="Euskera" alt="idioma-euskera" /></a></li>
+		        <li class="nav-item mr-2"><a href="inicio?idioma=es_ES" class="${(sessionScope.idioma eq 'es_ES')?'idioma-activo':''}"><img src="https://yeguadalaparrilla.com/Media/yeguadalaparrilla/imagenes/bandera%20Espa%C3%B1a.png" title="Español" alt="idioma-español" /></a></li>
+		        <li class="nav-item"><a href="inicio?idioma=en_EN" class="${(sessionScope.idioma eq 'en_EN')?'idioma-activo':''}"><img src="https://yeguadalaparrilla.com/Media/yeguadalaparrilla/imagenes/Bandera%20Inglaterra.png" title="Inglés" alt="idioma-ingles" /></a></li>
+            </ul>            
           </ul>
           
         </div>
@@ -85,6 +94,12 @@
 
     <!-- Page Content -->
     <div class="container">
+    
+	  <h1>
+	  	<fmt:message key="msg.video.por.visualizar">
+	  		<fmt:param value="12"/>
+	  	</fmt:message>
+	  </h1>
     
       	<c:if test="${empty alert }">
       		${alert = null }
@@ -107,7 +122,7 @@
       <div class="row">
 
         <div class="col-lg-3">        	
-          <h4 class="my-4">Lista Reproduccion</h4>
+          <h4 class="my-4"><fmt:message key="lista.reproduccion"/></h4>
           <ul class="list-group">
           
           	<c:forEach items="${videos }" var="v">
@@ -176,7 +191,7 @@
           <c:if test="${not empty usuario }">
           
             <form action="comentario" method="post" id="form-comentario">
-	            <div class="form-group">
+	            <div class="form-group mt-4">
 					<textarea name="comentario" class="form-control" id="comentario" rows="3" placeholder="Inserta un comentario"></textarea>
 					<button type="submit" class="btn btn-primary">Enviar comentario</button>
 				</div>
@@ -225,10 +240,10 @@
     <!-- /.container -->
 
     <!-- Footer -->
-    <footer class="py-5 bg-dark">
-      <div class="container">
-        <p class="m-0 text-center text-white">Copyright &copy; Your Website 2017</p>
-      </div>
+    <footer class="py-5 bg-dark home-footer">
+        <c:set var="anyo" value="<%=new java.util.Date() %>" />
+        <span class="text-info">Última visita <fmt:formatDate type="date" pattern="dd/MM/yyyy" value="${anyo}" /></span>
+        <span class="text-white">Copyright &copy; Your Website <fmt:formatDate type="date" pattern="yyyy" value="${anyo}" /></span>
       <!-- /.container -->
     </footer>
 

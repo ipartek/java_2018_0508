@@ -7,10 +7,35 @@ img{
 	max-width:100%;
 }
 
+nav li img{
+	width:25px;
+	height:auto;
+}
+
+.youtube-logo{
+	color:#cc181e;
+}
+
+.selector-idiomas li a{
+	opacity:0.5;
+}
+
+.selector-idiomas li a:hover{
+	opacity:1;
+}
+
+.selector-idiomas li a.idioma-activo{
+	opacity:1;
+}
+
 .container{
 	margin:0 auto;
 	max-width:1024px;
 	width:100%;
+}
+
+.container h1:first-of-type{
+	margin-top:1em;
 }
 
 .logeado{
@@ -51,4 +76,9 @@ img{
 .error a:hover{
 	color:#f00;
 	background-color:#fff;
+}
+
+footer.home-footer{
+	display:flex;
+	justify-content:space-around;
 }

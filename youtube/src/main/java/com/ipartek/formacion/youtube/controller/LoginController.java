@@ -1,7 +1,10 @@
 package com.ipartek.formacion.youtube.controller;
 
 import java.io.IOException;
+import java.text.MessageFormat;
 import java.util.ArrayList;
+import java.util.Locale;
+import java.util.ResourceBundle;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -43,10 +46,14 @@ public class LoginController extends HttpServlet {
 		
 		try {
 			
+			//idiomas @see com.ipartek.formacion.youtube.filter.IdiomaFilter
+			String idioma = (String)session.getAttribute("idioma");		
+			Locale locale = new Locale( idioma.split("_")[0] , idioma.split("_")[1] );			
+			ResourceBundle idiomas = ResourceBundle.getBundle("idiomas", locale );
+			
 			//recoger parametros
 			String usuarioNombre = request.getParameter("usuario");
 			String pass = request.getParameter("pass");
-			boolean recordado = request.getParameter("recuerdame") != null;
 			
 			ArrayList<Usuario> usuariosPermitidos = (ArrayList<Usuario>) request.getServletContext().getAttribute("usuariosPermitidos");
 			
@@ -54,26 +61,17 @@ public class LoginController extends HttpServlet {
 			
 			for(Usuario usuarioPermitido : usuariosPermitidos) {
 				if ( usuarioPermitido.getNombre().equals(usuarioNombre) && usuarioPermitido.getPass().equals(pass) )  {
-					Cookie cUsuario = new Cookie("cUsuario", usuarioNombre);
-					if(recordado) {
-						cUsuario.setMaxAge(60*60*24*92);
-						response.addCookie(cUsuario);
-					}else {
-						cUsuario.setMaxAge(0);
-						response.addCookie(cUsuario);
-					}
 					
-				Cookie cookies[] = request.getCookies();
-				
-				alert.setTexto("Bienvenido " + usuarioNombre );
-				alert.setTipo(Alert.PRIMARY);
-				
-				//Guardar usuario en sesión
-				Usuario u = new Usuario(usuarioNombre, pass);
-				
-				session.setAttribute("usuario", u);
-				session.setMaxInactiveInterval(60*5); // 5minutos
-				break;
+					alert.setTexto(MessageFormat.format(idiomas.getString("msg.bienvenida"), usuarioNombre));
+					alert.setTipo(Alert.PRIMARY);
+					
+					//Guardar usuario en sesión
+					Usuario u = new Usuario(usuarioNombre, pass);
+					
+					session.setAttribute("usuario", u);
+					session.setMaxInactiveInterval(60*5); // 5minutos
+					gestionarCookies(request, response, u);
+					break;
 				
 				}else{
 					
@@ -90,6 +88,25 @@ public class LoginController extends HttpServlet {
 			response.sendRedirect(request.getContextPath() + "/inicio" ); 
 		}
 		
+		
+	}
+
+	private void gestionarCookies(HttpServletRequest request, HttpServletResponse response, Usuario u) {
+		
+		String recordar = (String)request.getParameter("recuerdame");
+		Cookie cNombre = new Cookie("cNombre", u.getNombre());
+		
+		if(recordar != null) {
+			
+			cNombre.setMaxAge(60*60*24*30*3); //3 meses
+			
+		}else {
+			
+			cNombre.setMaxAge(0);
+			
+		}
+		
+		response.addCookie(cNombre);
 		
 	}
 
