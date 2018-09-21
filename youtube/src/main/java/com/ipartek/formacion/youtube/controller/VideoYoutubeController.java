@@ -19,6 +19,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.ipartek.formacion.model.VideoArrayListDAO;
+import com.ipartek.formacion.model.VideoDao;
 import com.ipartek.formacion.pojo.Usuario;
 import com.ipartek.formacion.pojo.Video;
 
@@ -31,7 +32,7 @@ public class VideoYoutubeController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
 	public static final String OP_ELIMINAR = "1";
-	private static VideoArrayListDAO dao;
+	private static VideoDao dao;
 	private ArrayList<Video> videos;
 	private Video videoInicio;
 	private ArrayList<Video> listaVideos = new ArrayList<Video>();
@@ -41,7 +42,7 @@ public class VideoYoutubeController extends HttpServlet {
 	public void init(ServletConfig config) throws ServletException {	
 		super.init(config);
 		//Se ejecuta solo con la 1º petición, el resto de peticiones iran a "service"
-		dao = VideoArrayListDAO.getInstance();
+		dao = VideoDao.getInstance();
 	}
 	
 	
