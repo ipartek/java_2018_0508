@@ -30,8 +30,8 @@ public class LogOutController extends HttpServlet {
 	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String usuarioNombre = request.getParameter("usuario");
 		System.out.println("Antes de realizar GET o POST LogoutController");
-		System.out.println(request.getContextPath());
-		System.out.println(request.getSession().getAttribute("recuerdame"));
+		
+
 		/*Cookie recuerdameUsuario = new Cookie("recuerdameUsuario");
 
 		System.out.println(recuerdame);
@@ -40,18 +40,20 @@ public class LogOutController extends HttpServlet {
 		//gestionar cookies ultima visita
 
 		response.addCookie(recuerdame);*/
-		
-		Cookie cocokies[]  = request.getCookies();
+		DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+		Cookie cVisita= new Cookie("cVisita",URLEncoder.encode(dateFormat.format(new Date()), "UTF-8")) ;
+		cVisita.setMaxAge(60*60*24*365);//1 año
+		//gestionar cookies ultima visita
+		response.addCookie(cVisita);
+
 		
 		super.service(request, response);  //llama a los metodos GET o POST
-		System.out.println(request.getParameter("usuarioNombre"));
-		if("on".equals(request.getSession().getAttribute("recuerdame"))) {
-			System.out.println("Tenemos on en recuerdame");
-		}
+		
+		
 				
 		//despues de realizar GET o POST
 
-		request.getRequestDispatcher("home.jsp").forward(request, response);
+		//request.getRequestDispatcher("home.jsp").forward(request, response);
 		
 	}
 	

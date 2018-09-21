@@ -1,10 +1,13 @@
 i {
-	font-size:25px;
+	font-size:15px;
 	color:red;
 	
 }
 body{
 	
+}
+.TextoAlerta{
+	margin-top: 1em;
 }
 #textArea{
 	width: auto;

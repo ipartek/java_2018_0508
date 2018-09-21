@@ -6,7 +6,7 @@ public class Video {
 	
 	private String id;
 	private String nombreCancion;
-	private ArrayList<Comentarios> comentarios = new ArrayList <Comentarios> ();;
+	private ArrayList<Comentarios> comentariosIds = new ArrayList <Comentarios> ();;
 
 	
 	
@@ -49,11 +49,11 @@ public class Video {
 	}
 	
 	public void setComentarios(Comentarios comentario) {
-		this.comentarios.add(comentario);
+		this.comentariosIds.add(comentario);
 	}
 	
 	public ArrayList<Comentarios> getComentarios() {
-		return comentarios;
+		return comentariosIds;
 	}
 	
 

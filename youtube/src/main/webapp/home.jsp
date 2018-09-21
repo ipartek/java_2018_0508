@@ -68,6 +68,7 @@
         </button>
         <% 
      	String fecha = "";
+        String fecha2 = "";
      	Cookie[] cookies = request.getCookies();
      	for( Cookie c : cookies ){
      		if ( "cVisita".equals(c.getName())){
@@ -77,7 +78,9 @@
      	}
      	
      %>
-        <span class="text-warning">Ultima visita <%=fecha %></span><!-- cookie.cVisita.value -->
+     	<c:if test="${not empty usuario}"> 
+        	<span class="text-warning">Ultima visita <%=fecha %></span><!-- cookie.cVisita.value -->
+        </c:if>
         <div class="collapse navbar-collapse" id="navbarResponsive">
           <ul class="navbar-nav ml-auto">
             <li class="nav-item active">
@@ -86,10 +89,28 @@
             <c:if test="${empty usuario}"> 
               
 	              <form action="login" method="post" class="form-inline mt-2 mt-md-0">
-		            <input id="usuario" name="usuario" class="form-control mr-sm-2" type="text" placeholder="Nombre Usuario" required pattern=".{3,30}">
+	              	<%
+		            	String usuarioRecordar="";
+	              		String casillaRecordar="";
+		            	for(Cookie c : cookies ){
+		            		if("on".equals(c.getValue())){
+		            			for( Cookie cNombreUsuario: cookies){
+		            				 if("usuarioRecordar".equals(cNombreUsuario.getName())){
+		            					 out.print(cNombreUsuario.getValue());
+		            					 usuarioRecordar = cNombreUsuario.getValue();
+		            					 casillaRecordar = "checked";
+		            				 }
+		            			}
+		            		}
+		            		
+		            	}
+		            %>
+		            <input id="usuario" name="usuario" class="form-control mr-sm-2" type="text" placeholder="Nombre Usuario" value="<%=usuarioRecordar %>" required pattern=".{3,30}">
+		            
+		            
 		            <input name="pass" class="form-control mr-sm-2" type="password" placeholder="Contraseña" required pattern=".{2,50}">
 		            <span class="text-primary">Recuerdame</span>
-		            <input name="recuerdame" type="checkbox" class="form-check-input" id="exampleCheck1">
+		            <input name="recuerdame" type="checkbox" class="form-check-input" id="exampleCheck1"<%= casillaRecordar %>>
 		            <button class="btn btn-outline-info my-2 my-sm-0" type="submit">Entrar</button>
 		          </form>   
 	          </c:if>            
@@ -103,12 +124,14 @@
 		            <button class="btn btn-outline-info my-2 my-sm-0" type="submit">Añadir</button>
 		           
 		          </form>	  
-	            </li>      
+	            </li>  
+	            <li><i class="fas fa-user" style="color:red; margin-left:5px;"> ${usuario.nombre} </i></li>    
 	            <li>
-	            	 <i class="fas fa-user" style="color:red; margin-left:5px;"> ${usuario.nombre} </i>
+	            	 
 		            <a href="logout">Cerrar Sesion</a>
-		             <a href="backoffice/index.jsp">Backoffice</a>
+		             
 	            </li> 
+	            <li><a href="backoffice/index.jsp">Backoffice</a></li>
             </c:if>   
 
           
@@ -125,7 +148,7 @@
       	<c:if test="${not empty alert}"> 
       		<div class="container">
 				<div class="alert ${alert.tipo} alert-dismissible fade show" role="alert">
-				  <p>${alert.texto}</p>
+				  <p class="TextoAlerta">${alert.texto}</p>
 				  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
 				    <span aria-hidden="true">&times;</span>
 				  </button>
@@ -147,7 +170,6 @@
           		
           	
           	</c:if>
-          	
 	            <c:forEach items="${videos}" var="v">          
 	            <li class="list-group-item d-flex justify-content-between align-items-center">     
 	          	  	<a href="inicio?id=${v.id}">${v.nombreCancion}</a>
@@ -206,16 +228,18 @@
 
      			<div class="card-body">
      				<c:forEach items="${comentarios}" var="c"> 
-	      				<li class="list-group-item d-flex justify-content-between align-items-center">     
-		          	  		<a href="?id=${c.id }">${c.nombreCancion}</a> 	
-		           		 </li>
+     					<c:if test="${c.videoId eq videoInicio.id}">
 		           		 <p>${ c.comentario}</p>
 				              <small class="text-muted">Posted by ${ c.autor} </small>
 				              <hr>
-				            </div> 
-	           		 </c:forEach>
+				              </c:if>
+				    </c:forEach>
+	            </div> 
+	            
+
+         		 
      				
-          </div>
+       		</div>
           <!-- /.card -->
          
         </div>
