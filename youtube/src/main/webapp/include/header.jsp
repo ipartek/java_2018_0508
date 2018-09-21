@@ -1,11 +1,25 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<!-- CLASES PROPIAS -->
+<%@page import="java.util.Arrays"%>
+<%@page import="java.util.ArrayList"%>
+<%@page import="java.net.URLDecoder"%>
+<%@page import="java.util.Locale"%>
+<%@page import="java.util.Properties"%>
 
+<!-- JSTL -->
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+ 
+<c:set var="locale" value="${not empty sessionScope.idioma ? sessionScope.idioma : 'es_ES'}" scope="session" />
+<fmt:setLocale value="${locale}" />
+<fmt:setBundle basename="idiomas" /> 
 
 <!DOCTYPE html>
-<html lang="es">
+<html lang="${locale}">
 
   <head>
-
+  
 	<!-- Comenza todas las URLs desde el href indicado -->
 	<base href="<%=request.getContextPath()%>/">
 	
@@ -14,7 +28,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Youtube Video Play List</title>
+    <title><fmt:message key="lista.repr"/></title>
 
 	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
 	
@@ -30,3 +44,9 @@
   </head>
 
   <body>
+  
+  	<h1>
+		<fmt:message key="msj.num.reproducciones">
+			<fmt:param value="10"/>
+		</fmt:message>
+	</h1>

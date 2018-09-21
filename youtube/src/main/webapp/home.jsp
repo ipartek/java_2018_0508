@@ -13,7 +13,7 @@
     <div class="row">
 
         <div class="col-lg-3">        	
-        	<h4 class="my-4">Lista Reproduccion</h4>
+        	<h4 class="my-4"><fmt:message key="lista.repr"/></h4>
           	<ul class="list-group">
           		<!--  Cargar lista de videos -->
 	          	<c:forEach items="${videos}" var="video">
@@ -27,7 +27,7 @@
             <h4 class="my-4">Videos Reproducidos</h4>
 	        	<ul class="list-group">
 	        	
-	        		<c:if test="${not empty usuario}}">
+	        		<c:if test="${not empty sessionScope.usuario}}">
 		        		<!--  Cargar historial de  reproducidos -->
 			          	<c:forEach items="${reproducidos}" var="video">
 			          		<li class="list-group-item d-flex justify-content-between align-items-center">     
@@ -37,7 +37,7 @@
 			          	</c:forEach>
 	        		</c:if>
 	        	
-		        	<c:if test="${empty usuario}}">
+		        	<c:if test="${empty sessionScope.usuario}}">
 		        		<li class="list-group-item d-flex justify-content-between align-items-center">
 		          			<p>Por favor, accede para guardar tus reproducciones.</p>
 		          		</li>
