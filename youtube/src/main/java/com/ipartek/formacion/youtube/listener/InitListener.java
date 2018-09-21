@@ -25,8 +25,7 @@ public class InitListener implements ServletContextListener {
      */
     public void contextInitialized(ServletContextEvent sce)  { 
 
-    	System.out.println("Se ejecuta al iniciar en Tomcat");
-    	
+    	System.out.println("Se ejecuta al iniciar en Tomcat");    	
     }
 	
 }

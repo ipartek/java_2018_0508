@@ -9,19 +9,9 @@
 				 aria-expanded="false" aria-label="Toggle navigation">
 					<span class="navbar-toggler-icon"></span>
 				</button>
-				<% 
-			     	String fecha = "";
-			     	Cookie[] cookies = request.getCookies();
-			     	for( Cookie c : cookies ){
-			     		if ( "uVisita".equals(c.getName())){
-			     			fecha = URLDecoder.decode( c.getValue(), "UTF-8" );
-			     			break;
-			     		}	
-			     	}
-			     	
-			     %>
-				<small class="text-warning">Ultima visita <%=fecha%></small>
+				
 				<div class="collapse navbar-collapse" id="navbarResponsive">
+
 					<c:if test="${empty usuario}">
 						<!-- Usuario Logueado en session -->
 						<ul class="navbar-nav ml-auto  align-items-center">
@@ -58,6 +48,15 @@
 							</li>
 						</ul>
 					</c:if>
+				
+								
+					<ul class="navbar-nav">
+						<li class="nav-item"><a class="text-pika" href="inicio?idioma=es_Es">es</a></li>
+						<li class="nav-item"><a class="text-pika"  href="inicio?idioma=eu_Es">eu</a></li>
+						<li class="nav-item"><a class="text-pika"  href="inicio?idioma=en_En">en</a></li>
+					</ul>
+				
+				
 				</div>
 			</div>
 		</nav>

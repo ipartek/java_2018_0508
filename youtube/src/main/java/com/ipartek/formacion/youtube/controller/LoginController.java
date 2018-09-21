@@ -44,12 +44,10 @@ public class LoginController extends HttpServlet {
 		HttpSession session = request.getSession();
 		Alert alert = null;
 		try {
-			
-			Locale locale = new Locale("es","ES");
-			ResourceBundle idiomas = ResourceBundle.getBundle("idiomas", locale);
-				
-			System.out.println(idiomas.getString("msj.bienvenida"));
 
+			request.getLocale().toString();
+
+			
 			String nombre = (String) request.getParameter("usuario");
 			String contrasenya = (String) request.getParameter("pass");
 			String cookieNombre = (String) request.getParameter("recordar");
@@ -57,43 +55,17 @@ public class LoginController extends HttpServlet {
 			if (comprobarCredenciales(nombre, contrasenya)) {
 
 				session.setAttribute("usuario", new Usuario(nombre, contrasenya));
-				session.setMaxInactiveInterval(60*5);
+				session.setMaxInactiveInterval(60 * 5);
 
-				Cookie cookies[] = request.getCookies();
-				boolean existe = false;
-				int pos = 0;
+				gestionCookies(request, response, nombre, cookieNombre);
 
-				if ("on".equals(cookieNombre)) {
-					for (int i = 0; i < cookies.length; i++) {
-						if ("nombreRecordado".equals(cookies[i].getName())) {
-							existe = true;
-							pos = i;
-						}
-					}
-					if (existe) {
-						cookies[pos].setValue(nombre);
-					} else {
-						Cookie nombreRecordado = new Cookie("nombreRecordado", nombre);
-						nombreRecordado.setMaxAge(-1);
-						response.addCookie(nombreRecordado);
-					}
-				} else {
-					for (int i = 0; i < cookies.length; i++) {
-						if ("nombreRecordado".equals(cookies[i].getName())) {
-							existe = true;
-							pos = i;
-						}
-					}
-					if (existe) {
-						Cookie nombreRecordado = new Cookie("nombreRecordado", nombre);
-						nombreRecordado.setMaxAge(0);
-						response.addCookie(nombreRecordado);
-					}
-				}
+				/*
+				 * Locale locale = new Locale("en", "EN"); 
+				 * ResourceBundle idiomas = ResourceBundle.getBundle("idiomas", request.getLocale()); 
+				 * alert = new Alert("Bienvenido", Alert.SUCCESS);
+				 * alert.setTexto(MessageFormat.format(idiomas.getString("msj.bienvenida"),nombre));
+				 */
 
-				alert = new Alert("Bienvenido", Alert.SUCCESS);
-				alert.setTexto(MessageFormat.format(idiomas.getString("msj.bienvenida"), nombre));
-				
 			} else {
 				alert = new Alert("Usuario o contraseña incorrectos", Alert.DANGER);
 			}
@@ -125,6 +97,48 @@ public class LoginController extends HttpServlet {
 		}
 
 		return existe;
+	}
+
+	private void gestionCookies(HttpServletRequest request, HttpServletResponse response, String nombre,
+			String cookieNombre) {
+		Cookie cookies[] = request.getCookies();
+		boolean existe = false;
+		int pos = 0;
+
+		if ("on".equals(cookieNombre)) {
+			for (int i = 0; i < cookies.length; i++) {
+				if ("nombreRecordado".equals(cookies[i].getName())) {
+					existe = true;
+					pos = i;
+				}
+			}
+			if (existe) {
+				cookies[pos].setValue(nombre);
+			} else {
+				Cookie nombreRecordado = new Cookie("nombreRecordado", nombre);
+				nombreRecordado.setMaxAge(-1);
+				response.addCookie(nombreRecordado);
+			}
+		} else {
+			for (int i = 0; i < cookies.length; i++) {
+				if ("nombreRecordado".equals(cookies[i].getName())) {
+					existe = true;
+					pos = i;
+				}
+			}
+			if (existe) {
+				Cookie nombreRecordado = new Cookie("nombreRecordado", nombre);
+				nombreRecordado.setMaxAge(0);
+				response.addCookie(nombreRecordado);
+			}
+		}
+
+		gestionDelLocale();
+	}
+
+	private void gestionDelLocale() {
+		// TODO Auto-generated method stub
+
 	}
 
 }

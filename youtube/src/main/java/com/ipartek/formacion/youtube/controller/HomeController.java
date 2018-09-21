@@ -6,6 +6,8 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Locale;
+import java.util.ResourceBundle;
 
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
@@ -61,6 +63,7 @@ public class HomeController extends HttpServlet {
 
 		// Gestion de cookies
 
+		idioma(request, response);
 		DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
 		String fecha = dateFormat.format(new Date());
 		Cookie ultimaVisita = new Cookie("uVisita", URLEncoder.encode(fecha, "UTF-8"));
@@ -71,7 +74,7 @@ public class HomeController extends HttpServlet {
 
 		super.service(request, response); // llama a los metodos GET o POST
 
-		request.setAttribute("fecha",URLEncoder.encode(fecha, "UTF-8"));
+		request.setAttribute("fecha", URLEncoder.encode(fecha, "UTF-8"));
 		// Despues de realizar GET o POST
 		request.setAttribute("videos", videos);
 		request.setAttribute("videoInicio", videoInicio);
@@ -151,6 +154,31 @@ public class HomeController extends HttpServlet {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+
+	private void idioma(HttpServletRequest request, HttpServletResponse response) {
+		HttpSession session = request.getSession();
+		String idioma = request.getParameter("idioma");
+		try {
+
+			if (idioma == null) {
+				idioma = (String) session.getAttribute("idioma");
+			}
+
+			if (idioma == null) {
+				// conseguir idioma del usuario a traves de la request
+				idioma = request.getLocale().toString();
+				if (idioma.length() != 5) {
+					idioma = "es_ES";
+				}
+			}
+		} catch (Exception e) {
+			idioma = "es_ES";
+		} finally {
+			// guardar en session
+			session.setAttribute("idioma", idioma);
+		}
+
 	}
 
 }

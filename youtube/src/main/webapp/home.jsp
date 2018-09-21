@@ -46,10 +46,4 @@
 </main>
 <!-- /.container -->
 
-<!-- Footer -->
-<footer class="bg-pika text-pika p-3">
-	<c:set var="anyo" value="<%= new java.util.Date() %>"/>
-	<p class="text-center">Copyright &copy; Adrian Perozzo <fmt:formatDate type="both" dateStyle="medium" value="${anyo}"/></p>
-</footer>
-
 <%@ include file="includes/footer.jsp" %>

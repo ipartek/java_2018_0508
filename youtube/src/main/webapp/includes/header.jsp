@@ -2,7 +2,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 
-<c:set var="idioma" value="eu_Es" />
+<c:set var="idioma" value="${(not empty sessionScope.idioma)?sessionScope.idioma:'es_ES'}" />
 <fmt:setLocale value="${idioma}" />
 <fmt:setBundle basename="idiomas" /> 
 
@@ -33,5 +33,4 @@
   </head>
 
   <body>
- 
- <h1><fmt:message key="msj.video.por.visualizar"><fmt:param value="10"/></fmt:message></h1>
+ <!--  <h1><fmt:message key="msj.video.por.visualizar"><fmt:param value=""/></fmt:message></h1> -->
