@@ -45,9 +45,8 @@ public class LoginController extends HttpServlet {
 		
 		try {
 			
-			//idiomas
-			String idioma = (session.getAttribute("idioma")!=null)?(String)session.getAttribute("idioma"):"es_ES";			
-			//Locale locale = new Locale("en", "EN");
+			//idiomas @see com.ipartek.formacion.youtube.filter.IdiomaFilter
+			String idioma = (String)session.getAttribute("idioma");			
 			Locale locale = new Locale( idioma.split("_")[0] , idioma.split("_")[1] );			
 			ResourceBundle idiomas = ResourceBundle.getBundle("idiomas", locale );
 						

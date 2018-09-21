@@ -61,35 +61,11 @@ public class HomeController extends HttpServlet {
 		System.out.println("Antes de realizar GET o POST");
 		
 		
-		//idiomas
+		//idiomas @see com.ipartek.formacion.youtube.filter.IdiomaFilter
 		HttpSession session = request.getSession();
-		String idioma = request.getParameter("idioma");
-				
-		try {
-			
-			if ( idioma == null ) {				
-				idioma = (String)session.getAttribute("idioma");
-			}
-			
-			if ( idioma == null) {
-				//conseguir idioma del usuario a traves de la request
-				idioma = request.getLocale().toString();			
-				if ( idioma.length() != 5 ) {
-					idioma = "es_ES";		
-				}	
-			}
-		}catch (Exception e) {
-			idioma = "es_ES";
-		}finally {
-			//guardar en session
-			session.setAttribute("idioma", idioma);		
-		}	
-		//Locale locale = new Locale("en", "EN");
+		String idioma = (String)session.getAttribute("idioma");		
 		Locale locale = new Locale( idioma.split("_")[0] , idioma.split("_")[1] );			
 		ResourceBundle idiomas = ResourceBundle.getBundle("idiomas", locale );
-		
-		
-		
 		
 		
 		super.service(request, response);  //llama a los metodos GET o POST
