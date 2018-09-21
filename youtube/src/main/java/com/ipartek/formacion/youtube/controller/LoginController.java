@@ -3,6 +3,7 @@ package com.ipartek.formacion.youtube.controller;
 import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -59,6 +60,8 @@ public class LoginController extends HttpServlet {
 				session.setMaxInactiveInterval(60*5); // 5min
 				
 				
+				gestionarCookies(request, response, u);
+				
 			}else{
 				
 				alert.setTexto("Credenciales incorrectas" );
@@ -72,6 +75,24 @@ public class LoginController extends HttpServlet {
 			//request.getRequestDispatcher("home.jsp").forward(request, response);
 			response.sendRedirect(request.getContextPath() + "/inicio" ); 
 		}
+		
+		
+	}
+
+	private void gestionarCookies(HttpServletRequest request, HttpServletResponse response, Usuario u) {
+		
+		String recordar = (String)request.getParameter("recuerdame");
+		Cookie cNombre = new Cookie("cNombre", u.getNombre());
+				
+		if ( recordar != null) {
+			
+			cNombre.setMaxAge(60*60*24*30*3); // 3meses
+			
+		}else {
+			cNombre.setMaxAge(0); // No guardar
+		}
+		
+		response.addCookie(cNombre);
 		
 		
 	}

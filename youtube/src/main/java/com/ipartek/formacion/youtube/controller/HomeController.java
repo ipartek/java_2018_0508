@@ -58,17 +58,6 @@ public class HomeController extends HttpServlet {
 	
 		System.out.println("Antes de realizar GET o POST");
 		
-		//gestionar cookies ultima visita
-		DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");		
-		Cookie cVisita = new Cookie("cVisita", URLEncoder.encode( dateFormat.format(new Date()),"UTF-8") );
-		cVisita.setMaxAge(60*60*24*365); //1año
-		response.addCookie(cVisita);
-		
-		//recuperar todas las cookies
-		Cookie cocokies[] = request.getCookies();
-		
-		
-		
 		super.service(request, response);  //llama a los metodos GET o POST
 				
 		//despues de realizar GET o POST
