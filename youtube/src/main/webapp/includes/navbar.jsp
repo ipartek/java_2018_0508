@@ -27,18 +27,21 @@
 						<ul class="navbar-nav ml-auto  align-items-center">
 							<li class="nav-item active">
 								<!-- Formulario de login -->
-								<form action="login" method="post" class="form-inline mt-2 mt-md-0">
-									<c:if test="${not empty cookie.nombreRecordado}">
-										<input name="usuario" class="form-control mr-2" type="text" placeholder="Nombre de usuario" required pattern=".{3,30}" value="${cookie.nombreRecordado.value}">
-									</c:if>
-									<c:if test="${empty cookie.nombreRecordado}">
-										<input name="usuario" class="form-control mr-2" type="text" placeholder="Nombre de usuario" required pattern=".{3,30}">
-									</c:if>
-									<input name="pass" class="form-control mr-2" type="password" placeholder="Contraseña" required pattern=".{2,50}">
-									<button class="btn btn-outline-info btn-outline-pika mr-2" type="submit">Entrar</button>
+								<form id="login" action="login" method="post" class="form-inline mt-2 mt-md-0">
 									<div class="form-group">
+										<c:if test="${not empty cookie.nombreRecordado}">
+											<input autofocus name="usuario" class="form-control mr-2" type="text" placeholder="Nombre de usuario" required pattern=".{3,30}" value="${cookie.nombreRecordado.value}">
+										</c:if>
+										<c:if test="${empty cookie.nombreRecordado}">
+											<input autofocus name="usuario" class="form-control mr-2" type="text" placeholder="Nombre de usuario" required pattern=".{3,30}">
+										</c:if>
+										<br>
 										<input type="checkbox" name="recordar" checked><small>Recuerdame</small>
 									</div>
+									<div class="form-group">
+										<input name="pass" class="form-control mr-2" type="password" placeholder="Contraseña" required pattern=".{2,50}">
+									</div>
+									<button class="btn btn-outline-info btn-outline-pika mr-2" type="submit">Entrar</button>
 								</form>
 							</li>
 						</ul>

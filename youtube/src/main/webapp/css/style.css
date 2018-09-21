@@ -8,7 +8,10 @@
 }
 
 .bg-pika{
-	background-color: #E65CFC;
+	background-color: #5C72FC;
+}
+.bg-pika-red{
+	background-color: #FC5C72;
 }
 .text-pika{
 	color: 	#72FC5C;
@@ -21,4 +24,7 @@
     color: #000;
     background-color: #72FC5C;
     border-color: #72FC5C;
+}
+.list-group-item:hover{
+	background-color: #C6FDBD;
 }

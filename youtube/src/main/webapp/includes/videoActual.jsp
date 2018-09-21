@@ -23,14 +23,14 @@
 	</div>
 	<!-- Fin Video -->
 	<!-- Inicio Comentarios -->
-	<div class="card card-outline-secondary m-2">
-		<div class="card-header bg-primary">
+	<div class="card m-2">
+		<div class="card-header bg-pika-red">
 			<div class="row align-items-center">
 				<div class="col-6">
 					<h2>Comentarios</h2>
 				</div>
 				<div class="col-6 text-right">
-					<a href="#form-comentario" class="btn btn-outline-dark">Escribe un comentario</a>
+					<a href=${(not empty usuario)?"#form-comentario":"#login"} class="btn btn-outline-dark btn-outline-pika">Escribe un comentario</a>
 				</div>
 			</div>
 		</div>
