@@ -16,6 +16,13 @@
 .text-pika{
 	color: 	#72FC5C;
 }
+.text-pika-red{
+	color: 	#FC5C72;
+}
+a.text-pika:hover{
+	color: 	#72FC5C !important;
+	opacity: .5;
+}
 .btn-outline-pika {
     color: #72FC5C;
     border-color: #72FC5C;
