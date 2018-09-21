@@ -1,9 +1,5 @@
 <!-- Navigation -->
- <%@page import="java.util.Date"%>
-<%@page import="java.text.SimpleDateFormat"%>
-<%@page import="java.text.DateFormat"%>
-<%@page import="java.net.URLDecoder"%>
-<%@page import="java.net.URLEncoder"%>
+
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
    <div class="container">
      <a class="navbar-brand" href="#">Youtube PlayList</a>
@@ -11,26 +7,7 @@
        <span class="navbar-toggler-icon"></span>
      </button>
      
-     <% 
-     	String fecha = "";
-     	Cookie[] cookies = request.getCookies();
-     	for( Cookie c : cookies ){
-     		if ( "cVisita".equals(c.getName())){
-     			//ultima visita
-     			fecha = URLDecoder.decode( c.getValue(), "UTF-8" );
-     			
-     			//guardar visita actual
-     			DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");		
-     			Cookie cVisita = new Cookie("cVisita", URLEncoder.encode( dateFormat.format(new Date()),"UTF-8") );
-     			cVisita.setMaxAge(60*60*24*365); //1año
-     			response.addCookie(cVisita);
-     			
-     			break;
-     		}	
-     	}     	
-     %>
-     <span class="text-warning">Ultima visita <%=fecha%></span>
-     	
+    
      
      <div class="collapse navbar-collapse" id="navbarResponsive">
        <ul class="navbar-nav ml-auto">
