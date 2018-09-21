@@ -1,7 +1,5 @@
 package com.ipartek.formacion.youtube.pojo;
 
-
-
 public class Alert {
 	
 	public static final String PRIMARY = "alert-primary";

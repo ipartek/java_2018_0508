@@ -2,6 +2,8 @@ package com.ipartek.formacion.youtube.controller;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Locale;
+import java.util.ResourceBundle;
 
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
@@ -12,6 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.ipartek.formacion.youtube.model.VideoArrayListDAO;
+import com.ipartek.formacion.youtube.model.VideoDAO;
 import com.ipartek.formacion.youtube.pojo.Usuario;
 import com.ipartek.formacion.youtube.pojo.Video;
 
@@ -24,44 +27,67 @@ public class HomeController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	public static final String OP_ELIMINAR = "1";
-	private static VideoArrayListDAO dao;
+	private static VideoDAO dao;
 	private ArrayList<Video> videos;
 	private Video videoInicio;
 
 	@Override
 	public void init(ServletConfig config) throws ServletException {
 		super.init(config);
-		// Se ejecuta solo con la primera peticion, el resto de peticiones iran a
-		// service.
-		dao = VideoArrayListDAO.getInstance();
-		
-
+		// Se ejecuta solo con la 1º petición, el resto de peticiones iran a "service"
+		dao = VideoDAO.getInstance();
 	}
 
 	@Override
 	public void destroy() {
 		super.destroy();
-
-		// Se ejcuta cuando se para el servidor
+		// se ejecuta al parar el servidor
 		dao = null;
 	}
 
 	/**
 	 * Cada request se ejecuta en un hilo o thread
 	 */
-
 	@Override
 	protected void service(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		// Se ejecutaran antes del GET y POST
-		
 
-		super.service(request, response);// Llama al GET o POST
+		System.out.println("Antes de realizar GET o POST");
+
+		// idiomas
+		HttpSession session = request.getSession();
+		String idioma = request.getParameter("idioma");
+
+		try {
+
+			if (idioma == null) {
+				idioma = (String) session.getAttribute("idioma");
+			}
+
+			if (idioma == null) {
+				// conseguir idioma del usuario a traves de la request
+				idioma = request.getLocale().toString();
+				if (idioma.length() != 5) {
+					idioma = "es_ES";
+				}
+			}
+		} catch (Exception e) {
+			idioma = "es_ES";
+		} finally {
+			// guardar en session
+			session.setAttribute("idioma", idioma);
+		}
+		// Locale locale = new Locale("en", "EN");
+		Locale locale = new Locale(idioma.split("_")[0], idioma.split("_")[1]);
+		ResourceBundle idiomas = ResourceBundle.getBundle("idiomas", locale);
+
+		super.service(request, response); // llama a los metodos GET o POST
 
 		// despues de realizar GET o POST
 		request.setAttribute("videos", videos);
 		request.setAttribute("videoInicio", videoInicio);
 		request.getRequestDispatcher("home.jsp").forward(request, response);
+
 	}
 
 	/**
@@ -90,17 +116,18 @@ public class HomeController extends HttpServlet {
 			if (id != null && !OP_ELIMINAR.equals(op)) {
 				videoInicio = dao.getById(id);
 
-				// guardar video reproducido si esta usuario en sesion
-				HttpSession sesion = request.getSession();
-				Usuario usuario = (Usuario) sesion.getAttribute("usuario");
-				if (usuario != null) {
-					ArrayList<Video> videosUsuario =(ArrayList<Video>)sesion.getAttribute("reproducidos");
-					if (videosUsuario==null) {
-						videosUsuario= new ArrayList<Video>();
-						
-					} 
-					videosUsuario.add(videoInicio);
-					sesion.setAttribute("reproducidos", videosUsuario);
+				// guardar video reproducido si esta usuario en session
+				HttpSession session = request.getSession();
+				Usuario usuario = (Usuario) session.getAttribute("usuario");
+				if (usuario != null) { // Logeado
+
+					ArrayList<Video> reproducidos = (ArrayList<Video>) session.getAttribute("reproducidos");
+					if (reproducidos == null) {
+						reproducidos = new ArrayList<Video>();
+					}
+					reproducidos.add(videoInicio);
+					session.setAttribute("reproducidos", reproducidos);
+
 				}
 
 			} else if (!videos.isEmpty()) {

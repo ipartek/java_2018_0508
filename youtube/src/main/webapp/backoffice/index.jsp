@@ -1,47 +1,36 @@
 <%@page import="java.util.Iterator"%>
 <%@page import="java.util.HashMap"%>
 <%@page import="com.ipartek.formacion.youtube.pojo.Usuario"%>
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
-<!DOCTYPE html>
-<html>
-	<head>
-	<meta charset="ISO-8859-1">
-	<title>Insert title here</title>
-	</head>
-	<body>
-	
-		<%
-		Usuario u = (Usuario)session.getAttribute("usuario");
-		if(u==null){
-			%>
-			<p style="color:red">Usuario nulo, se ha saltado el login!!!</p>
-			<%
-			
-		}else{
-			%>
-			<p style="color:black">Usuario: <%=u.getNombre() %></p>
-			<%
-		}
-			%>
-		
-		<p>ESTAMOS EN EL BACKOFFICE</p>
-		<p>solo usuarios registrados pueden acceder aqui</p>
-		<img alt="" src="https://abelvalverde.files.wordpress.com/2015/04/unknown-11.jpeg">
-		
-		<h2>LISTADO DE USUARIOS CONECTADOS</h2>
-		<%
-	HashMap<String, Usuario> usuariosConectados = (HashMap<String, Usuario>)application.getAttribute("uConectados");
-		for(HashMap.Entry<String,Usuario> uConectado:usuariosConectados.entrySet()){
-			
-			
-		
-		%>
-			<li><%=uConectado.getValue().getNombre()%></li>
-		
-		<%
-		
+
+<h1>ESTAMOS EN EL BACKOFFICE </h1>
+*Solo pueden entrar usuarios logeados <br>
+
+
+
+
+<% 
+	Usuario u = (Usuario)session.getAttribute("usuario");
+	if ( u == null ){		
+		out.print("<p style=\"color:red\">Usuario nulo, se ha saltado el login!!!</p>");		
+	}else{		
+		out.print("Usuario: " + u.getNombre() + "<br>");
 	}
 %>
-	</body>
-</html>
+
+<img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQufLDB7IpkmblOHc1JCmAQ68EWpaOm4Pn0COA5oanwu55yNiTAtQ" alt="imagen backoffice">
+
+<h2>Listado Usuarios Conectados</h2>
+<ol>
+<%
+	
+    HashMap<String, Usuario> usuariosConectados = (HashMap<String, Usuario>)application.getAttribute("uConectados");
+	for( HashMap.Entry<String,Usuario> uConectado : usuariosConectados.entrySet() ){
+		
+	    %>
+	    	<li><%=uConectado.getValue().getNombre()%></li>
+	    <%
+	
+	}
+%>
+</ol>
+

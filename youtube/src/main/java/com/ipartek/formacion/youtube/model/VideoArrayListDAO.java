@@ -1,7 +1,5 @@
 package com.ipartek.formacion.youtube.model;
 
-
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -76,6 +74,5 @@ public class VideoArrayListDAO implements CrudAble<Video> {
 		}	
 		return resul;
 	}
-
 
 }

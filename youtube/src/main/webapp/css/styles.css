@@ -1,70 +1,28 @@
-i.fas.fa-user {
-	color: white;
-	margin-right: 20px;
+i{
+	color: #FFF;
+}
+#idioma li a{
+	color:#FFF;
+	margin-right:5px;	
 }
 
-li.nav-user {
-	margin-right: 20px;
-	vertical-align: center;
+#idioma li a:hover{
+	color:#ffc107;
+	text-decoration: none;	
 }
 
-header{
-	
-	text-align: center;
-	background-color: white;
+img.logo{
+	max-width: 40px;
+	padding:auto;
+	margin-right:5px;
 }
 
-
-header img{
-	background-color: white;
-	color: white;
-	font-size:20px;
-	text-align: center;
-	padding: 5%;
-	
-}
-h1{
-	text-align: center;
-	font-size: 70px;
+input.recuerdame{
+	margin-right:7px;
 }
 
-h3{
-	
-	text-align: center;
-	font-size: 30px;
+label.text-warning{
+	margin-right: 7px;
+	padding: auto;
 }
 
-.btn-dark:not(:disabled):not(.disabled).active, .btn-dark:not(:disabled):not(.disabled):active, .show>.btn-dark.dropdown-toggle {
-    color: #fff;
-    background-color: #FF0000;
-}
-
-.btn.btn-dark.btn-lg:hover{
-		 background-color: #000000;
-	
-}
-	
-footer{
-	
-	background-color: #FF0000;
-	position: absolute;
-    padding: 30px;
-    width: 100%;
-    bottom: 0px;
-}
-
-.container a{
-	display: block;
-    margin: auto;
-      max-width: 30%;
-      margin-top: 10px;
-}
-
-.container{
-	    background-color: darkgray;
-	    border-radius:5px;
-	    padding-bottom: 50px;
-	    margin-bottom: 50px;
-	    max-width: 75%;
-	
-}

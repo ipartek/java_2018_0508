@@ -1,11 +1,7 @@
 package com.ipartek.formacion.youtube.filter;
 
 import java.io.IOException;
-import java.util.Arrays;
 import java.util.Enumeration;
-import java.util.Iterator;
-import java.util.Map;
-import java.util.Map.Entry;
 
 import javax.servlet.DispatcherType;
 import javax.servlet.Filter;
@@ -22,88 +18,102 @@ import javax.servlet.http.HttpSession;
 import com.ipartek.formacion.youtube.pojo.Usuario;
 
 /**
- * Servlet Filter implementation class FilterBackoffice
+ *  Filtramos todas las REQUEST que coincidan con urlPatterns = { "/backoffice/*" }  <br>
+ *  Comprobamos que el usuario haya pasado por el login para dejarle continuar.<br>
+ *  Si el usuario no se ha logeado => redirect "/inicio"
+ *  
  */
-@WebFilter(dispatcherTypes = {DispatcherType.REQUEST }
-					, description = "Comprobar que el usuario que accede al backoffice esta logeado o no", urlPatterns = { "/backoffice/*" })
+@WebFilter(dispatcherTypes = {DispatcherType.REQUEST } 
+					, urlPatterns = { "/backoffice/*" })
 public class FilterBackoffice implements Filter {
 
+   
 
 	/**
 	 * @see Filter#destroy()
 	 */
 	public void destroy() {
-		// Se ejecuta al destruir el filtro (normalmente cuando se para la applicacion)
+		System.out.println("se ejecuta al destruir el filtro");
 	}
 
 	/**
 	 * @see Filter#doFilter(ServletRequest, ServletResponse, FilterChain)
 	 */
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
-		// Se ejecuta cuando coincide el urlpattern
-		// place your code here
 		
-		HttpServletRequest req= (HttpServletRequest)request;
-		HttpServletResponse res=(HttpServletResponse)response;
-		try {
+		HttpServletRequest req = (HttpServletRequest)request;
+		HttpServletResponse res = (HttpServletResponse) response;
+		
+		try {			
+			HttpSession session = req.getSession();
+			Usuario usuario = (Usuario) session.getAttribute("usuario");
 			
-			HttpSession sesion = req.getSession();
-			Usuario usuario=(Usuario)sesion.getAttribute("usuario");
-			
-			if (usuario!=null) {
+			if ( usuario != null ) {
 				// pass the request along the filter chain
 				chain.doFilter(request, response);
-			} else {
-				res.sendRedirect(req.getContextPath()+"/inicio");
+			}else {
+				
 				informacionCliente(req);
-			}
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
+				
+				//usuario no logeado
+				res.sendRedirect( req.getContextPath() + "/inicio");
+			}	
+		}catch (Exception e) {
 			e.printStackTrace();
-		}
-		
-		
-
-		
+			res.sendRedirect( req.getContextPath() + "/inicio");
+		}	
 	}
+
+	
 
 	/**
 	 * @see Filter#init(FilterConfig)
 	 */
 	public void init(FilterConfig fConfig) throws ServletException {
-		//Se ejecuta al iniciar la app
+		System.out.println("se ejecuta al inciar la App Web");
 	}
 
+	
 	/**
-	 * Mostramos informacion sobre la request del cliente
-	 * 
+	 * Mostramos informacion sobre la Request del cliente
 	 * 
 	 * @param req
 	 */
-	
-	public void informacionCliente(HttpServletRequest req) {
+	private void informacionCliente(HttpServletRequest req) {
 		
+		System.out.println("----------------------------------------");
 		
-		System.out.println("**********************************");
-		System.out.println("Remote address"+req.getRemoteAddr());
-		System.out.println("Remote Host"+req.getRemoteHost());
-		System.out.println("Remote Port"+req.getRemotePort());
-		System.out.println("Remote User"+req.getRemoteUser());
+				
+		System.out.println("RemoteHost: " + req.getRemoteHost() );
+		System.out.println("RemoteAddr: " + req.getRemoteAddr() );
+		System.out.println("RemotePort: " + req.getRemotePort() );
+		System.out.println("RemoteUser: " + req.getRemoteUser() );
 		
-		System.out.println("Cabeceras: ");
-		Enumeration nombresCabeceras= req.getHeaderNames();
+		System.out.println("");
+		System.out.println("CABECERAS:");
+		Enumeration<String> nombresCabeceras = req.getHeaderNames();
 		String metadato;
-		while (nombresCabeceras.hasMoreElements()) {
-			metadato = (String) nombresCabeceras.nextElement();
-			System.out.println(metadato+ " : "+req.getHeader(metadato));
+		while ( nombresCabeceras.hasMoreElements() ) {
+			metadato = (String)nombresCabeceras.nextElement();
+			System.out.println("    " + metadato + ": " + req.getHeader(metadato));
 		}
 		
-		System.out.println("Parametros: ");
-		Map<String, String[]> parametros=req.getParameterMap();
-		for (Entry<String, String[]> entry : parametros.entrySet()) {
-		    System.out.println("Key = " + entry.getKey() + ", Value = " + (Arrays.toString(entry.getValue())));
+		System.out.println("");
+		System.out.println("PARAMETROS:");
+		Enumeration<String> parameterNames = req.getParameterNames();
+		while (parameterNames.hasMoreElements()) {
+			String paramName = parameterNames.nextElement();
+			String[] paramValues = req.getParameterValues(paramName);
+			for (int i = 0; i < paramValues.length; i++) {
+				String paramValue = paramValues[i];
+				System.out.println("    " + paramName + ": " + paramValue);
+			}
+
 		}
+		
+		
+			
+		System.out.println("----------------------------------------");
 	}
 	
-
 }
