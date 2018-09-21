@@ -6,6 +6,8 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Locale;
+import java.util.ResourceBundle;
 
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
@@ -17,6 +19,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.ipartek.formacion.youtube.model.VideoArrayListDAO;
+import com.ipartek.formacion.youtube.model.VideoDAO;
 import com.ipartek.formacion.youtube.pojo.Usuario;
 import com.ipartek.formacion.youtube.pojo.Video;
 
@@ -29,7 +32,7 @@ public class HomeController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
 	public static final String OP_ELIMINAR = "1";
-	private static VideoArrayListDAO dao;
+	private static VideoDAO dao;
 	private ArrayList<Video> videos;	
 	private Video videoInicio;
 
@@ -38,7 +41,7 @@ public class HomeController extends HttpServlet {
 	public void init(ServletConfig config) throws ServletException {	
 		super.init(config);
 		//Se ejecuta solo con la 1º petición, el resto de peticiones iran a "service"
-		dao = VideoArrayListDAO.getInstance();
+		dao = VideoDAO.getInstance();
 	}
 	
 	
@@ -57,6 +60,32 @@ public class HomeController extends HttpServlet {
 	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 	
 		System.out.println("Antes de realizar GET o POST");
+		
+		//idiomas
+		HttpSession session = request.getSession();
+		String idioma = request.getParameter("idioma");	
+		try {
+			if(idioma == null) {
+				idioma = (String)session.getAttribute("idioma");
+			}
+			
+			if(idioma == null){
+				//conseguir idiomar del usuario a traves de la request
+				idioma = request.getLocale().toString();
+				if(idioma.length() != 5) {
+					idioma = "es_ES";
+				}
+			}
+		}catch(Exception e) {
+			idioma = "es_ES";
+		}finally {
+			//guarda en session
+			session.setAttribute("idioma", idioma);
+		}
+		
+		//Locale locale = new Locale("en", "EN");
+		Locale locale = new Locale(idioma.split("_")[0], idioma.split("_")[1]);
+		ResourceBundle idiomas = ResourceBundle.getBundle("idiomas", locale );
 		
 		super.service(request, response);  //llama a los metodos GET o POST
 				

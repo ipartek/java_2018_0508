@@ -4,10 +4,15 @@
     <!-- Page Content -->
     <div class="container">
     <%@include file="includes/alerts.jsp" %>
+    <h1 class="mt-4">
+	<fmt:message key="msj.video.por.visualizar">
+		<fmt:param value="785"/>
+	</fmt:message>
+	</h1>
       <div class="row">
 
         <div class="col-lg-3">        	
-          <h4 class="my-4">Lista Reproduccion</h4>
+          <h4 class="my-4"><fmt:message key="lista.reproduccion"/></h4>
           <ul class="list-group">
           		<c:forEach items="${videos}" var="v">
 	            <li class="list-group-item d-flex justify-content-between align-items-center">     
