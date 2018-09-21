@@ -1,11 +1,17 @@
 package com.ipartek.formacion.youtube.controller;
 
 import java.io.IOException;
+import java.net.URLEncoder;
+import java.text.MessageFormat;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.Locale;
+import java.util.ResourceBundle;
 
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -61,6 +67,20 @@ public class LoginController extends HttpServlet {
 		
 		
 		try {
+			//Locale por defecto Español
+			//Va con 2 parametros en vez de eu_ES
+			//Al hacer login solo puede tener el idioma que saquemos del request.getLocale
+			Locale localeTest = request.getLocale();			
+			System.out.println(localeTest.toString());
+			String localeTestString = localeTest.toString();
+			String[] parts = localeTestString.split("_");
+			System.out.println(localeTestString);
+			Locale locale = new Locale(parts[0],parts[1]);
+			
+			ResourceBundle idiomas = ResourceBundle.getBundle("idiomas", locale );
+			System.out.println(idiomas.getString("msj.bienvenido"));
+			
+			
 			
 			//recoger parametros
 			String usuarioNombre = request.getParameter("usuario");
@@ -86,7 +106,8 @@ public class LoginController extends HttpServlet {
 				
 			}*/
 			if(accessSignal) {
-				alert.setTexto("BienVenido " + usuarioNombre );
+				/*alert.setTexto("msj.bienvenido " + usuarioNombre );*/
+				alert.setTexto(  MessageFormat.format(idiomas.getString("msj.bienvenido"), usuarioNombre) );
 				alert.setTipo(Alerts.SUCESS);
 				
 				//guardar Usuario en session

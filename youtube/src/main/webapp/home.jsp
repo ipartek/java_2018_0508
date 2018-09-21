@@ -13,6 +13,21 @@
 <%@page import="java.util.ArrayList"%>
 
 
+<%-- <c:set var="idioma" value="${not empty sessionScope.idoma)?sessionScope }"/> --%>
+<%
+String idioma = "";
+	Cookie[] cookiesTest = request.getCookies();
+	for( Cookie c : cookiesTest ){
+		if ( "cookieIdioma".equals(c.getName())){
+			idioma = c.getValue();
+			break;
+		}	
+	}
+%>
+<fmt:setLocale value="<%=idioma %>" />
+<fmt:setBundle basename="idiomas" /> 
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -48,17 +63,8 @@
   </head>
 
   <body>
-	<!-- Ejemplo Etiquetas jsp   -->
-	<%-- <%
-		Usuario bean = new Usuario();
-		bean.setNombre("test");
-		out.print("<p>"+ bean.getNombre() +"</p>");
-	%>
-	
-	<jsp:useBean  id="bean2" scope="page" class="com.ipartek.formacion.pojo.Usuario"></jsp:useBean>
-	<jsp:setProperty property="nombre" name="bean2" value="Marianiko el short"/>
-	<jsp:getProperty property="nombre" name="bean2"/> --%>
 
+	
     <!-- Navigation -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
       <div class="container">
@@ -68,7 +74,6 @@
         </button>
         <% 
      	String fecha = "";
-        String fecha2 = "";
      	Cookie[] cookies = request.getCookies();
      	for( Cookie c : cookies ){
      		if ( "cVisita".equals(c.getName())){
@@ -78,9 +83,10 @@
      	}
      	
      %>
-     	<c:if test="${not empty usuario}"> 
+
+<%--      	<c:if test="${not empty usuario}"> 
         	<span class="text-warning">Ultima visita <%=fecha %></span><!-- cookie.cVisita.value -->
-        </c:if>
+        </c:if> --%>
         <div class="collapse navbar-collapse" id="navbarResponsive">
           <ul class="navbar-nav ml-auto">
             <li class="nav-item active">
@@ -126,6 +132,12 @@
 		          </form>	  
 	            </li>  
 	            <li><i class="fas fa-user" style="color:red; margin-left:5px;"> ${usuario.nombre} </i></li>    
+	            <ul>
+	            	<!-- inicio?id=${v.id}&op=${VideoYoutubeController.OP_ELIMINAR} -->
+	            	<li><a name="idioma" href="inicio?idioma=eu_ES">EUS</a></li>
+            		<li><a name="idioma" href="inicio?idioma=en_EN">ENG</a></li>
+            		<li><a name="idioma" href="inicio?idioma=es_ES">ESP</a></li>
+	            </ul>
 	            <li>
 	            	 
 		            <a href="logout">Cerrar Sesion</a>
@@ -155,7 +167,11 @@
 				</div>
 			</div>
 		</c:if>  
-
+	<h1>
+		<fmt:message key="msj.video.por.visualizar">
+			<fmt:param value="785"/>
+		</fmt:message>
+	</h1>
           <div class="row">
 
         <div class="col-lg-3">        	
@@ -251,7 +267,15 @@
     <!-- Footer -->
     <footer class="py-5 bg-dark">
       <div class="container">
-        <p class="m-0 text-center text-white"></p><!-- Copyright &copy; Your Website 2017 -->
+      <c:if test="${not empty usuario}"> 
+        	<span class="text-warning">Ultima visita <%=fecha %></span><!-- cookie.cVisita.value -->
+        </c:if>
+        <!--@see -> https://docs.oracle.com/javase/7/docs/api/java/text/SimpleDateFormat.html -->
+        <!-- TODO practicar con fechas -->
+        <%-- <c:set var="anyo" value="<%=new java.util.Date() %>"
+        <p class="m-0 text-center text-white">Copyright &copy; Your Website <fmt:formatDate type = "both" 
+         dateStyle = "medium" timeStyle = "medium" value = "${anyo}" /></p><!-- Copyright &copy; Your Website 2017 -->
+         </c:set> --%>
       </div>
       <!-- /.container -->
     </footer>

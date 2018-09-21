@@ -6,6 +6,8 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Locale;
+import java.util.ResourceBundle;
 
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
@@ -67,6 +69,18 @@ public class VideoYoutubeController extends HttpServlet {
 		Cookie recuerdame = new Cookie("recuerdame",(String) request.getSession().getAttribute("recuerdame"));
 		
 		
+		
+		//comprobamos si se ha elegido un idoma desde el selector
+		String idioma = request.getParameter("idioma");
+		System.out.println(idioma);
+		if(idioma != null) {
+			Cookie cookieIdioma = new Cookie("cookieIdioma",idioma);
+			String[] parts = idioma.split("_");
+			Locale locale = new Locale(parts[0],parts[1]);
+			ResourceBundle idiomas = ResourceBundle.getBundle("idiomas", locale );
+			response.addCookie(cookieIdioma);
+		}
+		
 		//guardo historial
 		HttpSession session = request.getSession();
 		Usuario u = (Usuario) session.getAttribute("usuario");
@@ -117,6 +131,8 @@ public class VideoYoutubeController extends HttpServlet {
 			String id = request.getParameter("id");
 			String op = request.getParameter("op");
 			
+			
+			
 			//eliminar ?			
 			if ( op != null && OP_ELIMINAR.equals(op) ) {
 				dao.delete(id);
@@ -150,6 +166,9 @@ public class VideoYoutubeController extends HttpServlet {
 				videoInicio = videos.get(0);
 			}
 			
+			
+			
+			
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -169,6 +188,7 @@ public class VideoYoutubeController extends HttpServlet {
 			//recoger parametros
 			String id = request.getParameter("id");
 			String nombre = request.getParameter("nombre");
+			
 			System.out.println(nombre);
 			
 			//insertar
@@ -189,7 +209,7 @@ public class VideoYoutubeController extends HttpServlet {
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
-			
+
 		}
 	}
 
