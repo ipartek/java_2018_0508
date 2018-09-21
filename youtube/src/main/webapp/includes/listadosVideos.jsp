@@ -2,7 +2,7 @@
 
 <div class="col-lg-4">
 	<section>
-		<h1 class="text-pika">Lista Reproduccion</h1>
+	  	<h1 class="text-pika"><fmt:message key="lista.reproduccion"/></h1>
 		<ul class="list-group">
 			<c:if test="${not empty videos}">
 				<c:forEach items="${videos}" var="v">

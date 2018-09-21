@@ -1,7 +1,10 @@
 package com.ipartek.formacion.youtube.controller;
 
 import java.io.IOException;
+import java.text.MessageFormat;
 import java.util.HashMap;
+import java.util.Locale;
+import java.util.ResourceBundle;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -41,6 +44,11 @@ public class LoginController extends HttpServlet {
 		HttpSession session = request.getSession();
 		Alert alert = null;
 		try {
+			
+			Locale locale = new Locale("es","ES");
+			ResourceBundle idiomas = ResourceBundle.getBundle("idiomas", locale);
+				
+			System.out.println(idiomas.getString("msj.bienvenida"));
 
 			String nombre = (String) request.getParameter("usuario");
 			String contrasenya = (String) request.getParameter("pass");
@@ -83,6 +91,9 @@ public class LoginController extends HttpServlet {
 					}
 				}
 
+				alert = new Alert("Bienvenido", Alert.SUCCESS);
+				alert.setTexto(MessageFormat.format(idiomas.getString("msj.bienvenida"), nombre));
+				
 			} else {
 				alert = new Alert("Usuario o contraseña incorrectos", Alert.DANGER);
 			}
