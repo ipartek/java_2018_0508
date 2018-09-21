@@ -45,11 +45,12 @@ public class LoginController extends HttpServlet {
 		
 		try {
 			
-			//idiomas		
-			Locale locale = new Locale("en", "EN");
+			//idiomas
+			String idioma = (session.getAttribute("idioma")!=null)?(String)session.getAttribute("idioma"):"es_ES";			
+			//Locale locale = new Locale("en", "EN");
+			Locale locale = new Locale( idioma.split("_")[0] , idioma.split("_")[1] );			
 			ResourceBundle idiomas = ResourceBundle.getBundle("idiomas", locale );
-			
-			
+						
 			
 			//recoger parametros
 			String usuarioNombre = request.getParameter("usuario");
@@ -60,7 +61,7 @@ public class LoginController extends HttpServlet {
 				  "pepe".equals(pass) && "pepe".equals(usuarioNombre)  ||
 				  "manoli".equals(pass) && "manoli".equals(usuarioNombre) )  {
 				
-				alert.setTexto(  MessageFormat.format(idiomas.getString("msj.bienvenida"), usuarioNombre) );
+				alert.setTexto(MessageFormat.format(idiomas.getString("msj.bienvenida"), usuarioNombre) );
 				alert.setTipo(Alert.PRIMARY);
 				
 				//guardar Usuario en session

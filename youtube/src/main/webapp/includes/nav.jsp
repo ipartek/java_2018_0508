@@ -10,6 +10,13 @@
     
      
      <div class="collapse navbar-collapse" id="navbarResponsive">
+     
+     	<ul class="navbar-nav ml-auto">
+     		<li class="nav-item"><a href="inicio?idioma=es_ES">es</a></li>
+     		<li class="nav-item"><a href="inicio?idioma=eu_ES">eu</a></li>
+     		<li class="nav-item"><a href="inicio?idioma=en_EN">en</a></li>
+     	</ul>
+     
        <ul class="navbar-nav ml-auto">
          <li class="nav-item active">
               	
