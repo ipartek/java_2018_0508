@@ -1,6 +1,10 @@
 package com.ipartek.formacion.youtube.controller;
 
 import java.io.IOException;
+import java.text.MessageFormat;
+import java.util.Locale;
+import java.util.ResourceBundle;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.Cookie;
@@ -41,6 +45,12 @@ public class LoginController extends HttpServlet {
 		
 		try {
 			
+			//idiomas		
+			Locale locale = new Locale("en", "EN");
+			ResourceBundle idiomas = ResourceBundle.getBundle("idiomas", locale );
+			
+			
+			
 			//recoger parametros
 			String usuarioNombre = request.getParameter("usuario");
 			String pass = request.getParameter("pass");
@@ -50,7 +60,7 @@ public class LoginController extends HttpServlet {
 				  "pepe".equals(pass) && "pepe".equals(usuarioNombre)  ||
 				  "manoli".equals(pass) && "manoli".equals(usuarioNombre) )  {
 				
-				alert.setTexto("BienVenido " + usuarioNombre );
+				alert.setTexto(  MessageFormat.format(idiomas.getString("msj.bienvenida"), usuarioNombre) );
 				alert.setTipo(Alert.PRIMARY);
 				
 				//guardar Usuario en session
