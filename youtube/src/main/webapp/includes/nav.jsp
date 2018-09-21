@@ -10,11 +10,12 @@
     
      
      <div class="collapse navbar-collapse" id="navbarResponsive">
-     
-     	<ul class="navbar-nav ml-auto">
-     		<li class="nav-item"><a href="inicio?idioma=es_ES">es</a></li>
-     		<li class="nav-item"><a href="inicio?idioma=eu_ES">eu</a></li>
-     		<li class="nav-item"><a href="inicio?idioma=en_EN">en</a></li>
+     	
+     	
+     	<ul class="navbar-nav ml-auto idioma">
+     		<li class="nav-item ${(sessionScope.idioma eq 'es_ES')?'active':''}"><a href="inicio?idioma=es_ES">es</a></li>
+     		<li class="nav-item ${(sessionScope.idioma eq 'eu_ES')?'active':''}"><a href="inicio?idioma=eu_ES">eu</a></li>
+     		<li class="nav-item ${(sessionScope.idioma eq 'en_EN')?'active':''}"><a href="inicio?idioma=en_EN">en</a></li>
      	</ul>
      
        <ul class="navbar-nav ml-auto">
