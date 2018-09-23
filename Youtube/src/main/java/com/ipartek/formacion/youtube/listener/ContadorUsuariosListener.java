@@ -18,7 +18,6 @@ public class ContadorUsuariosListener implements HttpSessionAttributeListener {
 
 	HashMap<String, Usuario> usuariosConectados = new HashMap<String, Usuario>();
 	
-    
 	/**
      * @see HttpSessionAttributeListener#attributeAdded(HttpSessionBindingEvent)
      */
@@ -30,7 +29,7 @@ public class ContadorUsuariosListener implements HttpSessionAttributeListener {
     		usuariosConectados.put(u.getNombre(), u);    		
     	}
     	
-    	//guardar en contexto aplicacion == ServletContext == aplicationScope
+    	//Guardar en contexto aplicacion == ServletContext == aplicationScope
     	ServletContext ctx = event.getSession().getServletContext();
     	ctx.setAttribute("uConectados", usuariosConectados);
     }
@@ -39,13 +38,13 @@ public class ContadorUsuariosListener implements HttpSessionAttributeListener {
      * @see HttpSessionAttributeListener#attributeRemoved(HttpSessionBindingEvent)
      */
     public void attributeRemoved(HttpSessionBindingEvent event)  { 
-    	//Se acaba de DESlogear un Usuario @see LoginController
+    	//Se acaba de Deslogear un Usuario @see LoginController
     	if ("usuario".equals(event.getName()) ){    		
     		Usuario u = (Usuario)event.getValue();
     		usuariosConectados.remove(u.getNombre() );    		
     	}
     	
-    	//guardar en contexto aplicacion == ServletContext == aplicationScope
+    	//Guardar en contexto aplicacion == ServletContext == aplicationScope
     	ServletContext ctx = event.getSession().getServletContext();
     	ctx.setAttribute("uConectados", usuariosConectados);
     }

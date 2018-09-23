@@ -104,8 +104,7 @@ public class LoginController extends HttpServlet {
 		}
 		
 		setCookieIdioma(request, response);
-		response.addCookie(cNombre);
-		
+		response.addCookie(cNombre);	
 	}
 	
 	/**
