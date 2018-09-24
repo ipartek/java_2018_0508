@@ -47,6 +47,9 @@
 
         <main role="main" class="container">
 
+			<p class="text-danger">${param.msg}</p>
+
+
             <div class="row justify-content-center">
                 <h1 class="col col-md-6"><i class="fas fa-user"></i> Login</h1>
             </div>
