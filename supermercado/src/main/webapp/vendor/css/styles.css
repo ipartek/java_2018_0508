@@ -74,6 +74,10 @@ nav img{
     margin-bottom:1em;
 }
 
+.texto-producto .titulo {
+	text-transform: uppercase;
+}
+
 .texto-producto{
     padding:20px;
 }

@@ -20,18 +20,11 @@
 
     <title>Supermercado</title>
 
-	<!-- BOOTSTRAP core CSS -->
-    <link href="vendor/css/bootstrap.min.css" rel="stylesheet">
-	
-	<!-- FONTAWSOME core CSS -->
-	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
-	
-	<!-- GOOGLE Font 'Varela Round'-->
-	<link href="https://fonts.googleapis.com/css?family=Roboto|Varela+Round" rel="stylesheet">
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
 	
     <!-- Personal CSS Stylesheet -->
-    <link href="vendor/css/styles.css" rel="stylesheet"></link>
-    <link href="vendor/css/404-styles.css" rel="stylesheet"></link>
+    <link href="vendor/css/styles.css?v1" rel="stylesheet"></link>
       
 </head>
 <body>
