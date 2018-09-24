@@ -1,3 +1,7 @@
+<%@include file="includes/taglibs.jsp"%>
+
+<%@page import="com.ipartek.formacion.supermercado.model.Producto"%>
+<%@page import="java.util.ArrayList"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 
@@ -19,70 +23,35 @@
 
     <div class="contenedor">
 
-        <header id="top">
-
-            <nav class="navbar navbar-expand-md navbar-dark bg-dark mb-4">
-                <a class="navbar-brand" href="home.jsp"><img src="images/logo.jpg" alt="logotipo-supermercado-el-fuerte" /></a>
-
-                <div class="navbar-collapse" id="navbarCollapse">
-                    <ul class="navbar-nav mr-auto menu">
-
-                        <li class="nav-item">
-                            <a class="nav-link" href="home.jsp">Principal <span class="sr-only">(current)</span></a>
-                        </li>
-
-                        <li class="nav-item">
-                            <a class="nav-link" href="login.html">Login</a>
-                        </li>
-
-                        <li class="nav-item">
-                            <a class="nav-link" href="alta-producto.html">Nuevo producto</a>
-                        </li>
-
-                        <li class="nav-item">
-                            <a class="nav-link" href="listado.html">Listado</a>
-                        </li>
-
-                    </ul>
-                </div>
-
-            </nav>
-
-        </header>
+        <%@include file="includes/navbar.jsp"%>
+        
+        <h2>Número de Productos ${numeroProductos}</h2>
 
         <div class="contenido">
+        
+        <c:forEach items="${productos}" var="p">
+        		
+        	<div class="producto">
 
-            <div class="producto">
+        		<c:if test="${p.descuento != 0 }">
+        		
+        			<p class="descuento">${p.descuento}&#37;</p>
+        		
+        		</c:if>
 
-                <p class="descuento">20&#37;</p>
-
-                <img src="https://supermercado.eroski.es/images/313577.jpg" alt="imagen-producto" />
-
-                <div class="texto-producto">
-
-                    <p><span class="tachado">13,35&euro;</span><span>12,95&euro;</span></p>
-                    <p class="precio-litro">(18,50&euro; / Litro)</p>
-                    <p>BEEFEATER ginebra inglesa botella 70cl</p>
-
-                    <div class="cantidad">
-                        <span>&#45;</span> 1 <span>&#43;</span>
-                    </div>
-
-                </div>
-
-                <a href="#">AÑADIR AL CARRO</a>
-
-            </div> <!-- /.producto -->
-
-            <div class="producto">
-
-                <img src="https://supermercado.eroski.es/images/313577.jpg" alt="imagen-producto" />
+                <img src="${p.imagen}" alt="imagen-producto" />
     
                 <div class="texto-producto">
-    
-                    <p class="no-descuento">7,90&euro;</p>
-                    <p class="precio-litro">(18,50&euro; / Litro)</p>
-                    <p>BEEFEATER ginebra inglesa botella 70cl</p>
+			    <c:if test="${p.descuento == 0 }">
+			        		
+			    	<p class="no-descuento">${p.precio}&euro;</p>
+			        		
+        		</c:if>
+        			<c:if test="${p.descuento != 0 }">
+                    	<p><span class="tachado">${p.precio}&euro;</span><span>${p.calcularDescuento}&euro;</span></p>
+                    </c:if>
+                    <p class="precio-litro">(${p.precioVolumen}&euro; / Litro)</p>
+                    <p>${p.descripcion}</p>
     
                     <div class="cantidad">
                             <span>&#45;</span> 1 <span>&#43;</span>
@@ -93,217 +62,8 @@
                 <a href="#">AÑADIR AL CARRO</a>
 
             </div> <!-- /.producto -->
-
-            <div class="producto">
-
-                <img src="https://supermercado.eroski.es/images/313577.jpg" alt="imagen-producto" />
-    
-                <div class="texto-producto">
-    
-                        <p class="no-descuento">7,90&euro;</p>
-                    <p class="precio-litro">(18,50&euro; / Litro)</p>
-                    <p>BEEFEATER ginebra inglesa botella 70cl</p>
-    
-                    <div class="cantidad">
-                            <span>&#45;</span> 1 <span>&#43;</span>
-                    </div>
-    
-                </div>
-    
-                <a href="#">AÑADIR AL CARRO</a>
-
-            </div> <!-- /.producto -->
-
-            <div class="producto">
-
-                <p class="descuento">20&#37;</p>
-
-                <img src="https://supermercado.eroski.es/images/313577.jpg" alt="imagen-producto" />
-    
-                <div class="texto-producto">
-    
-                    <p><span class="tachado">13,35&euro;</span><span>12,95&euro;</span></p>
-                    <p class="precio-litro">(18,50&euro; / Litro)</p>
-                    <p>BEEFEATER ginebra inglesa botella 70cl</p>
-    
-                    <div class="cantidad">
-                            <span>&#45;</span> 1 <span>&#43;</span>
-                    </div>
-    
-                </div>
-    
-                <a href="#">AÑADIR AL CARRO</a>
-
-            </div> <!-- /.producto -->
-
-            <div class="producto">
-
-                <img src="https://supermercado.eroski.es/images/313577.jpg" alt="imagen-producto" />
-    
-                <div class="texto-producto">
-    
-                        <p class="no-descuento">7,90&euro;</p>
-                    <p class="precio-litro">(18,50&euro; / Litro)</p>
-                    <p>BEEFEATER ginebra inglesa botella 70cl</p>
-    
-                    <div class="cantidad">
-                            <span>&#45;</span> 1 <span>&#43;</span>
-                    </div>
-    
-                </div>
-    
-                <a href="#">AÑADIR AL CARRO</a>
-
-            </div> <!-- /.producto -->
-
-            <div class="producto">
-
-                <img src="https://supermercado.eroski.es/images/313577.jpg" alt="imagen-producto" />
-    
-                <div class="texto-producto">
-    
-                    <p class="no-descuento">7,90&euro;</p>
-                    <p class="precio-litro">(18,50&euro; / Litro)</p>
-                    <p>BEEFEATER ginebra inglesa botella 70cl</p>
-    
-                    <div class="cantidad">
-                            <span>&#45;</span> 1 <span>&#43;</span>
-                    </div>
-    
-                </div>
-    
-                <a href="#">AÑADIR AL CARRO</a>
-
-            </div> <!-- /.producto -->
-
-            <div class="producto">
-
-                <p class="descuento">20&#37;</p>
-
-                <img src="https://supermercado.eroski.es/images/313577.jpg" alt="imagen-producto" />
-    
-                <div class="texto-producto">
-    
-                    <p><span class="tachado">13,35&euro;</span><span>12,95&euro;</span></p>
-                    <p class="precio-litro">(18,50&euro; / Litro)</p>
-                    <p>BEEFEATER ginebra inglesa botella 70cl</p>
-    
-                    <div class="cantidad">
-                            <span>&#45;</span> 1 <span>&#43;</span>
-                    </div>
-    
-                </div>
-    
-                <a href="#">AÑADIR AL CARRO</a>
-
-            </div> <!-- /.producto -->
-
-            <div class="producto">
-
-                <img src="https://supermercado.eroski.es/images/313577.jpg" alt="imagen-producto" />
-    
-                <div class="texto-producto">
-    
-                    <p class="no-descuento">7,90&euro;</p>
-                    <p class="precio-litro">(18,50&euro; / Litro)</p>
-                    <p>BEEFEATER ginebra inglesa botella 70cl</p>
-    
-                    <div class="cantidad">
-                            <span>&#45;</span> 1 <span>&#43;</span>
-                    </div>
-    
-                </div>
-    
-                <a href="#">AÑADIR AL CARRO</a>
-
-            </div> <!-- /.producto -->
-
-            <div class="producto">
-
-                <p class="descuento">20&#37;</p>
-
-                <img src="https://supermercado.eroski.es/images/313577.jpg" alt="imagen-producto" />
-    
-                <div class="texto-producto">
-    
-                    <p><span class="tachado">13,35&euro;</span><span>12,95&euro;</span></p>
-                    <p class="precio-litro">(18,50&euro; / Litro)</p>
-                    <p>BEEFEATER ginebra inglesa botella 70cl</p>
-    
-                    <div class="cantidad">
-                            <span>&#45;</span> 1 <span>&#43;</span>
-                    </div>
-    
-                </div>
-    
-                <a href="#">AÑADIR AL CARRO</a>
-
-            </div> <!-- /.producto -->
-
-            <div class="producto">
-
-                <p class="descuento">20&#37;</p>
-
-                <img src="https://supermercado.eroski.es/images/313577.jpg" alt="imagen-producto" />
-    
-                <div class="texto-producto">
-    
-                    <p><span class="tachado">13,35&euro;</span><span>12,95&euro;</span></p>
-                    <p class="precio-litro">(18,50&euro; / Litro)</p>
-                    <p>BEEFEATER ginebra inglesa botella 70cl</p>
-    
-                    <div class="cantidad">
-                            <span>&#45;</span> 1 <span>&#43;</span>
-                    </div>
-    
-                </div>
-    
-                <a href="#">AÑADIR AL CARRO</a>
-
-            </div> <!-- /.producto -->
-
-            <div class="producto">
-
-                <img src="https://supermercado.eroski.es/images/313577.jpg" alt="imagen-producto" />
-    
-                <div class="texto-producto">
-    
-                    <p class="no-descuento">7,90&euro;</p>
-                    <p class="precio-litro">(18,50&euro; / Litro)</p>
-                    <p>BEEFEATER ginebra inglesa botella 70cl</p>
-    
-                    <div class="cantidad">
-                            <span>&#45;</span> 1 <span>&#43;</span>
-                    </div>
-    
-                </div>
-    
-                <a href="#">AÑADIR AL CARRO</a>
-
-            </div> <!-- /.producto -->
-
-            <div class="producto">
-
-                <p class="descuento">20&#37;</p>
-
-                <img src="https://supermercado.eroski.es/images/313577.jpg" alt="imagen-producto" />
-    
-                <div class="texto-producto">
-    
-                    <p><span class="tachado">13,35&euro;</span><span>12,95&euro;</span></p>
-                    <p class="precio-litro">(18,50&euro; / Litro)</p>
-                    <p>BEEFEATER ginebra inglesa botella 70cl</p>
-    
-                    <div class="cantidad">
-                            <span>&#45;</span> 1 <span>&#43;</span>
-                    </div>
-    
-                </div>
-    
-                <a href="#">AÑADIR AL CARRO</a>
-
-            </div> <!-- /.producto -->
-
+        
+        </c:forEach>
             
         </div> <!-- /.contenido -->
 

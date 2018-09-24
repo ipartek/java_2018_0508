@@ -13,36 +13,7 @@
 
         <div class="contenedor">
 
-            <header>
-        
-                <nav class="navbar navbar-expand-md navbar-dark bg-dark mb-4">
-                    <a class="navbar-brand" href="index.html"><img src="images/logo.jpg" alt="logotipo-supermercado-el-fuerte" /></a>
-                
-                    <div class="navbar-collapse" id="navbarCollapse">
-                        <ul class="navbar-nav mr-auto menu">
-                
-                            <li class="nav-item">
-                                <a class="nav-link" href="index.html">Principal <span class="sr-only">(current)</span></a>
-                            </li>
-                
-                            <li class="nav-item">
-                                <a class="nav-link" href="login.html">Login</a>
-                            </li>
-                
-                            <li class="nav-item">
-                                <a class="nav-link" href="alta-producto.html">Nuevo producto</a>
-                            </li>
-                
-                            <li class="nav-item">
-                                <a class="nav-link" href="listado.html">Listado</a>
-                            </li>
-                
-                        </ul>
-                    </div>
-                
-                </nav>
-                
-            </header>
+            <%@include file="includes/navbar.jsp"%>
 
             <main role="main" class="container">
 
@@ -65,12 +36,7 @@
                                
                     </div> <!-- /.form-row -->
                             
-                    <div class="form-row">
-
-                        <div class="form-group col">
-                            <label for="cant" class="required">Cantidad de productos a ingresar:</label>
-                            <input type="number" class="form-control" id="cant" name="cantidad" min="1" max="20" required placeholder="Mínimo 1 y máximo 20" >
-                        </div> 
+                    <div class="form-row"> 
                             
                         <div class="form-group col">
                             <label for="cant-descuento">Descuento(&#37;):</label>
