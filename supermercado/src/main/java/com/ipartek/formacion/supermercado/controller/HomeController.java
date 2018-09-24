@@ -17,15 +17,12 @@ import com.ipartek.formacion.supermercado.model.ProductoArrayListDAO;
 /**
  * Servlet implementation class HomeController
  */
-@WebServlet(
-		urlPatterns = { "/home" }, 
-		initParams = { 
-				@WebInitParam(name = "numeroProductos", value = "10", description = "Numero de productos a mostrar en la pagina inicial")
-		})
+@WebServlet(urlPatterns = { "/home" }, initParams = {
+		@WebInitParam(name = "numeroProductos", value = "10", description = "Numero de productos a mostrar en la pagina inicial") })
 public class HomeController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private static ProductoArrayListDAO dao;
-       
+
 	/**
 	 * @see Servlet#init(ServletConfig)
 	 */
@@ -42,37 +39,39 @@ public class HomeController extends HttpServlet {
 	}
 
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+	 *      response)
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		doProcess(request,response);
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		doProcess(request, response);
 	}
 
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+	 *      response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		doProcess(request,response);
-	}
-	
-	private void doProcess(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-		try {
-			String initParam =this.getServletContext().getInitParameter("numeroProductos");
-			request.setAttribute("initParam",initParam);
-			List<Producto>productos=dao.getAll();
-			request.setAttribute("productos", productos);
-			
-			
-		} catch (Exception e) {
-			e.printStackTrace();
-			
-		}finally {
-			request.getRequestDispatcher("home.jsp").forward(request, response);
-		}
-		
-		
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		doProcess(request, response);
 	}
 
+	private void doProcess(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+
+		try {
+			//String initParam = this.getServletContext().getInitParameter("numeroProductos");
+			//request.setAttribute("initParam", initParam);
+			List<Producto> productos = dao.getAll();
+			request.setAttribute("productos", productos);
+
+		} catch (Exception e) {
+			e.printStackTrace();
+
+		} finally {
+			request.getRequestDispatcher("home.jsp").forward(request, response);
+		}
+
+	}
 
 }

@@ -21,7 +21,7 @@
         <header id="top">
 
             <nav class="navbar navbar-expand-md navbar-dark bg-dark mb-4">
-                <a class="navbar-brand" href="index.html"><img src="images/logo.jpg" alt="logotipo-supermercado-el-fuerte" /></a>
+                <a class="navbar-brand" href="home"><img src="images/logo.jpg" alt="logotipo-supermercado-el-fuerte" /></a>
 
                 <div class="navbar-collapse" id="navbarCollapse">
                     <ul class="navbar-nav mr-auto menu">
