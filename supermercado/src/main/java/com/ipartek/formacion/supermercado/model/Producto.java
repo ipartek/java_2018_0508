@@ -1,5 +1,7 @@
 package com.ipartek.formacion.supermercado.model;
 
+import java.text.DecimalFormat;
+
 public class Producto {
 	private long id;
 	private String nombre;
@@ -93,11 +95,11 @@ public class Producto {
 	/**
 	 * Calcula el precio del descuento
 	 * */
-	public float getCalcularDescuento() {		
+	public String getCalcularDescuento() {		
+		DecimalFormat formateador = new DecimalFormat("####.##");
 		
+		return formateador.format(precio-(precio*descuento) / 100);
 		
-		
-		return (precio*descuento)/100;
 		
 	}
 

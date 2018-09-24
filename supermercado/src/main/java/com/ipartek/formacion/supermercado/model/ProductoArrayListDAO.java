@@ -11,11 +11,11 @@ public class ProductoArrayListDAO implements CrudAble<Producto> {
 	private ProductoArrayListDAO() {
 		productos = new ArrayList<Producto>();
 		try {
-			productos.add(new Producto(1783,"Vodka",11.40f,10,"images/vodka_product.jpg","Vodka importado de Rusia",12.50f));
+			productos.add(new Producto(1783,"Vodka",11.40f,10,"images/vodka_product.jpg","a diferencia de lo que ocurre con muchos otros vodkas, no contiene azúcar añadido",12.50f));
 			productos.add(new Producto(1785,"Whiskie",23.70f,0,"images/whiskie_producto.png","Whiskie de malta",12.50f));
-			productos.add(new Producto(1786,"Tequila",56.70f,50,"images/tequila_product.jpg","Tequila de Mexico",4.60f));
+			productos.add(new Producto(1786,"Tequila",56.70f,50,"images/tequila_product.jpg"," destilado originario del municipio de Tequila quien le da el nombre a la bebida en el estado de Jalisco, México ",4.60f));
 			productos.add(new Producto(1788,"Baileis",14.70f,20,"images/baileis_product.jpg","Crema deliciosa",1.75f));
-			productos.add(new Producto(1780,"Vino Tinto",6.30f,70,"images/tinto_product.jpg","Vodka importado de Rusia",8.40f));
+			productos.add(new Producto(1780,"Vino Tinto",6.30f,70,"images/tinto_product.jpg","Vino de la rioja",8.40f));
 		
 		} catch (Exception e) {
 			e.printStackTrace();

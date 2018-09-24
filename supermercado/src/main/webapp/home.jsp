@@ -66,10 +66,11 @@
 		
 		                <div class="texto-producto">
 							<c:if test="${p.descuento>0 }">
-								<p><span class="tachado">${p.calcularDescuento }&euro;</span><span>${p.precio}</span></p>
+								<p><span class="tachado">${p.precio }&euro;</span><span>${p.calcularDescuento}</span></p>
 							</c:if>		                
-		
-		                    <p><span>${p.precio}</span></p>
+							<c:if test="${p.descuento==0 }">
+								<p><span>${p.precio}</span></p>
+							</c:if>			                    
 		                    <p class="precio-litro">(${ p.precioVolumen} / Litro)</p>
 		                    <p>${p.descripcion}</p>
 		
