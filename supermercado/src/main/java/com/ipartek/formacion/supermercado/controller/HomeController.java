@@ -30,13 +30,15 @@ public class HomeController extends HttpServlet {
 	 */
 	public void init(ServletConfig config) throws ServletException {
 		super.init(config);
+
+		dao = ProductoArrayListDAO.getInstance();
 	}
 
 	/**
 	 * @see Servlet#destroy()
 	 */
 	public void destroy() {
-		// TODO Auto-generated method stub
+		dao = null;
 	}
 
 	/**
@@ -65,7 +67,6 @@ public class HomeController extends HttpServlet {
 			String numeroProductos = getServletContext().getInitParameter("numeroProductos");
 			request.setAttribute("numeroProductos", numeroProductos);
 			
-			dao = ProductoArrayListDAO.getInstance();
 			request.setAttribute("productos", dao.getAll());
 			
 		} catch (Exception e) {

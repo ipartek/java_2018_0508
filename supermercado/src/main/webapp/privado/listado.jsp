@@ -1,10 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
-<%@ include file="includes/header.jsp" %>
+<%@ include file="../includes/header.jsp" %>
 
     <div class="contenedor">
 
-		<%@ include file="includes/navbar.jsp" %>
+		<%@ include file="../includes/navbar.jsp" %>
 
         <main class="container" role="main">
 	
@@ -18,7 +18,7 @@
                         <th>Stock</th>
                         <th>Descuento</th>
                         <th>Precio / Litro</th>
-                        <th>DescripciÃ³n</th>
+                        <th>Descripción</th>
                         <th>Imagen (URL)</th>
                     </tr>
                 </thead>
@@ -71,7 +71,7 @@
                         <td>76</td>
                         <td>0&#37;</td>
                         <td>20.50&euro; / L</td>
-                        <td>Con una mezcla de rones Premium y hasta cinco aÃ±os en barriles y barricas de roble, Santa Teresa Gran Reserva es la joya de la corona de los rones.</td>
+                        <td>Con una mezcla de rones Premium y hasta cinco años en barriles y barricas de roble, Santa Teresa Gran Reserva es la joya de la corona de los rones.</td>
                         <td><img src="https://sgfm.elcorteingles.es/SGFM/dctm/MEDIA03/201807/03/00118733300539____2__600x600.jpg" alt="imagen-ron-santa-teresa" /></td>
                     </tr>
                         
@@ -81,7 +81,7 @@
                         <td>92</td>
                         <td>10&#37;</td>
                         <td>5.35&euro; / L</td>
-                        <td>Como marca lÃ­der de cerveza de trigo, la CervecerÃ­a Paulaner asume responsabilidad y aboga por un consumo responsable de bebidas alcohÃ³licas.</td>
+                        <td>Como marca líder de cerveza de trigo, la Cervecería Paulaner asume responsabilidad y aboga por un consumo responsable de bebidas alcohÃ³licas.</td>
                         <td><img src="https://souriredessaveurs.com/2978-large_default/cerveza-hefe-weissbier-paulaner-naturtrueb-aleman-blanco-55-50-cl.jpg" alt="imagen-cerveza-paulaner" /></td>
                     </tr>
                         
@@ -100,7 +100,7 @@
             <nav>
                 <a href="#">Politica de privacidad</a>
                 <a href="#">Contacto</a>
-                <a href="#">LocalizaciÃ³n</a>
+                <a href="#">Localización</a>
             </nav>
                 
             <div class="social">
@@ -114,7 +114,7 @@
 
     <!-- Scripts para plugin datatable -->
 
-    <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
     <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
 	
     <script>

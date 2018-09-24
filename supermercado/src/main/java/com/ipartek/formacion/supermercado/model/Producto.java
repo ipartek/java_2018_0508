@@ -91,7 +91,7 @@ public class Producto {
 		float resul = 0;
 		
 		if (this.descuento > 0) {
-			resul = this.precio - (this.precio * (this.descuento*100)) ;
+			resul = Math.round(this.precio - (this.precio * (this.descuento/100)));
 		}
 		
 		return resul;
