@@ -1,4 +1,4 @@
-package com.ipartek.formacion.youtube.filter;
+package com.ipartek.formacion.nombre_app.filter;
 
 import java.io.IOException;
 import java.util.Enumeration;
@@ -15,7 +15,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import com.ipartek.formacion.youtube.pojo.Usuario;
+import com.ipartek.formacion.nombre_app.pojo.Usuario;
+
 
 /**
  *  Filtramos todas las REQUEST que coincidan con urlPatterns = { "/backoffice/*" }  <br>
@@ -33,7 +34,7 @@ public class FilterBackoffice implements Filter {
 	 * @see Filter#destroy()
 	 */
 	public void destroy() {
-		System.out.println("se ejecuta al destruir el filtro");
+		System.out.println("Se ejecuta al destruir el filtro");
 	}
 
 	/**
@@ -53,7 +54,7 @@ public class FilterBackoffice implements Filter {
 				chain.doFilter(request, response);
 			}else {
 				
-				informacionCliente(req);
+				getInformacionCliente(req);
 				
 				//Usuario no logeado
 				res.sendRedirect( req.getContextPath() + "/inicio");
@@ -70,7 +71,7 @@ public class FilterBackoffice implements Filter {
 	 * @see Filter#init(FilterConfig)
 	 */
 	public void init(FilterConfig fConfig) throws ServletException {
-		System.out.println("se ejecuta al inciar la App Web");
+		System.out.println("Se ejecuta al inciar la App Web");
 	}
 
 	
@@ -79,7 +80,7 @@ public class FilterBackoffice implements Filter {
 	 * 
 	 * @param req
 	 */
-	private void informacionCliente(HttpServletRequest req) {
+	private void getInformacionCliente(HttpServletRequest req) {
 		
 		System.out.println("----------------------------------------");
 				

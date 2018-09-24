@@ -5,8 +5,8 @@
 	<artifactId>Plantilla</artifactId>
 	<packaging>war</packaging>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>Plantilla JEE WebApp</name>
-	<url>http://localhost:8080/Plantilla/</url>
+	<name>Plantilla</name>
+	<url>http://localhost:8080/plantilla/</url>
 
 	<!-- variables comunes para todo el POM -->
 	<properties>
@@ -105,8 +105,6 @@
 	</dependencies>
 
 
-
-
 	<build>
 
 		<plugins>
@@ -135,6 +133,6 @@
 		</plugins>
 
 
-		<finalName>Plantilla JEE WebApp</finalName>
+		<finalName>Plantilla</finalName>
 	</build>
 </project>

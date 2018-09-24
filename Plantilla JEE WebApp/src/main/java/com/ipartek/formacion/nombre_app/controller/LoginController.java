@@ -48,7 +48,7 @@ public class LoginController extends HttpServlet {
 		} finally { // Volvemos a la vista 'index.jsp' enviando el mensaje correspondiente.
 
 			request.getSession().setAttribute("alert", alert);
-			request.getRequestDispatcher("index.jsp").forward(request, response);
+			request.getRequestDispatcher("inicio").forward(request, response);
 		}
 	}
 

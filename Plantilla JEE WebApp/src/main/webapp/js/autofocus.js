@@ -9,18 +9,18 @@ $(document).ready(function() {
 		var inputUsuario = $('#usuario');
 		var inputPassword = $('#password');
 
-		if (inputUsuario.val().length > 0) { // El checkbox recordar Usuario
-												// está activado
-
+		if (inputUsuario.val().length > 0) { // El checkbox recordar Usuario está activado
+			
 			inputPassword.trigger('focus'); // Dar focus a inputPassword
 
 		} else { // El checkbox recordar Usuario no está activado
 
 			inputUsuario.trigger('focus'); // Dar focus a inputUsuario
 		}
+		
+		// Función JQuery para mantener el foco dentro del formulario modal
+		$.blockUI();
 
 	});
-
-	// Función JS para mantener el foco dentro del formulario modal
     
 });

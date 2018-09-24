@@ -1,22 +1,22 @@
 <!-- Cabecera -->
-<%@ include file="vendor/include/header.jsp" %>
+<%@ include file="include/header.jsp" %>
 
-<!-- Cabecera -->
-<%@ include file="vendor/include/navbar.jsp" %>
+<!-- Navbar -->
+<%@ include file="include/navbar.jsp" %>
 
 <main class="container" role="main">
 	
 	<div class="row align-center">
         <div class="col color-primary">
 			<!-- Gestión de alertas -->
-			<%@include file="vendor/include/alert.jsp" %>
+			<%@include file="include/alert.jsp" %>
 		</div>
 	</div>
 	
 	<div class="row align-center">
         <div class="col color-primary">
 			<!-- Formulario de Acceso -->
-			<%@ include file="vendor/include/modal-login-form.jsp" %>
+			<%@ include file="include/modal-login-form.jsp" %>
 		</div>
 	</div>
 	
@@ -32,7 +32,7 @@
                 </div>
                 
                 <div class="error-actions">
-                    <a href="index.jsp" class="btn btn-primary btn-lg"><span class="glyphicon glyphicon-home"></span>Inicio </a>
+                    <a href="inicio" class="btn btn-primary btn-lg"><span class="glyphicon glyphicon-home"></span>Inicio </a>
                     <a href="mailto:example@email.com" class="btn btn-default btn-lg"><span class="glyphicon glyphicon-envelope"></span> Contáctanos </a>
                 </div>
             </div>
@@ -43,6 +43,6 @@
 <!-- Pie de Página -->
 <div class="row align-center fixed-bottom">
 	<div class="col-md-12 color-primary">
-		<%@ include file="vendor/include/footer.jsp" %>
+		<%@ include file="include/footer.jsp" %>
 	</div>
 </div>

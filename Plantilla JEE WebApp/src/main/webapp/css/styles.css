@@ -7,9 +7,23 @@ html {
 
 body {
 	/* Margen superior = Altura del menú (navbar) */
-	margin-top: 55px;
+	margin-top: 76px;
 	/* Margen inferior =  Altura del footer */
 	margin-bottom: 60px;
+}
+
+a:focus {
+	border: 2px solid #FFF !important;
+}
+
+nav ul li a:hover {
+	text-decoration: underline !important;
+}
+
+.logo {
+	height: 50px;
+	width: 100px;
+	background-color: #FFF;
 }
 
 /* MODAL LOGIN FORM
