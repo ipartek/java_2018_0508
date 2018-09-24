@@ -58,7 +58,7 @@
 
         <a href="#top" class="top">Top</a>
 
-        <footer>
+		<footer>
 
             <div>
                 <p>&copy; 2018</p>
@@ -76,8 +76,6 @@
             </div>
 
         </footer>
-
-
     </div> <!-- /.contenedor -->
 
     

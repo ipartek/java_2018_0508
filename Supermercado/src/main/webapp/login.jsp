@@ -1,24 +1,13 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Login</title>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
-    <link rel="stylesheet" href="css/styles.css">
-</head>
-<body>
+<%@include file="includes/header.jsp"%>
 
     <div class="contenedor">
 
         <%@include file="includes/navbar.jsp"%>
 
-        <main role="main" class="container">
-        
-        	
+       <main role="main" class="container">
 
             <div class="row justify-content-center">
                 <h1 class="col col-md-6"><i class="fas fa-user"></i> Login</h1>
@@ -40,8 +29,8 @@
                         </div>
                                     
                         <div class="form-group">
-                            <label for="pass" class="required">Contrase�a</label>
-                            <input type="password" name="pswd" class="form-control" id="pass" minlength="8" maxlength="20" required placeholder="Contrase�a del usuario (8 a 20 caracteres)" />
+                            <label for="pass" class="required">Contraseña</label>
+                            <input type="password" name="pswd" class="form-control" id="pass" minlength="8" maxlength="20" required placeholder="Contraseña del usuario (8 a 20 caracteres)" />
                         </div>
                                     
                         <button type="submit" class="btn btn-outline-primary btn-block">Acceder</button>
@@ -65,7 +54,7 @@
             <nav>
                 <a href="#">Politica de privacidad</a>
                 <a href="#">Contacto</a>
-                <a href="#">Localización</a>
+                <a href="#">LocalizaciÃ³n</a>
             </nav>
     
             <div class="social">

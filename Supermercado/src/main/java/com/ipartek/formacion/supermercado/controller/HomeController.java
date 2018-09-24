@@ -33,7 +33,6 @@ public class HomeController extends HttpServlet {
 	 */
 	public void init(ServletConfig config) throws ServletException {
 		super.init(config);
-		dao = ProductoArrayDAO.getInstance();
 	}
 
 	/**
@@ -62,6 +61,7 @@ public class HomeController extends HttpServlet {
 		try {
 			numeroProductos = this.getServletConfig().getInitParameter("numeroProductos");
 			
+			dao = ProductoArrayDAO.getInstance();
 			productos = (ArrayList<Producto>) dao.getAll();
 			
 		}catch(Exception e) {

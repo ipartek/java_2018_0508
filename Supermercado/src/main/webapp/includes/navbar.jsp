@@ -23,7 +23,7 @@
 	                            <a class="nav-link" href="privado/alta-producto.jsp">Nuevo producto</a>
 	                        </li>
 
-	                        <li class="nav-item">
+	                        <li class="nav-item">	
 	                            <a class="nav-link" href="privado/listado.jsp">Listado</a>
 	                        </li>
 	                        
