@@ -18,7 +18,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Plantilla JEE WebApp</title>
+    <title>Supermercado</title>
 
 	<!-- BOOTSTRAP core CSS -->
     <link href="vendor/css/bootstrap.min.css" rel="stylesheet">
