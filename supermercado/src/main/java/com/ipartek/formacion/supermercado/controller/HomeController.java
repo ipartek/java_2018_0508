@@ -1,6 +1,8 @@
 package com.ipartek.formacion.supermercado.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
+
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebInitParam;
@@ -9,21 +11,31 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.ipartek.formacion.supermercado.model.Producto;
+import com.ipartek.formacion.supermercado.model.ProductoArrayListDAO;
+
 /**
  * Servlet implementation class HomeController
  */
 @WebServlet(
 		urlPatterns = { "/home" }, 
 		initParams = { 
-				@WebInitParam(name = "numeroProductos", value = "10", description = "Número de productos a mostrar en la página inicial")
+				@WebInitParam(name = "numeroProductos", value = "5", description = "Número de productos a mostrar en la página inicial")
 		})
 public class HomeController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+
+	private static ProductoArrayListDAO dao;
+	private ArrayList<Producto> productos;
     
 	/**
 	 * @see Servlet#init(ServletConfig)
 	 */
 	public void init(ServletConfig config) throws ServletException {
+		
+		super.init(config);
+		
+		dao = ProductoArrayListDAO.getInstance();
 		
 	}
 
@@ -31,6 +43,8 @@ public class HomeController extends HttpServlet {
 	 * @see Servlet#destroy()
 	 */
 	public void destroy() {
+		
+		dao = null;
 		
 	}
 
@@ -52,8 +66,17 @@ public class HomeController extends HttpServlet {
 
 		try {
 			
+			//TODO mirar porque da null
+			String numeroProductos = this.getServletConfig().getInitParameter("numeroProductos");
+			//String numeroProductos = "10";
+			request.setAttribute("numeroProductos", numeroProductos);
+			
+			productos = (ArrayList<Producto>)dao.getAll();
+			request.setAttribute("productos", productos);
+			
 		}catch(Exception e){
 			e.printStackTrace();
+			
 		}finally {
 			request.getRequestDispatcher("home.jsp").forward(request, response);
 		}
