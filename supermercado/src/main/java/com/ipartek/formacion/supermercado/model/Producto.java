@@ -86,6 +86,16 @@ public class Producto {
 	public void setDescripcion(String descripcion) {
 		this.descripcion = descripcion;
 	}
+	
+	public float getCalcularDescuento() {
+		float resul = 0;
+		
+		if (this.descuento > 0) {
+			resul = this.precio - (this.precio * (this.descuento*100)) ;
+		}
+		
+		return resul;
+	}
 
 	@Override
 	public String toString() {
