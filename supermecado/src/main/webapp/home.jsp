@@ -50,6 +50,8 @@
         </header>
 
         <div class="contenido">
+        
+        	<h2>Numero de Productos ${numeroProductos}</h2>
 
             <div class="producto">
 

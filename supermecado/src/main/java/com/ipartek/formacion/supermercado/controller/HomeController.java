@@ -1,6 +1,8 @@
 package com.ipartek.formacion.supermercado.controller;
 
 import java.io.IOException;
+
+import javax.servlet.Servlet;
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebInitParam;
@@ -25,7 +27,7 @@ public class HomeController extends HttpServlet {
 	 * @see Servlet#init(ServletConfig)
 	 */
 	public void init(ServletConfig config) throws ServletException {
-		// TODO Auto-generated method stub
+		super.init(config);
 	}
 
 	/**
@@ -53,9 +55,15 @@ public class HomeController extends HttpServlet {
 		
 		try {
 			
+			ServletConfig sconfig = this.getServletConfig();			
+			String numeroProductos = sconfig.getInitParameter("numeroProductos");			
+			request.setAttribute("numeroProductos", numeroProductos);	
+			
 		}catch (Exception e) {
 			e.printStackTrace();
 		}finally {
+			
+					
 			request.getRequestDispatcher("home.jsp").forward(request, response);
 		}
 		
