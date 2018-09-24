@@ -181,6 +181,10 @@ nav img{
     color:#f00;
 }
 
+.login-content{
+	margin-bottom:11em;
+}
+
 /* Estilos para el formulario de alta producto */
 
 .form-alta-producto{
