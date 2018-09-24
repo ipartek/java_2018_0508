@@ -1,0 +1,7 @@
+##################333
+EJERCICIO:
+CAMBIAR EL texto PRINCIPAL POR INICIO.(HECHO)
+Cuando el usuario no este logueado, no debe aparacer crear nuevo producto ni el listado del navbar.
+poner a la derecha, iniciar session.
+Cuando inicia session aparece los enlaces y boton cerrar session.
+session expira 1 minuto.

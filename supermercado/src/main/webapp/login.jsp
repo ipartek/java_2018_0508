@@ -43,8 +43,8 @@
                         </div>
                                     
                         <div class="form-group">
-                            <label for="pass" class="required">ContraseÃ±a</label>
-                            <input type="password" class="form-control" id="pass" minlength="8" maxlength="20" required placeholder="ContraseÃ±a del usuario (8 a 20 caracteres)" />
+                            <label for="pass" class="required">Contraseña</label>
+                            <input type="password" class="form-control" id="pass" minlength="8" maxlength="20" required placeholder="Contraseña del usuario (8 a 20 caracteres)" />
                         </div>
                                     
                         <button type="submit" class="btn btn-outline-primary btn-block">Acceder</button>
