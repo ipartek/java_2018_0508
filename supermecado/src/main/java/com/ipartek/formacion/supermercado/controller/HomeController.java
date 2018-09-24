@@ -1,6 +1,7 @@
 package com.ipartek.formacion.supermercado.controller;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.servlet.Servlet;
 import javax.servlet.ServletConfig;
@@ -11,6 +12,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.ipartek.formacion.supermercado.model.Producto;
+import com.ipartek.formacion.supermercado.model.ProductoArrayListDAO;
+
 /**
  * Servlet implementation class HomeController
  */
@@ -20,7 +24,9 @@ import javax.servlet.http.HttpServletResponse;
 				@WebInitParam(name = "numeroProductos", value = "10", description = "Numero de productos a mostrar en la pagina inicial")
 		})
 public class HomeController extends HttpServlet {
+	
 	private static final long serialVersionUID = 1L;
+	private static ProductoArrayListDAO dao;
        
    
 	/**
@@ -28,13 +34,14 @@ public class HomeController extends HttpServlet {
 	 */
 	public void init(ServletConfig config) throws ServletException {
 		super.init(config);
+		dao = ProductoArrayListDAO.getInstance();
 	}
 
 	/**
 	 * @see Servlet#destroy()
 	 */
 	public void destroy() {
-		// TODO Auto-generated method stub
+		dao = null;
 	}
 
 	/**
@@ -58,6 +65,9 @@ public class HomeController extends HttpServlet {
 			ServletConfig sconfig = this.getServletConfig();			
 			String numeroProductos = sconfig.getInitParameter("numeroProductos");			
 			request.setAttribute("numeroProductos", numeroProductos);	
+			
+			List<Producto> productos = dao.getAll();
+			request.setAttribute("productos", productos);
 			
 		}catch (Exception e) {
 			e.printStackTrace();

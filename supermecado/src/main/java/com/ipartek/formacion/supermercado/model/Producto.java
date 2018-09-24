@@ -19,6 +19,18 @@ public class Producto {
 		this.precioUnidad = "";
 		this.descripcion = "";
 	}
+	
+	public Producto(long id, String nombre, float precio, int descuento, String imagen, String descripcion,
+			String precioUnidad) {
+		this();
+		this.id = id;
+		this.nombre = nombre;
+		this.precio = precio;
+		this.descuento = descuento;
+		this.imagen = imagen;
+		this.descripcion = descripcion;
+		this.precioUnidad = precioUnidad;
+	}
 
 
 	public long getId() {
@@ -88,6 +100,10 @@ public class Producto {
 
 	public void setDescripcion(String descripcion) {
 		this.descripcion = descripcion;
+	}
+	
+	public float getCalcularDescuento() {
+		return  Math.round(( this.precio - ( this.precio * this.descuento /100 ) ));
 	}
 
 

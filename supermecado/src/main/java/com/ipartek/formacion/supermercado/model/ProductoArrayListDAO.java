@@ -10,9 +10,13 @@ public class ProductoArrayListDAO implements CrudAble<Producto> {
 
 	private ProductoArrayListDAO() {
 		productos = new ArrayList<Producto>();
-		try {
-			
-			//TODO cargar producto iniciales
+		try {			
+
+			productos.add(new Producto(0,"ron",18,0,"images/ron.jpg","ron muuu rico","18€/L"));
+			productos.add(new Producto(1,"gin barata",10,50,"images/gin.jpg","gin muuu rico","20€/L"));
+			productos.add(new Producto(2,"vodka",23,8,"images/vodka.jpg","vozka muuu rico","16€/L"));
+			productos.add(new Producto(0,"ron",17,0,"images/ron.jpg","ron muuu rico","18€/L"));
+			productos.add(new Producto(1,"gin",20,20,"images/gin.jpg","gin muuu rico","20€/L"));
 			
 		} catch (Exception e) {
 			e.printStackTrace();
