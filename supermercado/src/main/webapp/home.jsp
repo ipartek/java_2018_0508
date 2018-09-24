@@ -68,8 +68,9 @@
 		        			<p>
 		        			<span class="tachado">${p.precio}&euro;</span>
 		        			<span>
-			        			<fmt:formatNumber var="preDesc" value="${p.precio-(p.precio * (p.descuento/100))}"  maxFractionDigits="2" />
-			        			${preDesc}&euro;
+		        				<fmt:formatNumber value="${p.precio-(p.precio * (p.descuento/100))}"  maxFractionDigits="2"/>&euro;
+			        			<!-- <fmt:formatNumber var="preDesc" value="${p.precio-(p.precio * (p.descuento/100))}"  maxFractionDigits="2" />
+			        			${preDesc}&euro; -->
 		        			</span>
 		        			</p>
 		        		</c:if>
