@@ -29,7 +29,7 @@
                     <c:if test="${not empty usuario}">
                     	<ul class="navbar-nav ml-auto menu">
 							<li class="nav-item">
-                            	<a class="nav-link" href="">Bienvenido ${usuario.nombre}</a>
+                            	<a class="nav-link" href="">Bienvenido, ${usuario.nombre}<i class="fas fa-user"></i></a>
 	                        </li>
 	
 	                        <li class="nav-item">
