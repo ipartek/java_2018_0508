@@ -1,8 +1,7 @@
 
-<!-- Menu -->s
-<nav class="navbar navbar-expand-md navbar-dark bg-dark mb-4">
-
-    <img class="navbar-brand" alt="" src="imagenes/logo.png" width="100px">
+    <nav class="navbar navbar-expand-md navbar-dark bg-dark mb-4">
+    
+      <img class="navbar-brand" alt="" src="imagenes/logo.png" width="100px">
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>

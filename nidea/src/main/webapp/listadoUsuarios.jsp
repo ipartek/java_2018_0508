@@ -494,6 +494,15 @@
 		</div>
 	</main>
 
+	<script>
+	window.addEventListener("load", function () {
+		$('#example').DataTable();
+	});
+	</script>
+
+
+
+
 <%@include file="includes/footer.jsp" %>
 
 <!-- El toString del resultado.jsp hacer un card:
