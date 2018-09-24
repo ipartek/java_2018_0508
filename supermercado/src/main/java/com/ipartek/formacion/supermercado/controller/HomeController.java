@@ -65,7 +65,7 @@ public class HomeController extends HttpServlet {
 		try {
 			// TODO mirar porque da null
 			String numeroProductos = this.getServletContext().getInitParameter("numeroProductos");
-			// String numeroProductos="10";
+			// String numeroProductos="10";			
 			request.setAttribute("numeroProductos", numeroProductos);
 
 			// Recoger listado de productos
