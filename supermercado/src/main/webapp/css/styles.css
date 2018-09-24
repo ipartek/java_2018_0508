@@ -173,6 +173,11 @@ nav img{
 }
 
 /* Estilos para el formulario de login */
+.container{
+    width: 100%;
+    padding: 50px 0;
+    margin: 25px auto;
+}
 
 #login-small{
     margin-bottom:1em;
@@ -211,6 +216,7 @@ footer{
     align-items:center;
     color:#fff;
     padding:1em;
+    width: 100%;
 }
 
 footer nav a{
