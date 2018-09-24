@@ -12,10 +12,6 @@ public class ProductoArrayDAO implements Crudable<Producto> {
 	private ProductoArrayDAO() {
 		lista = new ArrayList<Producto>();
 		try {
-//			lista.add(new Producto("xuoXkMZvD5Q", "AC/DC - You Shook Me All Night Long", "Esta es la descripción del vídeo de AC/DC - You Shook Me All Night Long", new ArrayList<Comentario>()));
-//			lista.add(new Producto("O71fetlkCZo", "Queen - We Are The Champions", "Esta es la descripción del vídeo de Queen - We Are The Champions", new ArrayList<Comentario>()));
-//			lista.add(new Producto("EOKAnomhHRg", "Bleach Opening - Ranbu No Melody", "Esta es la descripción del vídeo de Bleach Opening - Ranbu No Melody", new ArrayList<Comentario>()));
-//			lista.add(new Producto(id, nombre, precio, precioVolumen, descuento, descripcion, imagen));
 			lista.add(new Producto(123, "Beefeater", 12.85f, 18.50f, 0, "BEEFEATER ginebra inglesa botella 70cl.", "images/beefeater.jpg"));
 			lista.add(new Producto(124, "Beefeater", 7.90f, 18.50f, 20, "BEEFEATER ginebra inglesa botella 70cl.", "images/beefeater.jpg"));
 			lista.add(new Producto(125, "Don Simón", 1.75f, 2.15f, 5, "Vino tinto 12 % vol alcohol. Clarificado y estabilizado.", "images/donsimon.jpg"));

@@ -17,6 +17,8 @@
         <%@include file="includes/navbar.jsp"%>
 
         <main role="main" class="container">
+        
+        	
 
             <div class="row justify-content-center">
                 <h1 class="col col-md-6"><i class="fas fa-user"></i> Login</h1>
@@ -26,7 +28,7 @@
                 <small id="login-small" class="col col-md-6">Los campos con * son obligatorios</small>
             </div>
 
-            <form id="login-form">
+            <form id="login-form" action="login" method="post">
 			
                 <div class="form-row justify-content-center">
                             
@@ -34,16 +36,18 @@
                         
                         <div class="form-group">
                             <label for="correo" class="required">Email</label>
-                            <input type="email" class="form-control" id="correo" autofocus required placeholder="Ej: paco@gmail.com" />
+                            <input type="email" name="user" class="form-control" id="correo" autofocus required placeholder="Ej: paco@gmail.com" />
                         </div>
                                     
                         <div class="form-group">
-                            <label for="pass" class="required">ContraseÃ±a</label>
-                            <input type="password" class="form-control" id="pass" minlength="8" maxlength="20" required placeholder="ContraseÃ±a del usuario (8 a 20 caracteres)" />
+                            <label for="pass" class="required">Contraseña</label>
+                            <input type="password" name="pswd" class="form-control" id="pass" minlength="8" maxlength="20" required placeholder="Contraseña del usuario (8 a 20 caracteres)" />
                         </div>
                                     
                         <button type="submit" class="btn btn-outline-primary btn-block">Acceder</button>
-                                    
+                        <br>
+                        
+                        <p class="text-danger text-center"> ${param.msg}</p>
                     </div>
                                     
                 </div>
