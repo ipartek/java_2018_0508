@@ -1,8 +1,8 @@
 <!-- Page codification -->
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
-<%@ include file="vendor/include/header.jsp" %>
-<%@ include file="vendor/include/navbar.jsp" %>
+<%@ include file="/include/header.jsp" %>
+<%@ include file="/include/navbar.jsp" %>
 
     <div class="contenedor">
     
@@ -42,4 +42,4 @@
             
         </div> <!-- /.contenido -->
 	
-<%@ include file="vendor/include/footer.jsp" %>
+<%@ include file="include/footer.jsp" %>

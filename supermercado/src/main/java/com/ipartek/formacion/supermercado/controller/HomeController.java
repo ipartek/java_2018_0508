@@ -17,7 +17,7 @@ import com.ipartek.formacion.supermercado.model.ProductoArrayListDAO;
 /**
  * Servlet implementation class HomeController
  */
-@WebServlet(urlPatterns = { "/home" }, initParams = {
+@WebServlet(urlPatterns = { "/inicio" }, initParams = {
 		@WebInitParam(name = "numProductos", value = "10", description = "Número de productos iniciales al cargar la página de inicio.") })
 public class HomeController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -25,37 +25,25 @@ public class HomeController extends HttpServlet {
 	ProductoArrayListDAO dao;
 	ArrayList<Producto> productos;
 
-	/**
-	 * @see Servlet#init(ServletConfig)
-	 */
 	public void init(ServletConfig config) throws ServletException {
 		
 		super.init(config);
 		dao = ProductoArrayListDAO.getInstance();
 	}
 
-	/**
-	 * @see Servlet#destroy()
-	 */
+
 	public void destroy() {
 		
 		dao = null;
 	}
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
-	 *      response)
-	 */
+
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		
 		doProccess(request, response);
 	}
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
-	 *      response)
-	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		
@@ -86,7 +74,7 @@ public class HomeController extends HttpServlet {
 		
 		// Listado de Productos
 		productos = (ArrayList<Producto>) dao.getAll();
-		
 	}
 
+	
 }

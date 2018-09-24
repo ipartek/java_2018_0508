@@ -3,7 +3,7 @@
 
         <a href="#top" class="top">Top</a>
 
-        <footer>
+        <footer class="fixed-bottom">
 
             <div>
                 <p>&copy; 2018</p>
@@ -23,16 +23,6 @@
         </footer>
     
     </div> <!-- ./contenedor -->
-    
- 	<!-- JQUERY core JS -->
-	<script src="vendor/js/jquery-3.3.1.min.js"></script>
 	
-	<!-- BOOTSTRAP core JS -->
-	<script src="vendor/js/bootstrap.min.js"></script>	
-	
-	<!-- PERSONAL JS -->
-	<script src="vendor/js/autofocus.js"></script>	
-	
-
 </body>
 </html>
