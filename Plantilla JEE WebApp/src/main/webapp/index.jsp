@@ -1,12 +1,15 @@
-<!-- Cabecera con navegador -->
+<!-- Cabecera -->
 <%@ include file="vendor/include/header.jsp" %>
+
+<!-- Navegador -->
+<%@ include file="vendor/include/navbar.jsp" %>
 
 <main class="container mt-5" role="main">
 	
 	<!-- Gestión de alertas -->
 	<div class="row align-center">
         <div class="col color-primary">
-			<%@include file="../../vendor/include/alert.jsp" %>
+			<%@include file="vendor/include/alert.jsp" %>
 		</div>
 	</div>
 	
