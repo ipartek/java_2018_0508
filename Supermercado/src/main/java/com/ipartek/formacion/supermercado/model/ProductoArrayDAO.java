@@ -18,11 +18,11 @@ public class ProductoArrayDAO implements Crudable<Producto> {
 //			lista.add(new Producto(id, nombre, precio, precioVolumen, descuento, descripcion, imagen));
 			lista.add(new Producto(123, "Beefeater", 12.85f, 18.50f, 0, "BEEFEATER ginebra inglesa botella 70cl.", "images/beefeater.jpg"));
 			lista.add(new Producto(124, "Beefeater", 7.90f, 18.50f, 20, "BEEFEATER ginebra inglesa botella 70cl.", "images/beefeater.jpg"));
-			lista.add(new Producto(125, "Don Simón", 1.75f, 2.15f, 5, "Vino tinto 12 % vol alcohol. Clarificado y estabilizado. Franco y limpio. Microbiológicamente estable.", "images/donsimon.jpg"));
-			lista.add(new Producto(126, "Absolut Vodka", 15.75f, 19.95f, 0, "Absolut Vodka es la marca líder de vodka Premium, con el auténtico sabor del vodka original o tus sabores favoritos elaborados con ingredientes naturales.", "images/absolut-vodka.png"));
-			lista.add(new Producto(127, "Johnnie Walker (Blue Label)", 22.95f, 27.50f, 33, "Johnnie Walker es una marca de whisky escocés producida por Diageo en Kilmarnock, Escocia.", "images/johnnie-walker-blue-label.jpg"));
-			lista.add(new Producto(128, "Paulaner", 2.95f, 5.35f, 10, "Como marca líder de cerveza de trigo, la Cervecería Paulaner asume responsabilidad y aboga por un consumo responsable de bebidas alcohólicas.", "images/paulaner.jpg"));
-			lista.add(new Producto(129, "Santa Teresa", 17.95f, 20.50f, 0, "Con una mezcla de rones Premium y hasta cinco años en barriles y barricas de roble, Santa Teresa Gran Reserva es la joya de la corona de los rones.", "images/santateresa.jpg"));
+			lista.add(new Producto(125, "Don Simón", 1.75f, 2.15f, 5, "Vino tinto 12 % vol alcohol. Clarificado y estabilizado.", "images/donsimon.jpg"));
+			lista.add(new Producto(126, "Absolut Vodka", 15.75f, 19.95f, 0, "Absolut Vodka es la marca líder de vodka Premium.", "images/absolut-vodka.png"));
+			lista.add(new Producto(127, "Johnnie Walker (Blue Label)", 22.95f, 27.50f, 33, "Johnnie Walker es una marca de whisky escocés.", "images/johnnie-walker-blue-label.jpg"));
+			lista.add(new Producto(128, "Paulaner", 2.95f, 5.35f, 10, "Paulaner aboga por un consumo responsable.", "images/paulaner.jpg"));
+			lista.add(new Producto(129, "Santa Teresa", 17.95f, 20.50f, 0, "Santa Teresa es la joya de la corona de los rones.", "images/santateresa.jpg"));
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

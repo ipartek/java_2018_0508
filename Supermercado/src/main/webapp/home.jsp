@@ -42,13 +42,16 @@
                 <img src="${p.imagen}" alt="imagen-producto" />
     
                 <div class="texto-producto">
-			    <c:if test="${p.descuento == 0 }">
-			        		
-			    	<p class="no-descuento">${p.precio}&euro;</p>
-			        		
-        		</c:if>
+				    <c:if test="${p.descuento == 0 }">
+				        		
+				    	<p class="no-descuento">${p.precio}&euro;</p>
+				        		
+	        		</c:if>
+	        		
         			<c:if test="${p.descuento != 0 }">
+        			
                     	<p><span class="tachado">${p.precio}&euro;</span><span>${p.calcularDescuento}&euro;</span></p>
+                    	
                     </c:if>
                     <p class="precio-litro">(${p.precioVolumen}&euro; / Litro)</p>
                     <p>${p.descripcion}</p>

@@ -34,13 +34,14 @@ nav img{
 /* Estilos para el contenido principal de la página */
 
 .contenido{
-    margin:1em auto;
-    max-width:90%;
+    margin: auto;
+    max-width: 90vw;
     height:auto;
     padding-left:2em;
     display:flex;
     flex-flow:row wrap;
     justify-content:flex-start;
+    align-items: flex-end;
 }
 
 /* Estilos para la carta de producto */
@@ -72,6 +73,7 @@ nav img{
 
 .producto img{
     margin-bottom:1em;
+    height: 200px;
 }
 
 .texto-producto{
@@ -80,6 +82,10 @@ nav img{
 
 .tachado {
     position: relative;
+}
+
+.invisible{
+	display:none;
 }
  
 .tachado:before {
@@ -106,8 +112,10 @@ nav img{
 }
 
 .no-descuento{
-    font-weight: bold;
-    font-size:1.5em;
+    font-weight: bold!important;
+    font-size:1.5em!important;
+    color: #696969!important;
+    margin-left:0!important;
 }
 
 .precio-litro{
@@ -128,6 +136,7 @@ nav img{
 .cantidad span{
     font-weight: bolder;
     color:#000;
+    cursor: pointer;
 }
 
 .producto a{
