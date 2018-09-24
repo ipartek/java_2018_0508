@@ -19,7 +19,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Youtube Video Play List</title>
+    <title>Registro de usuarios</title>
 
 	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
 	
@@ -99,7 +99,7 @@
 				  <div class="form-row">
 				  <div class="form-group col-md-6">
 				      <label for="nombreUsuario">Usuario</label>
-				      <input type="text" class="form-control" name="nombreUsuario" autofocus required="required" placeholder="% caracteres minimo" pattern="[A-Za-z]{5,45}">
+				      <input type="text" class="form-control" name="nombreUsuario" autofocus required="required" placeholder="5 caracteres minimo" pattern="[A-Za-z]{5,45}">
 				    </div>
 				    <div class="form-group col-md-6">
 				      <label for="emailUsuario">Email</label>

@@ -29,6 +29,8 @@ import com.ipartek.formacion.pojo.Usuario;
 public class RegistroUsuarioController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private static UsuariosDAO usuariosDao;
+	//agrego el nuevo objeto UsuariosDaoJDBC que contendra las querys y la logica para llevar
+	private static UsuariosDaoJDBC usuariosDaoJDBC;
 	private static ArrayList<Usuario> usuarios;
 	private String msg;
 	private static boolean error = false;
@@ -42,7 +44,9 @@ public class RegistroUsuarioController extends HttpServlet {
 		super.init(config);
 		//Se ejecuta solo con la 1º petición, el resto de peticiones iran a "service"
 		//inicializamos el arraydao de usuarios
-		usuariosDao =  usuariosDao.getInstance();
+		usuariosDao =  UsuariosDAO.getInstance();
+		//inicializamos el usuariosDaoJDBC de usuarios
+		usuariosDaoJDBC = UsuariosDaoJDBC.getInstance();
 	}
 	
 	@Override
@@ -130,6 +134,8 @@ public class RegistroUsuarioController extends HttpServlet {
 				id = getIdOnDao();
 				Usuario nuevoUsuario = new Usuario(id,nombreUsuario,emailUsuario,passUsuario);
 				usuariosDao.insert(nuevoUsuario);
+				//ahora estamos haciendo un insert sql atraves del dao usuariosDaoJDBC
+				usuariosDaoJDBC.insert(nuevoUsuario);
 				session.setAttribute("usuario", nuevoUsuario);
 				session.setMaxInactiveInterval(60*5); // 5min
 				request.setAttribute("nombre", nombreUsuario);

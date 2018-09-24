@@ -18,6 +18,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.ipartek.formacion.model.UsuariosDAO;
+import com.ipartek.formacion.model.UsuariosDaoJDBC;
 import com.ipartek.formacion.pojo.Alerts;
 import com.ipartek.formacion.pojo.Usuario;
 
@@ -29,6 +30,7 @@ public class LoginController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private boolean accessSignal = false;
 	private static UsuariosDAO usuariosDao;
+	private static UsuariosDaoJDBC usuariosDaoJDBC;
 	private static ArrayList<Usuario> usuarios;
        
     
@@ -38,6 +40,7 @@ public class LoginController extends HttpServlet {
 		//Se ejecuta solo con la 1º petición, el resto de peticiones iran a "service"
 		//inicializamos el arraydao de usuarios
 		usuariosDao =  usuariosDao.getInstance();
+		usuariosDaoJDBC = usuariosDaoJDBC.getInstance();
 	}
 	
 	@Override
@@ -138,7 +141,10 @@ public class LoginController extends HttpServlet {
 		
 	}
 	private Usuario comprobarUSuarioC(String usuarioNombre, String pass) {
-		usuarios = (ArrayList<Usuario>) usuariosDao.getAll();
+		//aqui sobre el objeto usuarios (usuariosDao) vuelco la info de usuariosDaoJDBC
+		//actualizando la informacion de usuarios(usuariosDao) con la info de la db
+		//usuarios = (ArrayList<Usuario>) usuariosDao.getAll();
+		usuarios = (ArrayList<Usuario>) usuariosDaoJDBC.getAll();
 		Usuario usuarioReg = null;
 		for (Usuario u : usuarios) {
 			if (usuarioNombre.equals(u.getNombre()) && pass.equals(u.getPassword())){
@@ -150,10 +156,14 @@ public class LoginController extends HttpServlet {
 	}
 
 	private boolean comprobarUsuario(String nombreUsuario, String passUsuario) {
-		usuarios = (ArrayList<Usuario>) usuariosDao.getAll();
+		//aqui sobre el objeto usuarios (usuariosDao) vuelco la info de usuariosDaoJDBC
+		//actualizando la informacion de usuarios(usuariosDao) con la info de la db
+		//usuarios = (ArrayList<Usuario>) usuariosDao.getAll();
+		usuarios = (ArrayList<Usuario>) usuariosDaoJDBC.getAll();
 		for (Usuario u : usuarios) {
 			if (nombreUsuario.equals(u.getNombre()) && passUsuario.equals(u.getPassword())){
 				accessSignal = true;
+				break;
 			}
 		}
 		return accessSignal;

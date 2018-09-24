@@ -13,11 +13,11 @@ public class VideoArrayListDAO implements CrudAble<Video> {
 	private VideoArrayListDAO() {
 		videos = new ArrayList<Video>();
 		try {
-			videos.add(new Video("UKRLY9EptCY","Violin piano, Dubstep, Extended Edition, 20 Minutes,"));
+/*			videos.add(new Video("UKRLY9EptCY","Violin piano, Dubstep, Extended Edition, 20 Minutes,"));
 			videos.add(new Video("OQcS-dZy1mg", "De tranquis"));
 			videos.add(new Video("ninviq_cRbk", "Louder (Karate Kid)"));
 			videos.add(new Video("YSAMOBVncSg", "Im a wanted man"));
-			videos.add(new Video("OJxCcCEobNs","EPIC ROCK | ''Dead Man Walking'' by WAR*HALL"));
+			videos.add(new Video("OJxCcCEobNs","EPIC ROCK | ''Dead Man Walking'' by WAR*HALL"));*/
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
