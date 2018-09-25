@@ -7,7 +7,7 @@
             <nav>
                 <a href="#">Politica de privacidad</a>
                 <a href="#">Contacto</a>
-                <a href="#">Localización</a>
+                <a href="#">LocalizaciÃ³n</a>
             </nav>
 
             <div class="social">
@@ -19,7 +19,16 @@
 
 
     </div> <!-- /.contenedor -->
+	<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+	<script>
+	$('button[type="submit"]').on('submit', function(){
+	            setTimeout(function(){
+	               $(".alert").toggleClass("invisible")
+	           }, 1000)
+	        });
 
+
+	</script>
     
 </body>
 </html>

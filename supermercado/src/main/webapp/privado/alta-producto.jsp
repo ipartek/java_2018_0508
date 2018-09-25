@@ -36,7 +36,7 @@
                     </div> <!-- /.form-row -->
                             
                     <div class="form-group">
-                        <label for="desc">DescripciÃ³n:</label>
+                        <label for="desc">Descripción:</label>
                         <textarea id="desc" class="form-control" name="descripcion" placeholder="Informe a sus clientes sobre los detalles del producto" rows="3" /></textarea>
                     </div>
 

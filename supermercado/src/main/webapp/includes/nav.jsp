@@ -13,15 +13,22 @@
                </li>
                <c:if test = "${not empty usuario}">
 	               <li class="nav-item">
-	                   <a class="nav-link" href="privado/altaproducto">Nuevo producto</a>
+	                   <a class="nav-link" href="altaproducto">Nuevo producto</a>
 	               </li>
 	
 	               <li class="nav-item">
-	                   <a class="nav-link" href="privado/listado.jsp">Listado</a>
+	                   <a class="nav-link" href="listado">Listado</a>
+	               </li>
+	               <li class="nav-item">
+	                   <a class="nav-link" href="logout">Logout</a>
 	               </li>
                </c:if>
+               
+                
 
            </ul>
        </div>
 
    </nav>
+   
+   

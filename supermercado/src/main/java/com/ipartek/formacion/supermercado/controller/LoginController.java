@@ -16,42 +16,58 @@ import com.ipartek.formacion.supermercado.model.Usuario;
 @WebServlet("/login")
 public class LoginController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	private static final String USER = "admin";
+	private static final String PASS = "admin";
 
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+	 *      response)
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		request.getRequestDispatcher("login.jsp").forward(request, response);
 	}
 
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+	 *      response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-		HttpSession session=request.getSession();		
-		String msg="";
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+
+		HttpSession session = request.getSession();
+		String view = "login.jsp";
+		String msg = "Error%20inesperado";
 		try {
 			String nombre = request.getParameter("correo");
 			String pass = request.getParameter("pass");
-			if("admin".equals(nombre) && "admin".equals(pass)) {
-				session.setAttribute("usuario", new Usuario(nombre,pass));	
-				msg = "Usuario logeado correctamente";
-			}else {
-				msg = "Usuario incorrecto";
+			if (USER.equals(nombre) && PASS.equals(pass)) {
+				
+				session.setAttribute("usuario", new Usuario(nombre, pass));
+				session.setMaxInactiveInterval(60); // session  expira en 1 min
+				msg = "Usuario%20logeado%20correctamente";
+				view = "listado";
+				
+				
+			} else {
+				msg = "Usuario%20incorrecto";
+				
 			}
 			
-				
+			request.setAttribute("msg", msg);
+
 		} catch (Exception e) {
-			
+			e.getStackTrace();
 		}finally {
-			request.getRequestDispatcher("login.jsp").forward(request, response);
+			
+			response.sendRedirect(view+"?msg="+msg);
+			//request.getRequestDispatcher(view).forward(request, response);
 		}
+			
+
+
 		
-		
-		
-		
-		
+
 	}
 
 }

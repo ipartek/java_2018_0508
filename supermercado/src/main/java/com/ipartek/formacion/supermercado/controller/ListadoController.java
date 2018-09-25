@@ -3,7 +3,6 @@ package com.ipartek.formacion.supermercado.controller;
 import java.io.IOException;
 import java.util.List;
 
-import javax.management.modelmbean.RequiredModelMBean;
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -15,18 +14,17 @@ import com.ipartek.formacion.supermercado.model.Producto;
 import com.ipartek.formacion.supermercado.model.ProductoArrayListDAO;
 
 /**
- * Servlet implementation class AltaProductoController
+ * Servlet implementation class ListadoController
  */
-@WebServlet("/altaproducto")
-public class AltaProductoController extends HttpServlet {
+@WebServlet("/listado")
+public class ListadoController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private static ProductoArrayListDAO dao;
-       
+
 	/**
 	 * @see Servlet#init(ServletConfig)
 	 */
 	public void init(ServletConfig config) throws ServletException {
-		super.init(config);
 		dao = ProductoArrayListDAO.getInstance();
 	}
 
@@ -36,38 +34,29 @@ public class AltaProductoController extends HttpServlet {
 	public void destroy() {
 		dao = null;
 	}
+
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.getRequestDispatcher("privado/alta-producto.jsp").forward(request, response);
-
+		
+		try {
+			List<Producto>productos = dao.getAll();
+			request.setAttribute("productos", productos);
+			
+		} catch (Exception e) {
+			e.getStackTrace();
+		}finally {
+			request.getRequestDispatcher("privado/listado.jsp").forward(request, response);;
+		}
+	
 	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-		try {
-			
-			String nom=request.getParameter("nom");
-			float precio= Float.parseFloat(request.getParameter("precio"));
-			int descuento= Integer.parseInt(request.getParameter("cant-descuento"));
-			String litro= request.getParameter("litro");
-			String descripcion= request.getParameter("desc");
-			String img= request.getParameter("img");
-			
-			Producto p = new Producto(4,nom,precio,descuento,descripcion,img,litro);
-			dao.insert(p);
-			
-
-		} catch (Exception e) {
-			e.printStackTrace();
-
-		} finally {
-			request.getRequestDispatcher("home").forward(request, response);
-		}
+		doGet(request, response);
 	}
 
 }

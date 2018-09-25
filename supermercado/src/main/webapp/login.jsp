@@ -2,6 +2,7 @@
 
         <main role="main" class="container">
 
+
             <div class="row justify-content-center">
                 <h1 class="col col-md-6"><i class="fas fa-user"></i> Login</h1>
             </div>
@@ -23,7 +24,7 @@
                                     
                         <div class="form-group">
                             <label for="pass" class="required">Contraseña</label>
-                            <input type="password" class="form-control" name="pass" id="pass" minlength="5" maxlength="20" required placeholder="ContraseÃ±a del usuario (8 a 20 caracteres)" />
+                            <input type="password" class="form-control" name="pass" id="pass" minlength="5" maxlength="20" required placeholder="Contraseña del usuario (8 a 20 caracteres)" />
                         </div>
                                     
                         <button type="submit" class="btn btn-outline-primary btn-block">Acceder</button>
