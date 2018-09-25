@@ -1,3 +1,4 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ include file="header.jsp" %>
 <header id="top">
 
@@ -6,7 +7,7 @@
 
                 <div class="navbar-collapse" id="navbarCollapse">
                 
-                <c:if test="${empty usuario }">
+                <c:if test="${empty sessionScope.usuario }">
                 
                     <ul class="navbar-nav mr-auto menu">
 
@@ -14,15 +15,15 @@
                             <a class="nav-link" href="home">Inicio <span class="sr-only">(current)</span></a>
                         </li>
 
-                        <li class="nav-item">
-                            <a class="nav-link" href="login.jsp">Iniciar sesión</a>
+                        <li class="nav-item inicio-cierre-sesion">
+                            <a class="nav-link" href="login.jsp">Iniciar sesiÃ³n</a>
                         </li>
 
                     </ul>
                     
                 </c:if>
                 
-                <c:if test="${not empty usuario }">
+                <c:if test="${not empty sessionScope.usuario }">
                 
                     <ul class="navbar-nav mr-auto menu">
 
@@ -35,11 +36,11 @@
                         </li>
                         
                         <li class="nav-item">
-                            <a class="nav-link" href="privado/listado.jsp">Listado</a>
+                            <a class="nav-link" href="listado">Listado</a>
                         </li>
 
-                        <li class="nav-item">
-                            <a class="nav-link" href="logout">Cerrar sesión</a>
+                        <li class="nav-item inicio-cierre-sesion">
+                            <a class="nav-link cerrarSesion" href="logout">Cerrar sesiÃ³n</a>
                         </li>
 
                     </ul>

@@ -23,6 +23,10 @@ nav img{
 
 /* Estilos para el menu de cabecera */
 
+nav{
+	position:relative;
+}
+
 .menu a{
     color:#fff!important;
 }
@@ -31,7 +35,20 @@ nav img{
     color:#999!important;
 }
 
+.menu a.cerrarSesion{
+	color:#ffc107!important;
+}
+
+.menu li.inicio-cierre-sesion{
+	position:absolute;
+	right:10px;
+}
+
 /* Estilos para el contenido principal de la página */
+
+main.container{
+	min-height:64.6vh;
+}
 
 .contenido{
     margin:1em auto;

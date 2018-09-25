@@ -1,8 +1,7 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ include file="includes/header.jsp" %>
 <%@ include file="includes/navbar.jsp" %>
         
-		<h2>Número de productos -> ${numeroProductos }</h2>
-		
         <div class="contenido">
         	
         	<c:forEach items="${productos }" var="p">
@@ -27,7 +26,7 @@
 		
 		                </div>
 		
-		                <a href="#">AÑADIR AL CARRO</a>
+		                <a href="#">AÃ‘ADIR AL CARRO</a>
 		
 		            </div> <!-- /.producto -->
         		
@@ -52,7 +51,7 @@
 	
 	                </div>
 	
-	                <a href="#">AÑADIR AL CARRO</a>
+	                <a href="#">AÃ‘ADIR AL CARRO</a>
 	
 	            </div> <!-- /.producto -->
         		

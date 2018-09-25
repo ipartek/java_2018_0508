@@ -1,4 +1,4 @@
-
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
         <footer id="listado-footer">
 
             <div>
@@ -8,7 +8,7 @@
             <nav>
                 <a href="#">Politica de privacidad</a>
                 <a href="#">Contacto</a>
-                <a href="#">Localización</a>
+                <a href="#">LocalizaciÃ³n</a>
             </nav>
                 
             <div class="social">
