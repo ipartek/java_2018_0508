@@ -1,21 +1,11 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Formulario</title>
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
-    <link rel="stylesheet" href="css/styles.css">
-</head>
+<%@ include file="../includes/head.jsp" %>
 <body>
 
         <div class="contenedor">
 
             <header>
         
-                <%@ include file="includes/navbar.jsp" %>
+                <%@ include file="../includes/navbar.jsp" %>
                 
             </header>
 
@@ -24,7 +14,7 @@
                 <h1><i class="fas fa-archive"></i> Alta de producto</h1>
                 <small>Los campos con * son obligatorios</small>
             
-                <form method="post" class="form-alta-producto">
+                <form method="post" class="form-alta-producto" action="altaProducto">
 
                     <div class="form-row">
                             
@@ -41,11 +31,6 @@
                     </div> <!-- /.form-row -->
                             
                     <div class="form-row">
-
-                        <div class="form-group col">
-                            <label for="cant" class="required">Cantidad de productos a ingresar:</label>
-                            <input type="number" class="form-control" id="cant" name="cantidad" min="1" max="20" required placeholder="Mínimo 1 y máximo 20" >
-                        </div> 
                             
                         <div class="form-group col">
                             <label for="cant-descuento">Descuento(&#37;):</label>

@@ -3,6 +3,10 @@ package com.ipartek.formacion.supermercado.model;
 import java.text.DecimalFormat;
 
 public class Producto {
+	
+	public static final String IMAGEN = "/images/default_product.png";
+	
+	
 	private long id;
 	private String nombre;
 	private float precio;
@@ -18,7 +22,7 @@ public class Producto {
 		this.nombre = "";
 		this.precio = 0;
 		this.descuento = 0;
-		this.imagen = "/images/default_product.png";
+		this.imagen = IMAGEN;
 		this.descripcion = "";
 		this.precioVolumen = 0;
 		

@@ -10,24 +10,15 @@
                     <ul class="navbar-nav mr-auto menu">
 						
 						<!-- Usuario no logueado -->
-						<c:if test="${empty usuario }">
-							<li class="nav-item">
-                            <a class="nav-link" href="home">Inicio <span class="sr-only">(current)</span></a>
-                        </li>        
-                        <li class="nav-item active">
-								<!-- Formulario de login -->
-								<form action="login" method="post" class="form-inline mt-2 mt-md-0">									
-									<input name="usuario" class="form-control mr-2" type="text" placeholder="Nombre de usuario" required pattern=".{3,30}">
-									<input name="pass" class="form-control mr-2" type="password" placeholder="Contraseña" required pattern=".{2,50}">
-									<button class="btn btn-outline-info btn-outline-pika mr-2" type="submit">Entrar</button>
-									
-								</form>
-								<!-- Fin Formulario de login -->
-							</li>						
+						<c:if test="${empty sessionScope.usuario }">
+							<li class="nav-item">  
+								<a class="nav-link" href="home">Inicio <span class="sr-only">(current)</span></a>                          
+	                            <a class="nav-link" href="login.jsp">Iniciar sesion <span class="sr-only">(current)</span></a>
+                        	</li> 			
 						</c:if>	
 						
 						<!-- Usuario logueado -->
-						<c:if test="${not empty usuario}">
+						<c:if test="${not empty sessionScope.usuario}">
 							<li class="nav-item">
 	                            <a class="nav-link" href="home">Inicio <span class="sr-only">(current)</span></a>
 	                        	</li>
@@ -37,7 +28,10 @@
 	                        </li>                        
 	
 	                        <li class="nav-item">
-	                            <a class="nav-link" href="listado.jsp">Listado</a>
+	                            <a class="nav-link" href="listado">Listado</a>	                            
+	                        </li>
+	                         <li class="nav-item">	                            
+	                            <a class="nav-link" href="logout">cerrar sesion</a>
 	                        </li>
 						</c:if>                        	
                     </ul>

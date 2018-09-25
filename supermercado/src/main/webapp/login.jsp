@@ -1,15 +1,4 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Login</title>
-
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
-    <link rel="stylesheet" href="css/styles.css">
-</head>
+<%@ include file="includes/head.jsp" %>
 <body>
 
     <div class="contenedor">
@@ -21,7 +10,10 @@
         </header>
 
         <main role="main" class="container">
-        	<p class="text-danger">${param.msg} </p>
+
+			<p class="text-danger">${param.msg} ${requestScope.msg}</p>
+			
+
 
             <div class="row justify-content-center">
                 <h1 class="col col-md-6"><i class="fas fa-user"></i> Login</h1>
@@ -31,7 +23,7 @@
                 <small id="login-small" class="col col-md-6">Los campos con * son obligatorios</small>
             </div>
 
-            <form id="login-form">
+            <form id="login-form" action="login" method="post" >
 			
                 <div class="form-row justify-content-center">
                             
@@ -39,12 +31,12 @@
                         
                         <div class="form-group">
                             <label for="correo" class="required">Email</label>
-                            <input type="email" class="form-control" id="correo" autofocus required placeholder="Ej: paco@gmail.com" />
+                            <input type="email" class="form-control" id="correo" name="correo" autofocus required placeholder="Ej: paco@gmail.com" />
                         </div>
                                     
                         <div class="form-group">
                             <label for="pass" class="required">Contraseña</label>
-                            <input type="password" class="form-control" id="pass" minlength="8" maxlength="20" required placeholder="Contraseña del usuario (8 a 20 caracteres)" />
+                            <input type="password" class="form-control" id="pass" name="pass" minlength="8" maxlength="20" required placeholder="ContraseÃ±a del usuario (8 a 20 caracteres)" />
                         </div>
                                     
                         <button type="submit" class="btn btn-outline-primary btn-block">Acceder</button>
