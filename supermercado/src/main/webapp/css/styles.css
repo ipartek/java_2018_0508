@@ -3,6 +3,7 @@
 *{
     margin:0;
     padding:0;
+    color:#190019;
 }
 img{
     max-width: 100%;
@@ -246,11 +247,26 @@ main.container{
 	min-height: 68vh;
 }
 /**************************************************************************************************************************/
+/*******Algo de Bootstrap Casero/
+/**************************************************************************************************************************/
+.btn-outline-electric{
+	color: #FF0;
+	background-color: transparent;
+	background-image: none;
+	border-color: #FF0;
+}
+.btn-outline-electric:hover{
+	color:#190019;
+	background-color: #FF0;
+	border-color: #FF0;
+}
+/**************************************************************************************************************************/
 /*******Pagina de Login/
 /**************************************************************************************************************************/
 .fondo-login{
 	overflow:hidden;
 	background: url("../images/fondo_login.png") #FF00FF fixed center;
+	background-size: contain;
 }
 .fondo-login .fondo-login-form{
 	width:750px;
@@ -266,9 +282,11 @@ main.container{
 	top: 170px;
 	left: 235px;
 }
+.fondo-login .fondo-login-form .fondo-login-form-real h1,.fondo-login .fondo-login-form .fondo-login-form-real i{
+	color: #FF0;
+}
 .fondo-login .fondo-login-form .fondo-login-form-real label,.fondo-login .fondo-login-form .fondo-login-form-real #login-small{
  	font-weight: bolder;
-	color: #FF11FF !important;
 	background: rgba(255,255,255,.85);
 	padding: .5em;
 	border-radius: .5em;

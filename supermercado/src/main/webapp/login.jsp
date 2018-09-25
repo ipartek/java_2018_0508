@@ -31,10 +31,11 @@
 				</c:if>
 
 	            <form id="login-form" action="login" method="post">
-	            	<h1 class=""><i class="fas fa-user"></i> Login</h1>
-	                <small id="login-small">Los campos con * son obligatorios</small>
-	                <br>
-	                <div class="form-group">
+	            	<div  class="form-group">
+	            		<h1 class=""><i class="fas fa-user"></i> Login</h1>
+	            		<small id="login-small">Los campos con * son obligatorios</small>
+	            	</div>
+	            	<div class="form-group">
 	                	<label for="correo" class="required">Email: *</label>
 	                    <input name="correo" type="text" class="form-control" id="correo" autofocus required placeholder="Ej: paco@gmail.com" />
 	                </div>
@@ -42,7 +43,7 @@
 	                	<label for="pass" class="required">Contraseña: *</label>
 	                	<input name="pass" type="password" class="form-control" id="pass" minlength="8" maxlength="20" required placeholder="Contraseña del usuario (8 a 20 caracteres)" />
 	                </div>
-	                <button type="submit" class="btn btn-outline-success btn-block">Acceder</button>
+	                <button type="submit" class="btn btn-outline-electric btn-block">Acceder</button>
 	            </form>
 				</div>
 				
