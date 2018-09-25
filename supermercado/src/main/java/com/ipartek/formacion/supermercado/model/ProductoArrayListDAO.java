@@ -1,12 +1,14 @@
 package com.ipartek.formacion.supermercado.model;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class ProductoArrayListDAO implements CrudAble<Producto> {
 
 	private static ProductoArrayListDAO INSTANCE = null;
 	private static List<Producto> productos = null;
+	private boolean chivato = false;
 
 	private ProductoArrayListDAO() {
 		productos = new ArrayList<Producto>();
@@ -40,6 +42,10 @@ public class ProductoArrayListDAO implements CrudAble<Producto> {
 
 	@Override
 	public List<Producto> getAll() {
+		if(!chivato) {
+			Collections.reverse(productos);
+			chivato = true;
+		}
 		return productos;
 	}
 

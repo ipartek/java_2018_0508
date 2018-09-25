@@ -6,17 +6,18 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
-import com.ipartek.formacion.supermercado.model.Usuario;
+import com.ipartek.formacion.supermercado.model.ProductoArrayListDAO;
 
 /**
- * Servlet implementation class LoginController
+ * Servlet implementation class ListadoController
  */
-@WebServlet("/login")
-public class LoginController extends HttpServlet {
+@WebServlet("/listado")
+public class ListadoController extends HttpServlet {
+	
 	private static final long serialVersionUID = 1L;
-   
+	private static ProductoArrayListDAO dao;
+	
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
@@ -29,31 +30,17 @@ public class LoginController extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-		HttpSession session = request.getSession();
-		
 		try {
 			
-			String nombre = request.getParameter("correo");
-			String pass = request.getParameter("pass");
-			Usuario u = (Usuario) session.getAttribute("usuario");
-			
-			if("admin".equals(nombre) && "12345678".equals(pass)) {
-
-				if (u == null) {
-					u = new Usuario();
-					u.setNombre(nombre);
-					u.setContrasenya(pass);
-					session.setAttribute("usuario", u);
-					session.setMaxInactiveInterval(60);
-					response.sendRedirect("listado");
-				}
-			}else {
-				response.sendRedirect(request.getContextPath() + "/login.jsp?msg=Usuario%20o%20Pass%20Incorrectos");
-			}
+			dao = ProductoArrayListDAO.getInstance();
+			request.setAttribute("productos", dao.getAll());
 			
 		} catch (Exception e) {
 			e.printStackTrace();
+		}finally {
+			request.getRequestDispatcher("privado/listado.jsp").forward(request, response);
 		}
+		
 		
 	}
 

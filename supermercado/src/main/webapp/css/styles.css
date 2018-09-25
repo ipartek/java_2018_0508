@@ -248,6 +248,10 @@ footer nav a:hover{
     margin-top:3em;
 }
 
+main.container{
+	min-height: 68vh;
+}
+
 /* Media queries para dispositivos de anchurra menor a 576px */
 
 @media (max-width: 576px) {

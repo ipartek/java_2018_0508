@@ -24,7 +24,7 @@
 			
                 <div class="form-row justify-content-center">
                             
-                    <div class="col col-md-6">
+                    <div class="col col-md-6 m-5">
                         
                         <div class="form-group">
                             <label for="correo" class="required">Email</label>
