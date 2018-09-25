@@ -78,7 +78,7 @@ public class Producto {
 	
 	public long getFinalPrice() {
 		long precioFinal;
-		return  Math.round(( this.precioProducto - ( this.precioProducto * this.descuento /100 ) ));
+		return  Math.round(( this.precioProducto - ( this.precioProducto * this.descuento /100.00d ) ));
 
 		
 	}

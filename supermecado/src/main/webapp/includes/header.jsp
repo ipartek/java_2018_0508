@@ -1,4 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<!-- Directivas para usar Tags el prefijo es  -->
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%@page import="com.ipartek.formacion.supermercado.model.pojo.*"%>
 <%@page import="java.util.ArrayList"%>
 
@@ -19,3 +23,4 @@
 
 </head>
 <body>
+	<div class="contenedor">

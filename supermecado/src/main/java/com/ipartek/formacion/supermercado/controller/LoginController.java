@@ -5,51 +5,49 @@ import java.util.ArrayList;
 
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebInitParam;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
-
-import com.ipartek.formacion.supermercado.model.pojo.Producto;
-import com.ipartek.formacion.supermercado.model.pojo.ProductoArrayListDAO;
+import com.ipartek.formacion.supermercado.model.pojo.Usuario;
+import com.ipartek.formacion.supermercado.model.pojo.UsuarioArrayListDAO;
 
 /**
  * Servlet implementation class HomeController
  */
 @WebServlet(
-		urlPatterns = { "/home" }, 
-		initParams = { 
-				@WebInitParam(name = "numeroProductos", value = "10", description = "Nmeros de productos a mostrar en la pagina inicial")
-		})
+		urlPatterns = { "/login" })
+
 public class LoginController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private static ProductoArrayListDAO productosDao;
-	private ArrayList<Producto> productos;
+	private static UsuarioArrayListDAO usuariosDao;
+	private ArrayList<Usuario> usuarios;
+	boolean flag = false;
 
 	/**
 	 * @see Servlet#init(ServletConfig)
 	 */
 	public void init(ServletConfig config) throws ServletException {
 		super.init(config);
-		productosDao = ProductoArrayListDAO.getInstance();
+		usuariosDao = UsuarioArrayListDAO.getInstance();
 	}
 
 	/**
 	 * @see Servlet#destroy()
 	 */
 	public void destroy() {
-		productosDao = null;
+		usuariosDao = null;
 	}
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
+		System.out.println("Pasa por doGet");
 		doProcess(request,response);
-		this.getServletConfig();
+		//this.getServletConfig();
 		//response.getWriter().append("Served at: ").append(request.getContextPath());
 	}
 	
@@ -61,18 +59,40 @@ public class LoginController extends HttpServlet {
 	}
 
 	private void doProcess(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		//String numero2 = getInitParameter("numeroProductos").toString();
-		//TODO mirar cojer parametros de inicio
-
+		HttpSession session = request.getSession();
 		try {
-
-			productos = (ArrayList<Producto>) productosDao.getAll();
+			String emailUsuario = request.getParameter("emailUsuario");
+			String passUsuario = request.getParameter("passUsuario");
+			System.out.println(emailUsuario);
+			System.out.println(passUsuario);
+			if(comprobarUSuario(emailUsuario,passUsuario,session)) {
+				System.out.println("Autentificacion correcta" + emailUsuario);
+				session.setMaxInactiveInterval(60*60); // 1min
+				//request.setAttribute("usuarios", usuarios);
+				request.getRequestDispatcher("/home?emailUsuario="+emailUsuario+"&passUsuario="+passUsuario).forward(request, response);
+				//response.sendRedirect(request.getContextPath() + "/home" );
+			}else {
+				request.getRequestDispatcher("login.jsp").forward(request, response);
+			}
+			
 		} catch (Exception e) {
+			System.out.println("Error en doProcess *LoginController*");
 			e.printStackTrace();
-		}finally {
-			request.setAttribute("productos", productos);
-			request.getRequestDispatcher("home.jsp").forward(request, response);
 		}
+		
+	}
+
+	private boolean comprobarUSuario(String emailUsuario, String passUsuario, HttpSession session) {
+		usuarios = (ArrayList<Usuario>) usuariosDao.getAll();
+		for (Usuario u : usuarios) {
+			if (emailUsuario.contentEquals(u.getEmail()) && passUsuario.contentEquals(u.getPassword()) ) {
+				flag = true;
+				//guardo en session el usuario en el momento que validamos
+				//De esta forma ya tendra acceso a /privado/*
+				session.setAttribute("usuario", u);
+			}
+		}
+		return flag;
 		
 	}
 
