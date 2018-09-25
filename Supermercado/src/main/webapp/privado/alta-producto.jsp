@@ -12,7 +12,7 @@
                 <h1><i class="fas fa-archive"></i> Alta de producto</h1>
                 <small>Los campos con * son obligatorios</small>
             
-                <form action="altaProducto" method="post" class="form-alta-producto">
+                <form action="altaproducto" method="post" class="form-alta-producto">
 
                     <div class="form-row">
                             
@@ -32,18 +32,18 @@
                             
                         <div class="form-group col">
                             <label for="cant-descuento">Descuento(&#37;):</label>
-                            <input type="number" class="form-control" id="cant-descuento" name="cant-descuento" placeholder="Si no hay descuento, no rellene este campo" />
+                            <input type="number" class="form-control" id="cant-descuento" name="descuento" placeholder="Si no hay descuento, no rellene este campo" />
                         </div>
                                     
                         <div class="form-group col">
                             <label for="litro" class="required">Precio por Litro:</label>
-                            <input type="number" class="form-control" id="litro" name="litro" min="0" step="0.1" required placeholder="0.0&euro; / Litro" />
+                            <input type="number" class="form-control" id="litro" name="precioVolumen" min="0" step="0.1" required placeholder="0.0&euro; / Litro" />
                         </div>
                                    
                     </div> <!-- /.form-row -->
                             
                     <div class="form-group">
-                        <label for="desc">DescripciÃ³n:</label>
+                        <label for="desc">Descripción:</label>
                         <textarea id="desc" class="form-control" name="descripcion" placeholder="Informe a sus clientes sobre los detalles del producto" rows="3" /></textarea>
                     </div>
 
