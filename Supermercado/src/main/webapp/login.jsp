@@ -37,6 +37,7 @@
                         <br>
                         
                         <p class="text-danger text-center"> ${param.msg}</p>
+                        <p class="text-danger text-center"> ${requestScope.msg}</p>
                     </div>
                                     
                 </div>
@@ -54,7 +55,7 @@
             <nav>
                 <a href="#">Politica de privacidad</a>
                 <a href="#">Contacto</a>
-                <a href="#">LocalizaciÃ³n</a>
+                <a href="#">Localización</a>
             </nav>
     
             <div class="social">

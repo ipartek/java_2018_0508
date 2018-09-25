@@ -33,6 +33,10 @@ nav img{
 
 /* Estilos para el contenido principal de la página */
 
+main.container{
+	min-height: 68vh;
+}
+
 .contenido{
     margin: auto;
     max-width: 90vw;

@@ -12,7 +12,7 @@
                 <h1><i class="fas fa-archive"></i> Alta de producto</h1>
                 <small>Los campos con * son obligatorios</small>
             
-                <form method="post" class="form-alta-producto">
+                <form action="altaProducto" method="post" class="form-alta-producto">
 
                     <div class="form-row">
                             
