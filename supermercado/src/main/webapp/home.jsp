@@ -38,7 +38,7 @@
 	                            <span>&#45;</span> 1 <span>&#43;</span>
 	                    </div>
 	                </div>
-	                <a href="#">AÑADIR AL CARRO</a>
+	                <a href="#" class="btn btn-outline-electric btn-block">AÑADIR AL CARRO</a>
 	            </div> <!-- /.producto -->
         	</c:forEach>
         </div> <!-- /.contenido -->

@@ -34,10 +34,10 @@ nav img{
 /* Estilos para el contenido principal de la página */
 
 .contenido{
-    margin:1em auto;
+    margin:0 auto;
     max-width:90%;
     height:auto;
-    padding-left:2em;
+    /*padding-left:2em;*/
     display:flex;
     flex-flow:row wrap;
     justify-content:flex-start;
@@ -46,16 +46,16 @@ nav img{
 /* Estilos para la carta de producto */
 
 .producto{
-    background-color:#fff;
+    background-color:rgba(255,0,255,.15);
     box-sizing: border-box;
     width:200px;
     height:auto;
-    border:thin solid #F5F5F5;
+    border:thin solid #190019;
     padding-top:20px;
     margin:1em;
     font-family: 'Lato', sans-serif;
     font-size:0.8em;
-    color:#696969;
+    /*color:#696969;*/
     position:relative;
 }
 
@@ -64,7 +64,7 @@ nav img{
     top:5px;
     left:5px;
     color:#fff;
-    background-color:#ED5A5A;
+    background-color:#190019;
     padding:1px 10px;
     border-radius:20px;
     font-size:1.2em;
@@ -129,7 +129,7 @@ nav img{
     font-weight: bolder;
     color:#000;
 }
-
+/*
 .producto a{
     text-decoration:none;
     display:block;
@@ -142,7 +142,7 @@ nav img{
 .producto a:hover{
     background-color:green;
 }
-
+*/
 /* Estilos para el ancla 'top' */
 
 .top{
@@ -245,6 +245,9 @@ footer nav a:hover{
 
 main.container{
 	min-height: 68vh;
+}
+.contenedor{
+	background-image: linear-gradient(rgba(255,0,255,.35), rgba(255,255,0,.35))
 }
 /**************************************************************************************************************************/
 /*******Algo de Bootstrap Casero/
