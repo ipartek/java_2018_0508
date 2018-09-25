@@ -4,7 +4,6 @@
     margin:0;
     padding:0;
 }
-
 img{
     max-width: 100%;
 }
@@ -169,11 +168,6 @@ nav img{
     margin-bottom:1em;
 }
 
-.required::before{
-    content:"*";
-    color:#f00;
-}
-
 /* Estilos para el formulario de alta producto */
 
 .form-alta-producto{
@@ -251,7 +245,34 @@ footer nav a:hover{
 main.container{
 	min-height: 68vh;
 }
-
+/**************************************************************************************************************************/
+/*******Pagina de Login/
+/**************************************************************************************************************************/
+.fondo-login{
+	overflow:hidden;
+	background: url("../images/fondo_login.png") #FF00FF fixed center;
+}
+.fondo-login .fondo-login-form{
+	width:750px;
+	height:750px;
+	border-radius:50%;
+	position: relative;
+	background-color: rgba(255,0,255,.25);
+}
+.fondo-login .fondo-login-form .fondo-login-form-real{
+	width: 55%;
+	margin: auto;
+	position: absolute;
+	top: 170px;
+	left: 235px;
+}
+.fondo-login .fondo-login-form .fondo-login-form-real label,.fondo-login .fondo-login-form .fondo-login-form-real #login-small{
+ 	font-weight: bolder;
+	color: #FF11FF !important;
+	background: rgba(255,255,255,.85);
+	padding: .5em;
+	border-radius: .5em;
+ }
 /* Media queries para dispositivos de anchurra menor a 576px */
 
 @media (max-width: 576px) {
