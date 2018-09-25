@@ -13,7 +13,7 @@
 </h1>
 <small>Los campos con * son obligatorios</small>
 
-<form method="post" class="form-alta-producto">
+<form method="post" class="form-alta-producto" action="alta-producto">
 
 	<div class="form-row">
 
@@ -36,9 +36,9 @@
 	<div class="form-row">
 
 		<div class="form-group col">
-			<label for="cant" class="required">Cantidad de productos a
+			<label for="cant">Cantidad de productos a
 				ingresar:</label> <input type="number" class="form-control" id="cant"
-				name="cantidad" min="1" max="20" required
+				name="cantidad" min="1" max="20"
 				placeholder="Mínimo 1 y máximo 20">
 		</div>
 

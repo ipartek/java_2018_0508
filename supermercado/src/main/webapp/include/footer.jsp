@@ -21,6 +21,14 @@
             </div>
 
         </footer>
+        
+    <!-- Scripts para plugin datatable -->
+
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+    <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+    
+    <script src="js/datatable.js"></script>
+        
     
     </div> <!-- ./contenedor -->
 	

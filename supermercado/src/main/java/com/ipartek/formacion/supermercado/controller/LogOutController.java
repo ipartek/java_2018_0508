@@ -20,7 +20,7 @@ public class LogOutController extends HttpServlet {
 			throws ServletException, IOException {
 		try {
 
-			// invalidar la session del usuario
+			// Invalidar la session del usuario
 			HttpSession session = request.getSession();
 			if (session != null) {
 				session.invalidate();
@@ -29,6 +29,7 @@ public class LogOutController extends HttpServlet {
 
 		} catch (Exception e) {
 			e.printStackTrace();
+		
 		} finally {
 			response.sendRedirect(request.getContextPath() + "/inicio");
 		}
