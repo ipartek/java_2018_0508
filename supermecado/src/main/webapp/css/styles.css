@@ -10,7 +10,7 @@
     margin:1em auto;
     max-width:90%;
     height:auto;
-    min-height: 471px;
+    min-height: 67vh;/*67% de la anchura del dispositivo*/
     padding-left:2em;
     display:flex;
     flex-flow:row wrap;

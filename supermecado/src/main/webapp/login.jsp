@@ -21,12 +21,12 @@
                     <div class="col col-md-6">
                         
                         <div class="form-group">
-                            <label for="correo" class="required">Email</label>
+                            <label for="emailUsuario" class="required">Email</label>
                             <input type="email" name="emailUsuario" class="form-control" id="correo" autofocus required placeholder="Ej: paco@gmail.com" />
                         </div>
                                     
                         <div class="form-group">
-                            <label for="pass" class="required">Contraseña</label>
+                            <label for="passUsuario" class="required">Contraseña</label>
                             <input type="password" name="passUsuario" class="form-control" id="pass" minlength="4" maxlength="20" required placeholder="Contraseña del usuario (8 a 20 caracteres)" />
                         </div>             
                         <button type="submit" class="btn btn-outline-primary btn-block">Acceder</button>
