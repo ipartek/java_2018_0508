@@ -12,7 +12,7 @@
 	box-sizing: border-box;
 }
 header{
-	background-color:red;
+	background-color:#88CC88;
 }
 header nav ul{
 	padding:1.5em;
@@ -21,7 +21,7 @@ header nav ul{
 }
 header nav ul li{
 	padding:.5em;
-	background-color: yellow;
+	background-color: #77CC77;
 }
 header nav ul li a{
 	display: inline-block;

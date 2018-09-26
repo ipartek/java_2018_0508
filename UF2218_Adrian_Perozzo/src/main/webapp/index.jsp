@@ -39,7 +39,7 @@
 	<div>
 	<p>Ir a pagina: </p>
 		<form method="post" action="home">
-			<input type="number" name="nPaginas" />
+			<input type="number" name="nPagina" />
 			<input type="submit" value="IR"/>
 		</form>
 	</div>
