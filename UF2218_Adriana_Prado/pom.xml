@@ -2,14 +2,15 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.ipartek.formacion</groupId>
-	<artifactId>uf2218</artifactId>
+	<artifactId>libreriaelectronica</artifactId>
 	<packaging>war</packaging>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>uf2218</name>
-	<url>http://localhost:8080/uf2218</url>
+	<name>libreriaelectronica</name>
+	<url>http://localhost:8080/libreriaelectronica/</url>
 
 	<!-- variables comunes para todo el POM -->
 	<properties>
+		<app.name>libreriaelectronica</app.name>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<java-version>1.8</java-version>
 		<junit.version>4.12</junit.version>
@@ -43,48 +44,6 @@
 			<version>${javax.servlet.jstl.version}</version>
 		</dependency>
 
-		<!-- libreria MySQL -->
-		<dependency>
-			<groupId>mysql</groupId>
-			<artifactId>mysql-connector-java</artifactId>
-			<version>5.1.6</version>
-		</dependency>
-
-		<dependency>
-			<groupId>org.jsoup</groupId>
-			<artifactId>jsoup</artifactId>
-			<version>1.11.2</version>
-		</dependency>
-
-		<!-- Object parse to JSON -->
-		<dependency>
-			<groupId>com.google.code.gson</groupId>
-			<artifactId>gson</artifactId>
-			<version>2.8.2</version>
-		</dependency>
-
-
-		<!-- Validaciones -->
-		<dependency>
-			<groupId>javax.validation</groupId>
-			<artifactId>validation-api</artifactId>
-			<version>1.1.0.Final</version>
-		</dependency>
-
-		<dependency>
-			<groupId>org.hibernate</groupId>
-			<artifactId>hibernate-validator</artifactId>
-			<version>5.2.4.Final</version>
-		</dependency>
-		
-		<!-- Subida Ficheros -->
-		<dependency>
-		    <groupId>commons-fileupload</groupId>
-		    <artifactId>commons-fileupload</artifactId>
-		    <version>1.3.3</version>
-		</dependency>
-
-
 		<!-- Testing -->
 		<dependency>
 			<groupId>junit</groupId>
@@ -107,15 +66,10 @@
 			<scope>test</scope>
 		</dependency>
 
-
-
 	</dependencies>
 
 
-
-
 	<build>
-
 		<plugins>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
@@ -136,12 +90,13 @@
 				<artifactId>maven-war-plugin</artifactId>
 				<version>2.6</version>
 				<configuration>
+					<!-- Silenciar el error en caso de no encontrar web.xml -->
 					<failOnMissingWebXml>false</failOnMissingWebXml>
 				</configuration>
 			</plugin>
 		</plugins>
 
 
-		<finalName>uf2218</finalName>
+		<finalName>${app.name}</finalName>
 	</build>
 </project>
