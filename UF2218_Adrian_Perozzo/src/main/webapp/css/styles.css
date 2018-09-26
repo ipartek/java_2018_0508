@@ -17,11 +17,37 @@ header{
 header nav ul{
 	padding:1.5em;
 	list-style: none;
-}
-header nav ul li{
 	display: inline-block;
 }
 header nav ul li{
 	padding:.5em;
+	background-color: yellow;
+}
+header nav ul li a{
 	display: inline-block;
+	
+}
+/*****
+* Login
+************************************************/
+.form-login{
+	width:100%;
+	background: url("../images/fondo_login.png") fixed center;
+	background-size: contain;
+	padding: 5em;
+}
+.form-login-container{
+	width:300px;
+	height:300px;
+	border-radius:50%;
+	background-color: rgba(0,0,0,.5);
+	display: inline-block;
+	position: relative;
+	left: 30%;
+	padding-top:2.15em;
+}
+.form-login-container *{
+	margin:auto;
+	text-align:center;
+	display: block;
 }

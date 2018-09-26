@@ -17,13 +17,15 @@
     <link rel="stylesheet" href="css/styles.css">
 
 </head>
-<body>
-	<form method="post" action="loginController">
-		<label for="nombre">Nombre:</label>
-		<input type="text" name="nombre" placeholder="Ej: Luisito" value="pablo" autofocus required />
-		<label for="pass">Contraseña:</label>
-		<input type="password" name="pass" value="neruda" required />
-		<input type="submit" value="Acceder"/>
-	</form>
+<body class="form-login">
+	<div class="form-login-container">
+		<form method="post" action="loginController">
+			<label for="nombre">Nombre:</label>
+			<input type="text" name="nombre" placeholder="Ej: Luisito" value="pablo" autofocus required />
+			<label for="pass">Contraseña:</label>
+			<input type="password" name="pass" value="neruda" required />
+			<input type="submit" value="Acceder"/>
+		</form>
+	</div>
 </body>
 </html>
