@@ -1,0 +1,46 @@
+@import url(http://fonts.googleapis.com/css?family=Roboto);
+
+html {
+	position: relative;
+	min-height: 100%;
+}
+
+body {
+	/* Margen superior = Altura del menú (navbar) */
+	margin-top: 100px;
+	/* Margen inferior =  Altura del footer */
+	margin-bottom: 60px;
+	background: yellow;
+}
+
+article {
+	max-width: 450px;
+	min-height: 200px;
+	margin: auto;
+}
+
+a:focus {
+	border: 2px solid #FFF !important;
+}
+
+nav ul li a:hover {
+	text-decoration: underline !important;
+}
+
+.logo {
+	height: 50px;
+	width: 100px;
+}
+
+
+/* FOOTER
+-------------------------------------------------- */
+footer {
+	width: 100%;
+	line-height: 2em;
+	margin: auto;
+}
+
+
+
+
