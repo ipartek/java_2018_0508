@@ -42,7 +42,7 @@ public class UserFilter implements Filter {
 				//Pass the request along the filter chain
 				chain.doFilter(request, response);
 			}else {
-				res.sendRedirect(req.getContextPath()+"/home.jsp?msg=Tienes%20que%20estar%20logueado");
+				res.sendRedirect(req.getContextPath()+"/login.jsp?msg=Tienes%20que%20estar%20logueado");
 			}
 		
 		}catch(Exception e) {

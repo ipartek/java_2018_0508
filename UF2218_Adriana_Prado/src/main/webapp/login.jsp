@@ -7,8 +7,11 @@
 
 <main role="main" class="container">
 
-    <div class="row justify-content-center">
-        <h1 class="col col-md-6">Login</h1>
+	<%@include file="includes/alert.jsp"%>
+	
+
+    <div class="row justify-content-center mt-4">
+        <h1 class="col col-md-6 text-center">Login</h1>
     </div>
 
     <form id="login-form" action="login" method="post">
@@ -28,9 +31,6 @@
                 </div>
                             
                 <button type="submit" class="btn btn-outline-primary btn-block">Acceder</button>
-                <br>
-                
-                <p class="text-danger text-center"> ${param.msg}</p>
             </div>
                             
         </div>

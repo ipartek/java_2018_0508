@@ -60,7 +60,7 @@ public class HomeController extends HttpServlet {
 		}catch(Exception e) {
 			e.printStackTrace();
 		}finally {
-			//En el home que se muestre la portada
+			//En el home que se muestre solo la portada
 			request.setAttribute("pagina", paginas.get(0));
 			request.getRequestDispatcher("home.jsp").forward(request, response);
 		}
