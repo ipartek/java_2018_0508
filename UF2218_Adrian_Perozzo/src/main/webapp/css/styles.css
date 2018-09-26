@@ -1,0 +1,27 @@
+/*
+********************************************
+*	Hoja de Estilos Principal
+* 	Adrian Perozzo
+* 	Version 1.0
+*	Fecha: 26/09/2018
+********************************************
+*/
+*{
+	padding: 0;
+	margin: 0;
+	box-sizing: border-box;
+}
+header{
+	background-color:red;
+}
+header nav ul{
+	padding:1.5em;
+	list-style: none;
+}
+header nav ul li{
+	display: inline-block;
+}
+header nav ul li{
+	padding:.5em;
+	display: inline-block;
+}
