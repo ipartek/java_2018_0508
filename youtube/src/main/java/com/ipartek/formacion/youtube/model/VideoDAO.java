@@ -35,20 +35,19 @@ public class VideoDAO implements CrudAble<Video> {
 	public boolean insert(Video pojo) {
 		boolean resul = false;
 		try (Connection con = ConnectionManager.getConnection();
-				PreparedStatement ps = con.prepareStatement(SQL_INSERT);){
-			
+				PreparedStatement ps = con.prepareStatement(SQL_INSERT);) {
+
 			ps.setString(1, pojo.getCodigo());
 			ps.setString(2, pojo.getNombre());
-			
+
 			int affectedRows = ps.executeUpdate();
-			if ( affectedRows == 1 ) {
+			if (affectedRows == 1) {
 				resul = true;
 			}
-			
-			
-		}catch (Exception e) {
+
+		} catch (Exception e) {
 			e.printStackTrace();
-}
+		}
 		return resul;
 	}
 
@@ -95,19 +94,47 @@ public class VideoDAO implements CrudAble<Video> {
 
 	@Override
 	public boolean update(Video pojo) {
-		// TODO Auto-generated method stub
-		return false;
+		boolean resul = false;
+		try (Connection con = ConnectionManager.getConnection();
+				PreparedStatement ps = con.prepareStatement(SQL_UPDATE);) {
+
+			ps.setString(1, pojo.getCodigo());
+			ps.setString(2, pojo.getNombre());
+			ps.setLong(3, pojo.getId());
+
+			int affectedRows = ps.executeUpdate();
+			if (affectedRows == 1) {
+				resul = true;
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return resul;
 	}
 
 	@Override
-	public boolean delete(String id) {
-		// TODO Auto-generated method stub
-		return false;
+	public boolean delete(long id) {
+		boolean resul = false;
+		try (Connection con = ConnectionManager.getConnection();
+				PreparedStatement ps = con.prepareStatement(SQL_DELETE);) {
+
+			ps.setLong(1, id);
+
+			int affectedRows = ps.executeUpdate();
+			if (affectedRows == 1) {
+				resul = true;
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return resul;
 	}
 
 	private Video rowMapper(ResultSet rs) throws Exception {
 		Video v = new Video();
-		if(rs != null) {
+		if (rs != null) {
 			v = new Video();
 			v.setId(rs.getLong("id"));
 			v.setCodigo(rs.getString("codigo"));

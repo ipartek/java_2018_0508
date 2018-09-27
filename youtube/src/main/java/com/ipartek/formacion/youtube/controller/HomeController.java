@@ -91,7 +91,8 @@ public class HomeController extends HttpServlet {
 		try {
 
 			// parametros
-			String id = request.getParameter("id");
+			long id = Long.parseLong(request.getParameter("id"));
+			String id2 = request.getParameter("id");
 			String op = request.getParameter("op");
 
 			// eliminar ?
@@ -104,8 +105,8 @@ public class HomeController extends HttpServlet {
 
 			// video de inicio
 			videoInicio = new Video();
-			if (id != null && !OP_ELIMINAR.equals(op)) {
-				videoInicio = dao.getById(id);
+			if (id != 0 && !OP_ELIMINAR.equals(op)) {
+				videoInicio = dao.getById(id2);
 
 				// guardar video si el usuario esta en session
 
