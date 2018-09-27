@@ -1,0 +1,210 @@
+/* Estilos generales */ 
+
+*{
+    margin:0;
+    padding:0;
+}
+
+img{
+    max-width: 100%;
+}
+
+/* Estilos para el logo del menu de cabecera */
+
+li.nav-item a.invisible{
+	display:none;
+	
+}
+
+nav img{
+    width:150px;
+}
+
+nav{
+	position:relative;
+	
+}
+
+button.btn.btn-outline-secondary{
+	position:absolute;
+	right:15px;
+}
+
+/* Estilos para la cabecera */
+
+#login-header{
+    margin-bottom:4em;
+}
+
+/* Estilos para el menu de cabecera */
+
+.menu a{
+    color:#fff!important;
+}
+
+.menu a:hover{
+    color:#F2983B!important;
+}
+
+/* Estilos para el contenido principal de la página */
+
+.contenido{
+    margin:1em auto;
+    max-width:90%;
+    min-height: 87vh;
+    padding-left:2em;
+    display:flex;
+    flex-flow:row wrap;
+    justify-content:flex-start;
+}
+
+.container{
+	min-height: 87vh;
+}
+
+div.titulo{
+	width: 100%;
+    text-align: center;
+}
+
+button.botonSesion a:hover{
+	text-decoration: none;
+	color:red;
+}
+
+btn.btn-outline-secondary.pagina{
+	
+	 position: relative;
+    left: 50px;
+}
+}
+
+/* Estilos para el ancla 'top' */
+
+.top{
+    display:none;
+    background-color:#88CC88;
+    color:#fff;
+    text-decoration: none;
+    padding:5px 10px;
+    position:fixed;
+    right:10px;
+    bottom:10px;
+    border-radius:10px;
+}
+
+.top:hover{
+    text-decoration: none;
+    color:#fff;
+    background-color: green;
+}
+
+/* Estilos para el formulario de login */
+
+#login-small{
+    margin-bottom:1em;
+}
+
+.required::before{
+    content:"*";
+    color:#f00;
+}
+
+/* Estilos para el formulario de alta producto */
+
+.form-alta-producto{
+    margin-top:1em;
+    margin-bottom:3em;
+}
+
+#descuento:checked #cant-descuento{
+    background-color:red;
+}
+
+
+/* Estilos para el pie de página */
+
+footer{
+    background-color:#343A40;
+    display:flex;
+    flex-wrap:wrap;
+    justify-content:space-between;
+    align-items:center;
+    color:#fff;
+    padding:1em;
+}
+
+footer nav a{
+    color:#fff;
+    margin:0 0.2em;
+}
+
+footer nav a:hover{
+    text-decoration:none;
+    color:#999;
+}
+
+.social a{
+    margin-right:0.5em;
+}
+
+#facebook{
+    color:#3b5998;
+}
+
+#facebook:hover{
+    color:#8b9dc3;
+}
+
+#twitter{
+    color:#00aced;
+}
+
+#twitter:hover{
+    color:#1dcaff;
+}
+
+/* Footer de la página login */
+
+#login-footer{
+    width:100%;
+    position:fixed;
+    bottom:0;
+}
+
+/* Footer de la página listado */
+
+#listado-footer{
+    margin-top:3em;
+}
+
+/* Media queries para dispositivos de anchurra menor a 576px */
+
+@media (max-width: 576px) {
+
+    .navbar-brand{
+        margin:0 auto;
+    }
+
+    li.nav-item{
+        display:inline;
+    }
+
+    .contenido{
+        justify-content:center;
+        padding:0;
+    }
+
+    .top{
+       display:block; 
+    }
+
+    footer{
+        flex-direction:column;
+    }
+
+    footer nav{
+        margin-bottom:1em;
+    }
+
+}

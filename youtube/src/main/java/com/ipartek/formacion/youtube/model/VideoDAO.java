@@ -3,19 +3,26 @@ package com.ipartek.formacion.youtube.model;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+
 import com.ipartek.formacion.youtube.pojo.Video;
 
-
 public class VideoDAO implements CrudAble<Video> {
-	
+
+	private final String SQL_GET_ALL = "SELECT id,codigo,nombre FROM video ORDER BY id DESC LIMIT 1000;";
+	private final String SQL_GET_BY_ID = "SELECT id,codigo,nombre FROM video WHERE id= ?;";
+	private final String SQL_UPDATE = "UPDATE video SET codigo  = ?, nombre=? WHERE id = ?;";
+	private final String SQL_INSERT = "INSERT INTO video (codigo, nombre)VALUES(?,?);";
+	private final String SQL_DELETE = "DELETE FROM video WHERE id=?>;";
+
 	private static VideoDAO INSTANCE = null;
-	
+
 	private VideoDAO() {
 		super();
 	}
-	
+
 	public static synchronized VideoDAO getInstance() {
 		if (INSTANCE == null) {
 			INSTANCE = new VideoDAO();
@@ -26,8 +33,22 @@ public class VideoDAO implements CrudAble<Video> {
 
 	@Override
 	public boolean insert(Video pojo) {
-		// TODO Auto-generated method stub
-		return false;
+		boolean resul=false;
+		try (Connection con = ConnectionManager.getConnection();
+				PreparedStatement ps = con.prepareStatement(SQL_INSERT);) {
+			
+			ps.setString(1, pojo.getCodigo());
+			ps.setString(2, pojo.getNombre());
+			
+			int affectedRows= ps.executeUpdate();
+			if (affectedRows==1) {
+				resul=true;
+			}
+			
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		return resul;
 	}
 
 	@Override
@@ -35,83 +56,94 @@ public class VideoDAO implements CrudAble<Video> {
 		// Creamos el array que devolveremos siempre
 		ArrayList<Video> videos = new ArrayList<Video>();
 
-		try {
+		// obtener conexion a la BBDD
 
-			// obtener conexion a la BBDD
-			Connection con = ConnectionManager.getConnection();
+		// ejecutar sql
 
-			// ejecutar sql
-
-			String sql = "SELECT id ,codigo, nombre from video order by id;";
-			PreparedStatement ps= con.prepareStatement(sql);
-
-			// obtener los resultados
-			
-			ResultSet rs= ps.executeQuery();
+		// obtener los resultados
+		try (Connection con = ConnectionManager.getConnection();
+				PreparedStatement ps = con.prepareStatement(SQL_GET_ALL);
+				ResultSet rs = ps.executeQuery();) {
 
 			// mapear ResultSet a ArrayList
-			Video v =null;
+			Video v = null;
 			while (rs.next()) {
-				 v = new Video();
-				 v.setId(rs.getString("codigo"));
-				 v.setNombre(rs.getString("nombre"));
-				 
-				videos.add(v);
+				videos.add(rowMapper(rs));
 			}
-			
+
 		} catch (Exception e) {
-			// TODO: handle exception
+			e.printStackTrace();
 		}
 		return videos;
 	}
 
 	@Override
-	public Video getById(String id) {
-		Video video = new Video();
-
-		try {
-
-			// obtener conexion a la BBDD
-			Connection con = ConnectionManager.getConnection();
-
-			// ejecutar sql
-
-			String sql = "SELECT id ,codigo, nombre from video where codigo=?;";
-			
-			PreparedStatement ps= con.prepareStatement(sql);
-			ps.setString(1, id);
-
-			// obtener los resultados
-			
-			ResultSet rs= ps.executeQuery();
-
-			// mapear ResultSet a ArrayList
-			
-			while (rs.next()) {
-				
-				 video.setId(rs.getString("codigo"));
-				 video.setNombre(rs.getString("nombre"));
-				 
-				
+	public boolean update(Video pojo) {
+		boolean resul = false;
+		
+		try (Connection con = ConnectionManager.getConnection();
+				PreparedStatement ps = con.prepareStatement(SQL_UPDATE);) {
+			ps.setString(1, pojo.getCodigo());
+			ps.setString(2, pojo.getNombre());
+			ps.setLong(3, pojo.getId());
+			int affectedRows= ps.executeUpdate();
+			if (affectedRows==1) {
+				resul=true;
 			}
-			
+
 		} catch (Exception e) {
-			// TODO: handle exception
+			e.printStackTrace();
 		}
 		
+		return resul;
+	}
+
+	@Override
+	public Video getById(String id) {
+		Video video = null;
+		try (Connection con = ConnectionManager.getConnection();
+				PreparedStatement ps = con.prepareStatement(SQL_GET_BY_ID);) {
+
+			video = new Video();
+			ps.setString(1, id);
+			try (ResultSet rs = ps.executeQuery();) {
+				while (rs.next()) {
+					video = rowMapper(rs);
+				}
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
 		return video;
 	}
 
 	@Override
-	public boolean update(Video pojo) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
 	public boolean delete(String id) {
-		// TODO Auto-generated method stub
-		return false;
+		boolean resul = false;
+		try (Connection con = ConnectionManager.getConnection();
+				PreparedStatement ps = con.prepareStatement(SQL_DELETE);) {
+			ps.setString(1, id);
+			int affectedRows= ps.executeUpdate();
+			if (affectedRows==1) {
+				resul=true;
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return resul;
 	}
 
+	private Video rowMapper(ResultSet rs) throws Exception {
+		Video v = new Video();
+		if (rs != null) {
+			v.setId(rs.getLong("id"));
+			v.setCodigo(rs.getString("codigo"));
+			v.setNombre(rs.getString("nombre"));
+		}
+		return v;
+
+	}
 }
