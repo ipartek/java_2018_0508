@@ -1,0 +1,14 @@
+i{
+	color: #FFF;
+}
+
+ul.idioma a{
+	text-decoration: none;
+	padding: 5px;
+	color: #FFF;
+}
+
+ul.idioma li.active a{
+	color: #ffc107!important;
+	text-decoration: underline;	
+}	
