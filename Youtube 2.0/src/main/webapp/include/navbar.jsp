@@ -56,19 +56,14 @@
 						</form>
 					</c:if> <!-- Usuario no logueado (formulario login) --> <c:if test="${empty sessionScope.usuario}">
 
-						<!-- Login Form -->
-						<form action="login" method="post" class="form-inline ">
-						      <div class="form-group">
-							      <input name="usuario" class="form-control mr-sm-2" type="text" placeholder="Usuario" required pattern=".{3,30}" value="${cookie.cNombre.value}">
-							      <input name="pass" class="form-control mr-sm-2" type="password" placeholder="Contraseña" required pattern=".{2,50}">
-							       <button class="btn btn-outline-info my-2 my-sm-0" type="submit">Entrar</button>
-						       </div>
-						            
-						       <div class="form-group ml-3">
-						          <input type="checkbox" name="recuerdame" ${(not empty cookie.cNombre.value)?"checked":""}>
-						          <label class="text-warning ml-1">Recuérdame</label>
-						       </div>
-						</form>
+						<!-- Trigger the modal with a button -->
+						<button
+							type="button"
+							class="btn btn-info btn-lg"
+							data-toggle="modal"
+							data-target="#modal-login-form">Open Modal</button>
+
+						<%@ include file="modal-login-form.jsp"%>
 					</c:if>
 				</li>
 			</ul>

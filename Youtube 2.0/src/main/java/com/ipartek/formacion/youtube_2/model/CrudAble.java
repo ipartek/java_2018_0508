@@ -1,4 +1,4 @@
-package com.ipartek.formacion.youtube.model;
+package com.ipartek.formacion.youtube_2.model;
 
 import java.util.List;
 
@@ -30,14 +30,12 @@ public interface CrudAble<P> {
 	 * @param id
 	 * @return VideoYoutube si lo encuentra, null si no lo encuentra
 	 */
-	P getById(int id);
+	P getById(String id);
 	
 	//Upadte
 	boolean update(P pojo);
 	
 	//Delete
-	boolean delete(int id);
-
-	
+	boolean delete(String id);
 
 }

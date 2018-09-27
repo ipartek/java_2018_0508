@@ -31,8 +31,8 @@
 		        		<!--  Cargar historial de  reproducidos -->
 			          	<c:forEach items="${reproducidos}" var="video">
 			          		<li class="list-group-item d-flex justify-content-between align-items-center">     
-				          		<a href="inicio?id=${video.cod}">${video.nombre}</a>
-				          		<a href="inicio?id=${video.cod}>&op=${HomeController.OP_ELIMINAR}"><i style="color:red;" class="float-right fas fa-trash-alt"></i></a>
+				          		<a href="inicio?id=${video.id}">${video.nombre}</a>
+				          		<a href="inicio?id=${video.id}>&op=${HomeController.OP_ELIMINAR}"><i style="color:red;" class="float-right fas fa-trash-alt"></i></a>
 				            </li>
 			          	</c:forEach>
 	        		</c:if>
@@ -48,7 +48,7 @@
 
         <div class="col-lg-9">
           <div class="card mt-4">
-            <iframe id="iframe" width="820" height="415" src="https://www.youtube.com/embed/${videoInicio.cod}?autoplay=1" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+            <iframe id="iframe" width="820" height="415" src="https://www.youtube.com/embed/${videoInicio.id}?autoplay=1" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
   
             <div class="card-body">
               <h3 class="card-title">${videoInicio.nombre}</h3>              

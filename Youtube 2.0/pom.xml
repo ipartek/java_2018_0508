@@ -2,13 +2,13 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.ipartek.formacion</groupId>
-	<artifactId>youtube</artifactId>
+	<artifactId>Youtube_2</artifactId>
 	<packaging>war</packaging>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>youtube</name>
-	<url>http://localhost:8080/youtube/</url>
+	<name>Youtube 2.0</name>
+	<url>http://localhost:8080/youtube_2/</url>
 
-	<!-- Variables comunes para todo el POM -->
+	<!-- variables comunes para todo el POM -->
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<java-version>1.8</java-version>
@@ -19,7 +19,7 @@
 	</properties>
 
 
-	<!-- Librerias o .JARs que necesitamos -->
+	<!-- librerias o .JARs que necesitamos -->
 	<dependencies>
 
 		<!-- Web Project 3.0 -->
@@ -37,18 +37,17 @@
 			<scope>provided</scope>
 		</dependency>
 
-		<!-- Taglib - Java Server Tag Library -->
 		<dependency>
 			<groupId>javax.servlet</groupId>
 			<artifactId>jstl</artifactId>
 			<version>${javax.servlet.jstl.version}</version>
 		</dependency>
 
-		<!-- Libreria MySQL -->
+		<!-- libreria MySQL -->
 		<dependency>
 			<groupId>mysql</groupId>
 			<artifactId>mysql-connector-java</artifactId>
-			<version>5.1.44</version>
+			<version>5.1.6</version>
 		</dependency>
 
 		<dependency>
@@ -134,6 +133,6 @@
 		</plugins>
 
 
-		<finalName>youtube</finalName>
+		<finalName>Youtube 2.0</finalName>
 	</build>
 </project>

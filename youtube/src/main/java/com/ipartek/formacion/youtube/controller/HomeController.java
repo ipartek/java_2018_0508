@@ -17,9 +17,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import com.ipartek.formacion.youtube.model.VideoDAO;
+import com.ipartek.formacion.youtube.model.VideoYoutubeDAO;
 import com.ipartek.formacion.youtube.pojo.Usuario;
-import com.ipartek.formacion.youtube.pojo.Video;
+import com.ipartek.formacion.youtube.pojo.VideoYoutube;
 
 /**
  * Servlet implementation class HomeController
@@ -32,15 +32,15 @@ public class HomeController extends HttpServlet {
 	HttpSession session;
 
 	public static final String OP_ELIMINAR = "1";
-	private static VideoDAO dao;
-	private ArrayList<Video> videos;
-	private Video videoInicio;
+	private static VideoYoutubeDAO dao;
+	private ArrayList<VideoYoutube> videos;
+	private VideoYoutube videoInicio;
 
 	@Override
 	public void init(ServletConfig config) throws ServletException {
 		super.init(config);
 		// Se ejecuta solo con la 1º petición, el resto de peticiones iran a "service"
-		dao = VideoDAO.getInstance();
+		dao = VideoYoutubeDAO.getInstance();
 	}
 
 	@Override
@@ -104,11 +104,11 @@ public class HomeController extends HttpServlet {
 			String nombre = request.getParameter("nombre");
 
 			// insertar
-			videoInicio = new Video(id, nombre);
+			videoInicio = new VideoYoutube();
 			dao.insert(videoInicio);
 
 			// pedir listado
-			videos = (ArrayList<Video>) dao.getAll();
+			videos = (ArrayList<VideoYoutube>) dao.getAll();
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -166,24 +166,33 @@ public class HomeController extends HttpServlet {
 
 	}
 
-	private void cargarVideos(HttpServletRequest request, HttpServletResponse response) {
+	private void cargarVideos(HttpServletRequest request, HttpServletResponse response) throws Exception {
 
 		// Parametros
 		String id = request.getParameter("id");
 		String op = request.getParameter("op");
+		
+		int idNo;
+		
+		if (id != null) {
+			idNo = Integer.parseInt(id);
+		} else {
+			idNo = 1;
+		}
+		
 
 		// Eliminar ?
 		if (op != null && OP_ELIMINAR.equals(op)) {
-			dao.delete(id);
+			dao.delete(idNo);
 		}
 
 		// Listado videos
-		videos = (ArrayList<Video>) dao.getAll();
+		videos = (ArrayList<VideoYoutube>) dao.getAll();
 
 		// Video de inicio
-		videoInicio = new Video();
+		videoInicio = new VideoYoutube();
 		if (id != null && !OP_ELIMINAR.equals(op)) {
-			videoInicio = dao.getById(id);
+			videoInicio = dao.getById(idNo);
 
 			// Guardar video reproducido si esta usuario logueado
 
@@ -191,9 +200,9 @@ public class HomeController extends HttpServlet {
 			Usuario usuario = (Usuario) session.getAttribute("usuario");
 			if (usuario != null) { // Logeado
 
-				ArrayList<Video> reproducidos = (ArrayList<Video>) session.getAttribute("reproducidos");
+				ArrayList<VideoYoutube> reproducidos = (ArrayList<VideoYoutube>) session.getAttribute("reproducidos");
 				if (reproducidos == null) {
-					reproducidos = new ArrayList<Video>();
+					reproducidos = new ArrayList<VideoYoutube>();
 				}
 				reproducidos.add(videoInicio);
 				session.setAttribute("reproducidos", reproducidos);
