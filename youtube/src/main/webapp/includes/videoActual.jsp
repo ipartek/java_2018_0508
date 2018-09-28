@@ -5,12 +5,10 @@
 	<div class="card m-2">
 		<div class="container">
 			<c:if test="${not empty videoInicio}">
-				<iframe id="iframe" src="https://www.youtube.com/embed/${videoInicio.codigo}?autoplay=0" frameborder="0" allow="autoplay; encrypted-media"
-				allowfullscreen></iframe>
+				<div id="video-placeholder"></div>
 			</c:if>
 			<c:if test="${empty videoInicio}">
-				<iframe id="iframe" src="https://www.youtube.com/embed/${videoInicio.codigo}?autoplay=0" frameborder="0" allow="autoplay; encrypted-media"
-				 allowfullscreen></iframe>
+				<div id="video-placeholder"></div>
 			</c:if>
 		</div>
 		<div class="card-body">

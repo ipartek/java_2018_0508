@@ -35,9 +35,9 @@
 				
 								
 					<ul class="navbar-nav">
-						<li class="nav-item"><a class="text-pika" href="inicio?idioma=es_Es">es</a></li>
-						<li class="nav-item"><a class="text-pika"  href="inicio?idioma=eu_Es">eu</a></li>
-						<li class="nav-item"><a class="text-pika"  href="inicio?idioma=en_En">en</a></li>
+						<li class="nav-item"><a class="text-pika" href="inicio?idioma=es_Es"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/9a/Flag_of_Spain.svg/20px-Flag_of_Spain.svg.png"></a></li>
+						<li class="nav-item"><a class="text-pika"  href="inicio?idioma=eu_Es"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2d/Flag_of_the_Basque_Country.svg/20px-Flag_of_the_Basque_Country.svg.png"></a></li>
+						<li class="nav-item"><a class="text-pika"  href="inicio?idioma=en_En"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/ae/Flag_of_the_United_Kingdom.svg/20px-Flag_of_the_United_Kingdom.svg.png"></a></li>
 					</ul>
 				
 				

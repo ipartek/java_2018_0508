@@ -79,7 +79,7 @@
 				</ul>
 			</c:if>
 			<c:if test="${empty usuario}">
-				<a href="#">Accede con tu usuario</a>
+				<a href="login.jsp">Accede con tu usuario</a>
 			</c:if>
 	</section>
 </div>

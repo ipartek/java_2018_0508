@@ -20,7 +20,10 @@ body{
 	color: 	#72FC5C;
 }
 .text-pika-red{
-	color: 	#FC5C72;
+	color: 	#FCE65C;
+}
+.text-pika-red:hover{
+	color: 	#FCE65C !important;
 }
 a.text-pika:hover{
 	color: 	#72FC5C !important;
@@ -45,4 +48,5 @@ a.text-pika:hover{
 .fondo-login>div{
 	background-color: rgba(0,0,0,.7);
 	padding: 1em;
+	border-radius:.25em;
 }
