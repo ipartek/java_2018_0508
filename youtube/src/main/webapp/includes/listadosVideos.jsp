@@ -10,7 +10,7 @@
 						<a href="inicio?id=${v.id}">${v.nombre}</a>
 						<c:if test="${not empty sessionScope.usuario}">
 							<!-- Opcion Editar -->
-							<i onclick="showModalModificar(${v.id},${HomeController.OP_MODIFICAR},${v.nombre})" class="fas fa-pencil-alt text-warning"></i>
+							<i onclick="showModalModificar(${v.id},${HomeController.OP_MODIFICAR},'${v.nombre}')" class="fas fa-pencil-alt text-warning"></i>
 							<!-- Opcion Eliminar -->
 							<i onclick="showModalEliminar(${v.id},${HomeController.OP_ELIMINAR})" class="fas fa-trash-alt text-danger"></i>
 						</c:if>
@@ -50,11 +50,16 @@
         </button>
       </div>
       <div class="modal-body">
-       <input id="cajaNombre" name="cajaNombre" type="text" value=""/>
+       <form action="inicio" method="post">
+       	<input id="id" name="id" type="hidden" value="">
+       	<input id="op" name="op" type="hidden" value="">
+       	<input id="cajaNombre" name="cajaNombre" type="text" value=""/>
+       	<input class="btn btn-warning" type="submit" value="Editar" />
+       </form>
+       
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-        <a id="btnModificar" href="" class="btn btn-warning">Editar <i class="fas fa-pencil-alt"></i></a>
       </div>
     </div>
   </div>

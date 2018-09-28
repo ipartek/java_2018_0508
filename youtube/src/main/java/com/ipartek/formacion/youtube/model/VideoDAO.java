@@ -84,9 +84,9 @@ public class VideoDAO implements CrudAble<Video> {
 
 		) {
 			try (PreparedStatement ps = con.prepareStatement(SQL_GET_BY_ID);) {
+				ps.setString(1, id);
 				ResultSet rs = ps.executeQuery();
-				ps.setString(0, id);
-				rs = ps.executeQuery();
+				
 				while (rs.next()) {
 
 					v = rowMapper(rs);

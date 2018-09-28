@@ -17,9 +17,11 @@
 		function showModalModificar(idVideo, opcion, nombre) {
 			$('#modal-modificar').modal('show');
 			let texto = document.getElementById('cajaNombre');
-			texto.value = ' '+nombre+' ';
-			let btn = document.getElementById('btnModificar');
-			btn.href = 'inicio?id='+idVideo+'&op='+opcion+'&nombre='+nombre;
+			texto.value = nombre;
+			let id = document.getElementById('id');
+			id.value = idVideo;
+			let op = document.getElementById('op');
+			op.value = opcion;
 		}
 	</script>
   </body>

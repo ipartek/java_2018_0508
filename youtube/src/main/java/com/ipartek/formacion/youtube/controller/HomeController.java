@@ -157,18 +157,32 @@ public class HomeController extends HttpServlet {
 			// recoger parametros
 			String codigo = request.getParameter("codigo");
 			String nombre = request.getParameter("nombre");
+			// parametros
+			String id = request.getParameter("id");
+			String op = request.getParameter("op");
+			String nuevoNombre = request.getParameter("cajaNombre");
 
-			// insertar un video
-			videoInicio = new Video(codigo, nombre);
-			boolean añadido = dao.insert(videoInicio);
-			alert =  new Alert();
-			if(añadido) {
-				alert.setTexto("Se ha añadido el video a la lista. :D");
-				alert.setTipo(Alert.SUCCESS);
-			}else {
-				alert.setTexto("El video no se ha podido añadir, igual ya existe en la lista. :D");
-				alert.setTipo(Alert.WARNING);
+
+			if(op != null && OP_MODIFICAR.equals(op)){
+				Video v = dao.getById(id);
+				v.setNombre(nuevoNombre);
+				dao.update(v);
 			}
+			
+			// insertar un video
+			if(codigo!=null && nombre!=null) {
+				videoInicio = new Video(codigo, nombre);
+				boolean añadido = dao.insert(videoInicio);
+				alert =  new Alert();
+				if(añadido) {
+					alert.setTexto("Se ha añadido el video a la lista. :D");
+					alert.setTipo(Alert.SUCCESS);
+				}else {
+					alert.setTexto("El video no se ha podido añadir, igual ya existe en la lista. :D");
+					alert.setTipo(Alert.WARNING);
+				}
+			}
+			
 
 			// pedir listado
 			videos = (ArrayList<Video>) dao.getAll();
