@@ -15,10 +15,10 @@ public class VideoYoutube {
 		this.setNombre("¿Mejor Afilado Para Cuchillo De Supervivencia? - Scandi VS Plano");
 	}
 
-	public VideoYoutube(String codigo, String nombre) throws Exception {
+	public VideoYoutube(long id, String cod, String nombre) throws Exception {
 		this();
-		this.id = -1;
-		this.setCod(codigo);
+		this.id = id;
+		setCod(cod);
 		this.nombre = nombre;
 	}
 

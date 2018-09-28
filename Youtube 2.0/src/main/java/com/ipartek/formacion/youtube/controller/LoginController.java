@@ -52,7 +52,6 @@ public class LoginController extends HttpServlet {
 			// Recoger parametros
 			String usuarioNombre = request.getParameter("usuario");
 			String pass = request.getParameter("pass");
-			
 
 			// Comprobar usuario
 			if ("admin".equals(pass) && "admin".equals(usuarioNombre)) {
