@@ -2,7 +2,6 @@
 
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
    <div class="container">
-   	<img class="logo"alt="logo youtube" src="http://www.stickpng.com/assets/images/580b57fcd9996e24bc43c545.png">
      <a class="navbar-brand" href="#">Youtube PlayList</a>
      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
        <span class="navbar-toggler-icon"></span>
@@ -11,11 +10,12 @@
     
      
      <div class="collapse navbar-collapse" id="navbarResponsive">
-     
-     	<ul id="idioma" class="navbar-nav ml-auto">
-     		<li class="nav-item"><a href="inicio?idioma=es_ES">es</a></li>
-     		<li class="nav-item"><a href="inicio?idioma=eu_ES">eu</a></li>
-     		<li class="nav-item"><a href="inicio?idioma=en_EN">en</a></li>
+     	
+     	
+     	<ul class="navbar-nav ml-auto idioma">
+     		<li class="nav-item ${(sessionScope.idioma eq 'es_ES')?'active':''}"><a href="inicio?idioma=es_ES">es</a></li>
+     		<li class="nav-item ${(sessionScope.idioma eq 'eu_ES')?'active':''}"><a href="inicio?idioma=eu_ES">eu</a></li>
+     		<li class="nav-item ${(sessionScope.idioma eq 'en_EN')?'active':''}"><a href="inicio?idioma=en_EN">en</a></li>
      	</ul>
      
        <ul class="navbar-nav ml-auto">
@@ -29,7 +29,7 @@
 		           		<input name="usuario" value="${cookie.cNombre.value}" class="form-control mr-sm-2" type="text" placeholder="Nombre Usuario" required pattern=".{3,30}">
 		           		<input name="pass" value="" class="form-control mr-sm-2" type="password" placeholder="Contraseña" required pattern=".{2,50}">
 		           		<label class="text-warning" for="recuerdame">¿Recordar?</label>
-		           		<input class="recuerdame" type="checkbox" name="recuerdame" ${(not empty cookie.cNombre.value)?"checked":""} >		           		 
+		           		<input type="checkbox" name="recuerdame" ${(not empty cookie.cNombre.value)?"checked":""} >		           		 
 		           <button class="btn btn-outline-info my-2 my-sm-0" type="submit">Entrar</button>
 		         </form>
 		       </c:if>         

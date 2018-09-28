@@ -1,28 +1,14 @@
 i{
 	color: #FFF;
 }
-#idioma li a{
-	color:#FFF;
-	margin-right:5px;	
+
+ul.idioma a{
+	text-decoration: none;
+	padding: 5px;
+	color: #FFF;
 }
 
-#idioma li a:hover{
-	color:#ffc107;
-	text-decoration: none;	
-}
-
-img.logo{
-	max-width: 40px;
-	padding:auto;
-	margin-right:5px;
-}
-
-input.recuerdame{
-	margin-right:7px;
-}
-
-label.text-warning{
-	margin-right: 7px;
-	padding: auto;
-}
-
+ul.idioma li.active a{
+	color: #ffc107!important;
+	text-decoration: underline;	
+}	

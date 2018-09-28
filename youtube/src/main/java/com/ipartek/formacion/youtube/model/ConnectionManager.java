@@ -7,11 +7,11 @@ import javax.sql.DataSource;
 
 public class ConnectionManager {
 
-	private static Connection con;
+	private static Connection conn;
 
 	public static Connection getConnection() {
 
-		con = null;
+		conn = null;
 
 		try {
 			InitialContext ctx = new InitialContext();
@@ -21,14 +21,14 @@ public class ConnectionManager {
 				throw new Exception("Data source no encontrado!");
 			}
 
-			con = ds.getConnection();
+			conn = ds.getConnection();
 
 		} catch (Exception e) {
 
 			e.printStackTrace();
 		}
 
-		return con;
+		return conn;
 
 	}
 

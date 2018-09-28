@@ -4,7 +4,7 @@
 
 
 
-<c:set var="idioma" scope="session" value="${(not empty sessionScope.idioma)?sessionScope.idioma:'es_ES'}" />
+<c:set var="idioma" value="${(not empty sessionScope.idioma)?sessionScope.idioma:'es_ES'}" />
 <fmt:setLocale value="${idioma}" />
 <fmt:setBundle basename="idiomas" /> 
 
