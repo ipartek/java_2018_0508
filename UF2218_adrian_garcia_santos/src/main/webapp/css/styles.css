@@ -1,0 +1,64 @@
+*{
+	margin:0;
+	padding:0;
+}
+
+body{
+	position:relative;
+}
+
+header{
+	min-height:50px;
+	text-align:center;
+	padding-top:20px;
+}
+	
+
+header div.login{
+	position:absolute;
+	right:15px;
+	top:10px;
+}
+
+div.contenido{
+	margin:0 auto;
+	width:500px;
+	margin-top:1em;
+	margin-bottom:3em;
+}
+
+.contenido a.siguiente{
+	float:right;
+}
+
+.contenido div.libro{
+	border:1px solid black;
+	padding:1em 0;
+	min-height:390px;
+	position:relative;
+}
+
+.contenido div.piePagina{
+	position:absolute;
+	bottom:0;
+	padding:1em 0;
+	text-align:center;
+	border-top:1px solid black;
+	width:100%;
+}
+
+footer{
+	text-align:center;
+	border-top:2px solid black;
+	padding-top:1em;
+}
+
+.escribir{
+	margin:0 auto;
+	width:500px;
+	padding:1em;
+}
+
+.irAPagina {
+   width:30px;
+}

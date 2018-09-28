@@ -1,4 +1,5 @@
 package com.ipartek.formacion.youtube.model;
+
 import java.sql.Connection;
 
 import javax.naming.InitialContext;

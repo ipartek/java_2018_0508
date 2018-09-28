@@ -1,4 +1,4 @@
-package com.ipartek.formacion.youtube.controller;
+package com.ipartek.formacion.libro.controller;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -19,38 +19,20 @@ public class LogoutController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		doProcess(request, response);
-	}
-
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		doProcess(request, response);
-	}
-
-	private void doProcess(HttpServletRequest request, HttpServletResponse response) throws IOException {
-
+		
 		try {
 			
 			//Invalidar la sesión del usuario
 			HttpSession session = request.getSession();
-			
-			if(session != null) {
-				session.removeAttribute("usuario");
-				session.invalidate();
-				session = null;
-			}
+			session.invalidate();
+			session = null;
 			
 		} catch (Exception e) {
 			e.printStackTrace();
 			
 		}finally {
-			response.sendRedirect(request.getContextPath() + "/inicio");
+			response.sendRedirect(request.getContextPath());
 		}
-		
-		
-		
 	}
 
 }

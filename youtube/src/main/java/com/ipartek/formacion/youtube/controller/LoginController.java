@@ -2,7 +2,6 @@ package com.ipartek.formacion.youtube.controller;
 
 import java.io.IOException;
 import java.text.MessageFormat;
-import java.util.ArrayList;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
@@ -47,38 +46,37 @@ public class LoginController extends HttpServlet {
 		try {
 			
 			//idiomas @see com.ipartek.formacion.youtube.filter.IdiomaFilter
-			String idioma = (String)session.getAttribute("idioma");		
+			String idioma = (String)session.getAttribute("idioma");			
 			Locale locale = new Locale( idioma.split("_")[0] , idioma.split("_")[1] );			
 			ResourceBundle idiomas = ResourceBundle.getBundle("idiomas", locale );
+						
 			
 			//recoger parametros
 			String usuarioNombre = request.getParameter("usuario");
 			String pass = request.getParameter("pass");
-			
-			ArrayList<Usuario> usuariosPermitidos = (ArrayList<Usuario>) request.getServletContext().getAttribute("usuariosPermitidos");
-			
+				
 			//comprobar usuario TODO contra BBDD
-			
-			for(Usuario usuarioPermitido : usuariosPermitidos) {
-				if ( usuarioPermitido.getNombre().equals(usuarioNombre) && usuarioPermitido.getPass().equals(pass) )  {
-					
-					alert.setTexto(MessageFormat.format(idiomas.getString("msg.bienvenida"), usuarioNombre));
-					alert.setTipo(Alert.PRIMARY);
-					
-					//Guardar usuario en sesión
-					Usuario u = new Usuario(usuarioNombre, pass);
-					
-					session.setAttribute("usuario", u);
-					session.setMaxInactiveInterval(60*5); // 5minutos
-					gestionarCookies(request, response, u);
-					break;
+			if ( "admin".equals(pass) && "admin".equals(usuarioNombre) || 
+				  "pepe".equals(pass) && "pepe".equals(usuarioNombre)  ||
+				  "manoli".equals(pass) && "manoli".equals(usuarioNombre) )  {
 				
-				}else{
-					
-					alert.setTexto("Credenciales incorrectas" );
-				}
+				alert.setTexto(MessageFormat.format(idiomas.getString("msj.bienvenida"), usuarioNombre) );
+				alert.setTipo(Alert.PRIMARY);
 				
+				//guardar Usuario en session
+				Usuario u = new Usuario(usuarioNombre, pass);
+				
+				session.setAttribute("usuario", u);
+				session.setMaxInactiveInterval(60*5); // 5min
+				
+				
+				gestionarCookies(request, response, u);
+				
+			}else{
+				
+				alert.setTexto("Credenciales incorrectas" );
 			}
+			
 			
 		}catch (Exception e) {
 			e.printStackTrace();
@@ -95,18 +93,17 @@ public class LoginController extends HttpServlet {
 		
 		String recordar = (String)request.getParameter("recuerdame");
 		Cookie cNombre = new Cookie("cNombre", u.getNombre());
-		
-		if(recordar != null) {
+				
+		if ( recordar != null) {
 			
-			cNombre.setMaxAge(60*60*24*30*3); //3 meses
+			cNombre.setMaxAge(60*60*24*30*3); // 3meses
 			
 		}else {
-			
-			cNombre.setMaxAge(0);
-			
+			cNombre.setMaxAge(0); // No guardar
 		}
 		
 		response.addCookie(cNombre);
+		
 		
 	}
 

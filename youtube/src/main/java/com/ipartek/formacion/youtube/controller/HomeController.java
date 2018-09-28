@@ -1,18 +1,13 @@
 package com.ipartek.formacion.youtube.controller;
 
 import java.io.IOException;
-import java.net.URLEncoder;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -32,7 +27,7 @@ public class HomeController extends HttpServlet {
 	
 	public static final String OP_ELIMINAR = "1";
 	private static VideoDAO dao;
-	private ArrayList<Video> videos;
+	private ArrayList<Video> videos;	
 	private Video videoInicio;
 
 	
@@ -58,13 +53,7 @@ public class HomeController extends HttpServlet {
 	@Override
 	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 	
-		//System.out.println("Antes de realizar GET o POST");
-		
-		//Gestionar cookies última visita
-		DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
-		Cookie cVisita = new Cookie("cVisita", URLEncoder.encode(dateFormat.format(new Date()).toString(), "UTF-8"));
-		cVisita.setMaxAge(60*60*24*365); //1 Año
-		response.addCookie(cVisita);
+		System.out.println("Antes de realizar GET o POST");
 		
 		
 		//idiomas @see com.ipartek.formacion.youtube.filter.IdiomaFilter
@@ -73,8 +62,6 @@ public class HomeController extends HttpServlet {
 		Locale locale = new Locale( idioma.split("_")[0] , idioma.split("_")[1] );			
 		ResourceBundle idiomas = ResourceBundle.getBundle("idiomas", locale );
 		
-		//Recuperar todas las cookies
-		Cookie cookies[] = request.getCookies();	
 		
 		super.service(request, response);  //llama a los metodos GET o POST
 				
@@ -93,7 +80,7 @@ public class HomeController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		
-		try {			
+		try {
 			
 			//parametros
 			String id = request.getParameter("id");
@@ -110,27 +97,23 @@ public class HomeController extends HttpServlet {
 			
 			//video de inicio
 			videoInicio = new Video();
-			
 			if ( id != null && !OP_ELIMINAR.equals(op) ) {
 				videoInicio = dao.getById(id);
 				
-				//Si el usuario está en sesión, guardamos el video reproducido.
+				//guardar video reproducido si esta usuario en session
 				HttpSession session = request.getSession();
 				Usuario usuario = (Usuario)session.getAttribute("usuario");
+				if ( usuario != null ) { //Logeado
 				
-				if(usuario != null) { //Logeado
-
 					ArrayList<Video> reproducidos = (ArrayList<Video>)session.getAttribute("reproducidos");
-					
-					if(reproducidos == null) {
+					if ( reproducidos == null ) {
 						reproducidos = new ArrayList<Video>();
 					}
-					
 					reproducidos.add(videoInicio);
-					session.setAttribute("reproducidos", reproducidos);
+					session.setAttribute("reproducidos", reproducidos);										
 					
-				}
-						
+				}				
+				
 			}else if ( !videos.isEmpty()) {
 				videoInicio = videos.get(0);
 			}
@@ -152,11 +135,11 @@ public class HomeController extends HttpServlet {
 		try {
 			
 			//recoger parametros
-			String id = request.getParameter("id");
+			String codigo = request.getParameter("codigo");
 			String nombre = request.getParameter("nombre");
 			
 			//insertar
-			videoInicio = new Video(id, nombre);
+			videoInicio = new Video(codigo, nombre);
 			dao.insert(videoInicio);
 			
 			//pedir listado			

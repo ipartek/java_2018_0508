@@ -2,62 +2,35 @@
 <%@page import="java.util.HashMap"%>
 <%@page import="com.ipartek.formacion.youtube.pojo.Usuario"%>
 
+<h1>ESTAMOS EN EL BACKOFFICE </h1>
+*Solo pueden entrar usuarios logeados <br>
 
-<!DOCTYPE html>
-<html lang="en">
 
-  <head>
 
-	<!-- Comenza todas las URLs desde el href indicado -->
-	<base href="<%=request.getContextPath()%>/">
-	
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
-    <meta name="author" content="">
 
-    <title>Youtube Video Play List</title>
+<% 
+	Usuario u = (Usuario)session.getAttribute("usuario");
+	if ( u == null ){		
+		out.print("<p style=\"color:red\">Usuario nulo, se ha saltado el login!!!</p>");		
+	}else{		
+		out.print("Usuario: " + u.getNombre() + "<br>");
+	}
+%>
 
-  </head>
+<img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQufLDB7IpkmblOHc1JCmAQ68EWpaOm4Pn0COA5oanwu55yNiTAtQ" alt="imagen backoffice">
 
-  <body>
-	<h1>ESTAMOS EN EL BACKOFFICE</h1>
-	<br/>
-	<p>*Solo pueden entrar usuarios logeados</p><br/>
+<h2>Listado Usuarios Conectados</h2>
+<ol>
+<%
 	
-	<%
-	
-		Usuario u = (Usuario)session.getAttribute("usuario");
-		if(u == null){
-			%>
-				<p style="color:red">Usuario nulo, se ha saltado el login!!</p>
-			<%
-		}else{
-			%>
-				<p>Usuario: <%=u.getNombre() %></p>
-			<%
-		}
-	
-	%>
-	
-	<img src="http://www.land-of-web.com/wp-content/uploads/2012/04/w394.jpg" alt="imagen-backoffice"/>
-	
-	<h2>Listado de usuarios conectados</h2>
-	
-	<%
-	
-		HashMap<String, Usuario> usuariosConectados = (HashMap<String, Usuario>) application.getAttribute("uConectados");
+    HashMap<String, Usuario> usuariosConectados = (HashMap<String, Usuario>)application.getAttribute("uConectados");
+	for( HashMap.Entry<String,Usuario> uConectado : usuariosConectados.entrySet() ){
 		
-		Iterator it = usuariosConectados.entrySet().iterator();
-		for(HashMap.Entry<String, Usuario> uConectado : usuariosConectados.entrySet()){
-	        %>
-	        	<li><%=uConectado.getValue().getNombre() %></li>
-	        <%
-	        
-	    }
+	    %>
+	    	<li><%=uConectado.getValue().getNombre()%></li>
+	    <%
 	
-	%>
+	}
+%>
+</ol>
 
-  </body>
-
-</html>
