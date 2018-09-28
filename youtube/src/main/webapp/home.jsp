@@ -1,3 +1,5 @@
+<%@page import="com.ipartek.formacion.youtube.controller.HomeController"%>
+
 <%@ include file="includes/header.jsp" %>	
     
     <!-- Page Content -->
@@ -14,10 +16,39 @@
           	  <c:forEach items="${videos}" var="v">          
 	            <li class="list-group-item d-flex justify-content-between align-items-center">     
 	          	  	<a href="inicio?id=${v.id}">${v.nombre}</a>
-	          	  	<a href="inicio?id=${v.id}&op=${HomeController.OP_ELIMINAR}"><i style="color:red;" class="float-right fas fa-trash-alt"></i></a>
+	          	  	
+	          	  	<c:if test="${not empty sessionScope.usuario}">
+	          	  		<i onclick="showModalEliminar(${v.id}, ${HomeController.OP_ELIMINAR} )" style="color:red;" class="float-right fas fa-trash-alt"></i>
+	          	  		<a href="inicio?id=${v.id}&op=${HomeController.OP_MODIFICAR}"><i style="color:grey;" class="float-right fas fa-pencil-alt"></i></a>
+	          	  	</c:if>
+	          	  	
 	            </li>
 	          </c:forEach>
             </ul>
+            			
+			<!-- Modal -->
+			<div class="modal fade" id="modalEliminar" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+			  <div class="modal-dialog" role="document">
+			    <div class="modal-content">
+			      <div class="modal-header">
+			        <h5 class="modal-title" id="exampleModalLabel">Atención!!!</h5>
+			        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+			          <span aria-hidden="true">&times;</span>
+			        </button>
+			      </div>
+			      <div class="modal-body">
+			        ¿ Estas seguro que deseas ELIMINAR el Video?
+			      </div>
+			      <div class="modal-footer">
+			        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+			        <a id="btnEliminar" href="#" class="btn btn-danger">Eliminar</a>			        
+			      </div>
+			    </div>
+			  </div>
+			</div>
+            
+            
+            
             
             <hr>
             
