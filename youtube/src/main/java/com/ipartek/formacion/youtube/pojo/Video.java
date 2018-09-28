@@ -2,38 +2,54 @@ package com.ipartek.formacion.youtube.pojo;
 
 public class Video {
 
-	public static final int ID_LONGITUD = 11;
+	public static final int CODIGO_LONGITUD = 11;
 	
-	private String id;
+	private long id;
+	private String codigo;
 	private String nombre;
 	
-	public Video() {
+	public Video() throws Exception {
 		super();
-		this.id = "YlUKcNNmywk";
+		this.id = -1;
+		this.setCodigo("YlUKcNNmywk");
 		this.nombre = "Red Hot Chili Peppers - Californication";		
 	}
 	
-	public Video(String id, String nombre) throws Exception {
+	public Video(String codigo, String nombre) throws Exception {
 		this();
-		this.setId(id);
+		this.id = -1;
+		this.setCodigo(codigo);
 		this.nombre = nombre;
 	}
 
-	public String getId() {
+	public long getId() {
 		return id;
 	}
-	public void setId(String id) throws Exception {
-		if ( id != null && id.length() == ID_LONGITUD ) {
-			this.id = id;
+	public void setId(long id) {
+		this.id = id;
+	}
+	
+	public String getCodigo() {
+		return codigo;
+	}
+	public void setCodigo(String codigo) throws Exception {
+		if ( codigo != null && codigo.length() == CODIGO_LONGITUD ) {
+			this.codigo = codigo;
 		}else {
-			throw new Exception("El ID debe ser exactamente de " + ID_LONGITUD + " caracteres");
+			throw new Exception("El IDENTIFICADOR debe ser exactamente de " + CODIGO_LONGITUD + " caracteres");
 		}	
 	}
+	
 	public String getNombre() {
 		return nombre;
 	}
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
+	}
+
+	@Override
+	public String toString() {
+		return "Video [id=" + id + ", codigo=" + codigo + ", nombre=" + nombre + "]";
 	}
 	
 	

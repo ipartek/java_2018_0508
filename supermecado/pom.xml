@@ -2,14 +2,15 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.ipartek.formacion</groupId>
-	<artifactId>youtube</artifactId>
+	<artifactId>supermercado</artifactId>
 	<packaging>war</packaging>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>youtube</name>
-	<url>http://localhost:8080/youtube/</url>
+	<name>supermercado</name>
+	<url>http://localhost:8080/supermercado/</url>
 
 	<!-- variables comunes para todo el POM -->
 	<properties>
+		<app.name>supermercado</app.name>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<java-version>1.8</java-version>
 		<junit.version>4.12</junit.version>
@@ -37,45 +38,10 @@
 			<scope>provided</scope>
 		</dependency>
 
-		<!-- TagLib - Java Server Tag Library -->
 		<dependency>
 			<groupId>javax.servlet</groupId>
 			<artifactId>jstl</artifactId>
 			<version>${javax.servlet.jstl.version}</version>
-		</dependency>
-
-		<!-- libreria MySQL -->
-		<dependency>
-			<groupId>mysql</groupId>
-			<artifactId>mysql-connector-java</artifactId>
-			<version>5.1.47</version>
-		</dependency>
-
-		<dependency>
-			<groupId>org.jsoup</groupId>
-			<artifactId>jsoup</artifactId>
-			<version>1.11.2</version>
-		</dependency>
-
-		<!-- Object parse to JSON -->
-		<dependency>
-			<groupId>com.google.code.gson</groupId>
-			<artifactId>gson</artifactId>
-			<version>2.8.2</version>
-		</dependency>
-
-
-		<!-- Validaciones -->
-		<dependency>
-			<groupId>javax.validation</groupId>
-			<artifactId>validation-api</artifactId>
-			<version>1.1.0.Final</version>
-		</dependency>
-
-		<dependency>
-			<groupId>org.hibernate</groupId>
-			<artifactId>hibernate-validator</artifactId>
-			<version>5.2.4.Final</version>
 		</dependency>
 
 
@@ -100,9 +66,6 @@
 			<version>2.2.4</version>
 			<scope>test</scope>
 		</dependency>
-
-
-
 	</dependencies>
 
 
@@ -130,12 +93,13 @@
 				<artifactId>maven-war-plugin</artifactId>
 				<version>2.6</version>
 				<configuration>
+					<!-- silenciar el error en caso de NO encontrar web.xml -->
 					<failOnMissingWebXml>false</failOnMissingWebXml>
 				</configuration>
 			</plugin>
 		</plugins>
 
 
-		<finalName>youtube</finalName>
+		<finalName>${app.name}</finalName>
 	</build>
 </project>
