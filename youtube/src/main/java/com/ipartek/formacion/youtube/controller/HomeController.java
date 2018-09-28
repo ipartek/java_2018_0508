@@ -72,6 +72,14 @@ public class HomeController extends HttpServlet {
 		//despues de realizar GET o POST
 		request.setAttribute("videos", videos);
 		request.setAttribute("videoInicio", videoInicio);
+		
+		String playlist = "";
+		for (int i=0; i < videos.size(); i++) {
+			playlist += videos.get(i).getCodigo() + ",";
+		}
+		request.setAttribute("playlist", playlist);
+		
+		
 		request.getRequestDispatcher("home.jsp").forward(request, response);
 		
 	}
