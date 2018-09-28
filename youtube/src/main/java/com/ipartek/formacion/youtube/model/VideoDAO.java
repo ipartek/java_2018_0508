@@ -3,6 +3,7 @@ package com.ipartek.formacion.youtube.model;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -35,14 +36,21 @@ public class VideoDAO implements CrudAble<Video> {
 	public boolean insert(Video pojo) {
 		boolean resul = false;
 		try (Connection con = ConnectionManager.getConnection();
-				PreparedStatement ps = con.prepareStatement(SQL_INSERT);) {
+				PreparedStatement ps = con.prepareStatement(SQL_INSERT,Statement.RETURN_GENERATED_KEYS);) {
 
 			ps.setString(1, pojo.getCodigo());
 			ps.setString(2, pojo.getNombre());
 
 			int affectedRows = ps.executeUpdate();
 			if (affectedRows == 1) {
-				resul = true;
+				
+				// conseguir id generado
+				try (ResultSet rs = ps.getGeneratedKeys()){
+					while(rs.next()) {
+						pojo.setId(rs.getLong(1));
+						resul = true;
+					}
+				}
 			}
 
 		} catch (Exception e) {
@@ -114,12 +122,12 @@ public class VideoDAO implements CrudAble<Video> {
 	}
 
 	@Override
-	public boolean delete(long id) {
+	public boolean delete(String id) {
 		boolean resul = false;
 		try (Connection con = ConnectionManager.getConnection();
 				PreparedStatement ps = con.prepareStatement(SQL_DELETE);) {
 
-			ps.setLong(1, id);
+			ps.setString(1, id);
 
 			int affectedRows = ps.executeUpdate();
 			if (affectedRows == 1) {

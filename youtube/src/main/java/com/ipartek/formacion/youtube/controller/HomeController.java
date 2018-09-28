@@ -19,6 +19,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.ipartek.formacion.youtube.model.VideoDAO;
+import com.ipartek.formacion.youtube.pojo.Alert;
 import com.ipartek.formacion.youtube.pojo.Usuario;
 import com.ipartek.formacion.youtube.pojo.Video;
 
@@ -31,6 +32,7 @@ public class HomeController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	public static final String OP_ELIMINAR = "1";
+	public static final String OP_MODIFICAR = "2";
 	private static VideoDAO dao;
 	private ArrayList<Video> videos;
 	private Video videoInicio;
@@ -88,16 +90,22 @@ public class HomeController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
+		HttpSession session = request.getSession();
+		Alert alert = null;
+		
 		try {
 
 			// parametros
-			long id = Long.parseLong(request.getParameter("id"));
-			String id2 = request.getParameter("id");
+			String id = request.getParameter("id");
 			String op = request.getParameter("op");
 
 			// eliminar ?
 			if (op != null && OP_ELIMINAR.equals(op)) {
-				dao.delete(id);
+				alert = new Alert();
+				if(dao.delete(id)) {
+					alert.setTexto("Se ha eliminado el video de la lista. :D");
+					alert.setTipo(Alert.SUCCESS);
+				}
 			}
 
 			// listado videos
@@ -105,12 +113,11 @@ public class HomeController extends HttpServlet {
 
 			// video de inicio
 			videoInicio = new Video();
-			if (id != 0 && !OP_ELIMINAR.equals(op)) {
-				videoInicio = dao.getById(id2);
+			if (id != null && !OP_ELIMINAR.equals(op)) {
+				videoInicio = dao.getById(id);
 
 				// guardar video si el usuario esta en session
 
-				HttpSession session = request.getSession();
 				Usuario u = (Usuario) session.getAttribute("usuario");
 
 				if (u != null) {
@@ -130,6 +137,8 @@ public class HomeController extends HttpServlet {
 
 		} catch (Exception e) {
 			e.printStackTrace();
+		}finally {
+			session.setAttribute("alert", alert);
 		}
 	}
 
@@ -139,21 +148,36 @@ public class HomeController extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		
+		HttpSession session = request.getSession();
+		Alert alert = null;
+		
 		try {
 
 			// recoger parametros
 			String codigo = request.getParameter("codigo");
 			String nombre = request.getParameter("nombre");
 
-			// insertar
+			// insertar un video
 			videoInicio = new Video(codigo, nombre);
-			dao.insert(videoInicio);
+			boolean añadido = dao.insert(videoInicio);
+			alert =  new Alert();
+			if(añadido) {
+				alert.setTexto("Se ha añadido el video a la lista. :D");
+				alert.setTipo(Alert.SUCCESS);
+			}else {
+				alert.setTexto("El video no se ha podido añadir, igual ya existe en la lista. :D");
+				alert.setTipo(Alert.WARNING);
+			}
 
 			// pedir listado
 			videos = (ArrayList<Video>) dao.getAll();
 
-		} catch (Exception e) {
+		}catch (Exception e) {
 			e.printStackTrace();
+			alert =  new Alert();
+		}finally {
+			session.setAttribute("alert", alert);
 		}
 	}
 

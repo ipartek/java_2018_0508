@@ -10,7 +10,7 @@
 					<span class="navbar-toggler-icon"></span>
 				</button>
 				
-				<div class="collapse navbar-collapse" id="navbarResponsive">
+				<div class="collapse navbar-collapse justify-content-between" id="navbarResponsive">
 
 					<c:if test="${empty usuario}">
 						<!-- Usuario Logueado en session -->

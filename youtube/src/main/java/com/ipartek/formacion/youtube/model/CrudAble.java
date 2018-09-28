@@ -36,6 +36,6 @@ public interface CrudAble<P> {
 	boolean update(P pojo);
 	
 	//Delete
-	boolean delete(long id);
+	boolean delete(String id);
 
 }
