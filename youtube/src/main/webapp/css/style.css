@@ -1,10 +1,7 @@
 body{
 	overflow-x:hidden;
 }
-#iframe{
-	width: 100%;
-	height: 350px;
-}
+
 #logo{
 	width:100px;
 	height: 100px; 
@@ -41,12 +38,21 @@ a.text-pika:hover{
 .list-group-item:hover{
 	background-color: #C6FDBD;
 }
+/******
+*	Pantalla de Login
+***********************************************************/
 .fondo-login{
 	background:url("../images/logo.png");
 	
 }
-.fondo-login>div{
+.fondo-login .row{
+	padding: 15em;
+}
+.fondo-login .fondo-login-form{
 	background-color: rgba(0,0,0,.7);
 	padding: 1em;
 	border-radius:.25em;
+}
+.fondo-login-form h1, .fondo-login-form small, .fondo-login-form i{
+	color: 	#72FC5C;
 }
