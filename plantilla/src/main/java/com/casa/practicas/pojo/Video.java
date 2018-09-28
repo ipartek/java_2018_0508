@@ -1,4 +1,6 @@
-package com.ipartek.formacion.pojo;
+package com.casa.practicas.pojo;
+
+
 
 import java.util.ArrayList;
 
@@ -6,7 +8,7 @@ public class Video {
 	
 	private String id;
 	private String nombreCancion;
-	private ArrayList<Comentarios> comentariosIds = new ArrayList <Comentarios> ();
+
 
 	
 	
@@ -48,13 +50,7 @@ public class Video {
 		this.nombreCancion = nombreCancion;
 	}
 	
-	public void setComentarios(Comentarios comentario) {
-		this.comentariosIds.add(comentario);
-	}
-	
-	public ArrayList<Comentarios> getComentarios() {
-		return comentariosIds;
-	}
+
 	
 
 }
