@@ -10,14 +10,42 @@
 
         <div class="col-lg-3">        	
           <h4 class="my-4"><fmt:message key="lista.reproduccion"/></h4>
-          <ul class="list-group">                     
-          	  <c:forEach items="${videos}" var="v">          
-	            <li class="list-group-item d-flex justify-content-between align-items-center">     
-	          	  	<a href="inicio?id=${v.id}">${v.nombre}</a>
-	          	  	<a href="inicio?id=${v.id}&op=${HomeController.OP_ELIMINAR}"><i style="color:red;" class="float-right fas fa-trash-alt"></i></a>
-	            </li>
-	          </c:forEach>
-            </ul>
+          
+			<c:if test="${ empty editar}">
+				<c:if test="${not empty sessionScope.usuario}">
+					 <a class="badge badge-primary" href="inicio?editar=true">Editar</a>
+				</c:if>
+			          <ul class="list-group">                     
+			          	  <c:forEach items="${videos}" var="v">          
+				            <li class="list-group-item d-flex justify-content-between align-items-center">
+				            	<span>${v.id}</span>    
+				          	  	<a href="inicio?id=${v.id}">${v.nombre}</a>
+				          	  	<a href="inicio?id=${v.id}&op=1"><%-- ${HomeController.OP_ELIMINAR} --%>
+				          	  		<i style="color:red;" class="float-right fas fa-trash-alt"></i>
+				          	  	</a>
+				            </li>
+				          </c:forEach>
+			            </ul>
+			  </c:if>
+	         
+	        
+            <c:if test="${not empty editar}">
+            	<c:if test="${not empty sessionScope.usuario}">
+	            	<c:forEach items="${videos }" var="v">
+	            		
+	            		<form action="inicio">
+		            		<input class="editar-nombre-lista" name="editarNombreGet${v.id }" placeholder="${v.nombre }"  class="form-control mr-sm-2" type="text" >
+		            		<%-- <input name="codigo" value="${v.codigo }" class="form-control mr-sm-2" type="text" > --%>
+		            		<input class="invisible" name="editarNombreIdGet${v.id }" value="${v.id }">
+	           		</c:forEach>	
+		            		<button class="btn btn-primary" type="submit" >guardar</button>
+	            		</form>
+	            	
+	            </c:if>
+           	</c:if>
+            		<hr> 
+            	
+            
             
             <hr>
             
@@ -29,7 +57,7 @@
 			            </li>
 		           </c:forEach>
 		            
-		            <c:if test="${empty reproducidos}">
+		            <c:if test="${empty sessionScope.usuario}">
 		        		<li class="list-group-item d-flex justify-content-between align-items-center">
 	          				<p>*Por favor Inicia Session para guardar tus video reproducidos</p>
 	          			</li>

@@ -2,6 +2,12 @@ i{
 	color: #FFF;
 }
 
+span{
+	margin-right: 20px;
+	/*border:1px solid black;*/
+	color:#0000FF;
+}
+
 ul.idioma a{
 	text-decoration: none;
 	padding: 5px;
@@ -11,4 +17,17 @@ ul.idioma a{
 ul.idioma li.active a{
 	color: #ffc107!important;
 	text-decoration: underline;	
+}
+.fa-edit{
+	color:red;
+	font-size: 20px;
 }	
+.invisible{
+	display: none;
+}
+.editar-nombre-lista{
+	margin-bottom: 10px;
+}
+agregarCancionNavbar{
+	margin-bottom:15px;
+}

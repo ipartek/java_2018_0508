@@ -29,6 +29,7 @@ public class HomeController extends HttpServlet {
 	private static VideoDAO dao;
 	private ArrayList<Video> videos;	
 	private Video videoInicio;
+	String editar = null;
 
 	
 	@Override
@@ -85,7 +86,30 @@ public class HomeController extends HttpServlet {
 			//parametros
 			String id = request.getParameter("id");
 			String op = request.getParameter("op");
+			String editar = request.getParameter("editar");
+			String videoEditar = request.getParameter("videoEditar");
+			String editarNombreGet = request.getParameter("editarNombreGet");
+			String editarNombreIdGet = request.getParameter("editarNombreIdGet");
+			String edicion = request.getParameter("edicion");
 			
+			/*//solo cuando editar este activo haremos la comprobacion
+			if (editar != null) {
+				
+			}*/
+			comprobarEdicionBloque(request,response);
+			
+			
+			
+			
+			//editar(preparar datos para volcarlos a los campos de modo edicion)
+
+			//editas desde el listado solo 1 registro
+			/*if(editarNombreGet != null && editarNombreIdGet != null) {
+				
+				Video v = dao.getById(editarNombreIdGet);
+				v.setNombre(editarNombreGet);
+				dao.update(v);
+			}*/
 			//eliminar ?			
 			if ( op != null && OP_ELIMINAR.equals(op) ) {
 				dao.delete(id);
@@ -117,6 +141,11 @@ public class HomeController extends HttpServlet {
 			}else if ( !videos.isEmpty()) {
 				videoInicio = videos.get(0);
 			}
+			if(editar != null) {
+				//establezco el atributo editar para que al refrescar la vista enseñe los campos editables
+				request.setAttribute("editar", editar);
+				editar = null;
+			}
 			
 
 		} catch (Exception e) {
@@ -126,6 +155,37 @@ public class HomeController extends HttpServlet {
 		}
 	}
 
+	private void comprobarEdicionBloque(HttpServletRequest request, HttpServletResponse response) {
+		/**
+		 * TEnemos que preguntar por el patron editarNombreGet(N) donde n sera un numero en incremento
+		 * El tope de N sera el tamaño maximo del ArrayList videos
+		 */
+		videos = (ArrayList<Video>) dao.getAll();
+		for (int i= 1 ; i < videos.size(); i++) {
+			//formamos dicha cadena para preguntar al request.getParameter()
+			String iString = String.valueOf(i);
+			String cadenanDefinitiva = "editarNombreGet" + iString;
+			//String cadenaiDefinitivaId ="cadenaDefinitivaId" +iString;
+			String cadenaDefinitivaId = "editarNombreIdGet" + iString;
+			
+			System.out.println(cadenanDefinitiva);
+			System.out.println(cadenaDefinitivaId);
+			String coincidenciaCadenaDefinitiva = request.getParameter(cadenanDefinitiva);
+			System.out.println(coincidenciaCadenaDefinitiva);
+			if (request.getParameter(cadenanDefinitiva) != null && request.getParameter(cadenanDefinitiva) != "" ) {
+				String editarNombreGetX = request.getParameter(cadenanDefinitiva);
+				String editarNombreGetIdX = request.getParameter(cadenaDefinitivaId);
+				Video v = dao.getById(editarNombreGetIdX);
+				v.setNombre(editarNombreGetX);
+				dao.update(v);
+				
+			}
+		}
+		
+		
+	}
+
+
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
 	 *      response)
@@ -133,14 +193,26 @@ public class HomeController extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		try {
-			
+			int idInt;
 			//recoger parametros
 			String codigo = request.getParameter("codigo");
 			String nombre = request.getParameter("nombre");
+			String editarVideoId = request.getParameter("editarVideoId");
+			String editarNombre = request.getParameter("editarNombre");
+			
+			if (editarVideoId != null) {
+
+				Video v = dao.getById(editarVideoId);
+				v.setNombre(editarNombre);
+				dao.update(v);
+			}
 			
 			//insertar
-			videoInicio = new Video(codigo, nombre);
-			dao.insert(videoInicio);
+			if(codigo != null || nombre != null) {
+				videoInicio = new Video(codigo, nombre);
+				dao.insert(videoInicio);
+			}
+			
 			
 			//pedir listado			
 			videos = (ArrayList<Video>) dao.getAll();
