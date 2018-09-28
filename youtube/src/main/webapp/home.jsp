@@ -19,14 +19,14 @@
 	          	  	
 	          	  	<c:if test="${not empty sessionScope.usuario}">
 	          	  		<i onclick="showModalEliminar(${v.id}, ${HomeController.OP_ELIMINAR} )" style="color:red;" class="float-right fas fa-trash-alt"></i>
-	          	  		<a href="inicio?id=${v.id}&op=${HomeController.OP_MODIFICAR}"><i style="color:grey;" class="float-right fas fa-pencil-alt"></i></a>
+	          	  		<i onclick="showModalModificar(${v.id}, '${v.nombre}' )" style="color:grey;" class="float-right fas fa-pencil-alt"></i>
 	          	  	</c:if>
 	          	  	
 	            </li>
 	          </c:forEach>
             </ul>
             			
-			<!-- Modal -->
+			<!-- Modal Eliminar -->
 			<div class="modal fade" id="modalEliminar" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
 			  <div class="modal-dialog" role="document">
 			    <div class="modal-content">
@@ -48,6 +48,35 @@
 			</div>
             
             
+            
+           <!-- modalModificar -->
+			<div class="modal fade" id="modalModificar" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+			  <div class="modal-dialog" role="document">
+			    <div class="modal-content">
+			      <div class="modal-header">
+			        <h5 class="modal-title" id="exampleModalLabel">Modificar Nombre Video</h5>
+			        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+			          <span aria-hidden="true">&times;</span>
+			        </button>
+			      </div>
+			      <div class="modal-body">
+			        
+			      </div>
+			      <div class="modal-footer">
+			      
+			      	<form action="inicio" method="post">			      		
+			      		<input type="text" id="nombre" name="nombre" required >
+			      		<input type="hidden" name="id" id="id" value="-1">
+			      		<input type="hidden" name="op" value="${HomeController.OP_MODIFICAR}">
+			      		<input type="submit" value="Modificar">
+			      	</form>
+			      
+			        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+			        			        
+			      </div>
+			    </div>
+			  </div>
+			</div>
             
             
             <hr>

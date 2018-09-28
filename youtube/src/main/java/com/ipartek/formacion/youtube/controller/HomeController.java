@@ -149,14 +149,30 @@ public class HomeController extends HttpServlet {
 			//recoger parametros
 			String codigo = request.getParameter("codigo");
 			String nombre = request.getParameter("nombre");
+			String op = request.getParameter("op");
+			String id = request.getParameter("id");
 			
-			//insertar
-			videoInicio = new Video(codigo, nombre);
-			if ( dao.insert(videoInicio) ) {
-				alert = new Alert(Alert.SUCCESS, "Gracias por subir tu Video");
-			}else {
-				alert = new Alert(Alert.WARNING, "ERROR, no se pudo crear el video, por favor asegurate que no este duplicado el Video.");
-			}
+			if ( op != null && OP_MODIFICAR.equals(op)) {    // modificar
+				
+				Video v = dao.getById(id);
+				v.setNombre(nombre);
+				
+				if ( dao.update(v) ) {
+					alert = new Alert(Alert.SUCCESS, "Video Modificado");
+				}else {
+					alert = new Alert();
+				}
+				
+				
+			}else {  										 //insertar
+							
+				videoInicio = new Video(codigo, nombre);
+				if ( dao.insert(videoInicio) ) {
+					alert = new Alert(Alert.SUCCESS, "Gracias por subir tu Video");
+				}else {
+					alert = new Alert(Alert.WARNING, "ERROR, no se pudo crear el video, por favor asegurate que no este duplicado el Video.");
+				}
+			}	
 			
 			//pedir listado			
 			videos = (ArrayList<Video>) dao.getAll();

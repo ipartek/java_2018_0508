@@ -104,8 +104,22 @@ public class VideoDAO implements CrudAble<Video> {
 
 	@Override
 	public boolean update(Video pojo) {
-		// TODO Auto-generated method stub
-		return false;
+		boolean resul = false;
+		try (Connection con = ConnectionManager.getConnection();
+			 PreparedStatement ps = con.prepareStatement(SQL_UPDATE);){
+			
+			ps.setString(1, pojo.getCodigo());
+			ps.setString(2, pojo.getNombre());
+			ps.setLong  (3, pojo.getId());
+			
+			if ( ps.executeUpdate() == 1 ) {
+				resul = true;
+			}			
+			
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+		return resul;
 	}
 
 	@Override

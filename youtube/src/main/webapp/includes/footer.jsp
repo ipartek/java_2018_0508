@@ -54,6 +54,16 @@
 			var btn = document.getElementById('btnEliminar');
 			btn.href = 'inicio?id='+ idVideo + '&op=' + operacion;			
 		}
+		
+		function showModalModificar( idVideo, nombre ){
+			
+			console.log('showModalModificar id=' + idVideo +  " nombre=" + nombre);
+			$('#modalModificar').modal('show');
+			document.getElementById('id').value = idVideo;
+			document.getElementById('nombre').value = nombre;
+			
+			
+		}
 	
 	</script>
 
