@@ -98,8 +98,9 @@
         <div class="col-lg-9">
 
           <div class="card mt-4">
-          
-            <iframe id="iframe" width="823" height="415" src="https://www.youtube.com/embed/${videoInicio.codigo}?autoplay=1" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+            
+            <!-- https://tutorialzine.com/2015/08/how-to-control-youtubes-video-player-with-javascript -->
+            <div id="video-placeholder"></div>
             
             <div class="card-body">
               <h3 class="card-title">${v.nombre}</h3>              
