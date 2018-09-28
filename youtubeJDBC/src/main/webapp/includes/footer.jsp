@@ -44,7 +44,30 @@
     <!-- Bootstrap core JavaScript -->
     <script src="https://blackrockdigital.github.io/startbootstrap-shop-item/vendor/jquery/jquery.min.js"></script>
     <script src="https://blackrockdigital.github.io/startbootstrap-shop-item/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-
+	<script>
+	
+		function showModalEliminar( idVideo, operacion ){
+			console.log('showModalEliminar id=' + idVideo);
+			$('#modalEliminar').modal('show');
+			var btn = document.getElementById('btnEliminar');
+			btn.href = 'inicio?id='+ idVideo + '&op=' + operacion;			      
+		}
+		
+		function showModalModificar( idVideo, operacion ){
+			console.log('showModalModificar id=' + idVideo);
+			$('#modalModificar').modal('show');
+			var btn = document.getElementById('btnModificar');
+			var value = document.getElementById('modifiCacionNombreModal');
+			var id = document.getElementById('id');
+			var op = document.getElementById('op');
+			id.value = idVideo;
+			op.value = operacion;
+			console.log(id.value);
+			console.log(op.value);
+			btn.href = 'inicio?id='+ idVideo + '&op=' + operacion;			      
+		}
+	
+	</script>
   </body>
 
 </html>

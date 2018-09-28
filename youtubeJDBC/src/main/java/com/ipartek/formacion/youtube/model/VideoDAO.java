@@ -7,6 +7,7 @@ import java.util.List;
 import com.ipartek.formacion.youtube.pojo.Video;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.Statement;
 
 public class VideoDAO implements CrudAble<Video> {
 
@@ -34,14 +35,21 @@ public class VideoDAO implements CrudAble<Video> {
 		boolean resul = false;
 
 		try (Connection con = ConnectionManager.getConnection();
-				PreparedStatement ps = con.prepareStatement(SQL_INSERT);) {
+				PreparedStatement ps = con.prepareStatement(SQL_INSERT,Statement.RETURN_GENERATED_KEYS);) {
 
 			ps.setString(1, pojo.getCodigo());
 			ps.setString(2, pojo.getNombre());
 
 			int affectedRows = ps.executeUpdate();
 			if (affectedRows == 1) {
-				resul = true;
+				
+				//consegir el id generado 
+				ResultSet rs = ps.getGeneratedKeys();
+				while(rs.next()) {
+					pojo.setId(rs.getLong(1));
+					resul = true;
+					System.out.println(rs.getLong(1));
+				}		
 			}
 
 		} catch (Exception e) {
@@ -96,7 +104,6 @@ public class VideoDAO implements CrudAble<Video> {
 		int affectedRows;
 		try (Connection con = ConnectionManager.getConnection();
 				PreparedStatement ps = con.prepareStatement(SQL_UPDATE);) {
-			int index = 1;
 			ps.setString(1, pojo.getCodigo());
 			ps.setString(2, pojo.getNombre());
 			ps.setInt(3, (int) pojo.getId());
@@ -106,7 +113,7 @@ public class VideoDAO implements CrudAble<Video> {
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
-			;
+			
 		}
 		return resul;
 	}

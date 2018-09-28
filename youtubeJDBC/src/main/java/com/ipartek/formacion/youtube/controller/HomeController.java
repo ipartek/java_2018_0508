@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.ipartek.formacion.youtube.model.VideoDAO;
+import com.ipartek.formacion.youtube.pojo.Alert;
 import com.ipartek.formacion.youtube.pojo.Usuario;
 import com.ipartek.formacion.youtube.pojo.Video;
 
@@ -26,6 +27,7 @@ public class HomeController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
 	public static final String OP_ELIMINAR = "1";
+	public static final String OP_MODIFICAR = "2";
 	private static VideoDAO dao;
 	private ArrayList<Video> videos;	
 	private Video videoInicio;
@@ -82,7 +84,7 @@ public class HomeController extends HttpServlet {
 			throws ServletException, IOException {
 		
 		try {
-			
+			Alert alerta = new Alert();
 			//parametros
 			String id = request.getParameter("id");
 			String op = request.getParameter("op");
@@ -91,7 +93,7 @@ public class HomeController extends HttpServlet {
 			String editarNombreGet = request.getParameter("editarNombreGet");
 			String editarNombreIdGet = request.getParameter("editarNombreIdGet");
 			String edicion = request.getParameter("edicion");
-			
+			String modifiCacionNombreModal = request.getParameter("modifiCacionNombreModal");
 			/*//solo cuando editar este activo haremos la comprobacion
 			if (editar != null) {
 				
@@ -112,7 +114,19 @@ public class HomeController extends HttpServlet {
 			}*/
 			//eliminar ?			
 			if ( op != null && OP_ELIMINAR.equals(op) ) {
-				dao.delete(id);
+				if(dao.delete(id)) {
+					alerta = new Alert(Alert.SUCCESS,"Video Eliminando correctamente");
+				}else {
+					alerta = new Alert(Alert.DANGER,"OOps hemos detectado un problema");
+				}
+			}
+			
+			//Modificar atraves del modal ?			
+			if ( op != null && OP_MODIFICAR.equals(op) ) {
+				Video vModificar = dao.getById(id);
+				
+				vModificar.setNombre(modifiCacionNombreModal);
+				dao.update(vModificar);
 			}
 			
 			//listado videos			
@@ -161,7 +175,12 @@ public class HomeController extends HttpServlet {
 		 * El tope de N sera el tamaño maximo del ArrayList videos
 		 */
 		videos = (ArrayList<Video>) dao.getAll();
-		for (int i= 1 ; i < videos.size(); i++) {
+		int indice = videos.size()-1;
+		System.out.println(indice);
+		//obtengo el ultimo registro para mirar su indice
+		Video x = videos.get(indice);
+		System.out.println(x.getId());
+		for (int i= 1 ; i <= videos.size(); i++) {
 			//formamos dicha cadena para preguntar al request.getParameter()
 			String iString = String.valueOf(i);
 			String cadenanDefinitiva = "editarNombreGet" + iString;
@@ -192,6 +211,7 @@ public class HomeController extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		Alert alerta = null ;
 		try {
 			int idInt;
 			//recoger parametros
@@ -199,6 +219,7 @@ public class HomeController extends HttpServlet {
 			String nombre = request.getParameter("nombre");
 			String editarVideoId = request.getParameter("editarVideoId");
 			String editarNombre = request.getParameter("editarNombre");
+			String modifiCacionNombreModal = request.getParameter("modifiCacionNombreModal");
 			
 			if (editarVideoId != null) {
 
@@ -209,19 +230,31 @@ public class HomeController extends HttpServlet {
 			
 			//insertar
 			if(codigo != null || nombre != null) {
+				boolean resultInsert = false; 
 				videoInicio = new Video(codigo, nombre);
-				dao.insert(videoInicio);
+				resultInsert =dao.insert(videoInicio);
+				if(!resultInsert) {
+					alerta = new Alert();
+					alerta.setTexto("Hemos tenido un problema, revise el codigo de su cancion");
+					alerta.setTexto(Alert.DANGER);	
+				}else {
+					alerta = new Alert();
+					alerta.setTexto("Okey !");
+					alerta.setTexto(Alert.SUCCESS);	
+				}
+					
 			}
 			
 			
 			//pedir listado			
 			videos = (ArrayList<Video>) dao.getAll();
-			
+			request.setAttribute("alerta", alerta);
 
 		} catch (Exception e) {
 			e.printStackTrace();
+			alerta = new Alert();
 		} finally {
-			
+			request.setAttribute("alerta", alerta);
 		}
 	}
 

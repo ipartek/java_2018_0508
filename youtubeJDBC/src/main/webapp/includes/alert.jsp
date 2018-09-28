@@ -9,7 +9,4 @@
 			</button>
 		</div>
 	</div>
-	
-	${alert=null}
-	
 </c:if>
