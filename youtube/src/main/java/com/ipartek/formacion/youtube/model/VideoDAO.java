@@ -15,7 +15,7 @@ public class VideoDAO implements CrudAble<Video> {
 
 	private final String SQL_GET_ALL = "SELECT id, codigo, nombre FROM video ORDER BY id DESC LIMIT 1000;";
 	private final String SQL_GET_BY_ID = "SELECT  id, codigo, nombre FROM video WHERE id = ?;";
-	private final String SQL_UPDATE = "UPDATE video SET codigo= ? , nombre= ? WHERE id = ?;";
+	private final String SQL_UPDATE = "UPDATE video SET codigo= ? nombre= ? WHERE id = ?;";
 	private final String SQL_DELETE = "DELETE FROM video WHERE id = ?;";
 	private final String SQL_INSERT = "INSERT INTO video (codigo, nombre) VALUES (?,?);";
 
@@ -101,14 +101,38 @@ public class VideoDAO implements CrudAble<Video> {
 
 	@Override
 	public boolean update(Video pojo) {
-		// TODO Auto-generated method stub
-		return false;
+		boolean resul = false;
+		try (Connection con = ConnectionManager.getConnection();
+			 PreparedStatement ps = con.prepareStatement(SQL_UPDATE);){
+			
+			ps.setString(1, pojo.getCodigo());
+			ps.setString(2, pojo.getNombre());	
+			ps.setLong(3, pojo.getId());				
+			if ( ps.executeUpdate() == 1 ) {
+				resul = true;
+			}			
+			
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+		return resul;
 	}
 
 	@Override
 	public boolean delete(String id) {
-		// TODO Auto-generated method stub
-		return false;
+		boolean resul = false;
+		try (Connection con = ConnectionManager.getConnection();
+			 PreparedStatement ps = con.prepareStatement(SQL_DELETE);){
+			
+			ps.setString(1, id);			
+			if ( ps.executeUpdate() == 1 ) {
+				resul = true;
+			}			
+			
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+		return resul;
 	}
 	
 	

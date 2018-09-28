@@ -1,3 +1,4 @@
+<%@page import="com.ipartek.formacion.youtube.controller.HomeController"%>
 <%@ include file="includes/header.jsp" %>	
     
     <!-- Page Content -->
@@ -14,10 +15,65 @@
           	  <c:forEach items="${videos}" var="v">          
 	            <li class="list-group-item d-flex justify-content-between align-items-center">     
 	          	  	<a href="inicio?id=${v.id}">${v.nombre}</a>
-	          	  	<a href="inicio?id=${v.id}&op=${HomeController.OP_ELIMINAR}"><i style="color:red;" class="float-right fas fa-trash-alt"></i></a>
+	          	  	
+	          	  	<c:if test="${not empty sessionScope.usuario}">
+	          	  		<i onclick="showModalEliminar(${v.id}, ${HomeController.OP_ELIMINAR })" style="color:red;" class="float-right fas fa-trash-alt mr-1"></i>
+	          	  		<i onclick="showModalModificar(${v.id}, '${v.nombre }')" style="color:orange;" class="fas fa-pencil-alt ml-1"></i>
+	            	</c:if>
+	            
 	            </li>
 	          </c:forEach>
             </ul>
+			
+			<!-- Modal eliminar -->
+			<div class="modal fade" id="modalEliminar" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+			  <div class="modal-dialog" role="document">
+			    <div class="modal-content">
+			      <div class="modal-header">
+			        <h5 class="modal-title" id="exampleModalLabel">Atención</h5>
+			        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+			          <span aria-hidden="true">&times;</span>
+			        </button>
+			      </div>
+			      <div class="modal-body">
+			        ¿Estás seguro de que deseas eliminar el video?
+			      </div>
+			      <div class="modal-footer">
+			        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+			        <a id="btnEliminar" href="#" class="btn btn-danger">Eliminar</a>
+			      </div>
+			    </div>
+			  </div>
+			</div>
+			
+			<!-- Modal modificar -->
+			<div class="modal fade" id="modalModificar" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+			  <div class="modal-dialog" role="document">
+			    <div class="modal-content">
+			      <div class="modal-header">
+			        <h5 class="modal-title" id="exampleModalLabel">Modificar nombre del video</h5>
+			        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+			          <span aria-hidden="true">&times;</span>
+			        </button>
+			      </div>
+			      <div class="modal-body">
+			        
+			      </div>
+			      <div class="modal-footer">
+			      	<form action="inicio" method="post">
+			        	<div class="form-group">
+				        	<label for="nombreVideo">Nombre</label>
+				        	<input type="text" id="nombre" name="nombre" class="form-control" required  autofocus />
+				        	<input type="hidden" name="id" id="id" value="-1"/>
+				        	<input type="hidden" name="op" value="${HomeController.OP_MODIFICAR }"/>
+				        	<button type="submit" class="btn btn-primary">Cambiar nombre</button>
+				        </div>
+			        </form>
+			        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+			      </div>
+			    </div>
+			  </div>
+			</div>
             
             <hr>
             
@@ -46,7 +102,8 @@
 
           <div class="card mt-4">
           
-            <iframe id="iframe" width="823" height="415" src="https://www.youtube.com/embed/${videoInicio.codigo}?autoplay=1" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+          	<!-- https://tutorialzine.com/2015/08/how-to-control-youtubes-video-player-with-javascript -->
+            <div id="video-placeholder"></div>
             
             <div class="card-body">
               <h3 class="card-title"></h3>              

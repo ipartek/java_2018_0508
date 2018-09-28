@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.ipartek.formacion.youtube.model.VideoDAO;
+import com.ipartek.formacion.youtube.pojo.Alert;
 import com.ipartek.formacion.youtube.pojo.Usuario;
 import com.ipartek.formacion.youtube.pojo.Video;
 
@@ -26,6 +27,7 @@ public class HomeController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
 	public static final String OP_ELIMINAR = "1";
+	public static final String OP_MODIFICAR = "2";
 	private static VideoDAO dao;
 	private ArrayList<Video> videos;	
 	private Video videoInicio;
@@ -68,6 +70,15 @@ public class HomeController extends HttpServlet {
 		//despues de realizar GET o POST
 		request.setAttribute("videos", videos);
 		request.setAttribute("videoInicio", videoInicio);
+		
+		String playlist = "";
+		
+		for(int i=1;i<videos.size();i++) {
+			playlist += videos.get(i).getCodigo() + ",";
+		}
+		
+		request.setAttribute("playlist", playlist);
+		
 		request.getRequestDispatcher("home.jsp").forward(request, response);
 		
 	}
@@ -80,6 +91,8 @@ public class HomeController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		
+		Alert alert = null;
+		
 		try {
 			
 			//parametros
@@ -88,7 +101,13 @@ public class HomeController extends HttpServlet {
 			
 			//eliminar ?			
 			if ( op != null && OP_ELIMINAR.equals(op) ) {
-				dao.delete(id);
+				
+				if(dao.delete(id)) {
+					alert = new Alert(Alert.SUCCESS, "Video eliminado correctamente.");
+					
+				}else {
+					alert = new Alert();
+				}
 			}
 			
 			//listado videos			
@@ -121,8 +140,9 @@ public class HomeController extends HttpServlet {
 
 		} catch (Exception e) {
 			e.printStackTrace();
+			alert = new Alert();
 		} finally {
-			
+			request.setAttribute("alert", alert);
 		}
 	}
 
@@ -132,15 +152,42 @@ public class HomeController extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		
+		Alert alert = null;
+		
 		try {
 			
 			//recoger parametros
 			String codigo = request.getParameter("codigo");
 			String nombre = request.getParameter("nombre");
+			String op = request.getParameter("op");
+			String id = request.getParameter("id");
 			
-			//insertar
-			videoInicio = new Video(codigo, nombre);
-			dao.insert(videoInicio);
+			if(op != null && OP_MODIFICAR.equals(op)) {		//Modificar
+				
+				Video v = dao.getById(id);
+				v.setNombre(nombre);
+				
+				if(dao.update(v)) {
+					alert = new Alert(Alert.SUCCESS, "Video modificado");
+					
+				}else {
+					alert = new Alert();
+				}
+				
+				
+			}else {		//Insertar
+			
+				
+				videoInicio = new Video(codigo, nombre);
+				
+				if(dao.insert(videoInicio)) {
+					alert = new Alert(Alert.SUCCESS, "Gracias por subir tu video.");
+				}else {
+					alert = new Alert(Alert.DANGER, "ERROR, no se pudo crear el video, por favor asegúrate de que no esté duplicado el video.");
+				}
+				
+			}
 			
 			//pedir listado			
 			videos = (ArrayList<Video>) dao.getAll();
@@ -148,8 +195,9 @@ public class HomeController extends HttpServlet {
 
 		} catch (Exception e) {
 			e.printStackTrace();
+			alert = new Alert();
 		} finally {
-			
+			request.setAttribute("alert", alert);
 		}
 	}
 

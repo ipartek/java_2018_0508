@@ -44,6 +44,48 @@
     <!-- Bootstrap core JavaScript -->
     <script src="https://blackrockdigital.github.io/startbootstrap-shop-item/vendor/jquery/jquery.min.js"></script>
     <script src="https://blackrockdigital.github.io/startbootstrap-shop-item/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+	<script src="https://www.youtube.com/iframe_api"></script>
+	
+	<script>
+	
+		function showModalEliminar(idVideo, operacion){
+			console.log("showModalEliminar id = " + idVideo);
+			$('#modalEliminar').modal('show');
+			var btn = document.getElementById('btnEliminar');
+			btn.href = 'inicio?id=' + idVideo + '&op=' + operacion;
+		}
+		
+		function showModalModificar(idVideo, nombre){
+			console.log("showModalModificar id = " + idVideo + " nombre = " + nombre);
+			$('#modalModificar').modal('show');
+			document.getElementById('id').value = idVideo;
+			document.getElementById('nombre').value = nombre;
+			
+		}
+		
+		/* YOUTUBE IFRAME API */
+	
+		var player;
+	
+		function onYouTubeIframeAPIReady() {
+		    player = new YT.Player('video-placeholder', {
+		        width: 600,
+		        height: 400,
+		        videoId: '${videoInicio.codigo}',
+		        playerVars: {
+		        	autoplay: 1,
+		            color: 'white',
+		            playlist: '${playlist}'
+		        },
+		        events: {
+		            onReady: initialize
+		        }
+		    });
+		}
+		
+	</script>
+
+	<script src="js/youtube_iframe_config.js"></script>
 
   </body>
 
