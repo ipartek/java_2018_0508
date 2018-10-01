@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.ipartek.formacion.youtube.model.VideoDAO;
 import com.ipartek.formacion.youtube.pojo.Alert;
 import com.ipartek.formacion.youtube.pojo.Usuario;
 
@@ -82,6 +83,8 @@ public class LoginController extends HttpServlet {
 
 	private boolean comprobarCredenciales(String nombre, String contrasenya) {
 
+		VideoDAO dao = VideoDAO.getInstance();
+		
 		boolean existe = false;
 
 		HashMap<String, String> listaUsuarios = new HashMap<String, String>();

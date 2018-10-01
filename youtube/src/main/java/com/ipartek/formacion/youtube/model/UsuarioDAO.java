@@ -19,6 +19,9 @@ public class UsuarioDAO implements CrudAble<Usuario> {
 	private final String SQL_UPDATE = "UPDATE usuario SET nombre = ?, password = ? WHERE id = ?;";
 	private final String SQL_DELETE = "DELETE FROM usuario WHERE id = ?;";
 	private final String SQL_INSERT = "INSERT INTO usuario (nombre, password) VALUES (?,?);";
+	
+	private final String SQL_NOMBRE_LIBRE = "SELECT id, nombre, password, rol FROM youtube.usuario  WHERE nombre LIKE ?;";
+	private final String SQL_USUARIO = "SELECT id, nombre, password, rol FROM youtube.usuario  WHERE nombre LIKE ? AND password LIKE ?;";
 
 	private UsuarioDAO() {
 		usuarios = new ArrayList<Usuario>();
@@ -139,14 +142,68 @@ public class UsuarioDAO implements CrudAble<Usuario> {
 		}
 		return resul;
 	}
+	
+	public boolean mirarNombre(String nombre) {
+		boolean resul = false;
+		Usuario u = null;
+		try (Connection con = ConnectionManager.getConnection();
 
+				) {
+					try (PreparedStatement ps = con.prepareStatement(SQL_NOMBRE_LIBRE);) {
+						ps.setString(1, nombre);
+						ResultSet rs = ps.executeQuery();
+						
+						while (rs.next()) {
+							
+							u = rowMapper(rs);
+
+						}
+					}
+
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+		if (u != null) {
+			resul = true;
+		}
+		return resul;
+	}
+
+	public boolean comprobarUsuario(String nombre,String contrasenya) {
+		boolean resul = false;
+		Usuario u = null;
+		try (Connection con = ConnectionManager.getConnection();
+
+				) {
+					try (PreparedStatement ps = con.prepareStatement(SQL_USUARIO);) {
+						ps.setString(1, nombre);
+						ps.setString(2, contrasenya);
+						ResultSet rs = ps.executeQuery();
+						
+						while (rs.next()) {
+							
+							u = rowMapper(rs);
+
+						}
+					}
+
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+		if (u != null) {
+			resul = true;
+		}
+		return resul;
+	}
+	
 	private Usuario rowMapper(ResultSet rs) throws Exception {
 		Usuario u = new Usuario();
 		if (rs != null) {
 			u = new Usuario();
 			u.setId(rs.getLong("id"));
-			u.setContrasenya(rs.getString("contrasenya"));
 			u.setNombre(rs.getString("nombre"));
+			u.setContrasenya(rs.getString("password"));
+			u.setRol(rs.getInt("rol"));
 		}
 		return u;
 	}

@@ -6,6 +6,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.ipartek.formacion.youtube.model.UsuarioDAO;
 import com.ipartek.formacion.youtube.pojo.Usuario;
@@ -40,16 +41,25 @@ public class RegistroController extends HttpServlet {
 			String nombre = request.getParameter("nombre");
 			String pass = request.getParameter("pass");
 			String pass2 = request.getParameter("pass2");
-			/*
-			 * if (nombre != null && pass != null && pass2 != null) {
-			 * if(DAO.mirarNombre(nombre)) { if (pass.equals(pass2)) { insert }else {
-			 * 
-			 * } }else {
-			 * 
-			 * } }
-			 */
-			Usuario u = new Usuario(nombre, pass);
-			dao.insert(u);
+
+			if (nombre != null && pass != null && pass2 != null) {
+				if (!dao.mirarNombre(nombre)) {
+					if (pass.equals(pass2)) {
+						Usuario u = new Usuario(nombre, pass);
+						dao.insert(u);
+						HttpSession session = request.getSession();
+						session.setAttribute("usuario", u);
+					} else {
+						//TODO Alerts
+					}
+				} else {
+					//TODO Alerts
+					System.out.println("caracoch");
+				}
+			}
+
+			
+			response.sendRedirect("inicio");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

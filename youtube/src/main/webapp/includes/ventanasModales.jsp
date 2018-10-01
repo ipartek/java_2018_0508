@@ -48,32 +48,3 @@
     </div>
   </div>
 </div>
-
-
-<!-- Modal Alta-->
-<div class="modal fade" id="modal-alta" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header bg-info">
-        <h5 class="modal-title" id="exampleModalLabel">Registro</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body m-2">
-       <form action="altaUsuario" method="post">
-       	<label for="nombre">Introduzca su nombre:</label>
-       	<input  class="form-control" id="nombre" name="nombre" type="text" value="" required autofocu/>
-       	<label for="pass">Introduzca su contraseña:</label>
-       	<input class="form-control" id="pass" name="pass" type="password" value="" required/>
-       	<label for="pass">Repita la contraseña:</label>
-       	<input class="form-control" id="pass2" name="pass2" type="password" value="" required/>
-       	<div class="m-2">
-       		<input class="btn btn-success" type="submit" value="Darse de Alta" />
-       		<button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-       	</div>
-       </form>
-      </div>
-    </div>
-  </div>
-</div>
