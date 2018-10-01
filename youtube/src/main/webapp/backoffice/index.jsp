@@ -28,3 +28,6 @@
 	}
 %>
 </ol>
+
+<c:if test="${usuario.getRole}">
+</c:if>
