@@ -14,9 +14,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import com.ipartek.formacion.model.*;
-import com.ipartek.formacion.pojo.Alerts;
-import com.ipartek.formacion.pojo.Usuario;
+import com.ipartek.formacion.youtube.model.UsuariosDaoJDBC;
+import com.ipartek.formacion.youtube.pojo.Alert;
+import com.ipartek.formacion.youtube.pojo.Usuario;
+
+
 
 
 
@@ -28,9 +30,9 @@ import com.ipartek.formacion.pojo.Usuario;
 @WebServlet("/RegistroUsuarioControler")
 public class RegistroUsuarioController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private static UsuariosDAO usuariosDao;
-	//agrego el nuevo objeto UsuariosDaoJDBC que contendra las querys y la logica para llevar
 	private static UsuariosDaoJDBC usuariosDaoJDBC;
+	//agrego el nuevo objeto UsuariosDaoJDBC que contendra las querys y la logica para llevar
+
 	private static ArrayList<Usuario> usuarios;
 	private String msg;
 	private static boolean error = false;
@@ -42,15 +44,16 @@ public class RegistroUsuarioController extends HttpServlet {
 	@Override
 	public void init(ServletConfig config) throws ServletException {	
 		super.init(config);
-		//inicializamos el usuariosDaoJDBC de usuarios
-		usuariosDaoJDBC = UsuariosDaoJDBC.getInstance();
-		usuarios = (ArrayList<Usuario>) usuariosDaoJDBC.getAll();
+		//Se ejecuta solo con la 1º petición, el resto de peticiones iran a "service"
+		//inicializamos el arraydao de usuarios
+		usuariosDaoJDBC =  UsuariosDaoJDBC.getInstance();
 	}
 	
 	@Override
 	public void destroy() {	
 		super.destroy();
-
+		//se ejecuta al parar el servidor
+		usuariosDaoJDBC = null;
 	}
 	
 	@Override
@@ -98,7 +101,7 @@ public class RegistroUsuarioController extends HttpServlet {
 	}
 	
 	private void doProcess(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		Alerts alert = new Alerts();
+		Alert alert = new Alert();
 		try {
 			System.out.println("***POST***");
 			//recogemos parametros
@@ -106,10 +109,8 @@ public class RegistroUsuarioController extends HttpServlet {
 			String passUsuario = request.getParameter("passUsuario");
 			String emailUsuario = request.getParameter("emailUsuario");
 			String replyPassUsuario = request.getParameter("replyPassUsuario");
-			System.out.println(nombreUsuario);
-			System.out.println(passUsuario);
-			System.out.println(replyPassUsuario);
-			usuarios =  (ArrayList<Usuario>) usuariosDao.getAll();
+			
+			usuarios =  (ArrayList<Usuario>) usuariosDaoJDBC.getAll();
 			HttpSession session = request.getSession();
 			
 			long id = 0;
@@ -118,28 +119,26 @@ public class RegistroUsuarioController extends HttpServlet {
 			
 			boolean errorPassReg = comprarUsuarioPassReg(passUsuario,replyPassUsuario);
 			boolean errorNombre = comprobarUsuarioNombrel(nombreUsuario);
-			boolean errorEmail = comprobarUsuarioEmail(emailUsuario);
+			//boolean errorEmail = comprobarUsuarioEmail(emailUsuario);
 			
-			if (errorPassReg || errorNombre || errorEmail) {
+			if (errorPassReg || errorNombre) {
 				error= true;
 				
 				request.setAttribute("msg", msg);
 				alert.setTexto(msg);
-				alert.setTipo(Alerts.DANGER);
+				alert.setTipo(Alert.DANGER);
 				session.setAttribute("alert", alert);
 				
 				
 			}else {
 				id = getIdOnDao();
-				Usuario nuevoUsuario = new Usuario(id,nombreUsuario,emailUsuario,passUsuario);
-				usuariosDao.insert(nuevoUsuario);
-				//ahora estamos haciendo un insert sql atraves del dao usuariosDaoJDBC
+				Usuario nuevoUsuario = new Usuario(nombreUsuario,passUsuario);
 				usuariosDaoJDBC.insert(nuevoUsuario);
 				session.setAttribute("usuario", nuevoUsuario);
 				session.setMaxInactiveInterval(60*5); // 5min
 				request.setAttribute("nombre", nombreUsuario);
 				alert.setTexto("BienVenido " + nombreUsuario );
-				alert.setTipo(Alerts.SUCESS);
+				alert.setTipo(Alert.SUCCESS);
 				session.setAttribute("alert", alert);
 				
 			}
@@ -190,7 +189,7 @@ public class RegistroUsuarioController extends HttpServlet {
 		return error;
 	}
 
-	private boolean comprobarUsuarioEmail( String emailUsuario) {
+/*	private boolean comprobarUsuarioEmail( String emailUsuario) {
 		if (emailUsuario != null) {
 			   Matcher matcher = pattern.matcher(emailUsuario);
 			   if (matcher.matches()) {
@@ -211,6 +210,6 @@ public class RegistroUsuarioController extends HttpServlet {
 			   }	   
 		}
 		return error;
-			 }
+			 }*/
 	}
 			

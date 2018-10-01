@@ -1,0 +1,81 @@
+.contenido{
+	min-height: 67vh;
+	
+}
+.far{
+	color:red;
+	font-size: 20px;
+}
+.col{
+	border:30px solid black;
+	min-height: 60vh;
+	/*Efecto de bordes redondos*/
+	-webkit-border-top-left-radius: 50px;
+	-webkit-border-top-right-radius: 50px;
+	-moz-border-radius-topleft: 50px;
+	-moz-border-radius-topright: 50px;
+	border-top-left-radius: 50px;
+	border-top-right-radius: 50px;
+	/*Evitamos desbordamientos en el contenedor*/
+	word-wrap: break-word;
+}
+
+.comentario{
+	min-height: 10vh;
+	border:1px solid white;
+}
+
+.text-autor{
+	width: inherit;
+	margin-top:10px;
+		
+}
+.texto-principal{
+	padding-top: 50px;
+	padding-left: 25px;
+	position:relative;
+}
+
+.texto-principal-pie{
+	position:absolute;
+	bottom:1px;
+	font-style: italic;
+	width: 100%;	
+}
+
+.nombreAutor{
+	width: 70%;
+	margin:auto;
+	height: 30px;
+}
+.contadorPaginas{
+	width: 30%;
+	margin:auto;
+	height: 30px;
+}
+.footer{
+	margin:auto;	
+}
+
+.custom-navbar{
+	background-color: #e3f2fd;"
+}
+.titulo-pagina{
+	font-size: 20px;
+	color:black;
+	margin:auto;
+}
+.texto-principal-fondo{
+	background: #E4E4E4;
+}
+footer{
+	width:100%;
+	
+}
+
+.col-pie{
+	height: 40px;
+}
+.cerrar-sesion{
+	list-style:none;
+}

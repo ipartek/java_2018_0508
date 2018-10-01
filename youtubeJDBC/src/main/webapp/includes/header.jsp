@@ -31,7 +31,9 @@
 
     <!-- Custom styles for this template -->
     <link href="css/shop-item.css" rel="stylesheet">    
-    <link href="css/styles.css" rel="stylesheet"></link>
+    <link href="css/formularioRegistroUsuarios.css" rel="stylesheet">
+    <link href="css/styles.css" rel="stylesheet">
+    
 
   </head>
 

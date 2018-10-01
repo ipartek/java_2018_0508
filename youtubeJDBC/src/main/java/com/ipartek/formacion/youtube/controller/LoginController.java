@@ -2,6 +2,7 @@ package com.ipartek.formacion.youtube.controller;
 
 import java.io.IOException;
 import java.text.MessageFormat;
+import java.util.ArrayList;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
@@ -13,6 +14,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.ipartek.formacion.youtube.model.UsuariosDaoJDBC;
 import com.ipartek.formacion.youtube.pojo.Alert;
 import com.ipartek.formacion.youtube.pojo.Usuario;
 
@@ -22,6 +24,9 @@ import com.ipartek.formacion.youtube.pojo.Usuario;
 @WebServlet("/login")
 public class LoginController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	private static UsuariosDaoJDBC usuariosJDBC;
+	private ArrayList<Usuario> usuarios;
+	private Alert alerta;
        
     
 	/**
@@ -43,6 +48,7 @@ public class LoginController extends HttpServlet {
 		Alert alert = new Alert();
 		HttpSession session = request.getSession();
 		
+		
 		try {
 			
 			//idiomas @see com.ipartek.formacion.youtube.filter.IdiomaFilter
@@ -54,30 +60,8 @@ public class LoginController extends HttpServlet {
 			//recoger parametros
 			String usuarioNombre = request.getParameter("usuario");
 			String pass = request.getParameter("pass");
-				
-			//comprobar usuario TODO contra BBDD
-			if ( "admin".equals(pass) && "admin".equals(usuarioNombre) || 
-				  "pepe".equals(pass) && "pepe".equals(usuarioNombre)  ||
-				  "manoli".equals(pass) && "manoli".equals(usuarioNombre) )  {
-				
-				alert.setTexto(MessageFormat.format(idiomas.getString("msj.bienvenida"), usuarioNombre) );
-				alert.setTipo(Alert.PRIMARY);
-				
-				//guardar Usuario en session
-				Usuario u = new Usuario(usuarioNombre, pass);
-				
-				session.setAttribute("usuario", u);
-				session.setMaxInactiveInterval(60*5); // 5min
-				
-				
-				gestionarCookies(request, response, u);
-				
-			}else{
-				
-				alert.setTexto("Credenciales incorrectas" );
-			}
-			
-			
+			comprobarUsuario(usuarioNombre,pass);
+
 		}catch (Exception e) {
 			e.printStackTrace();
 		}finally {
@@ -87,6 +71,17 @@ public class LoginController extends HttpServlet {
 		}
 		
 		
+	}
+
+
+	private boolean comprobarUsuario(String usuarioNombre, String pass) {
+		boolean resul = false;
+		resul =usuariosJDBC.checkByNamePass(usuarioNombre, pass);
+		if(resul) {
+			resul = true;
+		}
+		
+		return resul;
 	}
 
 	private void gestionarCookies(HttpServletRequest request, HttpServletResponse response, Usuario u) {

@@ -46,6 +46,12 @@
     <script src="https://blackrockdigital.github.io/startbootstrap-shop-item/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 	<script>
 	
+	
+		function showFormularioModal(){
+			
+			$('#formularioModal').modal('show');
+		}
+		
 		function showModalEliminar( idVideo, operacion ){
 			console.log('showModalEliminar id=' + idVideo);
 			$('#modalEliminar').modal('show');

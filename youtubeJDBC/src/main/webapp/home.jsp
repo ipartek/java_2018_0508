@@ -1,11 +1,10 @@
 <%@page import="com.ipartek.formacion.youtube.controller.HomeController"%>
 <%@ include file="includes/header.jsp" %>	
-
+ <%@ include file="includes/nav.jsp"  %>
     <!-- Page Content -->
     <div class="container">
     	
-      <%@ include file="includes/nav.jsp"  %>
-      <%@ include file="includes/alert.jsp"  %>	
+     
       <h4>Lista de reproduccion</h4>	
       <div class="row">
         <div class="col-lg-3">        	
@@ -85,14 +84,14 @@
 			  <div class="modal-dialog" role="document">
 			    <div class="modal-content">
 			      <div class="modal-header">
-			        <h5 class="modal-title" id="exampleModalLabel">Atención!!!</h5>
+			        <h5 class="modal-title" id="exampleModalLabel">REGISTRO DE USUARIOS!!!</h5>
 			        <form action="inicio" >
 				        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
 				          <span aria-hidden="true">&times;</span>
 				        </button>
 				      </div>
 				      <div class="modal-body">
-				        ¿ Los cambios están apunto de realizarse, ¿Esta seguro???
+				        
 				      </div>
 				      <div class="modal-footer">
 				        <button type="button"  class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
@@ -103,6 +102,8 @@
 			    </div>
 			  </div>
 			</div>
+			
+			
             
             
             
@@ -157,8 +158,12 @@
 		            <c:if test="${empty sessionScope.usuario}">
 		        		<li class="list-group-item d-flex justify-content-between align-items-center">
 	          				<p>*Por favor Inicia Session para guardar tus video reproducidos</p>
+	          				<a class="btn btn-primary" href="registroUsuariosFormulario.jsp">Registro</a>
+	          				
 	          			</li>
+	          			<%-- <%@ include file="includes/formularioModal.jsp" %>				 --%>
           			</c:if>
+          			
 	          	
 	            </ul>
             
