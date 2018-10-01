@@ -32,11 +32,11 @@
          <!-- Gestionar paginas de error -->
          <error-page>
          	<error-code>404</error-code>
-         	<location>/404.jsp</location>
+         	<location>/errorPages/404.jsp</location>
          </error-page>
          <error-page>
          	<error-code>500</error-code>
-         	<location>/500.jsp</location>
+         	<location>/errorPages/500.jsp</location>
          </error-page>
          <!--
          Tambien se puede especificar Excepciones
