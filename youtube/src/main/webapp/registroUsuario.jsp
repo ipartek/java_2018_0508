@@ -19,7 +19,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>PikaList</title>
+    <title>PikaList-Registro</title>
 
 	<!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
@@ -49,16 +49,20 @@
 		<h1><i class="fas fa-user-circle"></i>Nuevo Usuario</h1>
 			<form action="altaUsuario" method="post">
        	<label for="nombre">Introduzca su nombre:</label>
-       	<input  class="form-control" id="nombre" name="nombre" type="text" value="" required autofocus/>
+       	<input  class="form-control" id="nombre" name="nombre" type="text" value="${nombre}" required autofocus/>
        	<label for="pass">Introduzca su contraseña:</label>
        	<input class="form-control" id="pass" name="pass" type="password" value="" required/>
        	<label for="pass">Repita la contraseña:</label>
        	<input class="form-control" id="pass2" name="pass2" type="password" value="" required/>
-       	<div class="m-2">
-       		<input class="btn btn-success" type="submit" value="Darse de Alta" />
-       	</div>
+       		<br>
+       		<input class="btn btn-outline-info btn-outline-pika btn-block" type="submit" value="Darse de Alta" />
        </form>
 		</div>
 	</div>
+	<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+	<script src="https://www.youtube.com/iframe_api"></script>
 	</body>
 </html>

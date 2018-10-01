@@ -49,9 +49,10 @@ public class LoginController extends HttpServlet {
 			String contrasenya = (String) request.getParameter("pass");
 			String cookieNombre = (String) request.getParameter("recordar");
 
-			if (comprobarCredenciales(nombre, contrasenya)) {
+			Usuario u = comprobarCredenciales(nombre, contrasenya); 
+			if (u!=null) {
 
-				session.setAttribute("usuario", new Usuario(nombre, contrasenya));
+				session.setAttribute("usuario", u);
 				session.setMaxInactiveInterval(60 * 5);
 
 				gestionCookies(request, response, nombre, cookieNombre);
@@ -80,11 +81,11 @@ public class LoginController extends HttpServlet {
 
 	}
 
-	private boolean comprobarCredenciales(String nombre, String contrasenya) {
+	private Usuario comprobarCredenciales(String nombre, String contrasenya) {
 
 		UsuarioDAO dao = UsuarioDAO.getInstance();
 		
-		boolean existe = dao.comprobarUsuario(nombre, contrasenya);
+		Usuario existe = dao.comprobarUsuario(nombre, contrasenya);
 
 		return existe;
 	}

@@ -169,8 +169,7 @@ public class UsuarioDAO implements CrudAble<Usuario> {
 		return resul;
 	}
 
-	public boolean comprobarUsuario(String nombre,String contrasenya) {
-		boolean resul = false;
+	public Usuario comprobarUsuario(String nombre,String contrasenya) {
 		Usuario u = null;
 		try (Connection con = ConnectionManager.getConnection();
 
@@ -190,10 +189,8 @@ public class UsuarioDAO implements CrudAble<Usuario> {
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
-		if (u != null) {
-			resul = true;
-		}
-		return resul;
+		
+		return u;
 	}
 	
 	private Usuario rowMapper(ResultSet rs) throws Exception {

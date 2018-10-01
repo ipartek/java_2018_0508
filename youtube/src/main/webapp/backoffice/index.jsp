@@ -1,29 +1,11 @@
-<%@page import="java.util.Iterator"%>
-<%@page import="java.util.HashMap"%>
-<%@page import="com.ipartek.formacion.youtube.pojo.Usuario"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 
-<%
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
-	Usuario u = (Usuario)session.getAttribute("usuario");
-	if(u==null){
-		%>
-		Usuario Nulo, se ha saltado el login, nos quiere hackear!!!!1
-	<%
-	}else{
-		%>
-		Usuario: <%=u.getNombre() %>
-	<%
-	}
+<%@ include file="../includes/header.jsp" %>
 
-%>
-<h2>Usuarios Conectados</h2>
-<ol>
-	<%
-		HashMap<String, Usuario> usuariosConectados = (HashMap<String, Usuario>)application.getAttribute("uConectados");
-		for(HashMap.Entry<String, Usuario> uConectado : usuariosConectados.entrySet()){
-		    %>
-		    	<li><%=uConectado.getValue().getNombre()%></li>
-		    <%
-		}
-	%>
-</ol>
+<%@ include file="../includes/navbar.jsp" %>
+
+<%@ include file="../includes/footer.jsp" %>

@@ -52,23 +52,27 @@ public class RegistroController extends HttpServlet {
 						dao.insert(u);
 						session.setAttribute("usuario", u);
 						alert = new Alert("Usuario dado de alta correctamente, Bienvenido :D.", Alert.SUCCESS);
-						session.setAttribute("alert", alert);
 						response.sendRedirect(request.getContextPath() + "/inicio");
 					} else {
-						// TODO pasar de nuevo el nombre
 						alert = new Alert("Las contraseñas no coinciden.", Alert.DANGER);
 						session.setAttribute("alert", alert);
-						response.sendRedirect(request.getContextPath() + "/registroUsuario.jsp");
+						request.setAttribute("nombre", nombre);
+						request.getRequestDispatcher("/registroUsuario.jsp").forward(request, response);
 					}
 				} else {
 					alert = new Alert("El usuario ya existe en esta web.Escoga otro.", Alert.DANGER);
 					session.setAttribute("alert", alert);
 					response.sendRedirect(request.getContextPath() + "/registroUsuario.jsp");
 				}
+			}else {
+				session.setAttribute("alert", alert);
+				response.sendRedirect("inicio");
 			}
-			response.sendRedirect("inicio");
+			
 		} catch (Exception e) {
 			e.printStackTrace();
+		}finally {
+			session.setAttribute("alert", alert);
 		}
 
 	}
