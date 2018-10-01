@@ -1,12 +1,14 @@
 package com.ipartek.formacion.youtube.pojo;
 
 public class Usuario {
-	
+
+	private long id;
 	private String nombre;
 	private String pass;
 	
 	public Usuario() {
 		super();
+		this.id = -1;
 		this.nombre = "";
 		this.pass = "";
 	}
@@ -14,8 +16,19 @@ public class Usuario {
 		
 	public Usuario(String nombre, String pass) {
 		this();
+		this.id = -1;
 		this.nombre = nombre;
 		this.pass = pass;
+	}
+
+
+	public long getId() {
+		return id;
+	}
+
+
+	public void setId(long id) {
+		this.id = id;
 	}
 
 
@@ -37,7 +50,7 @@ public class Usuario {
 
 	@Override
 	public String toString() {
-		return "Usuario [nombre=" + nombre + ", pass=" + pass + "]";
+		return "Usuario [id=" + id + ", nombre=" + nombre + ", pass=" + pass + "]";
 	}
 	
 }

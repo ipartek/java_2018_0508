@@ -46,6 +46,10 @@ nav li img{
 	text-decortion:none;
 }
 
+.enlaceRegistro:hover{
+	cursor:pointer;
+}
+
 .cabecera-error{
 	text-align:center;
 	margin-bottom:2em;

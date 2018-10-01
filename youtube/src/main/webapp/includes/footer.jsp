@@ -63,6 +63,10 @@
 			
 		}
 		
+		function showModalRegistro(){
+			$('#modalRegistro').modal('show');
+		}
+		
 		/* YOUTUBE IFRAME API */
 	
 		var player;

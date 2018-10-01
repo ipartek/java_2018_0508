@@ -2,6 +2,7 @@ package com.ipartek.formacion.youtube.controller;
 
 import java.io.IOException;
 import java.text.MessageFormat;
+import java.util.ArrayList;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
@@ -13,6 +14,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.ipartek.formacion.youtube.model.UsuarioDAO;
 import com.ipartek.formacion.youtube.pojo.Alert;
 import com.ipartek.formacion.youtube.pojo.Usuario;
 
@@ -22,6 +24,8 @@ import com.ipartek.formacion.youtube.pojo.Usuario;
 @WebServlet("/login")
 public class LoginController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	private static UsuarioDAO dao;
+	private ArrayList<Usuario> usuarios;
        
     
 	/**
@@ -42,6 +46,10 @@ public class LoginController extends HttpServlet {
 		
 		Alert alert = new Alert();
 		HttpSession session = request.getSession();
+		String msgRegistro = "";
+		String enlaceRegistro = "";
+		usuarios = (ArrayList<Usuario>) dao.getAll();
+		boolean usuarioCorrecto = false;
 		
 		try {
 			
@@ -56,9 +64,15 @@ public class LoginController extends HttpServlet {
 			String pass = request.getParameter("pass");
 				
 			//comprobar usuario TODO contra BBDD
-			if ( "admin".equals(pass) && "admin".equals(usuarioNombre) || 
-				  "pepe".equals(pass) && "pepe".equals(usuarioNombre)  ||
-				  "manoli".equals(pass) && "manoli".equals(usuarioNombre) )  {
+			
+			for(Usuario u : usuarios) {
+				if(u.getNombre().equals(usuarioNombre) && u.getPass().equals(pass)) {
+					usuarioCorrecto = true;
+					break;
+				}
+			}
+			
+			if (usuarioCorrecto)  {
 				
 				alert.setTexto(MessageFormat.format(idiomas.getString("msj.bienvenida"), usuarioNombre) );
 				alert.setTipo(Alert.PRIMARY);
@@ -73,7 +87,8 @@ public class LoginController extends HttpServlet {
 				gestionarCookies(request, response, u);
 				
 			}else{
-				
+				msgRegistro = "Si aun no estás registrado pincha ";
+				enlaceRegistro = "aquí.";
 				alert.setTexto("Credenciales incorrectas" );
 			}
 			
@@ -81,6 +96,8 @@ public class LoginController extends HttpServlet {
 		}catch (Exception e) {
 			e.printStackTrace();
 		}finally {
+			session.setAttribute("msgRegistro", msgRegistro);
+			session.setAttribute("enlaceRegistro", enlaceRegistro);
 			session.setAttribute("alert", alert);
 			//request.getRequestDispatcher("home.jsp").forward(request, response);
 			response.sendRedirect(request.getContextPath() + "/inicio" ); 

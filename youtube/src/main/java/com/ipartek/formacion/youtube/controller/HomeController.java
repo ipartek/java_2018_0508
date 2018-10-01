@@ -55,7 +55,7 @@ public class HomeController extends HttpServlet {
 	@Override
 	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 	
-		System.out.println("Antes de realizar GET o POST");
+		//Antes de realizar GET o POST
 		
 		
 		//idiomas @see com.ipartek.formacion.youtube.filter.IdiomaFilter

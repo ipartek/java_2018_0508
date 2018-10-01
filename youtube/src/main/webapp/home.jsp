@@ -74,6 +74,38 @@
 			    </div>
 			  </div>
 			</div>
+			
+			<!-- Modal registro -->
+			<div class="modal fade" id="modalRegistro" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+			  <div class="modal-dialog" role="document">
+			    <div class="modal-content">
+			      <div class="modal-header">
+			        <h5 class="modal-title" id="exampleModalLabel">Registro</h5>
+			        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+			          <span aria-hidden="true">&times;</span>
+			        </button>
+			      </div>
+			      <div class="modal-body">
+			        <form action="registro" method="post">
+			        	<div class="form-group">
+			        	
+				        	<label for="nombreRegistro">Nombre</label>
+				        	<input type="text" id="nombreRegistro" name="nombreRegistro" class="form-control" required  autofocus />
+				        	
+				        	<label for="passRegistro">Contraseña</label>
+				        	<input type="password" id="passRegistro" name="passRegistro" class="form-control" required  />
+				        	
+				        	<label for="passRegistroRep">Repita la contraseña</label>
+				        	<input type="password" id="passRegistroRep" name="passRegistroRep" class="form-control mb-3" required  />
+				        	
+				        	<button type="submit" class="btn btn-primary">Darme de alta</button>
+				       
+				        </div>
+			        </form>
+			      </div>
+			    </div>
+			  </div>
+			</div>
             
             <hr>
             

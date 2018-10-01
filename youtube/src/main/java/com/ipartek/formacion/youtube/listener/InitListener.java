@@ -17,14 +17,14 @@ public class InitListener implements ServletContextListener {
      * @see ServletContextListener#contextDestroyed(ServletContextEvent)
      */
     public void contextDestroyed(ServletContextEvent sce)  { 
-    	System.out.println("Se ejecuta al parar en Tomcat");
+    	//Se ejecuta al parar en Tomcat
     }
 
 	/**
      * @see ServletContextListener#contextInitialized(ServletContextEvent)
      */
     public void contextInitialized(ServletContextEvent sce)  { 
-       System.out.println("Se ejecuta al iniciar en Tomcat");
+       //Se ejecuta al iniciar en Tomcat
        
     }
 	

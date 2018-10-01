@@ -20,6 +20,7 @@
 		           		<input type="checkbox" name="recuerdame" ${(not empty cookie.cNombre.value)?"checked":""} >		           		 
 		           <button class="btn btn-outline-info my-2 my-sm-0" type="submit">Entrar</button>
 		         </form>
+		         <p onclick="showModalRegistro()" class="enlaceRegistro text-primary">Darme de alta en la plataforma</p>
 		       </c:if>         
 		        
 		         <!-- usuario logeado -->
@@ -27,7 +28,7 @@
 		           <div class="nav-user">             	
 		           	<i class="fas fa-user">${usuario.nombre}</i>             	
 		           	<a href="backoffice/index.jsp">Acceder Backoffice</a>
-		           	<a href="logout">Cerrar Session</a>
+		           	<a href="logout">Cerrar sesión</a>
 		           </div>            
 		         
 		            <!-- formulario Crear Video -->
