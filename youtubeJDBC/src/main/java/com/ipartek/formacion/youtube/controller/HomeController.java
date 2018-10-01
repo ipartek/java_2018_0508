@@ -180,14 +180,14 @@ public class HomeController extends HttpServlet {
 		 * El tope de N sera el tamaño maximo del ArrayList videos
 		 */
 		videos = (ArrayList<Video>) dao.getAll();
-		int indice = videos.size()-1;
-		System.out.println(indice);
+		
+
 		//obtengo el ultimo registro para mirar su indice
-		Video x = videos.get(indice);
+		Video x = videos.get(0);
 		System.out.println(x.getId());
-		for (int i= 1 ; i <= videos.size(); i++) {
+		for (int i= 0 ; i < x.getId(); i++) {
 			//formamos dicha cadena para preguntar al request.getParameter()
-			String iString = String.valueOf(i);
+			String iString = String.valueOf(i+1);
 			String cadenanDefinitiva = "editarNombreGet" + iString;
 			//String cadenaiDefinitivaId ="cadenaDefinitivaId" +iString;
 			String cadenaDefinitivaId = "editarNombreIdGet" + iString;
@@ -196,6 +196,8 @@ public class HomeController extends HttpServlet {
 			System.out.println(cadenaDefinitivaId);
 			String coincidenciaCadenaDefinitiva = request.getParameter(cadenanDefinitiva);
 			System.out.println(coincidenciaCadenaDefinitiva);
+			//null = para cuando pregunta por un registro que no existe
+			//"" = para cuando no se editan algun campo en modo edicion
 			if (request.getParameter(cadenanDefinitiva) != null && request.getParameter(cadenanDefinitiva) != "" ) {
 				String editarNombreGetX = request.getParameter(cadenanDefinitiva);
 				String editarNombreGetIdX = request.getParameter(cadenaDefinitivaId);
@@ -204,9 +206,7 @@ public class HomeController extends HttpServlet {
 				dao.update(v);
 				
 			}
-		}
-		
-		
+		}	
 	}
 
 

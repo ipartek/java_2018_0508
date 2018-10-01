@@ -49,13 +49,13 @@
 		           <button class="btn btn-outline-info my-2 my-sm-0" type="submit">Añadir</button>
 		         </form>
 		         <!-- formulario editar Video -->
-	            <form id="editarCancionNavbar" action="inicio" method="post" class="form-inline mt-2 mt-md-0">
+	            <!-- <form id="editarCancionNavbar" action="inicio" method="post" class="form-inline mt-2 mt-md-0">
             		<input name="editarVideoId" class="form-control mr-sm-2" type="number" min="1" placeholder="ID del video" title="ID del video" required >
-		           <!-- <input name="editarCodigo" class="form-control mr-sm-2" type="text" placeholder="ID 11 caracerteres" title="11 caracteres" required pattern=".{11,11}"> -->
+		           <input name="editarCodigo" class="form-control mr-sm-2" type="text" placeholder="ID 11 caracerteres" title="11 caracteres" required pattern=".{11,11}">
 		           <input name="editarNombre" class="form-control mr-sm-2" type="text" placeholder="Nuevo nombre del video 2 letras" required pattern=".{2,125}">
 		           <button class="btn btn-outline-info my-2 my-sm-0" type="submit">Editar</button>
 		         </form>	          	          
-		       </c:if>
+		       </c:if> -->
 		        
          </li>            
        </ul>

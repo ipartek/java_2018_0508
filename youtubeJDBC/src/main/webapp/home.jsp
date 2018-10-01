@@ -6,9 +6,8 @@
     	
       <%@ include file="includes/nav.jsp"  %>
       <%@ include file="includes/alert.jsp"  %>	
-      	
+      <h4>Lista de reproduccion</h4>	
       <div class="row">
-
         <div class="col-lg-3">        	
           <ul class="list-group">                     
           	  <c:forEach items="${videos}" var="v">          
@@ -16,7 +15,7 @@
 	               
 	               <c:if test="${not empty sessionScope.usuario}">
 	          
-	          	  		<i onclick="showModalModificar(${v.id}, ${HomeController.OP_MODIFICAR} )" style="color:grey;" class="float-right fas fa-pencil-alt"></i><%-- <a href="showModalEliminar(${v.id}, ${HomeController.OP_MODIFICAR} )""></a> --%>
+	          	  		<span><i onclick="showModalModificar(${v.id}, ${HomeController.OP_MODIFICAR} )" style="color:grey;" class="float-right fas fa-pencil-alt"></i></span><%-- <a href="showModalEliminar(${v.id}, ${HomeController.OP_MODIFICAR} )""></a> --%>
 	          	  		
 	          	  	</c:if>
 	               
@@ -54,7 +53,7 @@
 			
 			
 			
-            <!-- Modal MODIFICAR-->
+            <!-- Modal MODIFICAR UNICO REGISTRO-->
 			<div class="modal fade" id="modalModificar" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
 			  <div class="modal-dialog" role="document">
 			    <div class="modal-content">
@@ -80,6 +79,30 @@
 			    </div>
 			  </div>
 			</div>
+			
+			 <!-- Modal MODIFICAR REGISTRO-->
+			<div class="modal fade" id="modalModificar" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+			  <div class="modal-dialog" role="document">
+			    <div class="modal-content">
+			      <div class="modal-header">
+			        <h5 class="modal-title" id="exampleModalLabel">Atención!!!</h5>
+			        <form action="inicio" >
+				        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+				          <span aria-hidden="true">&times;</span>
+				        </button>
+				      </div>
+				      <div class="modal-body">
+				        ¿ Los cambios están apunto de realizarse, ¿Esta seguro???
+				      </div>
+				      <div class="modal-footer">
+				        <button type="button"  class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+				        
+				        <button type="submit" href="#" class="btn btn-danger">MODIFICAR </button>	        
+				      </div>
+			      </form>
+			    </div>
+			  </div>
+			</div>
             
             
             
@@ -94,10 +117,6 @@
 			          <ul class="list-group">                     
 			          	  <c:forEach items="${videos}" var="v">          
 				            <li class="list-group-item d-flex justify-content-between align-items-center">
-				            	<span>${v.id}</span>
-				            	<a href="">
-				            		<i class="fas fa-edit"></i>
-				            	</a>
 				          	  	<a href="inicio?id=${v.id}">${v.nombre}</a>
 				          	  	<c:if test="${not empty sessionScope.usuario}">
 					          	  	<a href="inicio?id=${v.id}&op=${HomeController.OP_ELIMINAR}"><%-- ${HomeController.OP_ELIMINAR} --%>
@@ -117,9 +136,8 @@
 		            		<%-- <input name="codigo" value="${v.codigo }" class="form-control mr-sm-2" type="text" > --%>
 		            		<input class="invisible" name="editarNombreIdGet${v.id }" value="${v.id }">
 	           		</c:forEach>	
-		            		<button class="btn btn-primary" type="submit" >guardar</button>
-	            		</form>
-	            	
+		            		<button onclick="estasSeguro()" class="btn btn-primary" type="submit" >guardar</button>
+	            		</form>  	
 	            </c:if>
            	</c:if>
             		<hr> 

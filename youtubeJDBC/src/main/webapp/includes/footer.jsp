@@ -52,6 +52,13 @@
 			var btn = document.getElementById('btnEliminar');
 			btn.href = 'inicio?id='+ idVideo + '&op=' + operacion;			      
 		}
+		/*warning atencion masiva*/
+	    function estaSeguro(){
+	    	
+			$('#estaSeguro').modal('show');
+			
+				
+	    }
 		
 		function showModalModificar( idVideo, operacion ){
 			console.log('showModalModificar id=' + idVideo);
@@ -100,6 +107,7 @@
 		        }, 1000)
 
 		    }
+		    
 }
 	
 	</script>
