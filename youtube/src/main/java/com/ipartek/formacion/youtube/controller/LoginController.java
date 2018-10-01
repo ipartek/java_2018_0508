@@ -116,7 +116,7 @@ public class LoginController extends HttpServlet {
 					}
 					break;
 				default:
-					alert.setTexto("Credenciales incorrectas");
+					alert.setTexto("Credenciales incorrectas. Si aún no te has registrado, puedes hacerlo desde este enlace.");
 			}
 			
 			session.setMaxInactiveInterval(60*5); // 5min

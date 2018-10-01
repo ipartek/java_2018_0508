@@ -23,13 +23,14 @@
             <!-- Usuario sin pasar por el login -->
             <c:if test="${empty usuario}">
               <!-- formulario Login -->
-              <form action="login" method="post" class="form-inline mt-2 mt-md-0">
+              <form action="login" method="post" class="form-inline mt-2 mt-md-0 float-left">
 	            <input name="usuario" class="form-control mr-sm-2" type="text" placeholder="Nombre Usuario" value="${cookie.cRecuerda.value }" required pattern=".{3,30}">
 	            <input name="pass" class="form-control mr-sm-2" type="password" placeholder="Contraseña" required pattern=".{2,50}">
 	            <input name="recuerdame" type="checkbox" value="1" ${(not empty cookie.cRecuerda.value)?"checked":""} class="form-check-input" id="exampleCheck1">
     			<label class="form-check-label text-white" for="exampleCheck1">Recuerdame</label>
 	            <button class="btn btn-outline-info my-2 my-sm-0 ml-2" type="submit">Entrar</button>
-	          </form>                         
+	          </form>
+	          <a href="registrarse.jsp" class="btn btn-outline-info float-right ml-2">Registrarse</a>                        
             </c:if>
             
             <!-- Usuario logeado -->

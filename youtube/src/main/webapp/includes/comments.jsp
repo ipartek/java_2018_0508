@@ -19,7 +19,7 @@
 	              Introduce un comentario
 	            </div>
 				<div class="card-body">
-	          	<p>*Por favor Inicia Session para introducir comentarios</p>
+	          	<p>*Por favor <a href="registrarse.jsp">registrate</a> para introducir comentarios. Si ya estas registrado inicia sesion en el menu superior.</p>
 	          	</div>
 	        </div>
 		  </c:if>

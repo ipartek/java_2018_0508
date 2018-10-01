@@ -19,8 +19,8 @@
 	            <li class="list-group-item d-flex justify-content-between align-items-center">     
 	          	  	<a href="inicio?id=${v.id}">${v.nombre}</a>
 	          	  	<c:if test="${not empty sessionScope.usuario}">
-	          	  		<i onclick="showModalEliminar(${v.id}, ${HomeController.OP_ELIMINAR} )" style="color:red;" class="float-right fas fa-trash-alt"></i>
-	          	  		<i onclick="showModalModificar(${v.id},'${v.nombre}' )" style="color:grey;" class="float-right fas fa-pencil-alt"></i>
+	          	  		<i onclick="showModalEliminar(${v.id}, ${HomeController.OP_ELIMINAR} )" style="color:red;" class="fas fa-trash-alt"></i>
+	          	  		<i onclick="showModalModificar(${v.id},'${v.nombre}' )" style="color:grey;" class="fas fa-pencil-alt"></i>
 	          	  	</c:if>
 	            </li>
             	</c:forEach>
@@ -86,7 +86,7 @@
 		        </c:if>
 		        <c:if test="${empty usuario}">
 	          			<li class="list-group-item d-flex justify-content-between align-items-center">
-	          				<p>*Por favor Inicia Session para guardar tus video reproducidos</p>
+	          				<p>*Por favor <a href="registrarse.jsp">registrate</a> para guardar tus videos reproducidos. Si ya estas registrado inicia sesion en el menu superior.</p>
 	          			</li>
 	          	</c:if>
 	            </ul>
