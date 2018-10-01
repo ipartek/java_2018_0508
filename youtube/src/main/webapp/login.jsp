@@ -33,6 +33,16 @@
   </head>
 
   <body class="fondo-login">
+  <c:if test="${not empty sessionScope.alert}">
+		<div class="container">
+			<div class="alert alert-${alert.tipo} alert-dismissible fade show" role="alert">
+				<strong>${alert.texto}</strong>
+				<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+		</div>
+	</c:if>
 	<!-- Formulario de login -->
 	<div class="row">
 		<div class="col-3 m-auto fondo-login-form">

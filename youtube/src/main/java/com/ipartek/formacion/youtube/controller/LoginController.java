@@ -1,10 +1,6 @@
 package com.ipartek.formacion.youtube.controller;
 
 import java.io.IOException;
-import java.text.MessageFormat;
-import java.util.HashMap;
-import java.util.Locale;
-import java.util.ResourceBundle;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -14,7 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import com.ipartek.formacion.youtube.model.VideoDAO;
+import com.ipartek.formacion.youtube.model.UsuarioDAO;
 import com.ipartek.formacion.youtube.pojo.Alert;
 import com.ipartek.formacion.youtube.pojo.Usuario;
 
@@ -66,38 +62,29 @@ public class LoginController extends HttpServlet {
 				 * alert = new Alert("Bienvenido", Alert.SUCCESS);
 				 * alert.setTexto(MessageFormat.format(idiomas.getString("msj.bienvenida"),nombre));
 				 */
-
+				response.sendRedirect(request.getContextPath() + "/inicio");
+				
 			} else {
-				alert = new Alert("Usuario o contraseña incorrectos", Alert.DANGER);
+				alert = new Alert("Usuario o contraseña incorrectos.Si aun no se a registrado, <a href='registroUsuario.jsp'> registrese.:D</a>", Alert.DANGER);
+				session.setAttribute("alert", alert);
+				response.sendRedirect(request.getContextPath() + "/login.jsp");
 			}
 
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
 			// Ir a la vista
-			session.setAttribute("alert", alert);
-			response.sendRedirect(request.getContextPath() + "/inicio");
+			
+			//
 		}
 
 	}
 
 	private boolean comprobarCredenciales(String nombre, String contrasenya) {
 
-		VideoDAO dao = VideoDAO.getInstance();
+		UsuarioDAO dao = UsuarioDAO.getInstance();
 		
-		boolean existe = false;
-
-		HashMap<String, String> listaUsuarios = new HashMap<String, String>();
-		listaUsuarios.put("admin", "admin");
-		listaUsuarios.put("pepe", "pepe");
-		listaUsuarios.put("manoli", "manoli");
-		listaUsuarios.put("josepo", "josepo");
-
-		for (HashMap.Entry<String, String> uCredenciales : listaUsuarios.entrySet()) {
-			if (uCredenciales.getKey().equals(nombre) && uCredenciales.getValue().equals(contrasenya)) {
-				existe = true;
-			}
-		}
+		boolean existe = dao.comprobarUsuario(nombre, contrasenya);
 
 		return existe;
 	}

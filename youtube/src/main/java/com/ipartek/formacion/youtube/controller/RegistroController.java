@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.ipartek.formacion.youtube.model.UsuarioDAO;
+import com.ipartek.formacion.youtube.pojo.Alert;
 import com.ipartek.formacion.youtube.pojo.Usuario;
 
 /**
@@ -36,7 +37,9 @@ public class RegistroController extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-		// TODO cristo redentor
+		HttpSession session = request.getSession();
+		Alert alert = null;
+		
 		try {
 			String nombre = request.getParameter("nombre");
 			String pass = request.getParameter("pass");
@@ -47,18 +50,22 @@ public class RegistroController extends HttpServlet {
 					if (pass.equals(pass2)) {
 						Usuario u = new Usuario(nombre, pass);
 						dao.insert(u);
-						HttpSession session = request.getSession();
 						session.setAttribute("usuario", u);
+						alert = new Alert("Usuario dado de alta correctamente, Bienvenido :D.", Alert.SUCCESS);
+						session.setAttribute("alert", alert);
+						response.sendRedirect(request.getContextPath() + "/inicio");
 					} else {
-						//TODO Alerts
+						// TODO pasar de nuevo el nombre
+						alert = new Alert("Las contraseñas no coinciden.", Alert.DANGER);
+						session.setAttribute("alert", alert);
+						response.sendRedirect(request.getContextPath() + "/registroUsuario.jsp");
 					}
 				} else {
-					//TODO Alerts
-					System.out.println("caracoch");
+					alert = new Alert("El usuario ya existe en esta web.Escoga otro.", Alert.DANGER);
+					session.setAttribute("alert", alert);
+					response.sendRedirect(request.getContextPath() + "/registroUsuario.jsp");
 				}
 			}
-
-			
 			response.sendRedirect("inicio");
 		} catch (Exception e) {
 			e.printStackTrace();

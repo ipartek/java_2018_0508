@@ -8,7 +8,7 @@
 				<c:forEach items="${videos}" var="v">
 					<li class="list-group-item d-flex justify-content-between align-items-center">
 						<a href="inicio?id=${v.id}">${v.nombre}</a>
-						<c:if test="${not empty sessionScope.usuario}">
+						<c:if test="${sessionScope.usuario.rol eq 0}">
 							<!-- Opcion Editar -->
 							<i onclick="showModalModificar(${v.id},${HomeController.OP_MODIFICAR},'${v.nombre}')" class="fas fa-pencil-alt text-warning"></i>
 							<!-- Opcion Eliminar -->
