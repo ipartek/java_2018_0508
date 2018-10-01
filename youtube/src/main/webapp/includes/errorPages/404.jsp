@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
-<%@ include file="includes/header.jsp" %>
+<%@ include file="../header.jsp" %>
 
 	<main class="m-5 p-5 jumbotron bg-danger text-light text-center" role="main">
 		<h1><i class="fas fa-exclamation-triangle"></i> Error 404 <i class="fas fa-exclamation-triangle"></i></h1>
@@ -13,4 +13,4 @@
 	<footer class="bg-dark p-3 fixed-bottom">
 		<p class="text-center text-white">Copyright &copy; Adrian Perozzo</p>
 	</footer>
-<%@ include file="includes/footer.jsp" %>
+<%@ include file="../footer.jsp" %>
