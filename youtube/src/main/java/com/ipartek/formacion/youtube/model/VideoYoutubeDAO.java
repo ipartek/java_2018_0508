@@ -16,7 +16,7 @@ public class VideoYoutubeDAO implements CrudAble<VideoYoutube> {
 	private final String SQL_GET_ALL = "SELECT id, cod, nombre FROM video ORDER BY id DESC LIMIT 1000;";
 	private final String SQL_GET_BY_ID = "SELECT id, cod, nombre FROM video WHERE ID = ?;";
 	private final String SQL_INSERT = "INSERT INTO video (cod, nombre) VALUES (?, ?);";
-	private final String SQL_UPDATE = "UPDATE video SET cod = ?, nombre = ?, WHERE id = ?;";
+	private final String SQL_UPDATE = "UPDATE video SET cod = ?, nombre = ? WHERE ID = ?;";
 	private final String SQL_DELETE = "DELETE FROM video WHERE id = ?;";
 
 	private VideoYoutubeDAO() {

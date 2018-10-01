@@ -109,6 +109,7 @@ public class HomeController extends HttpServlet {
 
 	private void cargarPlaylist() {
 		
+		playlist = null;
 		for (int i = 1; i < videos.size(); i++) {
 			playlist += videos.get(i).getCod() + ",";
 		}
@@ -151,9 +152,13 @@ public class HomeController extends HttpServlet {
 				video.setCod(nuevoCodigo);
 				
 				modificarVideo(video);
+				alert = new Alert();
+				alert.setTexto("Video correctamente modificado.");
+				alert.setTipo(Alert.SUCCESS);
+				
 			} else {
 				// Recoger parametros
-				String cod = request.getParameter("id");
+				String cod = request.getParameter("cod");
 				String nombre = request.getParameter("nombre");
 
 				// Insertar Video

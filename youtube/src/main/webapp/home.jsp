@@ -107,6 +107,7 @@
     		if (codOp == 1) {
     			modalForm = $('#modalEliminar');
     			btnGo = $('#btnEliminarVideo');
+    		
     		} else {
     			modalForm = $('#modalModificar');
     			btnGo = $('#btnModificarVideo');

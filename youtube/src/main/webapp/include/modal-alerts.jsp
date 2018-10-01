@@ -44,7 +44,7 @@
 		    <label for="nuevoTit">Nuevo título</label>
 		    <input type="text" name="nuevoTitulo" class="form-control" id="nuevoTit" placeholder="Mínimo 2 caracteres.">
 		  	
-		  	<input type="hidden" id="idModificar">
+		  	<input type="hidden" id="idModificar" name="id">
 		  	<input type="hidden" name="op" value="${HomeController.OP_MODIFICAR}">
 		  
 		  </div>

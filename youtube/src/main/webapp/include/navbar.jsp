@@ -37,7 +37,7 @@
 							method="post"
 							class="form-inline ">
 							<input
-								name="id"
+								name="cod"
 								class="form-control mr-sm-2"
 								type="text"
 								placeholder="ID 11 caracerteres"
