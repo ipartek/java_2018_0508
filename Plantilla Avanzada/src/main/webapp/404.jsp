@@ -14,13 +14,6 @@
 	</div>
 	
 	<div class="row align-center">
-        <div class="col color-primary">
-			<!-- Formulario de Acceso -->
-			<%@ include file="include/modal-login-form.jsp" %>
-		</div>
-	</div>
-	
-	<div class="row align-center">
         <div class="col-md-12 color-primary">
             <div class="error-template">
                 <h1>404 No Encontrado</h1>

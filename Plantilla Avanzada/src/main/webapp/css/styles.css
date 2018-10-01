@@ -26,98 +26,63 @@ nav ul li a:hover {
 	background-color: #FFF;
 }
 
-/* MODAL LOGIN FORM
+/* LOGIN FORM
 -------------------------------------------------- */
-
-.modal-login {
-	color: #007bff;
-	max-width: 350px;
-}
-
-.modal-login .modal-content {
-	padding: 20px;
-	border-radius: 5px;
-	border: none;
-}
-
-.modal-login .modal-header {
-	border-bottom: none;
+nav.login ul {
+	list-style: none;
+	margin: 0;
+	padding: 0;
 	position: relative;
-	justify-content: center;
+	float: right;
 }
 
-.modal-login h4 {
-	text-align: center;
-	font-size: 26px;
-	margin: 30px 0 -15px;
-}
-
-.modal-login .form-control:focus {
-	border-color: #70c5c0;
-}
-
-.modal-login .form-control, .modal-login .btn {
-	min-height: 40px;
-	border-radius: 3px;
-}
-
-.modal-login .close {
-	position: absolute;
-	tab-index: 100;
-	top: -5px;
-	right: -5px;
-}
-
-.modal-login .modal-footer {
-	background: #ecf0f1;
-	border-color: #dee4e7;
-	text-align: center;
-	justify-content: center;
-	margin: 0 -20px -20px;
-	border-radius: 5px;
-	font-size: 13px;
-}
-
-.modal-login .avatar {
-	position: absolute;
-	margin: 0 auto;
-	left: 0;
-	right: 0;
-	top: -70px;
-	width: 95px;
-	height: 95px;
-	z-index: 9;
-	background: #808080;
-	padding: 15px;
-	box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.1);
-}
-
-.modal-login .avatar img {
-	width: 100%;
-}
-
-.modal-login.modal-dialog {
-	margin-top: 80px;
-}
-
-.modal-login .btn {
-	color: #fff;
-	border-radius: 4px;
+nav.navbar a#login {
+	display: inline-block;
+	font-size: 1em;
+	padding: 1px 10px;
 	text-decoration: none;
-	transition: all 0.4s;
-	line-height: normal;
-	border: none;
+	color: #FFF;
+	font-weight: 600;
+	
 }
 
-.modal-login .btn:hover, .modal-login .btn:focus {
-	background: #45aba6;
-	outline: none;
+nav.login #login-content {
+	position: absolute;
+	top: 1.5em;
+	right: 0;
+	z-index: 999;
+	background: #FFF;
+	padding: 1em;
+	width: 350px;
+	border-radius: 10px 0px 10px 10px;
+	border: 2px solid #000;
+	display: none;
+}
+/*
+nav.login input#usuario,  nav.acceder input#password {
+	background-color: #F1F1F1;
+	padding: 5px;
+	margin-bottom: 10px;
+	max-width: 240px;
+	border: 1px solid #CCC;
+	border-radius: 5px;
+}*/
+
+nav.login input#submit {
+	background-color: #6464ff;
+	boder: 1px solid #000;
+	float: left;
+	max-height: 25px;
+	max-width: 100px;
+	padding: 0;
+	font-size: 600;
+	color: #FFF;
 }
 
-.modal-login .input-group .input-group-text i {
-	color: #007bff !important;
+nav.login input#submit:hover {
+	cursor: pointer;
+	background-color: #0000ff;
 }
-
 
 
 /* STICKY FOOTER

@@ -34,7 +34,7 @@ public class LogOutController extends HttpServlet {
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
-			request.getRequestDispatcher("inicio").forward(request, response);
+			response.sendRedirect("inicio");
 		}
 	}
 

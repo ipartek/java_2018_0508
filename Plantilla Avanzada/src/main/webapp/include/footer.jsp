@@ -18,13 +18,19 @@
       </div>
     </footer>
 	
- 	<!-- JQUERY core JS -->
-	<script src="js/jquery-3.3.1.min.js"></script>
-	
 	<!-- BOOTSTRAP core JS -->
 	<script src="js/bootstrap.min.js"></script>	
 	
 	<!-- PERSONAL JS -->
 	<script src="js/autofocus.js"></script>
+	
+	 <!-- Usuario no logueado (formulario acceso js) -->
+     <c:if test="${empty sessionScope.usuario}">
+     	<script src="js/login-transition.js"></script>
+     </c:if>
+     
+		
+	
+	</script>
 </body>
 </html>

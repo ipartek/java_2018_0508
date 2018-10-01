@@ -15,15 +15,6 @@
 		</div>
 	</c:if>
 	
-	<!-- Formulario de Acceso -->
-	<c:if test="${empty sessionScope.usuario}">
-		<div class="row align-center">
-	        <div class="col-lg-3 color-primary">
-				<%@ include file="/include/modal-login-form.jsp" %>
-			</div>
-		</div>
-	</c:if>
-	
 	<p>Contenido del main.</p>
 </main>
 

@@ -25,7 +25,7 @@
 	        
 	        <!-- Usuario no logueado (link de acceso) -->
             <c:if test="${empty sessionScope.usuario}"> 
-	        	<a class="text-white"data-toggle="modal" data-target="#modal-login-form" href="#">Acceder</a>
+				<%@ include file="/include/acceder.jsp" %>
 	        </c:if>
 	        
 	        <!-- Usuario logueado (panel de usuario) -->

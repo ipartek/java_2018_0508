@@ -9,13 +9,9 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<c:set var="req" value="${pageContext.request}" />
-	<c:set var="uri" value="${req.requestURI}" />
-	<c:set var="url">${req.requestURL}</c:set>
-	<c:set var="baseURL" value="${fn:substring(url, 0, fn:length(url) - fn:length(uri))}${req.contextPath}/" />
 
 	<!-- Comienza todas las URLs desde el href indicado -->
-	<base href="${baseURL}">
+	<base href="${pageContext.request.contextPath}/">
 	
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -36,6 +32,9 @@
     <!-- Personal CSS Stylesheet -->
     <link href="css/styles.css" rel="stylesheet"></link>
     <link href="css/404-styles.css" rel="stylesheet"></link>
+    
+    <!-- JQUERY core JS -->
+	<script src="js/jquery-3.3.1.min.js"></script>
       
 </head>
 <body>
