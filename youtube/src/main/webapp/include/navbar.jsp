@@ -60,15 +60,17 @@
 						<form action="login" method="post" class="form-inline ">
 						      <div class="form-group">
 							      <input name="usuario" class="form-control mr-sm-2" type="text" placeholder="Usuario" required pattern=".{3,30}" value="${cookie.cNombre.value}">
-							      <input name="pass" class="form-control mr-sm-2" type="password" placeholder="Contraseña" required pattern=".{2,50}">
-							       <button class="btn btn-outline-info my-2 my-sm-0" type="submit">Entrar</button>
+							      <input name="pass" class="form-control" type="password" placeholder="Contraseña" required pattern=".{2,50}">
 						       </div>
 						            
 						       <div class="form-group ml-3">
 						          <input type="checkbox" name="recuerdame" ${(not empty cookie.cNombre.value)?"checked":""}>
-						          <label class="text-warning ml-1">Recuérdame</label>
+						          <label class="text-warning">Recuérdame</label>
 						       </div>
+						       
+						       <button class="btn btn-outline-info my-2 my-sm-0" type="submit">Entrar</button>
 						</form>
+						<a href="#" data-toggle="modal" data-target="#modalRegistrar">Regístrate aquí</a>
 					</c:if>
 				</li>
 			</ul>

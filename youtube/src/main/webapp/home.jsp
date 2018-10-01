@@ -123,8 +123,8 @@
     	/*	YOUTUBE API*/
     	function onYouTubeIframeAPIReady() {
     	    player = new YT.Player('video-placeholder', {
-    	        width: 600,
-    	        height: 400,
+    	        width: 820,
+    	        height: 415,
     	        videoId: '${videoInicio.cod}',
     	        playerVars: {
     	            color: 'white',
@@ -138,12 +138,12 @@
     	
     	function initialize(){
 
-    	   /*  // Update the controls on load
+    	   	// Update the controls on load
     	    updateTimerDisplay();
-    	    updateProgressBar(); */
+    	    updateProgressBar(); 
 
     	    // Clear any old interval.
-    	    //clearInterval(time_update_interval);
+    	    clearInterval(time_update_interval);
 
     	    // Start interval to update elapsed time display and
     	    // the elapsed part of the progress bar every second.
@@ -152,7 +152,7 @@
     	        updateProgressBar();
     	    }, 1000)
 
-    	}
+    	} 
     	
     	
     </script>

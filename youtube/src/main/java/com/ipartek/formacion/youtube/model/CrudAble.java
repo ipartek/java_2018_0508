@@ -2,6 +2,8 @@ package com.ipartek.formacion.youtube.model;
 
 import java.util.List;
 
+import com.ipartek.formacion.youtube.pojo.Usuario;
+
 /**
  * Interfaz para especificar los metodos de <b>CRUD</b>:
  * <ul>

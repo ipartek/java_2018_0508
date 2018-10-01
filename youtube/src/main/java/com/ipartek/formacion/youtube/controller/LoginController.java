@@ -5,6 +5,7 @@ import java.text.MessageFormat;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
+import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.Cookie;
@@ -13,6 +14,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.ipartek.formacion.youtube.model.UsuarioDAO;
 import com.ipartek.formacion.youtube.pojo.Alert;
 import com.ipartek.formacion.youtube.pojo.Usuario;
 
@@ -22,7 +24,25 @@ import com.ipartek.formacion.youtube.pojo.Usuario;
  */
 @WebServlet("/login")
 public class LoginController extends HttpServlet {
+	
 	private static final long serialVersionUID = 1L;
+	
+	private Alert alert;
+	private UsuarioDAO dao;
+	
+	@Override
+	public void init(ServletConfig config) throws ServletException {
+		super.init(config);
+		// Se ejecuta solo con la 1º petición, el resto de peticiones iran a "service"
+		dao = UsuarioDAO.getInstance();
+	}
+
+	@Override
+	public void destroy() {
+		super.destroy();
+		// Se ejecuta al parar el servidor
+		dao = null;
+	}
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
@@ -65,7 +85,7 @@ public class LoginController extends HttpServlet {
 				alert.setTipo(Alert.PRIMARY);
 
 				// Guardar Usuario en session
-				Usuario u = new Usuario(usuarioNombre, pass);
+				Usuario u = null; //= new Usuario(usuarioNombre, pass);
 				
 				gestionarSesionDeUsuario(request, u);
 				gestionarCookiesDeUsuario(request, response, u);

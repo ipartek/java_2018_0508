@@ -34,17 +34,17 @@ public class HomeController extends HttpServlet {
 
 	public static final String OP_ELIMINAR = "1";
 	public static final String OP_MODIFICAR = "2";
-	
+
 	private static VideoYoutubeDAO dao;
 	private ArrayList<VideoYoutube> videos;
-	
+
 	private VideoYoutube videoInicio;
 	private Alert alert;
-	
+
 	String id;
 	String op;
 	String playlist = "";
-	
+
 	int idNo;
 
 	@Override
@@ -67,31 +67,29 @@ public class HomeController extends HttpServlet {
 	@Override
 	protected void service(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		
-		//-----	Antes del GET o del POST --------
-		
-		//	Recoger Parametros 
+
+		// ----- ANTES del GET o del POST --------
+		// Recoger Parametros
 		id = request.getParameter("id");
 		op = request.getParameter("op");
-		
+
 		if (id != null) { // Casteamos a Integer
 			idNo = Integer.parseInt(id);
-		
+
 		} else {
 			idNo = 1;
 			videos = (ArrayList<VideoYoutube>) dao.getAll();
 		}
 
-		//	Establecer idioma
+		// Establecer idioma
 		setIdioma(request, response);
 
-		super.service(request, response); // Llama a los metodos GET o POST
-		
-		//------ Después de realizar GET o POST -----
+		super.service(request, response); // LLAMADA a los metodos GET o POST
 
+		// ------ DESPUÉS de realizar GET o POST -----
 		session = request.getSession();
-		
-		//	Guardar última visita en cookies
+
+		// Guardar última visita en cookies
 		setCookieUltimaVisita(request, response);
 
 		// Actualizar listado
@@ -108,12 +106,11 @@ public class HomeController extends HttpServlet {
 	}
 
 	private void cargarPlaylist() {
-		
-		playlist = null;
+		playlist = "";
 		for (int i = 1; i < videos.size(); i++) {
 			playlist += videos.get(i).getCod() + ",";
 		}
-		
+
 	}
 
 	/**
@@ -129,7 +126,7 @@ public class HomeController extends HttpServlet {
 
 		} catch (Exception e) {
 			e.printStackTrace();
-		} 
+		}
 	}
 
 	/**
@@ -138,24 +135,23 @@ public class HomeController extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		try {		
-			
+		try {
+
 			if (op != null && OP_MODIFICAR.equals(op)) { // Modificar Video
-				
+
 				VideoYoutube video = dao.getById(idNo);
-				System.out.println(idNo);
-				
+
 				String nuevoTitulo = request.getParameter("nuevoTitulo");
 				String nuevoCodigo = request.getParameter("nuevoCod");
-				
+
 				video.setNombre(nuevoTitulo);
 				video.setCod(nuevoCodigo);
-				
+
 				modificarVideo(video);
 				alert = new Alert();
 				alert.setTexto("Video correctamente modificado.");
 				alert.setTipo(Alert.SUCCESS);
-				
+
 			} else {
 				// Recoger parametros
 				String cod = request.getParameter("cod");
@@ -184,15 +180,15 @@ public class HomeController extends HttpServlet {
 			}
 
 			if (idioma == null) {
-				
+
 				idioma = request.getLocale().toString(); // Conseguir idioma del usuario a traves de la request
 				if (idioma.length() != 5) {
 					idioma = "es_ES";
 				}
 			}
 		} catch (Exception e) {
-			
-			idioma = "es_ES";	// Idioma por defecto
+
+			idioma = "es_ES"; // Idioma por defecto
 		} finally {
 
 			session.setAttribute("idioma", idioma); // Guardar en session el idioma
@@ -225,7 +221,7 @@ public class HomeController extends HttpServlet {
 
 	private void cargarVideos(HttpServletRequest request, HttpServletResponse response) throws Exception {
 
-		if (op != null && OP_ELIMINAR.equals(op)) { // Eliminar Video	
+		if (op != null && OP_ELIMINAR.equals(op)) { // Eliminar Video
 			eliminarVideo(idNo);
 		}
 
@@ -238,7 +234,7 @@ public class HomeController extends HttpServlet {
 			// Guardar videos reproducido si esta usuario logueado
 			HttpSession session = request.getSession();
 			Usuario usuario = (Usuario) session.getAttribute("usuario");
-			
+
 			if (usuario != null) { // Logeado
 
 				ArrayList<VideoYoutube> reproducidos = (ArrayList<VideoYoutube>) session.getAttribute("reproducidos");
@@ -254,8 +250,7 @@ public class HomeController extends HttpServlet {
 		}
 	}
 
-
-	private void insertarVideo(VideoYoutube videoInicio2) {
+	private void insertarVideo(VideoYoutube videoInicio) {
 
 		alert = new Alert();
 
@@ -270,15 +265,15 @@ public class HomeController extends HttpServlet {
 			videoInicio = videos.get(0); // Recuperamos el primer video de la lista
 		}
 	}
-	
+
 	private void modificarVideo(VideoYoutube video) {
-		
+
 		if (dao.update(video)) {
 			alert = new Alert(Alert.SUCCESS, "Video eliminado.");
 		} else {
 			alert = new Alert();
 			alert.setTexto("El video no puedo modificarse. Posiblemente, no se encuentre en la base de datos.");
-		}	
+		}
 	}
 
 	private void eliminarVideo(int idNo) {
