@@ -18,6 +18,9 @@
 							<li class="nav-item active">
 								<a class="text-pika" href="login.jsp">Acceder/Login</a>
 							</li>
+							<li class="nav-item">
+								<a class="text-pika" href="registroUsuario.jsp">Date de Alta</a>
+							</li>
 						</ul>
 					</c:if>
 					<c:if test="${not empty usuario}">

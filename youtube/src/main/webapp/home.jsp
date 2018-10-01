@@ -10,7 +10,7 @@
 
 <!-- Contenido -->
 <main class="container" role="main">
-
+	<%@ include file="includes/ventanasModales.jsp" %>
 	<!-- Tratamiento de las alertas -->
 	<c:if test="${not empty alert}">
 		<div class="container">
