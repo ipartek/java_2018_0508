@@ -3,7 +3,9 @@ package com.ipartek.formacion.youtube.model;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.List;
 
 import com.ipartek.formacion.youtube.Usuario;
@@ -35,24 +37,18 @@ public class RegistroDAO implements CrudAble<Usuario> {
 		try (Connection con = ConnectionManager.getConnection();
 				PreparedStatement ps = con.prepareStatement(SQL_INSERT, Statement.RETURN_GENERATED_KEYS);) {
 
-			ps.setString(1, pojo.getNombre());
-			ps.setString(2, pojo.getPass());
+			if (pojo != null) {
+				ps.setString(1, pojo.getNombre());
+				ps.setString(2, pojo.getPass());
 
-			int affectedRows = ps.executeUpdate();
-			if (affectedRows == 1) {
+				int affectedRows = ps.executeUpdate();
 
-				// conseguir ID generado
-				try (ResultSet rs = ps.getGeneratedKeys()) {
-					while (rs.next()) {
-						pojo.setId(rs.getInt(1));
-						resul = true;
+				if (affectedRows == 1) {
 
-					}
-
-				} catch (Exception e) {
-					e.printStackTrace();
+					resul = true;
 
 				}
+
 			}
 
 		} catch (Exception e) {
@@ -64,7 +60,30 @@ public class RegistroDAO implements CrudAble<Usuario> {
 
 	@Override
 	public List<Usuario> getAll() {
-		// TODO Auto-generated method stub
+		ArrayList<Usuario> usuarios = new ArrayList<>();
+
+		try (Connection con = ConnectionManager.getConnection();
+				PreparedStatement ps = con.prepareStatement(SQL_GET_ALL);
+				ResultSet rs = ps.executeQuery();) {
+
+			while (rs.next()) {
+				usuarios.add(rowMapper(rs));
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return usuarios;
+
+	}
+
+	private Usuario rowMapper(ResultSet rs) throws SQLException {
+		Usuario usuario = new Usuario();
+		if (rs != null) {
+			usuario.setId(rs.getLong("id"));
+			usuario.setNombre(rs.getString("nombre"));
+			usuario.setPass(rs.getString("password"));
+		}
 		return null;
 	}
 

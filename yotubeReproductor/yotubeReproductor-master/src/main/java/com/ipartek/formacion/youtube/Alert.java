@@ -8,6 +8,7 @@ public class Alert {
 	public static final String DANGER = "alert-danger";
 	public static final String WARNING = "alert-warning";
 	public static final String TEXTO_POR_DEFECTO = "Lo Sentimos pero tenemos un error inexsperado.";
+	public static String ALERT_WARNING;
 	
 	
 	private String tipo;

@@ -2,11 +2,13 @@ package com.ipartek.formacion.youtube;
 
 public class Usuario {
 	
+	private long id;
 	private String nombre;
 	private String pass;
 	
 	public Usuario() {
 		super();
+		this.id = -1;
 		this.nombre = "";
 		this.pass = "";
 	}
@@ -16,6 +18,16 @@ public class Usuario {
 		this();
 		this.nombre = nombre;
 		this.pass = pass;
+	}
+	
+	
+	public long getId() {
+		return id;
+	}
+
+
+	public void setId(long id) {
+		this.id = id;
 	}
 
 
@@ -41,11 +53,6 @@ public class Usuario {
 	}
 
 
-	public void setId(int int1) {
-		// TODO Auto-generated method stub
-		
-	}
-
-
+	
 	
 }
