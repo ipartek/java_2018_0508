@@ -1,16 +1,11 @@
 package com.ipartek.formacion.youtube.controller;
 
 import java.io.IOException;
-import java.util.ArrayList;
-
-import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-
 import com.ipartek.formacion.youtube.model.UsuarioDAO;
 import com.ipartek.formacion.youtube.pojo.Alert;
 import com.ipartek.formacion.youtube.pojo.Usuario;
@@ -20,113 +15,71 @@ import com.ipartek.formacion.youtube.pojo.Usuario;
  */
 @WebServlet("/registrarse")
 public class RegistrarController extends HttpServlet {
+	
+	
 	private static final long serialVersionUID = 1L;
+    
+	private static final String	VIEW_REGISTRO = "registrarse.jsp";
+    private static final String HOME_CONTROLLER = "/inicio";
 	
-	public static final String OP_ELIMINAR = "1";
-	public static final String OP_MODIFICAR = "2";
-	
-	private static UsuarioDAO dao;
-	private ArrayList<Usuario> usuarios;
-	Alert alert = new Alert();
-	
-	@Override
-	public void init(ServletConfig config) throws ServletException {	
-		super.init(config);
-		//Se ejecuta solo con la 1º petición, el resto de peticiones iran a "service"
-		dao = UsuarioDAO.getInstance();
-	}
-	
-	
-	@Override
-	public void destroy() {	
-		super.destroy();
-		//se ejecuta al parar el servidor
-		dao = null;
-	}
-	
-	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		super.service(request, response);  //llama a los metodos GET o POST
-	}
+    private static UsuarioDAO daoUsuario;
     
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-		try {
-			
-		String id = request.getParameter("id");
-		String op = request.getParameter("op");
-		String nombre = request.getParameter("nombre");
-		String password = request.getParameter("password");
-		
-		//eliminar ?			
-		if ( op != null && OP_ELIMINAR.equals(op) ) {
-			if ( dao.delete(id) ) {
-				alert = new Alert(Alert.SUCCESS, "Usuario eliminado correctamente");
-			}else {
-				alert = new Alert();
-			}
-		}
-		
-		//modificar
-		if ( op != null && OP_MODIFICAR.equals(op) ) {
-			//recuperar usuario por id
-			Usuario u = dao.getById(id);
-			
-			//meter nuevo nombre y password al usuario recuperado
-			u.setNombre(nombre);
-			u.setPass(password);
-			
-			//hacer update
-			if(dao.update(u)) {
-				alert = new Alert(Alert.SUCCESS, "Usuario modificado correctamente");
-			}else {
-				alert = new Alert();
-			}
-		}
-		
-		//listado videos			
-		usuarios = (ArrayList<Usuario>) dao.getAll();
-		
-		}catch(Exception e) {
-			e.printStackTrace();
-			alert = new Alert();
-		}finally {
-			request.setAttribute("alert", alert);
-			response.sendRedirect(request.getContextPath() + "/inicio" );
-		}
-		
+		doProcess(request, response);
 	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		HttpSession session = request.getSession();
-		
-		try {
-			
-			String nombre = request.getParameter("usuario");
-			String password = request.getParameter("password");
-			
-			Usuario u = new Usuario();
-			u.setNombre(nombre);
-			u.setPass(password);
-			u.setRol(1);
-			
-			if ( dao.insert(u) ) {
-				alert = new Alert(Alert.SUCCESS, "Usuario registrado correctamente");
-			}else {
-				alert = new Alert(Alert.WARNING, "ERROR, no se pudo registrar el usuario.");
-			}
-			
-		}catch(Exception e) {
-			e.printStackTrace();
-		}finally {
-			session.setAttribute("alert", alert);
-			response.sendRedirect(request.getContextPath() + "/inicio" ); 
-		}
+		doProcess(request, response);
 	}
 
+	private void doProcess(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		Alert alert = null;
+		String view = VIEW_REGISTRO;	
+		try {			
+			//recoger parametros
+			String nombre = request.getParameter("nombre");
+			String password = request.getParameter("password");
+			String repassword = request.getParameter("repassword");
+									
+		    //logica de negocio
+			
+			//TODO comprobar campos con javax.validation
+			if ( password.equals(repassword)) {
+				Usuario uRegistro = new Usuario(nombre, password);
+				daoUsuario = UsuarioDAO.getInstance();
+				
+				if ( daoUsuario.insert(uRegistro)) {
+					view = HOME_CONTROLLER;
+					alert = new Alert(Alert.SUCCESS, "Gracias por registrate, por favor Inicia Sessión");
+				}else {
+					alert = new Alert(Alert.DANGER, "Lo sentimos pero el nombre " + uRegistro.getNombre() + " ya existe!!!");
+				}				
+				
+			}else {
+				alert = new Alert(Alert.WARNING,"La contraseña debe coincidir");
+			}			
+			
+			
+		}catch (Exception e) {
+			e.printStackTrace();
+			alert = new Alert();
+		}finally {						
+			if ( view.equals(HOME_CONTROLLER)) {
+				request.getSession().setAttribute("alert", alert);
+				response.sendRedirect( request.getContextPath() + HOME_CONTROLLER);
+			}else {
+				request.setAttribute("alert", alert);
+				request.getRequestDispatcher(view).forward(request, response);
+			}	
+		}
+		
+		
+	}
 }

@@ -2,7 +2,6 @@ package com.ipartek.formacion.youtube.controller;
 
 import java.io.IOException;
 import java.text.MessageFormat;
-import java.util.HashMap;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
@@ -14,6 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.ipartek.formacion.youtube.model.UsuarioDAO;
 import com.ipartek.formacion.youtube.pojo.Alert;
 import com.ipartek.formacion.youtube.pojo.Usuario;
 
@@ -23,6 +23,10 @@ import com.ipartek.formacion.youtube.pojo.Usuario;
 @WebServlet("/login")
 public class LoginController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	private static UsuarioDAO daoUsuario;
+	
+	private static final String VIEW_INICIO_ADMIN = "/backoffice/inicio";
+	private static final String VIEW_INICIO_USER = "/inicio";
        
     
 	/**
@@ -43,9 +47,12 @@ public class LoginController extends HttpServlet {
 		
 		Alert alert = new Alert();
 		HttpSession session = request.getSession();
+		String view = VIEW_INICIO_USER;
 		
 		try {
 	
+			daoUsuario = UsuarioDAO.getInstance();
+			
 			//idiomas @see com.ipartek.formacion.youtube.filter.IdiomaFilter
 			String idioma = (String)session.getAttribute("idioma");			
 			Locale locale = new Locale( idioma.split("_")[0] , idioma.split("_")[1] );			
@@ -68,55 +75,23 @@ public class LoginController extends HttpServlet {
 			
 			response.addCookie(cRecuerda);
 			
-			Usuario u = new Usuario();
+			Usuario u = new Usuario(usuarioNombre, pass);
 			
-			switch(usuarioNombre) {
-				case "admin":
-					if("admin".equals(pass)) {
-						alert.setTexto(MessageFormat.format(idiomas.getString("msj.bienvenida"), usuarioNombre));
-						alert.setTipo(Alert.PRIMARY);
-					
-						//guardar Usuario en session
-						u.setNombre(usuarioNombre);
-						u.setPass(pass);
-						session.setAttribute("usuario", u);
-					}
-					break;
-				case "pepe":
-					if("pepe".equals(pass)) {
-						alert.setTexto(idiomas.getString("msj.bienvenida") + " " + usuarioNombre );
-						alert.setTipo(Alert.PRIMARY);
-					
-						//guardar Usuario en session
-						u.setNombre(usuarioNombre);
-						u.setPass(pass);
-						session.setAttribute("usuario", u);
-					}
-					break;
-				case "manoli":
-					if("manoli".equals(pass)) {
-						alert.setTexto(idiomas.getString("msj.bienvenida") + " " + usuarioNombre );
-						alert.setTipo(Alert.PRIMARY);
-					
-						//guardar Usuario en session
-						u.setNombre(usuarioNombre);
-						u.setPass(pass);
-						session.setAttribute("usuario", u);
-					}
-					break;
-				case "josepo":
-					if("josepo".equals(pass)) {
-						alert.setTexto(idiomas.getString("msj.bienvenida") + " " + usuarioNombre );
-						alert.setTipo(Alert.PRIMARY);
-					
-						//guardar Usuario en session
-						u.setNombre(usuarioNombre);
-						u.setPass(pass);
-						session.setAttribute("usuario", u);
-					}
-					break;
-				default:
-					alert.setTexto("Credenciales incorrectas. Si aún no te has registrado, puedes hacerlo desde este enlace.");
+			if(daoUsuario.login(u)) {
+				alert.setTexto(MessageFormat.format(idiomas.getString("msj.bienvenida"), usuarioNombre));
+				alert.setTipo(Alert.PRIMARY);
+			
+				//guardar Usuario en session
+				u.setNombre(usuarioNombre);
+				u.setPassword(pass);
+				session.setAttribute("usuario", u);
+				
+				if(u.getRol() == Usuario.ROL_ADMIN) {
+					view = VIEW_INICIO_ADMIN;
+				}
+				
+			}else {
+				alert.setTexto("Credenciales incorrectas. Si aún no te has registrado, puedes hacerlo desde este enlace.");
 			}
 			
 			session.setMaxInactiveInterval(60*5); // 5min
@@ -125,8 +100,7 @@ public class LoginController extends HttpServlet {
 			e.printStackTrace();
 		}finally {
 			session.setAttribute("alert", alert);
-			//request.getRequestDispatcher("home.jsp").forward(request, response);
-			response.sendRedirect(request.getContextPath() + "/inicio" ); 
+			response.sendRedirect(request.getContextPath() + view ); 
 		}
 		
 		
