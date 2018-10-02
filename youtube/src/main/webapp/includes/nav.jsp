@@ -30,8 +30,13 @@
 		           		<input name="pass" value="" class="form-control mr-sm-2" type="password" placeholder="Contraseña" required pattern=".{2,50}">
 		           		<label class="text-warning" for="recuerdame">¿Recordar?</label>
 		           		<input type="checkbox" name="recuerdame" ${(not empty cookie.cNombre.value)?"checked":""} >		           		 
-		           <button class="btn btn-outline-info my-2 my-sm-0" type="submit">Entrar</button>
-		         </form>
+		           		<button class="btn btn-outline-info my-2 my-sm-0" type="submit">Entrar</button>
+		         	</form>
+		         	
+		         	<li>
+		         		<a href="registro.jsp" class="btn btn-outline-info my-2 my-sm-0">Registrate</a>
+		         	</li>
+		         	
 		       </c:if>         
 		        
 		         <!-- usuario logeado -->
