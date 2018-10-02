@@ -128,7 +128,8 @@
     	        videoId: '${videoInicio.cod}',
     	        playerVars: {
     	            color: 'white',
-    	            playlist: '${playlist}'
+    	            playlist: '${playlist}',
+    	            autoplay: 1
     	        },
     	        events: {
     	            onReady: initialize
@@ -136,29 +137,12 @@
     	    });
     	}
     	
-    	function initialize(){
-
-    	   	// Update the controls on load
-    	    updateTimerDisplay();
-    	    updateProgressBar(); 
-
-    	    // Clear any old interval.
-    	    clearInterval(time_update_interval);
-
-    	    // Start interval to update elapsed time display and
-    	    // the elapsed part of the progress bar every second.
-    	    time_update_interval = setInterval(function () {
-    	        updateTimerDisplay();
-    	        updateProgressBar();
-    	    }, 1000)
-
-    	} 
-    	
-    	
     </script>
     
     <!-- Include API Youtube-->
     <script src="https://www.youtube.com/iframe_api"></script>
+    
+    <script src="js/youtube_iframe_config.js"></script>
     
     <!-- Include the footer -->
     <%@ include file="include/footer.jsp"%>

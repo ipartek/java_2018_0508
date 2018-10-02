@@ -75,8 +75,8 @@ public class RegistroController extends HttpServlet {
 			e.printStackTrace();
 			
 		} finally {
-			request.setAttribute("alert", alert);
-			request.getRequestDispatcher("inicio").forward(request, response);
+			request.getSession().setAttribute("alert", alert);
+			response.sendRedirect("inicio");
 		}
 		
 		
