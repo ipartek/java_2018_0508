@@ -10,6 +10,7 @@ import com.mysql.jdbc.Statement;
 
 public class UsuarioDAO implements CrudAble<Usuario>{
 	
+	private static final String SQL_LOGIN = "SELECT `id`, `nombre`, `password`, `rol` FROM youtube.usuario WHERE nombre = ? AND password = ?;";
 	private static final String SQL_INSERT = "INSERT INTO `usuario` (`nombre`, `password`) VALUES (?,?);";
 	
 	
@@ -30,10 +31,29 @@ public class UsuarioDAO implements CrudAble<Usuario>{
 	/**
 	 * Comprueba que exista el nombre y password del usuario, case sensitive 
 	 * @param pojo Usuario a comprobar
-	 * @return true si existe en bbdd, false en caso contrario
+	 * @return null si no encuentra
 	 */
-	boolean login(Usuario pojo) {
-		return false;
+	public Usuario login(Usuario pojo) {
+		Usuario resul = null;
+		try ( Connection con = ConnectionManager.getConnection();
+				PreparedStatement ps = con.prepareStatement(SQL_LOGIN) ) {
+			
+			ps.setString(1, pojo.getNombre());
+			ps.setString(2, pojo.getPassword());
+			
+			try ( ResultSet rs = ps.executeQuery() ){
+				
+				if ( rs != null && rs.next() ) {
+					resul = rowMapper(rs, pojo);
+				}
+				
+			}
+			
+			
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+		return resul;
 	}
 	
 	@Override
@@ -85,6 +105,23 @@ public class UsuarioDAO implements CrudAble<Usuario>{
 	public boolean delete(String id) {
 		// TODO Auto-generated method stub
 		return false;
+	}
+	
+	
+
+	private Usuario rowMapper(ResultSet rs, Usuario u ) throws Exception {
+		
+		if ( u == null ) {
+			u = new Usuario();
+		}
+		
+		if( rs != null) {
+			u.setId(rs.getLong("id"));			
+			u.setNombre(rs.getString("nombre"));
+			u.setPassword(rs.getString("password"));
+			u.setRol(rs.getInt("rol"));
+		}
+		return u;
 	}
 
 }

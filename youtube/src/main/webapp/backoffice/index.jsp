@@ -5,7 +5,10 @@
 <h1>ESTAMOS EN EL BACKOFFICE </h1>
 *Solo pueden entrar usuarios logeados <br>
 
-
+<ul>
+	<li>USUARIOS: ${usuarios}</li>
+	<li>VIDEOS: ${videos}</li>
+</ul>
 
 
 <% 

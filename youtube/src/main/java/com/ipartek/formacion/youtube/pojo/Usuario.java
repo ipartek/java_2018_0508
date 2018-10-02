@@ -5,13 +5,18 @@ public class Usuario {
 	private long id;
 	private String nombre;
 	private String password;
-	//TODO  Rol;
+	private int rol; //TODO crear Pojo y Tabla 'Rol'
+	
+	public static final int ROL_ADMIN = 0;
+	public static final int ROL_USER = 1;
+	
 	
 	public Usuario() {
 		super();
 		this.id=-1;
 		this.nombre = "";
 		this.password = "";
+		this.rol = ROL_USER;
 	}
 
 		
@@ -52,10 +57,19 @@ public class Usuario {
 	}
 
 
-	@Override
-	public String toString() {
-		return "Usuario [id=" + id + ", nombre=" + nombre + ", password=" + password + "]";
+	public int getRol() {
+		return rol;
 	}
 
+
+	public void setRol(int rol) {
+		this.rol = rol;
+	}
+
+
+	@Override
+	public String toString() {
+		return "Usuario [id=" + id + ", nombre=" + nombre + ", password=" + password + ", rol=" + rol + "]";
+	}
 
 }
