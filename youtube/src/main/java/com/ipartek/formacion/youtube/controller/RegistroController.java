@@ -1,7 +1,6 @@
 package com.ipartek.formacion.youtube.controller;
 
 import java.io.IOException;
-import java.util.ArrayList;
 
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
@@ -21,14 +20,14 @@ import com.ipartek.formacion.youtube.pojo.Usuario;
 @WebServlet("/registro")
 public class RegistroController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private static UsuarioDAO dao;
-	private ArrayList<Usuario> usuarios;
+	private static final String VIEW_INICIO = "/inicio";
+	private static UsuarioDAO daoUsuario;
 	
 	@Override
 	public void init(ServletConfig config) throws ServletException {	
 		super.init(config);
 		//Se ejecuta solo con la 1º petición, el resto de peticiones iran a "service"
-		dao = UsuarioDAO.getInstance();
+		daoUsuario = UsuarioDAO.getInstance();
 	}
 	
 	
@@ -36,7 +35,7 @@ public class RegistroController extends HttpServlet {
 	public void destroy() {	
 		super.destroy();
 		//se ejecuta al parar el servidor
-		dao = null;
+		daoUsuario = null;
 	}
        
 	/**
@@ -55,31 +54,21 @@ public class RegistroController extends HttpServlet {
 		
 		HttpSession session = request.getSession();
 		Alert alert = null;
-		usuarios = (ArrayList<Usuario>) dao.getAll();
-		boolean nombreRepetido = false;
 		
 		try {
 			String nombre = request.getParameter("nombreRegistro");
 			String pass = request.getParameter("passRegistro");
 			String passRep = request.getParameter("passRegistroRep");
 			
-			for(Usuario usuario : usuarios) {
-				if(usuario.getNombre().equals(nombre)) {
-					nombreRepetido = true;
-					break;
-				}
-			}
-			
-			if(nombreRepetido) {
-				alert = new Alert(Alert.DANGER, "El nombre de usuario ya existe en la base de datos, por favor introduzca un nombre diferente.");
-			}
-			
-			else if(pass.equals(passRep)) {				
+			if(pass.equals(passRep)) {				
 				
 				Usuario u = new Usuario(nombre, pass);
 				
-				if(dao.insert(u)) {
-					alert = new Alert(Alert.SUCCESS, "Ha introducido los datos correctamente");
+				if(daoUsuario.insert(u)) {
+					alert = new Alert(Alert.SUCCESS, "Se ha registrado correctamente, por favor inicie sesión");
+				
+				}else {
+					alert = new Alert(Alert.DANGER, "El nombre de usuario <i>" + u.getNombre() + "</i> ya existe en la base de datos, por favor introduzca un nombre diferente.");
 				}
 				
 			}else {
@@ -88,12 +77,13 @@ public class RegistroController extends HttpServlet {
 			
 		} catch (Exception e) {
 			e.printStackTrace();
+			alert = new Alert();
 			
 		}finally {
 			session.setAttribute("msgRegistro", "");
 			session.setAttribute("enlaceRegistro", "");
 			session.setAttribute("alert", alert);
-			request.getRequestDispatcher("home.jsp").forward(request, response);
+			response.sendRedirect(request.getContextPath() + VIEW_INICIO);
 		}
 		
 	}

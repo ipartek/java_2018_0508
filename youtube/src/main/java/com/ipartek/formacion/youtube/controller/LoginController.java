@@ -2,10 +2,10 @@ package com.ipartek.formacion.youtube.controller;
 
 import java.io.IOException;
 import java.text.MessageFormat;
-import java.util.ArrayList;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
+import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.Cookie;
@@ -24,9 +24,24 @@ import com.ipartek.formacion.youtube.pojo.Usuario;
 @WebServlet("/login")
 public class LoginController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private static UsuarioDAO dao;
-	private ArrayList<Usuario> usuarios;
-       
+	private static UsuarioDAO daoUsuario;
+	private static final String VIEW_INICIO_ADMIN = "/backoffice/inicio";
+	private static final String VIEW_INICIO_USER = "/inicio";
+	
+	@Override
+	public void init(ServletConfig config) throws ServletException {	
+		super.init(config);
+		//Se ejecuta solo con la 1º petición, el resto de peticiones iran a "service"
+		daoUsuario = UsuarioDAO.getInstance();
+	}
+	
+	
+	@Override
+	public void destroy() {	
+		super.destroy();
+		//se ejecuta al parar el servidor
+		daoUsuario = null;
+	}
     
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
@@ -48,8 +63,7 @@ public class LoginController extends HttpServlet {
 		HttpSession session = request.getSession();
 		String msgRegistro = "";
 		String enlaceRegistro = "";
-		usuarios = (ArrayList<Usuario>) dao.getAll();
-		boolean usuarioCorrecto = false;
+		String view = VIEW_INICIO_USER;
 		
 		try {
 			
@@ -62,34 +76,32 @@ public class LoginController extends HttpServlet {
 			//recoger parametros
 			String usuarioNombre = request.getParameter("usuario");
 			String pass = request.getParameter("pass");
+			Usuario u = new Usuario(usuarioNombre, pass);
 				
 			//comprobar usuario TODO contra BBDD
 			
-			for(Usuario u : usuarios) {
-				if(u.getNombre().equals(usuarioNombre) && u.getPass().equals(pass)) {
-					usuarioCorrecto = true;
-					break;
-				}
-			}
-			
-			if (usuarioCorrecto)  {
+			if(daoUsuario.login(u) != null) {
 				
 				alert.setTexto(MessageFormat.format(idiomas.getString("msj.bienvenida"), usuarioNombre) );
-				alert.setTipo(Alert.PRIMARY);
+				alert.setTipo(Alert.SUCCESS);
 				
 				//guardar Usuario en session
-				Usuario u = new Usuario(usuarioNombre, pass);
 				
 				session.setAttribute("usuario", u);
 				session.setMaxInactiveInterval(60*60*24); // 1 día
 				
-				
 				gestionarCookies(request, response, u);
 				
+				if(u.getRol() == Usuario.ROL_ADMIN) {
+					view = VIEW_INICIO_ADMIN;
+				}
+			
 			}else{
+				
 				msgRegistro = "Si aun no estás registrado pincha ";
 				enlaceRegistro = "aquí.";
 				alert.setTexto("Credenciales incorrectas" );
+				
 			}
 			
 			
@@ -99,8 +111,7 @@ public class LoginController extends HttpServlet {
 			session.setAttribute("msgRegistro", msgRegistro);
 			session.setAttribute("enlaceRegistro", enlaceRegistro);
 			session.setAttribute("alert", alert);
-			//request.getRequestDispatcher("home.jsp").forward(request, response);
-			response.sendRedirect(request.getContextPath() + "/inicio" ); 
+			response.sendRedirect(request.getContextPath() + view ); 
 		}
 		
 		
@@ -113,10 +124,10 @@ public class LoginController extends HttpServlet {
 				
 		if ( recordar != null) {
 			
-			cNombre.setMaxAge(60*60*24*30*3); // 3meses
+			cNombre.setMaxAge(60*60*24*30*3); // 3 meses
 			
 		}else {
-			cNombre.setMaxAge(0); // No guardar
+			cNombre.setMaxAge(0); // Borrar cookie
 		}
 		
 		response.addCookie(cNombre);

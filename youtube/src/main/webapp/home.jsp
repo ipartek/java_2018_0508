@@ -90,13 +90,13 @@
 			        	<div class="form-group">
 			        	
 				        	<label for="nombreRegistro">Nombre</label>
-				        	<input type="text" id="nombreRegistro" name="nombreRegistro" class="form-control" required  autofocus />
+				        	<input type="text" id="nombreRegistro" name="nombreRegistro" class="form-control" autofocus required placeholder="Mínimo 3 y máximo 50 caracteres" pattern="{3, 50}" />
 				        	
 				        	<label for="passRegistro">Contraseña</label>
-				        	<input type="password" id="passRegistro" name="passRegistro" class="form-control" required  />
+				        	<input type="password" id="passRegistro" name="passRegistro" class="form-control" required placeholder="Mínimo 8 y máximo 20 caracteres" pattern="{8, 20}"  />
 				        	
 				        	<label for="passRegistroRep">Repita la contraseña</label>
-				        	<input type="password" id="passRegistroRep" name="passRegistroRep" class="form-control mb-3" required  />
+				        	<input type="password" id="passRegistroRep" name="passRegistroRep" class="form-control mb-3" required placeholder="Mínimo 8 y máximo 20 caracteres" pattern="{8, 20}"  />
 				        	
 				        	<button type="submit" class="btn btn-primary">Darme de alta</button>
 				       

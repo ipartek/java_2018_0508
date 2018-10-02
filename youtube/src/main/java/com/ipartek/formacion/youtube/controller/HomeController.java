@@ -28,7 +28,7 @@ public class HomeController extends HttpServlet {
 	
 	public static final String OP_ELIMINAR = "1";
 	public static final String OP_MODIFICAR = "2";
-	private static VideoDAO dao;
+	private static VideoDAO daoVideo;
 	private ArrayList<Video> videos;	
 	private Video videoInicio;
 
@@ -37,7 +37,7 @@ public class HomeController extends HttpServlet {
 	public void init(ServletConfig config) throws ServletException {	
 		super.init(config);
 		//Se ejecuta solo con la 1º petición, el resto de peticiones iran a "service"
-		dao = VideoDAO.getInstance();
+		daoVideo = VideoDAO.getInstance();
 	}
 	
 	
@@ -45,7 +45,7 @@ public class HomeController extends HttpServlet {
 	public void destroy() {	
 		super.destroy();
 		//se ejecuta al parar el servidor
-		dao = null;
+		daoVideo = null;
 	}
 	
 	
@@ -102,7 +102,7 @@ public class HomeController extends HttpServlet {
 			//eliminar ?			
 			if ( op != null && OP_ELIMINAR.equals(op) ) {
 				
-				if(dao.delete(id)) {
+				if(daoVideo.delete(id)) {
 					alert = new Alert(Alert.SUCCESS, "Video eliminado correctamente.");
 					
 				}else {
@@ -111,13 +111,13 @@ public class HomeController extends HttpServlet {
 			}
 			
 			//listado videos			
-			videos = (ArrayList<Video>) dao.getAll();
+			videos = (ArrayList<Video>) daoVideo.getAll();
 			
 			
 			//video de inicio
 			videoInicio = new Video();
 			if ( id != null && !OP_ELIMINAR.equals(op) ) {
-				videoInicio = dao.getById(id);
+				videoInicio = daoVideo.getById(id);
 				
 				//guardar video reproducido si esta usuario en session
 				HttpSession session = request.getSession();
@@ -165,10 +165,10 @@ public class HomeController extends HttpServlet {
 			
 			if(op != null && OP_MODIFICAR.equals(op)) {		//Modificar
 				
-				Video v = dao.getById(id);
+				Video v = daoVideo.getById(id);
 				v.setNombre(nombre);
 				
-				if(dao.update(v)) {
+				if(daoVideo.update(v)) {
 					alert = new Alert(Alert.SUCCESS, "Video modificado");
 					
 				}else {
@@ -181,7 +181,7 @@ public class HomeController extends HttpServlet {
 				
 				videoInicio = new Video(codigo, nombre);
 				
-				if(dao.insert(videoInicio)) {
+				if(daoVideo.insert(videoInicio)) {
 					alert = new Alert(Alert.SUCCESS, "Gracias por subir tu video.");
 				}else {
 					alert = new Alert(Alert.DANGER, "ERROR, no se pudo crear el video, por favor asegúrate de que no esté duplicado el video.");
@@ -190,7 +190,7 @@ public class HomeController extends HttpServlet {
 			}
 			
 			//pedir listado			
-			videos = (ArrayList<Video>) dao.getAll();
+			videos = (ArrayList<Video>) daoVideo.getAll();
 			
 
 		} catch (Exception e) {
