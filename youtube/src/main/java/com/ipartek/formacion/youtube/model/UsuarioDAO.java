@@ -15,7 +15,8 @@ public class UsuarioDAO implements CrudAble<Usuario> {
 
 	private final String SQL_GET_ALL = "SELECT id, cod, nombre FROM usuario ORDER BY id DESC LIMIT 1000;";
 	private final String SQL_GET_BY_ID = "SELECT id, nombre, password FROM usuario WHERE ID = ?;";
-	private final String SQL_GET_BY_NAME = "SELECT nombre, password FROM usuario WHERE name = ?;";
+	private final String SQL_GET_BY_NAME = "SELECT nombre, password FROM usuario WHERE nombre = ?;";
+	
 	private final String SQL_INSERT = "INSERT INTO usuario (nombre, password) VALUES (?, ?);";
 	private final String SQL_UPDATE = "UPDATE usuario SET nombre = ?, password = ? WHERE ID = ?;";
 	private final String SQL_DELETE = "DELETE FROM usuario WHERE id = ?;";
@@ -64,7 +65,6 @@ public class UsuarioDAO implements CrudAble<Usuario> {
 
 	@Override
 	public List<Usuario> getAll() {
-
 		ArrayList<Usuario> usuarios = new ArrayList<Usuario>();
 
 		try (Connection cnx = ConnectionManager.getConnection();
@@ -85,7 +85,6 @@ public class UsuarioDAO implements CrudAble<Usuario> {
 
 	@Override
 	public Usuario getById(int id) {
-
 		Usuario usuario = null;
 
 		try (Connection cnx = ConnectionManager.getConnection();
@@ -106,14 +105,13 @@ public class UsuarioDAO implements CrudAble<Usuario> {
 		return usuario;
 	}
 	
-	public Usuario getByName(int id) {
-
+	public Usuario getByName(String usuarioNombre) {
 		Usuario usuario = null;
 
 		try (Connection cnx = ConnectionManager.getConnection();
-				PreparedStatement ps = cnx.prepareStatement(SQL_GET_BY_ID);) {
+				PreparedStatement ps = cnx.prepareStatement(SQL_GET_BY_NAME);) {
 
-			ps.setInt(1, id);
+			ps.setString(1, usuarioNombre);
 			try (ResultSet rs = ps.executeQuery();) {
 
 				while (rs.next()) {
@@ -131,6 +129,7 @@ public class UsuarioDAO implements CrudAble<Usuario> {
 	@Override
 	public boolean update(Usuario pojo) {
 		boolean result = false;
+		
 		try (Connection cnx = ConnectionManager.getConnection();
 			PreparedStatement ps = cnx.prepareStatement(SQL_UPDATE)) {
 

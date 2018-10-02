@@ -75,6 +75,7 @@ public class RegistroController extends HttpServlet {
 			e.printStackTrace();
 			
 		} finally {
+			request.setAttribute("alert", alert);
 			request.getRequestDispatcher("inicio").forward(request, response);
 		}
 		
@@ -84,8 +85,6 @@ public class RegistroController extends HttpServlet {
 	private void insertarUsuario(Usuario u) {
 		
 		alert = new Alert();
-
-		System.out.println(u);
 		
 		if (dao.insert(u)) { // Usuario insertado
 			alert.setTexto("El usuario se creó correctamente.");

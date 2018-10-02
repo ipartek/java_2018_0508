@@ -78,17 +78,17 @@
 			  
 			  <div class="form-group">
 			    <label for="registerUsuario">Usuario</label>
-			    <input type="text" class="form-control" id="registerUsuario" name="registerUsuario" placeholder="Mínimo 5 caracteres">
+			    <input type="text" class="form-control" id="registerUsuario" name="registerUsuario" placeholder="Mínimo 5 caracteres" required autofocus pattern="{3,50}">
 			  </div>
 			  
 			   <div class="form-row">
 				    <div class="col-6">
 				     	<label for="registerPassword">Contraseña</label>
-			    		<input type="password" class="form-control" id="registerPassword" name="registerPassword" placeholder="Mínimo 5 caracteres">
+			    		<input type="password" class="form-control" id="registerPassword" name="registerPassword" placeholder="Mínimo 5 caracteres" required pattern="{8,20}">
 				    </div>
 				    <div class="col-6">
 				     	<label for="repitePassword">Repite Contraseña</label>
-			    		<input type="password" class="form-control" id="repitePassword" name="repitePassword" placeholder="Mínimo 5 caracteres">
+			    		<input type="password" class="form-control" id="repitePassword" name="repitePassword" placeholder="Mínimo 5 caracteres" required pattern="{8,20}">
 				    </div>
 			    </div>
 			  <div class="form-group">

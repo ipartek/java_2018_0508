@@ -24,12 +24,12 @@ import com.ipartek.formacion.youtube.pojo.Usuario;
  */
 @WebServlet("/login")
 public class LoginController extends HttpServlet {
-	
+
 	private static final long serialVersionUID = 1L;
-	
+
 	private Alert alert;
 	private UsuarioDAO dao;
-	
+
 	@Override
 	public void init(ServletConfig config) throws ServletException {
 		super.init(config);
@@ -65,33 +65,33 @@ public class LoginController extends HttpServlet {
 	private void doProcess(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-		Alert alert = new Alert();
-		
+		alert = new Alert();
+
 		try {
 
 			// Recoger parametros
 			String usuarioNombre = request.getParameter("usuario");
 			String pass = request.getParameter("pass");
-			
 
-			// Comprobar usuario
-			if ("admin".equals(pass) && "admin".equals(usuarioNombre)) {
+			Usuario user = dao.getByName(usuarioNombre);
 
-				Locale locale = request.getLocale();
-			    ResourceBundle idiomas = ResourceBundle.getBundle("idiomas", locale);
-			    
-			    // Mensaje de idiomas con parámetro (usuarioNombre)
-			    alert.setTexto(  MessageFormat.format(idiomas.getString("msj.bienvenida"), usuarioNombre) );
-				alert.setTipo(Alert.PRIMARY);
+			if (user != null) {
+				if (user.getPass().equals(pass)) { // Usuario encontrado y psw correcta
 
-				// Guardar Usuario en session
-				Usuario u = null; //= new Usuario(usuarioNombre, pass);
-				
-				gestionarSesionDeUsuario(request, u);
-				gestionarCookiesDeUsuario(request, response, u);
-				
+					Locale locale = request.getLocale();
+					ResourceBundle idiomas = ResourceBundle.getBundle("idiomas", locale);
 
-			} else {
+					// Mensaje de idiomas con parámetro (usuarioNombre)
+					alert.setTexto(MessageFormat.format(idiomas.getString("msj.bienvenida"), usuarioNombre));
+					alert.setTipo(Alert.PRIMARY);
+
+					// Guardar Usuario en session
+					gestionarSesionDeUsuario(request, user);
+					gestionarCookiesDeUsuario(request, response, user);
+				}
+			}
+
+			else { // Usuario no encontrado
 
 				alert.setTexto("Credenciales incorrectas");
 			}
@@ -105,42 +105,52 @@ public class LoginController extends HttpServlet {
 
 	}
 
+	/**
+	 * Procedimiento privado que se encarga de almacenar al usuario en la sesión.
+	 * @param request, HttpServletRequest
+	 * @param u, Usuario
+	 */
 	private void gestionarSesionDeUsuario(HttpServletRequest request, Usuario u) {
 		HttpSession session = request.getSession();
-		
-		session.setAttribute("usuario", u);		
+
+		session.setAttribute("usuario", u);
 		session.setMaxInactiveInterval(60 * 5); // 5 min
-		
+
 	}
 
+	/**
+	 * Procedimiento privado que se encarga de almacenar las cookies para cada usuario.
+	 * @param request, HttpServletRequest
+	 * @param response, HttpServletResponse
+	 * @param u, Usuario
+	 */
 	private void gestionarCookiesDeUsuario(HttpServletRequest request, HttpServletResponse response, Usuario u) {
-		
-		String recordar = (String)request.getParameter("recuerdame");
+
+		String recordar = (String) request.getParameter("recuerdame");
 		Cookie cNombre = new Cookie("cNombre", u.getNombre());
-				
-		if ( recordar != null) {	
-			cNombre.setMaxAge(60*60*24*30*3); // 3 meses	
-		}else {
+
+		if (recordar != null) {
+			cNombre.setMaxAge(60 * 60 * 24 * 30 * 3); // 3 meses
+		} else {
 			cNombre.setMaxAge(0); // No guardar
 		}
-		
+
 		setCookieIdioma(request, response);
-		response.addCookie(cNombre);	
+		response.addCookie(cNombre);
 	}
-	
+
 	/**
 	 * Procedimiento que gestiona la cookie del idioma.
+	 * 
 	 * @param request
 	 * @param response
 	 */
 	private void setCookieIdioma(HttpServletRequest request, HttpServletResponse response) {
-		
-		Cookie cIdioma = new Cookie ("cIdioma", request.getLocale().toString());
-		cIdioma.setMaxAge(60*60*24*30);	// 1 mes
-		
+
+		Cookie cIdioma = new Cookie("cIdioma", request.getLocale().toString());
+		cIdioma.setMaxAge(60 * 60 * 24 * 30); // 1 mes
+
 		response.addCookie(cIdioma);
 	}
-	
-	
 
 }
