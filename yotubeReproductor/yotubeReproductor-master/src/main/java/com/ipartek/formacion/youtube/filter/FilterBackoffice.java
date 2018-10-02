@@ -60,8 +60,12 @@ public class FilterBackoffice implements Filter {
 				// pass the request along the filter chain encadenar
 				chain.doFilter(request, response);
 			} else {
+				
+				//TODO comprobar ROL del usuario
 
 				informacionCliente(req);
+				
+				//usuario no logeado
 
 				res.sendRedirect(req.getContextPath() + "/inicio");
 			}

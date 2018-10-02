@@ -1,35 +1,36 @@
 package com.ipartek.formacion.youtube;
 
 public class Usuario {
-	
+
 	private long id;
 	private String nombre;
-	private String pass;
-	
+	private String password;
+	private int rol; // TODO crear pojo y tabla
+
+	public static final int ROL_ADMIN = 0;
+	public static final int ROL_USER = 1;
+
 	public Usuario() {
 		super();
 		this.id = -1;
 		this.nombre = "";
-		this.pass = "";
+		this.password = "";
+		this.rol = ROL_USER;
 	}
 
-		
-	public Usuario(String nombre, String pass) {
+	public Usuario(String nombre, String password) {
 		this();
 		this.nombre = nombre;
-		this.pass = pass;
+		this.password = password;
 	}
-	
-	
+
 	public long getId() {
 		return id;
 	}
 
-
 	public void setId(long id) {
 		this.id = id;
 	}
-
 
 	public String getNombre() {
 		return nombre;
@@ -39,20 +40,25 @@ public class Usuario {
 		this.nombre = nombre;
 	}
 
-	public String getPass() {
-		return pass;
+	public String getPassword() {
+		return password;
 	}
 
-	public void setPass(String pass) {
-		this.pass = pass;
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+	public int getRol() {
+		return rol;
+	}
+
+	public void setRol(int rol) {
+		this.rol = rol;
 	}
 
 	@Override
 	public String toString() {
-		return "Usuario [nombre=" + nombre + ", pass=" + pass + "]";
+		return "Usuario [id=" + id + ", nombre=" + nombre + ", password=" + password + ", rol=" + rol + "]";
 	}
 
-
-	
-	
 }

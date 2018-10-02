@@ -1,7 +1,5 @@
 package com.ipartek.formacion.youtube.controller;
 
-
-
 import java.io.IOException;
 import java.text.MessageFormat;
 import java.util.Locale;
@@ -15,97 +13,107 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-
 import com.ipartek.formacion.youtube.Alert;
 import com.ipartek.formacion.youtube.Usuario;
-
+import com.ipartek.formacion.youtube.model.UsuarioDAO;
 
 @WebServlet("/login")
 public class LoginController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-	
+	private static UsuarioDAO daoUsuario;
+	private static String VIEW_INICIO_ADMIN = "/backoffice/inicio";
+	private static String VIEW_INICIO_USER = "/inicio";
+
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+	 *      response)
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		doProcess(request, response);
 	}
 
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+	 *      response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		doProcess(request, response);
 	}
 
-	private void doProcess(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
+	private void doProcess(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+
 		Alert alert = new Alert();
 		HttpSession session = request.getSession();
-	
-		
+		String view = VIEW_INICIO_USER;
+
 		try {
-			
-			//idiomas
-			String idioma = (session.getAttribute("idioma")!=null)?(String)session.getAttribute("idioma"):"es_ES";			
-			//Locale locale = new Locale("en", "EN");
-			Locale locale = new Locale( idioma.split("_")[0] , idioma.split("_")[1] );			
-			ResourceBundle idiomas = ResourceBundle.getBundle("idiomas", locale );
-		
-			
-			//recoger parametros
+
+			// idiomas
+			String idioma = (session.getAttribute("idioma") != null) ? (String) session.getAttribute("idioma")
+					: "es_ES";
+			// Locale locale = new Locale("en", "EN");
+			Locale locale = new Locale(idioma.split("_")[0], idioma.split("_")[1]);
+			ResourceBundle idiomas = ResourceBundle.getBundle("idiomas", locale);
+
+			// recoger parametros
 			String usuarioNombre = request.getParameter("usuario");
 			String pass = request.getParameter("pass");
+			Usuario u = new Usuario(usuarioNombre, pass);
 			String recordar = request.getParameter("recordar");
+			daoUsuario = UsuarioDAO.getInstance();
 			
-			//comprobar usuario
-			if ( "admin".equals(pass) && "admin".equals(usuarioNombre) || "pepe".equals(pass) && "pepe".equals(usuarioNombre) || "manoli".equals(pass) && "manoli".equals(usuarioNombre) || "josepo".equals(pass) && "josepo".equals(usuarioNombre) )  {
+
+			// comprobar usuario
+			if (daoUsuario.login(u) != null) {
+
+				alert.setTexto(MessageFormat.format(idiomas.getString("msj.bienvenida"), usuarioNombre));
+
+				alert.setTipo(Alert.PRIMARY);
+
+				// guardar Usuario en session
+
+				session.setAttribute("usuario", u);
+				session.setMaxInactiveInterval(60 * 5); // 5min
 				
 
-				alert.setTexto(  MessageFormat.format(idiomas.getString("msj.bienvenida"), usuarioNombre) );
-				
-				alert.setTipo(Alert.PRIMARY);
-				
-				//guardar Usuario en session
-				Usuario u = new Usuario(usuarioNombre, pass);
-				
-				session.setAttribute("usuario", u);
-				session.setMaxInactiveInterval(60*5); // 5min
-				
-				if("recordar".equals(recordar)) {
+				if (u.getRol() == Usuario.ROL_ADMIN) {
+					view = VIEW_INICIO_ADMIN;
+				}
+
+				if ("recordar".equals(recordar)) {
 					Cookie c = new Cookie("nomUsuario", usuarioNombre);
-					
-					c.setMaxAge(60*60*24*365);
-					
+
+					c.setMaxAge(60 * 60 * 24 * 365);
+
 					response.addCookie(c);
-				}else {
+				} else {
 					Cookie cookies[] = request.getCookies();
-					
-					for(Cookie c: cookies) {
-						if("nomUsuario".equals(c.getName())) {				
+
+					for (Cookie c : cookies) {
+						if ("nomUsuario".equals(c.getName())) {
 							c.setMaxAge(0);
-							
+
 							response.addCookie(c);
 						}
 					}
 				}
-				
-			}else{
-				
-				alert.setTexto("Credenciales incorrectas" );
+
+			} else {
+
+				alert.setTexto("Credenciales incorrectas");
 			}
-			
-			
-		}catch (Exception e) {
+
+		} catch (Exception e) {
 			e.printStackTrace();
-		}finally {
+		} finally {
 			session.setAttribute("alert", alert);
-			//request.getRequestDispatcher("home.jsp").forward(request, response);
-			response.sendRedirect(request.getContextPath() + "/inicio" ); 
+			// request.getRequestDispatcher("home.jsp").forward(request, response);
+			response.sendRedirect(request.getContextPath() + "/view");
 		}
-		
-		
+
 	}
 
 }

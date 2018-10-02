@@ -12,3 +12,6 @@ ul.idioma li.active a{
 	color: #ffc107!important;
 	text-decoration: underline;	
 }
+.alert-success{
+	top: 35px;
+}

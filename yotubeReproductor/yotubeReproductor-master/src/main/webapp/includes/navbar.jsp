@@ -45,20 +45,21 @@
 				
 				<ul class="navbar-nav ml-auto">
 					<li class="nav-item active text-primary">
+					
 					<c:if test="${empty usuario}">
 							<!-- formulario Login -->
+							
 							<form action="login" method="post"
 								class="form-inline mt-2 mt-md-0">
-									
 								<input name="usuario" class="form-control mr-sm-2" type="text"
 									placeholder="Nombre Usuario" value="<%= nomUsuario %>" required pattern=".{3,30}">
 								<input name="pass" class="form-control mr-sm-2" type="password"
 									placeholder="Contraseña" required pattern=".{2,50}">
 								<li><input type="checkbox" name="recordar" value="recordar" <%= checked %> >Recordar</li>
-										<li class="nav-item "><a href="registroUsuario.jsp" >Registrate</a></li>
 								<button class="btn btn-outline-info my-2 my-sm-0" type="submit">Entrar</button>
-								
 							</form>
+							
+							<a  class="btn btn-outline-info my-2 my-sm-0"  href="registroUsuario.jsp" >Registrate</a>
 					
 						</c:if> <c:if test="${not empty usuario}">
 							<div class="nav-user">
