@@ -1,6 +1,6 @@
 package com.ipartek.formacion.youtube.model;
 
-import java.security.interfaces.RSAKey;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -10,37 +10,28 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.ipartek.formacion.youtube.pojo.Usuario;
-import com.ipartek.formacion.youtube.pojo.Video;
 
 public class UsuariosDaoJDBC implements CrudAble<Usuario> {
 
 	private static UsuariosDaoJDBC INSTANCE = null;
 	private static List<Usuario> usuarios = null;
 	// querys CRUD
-	private final String SQL_INSERT = "INSERT INTO usuario(nombre,password) VALUES(?,?)";
-	private final String SQL_UPDATE = "UPDATE usuario SET nombre=?,email=?,password=? WHERE id=? ";
-	private final String SQL_SELECT = "SELECT * FROM usuario ORDER BY id";
-	private final String SQL_DELETE = "DELETE from usuario WHERE id=?";
-	private final String SQL_SELECT_BY_NAMEPASS = "SELECT id,nombre, password, role FROM usuario WHERE nombre = ? and password = ? ";
-	private final String SQL_SELECT_BY_NAME = "SELECT id,nombre, password, role FROM usuario WHERE nombre = ?";
-
+	private final String SQL_INSERT = "INSERT INTO usuario(nombre,password) VALUES(?,?);";
+	private final String SQL_UPDATE = "UPDATE usuario SET nombre=?,email=?,password=? WHERE id=? ;";
+	private final String SQL_SELECT = "SELECT * FROM usuario ORDER BY id ;";
+	private final String SQL_DELETE = "DELETE from usuario WHERE id=?;";
+	private final String SQL_SELECT_BY_NAMEPASS = "SELECT id,nombre, password, rol FROM usuario WHERE nombre = ? and password = ? ;";
+	private final String SQL_SELECT_BY_NAME = "SELECT id,nombre, password, rol FROM usuario WHERE nombre = ?;";
 
 	private UsuariosDaoJDBC() {
 
 		usuarios = new ArrayList<Usuario>();
-		/*
-		 * usuarios.add(new Usuario(1,"admin","admin@gmail.com","admin"));
-		 * usuarios.add(new Usuario(2,"pepep","pepe@gmail.com","pepep"));
-		 * usuarios.add(new Usuario(3,"manoli","manoli@gmail.com","manoli"));
-		 * usuarios.add(new Usuario(3,"josepo","josepo@gmail.com","josepo"));
-		 */
 	}
 
 	public static synchronized UsuariosDaoJDBC getInstance() {
 		if (INSTANCE == null) {
 			INSTANCE = new UsuariosDaoJDBC();
 		}
-
 		return INSTANCE;
 	}
 
@@ -115,35 +106,35 @@ public class UsuariosDaoJDBC implements CrudAble<Usuario> {
 			usuario.setId(rs.getLong("id"));
 			usuario.setNombre(rs.getString("nombre"));
 			usuario.setPass(rs.getString("password"));
-			
+			usuario.setRol(rs.getInt("rol"));
+
 		}
 		return usuario;
 	}
-	
+
 	public Usuario checkByNamePass(String nombre, String pass) {
 		Usuario usuario = new Usuario();
 		PreparedStatement ps = null;
 		boolean resul = false;
 		int rows = 0;
-		try (Connection conexion = ConnectionManager.getConnection();
-				
-				) {
+		try (Connection conexion = ConnectionManager.getConnection();) {
 			int index = 1;
 			ps = conexion.prepareStatement(SQL_SELECT_BY_NAMEPASS);
 			ps.setString(index++, nombre);// parametro 1
-			ps.setString(index, pass);	
-			
+			ps.setString(index, pass);
+
 			System.out.println("Pasando por checkByNamePass UsuariosDaoJDBC");
 			ResultSet rs = ps.executeQuery();
-			if(rs.next()) {
-				while (rs.next()) {
-					usuario = (rowMapper(rs));
-					
+			while (rs.next()) {
+				usuario = (rowMapper(rs));
+				if (usuario != null) {
+					resul = true;
 				}
-			}else {
+			}
+			if(usuario.getNombre() == "" && usuario.getPass() == "") {
 				usuario = null;
 			}
-			
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -158,19 +149,19 @@ public class UsuariosDaoJDBC implements CrudAble<Usuario> {
 				PreparedStatement ps = conexion.prepareStatement(SQL_SELECT_BY_NAME);) {
 			int index = 1;
 			ps.setString(index, nombreUsuario);// parametro 1
-			System.out.println("Pasando por checkByNamePass UsuariosDaoJDBC");
+			System.out.println("Pasando por checkByName UsuariosDaoJDBC");
 			ResultSet rs = ps.executeQuery();
 			while (rs.next()) {
 				usuario = (rowMapper(rs));
-				if(usuario!= null) {
+				if (usuario != null) {
 					resul = true;
 				}
-				
+
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
+
 		return resul;
 	}
 }

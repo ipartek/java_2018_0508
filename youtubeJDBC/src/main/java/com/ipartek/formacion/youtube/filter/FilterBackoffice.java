@@ -24,7 +24,7 @@ import com.ipartek.formacion.youtube.pojo.Usuario;
  *  
  */
 @WebFilter(dispatcherTypes = {DispatcherType.REQUEST } 
-					, urlPatterns = { "/backoffice/*" })
+					, urlPatterns = { "/backoffice/*" }) //TODO COMPROBAR ROL DEL USUARIO
 public class FilterBackoffice implements Filter {
 
    

@@ -127,10 +127,10 @@ public class RegistroUsuarioController extends HttpServlet {
 				id = getIdOnDao();
 				Usuario nuevoUsuario = new Usuario(nombreUsuario,passUsuario);
 				usuariosDaoJDBC.insert(nuevoUsuario);
-				session.setAttribute("usuario", nuevoUsuario);
+/*				session.setAttribute("usuario", nuevoUsuario);
 				session.setMaxInactiveInterval(60*5); // 5min
-				request.setAttribute("nombre", nombreUsuario);
-				alert.setTexto("BienVenido " + nombreUsuario );
+				request.setAttribute("nombre", nombreUsuario);*/
+				alert.setTexto("BienVenido " + nombreUsuario);
 				alert.setTipo(Alert.SUCCESS);
 				session.setAttribute("alert", alert);
 				
@@ -138,12 +138,14 @@ public class RegistroUsuarioController extends HttpServlet {
 			
 		} catch (Exception e) {
 			e.printStackTrace();
+			
+			
 		}finally {
 			if (alert.getTipo().contains(alert.DANGER)) {
 				request.getRequestDispatcher("/registroUsuariosFormulario.jsp").forward(request, response);
-		}else {
-			response.sendRedirect(request.getContextPath() + "/inicio" ); 
-		}
+			}else {
+				response.sendRedirect(request.getContextPath() + "/inicio" ); 
+			}
 	}
 	}
 

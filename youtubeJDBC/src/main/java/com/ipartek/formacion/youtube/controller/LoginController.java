@@ -30,6 +30,10 @@ public class LoginController extends HttpServlet {
 	private boolean accessSignal = false;
 	private Alert alerta;
 	private String msg;
+	
+	private static final String VIEW_INICIO_ADMIN="/backoffice/inicio";
+	private static final String VIEW_INICIO_USER="/inicio";
+	
     
 	@Override
 	public void init(ServletConfig config) throws ServletException {	
@@ -58,6 +62,7 @@ public class LoginController extends HttpServlet {
 		Alert alert = new Alert();
 		HttpSession session = request.getSession();
 		Usuario usuario = new Usuario();
+		String view =VIEW_INICIO_USER;
 		
 		
 		
@@ -73,11 +78,15 @@ public class LoginController extends HttpServlet {
 			String usuarioNombre = request.getParameter("usuario");
 			String pass = request.getParameter("pass");
 			usuario = usuariosJDBC.checkByNamePass(usuarioNombre, pass);
+			//boolean test = usuariosJDBC.checkByName(usuarioNombre);
 			if(usuario != null) {
-				
+				//guardamos session
 				session.setAttribute("usuario", usuario);
-				alert.setTexto("Bienvenido " + usuario);
+				alert.setTexto("Bienvenido " + usuario.getNombre());
 				alert.setTipo(alert.SUCCESS);
+				if (usuario.getRol() == usuario.ROL_ADMIN) {
+					view = VIEW_INICIO_ADMIN;
+				}			
 			}else {
 				alert.setTexto("Intentelo de nuevo, el usuario o contraseña son incorrectas ");
 				alert.setTipo(alert.DANGER);
@@ -88,7 +97,7 @@ public class LoginController extends HttpServlet {
 		}finally {
 			session.setAttribute("alert", alert);
 			//request.getRequestDispatcher("home.jsp").forward(request, response);
-			response.sendRedirect(request.getContextPath() + "/inicio" ); 
+			response.sendRedirect(request.getContextPath() + view ); 
 		}
 		
 		

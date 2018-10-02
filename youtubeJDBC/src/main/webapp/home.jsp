@@ -1,6 +1,6 @@
 <%@page import="com.ipartek.formacion.youtube.controller.HomeController"%>
 <%@ include file="includes/header.jsp" %>	
- <%@ include file="includes/nav.jsp"  %>
+<%@ include file="includes/nav.jsp"  %>
     <!-- Page Content -->
     <div class="container">
     	
