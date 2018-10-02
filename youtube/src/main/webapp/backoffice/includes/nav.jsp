@@ -7,12 +7,14 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="index.html">SB Admin v2.0</a>
+                <a class="navbar-brand" href="inicio">Backoffice</a>
             </div>
             <!-- /.navbar-header -->
 
             <ul class="nav navbar-top-links navbar-right">
-                <a href="#">Cerra Session</a>
+            	<li>
+                	<a href="#">Cerra Session</a>
+                </li>	
             </ul>
             <!-- /.navbar-top-links -->
 
@@ -21,13 +23,13 @@
                     <ul class="nav" id="side-menu">
                        
                         <li>
-                            <a href="index.html"><i class="fa fa-dashboard fa-fw"></i> Dashboard</a>
+                            <a href="inicio"><i class="fa fa-dashboard fa-fw"></i> Dashboard</a>
                         </li>
                         <li>
-                            <a href="index.html"><i class="fa fa-dashboard fa-fw"></i> Usuarios</a>
+                            <a href="usuarios"><i class="fa fa-dashboard fa-fw"></i> Usuarios</a>
                         </li>
                         <li>
-                            <a href="index.html"><i class="fa fa-dashboard fa-fw"></i> Videos</a>
+                            <a href="videos"><i class="fa fa-dashboard fa-fw"></i> Videos</a>
                         </li>
                        
                     </ul>
