@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
+import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.Cookie;
@@ -26,8 +27,17 @@ public class LoginController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private static UsuariosDaoJDBC usuariosJDBC;
 	private ArrayList<Usuario> usuarios;
+	private boolean accessSignal = false;
 	private Alert alerta;
-       
+	private String msg;
+    
+	@Override
+	public void init(ServletConfig config) throws ServletException {	
+		super.init(config);
+		//Se ejecuta solo con la 1º petición, el resto de peticiones iran a "service"
+		//inicializamos el arraydao de usuarios
+		usuariosJDBC =  UsuariosDaoJDBC.getInstance();
+	}
     
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
@@ -47,6 +57,8 @@ public class LoginController extends HttpServlet {
 		
 		Alert alert = new Alert();
 		HttpSession session = request.getSession();
+		Usuario usuario = new Usuario();
+		
 		
 		
 		try {
@@ -60,7 +72,16 @@ public class LoginController extends HttpServlet {
 			//recoger parametros
 			String usuarioNombre = request.getParameter("usuario");
 			String pass = request.getParameter("pass");
-			comprobarUsuario(usuarioNombre,pass);
+			usuario = usuariosJDBC.checkByNamePass(usuarioNombre, pass);
+			if(usuario != null) {
+				
+				session.setAttribute("usuario", usuario);
+				alert.setTexto("Bienvenido " + usuario);
+				alert.setTipo(alert.SUCCESS);
+			}else {
+				alert.setTexto("Intentelo de nuevo, el usuario o contraseña son incorrectas ");
+				alert.setTipo(alert.DANGER);
+			}
 
 		}catch (Exception e) {
 			e.printStackTrace();
@@ -73,16 +94,6 @@ public class LoginController extends HttpServlet {
 		
 	}
 
-
-	private boolean comprobarUsuario(String usuarioNombre, String pass) {
-		boolean resul = false;
-		resul =usuariosJDBC.checkByNamePass(usuarioNombre, pass);
-		if(resul) {
-			resul = true;
-		}
-		
-		return resul;
-	}
 
 	private void gestionarCookies(HttpServletRequest request, HttpServletResponse response, Usuario u) {
 		

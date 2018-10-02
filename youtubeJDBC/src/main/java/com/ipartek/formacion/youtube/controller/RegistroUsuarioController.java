@@ -69,9 +69,10 @@ public class RegistroUsuarioController extends HttpServlet {
 			request.setAttribute("usuarios", usuarios);
 		}
 		
-		request.setAttribute("usuarios", usuarios);
+		//request.setAttribute("usuarios", usuarios);
 		//nos vamos a index pasando por el controlador mapeado con inicio limpiado la url
-		response.sendRedirect(request.getContextPath() + "/inicio" ); 
+		
+		//response.sendRedirect(request.getContextPath() + "/inicio" ); 
 		//request.getRequestDispatcher("/inicio").forward(request, response);
 		
 		
@@ -82,22 +83,14 @@ public class RegistroUsuarioController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		System.out.println("***GET***");
-		doProcess(request,response);
-		
-		
+		doProcess(request,response);	
 	}
-
-	
-
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		System.out.println("***POST***");
-		doProcess(request,response);
-			
-		
-		
+		doProcess(request,response);	
 	}
 	
 	private void doProcess(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -141,24 +134,24 @@ public class RegistroUsuarioController extends HttpServlet {
 				alert.setTipo(Alert.SUCCESS);
 				session.setAttribute("alert", alert);
 				
-			}
-			
-			
+			}	
 			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}finally {
-			/*alert.setTexto(msg);
-			request.setAttribute("error", error);
-			request.getRequestDispatcher("index.jsp").forward(request, response);*/
+			if (alert.getTipo().contains(alert.DANGER)) {
+				request.getRequestDispatcher("/registroUsuariosFormulario.jsp").forward(request, response);
+		}else {
+			response.sendRedirect(request.getContextPath() + "/inicio" ); 
 		}
-		
+	}
 	}
 
 	private long getIdOnDao() {
 		return usuarios.size()+1;
 	}
-
+	
+	//comprobamos que las contraseñas introducidas desde el formulario son iguales
 	private boolean comprarUsuarioPassReg(String passUsuario, String replyPassUsuario) {
 		
 		if(passUsuario.contentEquals(replyPassUsuario) && replyPassUsuario.contentEquals(passUsuario)) {
@@ -177,14 +170,11 @@ public class RegistroUsuarioController extends HttpServlet {
 			msg = "El nombre debe contener 5 caracteres minimo";
 			return error;
 		}
-		if(usuarios.size() > 0) {
-			for (Usuario u : usuarios) {
-				if ( nombreUsuario.equals( u.getNombre() ) ){
-					error = true;
-					msg = "Error intentelo con otro nombre de usuario";
-				}
-			}
-			
+		if(usuarios.size() > 0) { 
+			if ( usuariosDaoJDBC.checkByName(nombreUsuario)){
+				error = true;
+				msg = "Error ya tenemos un usuario con ese nombre, pruebe con otro";
+			}		
 		}
 		return error;
 	}

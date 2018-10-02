@@ -57,13 +57,10 @@
 		           <input name="editarNombre" class="form-control mr-sm-2" type="text" placeholder="Nuevo nombre del video 2 letras" required pattern=".{2,125}">
 		           <button class="btn btn-outline-info my-2 my-sm-0" type="submit">Editar</button>
 		         </form>	          	          
-		       </c:if> -->
-		        
+		       </c:if> -->	        
          </li>            
-       </ul>
-       
-       
-       
+       </ul> 
      </div>
    </div>
  </nav>
+<%@ include file="alert.jsp" %>

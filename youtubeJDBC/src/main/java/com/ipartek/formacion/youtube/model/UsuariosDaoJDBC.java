@@ -1,5 +1,6 @@
 package com.ipartek.formacion.youtube.model;
 
+import java.security.interfaces.RSAKey;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -20,7 +21,9 @@ public class UsuariosDaoJDBC implements CrudAble<Usuario> {
 	private final String SQL_UPDATE = "UPDATE usuario SET nombre=?,email=?,password=? WHERE id=? ";
 	private final String SQL_SELECT = "SELECT * FROM usuario ORDER BY id";
 	private final String SQL_DELETE = "DELETE from usuario WHERE id=?";
-	private final String SQL_CONTRAST = "SELECT id,nombre, pass, role FROM usuario WHERE name = ?  ";
+	private final String SQL_SELECT_BY_NAMEPASS = "SELECT id,nombre, password, role FROM usuario WHERE nombre = ? and password = ? ";
+	private final String SQL_SELECT_BY_NAME = "SELECT id,nombre, password, role FROM usuario WHERE nombre = ?";
+
 
 	private UsuariosDaoJDBC() {
 
@@ -117,21 +120,57 @@ public class UsuariosDaoJDBC implements CrudAble<Usuario> {
 		return usuario;
 	}
 	
-	public boolean checkByNamePass(String nombre, String pass) {
-		ArrayList<Usuario> usuariosArray = new ArrayList<Usuario>();
+	public Usuario checkByNamePass(String nombre, String pass) {
+		Usuario usuario = new Usuario();
+		PreparedStatement ps = null;
 		boolean resul = false;
 		int rows = 0;
 		try (Connection conexion = ConnectionManager.getConnection();
-				PreparedStatement ps = conexion.prepareStatement(SQL_CONTRAST);
-				ResultSet rs = ps.executeQuery();) {
+				
+				) {
+			int index = 1;
+			ps = conexion.prepareStatement(SQL_SELECT_BY_NAMEPASS);
+			ps.setString(index++, nombre);// parametro 1
+			ps.setString(index, pass);	
+			
 			System.out.println("Pasando por checkByNamePass UsuariosDaoJDBC");
+			ResultSet rs = ps.executeQuery();
+			if(rs.next()) {
+				while (rs.next()) {
+					usuario = (rowMapper(rs));
+					
+				}
+			}else {
+				usuario = null;
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return usuario;
+	}
+
+	public boolean checkByName(String nombreUsuario) {
+		boolean resul = false;
+		Usuario usuario = new Usuario();
+		int rows = 0;
+		try (Connection conexion = ConnectionManager.getConnection();
+				PreparedStatement ps = conexion.prepareStatement(SQL_SELECT_BY_NAME);) {
+			int index = 1;
+			ps.setString(index, nombreUsuario);// parametro 1
+			System.out.println("Pasando por checkByNamePass UsuariosDaoJDBC");
+			ResultSet rs = ps.executeQuery();
 			while (rs.next()) {
-				usuariosArray.add(rowMapper(rs));
-				resul = true;
+				usuario = (rowMapper(rs));
+				if(usuario!= null) {
+					resul = true;
+				}
+				
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		
 		return resul;
 	}
 }
