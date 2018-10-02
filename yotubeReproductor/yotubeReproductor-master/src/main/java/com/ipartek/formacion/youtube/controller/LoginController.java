@@ -111,7 +111,7 @@ public class LoginController extends HttpServlet {
 		} finally {
 			session.setAttribute("alert", alert);
 			// request.getRequestDispatcher("home.jsp").forward(request, response);
-			response.sendRedirect(request.getContextPath() + "/view");
+			response.sendRedirect(request.getContextPath() + view);
 		}
 
 	}

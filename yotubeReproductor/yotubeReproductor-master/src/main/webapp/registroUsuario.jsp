@@ -4,7 +4,7 @@
 <%@include file="includes/alert.jsp" %>
 
 
- <main role="main" class="container">
+ <main role="main" class="container mb-auto p-5 bd-highlight ">
 		<h1>REGISTRO DE USUARIOS</h1>
 		<p class="font-italic text-secondary">Los campos con * son obligatorios</p>
 		

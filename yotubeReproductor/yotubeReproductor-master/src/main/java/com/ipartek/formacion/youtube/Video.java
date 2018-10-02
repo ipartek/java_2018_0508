@@ -7,6 +7,7 @@ public class Video {
 	private long id;
 	private String codigo;
 	private String nombre;
+	//añadir un atibuto de tipo usuario
 	
 	public Video() throws Exception {
 		super();
@@ -15,14 +16,14 @@ public class Video {
 		this.nombre = "Surf Search Spot 2 0 video promo";		
 	}
 	
+	//crear un constructor que se inicialice tambien con el usuario
 	public Video(String codigo, String nombre) throws Exception {
 		this();
 		this.id = -1;
 		this.setCodigo(codigo);
 		this.nombre = nombre;
 	}
-
-
+	
 	public void setCodigo(String codigo) throws Exception {
 		if ( codigo != null && codigo.length() == CODIGO_LONGITUD ) {
 			this.codigo = codigo;
@@ -50,6 +51,8 @@ public class Video {
 	public String getCodigo() {
 		return codigo;
 	}
+	
+	//añadir getters y setters de usuario
 
 	@Override
 	public String toString() {

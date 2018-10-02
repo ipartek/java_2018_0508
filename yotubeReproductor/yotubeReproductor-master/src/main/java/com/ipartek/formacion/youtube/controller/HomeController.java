@@ -172,6 +172,8 @@ public class HomeController extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		//recoger el usuario de la sesion
+		
 		Alert alert = null;
 		try {
 
@@ -193,7 +195,9 @@ public class HomeController extends HttpServlet {
 				// insertar
 			} else {
 
+				//llamar al constructor de video que tiene tambien el usuario pasandole el usuario de la sesion
 				videoInicio = new Video(codigo, nombre);
+				
 				if (dao.insert(videoInicio)) {
 					alert = new Alert(Alert.SUCCESS, "Gracias por subir tu video");
 				} else {

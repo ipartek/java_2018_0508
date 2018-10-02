@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.List;
 
 import com.ipartek.formacion.youtube.Usuario;
@@ -13,13 +14,10 @@ public class UsuarioDAO implements CrudAble<Usuario> {
 
 	private static UsuarioDAO INSTANCE = null;
 
-	// private final String SQL_GET_ALL = "SELECT id, nombre, password FROM usuario
-	// ORDER BY id DESC LIMIT 1000;";
-	// private final String SQL_GET_BY_ID = "SELECT id, nombre, password FROM
-	// usuario WHERE id = ?;";
-	// private final String SQL_UPDATE = "UPDATE usuario SET nombre= ? , password= ?
-	// WHERE id = ?;";
-	// private final String SQL_DELETE = "DELETE FROM usuario WHERE id = ?;";
+	private static final String SQL_GET_ALL = "SELECT id, nombre, password, rol FROM usuario ORDER BY id DESC LIMIT 1000;";
+	private static final String SQL_GET_BY_ID = "SELECT id, nombre, password FROM usuario WHERE id = ?;";
+	private static final String SQL_UPDATE = "UPDATE `youtube`.`usuario` SET `id` = ?, `nombre` = ?, `password` = ?, `rol` = ? WHERE `id` = ?;";
+	private static final String SQL_DELETE = "DELETE FROM `youtube`.`usuario` WHERE id = ?;";
 	private static final String SQL_LOGIN = "SELECT `id`, `nombre`, `password`, `rol` FROM youtube.usuario WHERE nombre = ? AND password = ?;";
 	private static final String SQL_INSERT = "INSERT INTO `usuario` (`nombre`, `password`) VALUES (?,?);";
 
@@ -51,9 +49,9 @@ public class UsuarioDAO implements CrudAble<Usuario> {
 			ps.setString(2, pojo.getPassword());
 
 			try (ResultSet rs = ps.executeQuery()) {
-				
+
 				if (rs != null && rs.next()) {
-					resul = RowMapper(rs, pojo);
+					resul = rowMapper(rs, pojo);
 
 				}
 			}
@@ -99,7 +97,20 @@ public class UsuarioDAO implements CrudAble<Usuario> {
 	@Override
 	public List<Usuario> getAll() {
 
-		return null;
+		ArrayList<Usuario> usuarios = new ArrayList<Usuario>();
+		try (Connection con = ConnectionManager.getConnection();
+				PreparedStatement ps = con.prepareStatement(SQL_GET_ALL);
+				ResultSet rs = ps.executeQuery();) {
+
+			while (rs.next()) {
+				usuarios.add(rowMapper(rs, null));
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return usuarios;
 	}
 
 	@Override
@@ -125,7 +136,7 @@ public class UsuarioDAO implements CrudAble<Usuario> {
 		return null;
 	}
 
-	private Usuario RowMapper(ResultSet rs, Usuario u) throws SQLException {
+	private Usuario rowMapper(ResultSet rs, Usuario u) throws SQLException {
 
 		if (u == null) {
 			u = new Usuario();

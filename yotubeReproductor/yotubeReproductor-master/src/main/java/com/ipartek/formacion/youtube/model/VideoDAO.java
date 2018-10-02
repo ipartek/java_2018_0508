@@ -17,6 +17,7 @@ public class VideoDAO implements CrudAble<Video> {
 	private final String SQL_GET_BY_ID = "SELECT  id, codigo, nombre FROM video WHERE id = ?;";
 	private final String SQL_UPDATE = "UPDATE video SET codigo= ? , nombre= ? WHERE id = ?;";
 	private final String SQL_DELETE = "DELETE FROM video WHERE id = ?;";
+	//añadir la columna de id_usuario
 	private final String SQL_INSERT = "INSERT INTO video (codigo, nombre) VALUES (?,?);";
 
 	private VideoDAO() {
@@ -38,6 +39,7 @@ public class VideoDAO implements CrudAble<Video> {
 
 			ps.setString(1, pojo.getCodigo());
 			ps.setString(2, pojo.getNombre());
+			//añadir un nuevo setInt para el id del usuario
 
 			int affectedRows = ps.executeUpdate();
 			if (affectedRows == 1) {
@@ -49,9 +51,6 @@ public class VideoDAO implements CrudAble<Video> {
 						resul = true;
 
 					}
-
-				} catch (Exception e) {
-					e.printStackTrace();
 
 				}
 			}
