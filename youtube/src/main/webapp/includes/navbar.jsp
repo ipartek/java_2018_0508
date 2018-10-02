@@ -29,8 +29,8 @@
 							<li class="nav-item">
 								<div class="text-light text-right m-1">
 									Bienvenido <i class="fas fa-user-circle"></i>${usuario.nombre}
-									<a class="text-pika-red" href="backoffice/index.jsp">Acceder BackOffice</a>
-									<a class="text-pika-red" href="logout">Cerrar Sesion</a>
+									<a class="text-pika-yellow" href="backoffice/index.jsp">Acceder BackOffice</a>
+									<a class="text-pika-yellow" href="logout">Cerrar Sesion</a>
 								</div>
 							</li>
 						</ul>

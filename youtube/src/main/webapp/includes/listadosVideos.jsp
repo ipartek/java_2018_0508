@@ -10,9 +10,9 @@
 						<a href="inicio?id=${v.id}">${v.nombre}</a>
 						<c:if test="${sessionScope.usuario.rol eq 0}">
 							<!-- Opcion Editar -->
-							<i onclick="showModalModificar(${v.id},${HomeController.OP_MODIFICAR},'${v.nombre}')" class="fas fa-pencil-alt text-warning"></i>
+							<i onclick="showModalModificar(${v.id},${HomeController.OP_MODIFICAR},'${v.nombre}')" class="fas fa-pencil-alt text-pika-purple"></i>
 							<!-- Opcion Eliminar -->
-							<i onclick="showModalEliminar(${v.id},${HomeController.OP_ELIMINAR})" class="fas fa-trash-alt text-danger"></i>
+							<i onclick="showModalEliminar(${v.id},${HomeController.OP_ELIMINAR})" class="fas fa-trash-alt text-pika-red"></i>
 						</c:if>
 					</li>
 				</c:forEach>

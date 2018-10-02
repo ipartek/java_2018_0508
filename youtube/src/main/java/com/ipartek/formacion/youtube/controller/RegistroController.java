@@ -41,9 +41,9 @@ public class RegistroController extends HttpServlet {
 		Alert alert = null;
 		
 		try {
-			String nombre = request.getParameter("nombre");
-			String pass = request.getParameter("pass");
-			String pass2 = request.getParameter("pass2");
+			String nombre = request.getParameter("nombre").trim();
+			String pass = request.getParameter("pass").trim();
+			String pass2 = request.getParameter("pass2").trim();
 
 			if (nombre != null && pass != null && pass2 != null) {
 				if (!dao.mirarNombre(nombre)) {
@@ -66,7 +66,7 @@ public class RegistroController extends HttpServlet {
 				}
 			}else {
 				session.setAttribute("alert", alert);
-				response.sendRedirect("inicio");
+				response.sendRedirect(request.getContextPath()+"inicio");
 			}
 			
 		} catch (Exception e) {

@@ -7,20 +7,33 @@ body{
 	height: 100px; 
 }
 
+
+li.nav-item a img{
+	margin: 0.25em;
+}
+/****
+*	BG-Colorsm, Colores y botones Custom
+******************************************************************/
 .bg-pika{
 	background-color: #5C72FC;
 }
 .bg-pika-red{
 	background-color: #FC5C72;
 }
+.bg-pika-purple{
+	background-color: #965CFC;
+}
+.text-pika-purple{
+	color: #965CFC;
+}
 .text-pika-red{
-	color: 	#FCE65C;
+	color: 	#FC5C72;
 }
-.text-pika-red:hover{
-	color: 	#FCE65C !important;
+.text-pika-yellow{
+	color: #FCE65C;
 }
-li.nav-item a img{
-	margin: 0.25em;
+.text-pika-blue{
+	color: #5C72FC;
 }
 .text-pika{
 	color: 	#72FC5C;
@@ -31,6 +44,15 @@ a.text-pika{
 a.text-pika:hover{
 	color: 	#72FC5C !important;
 }
+a.text-pika-red:hover{
+	color: 	#FC5C72 !important;
+}
+a.text-pika-yellow:hover{
+	color: 	#FCE65C !important;
+}
+a.text-pika-blue:hover{
+	color: 	#5C72FC !important;
+}
 .btn-outline-pika {
     color: #72FC5C;
     border-color: #72FC5C;
@@ -40,11 +62,38 @@ a.text-pika:hover{
     background-color: #72FC5C;
     border-color: #72FC5C;
 }
+.btn-outline-pika-blue {
+    color: #5C72FC;
+    border-color: #5C72FC;
+}
+.btn-outline-pika-blue:hover {
+    color: #FFF;
+    background-color: #5C72FC;
+    border-color: #5C72FC;
+}
+.btn-outline-pika-red {
+    color: #FC5C72;
+    border-color: #FC5C72;
+}
+.btn-outline-pika-red:hover {
+    color: #000;
+    background-color: #FC5C72;
+    border-color: #FC5C72;
+}
+.btn-outline-pika-purple {
+    color: #965CFC;
+    border-color: #965CFC;
+}
+.btn-outline-pika-purple:hover {
+    color: #FFF;
+    background-color: #965CFC;
+    border-color: #965CFC;
+}
 .list-group-item:hover{
 	background-color: #C6FDBD;
 }
 /******
-*	Pantalla de Login
+*	Pantalla de Login y de registro
 ***********************************************************/
 .fondo-login{
 	background:url("../images/logo.png");

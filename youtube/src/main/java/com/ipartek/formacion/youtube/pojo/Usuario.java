@@ -15,8 +15,8 @@ public class Usuario {
 
 	public Usuario(String nombre, String contrasenya) {
 		this();
-		this.nombre = nombre;
-		this.contrasenya = contrasenya;
+		this.nombre = nombre.trim();
+		this.contrasenya = contrasenya.trim();
 	}
 
 
@@ -32,7 +32,7 @@ public class Usuario {
 	}
 
 	public void setNombre(String nombre) {
-		this.nombre = nombre;
+		this.nombre = nombre.trim();
 	}
 
 	public String getContrasenya() {
@@ -40,7 +40,7 @@ public class Usuario {
 	}
 
 	public void setContrasenya(String contrasenya) {
-		this.contrasenya = contrasenya;
+		this.contrasenya = contrasenya.trim();
 	}
 
 	public int getRol() {

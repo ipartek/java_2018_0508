@@ -49,11 +49,11 @@
 		<h1><i class="fas fa-user-circle"></i>Nuevo Usuario</h1>
 			<form action="altaUsuario" method="post">
        	<label for="nombre">Introduzca su nombre:</label>
-       	<input  class="form-control" id="nombre" name="nombre" type="text" value="${nombre}" required autofocus/>
+       	<input  class="form-control" id="nombre" name="nombre" type="text" value="${nombre}" required autofocus maxlength="50" pattern="{3,50}"/>
        	<label for="pass">Introduzca su contraseña:</label>
-       	<input class="form-control" id="pass" name="pass" type="password" value="" required/>
+       	<input class="form-control" id="pass" name="pass" type="password" value="" required maxlength="20" pattern="{8,20}"/>
        	<label for="pass">Repita la contraseña:</label>
-       	<input class="form-control" id="pass2" name="pass2" type="password" value="" required/>
+       	<input class="form-control" id="pass2" name="pass2" type="password" value="" required maxlength="20" pattern="{8,20}"/>
        		<br>
        		<input class="btn btn-outline-info btn-outline-pika btn-block" type="submit" value="Darse de Alta" />
        </form>

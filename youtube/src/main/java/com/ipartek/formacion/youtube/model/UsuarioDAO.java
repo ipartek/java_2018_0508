@@ -41,8 +41,8 @@ public class UsuarioDAO implements CrudAble<Usuario> {
 		try (Connection con = ConnectionManager.getConnection();
 				PreparedStatement ps = con.prepareStatement(SQL_INSERT,Statement.RETURN_GENERATED_KEYS);) {
 
-			ps.setString(1, pojo.getNombre());
-			ps.setString(2, pojo.getContrasenya());
+			ps.setString(1, pojo.getNombre().trim());
+			ps.setString(2, pojo.getContrasenya().trim());
 
 			int affectedRows = ps.executeUpdate();
 			if (affectedRows == 1) {
