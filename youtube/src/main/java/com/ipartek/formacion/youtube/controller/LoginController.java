@@ -21,7 +21,9 @@ import com.ipartek.formacion.youtube.pojo.Usuario;
 public class LoginController extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
-
+	
+	private static final String VIEW_INICIO_ADMIN = "/backoffice/inicio";
+	private static final String VIEW_INICIO_USER = "/inicio";
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
 	 *      response)
@@ -44,7 +46,6 @@ public class LoginController extends HttpServlet {
 
 			request.getLocale().toString();
 
-			
 			String nombre = (String) request.getParameter("usuario");
 			String contrasenya = (String) request.getParameter("pass");
 			String cookieNombre = (String) request.getParameter("recordar");
@@ -63,7 +64,12 @@ public class LoginController extends HttpServlet {
 				 * alert = new Alert("Bienvenido", Alert.SUCCESS);
 				 * alert.setTexto(MessageFormat.format(idiomas.getString("msj.bienvenida"),nombre));
 				 */
-				response.sendRedirect(request.getContextPath() + "/inicio");
+				if (u.getRol() == Usuario.ROL_ADMIN) {
+					response.sendRedirect(request.getContextPath() + VIEW_INICIO_ADMIN);
+				}else {
+					response.sendRedirect(request.getContextPath() + VIEW_INICIO_USER);
+				}
+				
 				
 			} else {
 				alert = new Alert("Usuario o contraseña incorrectos.Si aun no se a registrado, <a href='registroUsuario.jsp'> registrese.:D</a>", Alert.DANGER);
@@ -73,12 +79,7 @@ public class LoginController extends HttpServlet {
 
 		} catch (Exception e) {
 			e.printStackTrace();
-		} finally {
-			// Ir a la vista
-			
-			//
 		}
-
 	}
 
 	private Usuario comprobarCredenciales(String nombre, String contrasenya) {

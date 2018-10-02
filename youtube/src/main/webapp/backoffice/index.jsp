@@ -59,7 +59,12 @@
 	<main class="container" role="main">
 		<div class="row">
 			<div class="col-3">
-				<a href="usuarios">Listado de Usuarios</a>
+				<h2>Usuarios:</h2>
+				<p>Hay ${usuarios} registrados en la app</p>
+			</div>
+			<div class="col-3">
+				<h2>Videos:</h2>
+				<p>Hay ${videos} registrados en la app</p>
 			</div>
 		</div>
 	</main>

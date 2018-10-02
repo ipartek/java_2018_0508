@@ -2,6 +2,9 @@ package com.ipartek.formacion.youtube.pojo;
 
 public class Usuario {
 
+	public static final int ROL_ADMIN = 0;
+	public static final int ROL_USER = 1;
+	
 	private long id;
 	private String nombre;
 	private String contrasenya;
