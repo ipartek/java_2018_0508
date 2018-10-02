@@ -4,12 +4,9 @@
 
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
-<c:set var="idioma" value="${(not empty sessionScope.idioma)?sessionScope.idioma:'es_ES'}" />
-<fmt:setLocale value="${idioma}" />
-<fmt:setBundle basename="idiomas" /> 
 
 <!DOCTYPE html>
-<html lang="${idioma}">
+<html lang="es_ES">
 
   <head>
 
