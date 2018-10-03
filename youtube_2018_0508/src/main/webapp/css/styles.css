@@ -1,0 +1,9 @@
+/*Hoja de estilos propia*/
+ .botones-idioma:active{
+ 	background-color: orange;
+ }
+ 
+ .required::before{
+    content:"*";
+    color:#f00;
+}
