@@ -1,4 +1,4 @@
-<%@page import="com.ipartek.formacion.youtube.pojo.Usuario"%>
+<%@ page import="com.ipartek.formacion.youtube.pojo.Usuario"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@include file="../includes/header.jsp" %>   
 <%@include file="../includes/nav.jsp" %>   
@@ -42,7 +42,7 @@
 				<input type="submit" value="${(usuario.id == -1)? 'Crear' : 'Modificar' }" class="btn btn-primary btn-block" />
 			
 				<c:if test="${usuario.id > 0 }">
-					<a href="usuarios?id=${usuario.id}&op=2" onclick="confirmar(event)" class="btn btn-danger btn-block">Eliminar</a>				
+					<a href="usuarios?id=${usuario.id}&op=1" onclick="confirmar(event)" class="btn btn-danger btn-block">Eliminar</a>				
 				</c:if>
 			
 			</form>
