@@ -48,6 +48,25 @@ public class BackofficeUsuarioController extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
+		//recoger parametros del formulario		
+		String id = request.getParameter("id");
+		String nombre = request.getParameter("nombre");
+		String password = request.getParameter("password");
+		String rol = request.getParameter("rol");
+		
+		
+		//TODO comprobar si es CREAR o MODIFICAR y llamar DAO		
+		Usuario usuario = new Usuario();		
+		usuario.setId( Long.parseLong(id)); 
+		usuario.setNombre(nombre);
+		usuario.setPassword(password);
+		usuario.setRol( Integer.parseInt(rol));
+				
+		
+		request.setAttribute("usuario", usuario);
+		request.getRequestDispatcher("usuarios/form.jsp").forward(request, response);
+		
+		
 	}
 	
 	

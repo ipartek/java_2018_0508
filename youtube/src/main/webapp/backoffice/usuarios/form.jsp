@@ -1,3 +1,5 @@
+<%@page import="com.ipartek.formacion.youtube.pojo.Usuario"%>
+
 <%@ include file="../includes/header.jsp" %>
 <%@ include file="../includes/nav.jsp" %>
 
@@ -10,15 +12,48 @@
       </div>
       <!-- /.row -->
       <div class="row">
-      		${usuario}
-      		<form action="usuarios" method="post">
       		
+      		<form action="usuarios" method="post">
+      			
+      			<div class="form-group">
+				   <label for="id">Id</label>
+				   <input type="text" class="form-control" name="id" id="id" value="${usuario.id}" readonly>
+				</div>
+				
+				<div class="form-group">
+				   <label for="nombre">Nombre</label>
+				   <input type="text" class="form-control" name="nombre" id="nombre" value="${usuario.nombre}" autofocus>
+				</div>
+				
+				<div class="form-group">
+				   <label for="password">Contraseña</label>
+				   <input type="password" class="form-control" name="password" id="password" value="${usuario.password}">
+				</div>
+				
+				<div class="form-group">
+				   <label for="rol">Rol</label>
+				   <select name="rol" class="form-control">
+				   		<option value="${Usuario.ROL_USER}">Normal</option>
+				   		<option value="${Usuario.ROL_ADMIN}">Administrador</option>
+				   </select>
+				</div>
+      		      		
       			<input type="submit" value="${(usuario.id == -1)?'Crear': 'Modificar' }" class="btn btn-primary btn-block">
       			<c:if test="${usuario.id > 0}">
-      				<a href="#" class="btn btn-danger btn-block">Eliminar(Modal)</a>
+      				<a href="usuarios?id=${usuario.id}&op=45" onclick="confirmar(event)" class="btn btn-danger btn-block">Eliminar(Modal)</a>
       			</c:if>	
       		</form>
       		
+      		<script>
+      			function confirmar( e ) {					
+      				if ( confirm('¿Estas seguro que quieres ELIMINAR ?') ){
+      					console.log('confirmado eliminar');
+      				}else{
+      					//prevenir el evento por defecto de <a href=''>
+      					e.preventDefault();
+      				}      				
+				}
+      		</script>
       		
       </div>      
      
