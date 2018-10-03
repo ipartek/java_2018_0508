@@ -8,7 +8,8 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import com.adriana.prado.pojo.Usuario;
+import com.ipartek.formacion.model.UsuarioDAO;
+import com.ipartek.formacion.pojo.Usuario;
 
 public class UsuarioDAOTest {
 	

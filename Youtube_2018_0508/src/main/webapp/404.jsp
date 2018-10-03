@@ -1,8 +1,8 @@
 <!DOCTYPE html>
-<%@page import="com.adriana.prado.pojo.Usuario"%>
-<%@page import="com.adriana.prado.pojo.Alert"%>
-<%@page import="com.adriana.prado.controller.HomeController"%>
-<%@page import="com.adriana.prado.pojo.Video"%>
+<%@page import="com.ipartek.formacion.pojo.Usuario"%>
+<%@page import="com.ipartek.formacion.pojo.Alert"%>
+<%@page import="com.ipartek.formacion.controller.HomeController"%>
+<%@page import="com.ipartek.formacion.pojo.Video"%>
 <%@page import="java.util.ArrayList"%>
 
 <%@ page isErrorPage="true" %>

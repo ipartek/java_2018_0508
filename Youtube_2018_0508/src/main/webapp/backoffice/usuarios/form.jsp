@@ -1,6 +1,6 @@
 <!-- Formulario de Usuarios -->
 
-<%@page import="com.adriana.prado.pojo.Usuario"%>
+<%@page import="com.ipartek.formacion.pojo.Usuario"%>
 <%@include file="../includes/taglibs.jsp"%>
 
 <%@include file="../includes/header.jsp"%>
