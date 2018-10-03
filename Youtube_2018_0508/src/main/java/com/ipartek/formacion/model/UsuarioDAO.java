@@ -14,7 +14,7 @@ public class UsuarioDAO implements Crudable<Usuario>{
 	
 	private static final String SQL_INSERT = "INSERT INTO usuario (nombre, password) VALUES (?, ?);";
 	private static final String SQL_GET_ALL = "SELECT id, nombre, password, rol FROM usuario ORDER BY id DESC LIMIT 1000";
-	private static final String SQL_GET_BY_ID = "SELECT nombre, password FROM usuario WHERE id = ?;";
+	private static final String SQL_GET_BY_ID = "SELECT id, nombre, password, rol FROM usuario WHERE id = ?;";
 	private static final String SQL_GET_BY_NOMBRE = "SELECT id, nombre, password, rol FROM usuario WHERE nombre = ? AND password = ?;";
 	private static final String SQL_UPDATE = "UPDATE usuario SET nombre = ?, password = ? WHERE id = ?;";
 	private static final String SQL_DELETE = "DELETE FROM usuario WHERE id = ?;";
