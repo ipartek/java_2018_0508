@@ -27,6 +27,8 @@
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css">
     <!-- Fonts -->
     <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+    <!-- DataTable -->
+    <link rel="stylesheet" href="//cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css">
     <!-- Custom CSS -->
 	<link href="css/style.css" rel="stylesheet" type="text/css"/>
 	<link href="backoffice/css/sb-admin-2.css" rel="stylesheet" type="text/css"/>

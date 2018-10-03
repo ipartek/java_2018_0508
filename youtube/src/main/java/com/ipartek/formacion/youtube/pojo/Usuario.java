@@ -2,6 +2,7 @@ package com.ipartek.formacion.youtube.pojo;
 
 public class Usuario {
 
+
 	public static final int ROL_ADMIN = 0;
 	public static final int ROL_USER = 1;
 	
@@ -54,7 +55,11 @@ public class Usuario {
 		this.rol = rol;
 	}
 	
-	
+
+	@Override
+	public String toString() {
+		return "Usuario [id=" + id + ", nombre=" + nombre + ", contrasenya=" + contrasenya + ", rol=" + rol + "]";
+	}
 	
 	
 }
