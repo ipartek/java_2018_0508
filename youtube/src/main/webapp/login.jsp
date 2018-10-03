@@ -53,7 +53,7 @@
 					 <br> <input type="checkbox" name="recordar" checked><small>Recuerdame</small>
 				</div>
 				<div class="form-group">
-					<input name="pass" class="form-control mr-2" type="password" placeholder="Contraseña" required pattern=".{2,50}">
+					<input name="pass" class="form-control mr-2" type="password" placeholder="Contraseña" required pattern=".{2,50}" value="manoli">
 				</div>
 				<button class="btn btn-outline-info btn-outline-pika btn-block mr-2"
 					type="submit">Entrar</button>

@@ -12,6 +12,13 @@
         	<div class="row">
         		<div class="col-md-12">
         			<h2>${(usuario.id == 0)?'Crear usuario':usuario.nombre}</h2>
+        			<!-- Tratamiento de las alertas -->
+					<c:if test="${not empty alert}">
+						<div class="alert alert-${alert.tipo} alert-dismissible" role="alert">
+							<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+							<strong>${alert.texto}</strong>
+						</div>
+					</c:if>
         		</div>
         	</div>
         	<div class="row m-auto">

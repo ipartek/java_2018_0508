@@ -8,7 +8,9 @@
 	<script src="//cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
 	<script>
 		$(document).ready( function () {
-		    $('#tablaBackoffice').DataTable();
+		    $('#tablaBackoffice').DataTable({
+		    	"order": [[ 0, "desc" ]]
+		    });
 		} );
 		
 		function showModalEliminar(id) {
