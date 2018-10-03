@@ -39,15 +39,26 @@ public class BackofficeUsuarioController extends HttpServlet {
 		try {
 			String view = request.getParameter("view");
 			usuarios = (ArrayList<Usuario>) usuariosJDBC.getAll();
+			String id = request.getParameter("id");
+			Usuario usuarioSeleccionado = new Usuario();
 			
 			
 			if(usuarios != null) {
 				request.setAttribute("usuarios", usuarios);
+
 			}
 			if (view == null) {
 				view = "tree";
 			}
-			
+			//Si viene id automaticamente cambiamos a vista formulario
+			if(id != null) {
+				view = "form";
+				usuarioSeleccionado = usuariosJDBC.getById(id);
+				/*if("".contentEquals(usuarioSeleccionado.getNombre())){
+					usuarioSeleccionado = null;
+				}*/
+			}
+			request.setAttribute("usuarioSeleccionado",usuarioSeleccionado);
 			request.setAttribute("view", view);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -57,6 +68,18 @@ public class BackofficeUsuarioController extends HttpServlet {
 		}
 		
 	}
+
+/*	private Object getUsuariosVirtuales() {
+		Usuario user = new Usuario();
+		ArrayList<Usuario> usuariosVirtuales = new ArrayList<Usuario>();
+		for(int i = 1; i <= 100;i++) {
+			user.setId(i);
+			user.setNombre("usuario"+i);
+			usuariosVirtuales.add(user);
+		}
+		return usuariosVirtuales;
+	}*/
+
 
 	private String setView(String treeView, String formView, String kanbanView) {
 		if(treeView != null) {
@@ -76,8 +99,33 @@ public class BackofficeUsuarioController extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
+		try {
+			Usuario usuario = null;
+			String id = request.getParameter("id");
+			String nombreUsuario = request.getParameter("nombreUsuario");
+			String passwordUsuario = request.getParameter("passwordUsuario");
+			//String rol = request.getParameter("rol");
+			
+			if(nombreUsuario != null && passwordUsuario != null) {
+				usuario = new Usuario(nombreUsuario,passwordUsuario);
+				//usuarios.add(usuario);
+				usuariosJDBC.insert(usuario);
+			}
+			
+/*			Usuario usuario = new Usuario();
+			usuario.setId(Integer.parseInt(id));
+			usuario.setNombre(nombreUsuario);
+			usuario.setPass(passwordUsuario);*/
+			//usuario.setRol(Integer.parseInt(rol));
+			
+			request.setAttribute("usuario", usuario);
+			request.getRequestDispatcher("usuario/index.jsp").forward(request, response);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		
+		
 	}
 
 }

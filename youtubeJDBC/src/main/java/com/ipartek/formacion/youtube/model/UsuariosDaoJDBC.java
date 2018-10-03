@@ -18,10 +18,13 @@ public class UsuariosDaoJDBC implements CrudAble<Usuario> {
 	// querys CRUD
 	private final String SQL_INSERT = "INSERT INTO usuario(nombre,password) VALUES(?,?);";
 	private final String SQL_UPDATE = "UPDATE usuario SET nombre=?,email=?,password=? WHERE id=? ;";
-	private final String SQL_SELECT = "SELECT * FROM usuario ORDER BY id ;";
+	private final String SQL_SELECT = "SELECT * FROM usuario ORDER BY id DESC ;";
 	private final String SQL_DELETE = "DELETE from usuario WHERE id=?;";
 	private final String SQL_SELECT_BY_NAMEPASS = "SELECT id,nombre, password, rol FROM usuario WHERE nombre = ? and password = ? ;";
 	private final String SQL_SELECT_BY_NAME = "SELECT id,nombre, password, rol FROM usuario WHERE nombre = ?;";
+	private final String SQL_SELECT_BY_ID = "SELECT id,nombre, password, rol FROM usuario WHERE id = ?;";
+
+
 
 	private UsuariosDaoJDBC() {
 
@@ -84,20 +87,82 @@ public class UsuariosDaoJDBC implements CrudAble<Usuario> {
 
 	@Override
 	public Usuario getById(String id) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+		Usuario u = new Usuario();
+		PreparedStatement ps = null;
+		boolean resul = false;
+		try (Connection conexion = ConnectionManager.getConnection();) {
+			int index = 1;
+			ps = conexion.prepareStatement(SQL_SELECT_BY_ID);
+			ps.setString(index, id);// parametro 1
+
+
+			System.out.println("Pasando por checkByNamePass UsuariosDaoJDBC");
+			ResultSet rs = ps.executeQuery();
+			while (rs.next()) {
+				u = (rowMapper(rs));
+			}
+			if(u.getNombre() == "" && u.getPass() == "") {
+				u = null;
+			}		
+		}catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+			return u;
+		}
 
 	@Override
 	public boolean delete(String id) {
-		// TODO Auto-generated method stub
-		return false;
+		String idString = String.valueOf(id);
+		PreparedStatement ps = null;
+		boolean resul = false;
+		int rows;
+		
+		try(Connection conexion = ConnectionManager.getConnection();) {
+			
+			int index = 1;
+			ps = conexion.prepareStatement(SQL_DELETE);
+			ps.setString(index, idString);// parametro 1
+			rows = ps.executeUpdate();
+			if (rows == 1) {
+				resul = true;
+			}else {
+				resul = false;
+			}
+			
+		} catch (Exception e) {
+			System.out.println("Error en UsuariosDAO delete");
+			e.printStackTrace();
+		}
+		return resul;
 	}
 
 	@Override
 	public boolean update(Usuario pojo) {
-		// TODO Auto-generated method stub
-		return false;
+		PreparedStatement ps = null;
+		boolean resul = false;
+		int rows;
+		
+		try(Connection conexion = ConnectionManager.getConnection();) {
+			
+			int index = 1;
+			ps = conexion.prepareStatement(SQL_UPDATE);
+			ps.setLong(index, pojo.getId());// parametro 1
+			ps.setString(index, pojo.getNombre());// parametro 1
+			ps.setString(index, pojo.getPass());// parametro 1
+			ps.setInt(index, pojo.getRol());// parametro 1
+			rows = ps.executeUpdate();
+			if (rows == 1) {
+				resul = true;
+			}else {
+				resul = false;
+			}
+			
+		} catch (Exception e) {
+			System.out.println("Error en UsuariosDAO delete");
+			e.printStackTrace();
+		}
+		return resul;
 	}
 
 	private Usuario rowMapper(ResultSet rs) throws Exception {

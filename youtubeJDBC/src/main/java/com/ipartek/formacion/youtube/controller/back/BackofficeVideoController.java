@@ -23,6 +23,7 @@ public class BackofficeVideoController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private static VideoDAO videosJDBC;
 	private ArrayList<Video> videos;
+	private String view = "tree";
 	
 	@Override
 	public void init(ServletConfig config) throws ServletException {	
@@ -38,10 +39,26 @@ public class BackofficeVideoController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		try {
+			String view = request.getParameter("view");
+			String id = request.getParameter("id");
 			videos = (ArrayList<Video>) videosJDBC.getAll();
+			Video videoSeleccionado = new Video();
+
+			
 			if(videos != null) {
 				request.setAttribute("videos", videos);
 			}
+			
+			if (view == null) {
+				view = "tree";
+			}
+			//Si viene id automaticamente cambiamos a vista formulario
+			if(id != null) {
+				view = "form";
+				videoSeleccionado = videosJDBC.getById(id);
+			}
+			
+			request.setAttribute("view", view);
 			
 		} catch (Exception e) {
 			e.printStackTrace();

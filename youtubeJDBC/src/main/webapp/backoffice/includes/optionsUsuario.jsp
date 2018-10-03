@@ -1,3 +1,4 @@
+
 <div class="options">
 	<c:if test="${view != 'form'}">
 		<a href="<%=request.getContextPath()%>/backoffice/usuario?view=form"><i class="fab fa-wpforms fa-3x"></i></a>
