@@ -35,9 +35,10 @@
 			</div>
 
 			<div class="form-group">
-				<label for="rol">Rol</label> <select name="rol" class="form-control">
-					<option value="${Usuario.ROL_USER}">Normal</option>
-					<option value="${Usuario.ROL_ADMIN}">Administrador</option>
+				<label for="rol">Rol</label> 
+				<select name="rol" class="form-control" value="${usuario.rol}">
+					<option value="${Usuario.ROL_USER}" ${(usuario.rol==1)?'selected':''}>Normal</option>
+					<option value="${Usuario.ROL_ADMIN}" ${(usuario.rol==0)?'selected':''}>Administrador</option>
 				</select>
 			</div>
 
@@ -45,7 +46,7 @@
 				value="${(usuario.id == -1)?'Crear': 'Modificar'}"
 				class="btn btn-primary btn-block">
 			<c:if test="${usuario.id > 0 }">
-				<a href="usuario?id=${usuario.id}&op0=45" onclick="confirmar(event)"
+				<a href="usuarios?id=${usuario.id}&op=borrar" onclick="confirmar(event)"
 					class="btn btn-danger btn-block">Eliminar(Confirmar)</a>
 			</c:if>
 		</form>

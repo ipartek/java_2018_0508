@@ -17,7 +17,7 @@ public class UsuarioDAO implements CrudAble<Usuario> {
 
 	private static final String SQL_GET_ALL = "SELECT id, nombre, password, rol FROM usuario ORDER BY id DESC LIMIT 1000;";
 	private static final String SQL_GET_BY_ID = "SELECT id, nombre, password, rol FROM usuario WHERE id = ?;";
-	private static final String SQL_UPDATE = "UPDATE `youtube`.`usuario` SET `id` = ?, `nombre` = ?, `password` = ?, `rol` = ? WHERE `id` = ?;";
+	private static final String SQL_UPDATE = "UPDATE `youtube`.`usuario` SET `nombre` = ?, `password` = ?, `rol` = ? WHERE `id` = ?;";
 	private static final String SQL_DELETE = "DELETE FROM `youtube`.`usuario` WHERE id = ?;";
 	private static final String SQL_LOGIN = "SELECT `id`, `nombre`, `password`, `rol` FROM youtube.usuario WHERE nombre = ? AND password = ?;";
 	private static final String SQL_INSERT = "INSERT INTO `usuario` (`nombre`, `password`) VALUES (?,?);";
@@ -151,7 +151,8 @@ public class UsuarioDAO implements CrudAble<Usuario> {
 				PreparedStatement ps = con.prepareStatement(SQL_UPDATE);) {
 			ps.setString(1, pojo.getNombre());
 			ps.setString(2, pojo.getPassword());
-			ps.setLong(3, pojo.getId());
+			ps.setInt(3, pojo.getRol());
+			ps.setLong(4, pojo.getId());
 
 			if (ps.executeUpdate() == 1) {
 				resul = true;
