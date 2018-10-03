@@ -52,17 +52,7 @@
 	<!-- /row -->	
 </div>
 
-<script>
-	function confirmar(e){
-		if(confirm('¿Estas seguro que quieres eliminar?')){
-			console.log('confirmado eliminar');
-		}else{
-			
-			e.preventDefault();
-		}
-	}
 
-</script>
 
 
 
