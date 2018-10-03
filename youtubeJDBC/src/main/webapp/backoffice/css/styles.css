@@ -1,0 +1,21 @@
+i{
+	margin-left:10px;
+	margin-bottom: 10px;
+}
+.nav-top{
+	background: #343A40;
+}
+
+.options{
+	width: 100%;
+	display:flex;
+	flex-flow:row wrap;
+	justify-content: flex-end;
+}
+
+.contenedor-cartas{
+	width: 100%;
+	display:flex;
+	flex-flow:row nowrap;
+	justify-content: space-between;
+	}
