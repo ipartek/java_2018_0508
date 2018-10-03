@@ -4,52 +4,68 @@ import java.util.ArrayList;
 import java.util.List;
 import com.ipartek.formacion.libroElectronicoColaborativo.pojo.Pagina;
 
-public class PaginaArrayListDAO implements CrudAble<Pagina>{
+public class PaginaArrayListDAO implements CrudAble<Pagina> {
 
 	private static PaginaArrayListDAO INSTANCE = null;
-	private static List<Pagina> paginas = null;
-	
+	private static List<Pagina> libro = null;
+
 	private PaginaArrayListDAO() {
-		paginas = new ArrayList<Pagina>();
+		libro = new ArrayList<Pagina>();
 		try {
-			paginas.add( new Pagina("Erase una vez", "Anonimo"));
-		} catch (Exception e) {			
+			Pagina p = new Pagina();
+			p.setAutor("Anonimo");
+			libro.add(p);
+			libro.add(p);
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
+
 	}
-	
+
 	public static synchronized PaginaArrayListDAO getInstance() {
-		if(INSTANCE == null) {
+		if (INSTANCE == null) {
 			INSTANCE = new PaginaArrayListDAO();
 		}
-		
+
 		return INSTANCE;
 	}
 
 	@Override
 	public boolean insert(Pagina pojo) {
-		return paginas.add(pojo);
+		return libro.add(pojo);
 	}
 
 	@Override
 	public List<Pagina> getAll() {
-		return paginas;
+		return libro;
 	}
 
 	@Override
 	public Pagina getById(String id) {
+		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
 	public boolean update(Pagina pojo) {
+		// TODO Auto-generated method stub
 		return false;
 	}
 
 	@Override
 	public boolean delete(String id) {
+		// TODO Auto-generated method stub
 		return false;
+	}
+	
+	public Pagina paginaXPos(int nPagina) {
+		Pagina p = new Pagina();
+		p = libro.get(nPagina);
+		return p;
+	}
+	
+	public int total() {
+		return libro.size();
 	}
 
 }

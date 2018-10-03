@@ -87,7 +87,7 @@ public class LoginController extends HttpServlet {
 		}catch(Exception e) {
 			e.printStackTrace();
 		}finally {
-			response.sendRedirect(request.getContextPath() + "/inicio" );
+			response.sendRedirect(request.getContextPath() + "/home" );
 		}
 	}
 

@@ -6,8 +6,8 @@
             	<div class="col col-md-6">
             	
                 	<div class="form-group">
-                    	<label for="pagina" class="required">Escribe tu pagina:</label>
-                    	<textarea class="form-control" id="pagina" name="pagina" rows="5" placeholder="Erase una vez..."></textarea>
+                    	<label for="texto" class="required">Escribe tu pagina:</label>
+                    	<textarea class="form-control" id="texto" name="texto" rows="5" placeholder="Erase una vez..."></textarea>
                     </div>
                                        
                 	<button type="submit" class="btn btn-outline-primary btn-block">Escribir</button>            

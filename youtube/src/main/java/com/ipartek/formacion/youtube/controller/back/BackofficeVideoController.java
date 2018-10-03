@@ -9,38 +9,41 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.ipartek.formacion.youtube.model.UsuarioDAO;
-import com.ipartek.formacion.youtube.pojo.Usuario;
+import com.ipartek.formacion.youtube.model.VideoDAO;
+import com.ipartek.formacion.youtube.pojo.Video;
 
 /**
  * Servlet implementation class BackofficeUsuarioController
  */
-@WebServlet("/backoffice/usuarios")
-public class BackofficeUsuarioController extends HttpServlet {
+@WebServlet("/backoffice/videos")
+public class BackofficeVideoController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
-	private static UsuarioDAO dao;
+	private static VideoDAO dao;
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		dao = UsuarioDAO.getInstance();
-		
-		ArrayList<Usuario> usuarios = (ArrayList<Usuario>) dao.getAll();
+		dao = VideoDAO.getInstance();
+		try {
+		ArrayList<Video> videos = (ArrayList<Video>) dao.getAll();
 		
 		String id = request.getParameter("id");
 		
 		if(id == null) { //Si el ID es nulo, lista todos los usuarios
-			request.setAttribute("usuarios", usuarios);
-			request.getRequestDispatcher("usuarios/index.jsp").forward(request, response);
+			request.setAttribute("videos", videos);
+			request.getRequestDispatcher("videos/index.jsp").forward(request, response);
 		}else {
-			Usuario usuario = new Usuario();
+			Video video = new Video();
 			if(Integer.parseInt(id) > 0) { //Si el ID es mayor que cero, muestra los datos de ese usuario, si no crea uno nuevo
-				usuario = dao.getById(id);
+				video = dao.getById(id);
 			}
-			request.setAttribute("usuario", usuario);
-			request.getRequestDispatcher("usuarios/formulario.jsp").forward(request, response);
+			request.setAttribute("video", video);
+			request.getRequestDispatcher("videos/formulario.jsp").forward(request, response);
+		}
+		}catch(Exception e) {
+			e.printStackTrace();
 		}
 		
 		
@@ -50,23 +53,25 @@ public class BackofficeUsuarioController extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		try {
+		
 		//recoger parametros
-		String id = request.getParameter("id");
+		String codigo = request.getParameter("codigo");
 		String nombre = request.getParameter("nombre");
-		String password = request.getParameter("password");
-		String rol = request.getParameter("rol");
 		
 		//TODO Comprobar si es CREAR o MODIFICAR y llamar al DAO
 		
-		Usuario usuario = new Usuario();
-		usuario.setId(Long.parseLong(id));
-		usuario.setNombre(nombre);
-		usuario.setPassword(password);
-		usuario.setRol(Integer.parseInt(rol));
+		Video video = new Video();
+		video.setCodigo(codigo);
+		video.setNombre(nombre);
 		
-		request.setAttribute("usuario", usuario);
-		request.getRequestDispatcher("usuarios/formulario.jsp").forward(request, response);
+		request.setAttribute("video", video);
+		request.getRequestDispatcher("videos/formulario.jsp").forward(request, response);
 		
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 }

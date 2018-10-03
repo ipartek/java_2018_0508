@@ -3,15 +3,21 @@ package com.ipartek.formacion.youtube.model;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.ArrayList;
 import java.util.List;
 
 import com.ipartek.formacion.youtube.pojo.Usuario;
+import com.ipartek.formacion.youtube.pojo.Video;
 import com.mysql.jdbc.Statement;
 
 public class UsuarioDAO implements CrudAble<Usuario>{
 	
 	private static final String SQL_LOGIN = "SELECT `id`, `nombre`, `password`, `rol` FROM usuario WHERE nombre = ? AND password = ?;";
 	private static final String SQL_INSERT = "INSERT INTO `usuario` (`nombre`, `password`) VALUES (?,?);";
+	private static final String SQL_GETALL = "SELECT `id`, `nombre`, `password`, `rol` FROM usuario ORDER BY id DESC LIMIT 1000;";
+	private static final String SQL_GET_BY_ID = "SELECT `id`, `nombre`, `password`, `rol` FROM usuario WHERE id = ?;";
+	private static final String SQL_UPDATE = "UPDATE usuario SET nombre = ?, password = ? WHERE id = ?;";
+	private static final String SQL_DELETE = "DELETE FROM usuario WHERE id = ?;";
 	
 	
 	private static UsuarioDAO INSTANCE = null;
@@ -87,26 +93,83 @@ public class UsuarioDAO implements CrudAble<Usuario>{
 
 	@Override
 	public List<Usuario> getAll() {
-		// TODO Auto-generated method stub
-		return null;
+		ArrayList<Usuario> usuarios = new ArrayList<Usuario>();
+		
+		try (Connection con = ConnectionManager.getConnection();
+				PreparedStatement ps = con.prepareStatement(SQL_GETALL);
+				ResultSet rs = ps.executeQuery();){			
+				
+				while(rs.next()) {
+					usuarios.add(rowMapper(rs, null));
+				}
+				
+			}catch(Exception e) {
+				e.printStackTrace();
+			}
+		
+		return usuarios;
 	}
 
 	@Override
 	public Usuario getById(String id) {
-		// TODO Auto-generated method stub
-		return null;
+		Usuario usuario = null;
+		
+		try (Connection con = ConnectionManager.getConnection();
+			PreparedStatement ps = con.prepareStatement(SQL_GET_BY_ID);){
+			usuario =	new Usuario();
+				ps.setString(1, id);
+				try (ResultSet rs = ps.executeQuery();){
+					//mapear ResultSet a ArrayList<Video>
+					while( rs.next() ) {
+						usuario = rowMapper(rs, usuario);							
+					}
+				}
+			}catch (Exception e) {
+				e.printStackTrace();
+			}	
+		
+		return usuario;
 	}
 
 	@Override
 	public boolean update(Usuario pojo) {
-		// TODO Auto-generated method stub
-		return false;
+		boolean resul = false;
+		
+		try (Connection con = ConnectionManager.getConnection();
+				PreparedStatement ps = con.prepareStatement(SQL_UPDATE);){
+				
+				ps.setString(1, pojo.getNombre());
+				ps.setString(2, pojo.getPassword());
+				
+				int affectedRows = ps.executeUpdate();
+				if(affectedRows == 1){
+					resul = true;
+				}
+
+			}catch(Exception e) {
+				e.printStackTrace();
+			}
+		
+		return resul;
 	}
 
 	@Override
 	public boolean delete(String id) {
-		// TODO Auto-generated method stub
-		return false;
+		boolean resul = false;
+		
+		try (Connection con = ConnectionManager.getConnection();
+			PreparedStatement ps = con.prepareStatement(SQL_DELETE);){
+				
+			ps.setString(1, id);
+			if(ps.executeUpdate() == 1) {
+				resul = true;
+			}
+					
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		
+		return resul;
 	}
 	
 	private Usuario rowMapper(ResultSet rs, Usuario u) throws Exception {
