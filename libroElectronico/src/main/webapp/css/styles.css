@@ -1,0 +1,43 @@
+/************************************
+*****    ESTILO LOGIN        ********
+*************************************/
+.form-label-group {
+	margin-bottom: 12px;
+}
+
+/*Estilo libro*/
+.izq {
+	float: left;
+	width: 10%;
+}
+
+.dech {
+	float: right;
+	width: 10%;
+}
+
+.paginacion {
+	text-align: justify;
+}
+
+h4.nav-pagina {
+	display: inline-block ;
+	margin-left: 30%;
+}
+
+.buscar{
+    display: flex;
+    justify-content: center;
+    padding: 23px;
+}
+
+p.texto{
+	margin-left: 45%;
+}
+p.text_autor {
+    min-height: 200px;
+}
+
+main.container {
+    width: 60%;
+}
