@@ -98,7 +98,7 @@
 				        	<label for="passRegistroRep">Repita la contraseña</label>
 				        	<input type="password" id="passRegistroRep" name="passRegistroRep" class="form-control mb-3" required placeholder="Mínimo 8 y máximo 20 caracteres" pattern="{8, 20}"  />
 				        	
-				        	<button type="submit" class="btn btn-primary">Darme de alta</button>
+				        	<button type="submit" class="btn btn-primary btn-block">Darme de alta</button>
 				       
 				        </div>
 			        </form>

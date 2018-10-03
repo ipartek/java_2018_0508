@@ -1,25 +1,24 @@
 package com.ipartek.formacion.youtube.model;
 
 import java.sql.Connection;
-import java.util.ArrayList;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.util.List;
 
 import com.ipartek.formacion.youtube.pojo.Usuario;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.Statement;
+import com.mysql.jdbc.Statement;
 
-public class UsuarioDAO implements CrudAble<Usuario> {
-
+public class UsuarioDAO implements CrudAble<Usuario>{
+	
+	private static final String SQL_LOGIN = "SELECT `id`, `nombre`, `password`, `rol` FROM youtube.usuario WHERE nombre = ? AND password = ?;";
+	private static final String SQL_INSERT = "INSERT INTO `usuario` (`nombre`, `password`) VALUES (?,?);";
+	private static final String SQL_GET_ALL = "SELECT id, nombre, password, rol FROM usuario ORDER BY id DESC LIMIT 500;";
+	private static final String SQL_GET_BY_ID = "SELECT  id, nombre, password, rol FROM video WHERE id = ?;";
+	private static final String SQL_GET_UPDATE = "UPDATE usuario SET nombre= ?, password= ? WHERE id = ?;";
+	private static final String SQL_GET_DELETE = "DELETE FROM usuario WHERE id = ?;";
+	
 	private static UsuarioDAO INSTANCE = null;
-
-	private final String SQL_GET_ALL = "SELECT id, nombre, password, rol FROM usuario ORDER BY id DESC LIMIT 1000;";
-	private final String SQL_GET_BY_ID = "SELECT  id, nombre, password, rol FROM usuario WHERE id = ?;";
-	private final String SQL_UPDATE = "UPDATE usuario SET nombre= ? password= ? WHERE id = ?;";
-	private final String SQL_DELETE = "DELETE FROM usuario WHERE id = ?;";
-	private final String SQL_INSERT = "INSERT INTO usuario (nombre, password) VALUES (?,?);";
-	private final String SQL_LOGIN = "SELECT `id`, `nombre`, `password`, `rol` FROM usuario WHERE nombre = ? AND password = ?;" ;
-
+	
 	private UsuarioDAO() {
 		super();
 	}
@@ -31,36 +30,35 @@ public class UsuarioDAO implements CrudAble<Usuario> {
 		return INSTANCE;
 	}
 	
+	
 	/**
-	 * Comprueba que exista el nombre y password del usuario, case sensitive.
+	 * Comprueba que exista el nombre y password del usuario, case sensitive 
 	 * @param pojo Usuario a comprobar
 	 * @return null si no encuentra
 	 */
-	public Usuario login (Usuario pojo) {
-		
+	public Usuario login(Usuario pojo) {
 		Usuario resul = null;
-		
-		try(Connection con = ConnectionManager.getConnection();
-				PreparedStatement ps = con.prepareStatement(SQL_LOGIN)){
+		try ( Connection con = ConnectionManager.getConnection();
+				PreparedStatement ps = con.prepareStatement(SQL_LOGIN) ) {
 			
 			ps.setString(1, pojo.getNombre());
 			ps.setString(2, pojo.getPass());
 			
-			try (ResultSet rs = ps.executeQuery();){
+			try ( ResultSet rs = ps.executeQuery() ){
 				
-				if(rs != null && rs.next()) {
+				if ( rs != null && rs.next() ) {
 					resul = rowMapper(rs, pojo);
 				}
 				
 			}
 			
-		} catch (Exception e) {
+			
+		}catch (Exception e) {
 			e.printStackTrace();
-		} 
-		
+		}
 		return resul;
 	}
-
+	
 	@Override
 	public boolean insert(Usuario pojo) {
 		boolean resul = false;
@@ -72,16 +70,14 @@ public class UsuarioDAO implements CrudAble<Usuario> {
 			ps.setString(2, pojo.getPass().trim());
 			
 			int affectedRows = ps.executeUpdate();
-			if ( affectedRows == 1 ) {
-				
-				//Conseguir ID generado
-				try(ResultSet rs = ps.getGeneratedKeys()){
-					while(rs.next()) {
-						pojo.setId(rs.getLong(1));
-						resul = true;
+			if ( affectedRows == 1 ) {				
+				try ( ResultSet rs = ps.getGeneratedKeys() ){
+					while( rs.next() ) {
+						pojo.setId( rs.getLong(1) );
+						resul = true;						
 					}
-				}
-			}
+				}				
+			}//affectedRows == 1 
 			
 			
 		}catch (Exception e) {
@@ -92,109 +88,43 @@ public class UsuarioDAO implements CrudAble<Usuario> {
 
 	@Override
 	public List<Usuario> getAll() {
-
-		ArrayList<Usuario> usuarios = new ArrayList<Usuario>();
-		try (Connection con = ConnectionManager.getConnection();
-				PreparedStatement ps = con.prepareStatement(SQL_GET_ALL);
-				ResultSet rs = ps.executeQuery();) {
-			
-			while (rs.next()) {				
-				usuarios.add( rowMapper(rs) );
-			}
-
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-
-		return usuarios;
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 	@Override
-	public Usuario getById(String id) {
-		Usuario usuario = null;
-		try (Connection con = ConnectionManager.getConnection();
-			 PreparedStatement ps = con.prepareStatement(SQL_GET_BY_ID); 
-			){
-						
-			ps.setString(1, id);
-			
-			try(ResultSet rs = ps.executeQuery()){			
-				while (rs.next()) {
-					usuario = rowMapper(rs);
-				}
-			}
-			
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-
-		return usuario;
+	public Usuario getById(long id) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 	@Override
 	public boolean update(Usuario pojo) {
-		boolean resul = false;
-		try (Connection con = ConnectionManager.getConnection();
-			 PreparedStatement ps = con.prepareStatement(SQL_UPDATE);){
-			
-			ps.setString(1, pojo.getNombre());
-			ps.setString(2, pojo.getPass());	
-			ps.setLong(3, pojo.getId());				
-			if ( ps.executeUpdate() == 1 ) {
-				resul = true;
-			}			
-			
-		}catch (Exception e) {
-			e.printStackTrace();
-		}
-		return resul;
+		// TODO Auto-generated method stub
+		return false;
 	}
 
 	@Override
-	public boolean delete(String id) {
-		boolean resul = false;
-		try (Connection con = ConnectionManager.getConnection();
-			 PreparedStatement ps = con.prepareStatement(SQL_DELETE);){
-			
-			ps.setString(1, id);			
-			if ( ps.executeUpdate() == 1 ) {
-				resul = true;
-			}			
-			
-		}catch (Exception e) {
-			e.printStackTrace();
-		}
-		return resul;
+	public boolean delete(long id) {
+		// TODO Auto-generated method stub
+		return false;
 	}
 	
-	private Usuario rowMapper(ResultSet rs) throws Exception {
-		
-		Usuario usuario = new Usuario();
-		
-		if( rs != null) {
-			usuario.setId(rs.getLong("id"));
-			usuario.setNombre(rs.getString("nombre"));
-			usuario.setPass(rs.getString("password"));
-			usuario.setRol(rs.getInt("rol"));
-		}
-		return usuario;
-	}
 	
-	private Usuario rowMapper(ResultSet rs, Usuario usuario) throws Exception {
+
+	private Usuario rowMapper(ResultSet rs, Usuario u ) throws Exception {
 		
-		if(usuario == null) {
-			usuario = new Usuario();
+		if ( u == null ) {
+			u = new Usuario();
 		}
 		
 		if( rs != null) {
-			usuario.setId(rs.getLong("id"));
-			usuario.setNombre(rs.getString("nombre"));
-			usuario.setPass(rs.getString("password"));
-			usuario.setRol(rs.getInt("rol"));
+			u.setId(rs.getLong("id"));			
+			u.setNombre(rs.getString("nombre"));
+			u.setPass(rs.getString("password"));
+			u.setRol(rs.getInt("rol"));
 		}
-		return usuario;
+		return u;
 	}
-	
-	
 
 }

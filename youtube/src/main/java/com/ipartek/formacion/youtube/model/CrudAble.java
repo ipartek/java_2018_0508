@@ -28,14 +28,14 @@ public interface CrudAble<P> {
 	/**
 	 * Buscamos un pojo por su identificador
 	 * @param id
-	 * @return VideoYoutube si lo encuentra, null si no lo encuentra
+	 * @return Pojo si lo encuentra, null si no lo encuentra
 	 */
-	P getById(String id);
+	P getById(long id);
 	
 	//Upadte
 	boolean update(P pojo);
 	
 	//Delete
-	boolean delete(String id);
+	boolean delete(long id);
 
 }

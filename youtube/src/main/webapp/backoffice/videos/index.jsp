@@ -5,7 +5,7 @@
   
 	    <h1>Videos almacenados</h1>    
 	    
-		<table id="listado-videos" class="display">
+		<table id="tablaOrdenable" class="display">
 			    <thead>
 			        <tr>
 			            <th>Id</th>

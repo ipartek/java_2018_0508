@@ -13,7 +13,7 @@
             <!-- /.navbar-header -->
 
             
-            <div class="navbar-default sidebar" role="navigation">
+            <div class="navbar-default sidebar col-lg-3" role="navigation">
                 <div class="sidebar-nav navbar-collapse">
                     <ul class="nav" id="side-menu">
                         
@@ -22,11 +22,11 @@
                         </li>
                         
                         <li>
-                            <a href="usuario/index.jsp"><i class="fas fa-users"></i> Usuarios</a>
+                            <a href="usuarios"><i class="fas fa-users"></i> Usuarios</a>
                         </li>
                         
                         <li>
-                            <a href="video/index.jsp"><i class="fab fa-youtube"></i> Videos</a>
+                            <a href="videos"><i class="fab fa-youtube"></i> Videos</a>
                         </li>
                         
                         
