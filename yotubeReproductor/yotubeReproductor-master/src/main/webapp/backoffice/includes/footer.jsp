@@ -22,6 +22,20 @@
 		});
     
 	</script>
+	
+	<script>
+			function confirmar(e) {
+
+				if (confirm('¿Estas seguro que quieres eliminar?')) {
+					console.log('confirmado eliminar')
+
+				} else {
+					//prevenir el evento por defecto de <a href=''>
+					e.preventDefault();
+				}
+
+			}
+		</script>
    
    
 </body>

@@ -31,7 +31,7 @@
 				<c:forEach items="${usuarios}" var="u">
 					<tr>
 						<td>${u.id}</td>
-						<td><a href="usuarios?id=${u.id }">"${u.nombre}</td></a>
+						<td><a href="usuarios?id=${u.id }">${u.nombre}</td></a>
 						<td>${u.password}</td>
 						<td>${(u.rol==1)?'normal':'administrador'}</td>
 					</tr>
