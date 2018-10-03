@@ -81,13 +81,13 @@ public class VideoDAO implements CrudAble<Video> {
 	}
 
 	@Override
-	public Video getById(String id) {
+	public Video getById(long id) {
 		Video video = null;
 		try (Connection con = ConnectionManager.getConnection();
 			 PreparedStatement ps = con.prepareStatement(SQL_GET_BY_ID); 
 			){
 						
-			ps.setString(1, id);
+			ps.setLong(1, id);
 			
 			try(ResultSet rs = ps.executeQuery()){			
 				while (rs.next()) {
@@ -123,12 +123,12 @@ public class VideoDAO implements CrudAble<Video> {
 	}
 
 	@Override
-	public boolean delete(String id) {
+	public boolean delete(long id) {
 		boolean resul = false;
 		try (Connection con = ConnectionManager.getConnection();
 			 PreparedStatement ps = con.prepareStatement(SQL_DELETE);){
 			
-			ps.setString(1, id);			
+			ps.setLong(1, id);			
 			if ( ps.executeUpdate() == 1 ) {
 				resul = true;
 			}			

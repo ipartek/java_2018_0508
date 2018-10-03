@@ -77,6 +77,48 @@
 			    </div>
 			  </div>
 			</div>
+			
+			
+			
+			
+			
+			<!-- modalRegistrar -->
+			<div class="modal fade" id="modalRegistrar" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+			  <div class="modal-dialog" role="document">
+			    <div class="modal-content">
+			      <div class="modal-header">
+			        <h5 class="modal-title" id="exampleModalLabel">Registrarse en la aplicacion</h5>
+			        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+			          <span aria-hidden="true">&times;</span>
+			        </button>
+			      </div>
+			      
+			      
+			      
+			      <div class="modal-body">
+				      <form action="registro" method="post">
+					        <div class="form-group">
+					            <label for="nombre" class="col-form-label">Nombre:</label>
+					            <input type="text" class="form-control" id="nombreRegistro" name="nombreRegistro" placeholder="Introduce tu nombre"/>
+					        </div>
+					        <div class="form-group">
+					            <label for="pass" class="col-form-label">Contraseña</label>
+					            <input type="password" class="form-control" id="pass" name="pass" placeholder="Introduce tu contraseña"/>
+					        </div>
+					        <div class="form-group">
+					            <label for="pass2" class="col-form-label"> Repite la Contraseña</label>
+					            <input type="password" class="form-control" id="pass2" name="pass2" placeholder="Vuelve a introducir tu contraseña"/>
+					        </div>
+				      
+				      	<button type="submit" class="btn btn-primary" >Registrar </button>
+				        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+				       		       
+				      </form> 
+			      </div>	
+			    </div>
+			  </div>
+			</div>
+			
             
             
             <hr>

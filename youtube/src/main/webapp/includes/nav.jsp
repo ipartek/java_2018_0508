@@ -29,7 +29,8 @@
 		           		<input name="usuario" value="${cookie.cNombre.value}" class="form-control mr-sm-2" type="text" placeholder="Nombre Usuario" required pattern=".{3,30}">
 		           		<input name="pass" value="" class="form-control mr-sm-2" type="password" placeholder="Contraseña" required pattern=".{2,50}">
 		           		<label class="text-warning" for="recuerdame">¿Recordar?</label>
-		           		<input type="checkbox" name="recuerdame" ${(not empty cookie.cNombre.value)?"checked":""} >		           		 
+		           		<input type="checkbox" name="recuerdame" ${(not empty cookie.cNombre.value)?"checked":""} >	
+		           		<p class="alta" onclick="showModalRegistrar()">Darse de alta en la aplicacion</p>	           		 
 		           <button class="btn btn-outline-info my-2 my-sm-0" type="submit">Entrar</button>
 		         </form>
 		       </c:if>         

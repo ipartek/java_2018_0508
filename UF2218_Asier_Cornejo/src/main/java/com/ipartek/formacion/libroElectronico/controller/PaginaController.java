@@ -14,6 +14,7 @@ import javax.servlet.http.HttpSession;
 import com.ipartek.formacion.libroElectronico.model.PaginaArrayListDAO;
 import com.ipartek.formacion.libroElectronico.model.pojo.Pagina;
 import com.ipartek.formacion.libroElectronico.model.pojo.Usuario;
+import com.ipartek.formacion.libroElectronico.pojo.Alert;
 
 /**
  * Servlet implementation class PaginaController
@@ -27,6 +28,7 @@ public class PaginaController extends HttpServlet {
 	private Pagina pagAnterior;
 	private Pagina pagSiguiente;
 	private int numPag;
+	private Alert alerta;
 	private static final int MINPALABRAS=25;
 	
 	public void init(ServletConfig config) throws ServletException {
@@ -53,6 +55,7 @@ public class PaginaController extends HttpServlet {
 	}
 	
 	protected void doProcess(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
+		alerta = new Alert(Alert.DANGER, "La página debe tener al menos 25 palabras");
 		try {
 			String texto =request.getParameter("texto");
 			
@@ -70,9 +73,14 @@ public class PaginaController extends HttpServlet {
 				pag.setAutor(u.getNombre()+" "+u.getPass());
 				pag.setTexto(texto);
 				paginas.add(pag);
+				alerta.setTexto("Página agregada correctamente.");
+				alerta.setTipo(Alert.SUCCESS);
+				request.setAttribute("alert", alerta);
 				request.getRequestDispatcher("home").forward(request, response);
 			}else {
-				response.sendRedirect(request.getContextPath()+"pagina") ;
+				request.setAttribute("alert", alerta);
+				request.setAttribute("texto", texto);
+				request.getRequestDispatcher("nuevaPagina.jsp").forward(request, response);;
 				
 			}
 			

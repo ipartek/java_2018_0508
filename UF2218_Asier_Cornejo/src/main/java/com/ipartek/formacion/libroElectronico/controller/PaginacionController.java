@@ -42,6 +42,7 @@ public class PaginacionController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		paginas=(ArrayList<Pagina>) dao.getAll();
+		int numPags= dao.getAll().size();
 		try {
 			int id = Integer.parseInt(request.getParameter("id"));
 			pagActual = dao.getById(id);
@@ -49,19 +50,24 @@ public class PaginacionController extends HttpServlet {
 
 			if (op!=null && OP_SIGUIENTE.equals(op) ) {
 				pagSiguiente = dao.getById(id + 1);
-				if (paginas.contains(pagSiguiente)) {
+				if (pagSiguiente.getId()<=paginas.size()) {
 					pagActual = pagSiguiente;
 				}
 
 			} else {
 				pagAnterior = dao.getById(id - 1);
-				if (paginas.contains(pagAnterior)) {
+				if (pagAnterior.getId()>=0) {
 					pagActual = pagAnterior;
 				}
 			}
 		} catch (NumberFormatException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		}finally {
+			
+			request.setAttribute("numeroPaginas", numPags);
+			request.setAttribute("pagActual", pagActual);
+			request.getRequestDispatcher("home.jsp").forward(request, response);
 		}
 
 	}

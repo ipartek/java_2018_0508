@@ -30,12 +30,12 @@ public interface CrudAble<P> {
 	 * @param id
 	 * @return VideoYoutube si lo encuentra, null si no lo encuentra
 	 */
-	P getById(String id);
+	P getById(long id);
 	
 	//Upadte
 	boolean update(P pojo);
 	
 	//Delete
-	boolean delete(String id);
+	boolean delete(long id);
 
 }

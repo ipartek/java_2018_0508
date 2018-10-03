@@ -1,36 +1,63 @@
-<%@page import="java.util.Iterator"%>
-<%@page import="java.util.HashMap"%>
-<%@page import="com.ipartek.formacion.youtube.pojo.Usuario"%>
 
-<h1>ESTAMOS EN EL BACKOFFICE </h1>
-*Solo pueden entrar usuarios logeados <br>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
+<%@ include file="includes/header.jsp" %>
 
+	<%@ include file="includes/nav.jsp" %>
 
 
-<% 
-	Usuario u = (Usuario)session.getAttribute("usuario");
-	if ( u == null ){		
-		out.print("<p style=\"color:red\">Usuario nulo, se ha saltado el login!!!</p>");		
-	}else{		
-		out.print("Usuario: " + u.getNombre() + "<br>");
-	}
-%>
+<%@ include file="includes/sidebar.jsp" %>
 
-<img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQufLDB7IpkmblOHc1JCmAQ68EWpaOm4Pn0COA5oanwu55yNiTAtQ" alt="imagen backoffice">
+        <div id="page-wrapper">
+            <div class="row">
+                <div class="col-lg-3 col-md-6">
+                    <div class="panel panel-primary">
+                        <div class="panel-heading">
+                            <div class="row">
+                                <div class="col-xs-3">
+                                    <i class="fas fa-users fa-5x"></i>
+                                </div>
+                                <div class="col-xs-9 text-right">
+                                    <div class="huge">${usuarios}</div>
+                                    <div>Usuarios</div>
+                                </div>
+                            </div>
+                        </div>
+                        <a href="usuarios">
+                            <div class="panel-footer">
+                                <span class="pull-left">View Details</span>
+                                <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                                <div class="clearfix"></div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <div class="panel panel-red">
+                        <div class="panel-heading">
+                            <div class="row">
+                                <div class="col-xs-3">
+                                    <i class="fab fa-youtube fa-5x"></i>
+                                </div>
+                                <div class="col-xs-9 text-right">
+                                    <div class="huge">${videos}</div>
+                                    <div>Videos</div>
+                                </div>
+                            </div>
+                        </div>
+                        <a href="videos">
+                            <div class="panel-footer">
+                                <span class="pull-left">View Details</span>
+                                <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                                <div class="clearfix"></div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <!-- /.row -->
+        </div>
+        <!-- /#page-wrapper -->
 
-<h2>Listado Usuarios Conectados</h2>
-<ol>
-<%
-	
-    HashMap<String, Usuario> usuariosConectados = (HashMap<String, Usuario>)application.getAttribute("uConectados");
-	for( HashMap.Entry<String,Usuario> uConectado : usuariosConectados.entrySet() ){
-		
-	    %>
-	    	<li><%=uConectado.getValue().getNombre()%></li>
-	    <%
-	
-	}
-%>
-</ol>
-
+   
+<%@ include file="includes/footer.jsp" %>

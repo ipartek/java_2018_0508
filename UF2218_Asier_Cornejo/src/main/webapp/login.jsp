@@ -1,22 +1,10 @@
 <%@ include file="includes/header.jsp" %>
 <%@ include file="includes/nav.jsp" %>		
-
-
-
-		
+	
         <main role="main" class="container">
         <c:if test="${not empty alert}">
-			<div class="container">
-				<div class="alert ${alert.tipo} alert-dismissible fade show"
-					role="alert">
-					<p>${alert.texto}</p>
-					<button type="button" class="close" data-dismiss="alert" aria-label="Close">
-						<span aria-hidden="true">&times;</span>
-					</button>
-				</div>
-			</div>
-	
-				${alert=null}
+		<p class="alerta">${alert.texto}</p>
+			${alert=null}
 	
 		</c:if>
         
@@ -44,7 +32,7 @@
                                     
                         <div class="form-group">
                             <label for="pass" class="required">Contraseña</label>
-                            <input  name="pass" type="password" class="form-control" id="pass" minlength="4" maxlength="20" required placeholder="ContraseÃ±a del usuario (8 a 20 caracteres)" />
+                            <input  name="pass" type="password" class="form-control" id="pass" minlength="4" maxlength="20" required placeholder="Contraseña del usuario (8 a 20 caracteres)" />
                         </div>
                                     
                         <button type="submit" class="btn btn-outline-primary btn-block">Acceder</button>

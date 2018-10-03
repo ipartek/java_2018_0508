@@ -67,6 +67,12 @@
 						
 		}
 		
+		function showModalRegistrar(){
+			$('#modalRegistrar').modal('show');
+			console.log('showModalRegistrar id=');
+			
+		}
+		
 		/* YOTUBE IFRAME API */
 		/** https://tutorialzine.com/2015/08/how-to-control-youtubes-video-player-with-javascript */
 		var player;

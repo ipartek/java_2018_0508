@@ -15,6 +15,7 @@ import com.ipartek.formacion.libroElectronico.model.PaginaArrayListDAO;
 import com.ipartek.formacion.libroElectronico.model.UsuarioArrayListDAO;
 import com.ipartek.formacion.libroElectronico.model.pojo.Pagina;
 import com.ipartek.formacion.libroElectronico.model.pojo.Usuario;
+import com.ipartek.formacion.libroElectronico.pojo.Alert;
 
 /**
  * Servlet implementation class LoginController
@@ -25,6 +26,10 @@ public class LoginController extends HttpServlet {
 	private ArrayList<Usuario>usuarios;
 	private Pagina pagActual;
 	private static UsuarioArrayListDAO dao;
+	private Alert alerta;
+	private String NO_LOGEADO="login.jsp";
+	private String LOGEADO="home";
+
 
 	@Override
 	public void init(ServletConfig config) throws ServletException {
@@ -49,7 +54,9 @@ public class LoginController extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+			String logeado=NO_LOGEADO;
 				usuarios=(ArrayList<Usuario>) dao.getAll();
+				alerta=new Alert(Alert.DANGER, "Usuario no registrado");
 		try {
 
 			
@@ -61,6 +68,9 @@ public class LoginController extends HttpServlet {
 					HttpSession sesion = request.getSession();
 					sesion.setAttribute("usuario", usuario);
 					sesion.setMaxInactiveInterval(60*60*60);
+					alerta.setTexto("Bienvenido "+usuario.getNombre());
+					alerta.setTipo(Alert.SUCCESS);
+					logeado=LOGEADO;
 					break;
 				}
 			}
@@ -70,9 +80,9 @@ public class LoginController extends HttpServlet {
 			// TODO: handle exception
 		} finally {
 			
-		
-			request.getRequestDispatcher("/home").forward(request, response);
-			//response.sendRedirect("privado/listado");
+			request.setAttribute("alert", alerta);
+			request.getRequestDispatcher(logeado).forward(request, response);
+			
 
 		}
 	}

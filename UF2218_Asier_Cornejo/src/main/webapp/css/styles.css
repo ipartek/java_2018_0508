@@ -46,6 +46,14 @@ button.btn.btn-outline-secondary{
     color:#F2983B!important;
 }
 
+div.alert.alert-success.alert-dismissible.fade.show{
+	min-width: 90%;
+}
+div.alert.alert-danger.alert-dismissible.fade.show{
+	z-index: 1;
+}
+
+
 /* Estilos para el contenido principal de la página */
 
 .contenido{
@@ -66,7 +74,28 @@ div.titulo{
 	width: 100%;
     text-align: center;
 }
+div.texto{
+	width: 100%;
+    text-align: center;
+}
 
+
+div.autor{
+	width: 100%;
+    text-align: center;
+}
+
+
+nav.pagination{
+	
+	display:relative;
+}
+
+
+nav.pagination a.page-link{
+	
+	display:absolute;
+}
 button.botonSesion a:hover{
 	text-decoration: none;
 	color:red;
@@ -121,7 +150,9 @@ btn.btn-outline-secondary.pagina{
     background-color:red;
 }
 
-
+form.pagina{
+	    margin: 0 auto;
+}
 /* Estilos para el pie de página */
 
 footer{
