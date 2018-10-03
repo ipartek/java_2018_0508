@@ -1,11 +1,8 @@
 	    <!-- jQuery -->
 	    <script src="https://blackrockdigital.github.io/startbootstrap-sb-admin-2/vendor/jquery/jquery.min.js"></script>
 		
-		<!-- Bootstrap 3.3.7-->
-		<script src="https://stackpath.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-	
-	    <!-- Bootstrap Core JavaScript -->
-	    <script src="https://blackrockdigital.github.io/startbootstrap-sb-admin-2/vendor/bootstrap/js/bootstrap.min.js"></script>
+		 <!-- Bootstrap Core JavaScript -->
+    	<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
 		
 		<!-- DataTables JavaScript -->
 	    <script src="https://blackrockdigital.github.io/startbootstrap-sb-admin-2/vendor/datatables/js/jquery.dataTables.min.js"></script>

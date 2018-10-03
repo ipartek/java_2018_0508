@@ -12,6 +12,9 @@
 		<%@include file="../includes/aside.jsp"%>
 
         <div id="page-wrapper">
+        
+        	<%@include file="../includes/alerts.jsp"%>
+        	
             <div class="row">
                 <div class="col-lg-12">
                     <h1 class="page-header">${(usuario.id==-1)?'Crear Usuario':usuario.nombre}</h1>
@@ -63,6 +66,12 @@
 										   </select>
 										</div>
 									</div>
+								</div>
+								
+								<div class="form-row">
+									<div class="form-group">
+									   <input class="form-control" type="hidden" name="op" id="op" value="${(usuario.id==-1)?'0':'1'}">
+								   </div>
 								</div>
                             	
                             	<input type="submit" value="${(usuario.id==-1)?'Crear':'Modificar'}" class="form-control btn btn-primary btn-block" />
