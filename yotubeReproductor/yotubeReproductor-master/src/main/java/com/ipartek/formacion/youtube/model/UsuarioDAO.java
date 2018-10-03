@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.ipartek.formacion.youtube.Usuario;
+import com.ipartek.formacion.youtube.Video;
 
 public class UsuarioDAO implements CrudAble<Usuario> {
 
@@ -114,26 +115,72 @@ public class UsuarioDAO implements CrudAble<Usuario> {
 	}
 
 	@Override
-	public Usuario getById(String id) {
-		// TODO Auto-generated method stub
-		return null;
+	public Usuario getById(String idtem) {
+		long id = 0;
+		if( idtem != null) {
+			id = Long.parseLong(idtem);
+		}
+			
+		Usuario usuario = null;
+		try (Connection con = ConnectionManager.getConnection();
+				PreparedStatement ps = con.prepareStatement(SQL_GET_BY_ID);
+
+		) {
+
+			ps.setLong(1, id);
+			try (ResultSet rs = ps.executeQuery()) {
+
+				while (rs.next()) {
+					usuario = rowMapper(rs, usuario);
+
+				}
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return usuario;
 	}
 
 	@Override
 	public boolean update(Usuario pojo) {
-		// TODO Auto-generated method stub
-		return false;
+		boolean resul = false;
+
+		try (Connection con = ConnectionManager.getConnection();
+				PreparedStatement ps = con.prepareStatement(SQL_UPDATE);) {
+			ps.setString(1, pojo.getNombre());
+			ps.setString(2, pojo.getPassword());
+			ps.setLong(3, pojo.getId());
+
+			if (ps.executeUpdate() == 1) {
+				resul = true;
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return resul;
 	}
+	
 
 	@Override
 	public boolean delete(String id) {
-		// TODO Auto-generated method stub
-		return false;
-	}
+		boolean resul = false;
 
-	public Usuario getByNombre(String usuarioNombre) {
-		// TODO Auto-generated method stub
-		return null;
+		try (Connection con = ConnectionManager.getConnection();
+				PreparedStatement ps = con.prepareStatement(SQL_DELETE);) {
+
+			ps.setString(1, id);
+
+			if (ps.executeUpdate() == 1) {
+				resul = true;
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return resul;
 	}
 
 	private Usuario rowMapper(ResultSet rs, Usuario u) throws SQLException {
