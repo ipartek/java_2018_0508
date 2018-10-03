@@ -8,6 +8,13 @@
 
 
  <div id="page-wrapper">
+ 	<c:if test="${not empty alert}">
+						<div class="alert ${alert.tipo} alert-dismissible" role="alert">
+							<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+							<strong>${alert.texto}</strong>
+						</div>
+					</c:if>
+ 
             <div class="row">
                 <div class="col-lg-12">
                 
@@ -47,6 +54,12 @@
                     
                 </div>
             </div><!-- /.row -->
+            <div class="row">
+      		
+      		<div class="col-md-4">
+      			<a href="usuarios?id=-1" class="btn btn-success">Crear Nuevo</a>
+      		</div>	
+      </div>
                 
  </div><!-- /#page-wrapper -->
             
