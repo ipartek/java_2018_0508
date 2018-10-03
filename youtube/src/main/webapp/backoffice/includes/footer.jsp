@@ -7,6 +7,19 @@
     <!-- Bootstrap Core JavaScript -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
    
+   	<!-- datatables.net -->
+   	<script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+   
+   	<script>
+   		/* custom javascript */
+   	
+   		//Habilitar datatables
+ 		$(document).ready(function() {
+		    $('#tablaOrdenable').DataTable();
+		});	  			
+   		
+   	</script>
+   	
    
 </body>
 

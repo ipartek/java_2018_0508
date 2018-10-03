@@ -1,12 +1,12 @@
 <%@ include file="includes/header.jsp" %>	
     
     <!-- Page Content -->
-    <div class="container">
+    <div class="container" ">
     	
       <%@ include file="includes/nav.jsp"  %>
       <%@ include file="includes/alert.jsp"  %>	
-      	
-      <div class="row justify-content-center">
+            	
+      <div class="row justify-content-center align-items-center" style="min-height:470px;">
       
       	<div class="col-6">	
       		<h1>Date de alta como Usuario</h1>
@@ -22,7 +22,7 @@
 	      			<input type="password" name="repassword" class="form-control" placeholder="repite de nuevo Contraseña por favor" required pattern="{8,20}">
 	      		</div>
 	      		<div class="form-group">
-	      			<input type="submit" value="Crear Usuario" class="btn btn-primary">
+	      			<input type="submit" value="Crear Usuario" class="btn btn-primary btn-block">
       			</div>
       		</form>
       	</div>

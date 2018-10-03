@@ -47,7 +47,8 @@ public class BackofficeController extends HttpServlet {
 		try {
 				
 			request.setAttribute("videos", daoVideo.getAll().size() );
-			request.setAttribute("usuarios", daoUsuario.getAll().size() );
+			//request.setAttribute("usuarios", daoUsuario.getAll().size() );
+			request.setAttribute("usuarios", 100 );
 			
 			
 		}catch (Exception e) {

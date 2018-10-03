@@ -22,7 +22,7 @@
                           </div>
                       </div>
                   </div>
-                  <a href="#">
+                  <a href="usuarios">
                       <div class="panel-footer">
                           <span class="pull-left">Ver Usuarios</span>
                           <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
