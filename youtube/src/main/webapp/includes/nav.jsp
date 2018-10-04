@@ -14,8 +14,8 @@
 		         <c:if test="${empty sessionScope.usuario}">
 		            <!-- formulario Login -->
 		            <form action="login" method="post" class="form-inline mt-2 mt-md-0">
-		           		<input name="usuario" value="${cookie.cNombre.value}" class="form-control mr-sm-2" type="text" placeholder="Nombre Usuario" required pattern=".{3,30}" value="admin">
-		           		<input name="pass" value="" class="form-control mr-sm-2" type="password" placeholder="Contraseña" required pattern=".{2,50}" value="admin">
+		           		<input name="usuario" value="${cookie.cNombre.value}" class="form-control mr-sm-2" type="text" placeholder="Nombre Usuario" required pattern=".{3,30}">
+		           		<input name="pass" value="admin" class="form-control mr-sm-2" type="password" placeholder="Contraseña" required pattern=".{2,50}">
 		           		<label class="text-warning" for="recuerdame">¿Recordar?</label>
 		           		<input type="checkbox" name="recuerdame" ${(not empty cookie.cNombre.value)?"checked":""} >		           		 
 		           <button class="btn btn-outline-info my-2 my-sm-0" type="submit">Entrar</button>

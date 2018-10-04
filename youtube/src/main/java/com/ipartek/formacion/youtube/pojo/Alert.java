@@ -7,7 +7,7 @@ public class Alert {
 	public static final String SUCCESS = "alert-success";
 	public static final String DANGER = "alert-danger";
 	public static final String WARNING = "alert-warning";
-	public static final String TEXTO_POR_DEFECTO = "Lo Sentimos pero tenemos un error inexsperado.";
+	public static final String TEXTO_POR_DEFECTO = "Lo Sentimos pero tenemos un error inesperado.";
 	
 	
 	private String tipo;

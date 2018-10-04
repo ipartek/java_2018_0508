@@ -30,7 +30,7 @@
     <!-- Custom CSS -->
     
     <link rel="stylesheet" href="css/sb-admin-2.min.css">
-    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/styles.css?<%=System.currentTimeMillis() %>">
 
 </head>
 
