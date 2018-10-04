@@ -44,7 +44,7 @@
 	        			</div>
 	        			<input type="submit" value="${(usuario.id == 0)?'Crear':'Modificar'}" class="btn btn-primary btn-block" />
 	        			<c:if test="${usuario.id>0}">
-	        				<a href="modal-eliminar" onclick="showModalEliminar(${usuario.id})" class="btn btn-danger btn-block">Eliminar</a>
+	        				<span data-toggle="modal" data-target="#modal-eliminar" class="btn btn-danger btn-block">Eliminar</span>
 	        			</c:if>
 	        		</form>
         		</div>
@@ -53,27 +53,22 @@
         </div>
 	</div>
 	
-	<!-- Modal Eliminar-->
-		<div class="modal fade" id="modal-eliminar" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-		  <div class="modal-dialog" role="document">
-		    <div class="modal-content">
-		      <div class="modal-header bg-pika-red">
-		        <h5 class="modal-title text-pika-blue" id="exampleModalLabel">Cuidadin</h5>
-		        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-		          <span aria-hidden="true">&times;</span>
-		        </button>
-		      </div>
-		      <div class="modal-body">
-		       <p>¿Estas seguro de querer eliminar este video?</p>
-		       <a id="btnEliminar" href="" class="btn btn-outline-info btn-outline-pika-red">Eliminar <i class="fas fa-trash-alt"></i></a>
-		       <button type="button" class="btn btn-outline-info btn-outline-pika-red" data-dismiss="modal">Cerrar</button>
-		        
-		      </div>
-		      <div class="modal-footer bg-pika-red">
-		        
-		      </div>
-		    </div>
-		  </div>
-		</div>
+	<div id="modal-eliminar" class="modal fade" role="dialog">
+	  <div class="modal-dialog">
 	
+	    <!-- Modal content-->
+	    <div class="modal-content">
+	      <div class="modal-header bg-pika-red">
+	        <button type="button" class="close" data-dismiss="modal">&times;</button>
+	        <h4 class="modal-title">Cuidadin</h4>
+	      </div>
+	      <div class="modal-body">
+	        	<p>¿Estas seguro de querer eliminar este video?</p>
+		       <a id="btnEliminar" href="backoffice/usuario?id=${usuario.id}&op=77" class="btn btn-outline-info btn-outline-pika-red">Eliminar <i class="fas fa-trash-alt"></i></a>
+		       <button type="button" class="btn btn-outline-info btn-outline-pika-red" data-dismiss="modal">Cerrar</button>
+	      </div>
+	      <div class="modal-footer bg-pika-red"></div>
+	    </div>
+	  </div>
+	</div>
 <%@ include file="../includes/footer.jsp" %>

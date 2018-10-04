@@ -2,14 +2,26 @@ body{
 	overflow-x:hidden;
 }
 
-#logo{
-	width:100px;
-	height: 100px; 
+ul,li{
+	list-style: none;
 }
 
+#logo{
+	width:100px;
+	height: 100px;
+	display: inline-block;
+}
+
+#nav-backoffice{
+	min-height: 125px;
+}
 
 li.nav-item a img{
 	margin: 0.25em;
+}
+
+div#page-wrapper{
+	padding: 1.55em;
 }
 /****
 *	BG-Colorsm, Colores y botones Custom

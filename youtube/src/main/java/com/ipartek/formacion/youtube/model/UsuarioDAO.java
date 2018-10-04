@@ -50,6 +50,7 @@ public class UsuarioDAO implements CrudAble<Usuario> {
 				// conseguir id generado
 				try (ResultSet rs = ps.getGeneratedKeys()){
 					while(rs.next()) {
+						pojo.setId(rs.getLong(1));
 						resul = true;
 					}
 				}

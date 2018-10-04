@@ -24,6 +24,7 @@ public class BackofficeUsuarioController extends HttpServlet {
     
 	private static UsuarioDAO daoUsuario;
 	
+	public static final String BORRAR = "77";
 	
 	@Override
 	public void init(ServletConfig config) throws ServletException {
@@ -41,6 +42,7 @@ public class BackofficeUsuarioController extends HttpServlet {
 		Alert alert = null;
 		
 		String vista = "usuario/index.jsp";
+		String op = request.getParameter("op");
 		
 		try {
 			
@@ -48,6 +50,7 @@ public class BackofficeUsuarioController extends HttpServlet {
 			Usuario u = null;
 			
 			String id = request.getParameter("id");
+			
 			
 			if (id == null) {
 				
@@ -60,18 +63,31 @@ public class BackofficeUsuarioController extends HttpServlet {
 				
 			}else {
 				
-				u = new Usuario();
-				
-				if(Integer.parseInt(id)>0) {
-					u = daoUsuario.getById(id);
-				}
-				if (u == null) {
-					alert = new Alert();
-					alert.setTexto("El usuario no existe en la BBDD");
-					session.setAttribute("Alert", alert);
+				if (BORRAR.equals(op)) {
+					if (daoUsuario.delete(id)) {
+						alert = new Alert();
+						alert.setTipo(Alert.SUCCESS);
+						alert.setTexto("Se ha borrado el usuario de la BBDD");
+						session.setAttribute("Alert", alert);
+					}else {
+						alert = new Alert();
+						alert.setTexto("Nose ha podido borrar al usuario");
+						session.setAttribute("Alert", alert);
+					}
 				}else {
-					request.setAttribute("usuario", u);
-					vista = "usuario/form.jsp";
+					u = new Usuario();
+					
+					if(Integer.parseInt(id)>0) {
+						u = daoUsuario.getById(id);
+					}
+					if (u == null) {
+						alert = new Alert();
+						alert.setTexto("El usuario no existe en la BBDD");
+						session.setAttribute("Alert", alert);
+					}else {
+						request.setAttribute("usuario", u);
+						vista = "usuario/form.jsp";
+					}
 				}
 				
 			}
@@ -79,7 +95,7 @@ public class BackofficeUsuarioController extends HttpServlet {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}finally {
-			request.getRequestDispatcher(vista).forward(request, response);
+				request.getRequestDispatcher(vista).forward(request, response);
 		}
 	}
 
