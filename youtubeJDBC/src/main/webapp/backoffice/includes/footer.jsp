@@ -11,7 +11,7 @@
 	<script type="text/javascript">
 		$(document).ready( function () {
 		    $('#userDataTable').DataTable();
-		    "order": [[ 0, "desc" ]]
+		    /* "order": [[ 3, "desc" ]] */
 		} );
 	</script>
 

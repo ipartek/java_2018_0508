@@ -26,6 +26,7 @@ public class ComentariosController extends HttpServlet {
 	private static ArrayList<Paginas> paginas;
 	private static PaginasDao paginasDao;
 	private static Paginas paginaInicio;
+	private static ArrayList<Paginas> paginasCoincidencia  ;
 	Alerts alerta = new Alerts();
 
 	/**
@@ -70,6 +71,7 @@ public class ComentariosController extends HttpServlet {
 			throws ServletException, IOException {
 		HttpSession session = request.getSession();
 		paginas = (ArrayList<Paginas>) paginasDao.getAll();
+		paginasCoincidencia = new ArrayList();
 		try {
 			String textoAutor = request.getParameter("textoAutor");
 			String paginasSeleccionada = request.getParameter("pagina");
@@ -78,14 +80,16 @@ public class ComentariosController extends HttpServlet {
 			String paginaSiguiente = request.getParameter("paginaSiguiente");
 			String alertaTextoBuscador = request.getParameter("alertaTexto");
 			String alertaTipoBuscador = request.getParameter("alertaTipo");
+			String buscarElemento = request.getParameter("buscarElemento");
 			int paginasSeleccionadaInt;
-
+			//Paginas paginaCoincidencia;
+			Paginas paginaCoincidenciaElemento;
 			/**
 			 * Todas las condiciones pasaran por aqui asi las tengo todas mas ordenadas
 			 * y<br>
 			 * despues pregunto de forma individual
 			 */
-			if (comprobarTexto(textoAutor) || paginasSeleccionada != null || paginaCoincidencia != null
+			if (comprobarTexto(textoAutor) || paginasSeleccionada != null || buscarElemento != null
 					|| paginaAnterior != null || paginaSiguiente != null || alertaTextoBuscador != null) {
 				System.out.println("Texto correcto ");
 				if (textoAutor != null) {
@@ -112,6 +116,12 @@ public class ComentariosController extends HttpServlet {
 					buscarPaginaXnumero(paginasSeleccionadaInt);
 
 				}
+				if(buscarElemento != null) {
+					paginaCoincidenciaElemento = buscarCoincidenciaElemento(buscarElemento);
+					//aqui lo que seteamos es lo que se produce en buscarCoincidenciaElemento
+					//No es un retorno paginaCoincidencia
+					request.setAttribute("paginasCoincidencia", paginasCoincidencia);
+				}
 				if (paginaAnterior != null) {
 					/**
 					 * Para cuando tenemos accion desde el boton atras
@@ -136,6 +146,7 @@ public class ComentariosController extends HttpServlet {
 					alerta.setTexto(alertaTextoBuscador);
 					alerta.setTipo(alertaTipoBuscador);
 				}
+				
 
 				request.setAttribute("autor", (String) session.getAttribute("usuario"));
 				request.setAttribute("textoAutor", textoAutor);
@@ -204,6 +215,33 @@ public class ComentariosController extends HttpServlet {
 			}
 		}
 		return flag;
+	}
+	
+	private Paginas buscarCoincidenciaElemento(String buscarElemento) {
+		/**
+		 * Comprobamos si el contendio de un string esta en alguno de los comentarios
+		 */
+		Paginas paginaCoincidencia = null;
+		if (buscarElemento != null) {
+			for (Paginas p : paginas) {
+				int intIndex = p.getTexto().toLowerCase().indexOf(buscarElemento.toLowerCase());
+				System.out.println(p.getTexto());
+				if (intIndex != -1) {
+					alerta.setTexto("!!!Hemos encontrado texto coincidente !! en las siguientes paginas : "
+							+ p.getPaginas() + " Le redirecionamos a la pagina con la primera coincidencia");
+					alerta.setTipo(Alerts.SUCESS);
+					paginaCoincidencia = p;
+					paginasCoincidencia.add(p);
+					
+				} else {
+					alerta.setTexto("!!!No hemos encontrado texto coincidente !!  . Texto buscado : " + buscarElemento);
+					alerta.setTipo(Alerts.SUCESS);
+				}
+
+			}
+
+		}
+		return paginaCoincidencia;
 	}
 
 }

@@ -10,6 +10,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.ipartek.examen.model.pojo.Alerts;
+
 /**
  * Servlet implementation class HomeController
  */
@@ -18,6 +20,7 @@ import javax.servlet.http.HttpSession;
 public class LoginController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	boolean flag = false;
+	Alerts alerta = new Alerts();
 
 	/**
 	 * @see Servlet#init(ServletConfig)
@@ -65,11 +68,18 @@ public class LoginController extends HttpServlet {
 				System.out.println("Autentificacion correcta " + nombreUsuario);
 				session.setMaxInactiveInterval(60 * 60); // 1 hora
 				request.getRequestDispatcher("/comentariosController").forward(request, response);
+			}else {
+				alerta.setTexto("Usuario no encontrado, intentelo de nuevo o pruebe a registarse");
+				alerta.setTipo(Alerts.DANGER);
+				request.getRequestDispatcher(
+						"/comentariosController?alertaTexto=" + alerta.getTexto() + "&alertaTipo=" + alerta.getTipo())
+						.forward(request, response);
 			}
 
 		} catch (Exception e) {
 			System.out.println("Error en doProcess *LoginController*");
 			e.printStackTrace();
+			
 		}
 
 	}

@@ -20,7 +20,17 @@
                         </div>
                         <div class="row">
                         	<div class="col-md-8">
-				      			TODO BUSCADOR con su lupita toda txula
+                        	<form action="/backoffice/usuario" class="form-inline">
+							  <div class="form-group">
+							    <label class="sr-only" for="exampleInputAmount"></label>
+							    <div class="input-group">
+							      <div class="input-group-addon"><i class="fas fa-search "></i></div>
+							      <input type="text" class="form-control" id="exampleInputAmount" placeholder="Busqueda">
+							      <!-- <div class="input-group-addon">.00</div> -->
+							    </div>
+							  </div>
+							  <button type="submit" class="btn btn-primary">Buscar</button>
+							</form>
 				      		</div>
 				      		<div class="col-md-4">
 				      			<a href="<%=request.getContextPath()%>/backoffice/usuario?view=form" class="btn btn-success">Crear Nuevo</a>
@@ -28,8 +38,10 @@
                         </div>
                         
                         <!-- /.panel-heading -->
-                        <div class="panel-body">   
-                        <%@ include file="../includes/optionsUsuario.jsp" %> 
+                        <div class="panel-body">
+                        
+                        <%@ include file="../includes/optionsUsuario.jsp" %>
+                        
                         	<!-- VISTA LISTA -->                   	                      	
                         	<c:if test="${view == 'tree'}">
 	                            <table width="100%" class="userDataTable table table-striped table-bordered table-hover " id="userDataTable">
@@ -45,7 +57,7 @@
 	                                <tbody>
 	                                	<c:forEach items="${usuarios}" var="u">
 		                                    <tr class="odd gradeX">
-		                                    	<td><a href="<%=request.getContextPath()%>/backoffice/usuario?id=${u.id }">${u.id }</a></td>
+		                                    	<td><a href="<%=request.getContextPath()%>/backoffice/usuario?usuarioId=${u.id }">${u.id }</a></td>
 		                                        <td>${u.nombre }</td>
 		                                        <td>${u.pass }</td>
 		                                       	<td>${(u.rol == 1)?'normal':'administrador' }</td>
@@ -82,11 +94,16 @@
 	                            	<form action="usuario" method="post">
 	                            	<div class="col-lg-12">
 	                            		
-	                            		<h1 class="page-header"><${usuarioSeleccionado.id == -1?'crear Usuario' : usuarioSeleccionado.nombre }</h1>
-<!-- 	                            		<div class="form-group">
+	                            		<h1 class="page-header"><${usuarioSeleccionado.id  == -1?'crear Usuario' : usuarioSeleccionado.nombre }</h1>
+	                            		<!-- PAGINACION -->
+										<ul class="pagination">
+										  <li><a href="usuario?accion=menos&usuarioId=${usuarioSeleccionado.id }">&laquo;</a></li>
+										  <li><a href="usuario?accion=mas&usuarioId=${usuarioSeleccionado.id }">&raquo;</a></li>
+										</ul>
+	                            		<div class="form-group">
 		                            		<label for="id">id</label>
-		                            		<input name="id" type="text"  readonly placeholder="numero de id">
-	                            		</div> -->
+		                            		<input name="id" type="number" value="${usuarioSeleccionado.id }"  readonly placeholder="numero de id">
+	                            		</div>
 	                            		<div class="form-group">
 		                            		<label for="nombreUsuario">Nombre</label>
 		                            		<input type="text" name="nombreUsuario" value="${usuarioSeleccionado.nombre }" placeholder="nombre de usuario" autofocus>
@@ -104,8 +121,8 @@
 		                            	</div> --%>
 	                            	</div>
                             	</div>
-                            	
-	                            		<input type="submit" value="${usuario.id == 1?'Crear' : 'Modificar' }" class="btn btn-primary btn-block">
+                            			<!-- TODO MIRAR PORQUE NO COJE EL CAMBIO DE VALUE-->
+	                            		<input type="submit" value="${usuario.id == -1 ?'Crear' : 'Modificar' }" class="btn btn-primary btn-block">
 	                            		<c:if test="${usuario.id == 0 }">
 	                            			<a href="usuario" onclick="confirmar(event)" class="btn btn-danger btn-block">Elmiminar modal</a>
 	                            		</c:if>

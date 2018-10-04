@@ -39,9 +39,29 @@ public class BackofficeUsuarioController extends HttpServlet {
 		try {
 			String view = request.getParameter("view");
 			usuarios = (ArrayList<Usuario>) usuariosJDBC.getAll();
-			String id = request.getParameter("id");
+			String id = request.getParameter("usuarioId");
+			String accion = request.getParameter("accion");
 			Usuario usuarioSeleccionado = new Usuario();
+			int idInt = 0;
 			
+			
+/*			if (accion != null) {
+				idInt = Integer.parseInt(id);
+				if("menos".contentEquals(accion)) {
+					System.out.println("usuario menos");
+					
+					//usuarioSeleccionado = usuarios.get
+					//usuarioSeleccionado = usuariosJDBC.getById(id);
+				}
+				if("mas".contentEquals(accion)) {
+					System.out.println("usuario mas");
+					usuarioSeleccionado = usuarios.get(idInt+1);
+				}
+				if(usuarioSeleccionado == null) {
+					usuarioSeleccionado = usuariosJDBC.getById(id);
+				}
+				view = "form";
+			}*/
 			
 			if(usuarios != null) {
 				request.setAttribute("usuarios", usuarios);
@@ -51,7 +71,7 @@ public class BackofficeUsuarioController extends HttpServlet {
 				view = "tree";
 			}
 			//Si viene id automaticamente cambiamos a vista formulario
-			if(id != null) {
+			if(id != null && accion == null) {
 				view = "form";
 				usuarioSeleccionado = usuariosJDBC.getById(id);
 				/*if("".contentEquals(usuarioSeleccionado.getNombre())){
@@ -101,7 +121,7 @@ public class BackofficeUsuarioController extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		try {
 			Usuario usuario = null;
-			String id = request.getParameter("id");
+			String usuarioId = request.getParameter("usuarioId");
 			String nombreUsuario = request.getParameter("nombreUsuario");
 			String passwordUsuario = request.getParameter("passwordUsuario");
 			//String rol = request.getParameter("rol");

@@ -73,8 +73,30 @@ public class BackofficeVideoController extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
+		try {
+			Video video = null;
+			String videoId = request.getParameter("videoId");
+			String codigoCancion = request.getParameter("codigoCancion");
+			String nombreCancion = request.getParameter("nombreCancion");
+			//String rol = request.getParameter("rol");
+			
+			if(codigoCancion != null && nombreCancion != null) {
+				video = new Video(codigoCancion,nombreCancion);
+				//usuarios.add(usuario);
+				videosJDBC.insert(video);
+			}
+			
+/*			Usuario usuario = new Usuario();
+			usuario.setId(Integer.parseInt(id));
+			usuario.setNombre(nombreUsuario);
+			usuario.setPass(passwordUsuario);*/
+			//usuario.setRol(Integer.parseInt(rol));
+			
+			request.setAttribute("video", video);
+			request.getRequestDispatcher("usuario/index.jsp").forward(request, response);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 }

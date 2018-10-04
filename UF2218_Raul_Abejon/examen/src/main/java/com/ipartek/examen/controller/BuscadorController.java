@@ -9,6 +9,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.ipartek.examen.model.dao.PaginasDao;
 import com.ipartek.examen.model.pojo.Alerts;
@@ -26,6 +27,7 @@ public class BuscadorController extends HttpServlet {
 	private static PaginasDao paginasDao;
 	private static Paginas paginaInicio;
 	Alerts alerta = new Alerts();
+	private static ArrayList<Paginas> paginasCoincidencia;
 
 	/**
 	 * @see Servlet#init(ServletConfig)
@@ -69,6 +71,7 @@ public class BuscadorController extends HttpServlet {
 			throws ServletException, IOException {
 
 		Paginas paginaCoincidencia;
+		HttpSession session = request.getSession();
 
 		try {
 			String buscarElemento = request.getParameter("buscarElemento");
@@ -105,7 +108,12 @@ public class BuscadorController extends HttpServlet {
 
 		} catch (Exception e) {
 			System.out.println("Error en doProcess *LoginController*");
+			alerta.setTexto("Pagina no encontrada ");
+			alerta.setTipo(Alerts.DANGER);
 			e.printStackTrace();
+			request.getRequestDispatcher(
+					"/comentariosController?alertaTexto=" + alerta.getTexto() + "&alertaTipo=" + alerta.getTipo())
+					.forward(request, response);
 		} finally {
 
 		}
@@ -146,6 +154,8 @@ public class BuscadorController extends HttpServlet {
 							+ p.getPaginas() + " Le redirecionamos a la pagina con la primera coincidencia");
 					alerta.setTipo(Alerts.SUCESS);
 					paginaCoincidencia = p;
+					paginasCoincidencia.add(p);
+					
 				} else {
 					alerta.setTexto("!!!No hemos encontrado texto coincidente !!  . Texto buscado : " + buscarElemento);
 					alerta.setTipo(Alerts.SUCESS);

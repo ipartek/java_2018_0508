@@ -1,3 +1,6 @@
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@page import="com.ipartek.examen.model.pojo.*"%>
 <%@page import="java.util.ArrayList"%>
@@ -9,18 +12,29 @@
 		  
 		<div class="producto">
 			<c:if test="${ not empty usuario }">
-				<!-- Buscador por paginas -->
-				<div class="row justify-content-md-center">	
-				 	<form action="buscadorControler" for="buscarElemto">
-						<button class="btn btn-primary btn-lg" type="submit" href="buscadorControler?" >Buscar por pagina</button>
-						<input type="text" name="buscarPagina" plasceholder="Introduce el numero de pagina">
-											
-					</form>
-				</div>   
-				
+				<div>
+					<!-- Buscador por paginas -->
+					<div class="row justify-content-md-center">	
+					 	<form action="buscadorControler" for="buscarElemto">
+							<button class="btn btn-primary btn-lg" type="submit" href="buscadorControler?" >Buscar por pagina</button>
+							<input type="text" name="buscarPagina" plasceholder="Introduce el numero de pagina">
+												
+						</form>
+					</div>  
+					<div>
+						Paginas encontradas
+						<ul>
+							<c:forEach items="${paginasCoincidencia}" var="p">
+								<li><a href="">${p.paginas }</a></li>
+							</c:forEach>
+							
+						</ul>
+					
+					</div> 
+				</div>
 				<!-- Buscador de contenido -->
 				<div class="row justify-content-md-center">	
-				 	<form action="buscadorControler" for="buscarElemto">
+				 	<form action="comentariosController" for="buscarElemto">
 						<label>Busca texto</label>
 						<input type="text" name="buscarElemento">
 						<button class="btn btn-primary btn-lg" type="submit" >Buscar texto</button>					

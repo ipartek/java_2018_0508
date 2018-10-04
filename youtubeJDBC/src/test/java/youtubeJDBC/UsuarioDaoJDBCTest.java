@@ -41,10 +41,10 @@ public class UsuarioDaoJDBCTest {
 		assertTrue("Deberia haber creado un usuario MOCK",dao.insert(uMock));
 	}
 
-	@After
+/*	@After
 	public void tearDown() throws Exception {
 		assertTrue("Deberia haber eliminado un usuario MOCK",dao.delete(uMock.getId()));
-	}
+	}*/
 
 	@Test
 	public void testInsert() {

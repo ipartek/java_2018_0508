@@ -17,7 +17,17 @@
                         </div>
                         <div class="row">
                         	<div class="col-md-8">
-				      			TODO BUSCADOR con su lupita toda txula
+				      			<form action="/backoffice/video" class="form-inline">
+								  <div class="form-group">
+								    <label class="sr-only" for="exampleInputAmount"></label>
+								    <div class="input-group">
+
+								      <input type="text" class="form-control" id="exampleInputAmount" placeholder="Busqueda">
+								      <!-- <div class="input-group-addon">.00</div> -->
+								    </div>
+								  </div>
+								  <button type="submit" class="btn btn-primary"><i class="fas fa-search "></i></button>
+								</form>
 				      		</div>
 				      		<div class="col-md-4">
 				      			<a href="<%=request.getContextPath()%>/backoffice/video?view=form" class="btn btn-success">Crear Nuevo</a>
@@ -40,9 +50,9 @@
 	                                <tbody>
 	                                	<c:forEach items="${videos}" var="v">
 		                                    <tr class="odd gradeX">
-		                                    	<td><a href="<%=request.getContextPath()%>/backoffice/usuario?id=${v.id }">${v.id }</a></td>
+		                                    	<td><a href="<%=request.getContextPath()%>/backoffice/video?videoId=${v.id }">${v.id }</a></td>
 		                                        <td>${v.codigo }</td>
-		                                        <td>${u.nombre }</td>
+		                                        <td>${v.nombre }</td>
 		                                    </tr>
 	                                    </c:forEach>
 	                                   
@@ -70,28 +80,34 @@
                             <!-- VISTA FORMULARIO --> 
                             <c:if test="${view == 'form'}">
                             	Vista formulario
-                            	&{usuario}
+                            	&{usuario}           	
+								<form action="usuario" method="post">                          	
                             	<div class="row">
 	                            	<div class="col-lg-12">
 	                            		
 	                            		<h1 class="page-header">${video.id == -1?'crear Video' : video.nombre }</h1>
+	                            		<!-- PAGINACION -->
+										<ul class="pagination">
+										  <li><a href="#">&laquo;</a></li>
+										  <li><a href="#">&raquo;</a></li>
+										</ul>
 	                            		<div class="form-group">
-		                            		<label for="id">id</label>
-		                            		<input name="id" type="text" placeholder="numero de id">
+		                            		<label for="videoId">id</label>
+		                            		<input name="videoId" type="text" readonly placeholder="numero de id">
 	                            		</div>
 	                            		<div class="form-group">
-		                            		<label for="nombreUsuario">Codigo</label>
-		                            		<input type="text" name="nombreUsuario" value="${video.codigo }" placeholder="nombre de usuario" autofocus>
+		                            		<label for="codigoVideo">Codigo</label>
+		                            		<input type="text" name="codigoVideo" value="${video.codigo }" placeholder="nombre de usuario" autofocus>
 		                            	</div>
 		                            	<div class="form-group">
-		                            		<label for="nombreUsuario">Nombre</label>
-		                            		<input type="password" name="passwordUsuario" value="${video.nombre }" placeholder ="password">
+		                            		<label for="nombreCancion">Nombre</label>
+		                            		<input type="text" name="nombreCancion" value="${video.nombre }" >
 		                            	</div>
 
 	                            	</div>
                             	</div>
                             	<div class="row">
-	                            	<form action="usuario" method="post">
+	                            	
 	                            		<input type="submit" value="${video.id == 1?'Crear' : 'Modificar' }" class="btn btn-primary btn-block">
 	                            		<c:if test="${video.id == 0 }">
 	                            			<a href="usuario" onclick="confirmar(event)" class="btn btn-danger btn-block">Elmiminar modal</a>
