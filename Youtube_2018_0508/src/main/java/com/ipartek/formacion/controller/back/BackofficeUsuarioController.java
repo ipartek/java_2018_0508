@@ -45,8 +45,7 @@ public class BackofficeUsuarioController extends HttpServlet {
 		String id = request.getParameter("id");
 		String op = request.getParameter("op");
 		
-		try {
-			
+		try { 
 			if(id!=null && op != null && op.equals(OP_ELIMINAR)){ /*Eliminar*/
 				System.out.println("Borrando...");
 				if(daoUsuario.delete(id)) {
