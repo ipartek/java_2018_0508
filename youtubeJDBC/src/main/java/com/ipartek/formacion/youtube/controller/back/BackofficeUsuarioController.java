@@ -11,18 +11,35 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.ipartek.formacion.youtube.model.UsuariosDaoJDBC;
+import com.ipartek.formacion.youtube.pojo.Alert;
 import com.ipartek.formacion.youtube.pojo.Usuario;
 
 /**
  * Servlet implementation class BackofficeUsuarioController
  */
-@WebServlet("/backoffice/usuario")
+@WebServlet("/backoffice/usuarioDeshabilitado")
 public class BackofficeUsuarioController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private static UsuariosDaoJDBC usuariosJDBC;
 	private ArrayList<Usuario> usuarios;
 	private String view = "tree";
-	public static final String OP_ELIMINAR = "34";
+	
+	
+	public static final String OP_LISTAR = "1";
+	public static final String OP_GUARDAR = "2";  //insert id == -1 o update id > 0
+	public static final String OP_ELIMINAR = "3";
+	public static final String OP_IR_FORMULARIO = "4";
+	private static final String VIEW_LISTADO = "usuarios/index.jsp";
+	private static final String VIEW_FORMULARIO = "usuarios/form.jsp";
+	private String urlView;
+	private Alert alert;
+	
+	private String op; //operacion a realizar
+	private String id;
+	private String nombre;
+	private String password;
+	private String rol;
+	
 	
 	@Override
 	public void init(ServletConfig config) throws ServletException {	
@@ -165,6 +182,19 @@ public class BackofficeUsuarioController extends HttpServlet {
 			request.getRequestDispatcher("usuario/index.jsp").forward(request, response);
 		}
 		
+		
+		
+	}
+	
+	protected void doProcess(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		getParameters();
+	}
+
+
+
+
+	private void getParameters() {
 		
 		
 	}
