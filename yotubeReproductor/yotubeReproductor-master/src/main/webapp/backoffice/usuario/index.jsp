@@ -16,7 +16,7 @@
 	<div class="row">
 		<div class="col-8">Todo Buscador con su lupita todo txula</div>
 		<div class="col-md-4">
-			<a href="usuarios?id=-1" class="btn btn-success">Crear Nuevo</a>
+			<a href="usuarios?id=-1&op=4" class="btn btn-success">Crear Nuevo</a>
 		</div>
 	</div>
 
@@ -34,7 +34,7 @@
 				<c:forEach items="${usuarios}" var="u">
 					<tr>
 						<td>${u.id}</td>
-						<td><a href="usuarios?id=${u.id }">${u.nombre}</td></a>
+						<td><a href="usuarios?id=${u.id}&op=4">${u.nombre}</td></a>
 						<td>${u.password}</td>
 						<td>${(u.rol==1)?'normal':'administrador'}</td>
 					</tr>

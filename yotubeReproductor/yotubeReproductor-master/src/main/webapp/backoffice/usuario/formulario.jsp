@@ -18,7 +18,8 @@
 	<div class="row">
 
 		<form action="usuarios" method="post">
-
+			<input type="hidden" name="op" value="2">
+			
 
 			<div class="form-group">
 				<label for="id">Id</label> <input type="text" class="form-control"
@@ -49,7 +50,7 @@
 				value="${(usuario.id == -1)?'Crear': 'Modificar'}"
 				class="btn btn-primary btn-block">
 			<c:if test="${usuario.id > 0 }">
-				<a href="usuarios?id=${usuario.id}&op=borrar" onclick="confirmar(event)"
+				<a href="usuarios?id=${usuario.id}&op=3" onclick="confirmar(event)"
 					class="btn btn-danger btn-block">Eliminar(Confirmar)</a>
 			</c:if>
 		</form>
