@@ -55,18 +55,18 @@ public class PaginaController extends HttpServlet {
 
 				numPag = paginas.size();
 				// Creamos nueva pagina con los datos
-				Pagina pag = new Pagina(numPag + 1, u.getNombre(), texto);
+				Pagina pag = new Pagina(numPag + 1,texto,u.getNombre());
 				// Agregamos pagina al libro
 				paginas.add(pag);
-				alert = new Alert(Alert.ALERT_SUCCESS, "Pagina creada con exito.");
+				alert = new Alert(Alert.ALERT_SUCCESS, "Pagina creada con exito.Vuelve al principal para verlo");
 				
 				request.setAttribute("alert", alert);
-				//request.getRequestDispatcher("inicio").forward(request, response);
+				
 
 			} else {
 				alert = new Alert(Alert.ALERT_WARNING,
 						"Palabras insuficientes,recuerda que tiene que ser como minimo 25 palabras");
-
+				request.setAttribute("texto", texto);
 				
 			}
 

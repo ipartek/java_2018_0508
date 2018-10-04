@@ -28,9 +28,9 @@
 		<div class="paginacion">
 			<h4 class="h4 nav-pagina">${pagActual.numPag } / ${numPaginas} Pag</h4>
 			<hr class="my-4">
-			<p class="text-justify texto"><strong>${pagActual.texto}</strong></p>
+			<p class="text_autor"><strong>${pagActual.autor}</strong></p>
 			<hr class="my-4">
-			<p class="text_autor"> ${pagActual.autor}</p>
+			<p class="text-justify texto "> ${pagActual.texto}</p>
 		</div>
 		
 		<div class="nav_pag">
@@ -45,7 +45,8 @@
 			</form>
 		</div>	
 		
-		<ul>
+		<h3>Paginas encontradas:</h3>
+		<ul>			
 			<c:forEach items="${pagsEncontradas}" var="p">
 				<li><a href="#">Pagina ${p.numPag}</a></li>	
 			</c:forEach>			

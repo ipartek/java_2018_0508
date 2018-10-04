@@ -18,8 +18,6 @@ import com.andrea.perez.pojo.Pagina;
 public class InicioController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	private static final int AVANZA = 1;
-	private static final int RETROCEDE = -1;
 	private static final String OP_AVANZA = "avanza";
 	private static final String OP_RETROCEDE = "retrocede";
 
@@ -159,10 +157,10 @@ public class InicioController extends HttpServlet {
 
 	private void buscarTexto(String texto) {
 		paginas = (ArrayList<Pagina>) dao.getAll();
-
+		pagsEncontradas = new ArrayList<>();
 		for (Pagina p : paginas) {
 			if (p.getTexto().contains(texto) || p.getAutor().contains(texto)) {
-				pagsEncontradas = new ArrayList<>();
+				
 				pagsEncontradas.add(p);
 
 			}

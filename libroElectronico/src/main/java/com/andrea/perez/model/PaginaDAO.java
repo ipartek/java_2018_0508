@@ -1,7 +1,6 @@
 package com.andrea.perez.model;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.StringTokenizer;
 
@@ -17,7 +16,7 @@ public class PaginaDAO implements Crudable<Pagina> {
 		paginas = new ArrayList<Pagina>();
 		
 		try {
-			paginas.add(new Pagina(1,"yo","Erasé una vez ...." ));
+			paginas.add(new Pagina(1,"Erasé una vez ....","yo" ));
 			
 		} catch (Exception e) {
 			e.printStackTrace();

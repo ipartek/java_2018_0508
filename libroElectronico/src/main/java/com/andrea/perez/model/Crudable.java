@@ -1,6 +1,5 @@
 package com.andrea.perez.model;
 
-import java.util.HashMap;
 import java.util.List;
 
 import com.andrea.perez.pojo.Pagina;

@@ -1,3 +1,4 @@
+<%@include file="../includes/taglibs.jsp"%>
 
 <c:if test="${empty alert }">
 	${alert = null }

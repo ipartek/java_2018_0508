@@ -32,10 +32,11 @@ h4.nav-pagina {
 }
 
 p.texto{
-	margin-left: 45%;
+	 min-height: 200px;
 }
 p.text_autor {
-    min-height: 200px;
+	margin-left: 45%;
+   
 }
 
 main.container {
