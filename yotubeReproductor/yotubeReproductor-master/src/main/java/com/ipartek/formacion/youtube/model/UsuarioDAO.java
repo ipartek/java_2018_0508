@@ -15,12 +15,12 @@ public class UsuarioDAO implements CrudAble<Usuario> {
 
 	private static UsuarioDAO INSTANCE = null;
 
-	private static final String SQL_GET_ALL = "SELECT id, nombre, password, rol FROM usuario ORDER BY id DESC LIMIT 1000;";
+	private static final String SQL_GET_ALL = "SELECT id, nombre, password, rol FROM usuario ORDER BY id DESC LIMIT 500;";
 	private static final String SQL_GET_BY_ID = "SELECT id, nombre, password, rol FROM usuario WHERE id = ?;";
 	private static final String SQL_UPDATE = "UPDATE `youtube`.`usuario` SET `nombre` = ?, `password` = ?, `rol` = ? WHERE `id` = ?;";
 	private static final String SQL_DELETE = "DELETE FROM `youtube`.`usuario` WHERE id = ?;";
 	private static final String SQL_LOGIN = "SELECT `id`, `nombre`, `password`, `rol` FROM youtube.usuario WHERE nombre = ? AND password = ?;";
-	private static final String SQL_INSERT = "INSERT INTO `usuario` (`nombre`, `password`) VALUES (?,?);";
+	private static final String SQL_INSERT = "INSERT INTO `usuario` (`nombre`, `password`, `rol` ) VALUES (?,?,?);";
 
 	private UsuarioDAO() {
 		super();
@@ -73,10 +73,14 @@ public class UsuarioDAO implements CrudAble<Usuario> {
 
 			ps.setString(1, pojo.getNombre().trim());
 			ps.setString(2, pojo.getPassword().trim());
+			ps.setInt(3, pojo.getRol());
 
 			int affectedRows = ps.executeUpdate();
 			if (affectedRows == 1) {
 
+				
+				//use youtube;
+				//select MAX(id) as id from usuario;
 				// conseguir ID generado
 				try (ResultSet rs = ps.getGeneratedKeys()) {
 					while (rs.next()) {

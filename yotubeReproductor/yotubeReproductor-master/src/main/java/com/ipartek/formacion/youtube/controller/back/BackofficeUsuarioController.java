@@ -47,31 +47,31 @@ public class BackofficeUsuarioController extends HttpServlet {
 
 		String id = request.getParameter("id");
 		String op = request.getParameter("op");
-		
-		if(op!=null) {
+
+		if (op != null) {
+
 			dao.delete(id);
-			
+
 			usuarios = (ArrayList<Usuario>) dao.getAll();
-			
+
 			request.setAttribute("usuarios", usuarios);
 			request.getRequestDispatcher("usuario/index.jsp").forward(request, response);
-		}else {
-			
-			if (id == null) {
+		} else {
+
+			if (id == null) { // LISTADO
 				usuarios = (ArrayList<Usuario>) dao.getAll();
-				
+
 				request.setAttribute("usuarios", usuarios);
 				request.getRequestDispatcher("usuario/index.jsp").forward(request, response);
-			} else {
+			} else { // DETALLE
 				Usuario usuario = new Usuario();
 				if (Integer.parseInt(id) > 0) {
 					usuario = dao.getById(id);
 				}
 				request.setAttribute("usuario", usuario);
 				request.getRequestDispatcher("usuario/formulario.jsp").forward(request, response);
-			}			
+			}
 		}
-
 
 	}
 
@@ -104,23 +104,6 @@ public class BackofficeUsuarioController extends HttpServlet {
 		request.setAttribute("usuario", usuario);
 		request.getRequestDispatcher("usuario/formulario.jsp").forward(request, response);
 
-	}
-
-	private ArrayList<Usuario> getMockUsers() {
-		ArrayList<Usuario> usuarios = new ArrayList<Usuario>();
-		Usuario u = null;
-		for (int i = 1; i < 100; i++) {
-
-			u = new Usuario("nombre" + i, "123456");
-			if (i == 1) {
-				u.setRol(Usuario.ROL_ADMIN);
-			}
-
-			u.setId(i);
-			usuarios.add(u);
-
-		}
-		return usuarios;
 	}
 
 }
