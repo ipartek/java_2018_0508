@@ -1,3 +1,4 @@
+<%@page import="com.ipartek.formacion.youtube.controller.back.BackofficeUsuarioController"%>
 <%@page import="com.ipartek.formacion.youtube.pojo.Usuario"%>
 
 <%@ include file="../includes/header.jsp" %>
@@ -12,7 +13,7 @@
       </div>
       <!-- /.row -->
       <div class="row">
-      		
+      		      		
       		<form action="usuarios" method="post">
       			
       			<div class="form-group">
@@ -33,14 +34,14 @@
 				<div class="form-group">
 				   <label for="rol">Rol</label>
 				   <select name="rol" class="form-control">
-				   		<option value="${Usuario.ROL_USER}">Normal</option>
-				   		<option value="${Usuario.ROL_ADMIN}">Administrador</option>
+				   		<option value="${Usuario.ROL_USER}"  ${(usuario.rol == Usuario.ROL_USER)?'selected':'' }>Normal</option>
+				   		<option value="${Usuario.ROL_ADMIN}"  ${(usuario.rol == Usuario.ROL_ADMIN)?'selected':'' }  >Administrador</option>
 				   </select>
 				</div>
       		      		
       			<input type="submit" value="${(usuario.id == -1)?'Crear': 'Modificar' }" class="btn btn-primary btn-block">
       			<c:if test="${usuario.id > 0}">
-      				<a href="usuarios?id=${usuario.id}&op=45" onclick="confirmar(event)" class="btn btn-danger btn-block">Eliminar(Modal)</a>
+      				<a href="usuarios?id=${usuario.id}&op=<%=BackofficeUsuarioController.OP_ELIMINAR%>" onclick="confirmar(event)" class="btn btn-danger btn-block">Eliminar(Modal)</a>
       			</c:if>	
       		</form>
       		

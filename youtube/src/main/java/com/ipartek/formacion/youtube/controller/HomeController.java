@@ -101,7 +101,7 @@ public class HomeController extends HttpServlet {
 			
 			//eliminar ?			
 			if ( op != null && OP_ELIMINAR.equals(op) ) {
-				if ( dao.delete(id) ) {
+				if ( dao.delete( Long.parseLong(id) ) ) {
 					alert = new Alert(Alert.SUCCESS, "Video Eliminado correctamente");
 				}else {
 					alert = new Alert();
@@ -115,7 +115,7 @@ public class HomeController extends HttpServlet {
 			//video de inicio
 			videoInicio = new Video();
 			if ( id != null && !OP_ELIMINAR.equals(op) ) {
-				videoInicio = dao.getById(id);
+				videoInicio = dao.getById( Long.parseLong(id) );
 				
 				//guardar video reproducido si esta usuario en session
 				HttpSession session = request.getSession();
@@ -162,7 +162,7 @@ public class HomeController extends HttpServlet {
 			
 			if ( op != null && OP_MODIFICAR.equals(op)) {    // modificar
 				
-				Video v = dao.getById(id);
+				Video v = dao.getById( Long.parseLong(id) );
 				v.setNombre(nombre);
 				
 				if ( dao.update(v) ) {
