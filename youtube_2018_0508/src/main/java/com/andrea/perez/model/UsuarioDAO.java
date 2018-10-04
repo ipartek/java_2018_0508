@@ -12,10 +12,10 @@ import com.mysql.jdbc.Statement;
 public class UsuarioDAO implements Crudable<Usuario> {
 	private static UsuarioDAO INSTANCE = null;
 	private static final String SQL_GET_ALL = "SELECT id,nombre, password,rol FROM usuario ORDER BY id DESC LIMIT 1000";
-	private static final String SQL_GET_BY_ID = "SELECT id,nombre, password FROM usuario WHERE id = ?";
+	private static final String SQL_GET_BY_ID = "SELECT id,nombre, password,rol FROM usuario WHERE id = ?";
 	private static final String SQL_GET_BY_NOMBRE = "SELECT id,nombre,password,rol FROM usuario WHERE nombre=? AND password=?";
-	private static final String SQL_UPDATE = "UPDATE usuario SET nombre = ?, contrasena = ? WHERE id = ?;";
-	private static final String SQL_INSERT = "INSERT INTO usuario (nombre, password) VALUES (?, ?);";
+	private static final String SQL_UPDATE = "UPDATE usuario SET nombre= ? ,password= ?,rol=? WHERE id = ?;";
+	private static final String SQL_INSERT = "INSERT INTO usuario (nombre, password,rol) VALUES (?, ?,?);";
 	private static final String SQL_DELETE = "DELETE FROM usuario WHERE id = ?;";
 
 	private UsuarioDAO() {
@@ -40,16 +40,18 @@ public class UsuarioDAO implements Crudable<Usuario> {
 
 				ps.setString(1, pojo.getNombre().trim());
 				ps.setString(2, pojo.getContrasena().trim());
+				ps.setLong(3, pojo.getRol());
 
 				int affectedRows = ps.executeUpdate();
 
 				if (affectedRows == 1) {
 					try (ResultSet rs = ps.getGeneratedKeys()) {
 						while (rs.next()) {
-							pojo.setId(rs.getLong(1));
+							pojo.setId(rs.getLong(1));// devuelve el valor de la primera columna "id" de la bbdd
+							resul = true;
 						}
 					}
-					resul = true;
+
 				}
 			}
 		} catch (Exception e) {
@@ -79,7 +81,7 @@ public class UsuarioDAO implements Crudable<Usuario> {
 
 	@Override
 	public Usuario getById(String idtem) {
-		long id =  0;
+		long id = 0;
 		if (idtem != null) {
 			id = Long.parseLong(idtem);
 		}
@@ -112,7 +114,8 @@ public class UsuarioDAO implements Crudable<Usuario> {
 
 			ps.setString(1, pojo.getNombre());
 			ps.setString(2, pojo.getContrasena());
-			ps.setLong(3, pojo.getId());
+			ps.setInt(3, pojo.getRol());
+			ps.setLong(4, pojo.getId());
 
 			int affectedRows = ps.executeUpdate();
 

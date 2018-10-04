@@ -1,9 +1,24 @@
 /*Hoja de estilos propia*/
- .botones-idioma:active{
- 	background-color: orange;
- }
- 
- .required::before{
-    content:"*";
-    color:#f00;
+.botones-idioma:active {
+	background-color: orange;
+}
+
+.required::before {
+	content: "*";
+	color: #f00;
+}
+
+/*Circulo de usuarios*/
+div.circulo {radio del borde:50%;
+	pantalla: bloque en línea;
+	margen derecho: 20px;
+}
+
+div#element1 {
+	ancho: 200px;
+	altura: 200px;
+	fondo: verde fondo: -webkit-linear-gradient(rojo, azul);
+	fondo: -o-lineal-gradiente(rojo, azul);
+	fondo: -moz-lineal-gradiente(rojo, azul);
+	fondo: gradiente lineal(rojo, azul);
 }

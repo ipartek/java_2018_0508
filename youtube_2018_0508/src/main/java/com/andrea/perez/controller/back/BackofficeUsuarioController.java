@@ -25,9 +25,23 @@ import com.andrea.perez.pojo.Usuario;
 @WebServlet("/backoffice/usuarios")
 public class BackofficeUsuarioController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+
+	public static final String OP_LISTAR = "1";
+	public static final String OP_GUARDAR = "2"; // insert id == "" o update id > 0
+	public static final String OP_ELIMINAR = "3";
+	public static final String OP_IR_FORMULARIO = "4";
+	private static final String VIEW_LISTADO = "usuarios/index.jsp";
+	private static final String VIEW_FORMULARIO = "usuarios/form.jsp";
+
+	private String view;
+	private String op; // operacion a realizar
+	private String id;
+	private String nombre;
+	private String contrasena;
+	private String rol;
+
 	private static UsuarioDAO daoUsuario = null;
-	private static ArrayList<Usuario> usuarios = null;
-	Alert alert = null;
+	private Alert alert = null;
 
 	@Override
 	public void init(ServletConfig config) throws ServletException {
@@ -46,62 +60,100 @@ public class BackofficeUsuarioController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-		usuarios = (ArrayList<Usuario>) daoUsuario.getAll();
-
-		String id = request.getParameter("id");
-
-		// el id ==null te lo carga en la tabla los datos
-		if (id == null) {
-			request.setAttribute("usuarios", usuarios);
-			request.getRequestDispatcher("usuarios/index.jsp").forward(request, response);
-		} else {
-
-			Usuario usuario = new Usuario();
-			// Si el id -1== te manda al form para crear el usuario...si el id > 0 te coge
-			// el usuario de la tabla
-			if (Integer.parseInt(id) > 0) {
-				int temp = (int) usuario.getId();
-				usuario = daoUsuario.getById(id);
-			}
-			request.setAttribute("usuario", usuario);
-			request.getRequestDispatcher("usuarios/form.jsp").forward(request, response);
-		}
-
-		request.setAttribute("usuarios", usuarios);
-
+		doProcess(request, response);
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-		String id = request.getParameter("id");
-		String nombre = request.getParameter("nombre");
-		String contrasena = request.getParameter("contrasena");
-		String rol = request.getParameter("rol");
+		doProcess(request, response);
 
-		// TODO COMPROBAR SI ES MODIFICAR O CREAR
-		Usuario usuario = new Usuario();
-		boolean resul = false;
-		// Modificar usuario
-		if ("1".equals(id)) {
-			usuario.setId(Long.parseLong(id));
-			usuario.setNombre(nombre);
-			usuario.setContrasena(contrasena);
-			usuario.setRol(Integer.parseInt(rol));
+	}
 
-			resul = daoUsuario.update(usuario);
-			if (daoUsuario.update(usuario)) {
+	protected void doProcess(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 
-			} else {
+		try {
+			getParameters(request);
 
+			switch (op) {
+			case OP_ELIMINAR:
+				eliminar(request);
+				break;
+			case OP_IR_FORMULARIO:
+				irFormulario(request);
+				break;
+			case OP_GUARDAR:
+				guardar(request);
+				break;
+
+			default:
+				listar(request);
+				break;
 			}
-		} else if ("-1".equals(id)) {// delete
-
+		} catch (Exception e) {
+			e.printStackTrace();
+			view = VIEW_LISTADO;
+			alert = new Alert();
+		} finally {
+			request.setAttribute("alert", alert);
+			request.getRequestDispatcher(view).forward(request, response);
 		}
+	}
 
+	private void listar(HttpServletRequest request) {
+		
+		view = VIEW_LISTADO;
+		request.setAttribute("usuarios", daoUsuario.getAll());
+
+	}
+
+	private void guardar(HttpServletRequest request) {
+
+		Usuario usuario = new Usuario();
+
+		usuario.setNombre(nombre);
+		usuario.setContrasena(contrasena);
+		usuario.setRol(Integer.parseInt(rol));
+
+		if (!id.equals("")) { // MODIFICAR
+
+			usuario.setId(Long.parseLong(id));
+
+			daoUsuario.update(usuario);
+		} else { // INSERT
+			daoUsuario.insert(usuario);
+		}
 		request.setAttribute("usuario", usuario);
-		request.getRequestDispatcher("usuarios/form.jsp").forward(request, response);
+		view = VIEW_FORMULARIO;
+	}
 
+	private void irFormulario(HttpServletRequest request) {
+		Usuario usuario = null;
+		if (Integer.parseInt(id) > 0) {
+			usuario = daoUsuario.getById(id);
+		} else {
+			usuario = new Usuario();
+		}
+		view = VIEW_FORMULARIO;
+		request.setAttribute("usuario", usuario);
+	}
+
+	private void eliminar(HttpServletRequest request) {
+
+		if (id != null) {
+			daoUsuario.delete(id);	
+			view = VIEW_FORMULARIO;
+		}
+	}
+
+	private void getParameters(HttpServletRequest request) {
+
+		op = (request.getParameter("op") != null) ? request.getParameter("op") : OP_LISTAR;
+		id = request.getParameter("id");
+		nombre = request.getParameter("nombre");
+		contrasena = request.getParameter("contrasena");
+		rol = request.getParameter("rol");
 	}
 
 }
