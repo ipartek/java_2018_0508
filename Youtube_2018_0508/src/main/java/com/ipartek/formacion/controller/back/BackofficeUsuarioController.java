@@ -1,8 +1,6 @@
 package com.ipartek.formacion.controller.back;
 
 import java.io.IOException;
-import java.util.ArrayList;
-
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -30,7 +28,6 @@ public class BackofficeUsuarioController extends HttpServlet {
 	private Alert alert = null;
 	
 //	ArrayList<Usuario> usuarios = null;
-	Usuario usuario = null;
 	
 	public static final String OP_LISTAR = "1";
 	public static final String OP_GUARDAR = "2"; //Insert o update en funcion del id (-1 o >0)
@@ -73,6 +70,8 @@ public class BackofficeUsuarioController extends HttpServlet {
 
 	private void doProcess(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
 		try {
+			alert=null;
+			
 			//Recoge los parametros de la request y los guarda en variables
 			getParameters(request);
 			
@@ -120,16 +119,19 @@ public class BackofficeUsuarioController extends HttpServlet {
 		request.setAttribute("usuarios", daoUsuario.getAll());
 	}
 
-	private void irFormulario(HttpServletRequest request) {
-		Usuario usuario = new Usuario();
+	private void irFormulario(HttpServletRequest request) {	
+		Usuario usuario = null;
 		if(Integer.parseInt(id)>0) {
 			usuario = daoUsuario.getById(id);
+		}else {
+			usuario = new Usuario();
 		}
 		request.setAttribute("usuario", usuario);
 		view = VIEW_FORM_USUARIOS;
 	}
 
 	private void guardar(HttpServletRequest request) {
+		Usuario usuario = null;
 		if(nombre != null && contrasena != null) {
 			if(nombre.length() <= 50) {
 				if(contrasena.length() <= 20) {

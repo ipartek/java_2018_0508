@@ -10,6 +10,9 @@
         <%@include file="../includes/aside.jsp"%>
 
         <div id="page-wrapper">
+        
+        	<%@include file="../includes/alerts.jsp"%>
+        
             <div class="row">
                 <div class="col-lg-12">
                     <h1 class="page-header">Usuarios <span class="badge">${usuarios.size()}</span></h1>

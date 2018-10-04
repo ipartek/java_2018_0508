@@ -45,7 +45,7 @@
 										<div class="form-group col-md-6">
 										   <label class="required" for="nombre">Nombre de usuario: </label>
 										   <input class="form-control" type="text" name="nombre" id="nombre" placeholder="Mínimo 3 caracteres y máximo 10" minlength="3" maxlength="10" autofocus tabindex="1" required
-										   value="${(usuario.id==-1)?'':usuario.nombre}">
+										   value="${usuario.nombre}">
 									   </div>
 									</div>
 								</div>
@@ -55,7 +55,7 @@
 										<div class="form-group col-md-6">
 										   <label for="contrasena">Contraseña: </label>
 										   <input class="form-control" type="password" name="contrasena" id="contrasena" placeholder="Mínimo 3 caracteres y máximo 10" minlength="3" maxlength="10" tabindex="2" required
-										   value="${(usuario.id==-1)?'':usuario.contrasena}">
+										   value="${usuario.contrasena}">
 									   </div>
 									</div>
 									<div class="col">
