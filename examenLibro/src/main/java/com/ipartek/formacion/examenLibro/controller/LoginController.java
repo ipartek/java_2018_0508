@@ -28,7 +28,7 @@ public class LoginController extends HttpServlet {
 		super.init(config);
 		usuarios = new ArrayList<>();
 
-		Usuario u1 = new Usuario("William ", "Shakespeare");
+		Usuario u1 = new Usuario("William", "Shakespeare");
 		Usuario u2 = new Usuario("cervantes", "saavedra");
 		Usuario u3 = new Usuario("pablo", "neruda");
 		Usuario u4 = new Usuario("paulo", "cohelo");

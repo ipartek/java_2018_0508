@@ -27,6 +27,7 @@ public class NavegacionController extends HttpServlet{
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String operacion = request.getParameter("operacion");
+		String alert = "";
 		
 		if(operacion != null && operacion.equals("siguiente")) {
 			if (request.getSession().getAttribute("numPagina") != null) {
@@ -40,6 +41,8 @@ public class NavegacionController extends HttpServlet{
 				}
 			} else {
 				request.getSession().setAttribute("numPagina", 0);
+				
+			
 			}
 			
 		}else if(operacion != null && operacion.equals("anterior")) {
@@ -55,16 +58,28 @@ public class NavegacionController extends HttpServlet{
 			}
 		
 		}else {
-			String selecPagina = request.getParameter("selecPagina");
-
-			int i = new Integer(selecPagina);
 			
-			i--;
+			try {
+				String selecPagina = request.getParameter("selecPagina");
 
-			List<Pagina> libro = dao.getAll();
+				int i = new Integer(selecPagina);
+				
+				i--;
 
-			if (i >= 0 && i < libro.size()) {
-				request.getSession().setAttribute("numPagina", i);
+				List<Pagina> libro = dao.getAll();
+
+				if (i >= 0 && i < libro.size()) {
+					request.getSession().setAttribute("numPagina", i);
+				}else {
+					
+					alert = "La pagina a la que intentas acceder no existe.";
+					request.setAttribute("alert", alert);
+				}
+				
+				
+			} catch (IndexOutOfBoundsException  e) {
+				alert = "La pagina a la que intentas acceder no existe.";
+				request.setAttribute("alert", alert);
 			}
 			
 		}

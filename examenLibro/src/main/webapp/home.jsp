@@ -22,7 +22,9 @@
 		</div>
 	</div>
 	<div class="row">
+	
 		<div class="col-sm">
+		<h2>${alert}</h2>
 			<h1>PAGINA : ${numPagina +1 } / ${numPagTotal}</h1>
 		</div>
 	</div>
