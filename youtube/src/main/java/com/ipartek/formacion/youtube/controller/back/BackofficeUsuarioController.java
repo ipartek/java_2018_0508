@@ -56,73 +56,15 @@ public class BackofficeUsuarioController extends HttpServlet {
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-		ArrayList<Usuario> usuarios = new ArrayList<>();
-		
-		String id = request.getParameter("id");
-		String op = request.getParameter("op");
-		
-		if ( id != null && op != null && op.equals(OP_ELIMINAR) ) { //ELIMINAR
-			
-			daoUsuario.delete(Long.parseLong(id));
-
-			usuarios = (ArrayList<Usuario>) daoUsuario.getAll();
-			request.setAttribute("usuarios", usuarios);
-			request.getRequestDispatcher("usuarios/index.jsp").forward(request, response);
-			
-			
-		}else {
-		
-				if ( id == null ) {											//LISTADO			
-														
-					usuarios = (ArrayList<Usuario>) daoUsuario.getAll();
-					request.setAttribute("usuarios", usuarios);
-					request.setAttribute("alert", new Alert( Alert.SUCCESS,"Yeahhhhhhhhhhhhhhh"));
-					request.getRequestDispatcher("usuarios/index.jsp").forward(request, response);
-					
-				}else {														//DETALLE			
-					
-					Usuario usuario = new Usuario();
-					if ( Integer.parseInt(id) > 0 ) {
-						usuario = daoUsuario.getById(Integer.parseInt(id));				
-					}
-					request.setAttribute("usuario", usuario);
-					request.getRequestDispatcher("usuarios/form.jsp").forward(request, response);
-				}
-		}
-		
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {		
+		doProcess(request, response);
 	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-		//recoger parametros del formulario		
-		String id = request.getParameter("id");
-		String nombre = request.getParameter("nombre");
-		String password = request.getParameter("password");
-		String rol = request.getParameter("rol");
-				
-			
-		Usuario usuario = new Usuario();		
-		usuario.setId( Long.parseLong(id)); 
-		usuario.setNombre(nombre);
-		usuario.setPassword(password);
-		usuario.setRol( Integer.parseInt(rol));
-				
-		if ( usuario.getId() > 0 ) {			//MODIFICAR
-			daoUsuario.update(usuario);
-		}else {									//INSERT	
-			daoUsuario.insert(usuario);
-		}
-		
-		
-		request.setAttribute("usuario", usuario);
-		request.getRequestDispatcher("usuarios/form.jsp").forward(request, response);
-		
-		
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {		
+		doProcess(request, response);		
 	}
 	
 	protected void doProcess(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -162,7 +104,9 @@ public class BackofficeUsuarioController extends HttpServlet {
 	}
 
 	private void listar(HttpServletRequest request) {
-		// TODO Auto-generated method stub
+		alert = null;
+		view = VIEW_LISTADO;
+		request.setAttribute("usuarios", daoUsuario.getAll());		
 		
 	}
 
@@ -183,7 +127,7 @@ public class BackofficeUsuarioController extends HttpServlet {
 
 	private void getParameters(HttpServletRequest request) {
 		
-		op = request.getParameter("op");
+		op = ( request.getParameter("op") != null ) ? request.getParameter("op") : OP_LISTAR;		
 		id = request.getParameter("id");
 		nombre = request.getParameter("nombre");
 		password = request.getParameter("password");
