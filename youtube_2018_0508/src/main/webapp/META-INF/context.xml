@@ -7,8 +7,13 @@
 		maxWait="10000" 
 		name="jdbc/mydb"	 
 		type="javax.sql.DataSource"
-		url="jdbc:mysql://localhost:3306/youtube?useSSL=false" 
+		url="jdbc:mysql://localhost:8889/youtube?useSSL=false" 
+		  
 		username="root"
 		password="root"
 		/>
 </Context>	
+
+
+<!--url="jdbc:mysql://localhost:3306/youtube?useSSL=false" --><!-- Conexion clase -->
+<!-- url="jdbc:mysql://localhost:8889/youtube?useSSL=false"--> <!-- Conexion casa-->

@@ -139,11 +139,13 @@ public class BackofficeUsuarioController extends HttpServlet {
 		request.setAttribute("usuario", usuario);
 	}
 
-	private void eliminar(HttpServletRequest request) {
+	private void eliminar(HttpServletRequest request) throws IOException {
 
 		if (id != null) {
 			daoUsuario.delete(id);	
-			view = VIEW_FORMULARIO;
+			view = VIEW_LISTADO;
+			HttpServletResponse response = null;
+			response.sendRedirect("view");
 		}
 	}
 

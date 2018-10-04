@@ -1,37 +1,40 @@
-</div>
-<!-- /#wrapper -->
-
 <!-- jQuery -->
-<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+	    <script src="https://blackrockdigital.github.io/startbootstrap-sb-admin-2/vendor/jquery/jquery.min.js"></script>
+		
+		 <!-- Bootstrap Core JavaScript -->
+    	<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+		
+		<!-- DataTables JavaScript -->
+	    <script src="https://blackrockdigital.github.io/startbootstrap-sb-admin-2/vendor/datatables/js/jquery.dataTables.min.js"></script>
+	    <script src="https://blackrockdigital.github.io/startbootstrap-sb-admin-2/vendor/datatables-plugins/dataTables.bootstrap.min.js"></script>
+	    <script src="https://blackrockdigital.github.io/startbootstrap-sb-admin-2/vendor/datatables-responsive/dataTables.responsive.js"></script>
+	
+	    <!-- Custom Theme JavaScript -->
+	    <script src="https://blackrockdigital.github.io/startbootstrap-sb-admin-2/dist/js/sb-admin-2.js"></script>
 
-<!-- Bootstrap Core JavaScript -->
-<script
-	src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
-
-<!-- datatables.net -->
-<script
-	src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
-
-<script>
-	/* custom javascript */
-
-	//Habilitar datatables
-	$(document).ready(function() {
-		$('#tablaOrdenable').DataTable();
-	});
-
-	/*Funcion para ventana emergente del boton eliminar del form Usuario*/
-	function confirmar(e) {
-		if (confirm('¿Estas seguro que quieres eliminar?')) {
-			console.log('confirmado eliminar');
-		} else {
-
-			e.preventDefault();
-		}
-	}
-</script>
-
-
-</body>
-
+		<!-- Page-Level Demo Scripts - Tables - Use for reference -->
+	    <script>
+		    $(document).ready(function() {
+		        $('#dataTable-ordenable').DataTable({
+		        	responsive: true,
+		        	"language": {
+		        		"url": "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Spanish.json"
+		       		}		            
+		        });
+		    });
+		    
+		    <!-- funcion para el confirm de eliminar-->
+		    function confirmar(e){
+        		if(confirm('¿Estás seguro de que quieres eliminar?')){
+        			console.log('Pulsado eliminar');
+        		}else{
+        			//Prevenir el evento por defecto del enlace
+        			e.preventDefault();
+        		}
+        	}
+		    
+		    
+	    </script>
+		
+	</body>
 </html>

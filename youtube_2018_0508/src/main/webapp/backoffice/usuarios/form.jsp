@@ -1,8 +1,7 @@
 <%@page import="com.andrea.perez.controller.back.BackofficeUsuarioController"%>
 <%@page import="com.andrea.perez.pojo.Usuario"%>
 <%@include file="../includes/header.jsp"%>    
-<%@include file="../includes/navbar.jsp"%> 
-<%@include file="../includes/taglibs.jsp"%> 
+<%@include file="../includes/aside.jsp"%> 
 
 <div id="page-wrapper">
 

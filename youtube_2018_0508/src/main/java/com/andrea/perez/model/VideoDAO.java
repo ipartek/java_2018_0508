@@ -36,13 +36,13 @@ public class VideoDAO implements Crudable<Video> {
 		boolean resul = false;
 
 		try (Connection con = ConnectionManager.getConnection(); // Obtener conexion bbdd
-				PreparedStatement ps = con.prepareStatement(SQL_INSERT, Statement.RETURN_GENERATED_KEYS);) {   // Ejecutar sql
-			
+				PreparedStatement ps = con.prepareStatement(SQL_INSERT, Statement.RETURN_GENERATED_KEYS);) { // Ejecutar
+																												// sql
+
 			if (pojo != null) {
-				
+
 //				Connection con =  ConnectionManager.getConnection();
 
-				
 //				PreparedStatement ps = con.prepareStatement(SQL_INSERT);
 				ps.setString(1, pojo.getCodigo());
 				ps.setString(2, pojo.getTitulo());
@@ -72,15 +72,6 @@ public class VideoDAO implements Crudable<Video> {
 				PreparedStatement ps = con.prepareStatement(SQL_GET_ALL);
 				ResultSet rs = ps.executeQuery();) {
 
-//			//Obtener conexion bbdd
-//			Connection con =  ConnectionManager.getConnection();
-//			
-//			//Ejecutar sql
-//			PreparedStatement ps = con.prepareStatement(SQL_GET_ALL);
-//			
-//			//Obtener resultados
-//			ResultSet rs = ps.executeQuery();
-
 			// Mapear ResultSet a ArrayList
 			while (rs.next()) {
 				videos.add(rowMapper(rs));
@@ -101,11 +92,6 @@ public class VideoDAO implements Crudable<Video> {
 		Video video = null;
 		try (Connection con = ConnectionManager.getConnection();
 				PreparedStatement ps = con.prepareStatement(SQL_GET_BY_ID);) {
-//			//Obtener conexion bbdd
-//			Connection con =  ConnectionManager.getConnection();
-//			
-//			//Ejecutar sql
-//			PreparedStatement ps = con.prepareStatement(SQL_GET_BY_ID);
 
 			ps.setLong(1, id);
 
