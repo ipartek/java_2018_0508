@@ -22,6 +22,7 @@ public class BackofficeUsuarioController extends HttpServlet {
 	private static UsuariosDaoJDBC usuariosJDBC;
 	private ArrayList<Usuario> usuarios;
 	private String view = "tree";
+	public static final String OP_ELIMINAR = "34";
 	
 	@Override
 	public void init(ServletConfig config) throws ServletException {	
@@ -30,6 +31,8 @@ public class BackofficeUsuarioController extends HttpServlet {
 		//inicializamos el arraydao de usuarios
 		usuariosJDBC =  UsuariosDaoJDBC.getInstance();
 	}
+	
+	
 
 
 	/**
@@ -41,6 +44,8 @@ public class BackofficeUsuarioController extends HttpServlet {
 			usuarios = (ArrayList<Usuario>) usuariosJDBC.getAll();
 			String id = request.getParameter("usuarioId");
 			String accion = request.getParameter("accion");
+			String idEliminar = request.getParameter("idEliminar");
+			String op = request.getParameter("op");
 			Usuario usuarioSeleccionado = new Usuario();
 			int idInt = 0;
 			
@@ -62,7 +67,10 @@ public class BackofficeUsuarioController extends HttpServlet {
 				}
 				view = "form";
 			}*/
-			
+			if(op != null && idEliminar != null) {
+				usuariosJDBC.delete(idEliminar);
+				
+			}
 			if(usuarios != null) {
 				request.setAttribute("usuarios", usuarios);
 
@@ -126,22 +134,35 @@ public class BackofficeUsuarioController extends HttpServlet {
 			String passwordUsuario = request.getParameter("passwordUsuario");
 			//String rol = request.getParameter("rol");
 			
-			if(nombreUsuario != null && passwordUsuario != null) {
-				usuario = new Usuario(nombreUsuario,passwordUsuario);
-				//usuarios.add(usuario);
-				usuariosJDBC.insert(usuario);
+			
+			
+			if(nombreUsuario != null && passwordUsuario != null && usuarioId == null) {
+				/*if (rol != null) {
+					int intRol = Integer.parseInt(rol);*/
+					usuario = new Usuario(nombreUsuario,passwordUsuario);
+					//usuarios.add(usuario);
+					usuariosJDBC.insert(usuario);
+				/*}*/
+				
+			}
+			if(nombreUsuario != null && passwordUsuario != null && usuarioId != null) {
+				/*if (rol != null) {*/
+					int intId = Integer.parseInt(usuarioId);
+					usuario = new Usuario(intId,nombreUsuario,passwordUsuario,1);
+					//usuarios.add(usuario);
+					usuariosJDBC.update(usuario);
+				/*}*/
+				
 			}
 			
-/*			Usuario usuario = new Usuario();
-			usuario.setId(Integer.parseInt(id));
-			usuario.setNombre(nombreUsuario);
-			usuario.setPass(passwordUsuario);*/
-			//usuario.setRol(Integer.parseInt(rol));
 			
 			request.setAttribute("usuario", usuario);
 			request.getRequestDispatcher("usuario/index.jsp").forward(request, response);
 		} catch (Exception e) {
 			e.printStackTrace();
+			System.out.println("Error en doPost backofficeController");
+			//response.sendRedirect( "usuario/index.jsp" ); 
+			request.getRequestDispatcher("usuario/index.jsp").forward(request, response);
 		}
 		
 		

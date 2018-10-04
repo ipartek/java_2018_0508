@@ -1,6 +1,8 @@
 <%@ include file="includes/header.jsp" %>	
 <%@ include file="includes/nav.jsp"  %>
         <div id="page-wrapper">
+        <%@ include file="includes/alert.jsp"  %>
+        
             <div class="row">
                 <div class="col-lg-12">
                     <h1 class="page-header">Panel de control</h1>

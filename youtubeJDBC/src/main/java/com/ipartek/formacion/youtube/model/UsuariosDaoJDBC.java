@@ -17,7 +17,7 @@ public class UsuariosDaoJDBC implements CrudAble<Usuario> {
 	private static List<Usuario> usuarios = null;
 	// querys CRUD
 	private final String SQL_INSERT = "INSERT INTO usuario(nombre,password) VALUES(?,?);";
-	private final String SQL_UPDATE = "UPDATE usuario SET nombre=?,email=?,password=? WHERE id=? ;";
+	private final String SQL_UPDATE = "UPDATE usuario SET nombre=?,password=? WHERE id=? ;";
 	private final String SQL_SELECT = "SELECT * FROM usuario ORDER BY id DESC ;";
 	private final String SQL_DELETE = "DELETE from usuario WHERE id=?;";
 	private final String SQL_SELECT_BY_NAMEPASS = "SELECT id,nombre, password, rol FROM usuario WHERE nombre = ? and password = ? ;";
@@ -139,6 +139,9 @@ public class UsuariosDaoJDBC implements CrudAble<Usuario> {
 
 	@Override
 	public boolean update(Usuario pojo) {
+		/**
+		 * nombre=?,password=? WHERE id=? 
+		 */
 		PreparedStatement ps = null;
 		boolean resul = false;
 		int rows;
@@ -147,10 +150,10 @@ public class UsuariosDaoJDBC implements CrudAble<Usuario> {
 			
 			int index = 1;
 			ps = conexion.prepareStatement(SQL_UPDATE);
+			
+			ps.setString(index++, pojo.getNombre());// parametro 1
+			ps.setString(index++, pojo.getPass());// parametro 1
 			ps.setLong(index, pojo.getId());// parametro 1
-			ps.setString(index, pojo.getNombre());// parametro 1
-			ps.setString(index, pojo.getPass());// parametro 1
-			ps.setInt(index, pojo.getRol());// parametro 1
 			rows = ps.executeUpdate();
 			if (rows == 1) {
 				resul = true;

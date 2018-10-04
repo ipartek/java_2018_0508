@@ -1,3 +1,4 @@
+<%@page import="com.ipartek.formacion.youtube.controller.back.BackofficeUsuarioController"%>
 <%@ include file="../includes/header.jsp" %>	
 
 <%@ include file="../includes/nav.jsp"  %>
@@ -91,41 +92,42 @@
                             	Vista formulario
                             	
                             	<div class="row">
-	                            	<form action="usuario" method="post">
-	                            	<div class="col-lg-12">
-	                            		
-	                            		<h1 class="page-header"><${usuarioSeleccionado.id  == -1?'crear Usuario' : usuarioSeleccionado.nombre }</h1>
-	                            		<!-- PAGINACION -->
-										<ul class="pagination">
-										  <li><a href="usuario?accion=menos&usuarioId=${usuarioSeleccionado.id }">&laquo;</a></li>
-										  <li><a href="usuario?accion=mas&usuarioId=${usuarioSeleccionado.id }">&raquo;</a></li>
-										</ul>
-	                            		<div class="form-group">
-		                            		<label for="id">id</label>
-		                            		<input name="id" type="number" value="${usuarioSeleccionado.id }"  readonly placeholder="numero de id">
-	                            		</div>
-	                            		<div class="form-group">
-		                            		<label for="nombreUsuario">Nombre</label>
-		                            		<input type="text" name="nombreUsuario" value="${usuarioSeleccionado.nombre }" placeholder="nombre de usuario" autofocus>
+	                            	<form action="<%=request.getContextPath()%>/backoffice/usuario" method="post">
+			                            	<div class="col-lg-12">
+			                            		
+			                            		<h1 class="page-header"><${usuarioSeleccionado.id  == -1?'crear Usuario' : usuarioSeleccionado.nombre }</h1>
+			                            		<!-- PAGINACION -->
+												<ul class="pagination">
+												  <li><a href="usuario?accion=menos&usuarioId=${usuarioSeleccionado.id }">&laquo;</a></li>
+												  <li><a href="usuario?accion=mas&usuarioId=${usuarioSeleccionado.id }">&raquo;</a></li>
+												</ul>
+			                            		<div class="form-group">
+				                            		<label for="usuarioId">id</label>
+				                            		<input name="usuarioId" type="text" value="${usuarioSeleccionado.id }"  readonly placeholder="numero de id">
+			                            		</div>
+			                            		<div class="form-group">
+				                            		<label for="nombreUsuario">Nombre</label>
+				                            		<input type="text" name="nombreUsuario" value="${usuarioSeleccionado.nombre }" placeholder="nombre de usuario" autofocus>
+				                            	</div>
+				                            	<div class="form-group">
+				                            		<label for="nombreUsuario">Contraseña</label>
+				                            		<input type="password" name="passwordUsuario" value="${usuarioSeleccionado.pass }" placeholder ="password">
+				                            	</div>
+				                            	<div class="form-group">
+												   <label for="rol">Rol</label>
+												   <select name="rol" class="form-control">
+												   		<option value="${Usuario.ROL_USER}"  ${(usuario.rol == Usuario.ROL_USER)?'selected':'' }>Normal</option>
+												   		<option value="${Usuario.ROL_ADMIN}"  ${(usuario.rol == Usuario.ROL_ADMIN)?'selected':'' }  >Administrador</option>
+												   </select>
+												</div>
+			                            	</div>
 		                            	</div>
-		                            	<div class="form-group">
-		                            		<label for="nombreUsuario">Contraseña</label>
-		                            		<input type="password" name="passwordUsuario" value="${usuarioSeleccionado.pass }" placeholder ="password">
-		                            	</div>
-<%-- 		                            	<div class="form-group">
-		                            		<label for="nombreUsuario">Rol</label>
-		                            		<select name="rol" class="form-control">
-		                            			<option value="${usuario.ROL_USER }">NORMAL</option>
-		                            			<option value="${usuario.ROL_ADMIN }">ADMINISTRADOR</option>		
-		                            		</select>
-		                            	</div> --%>
-	                            	</div>
-                            	</div>
                             			<!-- TODO MIRAR PORQUE NO COJE EL CAMBIO DE VALUE-->
-	                            		<input type="submit" value="${usuario.id == -1 ?'Crear' : 'Modificar' }" class="btn btn-primary btn-block">
-	                            		<c:if test="${usuario.id == 0 }">
-	                            			<a href="usuario" onclick="confirmar(event)" class="btn btn-danger btn-block">Elmiminar modal</a>
-	                            		</c:if>
+                            			<%-- <input type="submit" value="${usuario.id == -1 ?'Crear' : 'Modificar' }" class="btn btn-primary btn-block"> --%>
+	                            		<input type="submit" value="${(usuario.id == -1)?'Crear': 'Modificar' }" class="btn btn-primary btn-block">
+	                            		<c:if test="${usuario.id > 0}">
+						      				<a href="<%=request.getContextPath()%>/backoffice/usuario?idEliminar=${usuarioSeleccionado.id}&op=<%=BackofficeUsuarioController.OP_ELIMINAR%>" onclick="confirmar(event)" class="btn btn-danger btn-block">Eliminar(Modal)</a>
+						      			</c:if>	
 	                            	</form>
 	                            	<script>
 	                            	/*pasamos event desde la funcion y con esto nos evitamos un modal a la hora de 
