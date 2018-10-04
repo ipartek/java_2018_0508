@@ -23,7 +23,7 @@
         	</div>
         	<div class="row m-auto">
         		<div class="col-md-6">
-        			<form action="backoffice/usuario" method="post">        		
+        			<form action="backoffice/usuario?op=<%=  BackofficeUsuarioController.OP_GUARDAR %>" method="post">        		
 	        			<div class="form-group">
 	        				<input name="id" type="text" class="form-control" value="${usuario.id}" readonly/>
 	        			</div>
@@ -64,7 +64,7 @@
 	      </div>
 	      <div class="modal-body">
 	        	<p>¿Estas seguro de querer eliminar este video?</p>
-		       <a id="btnEliminar" href="backoffice/usuario?id=${usuario.id}&op=77" class="btn btn-outline-info btn-outline-pika-red">Eliminar <i class="fas fa-trash-alt"></i></a>
+		       <a id="btnEliminar" href="backoffice/usuario?id=${usuario.id}&op=<%= BackofficeUsuarioController.OP_ELIMINAR %>" class="btn btn-outline-info btn-outline-pika-red">Eliminar <i class="fas fa-trash-alt"></i></a>
 		       <button type="button" class="btn btn-outline-info btn-outline-pika-red" data-dismiss="modal">Cerrar</button>
 	      </div>
 	      <div class="modal-footer bg-pika-red"></div>
