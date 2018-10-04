@@ -1,6 +1,6 @@
 
 	<!-- Footer -->
-	<footer class="bg-pika text-pika-yellow p-3">
+	<footer class="bg-pika-blue text-pika-yellow p-3">
 		<c:set var="anyo" value="<%= new java.util.Date() %>"/>
 		<p class="text-center">Copyright &copy; Adrian Perozzo <fmt:formatDate type="both" dateStyle="medium" value="${anyo}"/></p>
 	</footer>

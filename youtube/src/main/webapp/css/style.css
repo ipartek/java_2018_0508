@@ -1,7 +1,10 @@
 body{
 	overflow-x:hidden;
 }
-
+.body-backoffice{
+	background-color: #F4EEFE;
+	/*#FC965C*/
+}
 ul,li{
 	list-style: none;
 }
@@ -27,7 +30,13 @@ div#page-wrapper{
 *	BG-Colorsm, Colores y botones Custom
 ******************************************************************/
 .bg-pika{
+	background-color: #72FC5C;
+}
+.bg-pika-blue{
 	background-color: #5C72FC;
+}
+.bg-pika-yellow{
+	background-color: #FCE65C;
 }
 .bg-pika-red{
 	background-color: #FC5C72;

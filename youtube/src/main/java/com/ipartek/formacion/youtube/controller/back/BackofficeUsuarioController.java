@@ -95,12 +95,7 @@ public class BackofficeUsuarioController extends HttpServlet {
 			alert = new Alert();
 		} finally {
 			request.setAttribute("alert", alert);
-			if (OP_ELIMINAR.equals(op)) {
-				response.sendRedirect(request.getContextPath()+"/backoffice/usuario?op="+OP_LISTAR);
-			}else{
-				request.getRequestDispatcher(view).forward(request, response);
-			}
-			
+			request.getRequestDispatcher(view).forward(request, response);			
 
 		}
 
@@ -189,7 +184,7 @@ public class BackofficeUsuarioController extends HttpServlet {
 			
 		}
 		
-		view = VIEW_LISTADO;
+		listar(request);
 
 	}
 }

@@ -2,7 +2,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!-- Cabecera -->
 	<header>
-		<nav class="navbar navbar-expand-lg navbar-dark bg-pika">
+		<nav class="navbar navbar-expand-lg navbar-dark bg-pika-blue">
 			<div class="container">
 				<a class="navbar-brand" href="#">Youtube PikaList<img id="logo" src="images/logo.png" alt="Logo de la APP"></a>
 				<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive"
