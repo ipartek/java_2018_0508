@@ -1,5 +1,6 @@
 <%@include file="../includes/taglibs.jsp"%>
 
+<%@page import="com.ipartek.formacion.controller.back.BackofficeUsuarioController"%>
 <%@include file="../includes/header.jsp"%>
 
 <!-- Listado de Usuarios -->
@@ -11,11 +12,11 @@
         <div id="page-wrapper">
             <div class="row">
                 <div class="col-lg-12">
-                    <h1 class="page-header">Usuarios</h1>
+                    <h1 class="page-header">Usuarios <span class="badge">${usuarios.size()}</span></h1>
                 </div>
                 <!-- /.col-lg-12 -->
                 <div class="col-lg-12">
-                    <a href="usuarios?id=-1" class="btn btn-success">Crear Nuevo</a>
+                    <a href="usuarios?id=-1&op=${BackofficeUsuarioController.OP_IR_FORMULARIO}" class="btn btn-success">Crear Nuevo</a>
                 </div>
                 <!-- /.col-lg-12 -->
             </div>
@@ -41,7 +42,7 @@
                                 <c:forEach items="${usuarios}" var="u">
                                 	 <tr>
                                         <td>${u.id}</td>
-                                        <td><a href="usuarios?id=${u.id}">${u.nombre}</a> </td>
+                                        <td><a href="usuarios?id=${u.id}&op=${BackofficeUsuarioController.OP_IR_FORMULARIO}">${u.nombre}</a> </td>
                                         <td>${u.contrasena}</td>
                                         <td>${(u.rol==1)?'Usuario Normal':'Administrador'}</td>
                                     </tr>

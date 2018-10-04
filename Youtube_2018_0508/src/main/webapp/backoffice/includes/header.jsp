@@ -35,6 +35,7 @@
     <!-- Custom CSS -->
     <link href="https://blackrockdigital.github.io/startbootstrap-sb-admin-2/dist/css/sb-admin-2.css" rel="stylesheet">
 
+	<link rel="stylesheet" href="css/styles.css?<%=System.currentTimeMillis()%>">
 </head>
 
 <body>

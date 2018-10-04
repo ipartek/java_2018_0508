@@ -32,7 +32,7 @@
                         </div>
                         <!-- /.panel-heading -->
                         <div class="panel-body">
-                            <form action="" method="post">
+                            <form action="usuarios?op=${BackofficeUsuarioController.OP_GUARDAR}" method="post">
                             
                             	<div class="form-row">
                             		<div class="col">

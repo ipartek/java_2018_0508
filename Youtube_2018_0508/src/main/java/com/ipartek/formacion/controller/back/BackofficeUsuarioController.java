@@ -21,127 +21,159 @@ import com.ipartek.formacion.pojo.Usuario;
 public class BackofficeUsuarioController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
-	private static UsuarioDAO daoUsuario;
+	private static UsuarioDAO daoUsuario = null;
 	
 	private static final String VIEW_FORM_USUARIOS = "usuarios/form.jsp";
 	private static final String VIEW_INDEX_USUARIOS = "usuarios/index.jsp";
 	
-	public static final String OP_ELIMINAR = "1";
+	private String view = "";
+	private Alert alert = null;
+	
+//	ArrayList<Usuario> usuarios = null;
+	Usuario usuario = null;
+	
+	public static final String OP_LISTAR = "1";
+	public static final String OP_GUARDAR = "2"; //Insert o update en funcion del id (-1 o >0)
+	public static final String OP_ELIMINAR = "3";
+	public static final String OP_IR_FORMULARIO = "4";
+	
+	//Parametros
+	private String op; //Operacion a realizar
+	private String id; //Id del usuario
+	private String nombre; //Nombre del usuario
+	private String contrasena; //Contraseña del usuario
+	private String rol; //Rol del usuario
+	
 	
 	@Override
 	public void init(ServletConfig config) throws ServletException {
 		super.init(config);
 		daoUsuario = UsuarioDAO.getInstance();
 	}
+	
+	@Override
+	public void destroy() {
+		super.destroy();
+		daoUsuario = null;
+	}
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		Alert alert = null;
-		
-		ArrayList<Usuario> usuarios = new ArrayList<Usuario>();
-		
-		String id = request.getParameter("id");
-		String op = request.getParameter("op");
-		
-		try { 
-			if(id!=null && op != null && op.equals(OP_ELIMINAR)){ /*Eliminar*/
-				System.out.println("Borrando...");
-				if(daoUsuario.delete(id)) {
-					alert = new Alert(Alert.ALERT_SUCCESS, "Usuario borrado con éxito.");
-				}else {
-					alert = new Alert(Alert.ALERT_DANGER, "No se ha podido crear el usuario.");
-				}
-				
-				usuarios = (ArrayList<Usuario>) daoUsuario.getAll();
-				request.setAttribute("usuarios", usuarios);
-				request.getRequestDispatcher(VIEW_INDEX_USUARIOS).forward(request, response);
-			}else {
-				if(id == null) { /*Mostrar listado de usuarios cuando no llega ningun id*/
-					usuarios = (ArrayList<Usuario>) daoUsuario.getAll();
-					if(usuarios.size() == 0) {
-						alert = new Alert(Alert.ALERT_WARNING, "No se han encontrado usuarios.");
-						request.setAttribute("alert", alert);
-					}
-					request.setAttribute("usuarios", usuarios);
-					request.getRequestDispatcher(VIEW_INDEX_USUARIOS).forward(request, response);
-				}else { /*Cuando llega un id -1 o id > 0 cargar el formulario vacio o con datos usuario de dicho id*/
-					Usuario usuario = new Usuario();
-					if(Integer.parseInt(id)>0) {
-						usuario = daoUsuario.getById(id);
-					}
-					request.setAttribute("usuario", usuario);
-					request.getRequestDispatcher(VIEW_FORM_USUARIOS).forward(request, response);
-				}
-			}
-		}catch(Exception e) {
-			e.printStackTrace();
-		}
+		doProcess(request, response);
 	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		Alert alert = null;
-		Usuario usuario = null;
-		String view = VIEW_FORM_USUARIOS;
-		
-		daoUsuario = UsuarioDAO.getInstance();
-		
-		//Recoger parametros
-		String id = request.getParameter("id"); // 0 = crear, 1 = modificar
-		String nombre = request.getParameter("nombre");
-		String contrasena = request.getParameter("contrasena");
-		String rol = request.getParameter("rol");
-		
-		//Parametro que indica si se esta creando o modificando un usuario.
-		
-		try {			
-			if(nombre != null && contrasena != null) {
-				if(nombre.length() <= 50) {
-					if(contrasena.length() <= 20) {
-						
-						usuario = new Usuario();
-						usuario.setNombre(nombre);
-						usuario.setContrasena(contrasena);
-						usuario.setRol(Integer.parseInt(rol));
-						
-						if(id.equals("-1")) {
-							//Crear Usuario nuevo
-							if(daoUsuario.insert(usuario)) {
-								alert = new Alert(Alert.ALERT_SUCCESS, "Usuario creado con éxito.");
-							}else {
-								alert = new Alert(Alert.ALERT_DANGER, "No se ha podido crear el usuario.");
-							}
-						}else{
-							//Modificar Usuario existente
-							usuario.setId(Long.parseLong(id));
-							if(daoUsuario.update(usuario)) {
-								alert = new Alert(Alert.ALERT_SUCCESS, "Usuario modificado con éxito.");
-							}else {
-								alert = new Alert(Alert.ALERT_DANGER, "No se ha podido modificar el usuario.");
-							}
-						}
-					}else {
-						alert = new Alert(Alert.ALERT_WARNING, "La contraseña no puede tener más de 20 caracteres.");
-					}
-				}else {
-					alert = new Alert(Alert.ALERT_WARNING, "El nombre de usuario no puede tener más de 50 caracteres.");
-				}
-			}else {
-				alert = new Alert(Alert.ALERT_DANGER, "Debe rellenar todos los campos.");
+		doProcess(request, response);		
+	}
+
+	private void doProcess(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
+		try {
+			//Recoge los parametros de la request y los guarda en variables
+			getParameters(request);
+			
+			//Dependiendo del valor del parametro op hace una funcion u otra
+			switch (op) {
+				case OP_ELIMINAR:
+					eliminar(request); //Elimina un usuario de la bbdd
+					break;
+					
+				case OP_GUARDAR:
+					guardar(request); //Crea o modifica un usuario en la bbdd
+					break;
+					
+				case OP_IR_FORMULARIO:
+					irFormulario(request); //Cambia a la vista del formulario de gestion de usuario
+					break;
+	
+				default: //Listar
+					listar(request); //Cambia a la vista de listado de usuarios
+					break;
 			}
-
-			request.setAttribute("alert", alert);
-			request.setAttribute("usuario", usuario);
-			request.getRequestDispatcher(view).forward(request, response);
-
 		}catch(Exception e) {
 			e.printStackTrace();
-			alert = new Alert(Alert.ALERT_DANGER, "Ha ocurrido un error inesperado.");
+			view = VIEW_INDEX_USUARIOS;
+			alert = new Alert(Alert.ALERT_DANGER, "Ha ocurrido un error no controlado.");
+		}finally {
+			request.setAttribute("alert", alert);
+			request.getRequestDispatcher(view).forward(request, response);
 		}
-		
+	}
+	
+	private void getParameters(HttpServletRequest request) {
+		op = (request.getParameter("op") != null) ? request.getParameter("op"): OP_LISTAR; 
+		id = request.getParameter("id"); // 0 = crear, 1 = modificar
+		nombre = request.getParameter("nombre");
+		contrasena = request.getParameter("contrasena");
+		rol = request.getParameter("rol");
+	}
+
+	private void listar(HttpServletRequest request) {
+		if(daoUsuario.getAll().size() == 0) {
+			alert = new Alert(Alert.ALERT_WARNING, "No se han encontrado usuarios.");
+		}
+		view = VIEW_INDEX_USUARIOS;
+		request.setAttribute("usuarios", daoUsuario.getAll());
+	}
+
+	private void irFormulario(HttpServletRequest request) {
+		Usuario usuario = new Usuario();
+		if(Integer.parseInt(id)>0) {
+			usuario = daoUsuario.getById(id);
+		}
+		request.setAttribute("usuario", usuario);
+		view = VIEW_FORM_USUARIOS;
+	}
+
+	private void guardar(HttpServletRequest request) {
+		if(nombre != null && contrasena != null) {
+			if(nombre.length() <= 50) {
+				if(contrasena.length() <= 20) {
+					
+					usuario = new Usuario();
+					usuario.setNombre(nombre);
+					usuario.setContrasena(contrasena);
+					usuario.setRol(Integer.parseInt(rol));
+					
+					if(id.equals("")) {
+						//Crear Usuario nuevo
+						if(daoUsuario.insert(usuario)) {
+							alert = new Alert(Alert.ALERT_SUCCESS, "Usuario creado con éxito.");
+						}else {
+							alert = new Alert(Alert.ALERT_DANGER, "No se ha podido crear el usuario.");
+						}
+					}else{
+						//Modificar Usuario existente
+						usuario.setId(Long.parseLong(id));
+						if(daoUsuario.update(usuario)) {
+							alert = new Alert(Alert.ALERT_SUCCESS, "Usuario modificado con éxito.");
+						}else {
+							alert = new Alert(Alert.ALERT_DANGER, "No se ha podido modificar el usuario.");
+						}
+					}
+				}else {
+					alert = new Alert(Alert.ALERT_WARNING, "La contraseña no puede tener más de 20 caracteres.");
+				}
+			}else {
+				alert = new Alert(Alert.ALERT_WARNING, "El nombre de usuario no puede tener más de 50 caracteres.");
+			}
+		}else {
+			alert = new Alert(Alert.ALERT_DANGER, "Debe rellenar todos los campos.");
+		}
+
+		request.setAttribute("usuario", usuario);
+		view = VIEW_FORM_USUARIOS;
+	}
+
+	private void eliminar(HttpServletRequest request) {
+		if(daoUsuario.delete(id)) {
+			alert = new Alert(Alert.ALERT_SUCCESS, "Usuario borrado con éxito.");
+		}else {
+			alert = new Alert(Alert.ALERT_DANGER, "No se ha podido crear el usuario.");
+		}
 	}
 }

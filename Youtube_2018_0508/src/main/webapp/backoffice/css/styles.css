@@ -1,0 +1,8 @@
+/*Hoja de estilos propia*/
+.botones-idioma:active{
+ 	background-color: orange;
+ }
+ 
+ .badge{
+ 	font-size: 25px !important;
+ }
