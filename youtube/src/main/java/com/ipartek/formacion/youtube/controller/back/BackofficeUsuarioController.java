@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.ipartek.formacion.youtube.model.UsuarioDAO;
+import com.ipartek.formacion.youtube.pojo.Alert;
 import com.ipartek.formacion.youtube.pojo.Usuario;
 
 /**
@@ -60,8 +61,10 @@ public class BackofficeUsuarioController extends HttpServlet {
 		}else {
 		
 				if ( id == null ) {											//LISTADO			
+														
 					usuarios = (ArrayList<Usuario>) daoUsuario.getAll();
 					request.setAttribute("usuarios", usuarios);
+					request.setAttribute("alert", new Alert( Alert.SUCCESS,"Yeahhhhhhhhhhhhhhh"));
 					request.getRequestDispatcher("usuarios/index.jsp").forward(request, response);
 					
 				}else {														//DETALLE			
