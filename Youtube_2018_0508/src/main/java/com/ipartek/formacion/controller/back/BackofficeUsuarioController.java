@@ -3,6 +3,7 @@ package com.ipartek.formacion.controller.back;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -24,31 +25,56 @@ public class BackofficeUsuarioController extends HttpServlet {
 	
 	private static final String VIEW_FORM_USUARIOS = "usuarios/form.jsp";
 	private static final String VIEW_INDEX_USUARIOS = "usuarios/index.jsp";
+	
+	public static final String OP_ELIMINAR = "1";
+	
+	@Override
+	public void init(ServletConfig config) throws ServletException {
+		super.init(config);
+		daoUsuario = UsuarioDAO.getInstance();
+	}
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		Alert alert = null;
 		
-		daoUsuario = UsuarioDAO.getInstance();
-		//try catch y mensajes para el usuario
-//		ArrayList<Usuario> usuarios = getMockUsers();
-		
-		ArrayList<Usuario> usuarios = (ArrayList<Usuario>) daoUsuario.getAll();
+		ArrayList<Usuario> usuarios = new ArrayList<Usuario>();
 		
 		String id = request.getParameter("id");
+		String op = request.getParameter("op");
 		
 		try {
-			if(id == null) {
+			
+			if(id!=null && op != null && op.equals(OP_ELIMINAR)){ /*Eliminar*/
+				System.out.println("Borrando...");
+				if(daoUsuario.delete(id)) {
+					alert = new Alert(Alert.ALERT_SUCCESS, "Usuario borrado con éxito.");
+				}else {
+					alert = new Alert(Alert.ALERT_DANGER, "No se ha podido crear el usuario.");
+				}
+				
+				usuarios = (ArrayList<Usuario>) daoUsuario.getAll();
 				request.setAttribute("usuarios", usuarios);
 				request.getRequestDispatcher(VIEW_INDEX_USUARIOS).forward(request, response);
 			}else {
-				Usuario usuario = new Usuario();
-				if(Integer.parseInt(id)>0) {
-					usuario = daoUsuario.getById(id);
+				if(id == null) { /*Mostrar listado de usuarios cuando no llega ningun id*/
+					usuarios = (ArrayList<Usuario>) daoUsuario.getAll();
+					if(usuarios.size() == 0) {
+						alert = new Alert(Alert.ALERT_WARNING, "No se han encontrado usuarios.");
+						request.setAttribute("alert", alert);
+					}
+					request.setAttribute("usuarios", usuarios);
+					request.getRequestDispatcher(VIEW_INDEX_USUARIOS).forward(request, response);
+				}else { /*Cuando llega un id -1 o id > 0 cargar el formulario vacio o con datos usuario de dicho id*/
+					Usuario usuario = new Usuario();
+					if(Integer.parseInt(id)>0) {
+						usuario = daoUsuario.getById(id);
+					}
+					request.setAttribute("usuario", usuario);
+					request.getRequestDispatcher(VIEW_FORM_USUARIOS).forward(request, response);
 				}
-				request.setAttribute("usuario", usuario);
-				request.getRequestDispatcher(VIEW_FORM_USUARIOS).forward(request, response);
 			}
 		}catch(Exception e) {
 			e.printStackTrace();
@@ -66,13 +92,12 @@ public class BackofficeUsuarioController extends HttpServlet {
 		daoUsuario = UsuarioDAO.getInstance();
 		
 		//Recoger parametros
-		String id = request.getParameter("id");
+		String id = request.getParameter("id"); // 0 = crear, 1 = modificar
 		String nombre = request.getParameter("nombre");
 		String contrasena = request.getParameter("contrasena");
 		String rol = request.getParameter("rol");
 		
-		//Parametro que indica si se esta creando o modificando un usuario. 0 = crear, 1 = modificar
-		String op = request.getParameter("op");
+		//Parametro que indica si se esta creando o modificando un usuario.
 		
 		try {			
 			if(nombre != null && contrasena != null) {
@@ -84,7 +109,7 @@ public class BackofficeUsuarioController extends HttpServlet {
 						usuario.setContrasena(contrasena);
 						usuario.setRol(Integer.parseInt(rol));
 						
-						if(op.equals("0")) {
+						if(id.equals("-1")) {
 							//Crear Usuario nuevo
 							if(daoUsuario.insert(usuario)) {
 								alert = new Alert(Alert.ALERT_SUCCESS, "Usuario creado con éxito.");
@@ -120,17 +145,4 @@ public class BackofficeUsuarioController extends HttpServlet {
 		}
 		
 	}
-
-//	private ArrayList<Usuario> getMockUsers(){
-//		ArrayList<Usuario> usuarios = new ArrayList<Usuario>();
-//		for(int i=1;i<=100;i++) {
-//			Usuario u = new Usuario("nombre"+i, "123456");
-//			u.setId(i);
-//			if(u.getId() == 1) {
-//				u.setRol(Usuario.ROL_ADMIN);
-//			}
-//			usuarios.add(u);
-//		}
-//		return usuarios;
-//	}
 }

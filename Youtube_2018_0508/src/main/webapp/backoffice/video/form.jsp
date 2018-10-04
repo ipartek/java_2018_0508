@@ -1,6 +1,5 @@
 <!-- Formulario de Usuarios -->
 
-<%@page import="com.ipartek.formacion.controller.back.BackofficeUsuarioController"%>
 <%@page import="com.ipartek.formacion.pojo.Usuario"%>
 <%@include file="../includes/taglibs.jsp"%>
 
@@ -62,16 +61,22 @@
 										<div class="form-group col-md-6">
 										   <label class="required" for="rol">Rol: </label>
 										   <select class="form-control" required name="rol" id="rol">
-											   <option value="${Usuario.ROL_USER}" ${(usuario.rol==Usuario.ROL_USER)?'selected':''}>Usuario Normal</option>
-											   <option value="${Usuario.ROL_ADMIN}" ${(usuario.rol==Usuario.ROL_ADMIN)?'selected':''}>Administrador</option>
+											   <option value="${Usuario.ROL_USER}" ${(usuario.rol==1)?'selected':''}>Usuario Normal</option>
+											   <option value="${Usuario.ROL_ADMIN}" ${(usuario.rol==0)?'selected':''}>Administrador</option>
 										   </select>
 										</div>
 									</div>
 								</div>
+								
+								<div class="form-row">
+									<div class="form-group">
+									   <input class="form-control" type="hidden" name="op" id="op" value="${(usuario.id==-1)?'0':'1'}">
+								   </div>
+								</div>
                             	
                             	<input type="submit" value="${(usuario.id==-1)?'Crear':'Modificar'}" class="form-control btn btn-primary btn-block" />
                             	<c:if test="${usuario.id >0 }">
-                            		<a href="usuarios?id=${usuario.id}&op=${BackofficeUsuarioController.OP_ELIMINAR}" onclick="confirmar(event)" class="btn btn-danger btn-block">Eliminar</a>
+                            		<a href="usuarios?id=${usuario.id}&op=2" onclick="confirmar(event)" class="btn btn-danger btn-block">Eliminar(Modal)</a>
                             	</c:if>
                             </form>
                             
