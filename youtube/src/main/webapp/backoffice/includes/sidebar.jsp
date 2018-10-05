@@ -18,13 +18,16 @@
                             <!-- /input-group -->
                         </li>
                         <li>
-                            <a href="index.jsp"><i class="fas fa-tachometer-alt"></i> Inicio</a>
+                            <a href="inicio"><i class="fas fa-tachometer-alt"></i> Inicio</a>
                         </li>
                         <li>
                             <a href="usuarios"><i class="fas fa-users"></i> Usuarios</a>
                         </li>
                         <li>
                             <a href="/index.jsp"><i class="fab fa-youtube"></i> Videos</a>
+                        </li>
+                        <li>
+                            <a href="roles"><i class="fab fa-youtube"></i> Roles</a>
                         </li>
                     </ul>
                 </div>

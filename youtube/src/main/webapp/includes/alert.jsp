@@ -16,6 +16,6 @@
 		</div>
 	</div>
 	
-	${alert=null}
+	${sessionScope.alert=null}
 	
 </c:if>

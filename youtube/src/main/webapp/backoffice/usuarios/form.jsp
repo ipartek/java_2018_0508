@@ -1,3 +1,4 @@
+<%@page import="com.ipartek.formacion.youtube.controller.back.BackofficeUsuarioController"%>
 <%@page import="com.ipartek.formacion.youtube.pojo.Usuario"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
@@ -9,12 +10,16 @@
 
 
  <div id="page-wrapper">
+ ${sessionScope.alert=null}
  					<c:if test="${not empty alert}">
 						<div class="alert ${alert.tipo} alert-dismissible" role="alert">
 							<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 							<strong>${alert.texto}</strong>
 						</div>
+						${sessionScope.alert=null}
+						${alert=null}
 					</c:if>
+ 					
             <div class="row">
                 <div class="col-lg-12">
                 
@@ -51,17 +56,17 @@
             	<div class="form-group">
             		<label for="rol">Rol</label>
 					<select name="rol">
-						<option value="${ Usuario.ROL_USER}">Usuario</option>
-  						<option value="${Usuario.ROL_ADMIN }">Admin</option>
+						<option value="${Usuario.ROL_USER}" ${(usuario.rol==Usuario.ROL_USER)?'selected':'' }>Usuario</option>
+  						<option value="${Usuario.ROL_ADMIN }"${(usuario.rol==Usuario.ROL_ADMIN)?'selected':''} >Administrador</option>
 					
 					</select>            	
             	</div>
             	
-            	
+            	<input type="hidden" name="op" value="${BackofficeUsuarioController.OP_GUARDAR}"/>
             	<input type="submit" value="${(usuario.id== -1)?'Crear':'Modificar' }" class="btn btn-primary btn-block">
             	<c:if test="${usuario.id>0}">
             	
-            		<a href="usuarios?id=${usuario.id }&op=45" onclick="confirmar(event)" class="btn btn-danger btn-block">Eliminar(confirmar)</a>
+            		<a href="usuarios?id=${usuario.id}&op=<%=BackofficeUsuarioController.OP_ELIMINAR%>" onclick="confirmar(event)" class="btn btn-danger btn-block">Eliminar(confirmar)</a>
             	</c:if>
             	</form>
             

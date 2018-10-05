@@ -20,3 +20,12 @@ div.botonCrear{
     padding: 1em;
 }
 
+div.alert{
+	margin-top: 10px;
+}
+
+span.numUsuarios{
+	margin-left: 20px;
+	background-color: #286090;
+}
+}

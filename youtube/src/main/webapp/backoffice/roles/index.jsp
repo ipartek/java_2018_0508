@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
-<%@page import="com.ipartek.formacion.youtube.controller.back.BackofficeUsuarioController"%>
+<%@page import="com.ipartek.formacion.youtube.controller.back.BackofficeRolController"%>
 <%@ include file="../includes/header.jsp" %>
 
 <%@ include file="../includes/nav.jsp" %>
@@ -20,11 +20,11 @@
  
  
  	<div class="col-md-4 botonCrear">
-      			<a href="usuarios?id=-1&op=${BackofficeUsuarioController.OP_IR_FORMULARIO}" class="btn btn-primary crear">Crear Nuevo</a>
+      			<a href="roles?id=-1&op=${BackofficeRolController.OP_IR_FORMULARIO}" class="btn btn-primary crear">Crear Nuevo</a>
       		</div>	
   <div class="row">
           <div class="col-lg-12">
-              <h1 class="page-header">Usuarios<span class="badge badge-info numUsuarios">${numUsuarios}</span></h1>
+              <h1 class="page-header">Roles<span class="badge badge-info numUsuarios">${numRoles}</span></h1>
           </div>
             <div class="row">
                 <div class="col-lg-12">
@@ -34,16 +34,16 @@
 					        <tr>
 					            <th>id</th>
 					            <th>Nombre</th>	            
-					            <th>Rol</th>
+					            
 					        </tr>
 					    </thead>
 					    <tbody>
 					    
-					    	<c:forEach items="${usuarios}" var="u">
+					    	<c:forEach items="${roles}" var="r">
 					        <tr>
-					            <td>${u.id}</td>
-					            <td><a name="nombre" href="usuarios?id=${u.id}&op=${BackofficeUsuarioController.OP_IR_FORMULARIO}">${u.nombre}</a></td>	            
-					            <td>${u.rol}</td>
+					            <td>${r.id}</td>
+					            <td><a name="nombre" href="roles?id=${r.id}&op=${BackofficeRolController.OP_IR_FORMULARIO}">${r.nombre}</a></td>	            
+					            
 					        </tr>
 					        
 					        </c:forEach>
@@ -54,7 +54,7 @@
 					    	<tr>
 					            <th>id</th>
 					            <th>Nombre</th>
-					            <th>Rol</th>
+					            
 					        </tr>
 					    
 					    </tfoot>
@@ -69,34 +69,5 @@
                 
  </div><!-- /#page-wrapper -->
             
-      
-        
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 <%@ include file="../includes/footer.jsp" %>
