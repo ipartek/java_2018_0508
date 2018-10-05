@@ -166,15 +166,15 @@ public class BackofficeUsuarioController extends HttpServlet {
 		}
 	}
 
-	//TODO para despues del cafe gestionar esta Exception
+	
 	private void eliminar(HttpServletRequest request) throws Exception {
 		
-		if ( daoUsuario.delete(Long.parseLong(id))) {
+		try {
+			daoUsuario.delete(Long.parseLong(id));
 			alert = new Alert(Alert.SUCCESS, "Usuario Eliminado");
-		}else {
-			alert = new Alert(Alert.WARNING, "No hemos podido eliminar usuario");
-		}
-		
+		}catch (Exception e) {
+			alert = new Alert(Alert.WARNING, "No podemos eliminar el usuario porque tiene videos creados");
+		}	
 		view = VIEW_LISTADO;
 		request.setAttribute("usuarios", daoUsuario.getAll());	
 		
