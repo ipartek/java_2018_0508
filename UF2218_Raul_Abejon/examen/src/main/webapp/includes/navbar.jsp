@@ -1,9 +1,12 @@
+<%@page import="com.ipartek.examen.model.pojo.Alerts"%>
 <div class="contenedor">
 
         <header id="top">
 
             <nav class="navbar navbar-expand-md navbar-dark  mb-4 custom-navbar">
+            <div class="mr-auto">
                 <a class="navbar-brand titulo-pagina badge-info" href="comentariosController">Libro electrónico</a>
+           </div>
                 <c:if test="${ empty usuario }">
 	                <!-- LOGIN -->
 	                <div class="ml-auto">
@@ -18,10 +21,11 @@
 		    	</c:if>
 		    	
 		    	<c:if test="${ not empty usuario }">
-	                <div class="ml-auto">	                
-			          	<i class="far fa-user">
-			          		<p>${usuario }</p>
-			          	</i>
+		    		<div>		    				                
+						<span class="far fa-user">${usuario }</span>		          	
+		    		</div>
+	                <div class="ml-auto">
+		                
 			          	<li class="nav-item cerrar-sesion">
                             <a class="nav-link" href="logout">Cerrar Sesion</a>
                         </li>
@@ -34,26 +38,14 @@
             
         </header>
         
-        	<%
-        		Alerts alerta = (Alerts) request.getAttribute("alerta");
-        		if(alerta != null) {
-        	%>
-        			<div class="<%= alerta.getTipo() %>">
-        			
-        			<%
-        				if(alerta.getTexto() != null){
-        						
-        			%>
-        					<%= alerta.getTexto() %>
-        				
-        			<%
-        				
-        				}
-        			 %>
+
+        			<div class="alert ${alerta.tipo } alert-dismissible fade show" role="alert">
+ 
+        					${alerta.texto }
+						
+						
         			
         			</div>
-        	
-        	<%		
-        		}
-        	%>
+
+ 
        

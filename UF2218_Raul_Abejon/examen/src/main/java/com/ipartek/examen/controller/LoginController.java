@@ -62,23 +62,25 @@ public class LoginController extends HttpServlet {
 		try {
 			String nombreUsuario = request.getParameter("nombreUsuario");
 			String passUsuario = request.getParameter("passUsuario");
-			System.out.println(nombreUsuario);
-			System.out.println(passUsuario);
 			if (comprobarUSuario(nombreUsuario, passUsuario, session)) {
-				System.out.println("Autentificacion correcta " + nombreUsuario);
 				session.setMaxInactiveInterval(60 * 60); // 1 hora
-				request.getRequestDispatcher("/comentariosController").forward(request, response);
+				alerta.setTexto("Bienvenido "+nombreUsuario);
+				alerta.setTipo(Alerts.SUCESS);
+				request.setAttribute("alerta", alerta);
+				request.getRequestDispatcher("/ebookController").forward(request, response);
 			}else {
 				alerta.setTexto("Usuario no encontrado, intentelo de nuevo o pruebe a registarse");
 				alerta.setTipo(Alerts.DANGER);
+				request.setAttribute("alerta", alerta);
 				request.getRequestDispatcher(
-						"/comentariosController?alertaTexto=" + alerta.getTexto() + "&alertaTipo=" + alerta.getTipo())
-						.forward(request, response);
+						"/ebookController?alertaLogin=1").forward(request, response);
 			}
 
 		} catch (Exception e) {
 			System.out.println("Error en doProcess *LoginController*");
 			e.printStackTrace();
+			
+		}finally {
 			
 		}
 

@@ -27,7 +27,8 @@
 
 .text-autor{
 	width: inherit;
-	margin-top:10px;
+	margin-top:-15px;
+	margin-left: 0px;
 		
 }
 .texto-principal{
@@ -58,7 +59,8 @@
 }
 
 .custom-navbar{
-	background-color: #e3f2fd;"
+	background-color: #e3f2fd;
+	height: 40px;
 }
 .titulo-pagina{
 	font-size: 20px;
@@ -78,4 +80,7 @@ footer{
 }
 .cerrar-sesion{
 	list-style:none;
+}
+.buscador-centrado{
+	margin-right:10px;;
 }
