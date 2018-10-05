@@ -3,69 +3,37 @@
 <%@ include file="includes/header.jsp" %>
 
 	<%@ include file="includes/nav.jsp" %>
-	<div id="wrapper">
-
-        <%@ include file="includes/sidebar.jsp" %>
-
-        <div id="page-wrapper">
-        	<div class="row">
-        		<!-- Tratamiento de las alertas -->
-					<c:if test="${not empty alert}">
-						<div class="alert alert-${alert.tipo} alert-dismissible" role="alert">
-							<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-							<strong>${alert.texto}</strong>
+	
+	<div class="row mt-5">
+		<%@ include file="includes/sidebar.jsp" %>
+		<div class="col-9">
+			<div class="row">
+				<!-- include file="includes/alertas.jsp" -->
+			</div><!-- / Gestion de alertas -->
+			<div class="row">
+				<div class="col-4 mt-1">
+					<div class="card">
+						<div class="card-body bg-pika-blue">
+							<i class="fas fa-users fa-5x text-pika-yellow"></i>
+							${usuarios}
 						</div>
-					</c:if>
-        	</div>
-            <div class="row">
-                <div class="col-lg-3 col-md-6">
-                    <div class="panel panel-primary">
-                        <div class="panel-heading">
-                            <div class="row">
-                                <div class="col-xs-3">
-                                    <i class="fas fa-users fa-5x"></i>
-                                </div>
-                                <div class="col-xs-9 text-right">
-                                    <div class="huge">${usuarios}</div>
-                                    <div>Usuarios</div>
-                                </div>
-                            </div>
-                        </div>
-                        <a href="backoffice/usuario?op=<%= BackofficeUsuarioController.OP_LISTAR%>">
-                            <div class="panel-footer">
-                                <span class="pull-left">Ver Usuarios</span>
-                                <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
-                                <div class="clearfix"></div>
-                            </div>
-                        </a>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-6">
-                    <div class="panel panel-green">
-                        <div class="panel-heading">
-                            <div class="row">
-                                <div class="col-xs-3">
-                                    <i class="fab fa-youtube fa-5x"></i>
-                                </div>
-                                <div class="col-xs-9 text-right">
-                                    <div class="huge">${videos}</div>
-                                    <div>Videos</div>
-                                </div>
-                            </div>
-                        </div>
-                        <a href="#">
-                            <div class="panel-footer">
-                                <span class="pull-left">View Details</span>
-                                <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
-                                <div class="clearfix"></div>
-                            </div>
-                        </a>
-                    </div>
-                </div>
-            </div>
-            <!-- /.row -->
-        </div>
-        <!-- /#page-wrapper -->
-
-    </div>
-<%@ include file="includes/footer.jsp" %>
+						<div class="card-footer bg-pika-purple">
+							<a href="backoffice/usuario?op=<%= BackofficeUsuarioController.OP_LISTAR%>" class="btn-block text-pika-yellow">Usuarios</a>
+						</div>
+					</div>
+				</div><!-- /Kard  usuarios -->
+				<div class="col-4 mt-1">
+					<div class="card">
+						<div class="card-body bg-pika-red">
+							<i class="fab fa-youtube fa-5x text-pika"></i>
+							${videos}
+						</div>
+						<div class="card-footer bg-pika-purple">
+							<a href="#" class="btn-block text-pika-yellow">Videos</a>
+						</div>
+					</div>
+				</div><!-- /Kard  videos -->
+			</div>
+		</div><!-- / Col de datos -->
+	</div> <!-- / Row Principal -->
+ <%@ include file="includes/footer.jsp" %>

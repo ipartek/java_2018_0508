@@ -7,7 +7,6 @@
 
 <head>
 
-<!-- Etiqueta HTML para comenzar las urls desde href indicado. -->
 <base href="<%=request.getContextPath()%>/">
 
 <meta charset="utf-8">
@@ -37,7 +36,7 @@
 	<header>
 		<nav class="navbar navbar-expand-lg navbar-dark bg-pika-purple">
 			<div class="container">
-				<a class="navbar-brand" href="#">PikaList BackOffice<img
+				<a class="navbar-brand" href="backoffice/inicio">PikaList BackOffice<img
 					id="logo" src="images/logo_backoffice.png" alt="Logo de la APP"></a>
 				<button class="navbar-toggler" type="button" data-toggle="collapse"
 					data-target="#navbarResponsive" aria-controls="navbarResponsive"
@@ -95,17 +94,7 @@
 		</div>
 		<div class="col-9">
 			<div class="row">
-				<!-- Tratamiento de las alertas -->
-				<c:if test="${not empty alert}">
-					<div class="alert alert-${alert.tipo} alert-dismissible"
-						role="alert">
-						<button type="button" class="close" data-dismiss="alert"
-							aria-label="Close">
-							<span aria-hidden="true">&times;</span>
-						</button>
-						<strong>${alert.texto}</strong>
-					</div>
-				</c:if>
+				<!-- <%@ include file="includes/alertas.jsp"%> -->
 			</div>
 			<div class="row">
 				<div class="col-4 mt-1">
