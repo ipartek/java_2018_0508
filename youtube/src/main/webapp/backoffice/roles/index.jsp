@@ -1,11 +1,12 @@
-<%@page import="com.ipartek.formacion.youtube.controller.back.BackofficeVideoController"%>
+<%@page import="com.ipartek.formacion.youtube.controller.back.BackofficeRolController"%>
+<%@page import="com.ipartek.formacion.youtube.controller.back.BackofficeUsuarioController"%>
 <%@include file="../includes/header.jsp" %>
 <%@include file="../includes/navbar.jsp" %>
 
 <div id="page-wrapper">
             <div class="row">
                 <div class="col-lg-12">
-                    <h1 class="page-header">Videos</h1>
+                    <h1 class="page-header">Roles</h1>
                 </div>
                 <!-- /.col-lg-12 -->
             </div>
@@ -16,7 +17,7 @@
             		TODO BUSCADOR con su lupita
             	</div>
             	<div class="col-md-4">
-            		<a href="videos?id=-1&op=<%=BackofficeVideoController.OP_IR_FORMULARIO%>" class="btn btn-success">Crear Nuevo</a>
+            		<a href="roles?id=-1&op=<%=BackofficeUsuarioController.OP_IR_FORMULARIO%>" class="btn btn-success">Crear Nuevo</a>
             	</div>
             </div>
             <!-- /.row -->
@@ -26,23 +27,20 @@
 				        <thead>
 				            <tr>
 				                <th>ID</th>
-				                <th>Codigo</th>
 				                <th>Nombre</th>
 				            </tr>
 				        </thead>
 				        <tbody>
-				        	<c:forEach items="${videos}" var="v">
+				        	<c:forEach items="${roles}" var="r">
 					            <tr>
-					                <td>${v.id}</td>
-					                <td>${v.codigo}</td>
-					                <td><a href="videos?id=${v.id}&op=<%=BackofficeVideoController.OP_IR_FORMULARIO%>">${v.nombre}</a></td>
+					                <td>${r.id}</td>
+					                <td><a href="roles?id=${r.id}&op=<%=BackofficeRolController.OP_IR_FORMULARIO%>">${r.nombre}</a></td>
 					            </tr>
 				            </c:forEach>
 				       </tbody>
 				       <tfoot>
 				            <tr>
 				                <th>ID</th>
-				                <th>Codigo</th>
 				                <th>Nombre</th>
 				            </tr>
 				        </tfoot>

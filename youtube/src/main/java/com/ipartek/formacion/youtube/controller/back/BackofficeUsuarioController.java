@@ -1,8 +1,9 @@
 package com.ipartek.formacion.youtube.controller.back;
 
 import java.io.IOException;
-import java.util.ArrayList;
-
+import java.sql.SQLException;
+import java.sql.SQLIntegrityConstraintViolationException;
+import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -10,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.ipartek.formacion.youtube.model.UsuarioDAO;
+import com.ipartek.formacion.youtube.pojo.Alert;
 import com.ipartek.formacion.youtube.pojo.Usuario;
 
 /**
@@ -18,55 +20,161 @@ import com.ipartek.formacion.youtube.pojo.Usuario;
 @WebServlet("/backoffice/usuarios")
 public class BackofficeUsuarioController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	private static UsuarioDAO daoUsuario = null;
 	
-	private static UsuarioDAO dao;
-
+	public static final String OP_LISTAR = "1";
+	public static final String OP_GUARDAR = "2";  //insert id == -1 o update id > 0
+	public static final String OP_ELIMINAR = "3";
+	public static final String OP_IR_FORMULARIO = "4";
+	
+	private static final String VIEW_LISTADO = "usuarios/index.jsp";
+	private static final String VIEW_FORMULARIO = "usuarios/formulario.jsp";
+	private String view;
+	private Alert alert;
+	
+	private String op; //operacion a realizar
+	private String id;
+	private String nombre;
+	private String password;
+	private String rol;
+	
+	@Override
+	public void init(ServletConfig config) throws ServletException {	
+		super.init(config);
+		daoUsuario = UsuarioDAO.getInstance();
+	}
+	
+	@Override
+	public void destroy() {	
+		super.destroy();
+		daoUsuario = null;
+	}
+    
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		dao = UsuarioDAO.getInstance();
-		
-		ArrayList<Usuario> usuarios = (ArrayList<Usuario>) dao.getAll();
-		
-		String id = request.getParameter("id");
-		
-		if(id == null) { //Si el ID es nulo, lista todos los usuarios
-			request.setAttribute("usuarios", usuarios);
-			request.getRequestDispatcher("usuarios/index.jsp").forward(request, response);
-		}else {
-			Usuario usuario = new Usuario();
-			if(Integer.parseInt(id) > 0) { //Si el ID es mayor que cero, muestra los datos de ese usuario, si no crea uno nuevo
-				usuario = dao.getById(id);
-			}
-			request.setAttribute("usuario", usuario);
-			request.getRequestDispatcher("usuarios/formulario.jsp").forward(request, response);
-		}
-		
-		
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {		
+		doProcess(request, response);
 	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		//recoger parametros
-		String id = request.getParameter("id");
-		String nombre = request.getParameter("nombre");
-		String password = request.getParameter("password");
-		String rol = request.getParameter("rol");
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {		
+		doProcess(request, response);		
+	}
+	
+	protected void doProcess(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		//TODO Comprobar si es CREAR o MODIFICAR y llamar al DAO
+		try {
+			
+			alert = new Alert();
+			
+			getParameters(request);
+			
+			switch (op) {
+			case OP_ELIMINAR:
+				eliminar(request);
+				break;
+			case OP_IR_FORMULARIO:
+				irFormulario(request);
+				break;	
+			case OP_GUARDAR:
+				guardar(request);
+				break;	
+
+			default:  //LISTAR
+				listar(request);
+				break;
+			}
+			
+		}catch (Exception e) {
+			e.printStackTrace();
+			view = VIEW_LISTADO;
+			alert = new Alert();
+		}finally {
+			request.setAttribute("alert", alert);
+			request.getRequestDispatcher(view).forward(request, response);
+			
+		}
 		
-		Usuario usuario = new Usuario();
-		usuario.setId(Long.parseLong(id));
-		usuario.setNombre(nombre);
-		usuario.setPassword(password);
-		usuario.setRol(Integer.parseInt(rol));
+	}
+
+	private void listar(HttpServletRequest request) throws Exception {
 		
-		request.setAttribute("usuario", usuario);
-		request.getRequestDispatcher("usuarios/formulario.jsp").forward(request, response);
+		alert = null;		
+		view = VIEW_LISTADO;
+		request.setAttribute("usuarios", daoUsuario.getAll());		
 		
+	}
+
+	private void guardar(HttpServletRequest request) {
+		
+		Usuario u = new Usuario();
+		u.setId(Long.parseLong(id));
+		u.setNombre(nombre);
+		u.setPassword(password);
+		u.setRol(Integer.parseInt(rol));
+		
+		try {
+			if( u.getId() > 0 ) {                // UPDATE
+				daoUsuario.update(u);
+			}else {                              //INSERT
+				daoUsuario.insert(u);
+			}
+			
+			alert = new Alert(Alert.SUCCESS, "Usuario guardado con exito");
+
+		//nombre repetido
+		}catch(SQLIntegrityConstraintViolationException e) {
+			e.printStackTrace();
+			alert = new Alert(Alert.WARNING, "<b>" + u.getNombre() + "</b> ya existe!!!");
+		//longitud campos en nombre y password
+		}catch(SQLException e) {
+			if(e.getMessage().contains("nombre")) {
+				alert = new Alert(Alert.WARNING, "El <b>nombre</b> debe ser inferior a 50 caracteres.");
+			}else {
+				alert = new Alert(Alert.WARNING, "La <b>contraseña</b> debe ser inferior a 20 caracteres.");
+			}
+			
+		}catch(Exception e) {
+			e.printStackTrace();
+			alert = new Alert();
+		}
+		
+		view = VIEW_FORMULARIO;
+		request.setAttribute("usuario", u);
+		
+	}
+
+	private void irFormulario(HttpServletRequest request) throws Exception {
+		alert = null;
+		view = VIEW_FORMULARIO;
+		if ( id.equalsIgnoreCase("-1")) {
+			request.setAttribute("usuario", new Usuario() );
+		}else {			
+			request.setAttribute("usuario", daoUsuario.getById(id));
+		}
+	}
+
+	//TODO Gestionar esta exception
+	private void eliminar(HttpServletRequest request) throws Exception{
+		try {
+			daoUsuario.delete(id);
+			alert = new Alert(Alert.SUCCESS, "Usuario Eliminado");
+		}catch(Exception e) {
+			alert = new Alert(Alert.WARNING, "No hemos podido eliminar este usuario porque tiene videos creados");
+		}
+		view = VIEW_LISTADO;
+		request.setAttribute("usuarios", daoUsuario.getAll());
+	}
+
+	private void getParameters(HttpServletRequest request) {
+		op = ( request.getParameter("op") != null ) ? request.getParameter("op") : OP_LISTAR;		
+		id = request.getParameter("id");
+		nombre = request.getParameter("nombre");
+		password = request.getParameter("password");
+		rol = request.getParameter("rol");
 	}
 
 }

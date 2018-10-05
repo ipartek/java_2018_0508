@@ -3,6 +3,7 @@ package com.ipartek.formacion.youtube.model;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,7 +17,7 @@ public class UsuarioDAO implements CrudAble<Usuario>{
 	private static final String SQL_INSERT = "INSERT INTO `usuario` (`nombre`, `password`) VALUES (?,?);";
 	private static final String SQL_GETALL = "SELECT `id`, `nombre`, `password`, `rol` FROM usuario ORDER BY id DESC LIMIT 1000;";
 	private static final String SQL_GET_BY_ID = "SELECT `id`, `nombre`, `password`, `rol` FROM usuario WHERE id = ?;";
-	private static final String SQL_UPDATE = "UPDATE usuario SET nombre = ?, password = ? WHERE id = ?;";
+	private static final String SQL_UPDATE = "UPDATE usuario SET nombre = ?, password = ?, rol = ? WHERE id = ?;";
 	private static final String SQL_DELETE = "DELETE FROM usuario WHERE id = ?;";
 	
 	
@@ -38,8 +39,9 @@ public class UsuarioDAO implements CrudAble<Usuario>{
 	 * Comprueba que exista el nombre y password del usuario, case sensitive
 	 * @param pojo Usuario a comprobar
 	 * @return true si existe en bbdd, false en caso contrario
+	 * @throws Exception 
 	 */
-	public boolean login(Usuario pojo) {
+	public boolean login(Usuario pojo) throws Exception {
 		boolean resul = false;
 		
 		try (Connection con = ConnectionManager.getConnection();
@@ -57,15 +59,13 @@ public class UsuarioDAO implements CrudAble<Usuario>{
 				
 			}
 			
-		}catch(Exception e) {
-			e.printStackTrace();
 		}
 		
 		return resul;
 	}
 	
 	@Override
-	public boolean insert(Usuario pojo) {
+	public boolean insert(Usuario pojo) throws Exception {
 		boolean resul = false;
 		
 		try (Connection con = ConnectionManager.getConnection();
@@ -85,14 +85,12 @@ public class UsuarioDAO implements CrudAble<Usuario>{
 			}//affectedRows == 1 
 			
 			
-		}catch (Exception e) {
-			e.printStackTrace();
 		}
 		return resul;
 	}
 
 	@Override
-	public List<Usuario> getAll() {
+	public List<Usuario> getAll() throws Exception {
 		ArrayList<Usuario> usuarios = new ArrayList<Usuario>();
 		
 		try (Connection con = ConnectionManager.getConnection();
@@ -103,15 +101,13 @@ public class UsuarioDAO implements CrudAble<Usuario>{
 					usuarios.add(rowMapper(rs, null));
 				}
 				
-			}catch(Exception e) {
-				e.printStackTrace();
 			}
 		
 		return usuarios;
 	}
 
 	@Override
-	public Usuario getById(String id) {
+	public Usuario getById(String id) throws Exception {
 		Usuario usuario = null;
 		
 		try (Connection con = ConnectionManager.getConnection();
@@ -124,37 +120,31 @@ public class UsuarioDAO implements CrudAble<Usuario>{
 						usuario = rowMapper(rs, usuario);							
 					}
 				}
-			}catch (Exception e) {
-				e.printStackTrace();
 			}	
 		
 		return usuario;
 	}
 
 	@Override
-	public boolean update(Usuario pojo) {
+	public boolean update(Usuario pojo) throws Exception {
 		boolean resul = false;
-		
 		try (Connection con = ConnectionManager.getConnection();
-				PreparedStatement ps = con.prepareStatement(SQL_UPDATE);){
-				
-				ps.setString(1, pojo.getNombre());
-				ps.setString(2, pojo.getPassword());
-				
-				int affectedRows = ps.executeUpdate();
-				if(affectedRows == 1){
-					resul = true;
-				}
+				PreparedStatement ps = con.prepareStatement(SQL_UPDATE);) {
 
-			}catch(Exception e) {
-				e.printStackTrace();
+			ps.setString(1, pojo.getNombre());
+			ps.setString(2, pojo.getPassword());
+			ps.setInt(3, pojo.getRol());
+			ps.setLong(4, pojo.getId());
+			if (ps.executeUpdate() == 1) {
+				resul = true;
 			}
-		
+
+		}
 		return resul;
 	}
 
 	@Override
-	public boolean delete(String id) {
+	public boolean delete(String id) throws Exception {
 		boolean resul = false;
 		
 		try (Connection con = ConnectionManager.getConnection();
@@ -165,8 +155,6 @@ public class UsuarioDAO implements CrudAble<Usuario>{
 				resul = true;
 			}
 					
-		}catch(Exception e){
-			e.printStackTrace();
 		}
 		
 		return resul;

@@ -1,8 +1,10 @@
+<%@page import="com.ipartek.formacion.youtube.controller.back.BackofficeUsuarioController"%>
 <%@page import="com.ipartek.formacion.youtube.pojo.Usuario"%>
 <%@include file="../includes/header.jsp" %>
 <%@include file="../includes/navbar.jsp" %>
 
 <div id="page-wrapper">
+<%@ include file="../includes/alerts.jsp" %>
             <div class="row">
                 <div class="col-lg-12">
                     <h1 class="page-header">${(usuario.id == -1)?'Crear Usuario': usuario.nombre }</h1>
@@ -37,9 +39,10 @@
 		            		</select>
 	            		</div>
 	            		
+	            		<input type="hidden" name="op" value="<%=BackofficeUsuarioController.OP_GUARDAR%>">
 	            		<input type="submit" value="${(usuario.id == -1)?'Crear': 'Modificar' }" class="btn btn-primary btn-block">
 	            		<c:if test="${usuario.id > 0}">
-	            			<a href="usuarios?id=${usuario.id}&op=45" onclick="confirmar(event)" class="btn btn-danger btn-block">Eliminar (Modal)</a>
+	            			<a href="usuarios?id=${usuario.id}&op=<%=BackofficeUsuarioController.OP_ELIMINAR%>" onclick="confirmar(event)" class="btn btn-danger btn-block">Eliminar(Modal)</a>
 	            		</c:if>
 	            	</form>
 	            	

@@ -1,15 +1,10 @@
-<c:if test="${not empty alert}">
-	<div class="container mt-5">
-		<div class="alert ${alert.tipo} alert-dismissible fade show"
-			role="alert">
-			<p>${alert.texto}</p>
-			<button type="button" class="close" data-dismiss="alert"
-				aria-label="Close">
-				<span aria-hidden="true">&times;</span>
-			</button>
-		</div>
+<div class="row mt-2">
+	<div class="alert ${alert.tipo} alert-dismissible mt-5" role="alert">
+		<button type="button" class="close" data-dismiss="alert"
+			aria-label="Close">
+			<span aria-hidden="true">&times;</span>
+		</button>
+		${alert.texto}
 	</div>
-	
-	${alert=null}
-	
-</c:if>
+</div>
+${sessionScope.alert=null}
