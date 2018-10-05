@@ -22,7 +22,7 @@
 	<!-- Fin Video -->
 	<!-- Inicio Comentarios -->
 	<div class="card m-2">
-		<div class="card-header bg-pika-red">
+		<div class="card-header bg-pika-purple">
 			<div class="row align-items-center">
 				<div class="col-6">
 					<h2 class="text-pika">Comentarios</h2>

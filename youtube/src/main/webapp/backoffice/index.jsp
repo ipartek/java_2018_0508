@@ -18,18 +18,18 @@
 							${usuarios}
 						</div>
 						<div class="card-footer bg-pika-kard">
-							<a href="backoffice/usuario?op=<%= BackofficeUsuarioController.OP_LISTAR%>" class="btn-block text-pika-yellow">Usuarios</a>
+							<a href="backoffice/usuario?op=<%= BackofficeUsuarioController.OP_LISTAR%>" class="btn-block text-pika-purple">Usuarios</a>
 						</div>
 					</div>
 				</div><!-- /Kard  usuarios -->
 				<div class="col-4 mt-1">
 					<div class="card">
-						<div class="card-body bg-pika-red">
-							<i class="fab fa-youtube fa-5x text-pika"></i>
+						<div class="card-body bg-pika-kard">
+							<i class="fab fa-youtube fa-5x text-pika-purple"></i>
 							${videos}
 						</div>
-						<div class="card-footer bg-pika-purple">
-							<a href="#" class="btn-block text-pika-yellow">Videos</a>
+						<div class="card-footer bg-pika-kard">
+							<a href="#" class="btn-block text-pika-purple">Videos</a>
 						</div>
 					</div>
 				</div><!-- /Kard  videos -->

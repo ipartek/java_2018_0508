@@ -113,8 +113,14 @@ a.text-pika-blue:hover{
     background-color: #965CFC;
     border-color: #965CFC;
 }
+/******
+*	Listados con hover
+***********************************************************/
 .list-group-item:hover{
 	background-color: #C6FDBD;
+}
+.body-backoffice .list-group-item:hover{
+	background-color: rgba(252,150,92,.5);
 }
 /******
 *	Pantalla de Login y de registro
