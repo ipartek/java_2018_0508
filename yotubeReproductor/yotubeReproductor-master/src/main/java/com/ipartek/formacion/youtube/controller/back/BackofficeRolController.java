@@ -155,7 +155,7 @@ public class BackofficeRolController extends HttpServlet {
 		request.setAttribute("roles", dao.getAll());
 	}
 
-	private void guardar(HttpServletRequest request) {
+	private void guardar(HttpServletRequest request) throws Exception {
 
 		Rol r = new Rol();
 		r.setId(Long.parseLong(id));
