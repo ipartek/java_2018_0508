@@ -1,3 +1,4 @@
+<%@page import="com.ipartek.formacion.youtube.controller.back.BackofficeRolController"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
 <%@ include file="includes/header.jsp" %>
@@ -22,6 +23,17 @@
 						</div>
 					</div>
 				</div><!-- /Kard  usuarios -->
+				<div class="col-4 mt-1">
+					<div class="card text-center">
+						<div class="card-body bg-pika-kard">
+							<i class="fab fa-youtube fa-5x text-pika-purple"></i>
+							<i class="ml-3 badge bg-pika-purple text-pika-yellow">${roles}</i>
+						</div>
+						<div class="card-footer bg-pika-kard">
+							<a href="backoffice/rol?op=<%= BackofficeRolController.OP_LISTAR%>" class="btn-block text-pika-purple">Roles</a>
+						</div>
+					</div>
+				</div><!-- /Kard  roles -->
 				<div class="col-4 mt-1">
 					<div class="card text-center">
 						<div class="card-body bg-pika-kard">
