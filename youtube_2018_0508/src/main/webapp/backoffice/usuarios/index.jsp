@@ -36,8 +36,7 @@
                                 <thead>
                                     <tr>
                                         <th>ID</th>
-                                        <th>Nombre</th>
-                                        <th>Contraseña</th>
+                                        <th>Nombre</th>                                       
                                         <th>Rol</th>
                                     </tr>
                                 </thead>
@@ -45,8 +44,7 @@
                                 <c:forEach items="${usuarios}" var="u">
                                 	 <tr>
                                         <td>${u.id}</td>
-                                        <td><a href="usuarios?id=${u.id}&op=${BackofficeUsuarioController.OP_IR_FORMULARIO}">${u.nombre}</a> </td>
-                                        <td>${u.contrasena}</td>
+                                        <td><a href="usuarios?id=${u.id}&op=${BackofficeUsuarioController.OP_IR_FORMULARIO}">${u.nombre}</a> </td>                                       
                                         <td>${(u.rol==1)?'Usuario Normal':'Administrador'}</td>
                                     </tr>
                                 </c:forEach>
@@ -54,8 +52,7 @@
                                 <tfoot>
                                 	<tr>
                                 		<th>ID</th>
-                                		<th>Nombre</th>
-                                		<th>Contraseña</th>
+                                		<th>Nombre</th>                                		
                                 		<th>Rol</th>
                                 	</tr>
                                 </tfoot>

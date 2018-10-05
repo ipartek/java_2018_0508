@@ -34,14 +34,15 @@ public class BackofficeUsuarioController extends HttpServlet {
 	private static final String VIEW_FORMULARIO = "usuarios/form.jsp";
 
 	private String view;
-	private String op; // operacion a realizar
+	private Alert alert = null;
+
+	private String op; // parametros necesarios
 	private String id;
 	private String nombre;
 	private String contrasena;
 	private String rol;
 
 	private static UsuarioDAO daoUsuario = null;
-	private Alert alert = null;
 
 	@Override
 	public void init(ServletConfig config) throws ServletException {
@@ -102,7 +103,7 @@ public class BackofficeUsuarioController extends HttpServlet {
 	}
 
 	private void listar(HttpServletRequest request) {
-		
+
 		view = VIEW_LISTADO;
 		request.setAttribute("usuarios", daoUsuario.getAll());
 
@@ -120,9 +121,19 @@ public class BackofficeUsuarioController extends HttpServlet {
 
 			usuario.setId(Long.parseLong(id));
 
-			daoUsuario.update(usuario);
+			if (daoUsuario.update(usuario)) {
+				alert = new Alert(Alert.ALERT_SUCCESS, "Cambios realizados");
+			} else {
+				alert = new Alert(Alert.ALERT_WARNING, "No se ha podido realizar la modificacion");
+			}
+			;
+
 		} else { // INSERT
-			daoUsuario.insert(usuario);
+			if (daoUsuario.insert(usuario)) {
+				alert = new Alert(Alert.ALERT_SUCCESS, "Usuario registrado");
+			} else {
+				alert = new Alert(Alert.ALERT_WARNING, "No se ha podido crear usuario");
+			}
 		}
 		request.setAttribute("usuario", usuario);
 		view = VIEW_FORMULARIO;
@@ -142,10 +153,14 @@ public class BackofficeUsuarioController extends HttpServlet {
 	private void eliminar(HttpServletRequest request) throws IOException {
 
 		if (id != null) {
-			daoUsuario.delete(id);	
+			if (daoUsuario.delete(id)) {
+				alert = new Alert(Alert.ALERT_SUCCESS, "Se ha eliminado usuario");
+			} else {
+				alert = new Alert(Alert.ALERT_WARNING, "No se ha podido eliminar usuario");
+			}
 			view = VIEW_LISTADO;
-			HttpServletResponse response = null;
-			response.sendRedirect("view");
+			request.setAttribute("usuarios", daoUsuario.getAll());
+			
 		}
 	}
 
