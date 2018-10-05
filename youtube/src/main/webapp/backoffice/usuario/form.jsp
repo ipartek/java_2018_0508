@@ -29,11 +29,11 @@
 	        			</div>
 	        			<div class="form-group">
 	        				<label for="nombre">Nombre:</label>
-	        				<input name="nombre" type="text" class="form-control" value="${usuario.nombre}" autofocus/>
+	        				<input name="nombre" type="text" class="form-control" value="${usuario.nombre}" autofocus required pattern="{1,50}"/>
 	        			</div>
 	        			<div class="form-group">
 	        				<label for="contrasenya">Contraseña:</label>
-	        				<input name="contrasenya" type="text" class="form-control" value="${usuario.contrasenya}"/>
+	        				<input name="contrasenya" type="pass" class="form-control" value="${usuario.contrasenya}" required pattern="{1,20}"/>
 	        			</div>
 	        			<div class="form-group">
 	        				<label for="rol">Rol:</label>

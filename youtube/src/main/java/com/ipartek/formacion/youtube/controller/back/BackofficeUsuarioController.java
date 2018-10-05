@@ -1,6 +1,8 @@
 package com.ipartek.formacion.youtube.controller.back;
 
 import java.io.IOException;
+import java.sql.SQLException;
+import java.sql.SQLIntegrityConstraintViolationException;
 
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
@@ -61,7 +63,7 @@ public class BackofficeUsuarioController extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		
+
 		doProcess(request, response);
 
 	}
@@ -95,7 +97,7 @@ public class BackofficeUsuarioController extends HttpServlet {
 			alert = new Alert();
 		} finally {
 			request.setAttribute("alert", alert);
-			request.getRequestDispatcher(view).forward(request, response);			
+			request.getRequestDispatcher(view).forward(request, response);
 
 		}
 
@@ -108,11 +110,11 @@ public class BackofficeUsuarioController extends HttpServlet {
 		nombre = request.getParameter("nombre");
 		contrasenya = request.getParameter("contrasenya");
 		rol = request.getParameter("rol");
-		
+
 	}
 
-	private void listar(HttpServletRequest request) {
-		
+	private void listar(HttpServletRequest request) throws Exception {
+
 		alert = null;
 		view = VIEW_LISTADO;
 		request.setAttribute("usuarios", daoUsuario.getAll());
@@ -121,69 +123,74 @@ public class BackofficeUsuarioController extends HttpServlet {
 	}
 
 	private void guardar(HttpServletRequest request) {
-		
+
 		Usuario u = new Usuario();
 		u.setId(Long.parseLong(id));
 		u.setNombre(nombre);
 		u.setContrasenya(contrasenya);
 		u.setRol(Integer.parseInt(rol));
 
-		if (u.getId() == 0) {// INSERT
-
-			if (daoUsuario.insert(u)) {
-				alert = new Alert();
-				alert.setTipo(Alert.SUCCESS);
-				alert.setTexto("El usuario creado con exito en la BBDD.");
-			} else {
-				alert = new Alert();
-				alert.setTexto("El usuario no se ha podido crear por algun problema.");
-			}
-
-		} else { // UPDATE
-
-			if (daoUsuario.update(u)) {
-				alert = new Alert();
-				alert.setTipo(Alert.SUCCESS);
-				alert.setTexto("El usuario se ha modificado con exito en la BBDD.");
-			} else {
-				alert = new Alert();
-				alert.setTexto("El usuario no se ha podido modificar por algun problema.");
-			}
-		}
 		
+		try {
+
+			if (u.getId() == 0) {// INSERT
+				daoUsuario.insert(u);
+			} else { // UPDATE
+				daoUsuario.update(u);
+			}
+
+			alert = new Alert("Usuario guardado con exito :D", Alert.SUCCESS);
+
+		} catch (SQLIntegrityConstraintViolationException e) {
+			e.printStackTrace();
+			alert = new Alert("<b>" + u.getNombre() + "</b>, el nombre de usuario ya existe en la BBDD", Alert.WARNING);
+		} catch (SQLException e) {
+			
+			if (e.getMessage().contains("nombre")) {
+				alert = new Alert("El nombre es demasiado largo. :(", Alert.WARNING);
+			}else {
+				alert = new Alert("La contraseña es demasiada larga. :(", Alert.WARNING);
+			}
+			e.printStackTrace();
+		} catch (Exception e) {
+			e.printStackTrace();
+			alert = new Alert();
+		}
+
 		view = VIEW_FORMULARIO;
 		request.setAttribute("usuario", u);
 
 	}
 
-	private void irFormulario(HttpServletRequest request) {
-		
+	private void irFormulario(HttpServletRequest request) throws Exception {
+
 		Usuario u = new Usuario();
 
 		if (Integer.parseInt(id) > 0) {
 			u = daoUsuario.getById(id);
 		}
-		
+
 		request.setAttribute("usuario", u);
 
 		view = VIEW_FORMULARIO;
 	}
 
-	private void eliminar(HttpServletRequest request) {
+	private void eliminar(HttpServletRequest request) throws Exception {
 
+		// TODO para despues del cafe gestionar esta exception
 		if (daoUsuario.delete(id)) {
-			
+
 			alert = new Alert();
 			alert.setTipo(Alert.SUCCESS);
 			alert.setTexto("Se ha borrado el usuario de la BBDD");
-			
+
 		} else {
-			
+
 			alert = new Alert();
 			alert.setTexto("Nose ha podido borrar al usuario");
-			
+
 		}
-		
+
 		listar(request);
 
 	}

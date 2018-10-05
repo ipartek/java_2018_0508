@@ -36,7 +36,7 @@ public class UsuarioDAO implements CrudAble<Usuario> {
 	}
 
 	@Override
-	public boolean insert(Usuario pojo) {
+	public boolean insert(Usuario pojo) throws Exception{
 		boolean resul = false;
 		try (Connection con = ConnectionManager.getConnection();
 				PreparedStatement ps = con.prepareStatement(SQL_INSERT,Statement.RETURN_GENERATED_KEYS);) {
@@ -56,14 +56,12 @@ public class UsuarioDAO implements CrudAble<Usuario> {
 				}
 			}
 
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+		} 
 		return resul;
 	}
 
 	@Override
-	public List<Usuario> getAll() {
+	public List<Usuario> getAll() throws Exception {
 
 		ArrayList<Usuario> usuarios = new ArrayList<Usuario>();
 		try (Connection con = ConnectionManager.getConnection();
@@ -81,7 +79,7 @@ public class UsuarioDAO implements CrudAble<Usuario> {
 	}
 
 	@Override
-	public Usuario getById(String id) {
+	public Usuario getById(String id) throws Exception{
 		Usuario u = null;
 		try (Connection con = ConnectionManager.getConnection();
 
@@ -97,14 +95,12 @@ public class UsuarioDAO implements CrudAble<Usuario> {
 				}
 			}
 
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+		} 
 		return u;
 	}
 
 	@Override
-	public boolean update(Usuario pojo) {
+	public boolean update(Usuario pojo) throws Exception{
 		boolean resul = false;
 		try (Connection con = ConnectionManager.getConnection();
 				PreparedStatement ps = con.prepareStatement(SQL_UPDATE);) {
@@ -119,14 +115,12 @@ public class UsuarioDAO implements CrudAble<Usuario> {
 				resul = true;
 			}
 
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+		} 
 		return resul;
 	}
 
 	@Override
-	public boolean delete(String id) {
+	public boolean delete(String id) throws Exception{
 		boolean resul = false;
 		try (Connection con = ConnectionManager.getConnection();
 				PreparedStatement ps = con.prepareStatement(SQL_DELETE);) {
@@ -138,12 +132,14 @@ public class UsuarioDAO implements CrudAble<Usuario> {
 				resul = true;
 			}
 
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+		} 
 		return resul;
 	}
-	
+	/**
+	 * Funcion que comprueba si el nombre esta en la BBDD
+	 * @param nombre
+	 * @return devuelve true si el nombre esta en la BBDD
+	 */
 	public boolean mirarNombre(String nombre) {
 		boolean resul = false;
 		Usuario u = null;

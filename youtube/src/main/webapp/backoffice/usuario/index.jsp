@@ -15,7 +15,7 @@
 		<!-- Contenido de la pagina actual -->
 		<div class="row">
 			<h2 class="text-pika-blue">
-				Usuarios <span class="badge bg-pika-red text-pika">${nUsuario}</span>
+				Usuarios <span class="badge bg-pika-yellow text-pika-blue">${nUsuario}</span>
 			</h2>
 		</div>
 		<div class="row m-5">
@@ -30,7 +30,7 @@
 			<div class="col-4">
 				<a
 					href="backoffice/usuario?id=-1&op=<%=BackofficeUsuarioController.OP_IR_FORMULARIO%>"
-					class="btn btn-info">Crear Nuevo</a>
+					class="btn btn-outline-info">Crear Nuevo</a>
 			</div>
 		</div>
 		<div class="container">
