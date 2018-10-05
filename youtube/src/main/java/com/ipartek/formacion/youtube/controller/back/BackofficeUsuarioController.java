@@ -1,6 +1,8 @@
 package com.ipartek.formacion.youtube.controller.back;
 
 import java.io.IOException;
+import java.sql.SQLException;
+import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.ArrayList;
 
 import javax.servlet.ServletConfig;
@@ -103,7 +105,7 @@ public class BackofficeUsuarioController extends HttpServlet {
 		
 	}
 
-	private void listar(HttpServletRequest request) {
+	private void listar(HttpServletRequest request) throws Exception {
 		
 		alert = null;		
 		view = VIEW_LISTADO;
@@ -119,29 +121,42 @@ public class BackofficeUsuarioController extends HttpServlet {
 		u.setPassword(password);
 		u.setRol(Integer.parseInt(rol));
 		
-		if( u.getId() > 0 ) {                // UPDATE
+		try {
+			if( u.getId() > 0 ) {			
+				daoUsuario.update(u);				
+			}else {                 
+				daoUsuario.insert(u);				
+			}			
+			alert = new Alert(Alert.SUCCESS, "Usuario guardado con exito");	
+	
+		
+		
 			
-			if ( daoUsuario.update(u) ) {
-				alert = new Alert(Alert.SUCCESS, "Cambios realizados");
+		// nombre repetido
+		} catch ( SQLIntegrityConstraintViolationException e ) {
+			e.printStackTrace();
+			alert = new Alert(Alert.WARNING, "<b>" + u.getNombre() +  "</b> ya existe !!!" );
+		
+		//longitud campos nombre y password
+		}catch (SQLException e) {
+			e.printStackTrace();
+			if ( e.getMessage().contains("nombre")) {
+				alert = new Alert(Alert.WARNING, "El <b>nombre</b> debe ser inferior a 50 caracteres");
 			}else {
-				alert = new Alert(Alert.WARNING, "No hemos podido realizar cambios");
-			}
-			
-		}else {                              //INSERT
-			if ( daoUsuario.insert(u) ) {
-				alert = new Alert(Alert.SUCCESS, "Creado Usuario");
-			}else {
-				alert = new Alert(Alert.WARNING, "No hemos podido crear usuario");
-			}
-			
-		}
+				alert = new Alert(Alert.WARNING, "La <b>contraseña</b> debe ser inferior a 20 caracteres");
+			}			
+		}catch (Exception e) {
+			e.printStackTrace();
+			alert = new Alert();
+		}	
+		
 		
 		view = VIEW_FORMULARIO;
 		request.setAttribute("usuario", u);
 		
 	}
 
-	private void irFormulario(HttpServletRequest request) {
+	private void irFormulario(HttpServletRequest request) throws Exception {
 		alert = null;
 		view = VIEW_FORMULARIO;
 		if ( id.equalsIgnoreCase("-1")) {
@@ -151,7 +166,8 @@ public class BackofficeUsuarioController extends HttpServlet {
 		}
 	}
 
-	private void eliminar(HttpServletRequest request) {
+	//TODO para despues del cafe gestionar esta Exception
+	private void eliminar(HttpServletRequest request) throws Exception {
 		
 		if ( daoUsuario.delete(Long.parseLong(id))) {
 			alert = new Alert(Alert.SUCCESS, "Usuario Eliminado");
