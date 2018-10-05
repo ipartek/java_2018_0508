@@ -3,7 +3,7 @@
 	<header>
 		<nav class="navbar navbar-expand-lg navbar-dark bg-pika-purple">
 			<div class="container">
-				<a class="navbar-brand" href="backoffice/inicio">PikaList BackOffice<img
+				<a class="navbar-brand" href="backoffice/inicio">EeveeList BackOffice<img
 					id="logo" src="images/logo_backoffice.png" alt="Logo de la APP"></a>
 				<button class="navbar-toggler" type="button" data-toggle="collapse"
 					data-target="#navbarResponsive" aria-controls="navbarResponsive"
@@ -28,7 +28,7 @@
 						<ul class="navbar-nav align-items-center">
 							<li class="nav-item">
 								<div class="text-light text-right m-1">
-									Bienvenido <i class="fas fa-user-circle"></i>${usuario.nombre}
+									Bienvenido ${usuario.nombre} <i class="fas fa-user-circle"></i>
 									<a class="text-pika-yellow" href="inicio">Ir al Inicio</a> <a
 										class="text-pika-yellow" href="logout">Cerrar Sesion</a>
 								</div>

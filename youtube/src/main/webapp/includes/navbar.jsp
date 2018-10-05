@@ -4,7 +4,7 @@
 	<header>
 		<nav class="navbar navbar-expand-lg navbar-dark bg-pika-blue">
 			<div class="container">
-				<a class="navbar-brand" href="#">Youtube PikaList<img id="logo" src="images/logo.png" alt="Logo de la APP"></a>
+				<a class="navbar-brand" href="inicio">Youtube PikaList<img id="logo" src="images/logo.png" alt="Logo de la APP"></a>
 				<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive"
 				 aria-expanded="false" aria-label="Toggle navigation">
 					<span class="navbar-toggler-icon"></span>
@@ -28,8 +28,8 @@
 						<ul class="navbar-nav align-items-center">
 							<li class="nav-item">
 								<div class="text-light text-right m-1">
-									Bienvenido <i class="fas fa-user-circle"></i>${usuario.nombre}
-									<a class="text-pika-yellow" href="backoffice/index.jsp">Acceder BackOffice</a>
+									Bienvenido ${usuario.nombre} <i class="fas fa-user-circle"></i>
+									<a class="text-pika-yellow" href="backoffice/inicio">Acceder BackOffice</a>
 									<a class="text-pika-yellow" href="logout">Cerrar Sesion</a>
 								</div>
 							</li>
