@@ -13,11 +13,11 @@
 			<div class="row">
 				<div class="col-4 mt-1">
 					<div class="card">
-						<div class="card-body bg-pika-blue">
-							<i class="fas fa-users fa-5x text-pika-yellow"></i>
+						<div class="card-body bg-pika-kard">
+							<i class="fas fa-users fa-5x text-pika-purple"></i>
 							${usuarios}
 						</div>
-						<div class="card-footer bg-pika-purple">
+						<div class="card-footer bg-pika-kard">
 							<a href="backoffice/usuario?op=<%= BackofficeUsuarioController.OP_LISTAR%>" class="btn-block text-pika-yellow">Usuarios</a>
 						</div>
 					</div>

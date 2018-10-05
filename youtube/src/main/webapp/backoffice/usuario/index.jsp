@@ -7,15 +7,15 @@
 
 <div class="row mt-5">
 	<%@ include file="../includes/sidebar.jsp"%>
-	<div class="col-8">
+	<div class="col-8 ml-4">
 		<div class="row">
 			<!-- include file="includes/alertas.jsp" -->
 		</div>
 		<!-- / Gestion de alertas -->
 		<!-- Contenido de la pagina actual -->
 		<div class="row">
-			<h2>
-				Usuarios <span class="label label-primary">${nUsuario}</span>
+			<h2 class="text-pika-blue">
+				Usuarios <span class="badge bg-pika-red text-pika">${nUsuario}</span>
 			</h2>
 		</div>
 		<div class="row m-5">
