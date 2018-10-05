@@ -16,26 +16,26 @@ import java.util.List;
 public interface CrudAble<P> {
 	
 	//Create
-	boolean insert(P pojo);
+	boolean insert(P pojo) throws Exception;
 	
 	//Read
 	/**
 	 * Recupera todos los pojo
 	 * @return si no existe resultados retorna Lista vacia, no null
 	 */
-	List<P> getAll();
+	List<P> getAll() throws Exception;
 	
 	/**
 	 * Buscamos un pojo por su identificador
 	 * @param id
 	 * @return Pojo si lo encuentra, null si no lo encuentra
 	 */
-	P getById(long id);
+	P getById(long id) throws Exception;
 	
 	//Upadte
-	boolean update(P pojo);
+	boolean update(P pojo) throws Exception;
 	
 	//Delete
-	boolean delete(long id);
+	boolean delete(long id) throws Exception;
 
 }

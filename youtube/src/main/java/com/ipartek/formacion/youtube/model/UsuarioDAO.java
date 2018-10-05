@@ -31,7 +31,7 @@ public class UsuarioDAO implements CrudAble<Usuario> {
 		return INSTANCE;
 	}
 
-	public boolean insert(Usuario pojo) {
+	public boolean insert(Usuario pojo) throws Exception {
 		boolean resul = false;
 
 		try (Connection con = ConnectionManager.getConnection();
@@ -52,14 +52,12 @@ public class UsuarioDAO implements CrudAble<Usuario> {
 
 			}
 
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+		} 
 		return resul;
 	}
 
 	@Override
-	public List<Usuario> getAll() {
+	public List<Usuario> getAll() throws Exception {
 		Usuario usuario = null;
 
 		ArrayList<Usuario> usuarios = new ArrayList<Usuario>();
@@ -71,15 +69,13 @@ public class UsuarioDAO implements CrudAble<Usuario> {
 				usuarios.add(rowMapper(rs, usuario));
 			}
 
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+		} 
 
 		return usuarios;
 	}
 
 	@Override
-	public Usuario getById(long id) {
+	public Usuario getById(long id) throws Exception {
 		Usuario usuario = null;
 		try (Connection con = ConnectionManager.getConnection();
 				PreparedStatement ps = con.prepareStatement(SQL_GET_BY_ID);) {
@@ -92,14 +88,12 @@ public class UsuarioDAO implements CrudAble<Usuario> {
 				}
 			}
 
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+		} 
 
 		return usuario;
 	}
 
-	public Usuario login(Usuario pojo) {
+	public Usuario login(Usuario pojo) throws Exception {
 		Usuario resul = null;
 		try (Connection con = ConnectionManager.getConnection();
 				PreparedStatement ps = con.prepareStatement(SQL_LOGIN)) {
@@ -115,13 +109,11 @@ public class UsuarioDAO implements CrudAble<Usuario> {
 
 			}
 
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+		} 
 		return resul;
 	}
 
-	public boolean update(Usuario pojo) {
+	public boolean update(Usuario pojo) throws Exception {
 		boolean resul = false;
 		try (Connection con = ConnectionManager.getConnection();
 				PreparedStatement ps = con.prepareStatement(SQL_UPDATE);) {
@@ -135,14 +127,12 @@ public class UsuarioDAO implements CrudAble<Usuario> {
 				resul = true;
 			}
 
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+		} 
 		return resul;
 	}
 
 	@Override
-	public boolean delete(long id) {
+	public boolean delete(long id) throws Exception {
 		boolean resul = false;
 		try (Connection con = ConnectionManager.getConnection();
 				PreparedStatement ps = con.prepareStatement(SQL_DELETE);) {
@@ -152,9 +142,7 @@ public class UsuarioDAO implements CrudAble<Usuario> {
 				resul = true;
 			}
 
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+		} 
 		return resul;
 	}
 

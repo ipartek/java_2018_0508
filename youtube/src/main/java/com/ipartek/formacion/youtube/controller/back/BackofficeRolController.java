@@ -11,49 +11,46 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.ipartek.formacion.youtube.model.UsuarioDAO;
+import com.ipartek.formacion.youtube.model.RolDAO;
 import com.ipartek.formacion.youtube.pojo.Alert;
-import com.ipartek.formacion.youtube.pojo.Usuario;
+import com.ipartek.formacion.youtube.pojo.Rol;
 
 /**
- * Servlet implementation class BackofficeUsuarioController
+ * Servlet implementation class BackofficeRolController
  */
-@WebServlet("/backoffice/usuarios")
-public class BackofficeUsuarioController extends HttpServlet {
+@WebServlet("/backoffice/roles")
+public class BackofficeRolController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private static UsuarioDAO daoUsuario;
+	private static RolDAO daoRol;
 	
 	public static final String OP_LISTAR = "1";
 	public static final String OP_GUARDAR = "2";	//insert (id == -1) o update (id > 0) dependiendo del id
 	public static final String OP_ELIMINAR = "3";
 	public static final String OP_IR_FORMULARIO = "4";
-	
-	private static final String VIEW_LISTADO = "usuarios/index.jsp";
-	private static final String VIEW_FORMUALRIO = "usuarios/formulario.jsp";
+
+	private static final String VIEW_LISTADO = "roles/index.jsp";
+	private static final String VIEW_FORMUALRIO = "roles/formulario.jsp";
 	private String view = "";
 	private Alert alert;
-	
+
 	private String op;	//Operación a realizar
 	private String id;
 	private String nombre;
-	private String pass;
-	private String rol;
-
 
 	@Override
 	public void init(ServletConfig config) throws ServletException {	
 		super.init(config);
 		//Se ejecuta solo con la 1º petición, el resto de peticiones iran a "service"
-		daoUsuario = UsuarioDAO.getInstance();
+		daoRol = RolDAO.getInstance();
 	}
 	
 	@Override
 	public void destroy() {	
 		super.destroy();
 		//se ejecuta al parar el servidor
-		daoUsuario = null;
+		daoRol = null;
 	}
-	
+     
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
@@ -71,10 +68,9 @@ public class BackofficeUsuarioController extends HttpServlet {
 		doProcess(request, response);
 		
 	}
-	
-	protected void doProcess(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-	
-	
+
+	private void doProcess(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
 		try {
 			
 			alert = null;
@@ -112,16 +108,14 @@ public class BackofficeUsuarioController extends HttpServlet {
 			request.getRequestDispatcher(view).forward(request, response);
 			
 		}
-	
+		
 	}
-
+	
 	private void getParameters(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		op = (request.getParameter("op") != null)?request.getParameter("op") : OP_LISTAR;
 		id = request.getParameter("id");
-		nombre = request.getParameter("nombre");		
-		pass = request.getParameter("pass");		
-		rol = request.getParameter("rol");
+		nombre = request.getParameter("nombre");
 		
 	}
 
@@ -129,8 +123,8 @@ public class BackofficeUsuarioController extends HttpServlet {
 
 		try {
 			view = VIEW_LISTADO;
-			request.setAttribute("nUsuarios", daoUsuario.getAll().size());
-			request.setAttribute("usuarios", daoUsuario.getAll());
+			request.setAttribute("nRoles", daoRol.getAll().size());
+			request.setAttribute("roles", daoRol.getAll());
 			
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -142,31 +136,27 @@ public class BackofficeUsuarioController extends HttpServlet {
 	private void guardar(HttpServletRequest request) {
 		
 	
-			Usuario usuario = new Usuario();
+			Rol rol = new Rol();
 
-			usuario.setId(Long.parseLong(id));
-			usuario.setNombre(nombre);
-			usuario.setPass(pass);
-			usuario.setRol(Integer.parseInt(rol));
+			rol.setId(Long.parseLong(id));
+			rol.setNombre(nombre);
 			
 			try {
-				if(usuario.getId() == -1) {	//Crear nuevo usuario
+				if(rol.getId() == -1) {	//Crear nuevo rol
 					
-					daoUsuario.insert(usuario);
+					daoRol.insert(rol);
+					alert = new Alert(Alert.SUCCESS, "Rol <b>" + rol.getNombre() + "</b> creado con éxito");
 					
-				}else {		//Modificar usuario existente
+				}else {		//Modificar rol existente
 					
-					daoUsuario.update(usuario);
-					
+					daoRol.update(rol);
+					alert = new Alert(Alert.SUCCESS, "Rol <b>" + rol.getNombre() + "</b> modificado con éxito");
 				}
-				
-				alert = new Alert(Alert.SUCCESS, "Usuario guardado con éxito");
-			
 				
 			//Nombre repetido
 			}catch(SQLIntegrityConstraintViolationException e){
 				e.printStackTrace();
-				alert = new Alert(Alert.WARNING, "El usuario <b>" + usuario.getNombre() + "</b> ya existe.");
+				alert = new Alert(Alert.WARNING, "El rol <b>" + rol.getNombre() + "</b> ya existe.");
 				
 			//Longitud de campos nombre y password
 				
@@ -174,9 +164,6 @@ public class BackofficeUsuarioController extends HttpServlet {
 				
 				if(e.getMessage().contains("nombre")) {
 					alert = new Alert(Alert.WARNING, "El nombre debe contener como máximo 50 caracteres.");
-				}
-				else if(e.getMessage().contains("password")) {
-					alert = new Alert(Alert.WARNING, "La contraseña debe contener como máximo 20 caracteres.");
 				}
 				
 			}catch (Exception e) {
@@ -186,20 +173,20 @@ public class BackofficeUsuarioController extends HttpServlet {
 			}
 			
 			view = VIEW_FORMUALRIO;
-			request.setAttribute("usuario", usuario);
+			request.setAttribute("rol", rol);
 		
 	}
 
 	private void irFormulario(HttpServletRequest request) throws Exception {
 		
 		try {
-			Usuario usuario = new Usuario();
+			Rol rol = new Rol();
 			
-			if(Integer.parseInt(id) > 0) {
-				usuario = daoUsuario.getById(Long.parseLong(id));
+			if(Long.parseLong(id) >= 0) {
+				rol = daoRol.getById(Long.parseLong(id));
 			}
 			
-			request.setAttribute("usuario", usuario);
+			request.setAttribute("rol", rol);
 			view = VIEW_FORMUALRIO;
 			
 		} catch (NumberFormatException e) {
@@ -213,19 +200,19 @@ public class BackofficeUsuarioController extends HttpServlet {
 
 		try {
 			if(id != null && op != null && OP_ELIMINAR.equals(op)) {	//Eliminar
-				Usuario u  = daoUsuario.getById(Long.parseLong(id));
-				if(daoUsuario.delete(Long.parseLong(id))) {
-					alert = new Alert(Alert.SUCCESS, "Usuario <b>" + u.getNombre() + "</b> eliminado correctamente");
+				Rol r  = daoRol.getById(Long.parseLong(id));
+				if(daoRol.delete(Long.parseLong(id))) {
+					alert = new Alert(Alert.SUCCESS, "Rol <b>" + r.getNombre() + "</b> eliminado correctamente");
 					
 				}else {
-					alert = new Alert(Alert.WARNING, "No hemos podido eliminar el usuario");
+					alert = new Alert(Alert.WARNING, "No hemos podido eliminar el rol");
 				}
 				
 			}			
 		} 
 		
 		catch (SQLIntegrityConstraintViolationException e) {
-			alert = new Alert(Alert.WARNING, "No se puede eliminar el usuario, ya que tiene uno o más videos creados.");
+			//alert = new Alert(Alert.WARNING, "No se puede eliminar el rol, ya que tiene uno o más videos creados.");
 		
 		}catch (Exception e) {
 			e.printStackTrace();
@@ -235,6 +222,5 @@ public class BackofficeUsuarioController extends HttpServlet {
 		listar(request);
 		
 	}
-	
-	
+
 }

@@ -1,4 +1,4 @@
-<%@page import="com.ipartek.formacion.youtube.controller.back.BackofficeUsuarioController"%>
+<%@page import="com.ipartek.formacion.youtube.controller.back.BackofficeRolController"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@include file="../includes/header.jsp" %>   
 <%@include file="../includes/nav.jsp" %>   
@@ -9,7 +9,7 @@
 	<%@include file="../includes/alert.jsp" %>   
         <div class="row">
             <div class="col-lg-12">
-                <h1 class="page-header titulo">Usuarios <span class="badge nUsuarios">${nUsuarios }</span></h1>
+                <h1 class="page-header titulo">Roles <span class="badge nRoles">${nRoles }</span></h1>
             </div>
             <!-- /.col-lg-12 -->
         </div>
@@ -23,7 +23,7 @@
   				</form> 			
   			</div>
   			<div class="col-md-4 btn-crear">
-  				<a href="usuarios?id=-1&op=${BackofficeUsuarioController.OP_IR_FORMULARIO}" class="btn btn-primary">Crear nuevo</a>  			
+  				<a href="roles?id=-1&op=${BackofficeRolController.OP_IR_FORMULARIO}" class="btn btn-success">Crear nuevo</a>  			
   			</div>
   		
   		</div>
@@ -34,17 +34,15 @@
 			    <tr>
 			        <th>Id</th>
 			        <th>Nombre</th>
-			        <th>Rol</th>
 			    </tr>
 			</thead>
 			<tbody>
 			    
-				<c:forEach items="${usuarios}" var="u">
+				<c:forEach items="${roles}" var="r">
 				    	
 				    <tr>
-				    	<td>${u.id}</td>
-				    	<td><a href="usuarios?id=${u.id }&op=${BackofficeUsuarioController.OP_IR_FORMULARIO}">${u.nombre}</a></td>
-				    	<td>${ (u.rol == 1)?'normal' : 'administrador' }</td>			    	
+				    	<td>${r.id}</td>
+				    	<td><a href="roles?id=${r.id }&op=${BackofficeRolController.OP_IR_FORMULARIO}" class="text-success">${r.nombre}</a></td>		    	
 				    </tr>
 				    
 				</c:forEach>

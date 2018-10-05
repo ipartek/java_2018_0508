@@ -55,7 +55,7 @@ public class BuscarController extends HttpServlet {
 			ArrayList<Usuario> usuariosEncontrados = new ArrayList<Usuario>();
 			
 			for(Usuario u : usuarios) {
-				if(u.getNombre().toLowerCase().contains(buscador)) {
+				if(u.getNombre().toLowerCase().contains(buscador.toLowerCase())) {
 					usuariosEncontrados.add(u);
 				}
 			}

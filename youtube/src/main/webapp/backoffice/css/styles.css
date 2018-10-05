@@ -20,3 +20,41 @@
 	background-color:#428bca;
 	padding: 0.5em 0.7em;
 }
+
+.nVideos{
+	background-color:#D9534F;
+	padding: 0.5em 0.7em;
+}
+
+.nRoles{
+	background-color:#5CB85C;
+	padding: 0.5em 0.7em;
+}
+
+.video{
+	color:#D9534F;
+}
+
+.video:hover{
+	color:	#8B0000;
+}
+
+.rol{
+	color:#5CB85C;
+}
+
+.rol:hover{
+	color:#006400;
+}
+
+.dashboard{
+	color:#808080;
+}
+
+.dashboard:hover{
+	color:#383838;
+}
+
+.panel-footer{
+	background-color:#fff;
+}

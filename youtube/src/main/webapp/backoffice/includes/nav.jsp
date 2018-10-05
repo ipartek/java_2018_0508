@@ -8,7 +8,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="index.html">Administración</a>
+                <a class="navbar-brand" href="inicio">Administración</a>
             </div>
             <!-- /.navbar-header -->
 
@@ -18,7 +18,7 @@
                     <ul class="nav" id="side-menu">
                         
                         <li>
-                            <a href="inicio"><i class="fas fa-home"></i> Dashboard</a>
+                            <a href="inicio" class="dashboard"><i class="fas fa-home"></i> Dashboard</a>
                         </li>
                         
                         <li>
@@ -26,7 +26,11 @@
                         </li>
                         
                         <li>
-                            <a href="videos"><i class="fab fa-youtube"></i> Videos</a>
+                            <a href="videos" class="video"><i class="fab fa-youtube"></i> Videos</a>
+                        </li>
+                        
+                        <li>
+                            <a href="roles" class="rol"><i class="fas fa-address-card"></i> Roles</a>
                         </li>
                         
                         
