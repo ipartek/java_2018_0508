@@ -1,142 +1,174 @@
-body{
-	overflow-x:hidden;
+body {
+	overflow-x: hidden;
 }
-.body-backoffice{
+
+.body-backoffice {
 	background-color: #F4EEFE;
 	/*#FC965C*/
 }
-ul,li{
+
+ul, li {
 	list-style: none;
 }
 
-#logo{
-	width:100px;
+#logo {
+	width: 100px;
 	height: 100px;
-	display: inline-block;
 }
 
-#nav-backoffice{
+#nav-backoffice {
 	min-height: 125px;
 }
 
-li.nav-item a img{
+li.nav-item a img {
 	margin: 0.25em;
 }
-
-div#page-wrapper{
-	padding: 1.55em;
+i.badge{
+	font-size: 2em;
 }
 /****
 *	BG-Colorsm, Colores y botones Custom
 ******************************************************************/
-.bg-pika{
+.bg-pika {
 	background-color: #72FC5C;
 }
-.bg-pika-blue{
+
+.bg-pika-blue {
 	background-color: #5C72FC;
 }
-.bg-pika-yellow{
+
+.bg-pika-yellow {
 	background-color: #FCE65C;
 }
-.bg-pika-red{
+
+.bg-pika-red {
 	background-color: #FC5C72;
 }
-.bg-pika-purple{
+
+.bg-pika-purple {
 	background-color: #965CFC;
 }
-.bg-pika-kard{
+
+.bg-pika-kard {
 	background-color: #FFF;
 }
-.text-pika-purple{
+
+.text-pika-purple {
 	color: #965CFC;
 }
-.text-pika-red{
-	color: 	#FC5C72;
+
+.text-pika-red {
+	color: #FC5C72;
 }
-.text-pika-yellow{
+
+.text-pika-yellow {
 	color: #FCE65C;
 }
-.text-pika-blue{
+
+.text-pika-blue {
 	color: #5C72FC;
 }
-.text-pika{
-	color: 	#72FC5C;
+
+.text-pika {
+	color: #72FC5C;
 }
-a.text-pika{
+
+a.text-pika {
 	margin: .75em;
 }
-a.text-pika:hover{
-	color: 	#72FC5C !important;
+
+a.text-pika:hover {
+	color: #72FC5C !important;
 }
-a.text-pika-red:hover{
-	color: 	#FC5C72 !important;
+
+a.text-pika-red:hover {
+	color: #FC5C72 !important;
 }
-a.text-pika-yellow:hover{
-	color: 	#FCE65C !important;
+
+a.text-pika-yellow:hover {
+	color: #FCE65C !important;
 }
-a.text-pika-blue:hover{
-	color: 	#5C72FC !important;
+
+a.text-pika-blue:hover {
+	color: #5C72FC !important;
 }
+
+a.text-pika-purple:hover {
+	color: #965CFC !important;
+}
+
 .btn-outline-pika {
-    color: #72FC5C;
-    border-color: #72FC5C;
+	color: #72FC5C;
+	border-color: #72FC5C;
 }
+
 .btn-outline-pika:hover {
-    color: #000;
-    background-color: #72FC5C;
-    border-color: #72FC5C;
+	color: #000;
+	background-color: #72FC5C;
+	border-color: #72FC5C;
 }
+
 .btn-outline-pika-blue {
-    color: #5C72FC;
-    border-color: #5C72FC;
+	color: #5C72FC;
+	border-color: #5C72FC;
 }
+
 .btn-outline-pika-blue:hover {
-    color: #FFF;
-    background-color: #5C72FC;
-    border-color: #5C72FC;
+	color: #FFF;
+	background-color: #5C72FC;
+	border-color: #5C72FC;
 }
+
 .btn-outline-pika-red {
-    color: #FC5C72;
-    border-color: #FC5C72;
+	color: #FC5C72;
+	border-color: #FC5C72;
 }
+
 .btn-outline-pika-red:hover {
-    color: #000;
-    background-color: #FC5C72;
-    border-color: #FC5C72;
+	color: #000;
+	background-color: #FC5C72;
+	border-color: #FC5C72;
 }
+
 .btn-outline-pika-purple {
-    color: #965CFC;
-    border-color: #965CFC;
+	color: #965CFC;
+	border-color: #965CFC;
 }
+
 .btn-outline-pika-purple:hover {
-    color: #FFF;
-    background-color: #965CFC;
-    border-color: #965CFC;
+	color: #FFF;
+	background-color: #965CFC;
+	border-color: #965CFC;
 }
+
 /******
 *	Listados con hover
 ***********************************************************/
-.list-group-item:hover{
+.list-group-item:hover {
 	background-color: #C6FDBD;
 }
-.body-backoffice .list-group-item:hover{
-	background-color: rgba(252,150,92,.5);
+
+.body-backoffice .list-group-item:hover,.card-footer:hover {
+	background-color: rgba(252, 150, 92, .5);
 }
 /******
 *	Pantalla de Login y de registro
 ***********************************************************/
-.fondo-login{
-	background:url("../images/logo.png");
-	
+.fondo-login {
+	background: url("../images/logo.png");
 }
-.fondo-login .row{
+
+.fondo-login .row {
 	padding: 15em;
 }
-.fondo-login .fondo-login-form{
-	background-color: rgba(0,0,0,.7);
+
+.fondo-login .fondo-login-form {
+	background-color: rgba(0, 0, 0, .7);
 	padding: 1em;
-	border-radius:.25em;
+	border-radius: .25em;
 }
-.fondo-login-form h1, .fondo-login-form small, .fondo-login-form i, .fondo-login-form label{
-	color: 	#72FC5C;
+
+.fondo-login-form h1, .fondo-login-form small, .fondo-login-form i,
+	.fondo-login-form label {
+	color: #72FC5C;
 }

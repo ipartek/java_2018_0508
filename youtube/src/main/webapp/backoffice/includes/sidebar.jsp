@@ -6,7 +6,7 @@
 <div class="col-3">
 	<h2 class="m-4 text-pika-blue">Panel de Acceso</h2>
 	<ul class="list-group list-group-flush">
-		<li class="list-group-item"><a href="backoffice/index.jsp"
+		<li class="list-group-item"><a href="backoffice/inicio"
 			class="btn-block text-pika-blue"><i class="fas fa-tachometer-alt fa-lg"></i> Inicio</a></li>
 		<li class="list-group-item"><a
 			href="backoffice/usuario?op=<%=BackofficeUsuarioController.OP_LISTAR%>"

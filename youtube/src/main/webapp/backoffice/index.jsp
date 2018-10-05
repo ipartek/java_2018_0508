@@ -12,10 +12,10 @@
 			</div><!-- / Gestion de alertas -->
 			<div class="row">
 				<div class="col-4 mt-1">
-					<div class="card">
+					<div class="card text-center">
 						<div class="card-body bg-pika-kard">
 							<i class="fas fa-users fa-5x text-pika-purple"></i>
-							${usuarios}
+							<i class="ml-3 badge bg-pika-purple text-pika-yellow">${usuarios}</i>
 						</div>
 						<div class="card-footer bg-pika-kard">
 							<a href="backoffice/usuario?op=<%= BackofficeUsuarioController.OP_LISTAR%>" class="btn-block text-pika-purple">Usuarios</a>
@@ -23,10 +23,10 @@
 					</div>
 				</div><!-- /Kard  usuarios -->
 				<div class="col-4 mt-1">
-					<div class="card">
+					<div class="card text-center">
 						<div class="card-body bg-pika-kard">
 							<i class="fab fa-youtube fa-5x text-pika-purple"></i>
-							${videos}
+							<i class="ml-3 badge bg-pika-purple text-pika-yellow">${videos}</i>
 						</div>
 						<div class="card-footer bg-pika-kard">
 							<a href="#" class="btn-block text-pika-purple">Videos</a>
