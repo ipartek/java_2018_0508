@@ -3,6 +3,7 @@ package com.ipartek.formacion.youtube.controller;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
+import java.sql.SQLException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -78,7 +79,12 @@ public class HomeController extends HttpServlet {
 
 		} else {
 			idNo = 1;
-			videos = (ArrayList<VideoYoutube>) dao.getAll();
+			try {
+				videos = (ArrayList<VideoYoutube>) dao.getAll();
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 
 		// Establecer idioma
@@ -93,7 +99,12 @@ public class HomeController extends HttpServlet {
 		setCookieUltimaVisita(request, response);
 
 		// Actualizar listado
-		videos = (ArrayList<VideoYoutube>) dao.getAll();
+		try {
+			videos = (ArrayList<VideoYoutube>) dao.getAll();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		cargarPlaylist();
 
 		// Enviar Atributos
@@ -250,7 +261,7 @@ public class HomeController extends HttpServlet {
 		}
 	}
 
-	private void insertarVideo(VideoYoutube videoInicio) {
+	private void insertarVideo(VideoYoutube videoInicio) throws SQLException {
 
 		alert = new Alert();
 
@@ -266,7 +277,7 @@ public class HomeController extends HttpServlet {
 		}
 	}
 
-	private void modificarVideo(VideoYoutube video) {
+	private void modificarVideo(VideoYoutube video) throws SQLException {
 
 		if (dao.update(video)) {
 			alert = new Alert(Alert.SUCCESS, "Video eliminado.");
@@ -276,7 +287,7 @@ public class HomeController extends HttpServlet {
 		}
 	}
 
-	private void eliminarVideo(int idNo) {
+	private void eliminarVideo(int idNo) throws SQLException {
 
 		if (dao.delete(idNo)) { // Video Eliminado
 			alert = new Alert(Alert.SUCCESS, "Video eliminado.");

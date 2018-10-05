@@ -1,11 +1,14 @@
 package com.ipartek.formacion.youtube.pojo;
 
 public class Usuario {
+	
+	public static int ROL_ADMIN = 0;
+	public static int ROL_USER = 1;
 
 	private long id;
 	private String nombre;
 	private String pass;
-	private int tipo; // O: Admin, 1: Cliente
+	private int rol; // O: Admin, 1: Cliente
 
 	// CONSTRUCTORES
 	public Usuario() {
@@ -13,7 +16,7 @@ public class Usuario {
 		this.id = -1;
 		this.nombre = "";
 		this.pass = "";
-		this.tipo = 1;
+		this.rol = 1;
 	}
 
 	public Usuario(String nombre, String pass) {
@@ -45,6 +48,14 @@ public class Usuario {
 
 	public void setPass(String pass) {
 		this.pass = pass;
+	}
+
+	public int getRol() {
+		return rol;
+	}
+
+	public void setRol(int rol) {
+		this.rol = rol;
 	}
 
 	@Override

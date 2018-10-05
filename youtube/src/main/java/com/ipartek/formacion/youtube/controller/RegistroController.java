@@ -1,6 +1,7 @@
 package com.ipartek.formacion.youtube.controller;
 
 import java.io.IOException;
+import java.sql.SQLException;
 
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
@@ -10,7 +11,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.ipartek.formacion.youtube.model.UsuarioDAO;
-import com.ipartek.formacion.youtube.model.VideoYoutubeDAO;
 import com.ipartek.formacion.youtube.pojo.Alert;
 import com.ipartek.formacion.youtube.pojo.Usuario;
 
@@ -82,7 +82,7 @@ public class RegistroController extends HttpServlet {
 		
 	}
 
-	private void insertarUsuario(Usuario u) {
+	private void insertarUsuario(Usuario u) throws SQLException {
 		
 		alert = new Alert();
 		
