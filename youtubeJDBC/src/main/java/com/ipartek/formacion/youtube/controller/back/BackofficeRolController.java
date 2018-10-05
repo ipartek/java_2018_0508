@@ -13,40 +13,41 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.ipartek.formacion.youtube.model.RolDao;
 import com.ipartek.formacion.youtube.model.UsuariosDaoJDBC;
 import com.ipartek.formacion.youtube.pojo.Alert;
+import com.ipartek.formacion.youtube.pojo.Rol;
 import com.ipartek.formacion.youtube.pojo.Usuario;
 
 /**
  * Servlet implementation class BackofficeUsuarioController
  */
-@WebServlet("/backoffice/usuario")
-public class BackofficeUsuarioControllerPuente extends HttpServlet {
+@WebServlet("/backoffice/rol")
+public class BackofficeRolController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private static UsuariosDaoJDBC usuariosJDBC;
-	private ArrayList<Usuario> usuarios;
+	private static RolDao rolDao;
+	private ArrayList<Rol> roles;
 	private String view = "tree";
 
 	public static final String OP_LISTAR = "1";
 	public static final String OP_GUARDAR = "2"; // insert id == -1 o update id > 0
 	public static final String OP_ELIMINAR = "3";
 	public static final String OP_IR_FORMULARIO = "4";
-	private static final String VIEW_LISTADO = "usuario/index.jsp";
+	private static final String VIEW_LISTADO = "rol/index.jsp";
 	private String urlView;
 	private Alert alert;
 
 	private String op; // operacion a realizar
 	private String id;
 	private String nombre;
-	private String password;
-	private String rol;
+
 
 	@Override
 	public void init(ServletConfig config) throws ServletException {
 		super.init(config);
 		// Se ejecuta solo con la 1º petición, el resto de peticiones iran a "service"
 		// inicializamos el arraydao de usuarios
-		usuariosJDBC = UsuariosDaoJDBC.getInstance();
+		rolDao = RolDao.getInstance();
 	}
 
 	/**
@@ -110,7 +111,7 @@ public class BackofficeUsuarioControllerPuente extends HttpServlet {
 			alert = new Alert();
 		} finally {
 			request.setAttribute("alert", alert);
-			request.setAttribute("usuarios", usuarios);
+			request.setAttribute("roles", roles);
 			request.setAttribute("view", view);
 			request.getRequestDispatcher(urlView).forward(request, response);
 
@@ -119,7 +120,7 @@ public class BackofficeUsuarioControllerPuente extends HttpServlet {
 	}
 
 	private void listar(HttpServletRequest request) throws Exception {
-		usuarios = (ArrayList<Usuario>) usuariosJDBC.getAll();
+		roles = (ArrayList<Rol>) rolDao.getAll();
 		urlView = VIEW_LISTADO;
 		if (view == null) {
 			view = "tree";
@@ -129,26 +130,26 @@ public class BackofficeUsuarioControllerPuente extends HttpServlet {
 
 	private void guardar(HttpServletRequest request) {
 		System.out.println("Guardar");
-		Usuario usuarioNuevoActualizar = new Usuario();
+		Rol rolNuevoActualizar = new Rol();
 		try {
 			if (id == null || id == "") { //registro nuevo
-				if(nombre != "" && password!= "") {
-					usuarioNuevoActualizar.setNombre(nombre);
-					usuarioNuevoActualizar.setPass(password);
+				if(nombre != "" ) {
+					rolNuevoActualizar.setNombre(nombre);
+
 					/*usuarioNuevoActualizar.setRol(Integer.parseInt(rol));*/
-					usuariosJDBC.insert(usuarioNuevoActualizar);
+					rolDao.insert(rolNuevoActualizar);
 							
 				}
 				
 
 			} else {
-				if(nombre != "" && password!= "") { //actualizar registro
+				if(nombre != "" ) { //actualizar registro
 					
-					usuarioNuevoActualizar = usuariosJDBC.getById(id);
-					usuarioNuevoActualizar.setNombre(nombre);
-					usuarioNuevoActualizar.setPass(password);
+					rolNuevoActualizar = rolDao.getById(id);
+					rolNuevoActualizar.setNombre(nombre);
+
 					/*usuarioNuevoActualizar.setRol(Integer.parseInt(rol));*/
-					usuariosJDBC.update(usuarioNuevoActualizar);
+					rolDao.update(rolNuevoActualizar);
 					
 					
 				}
@@ -156,7 +157,7 @@ public class BackofficeUsuarioControllerPuente extends HttpServlet {
 			}
 			
 			//nombre repetido
-		}catch (SQLIntegrityConstraintViolationException e) {
+		/*}catch (SQLIntegrityConstraintViolationException e) {
 			e.printStackTrace();
 			alert.setTexto("Error usuario duplicado");
 		} 
@@ -166,7 +167,7 @@ public class BackofficeUsuarioControllerPuente extends HttpServlet {
 				alert = new Alert(Alert.WARNING, "El <b>nombre</b> debe ser inferior a 50 caracteres");
 			}else {
 				alert = new Alert(Alert.WARNING, "La <b>contraseña</b> debe ser inferior a 20 caracteres");
-			}					
+			}					*/
 		}catch (Exception e) {
 			e.printStackTrace();
 			alert = new Alert();
@@ -174,25 +175,25 @@ public class BackofficeUsuarioControllerPuente extends HttpServlet {
 		
 		
 		//para que nos coja el registro recien actualizado/creado y lo ponemos en la vista formulario
-		request.setAttribute("usuarioSeleccionado", usuarioNuevoActualizar);
+		request.setAttribute("rolNuevoActualizar", rolNuevoActualizar);
 		view = "form";
 
 	}
 
 	private void irFormulario(HttpServletRequest request) throws Exception{
-		Usuario usuarioSeleccionado = new Usuario();
+		Rol rolSeleccionado = new Rol();
 		urlView = VIEW_LISTADO;
 		view = "form";
 		if (id != null) {
-			usuarioSeleccionado = usuariosJDBC.getById(id);
-			request.setAttribute("usuarioSeleccionado", usuarioSeleccionado);
+			rolSeleccionado = rolDao.getById(id);
+			request.setAttribute("rolSeleccionado", rolSeleccionado);
 		}
 
 	}
 
 	private void eliminar(HttpServletRequest request) throws Exception {
 		try {
-			usuariosJDBC.delete(id);
+			rolDao.delete(id);
 			alert = new Alert(Alert.WARNING, "Usuario eliminado correctamente");
 			listar(request);
 		} catch (Exception e) {
@@ -205,10 +206,9 @@ public class BackofficeUsuarioControllerPuente extends HttpServlet {
 
 	private void getParameters(HttpServletRequest request) {
 		op = (request.getParameter("op") != null) ? request.getParameter("op") : OP_LISTAR;
-		id = request.getParameter("usuarioId");
+		id = request.getParameter("id");
 		nombre = request.getParameter("nombre");
-		password = request.getParameter("password");
-		rol = request.getParameter("rol");
+
 		view = request.getParameter("view");
 
 	}

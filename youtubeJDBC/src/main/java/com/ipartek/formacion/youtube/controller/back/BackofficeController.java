@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.ipartek.formacion.youtube.model.RolDao;
 import com.ipartek.formacion.youtube.model.UsuariosDaoJDBC;
 import com.ipartek.formacion.youtube.model.VideoDAO;
 
@@ -22,6 +23,7 @@ public class BackofficeController extends HttpServlet {
 	
 	private static UsuariosDaoJDBC usuariosDao;
 	private static VideoDAO videosDao;
+	private static RolDao rolDao;
        
 	@Override
 	public void init(ServletConfig config) throws ServletException {	
@@ -30,6 +32,8 @@ public class BackofficeController extends HttpServlet {
 		//inicializamos el arraydao de usuarios
 		usuariosDao =  UsuariosDaoJDBC.getInstance();
 		videosDao = VideoDAO.getInstance();
+		rolDao = RolDao.getInstance();
+		
 	}
 
 	/**
@@ -49,6 +53,7 @@ public class BackofficeController extends HttpServlet {
 		try {
 			request.setAttribute("usuarios",usuariosDao.getAll());
 			request.setAttribute("videos", videosDao.getAll());
+			request.setAttribute("roles", rolDao.getAll());
 		} catch (Exception e) {
 			
 		}finally {

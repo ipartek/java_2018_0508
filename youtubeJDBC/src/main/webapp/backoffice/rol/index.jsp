@@ -1,4 +1,5 @@
-<%@page import="com.ipartek.formacion.youtube.controller.back.BackofficeUsuarioController"%>
+<%@page import="com.ipartek.formacion.youtube.controller.back.BackofficeUsuarioControllerPuente"%>
+<%@page import="com.ipartek.formacion.youtube.controller.back.BackofficeRolController"%>
 <%@ include file="../includes/header.jsp" %>	
 
 <%@ include file="../includes/nav.jsp"  %>
@@ -22,7 +23,7 @@
                         </div>
                         <div class="row">
                         	<div class="col-md-8">
-                        	<form action="/backoffice/usuario" class="form-inline">
+                        	<form action="/backoffice/rol" class="form-inline">
 							  <div class="form-group">
 							    <label class="sr-only" for="exampleInputAmount"></label>
 							    <div class="input-group">
@@ -35,14 +36,14 @@
 							</form>
 				      		</div>
 				      		<div class="col-md-4">
-				      			<a href="<%=request.getContextPath()%>/backoffice/usuario?view=form&op=4" class="btn btn-success">Crear Nuevo</a>
+				      			<a href="<%=request.getContextPath()%>/backoffice/rol?view=form&op=4" class="btn btn-success">Crear Nuevo</a>
 				      		</div>	
                         </div>
                         
                         <!-- /.panel-heading -->
                         <div class="panel-body">
                         
-                        <%@ include file="../includes/optionsUsuario.jsp" %>
+                        <%@ include file="../includes/optionsRol.jsp" %>
                         
                         	<!-- VISTA LISTA -->                   	                      	
                         	<c:if test="${view == 'tree'}">
@@ -50,19 +51,19 @@
 	                                <thead>
 	                                    <tr>
 	                                    	<th>Id</th>
-	                                        <th>Nombre</th>
+	                                        <th>rol</th>
 	                                       <!--  <th>Contraseña</th> -->
-	                                        <th>Rol</th>
+	                                        
 	                                        
 	                                    </tr>
 	                                </thead>
 	                                <tbody>
-	                                	<c:forEach items="${usuarios}" var="u">
+	                                	<c:forEach items="${roles}" var="r">
 		                                    <tr class="odd gradeX">
-		                                    	<td><a href="<%=request.getContextPath()%>/backoffice/usuario?usuarioId=${u.id }&op=4">${u.id }</a></td>
-		                                        <td>${u.nombre }</td>
+		                                    	<td><a href="<%=request.getContextPath()%>/backoffice/rol?id=${r.id }&op=4">${r.id }</a></td>
+		                                        <td>${r.nombre }</td>
 		                                        <%-- <td>${u.pass }</td> --%>
-		                                       	<td>${(u.rol == 1)?'normal':'administrador' }</td>
+		                                       <%-- 	<td>${(r.rol == 1)?'normal':'administrador' }</td> --%>
 		                                    </tr>
 	                                    </c:forEach>
 	                                   
@@ -72,15 +73,14 @@
                             <!-- VISTA KANBAN --> 
                             <c:if test="${view == 'kanban'}">
                             	<div class="contenedor-cartas">
-                            		<c:forEach items="${usuarios}" var="u">
+                            		<c:forEach items="${roles}" var="r">
                             		
 	                            		<div class="card" style="width: 18rem;">
 											  <img class="card-img-top" src="https://static.thenounproject.com/png/17241-200.png" alt="Card image cap">
 											  <div class="card-body">
 											     <ul class="list-group list-group-flush">
-												    <li class="list-group-item">Nombre : ${ u.nombre}</li>
-												   <%--  <li class="list-group-item">Contraseña : ${ u.pass} </li> --%>
-												    <li class="list-group-item">Rol : ${ u.rol}</li>
+												    <li class="list-group-item">Nombre : ${ r.nombre}</li>
+												   
 												  </ul>
 											    <a href="#" class="btn btn-primary">Editar</a>
 											  </div>
@@ -95,49 +95,36 @@
 									${alerta.texto }
 								</div>
                             	<div class="row">
-	                            	<form action="<%=request.getContextPath()%>/backoffice/usuario" method="post">
+	                            	<form action="<%=request.getContextPath()%>/backoffice/rol" method="post">
 			                            	<div class="col-lg-12">
 			                            		
-			                            		<h1 class="page-header">${usuarioSeleccionado.id  == -1?'crear Usuario' : usuarioSeleccionado.nombre }</h1>
+			                            		<h1 class="page-header">${rolSeleccionado.id  == -1?'crear Usuario' : rolSeleccionado.nombre }</h1>
 			                            		<!-- PAGINACION -->
-												<ul class="pagination">
+												<%-- <ul class="pagination">
 												  <li><a href="usuario?accion=menos&usuarioId=${usuarioSeleccionado.id }">&laquo;</a></li>
 												  <li><a href="usuario?accion=mas&usuarioId=${usuarioSeleccionado.id }">&raquo;</a></li>
-												</ul>
+												</ul> --%>
 												<div class="form-group">
 				                            		
 				                            		<input name="op" type="hidden" value="2"   placeholder="operacion">
 			                            		</div>
 			                            		<div class="form-group">
-				                            		<label for="usuarioId">id</label>
-				                            		<input name="usuarioId" type="text" value="${usuarioSeleccionado.id }"  readonly placeholder="numero de id">
+				                            		<label for="rolId">id</label>
+				                            		<input name="id" type="text" value="${rolSeleccionado.id }"  readonly placeholder="numero de id">
 			                            		</div>
 			                            		<div class="form-group">
-				                            		<label for="nombre">Nombre</label>
-				                            		<input type="text" name="nombre" value="${usuarioSeleccionado.nombre }" placeholder="nombre de usuario" autofocus>
+				                            		<label for="nombreRol">Rol</label>
+				                            		<input type="text" name="nombre" value="${rolSeleccionado.nombre }"  placeholder="nombre de rol" autofocus>
 				                            	</div>
-				                            	<div class="form-group">
-				                            		<label for="nombreUsuario">Contraseña</label>
-				                            		<input type="password" name="password" value="${usuarioSeleccionado.pass }" placeholder ="password">
-				                            	</div>
-				                            	<div class="form-group">
-												   <label for="rol">Rol</label>
-												   <%-- <select name="rol" class="form-control">
-												   		<option value="${Usuario.ROL_USER}"  ${(usuarioSeleccionado.rol == Usuario.ROL_USER)?'selected':'' }>Normal</option>
-												   		<option value="${Usuario.ROL_ADMIN}"  ${(usuarioSeleccionado.rol == Usuario.ROL_ADMIN)?'selected':'' }  >Administrador</option>
-												   </select> --%>
-												   <select name="rol" class="form-control">
-												   		<option value="${Usuario.ROL_USER}"  ${(usuarioSeleccionado.rol == Usuario.ROL_USER)?'selected':'' }>Normal</option>
-												   		<option value="${Usuario.ROL_ADMIN}"  ${(usuarioSeleccionado.rol == Usuario.ROL_ADMIN)?'selected':'' }  >Administrador</option>
-												   </select>
-												</div>
+				                            	
+				                            	
 			                            	</div>
 		                            	</div>
                             			<!-- TODO MIRAR PORQUE NO COJE EL CAMBIO DE VALUE-->
                             			<%-- <input type="submit" value="${usuario.id == -1 ?'Crear' : 'Modificar' }" class="btn btn-primary btn-block"> --%>
-	                            		<input type="submit" value="${(empty usuarioSeleccionado.id )?'Crear': 'Modificar' }" class="btn btn-primary btn-block">
-	                            		<c:if test="${not empty usuarioSeleccionado.id}">
-						      				<a href="<%=request.getContextPath()%>/backoffice/usuario?usuarioId=${usuarioSeleccionado.id}&op=<%=BackofficeUsuarioController.OP_ELIMINAR%>" onclick="confirmar(event)" class="btn btn-danger btn-block">Eliminar(Modal)</a>
+	                            		<input type="submit" value="${(empty rolSeleccionado.id )?'Crear': 'Modificar' }" class="btn btn-primary btn-block">
+	                            		<c:if test="${not empty rolSeleccionado.id}">
+						      				<a href="<%=request.getContextPath()%>/backoffice/rol?rolId=${rolSeleccionado.id}&op=<%=BackofficeUsuarioControllerPuente.OP_ELIMINAR%>" onclick="confirmar(event)" class="btn btn-danger btn-block">Eliminar(Modal)</a>
 						      			</c:if>	
 	                            	</form>
 	                            	<script>

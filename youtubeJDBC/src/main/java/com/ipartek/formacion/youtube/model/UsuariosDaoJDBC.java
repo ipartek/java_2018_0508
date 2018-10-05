@@ -39,7 +39,7 @@ public class UsuariosDaoJDBC implements CrudAble<Usuario> {
 	}
 
 	@Override
-	public boolean insert(Usuario pojo) {
+	public boolean insert(Usuario pojo) throws Exception {
 		boolean flag = false;
 
 		// donde guardaremos el numero de registros afectados
@@ -53,21 +53,19 @@ public class UsuariosDaoJDBC implements CrudAble<Usuario> {
 			int index = 1;
 			ps.setString(index++, pojo.getNombre());// parametro 1
 			ps.setString(index, pojo.getPass());// parametro 3
-			System.out.println("INSERTANDO ");
+			/*ps.setInt(index, pojo.getRol());// parametro 3
+*/			System.out.println("INSERTANDO ");
 			// nos devuelve un entero representado el numero de registros afectados por la
 			// query
 			rows = ps.executeUpdate();
 			flag = true;
-		} catch (SQLException e) {
-			flag = false;
-			e.printStackTrace();
-		}
+		} 
 		System.out.println(rows + " registros afectados en la accion de insertar Usuario");
 		return flag;
 	}
 
 	@Override
-	public List<Usuario> getAll() {
+	public List<Usuario> getAll() throws Exception {
 		// donde guardaremos el numero de registros afectados
 		ArrayList<Usuario> usuariosArray = new ArrayList<Usuario>();
 		int rows = 0;
@@ -78,15 +76,12 @@ public class UsuariosDaoJDBC implements CrudAble<Usuario> {
 			while (rs.next()) {
 				usuariosArray.add(rowMapper(rs));
 			}
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		} 
 		return usuariosArray;
 	}
 
 	@Override
-	public Usuario getById(String id) {
+	public Usuario getById(String id) throws Exception{
 		Usuario u = new Usuario();
 		PreparedStatement ps = null;
 		boolean resul = false;
@@ -104,15 +99,12 @@ public class UsuariosDaoJDBC implements CrudAble<Usuario> {
 			if(u.getNombre() == "" && u.getPass() == "") {
 				u = null;
 			}		
-		}catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
 		}
 			return u;
 		}
 
 	@Override
-	public boolean delete(String id) {
+	public boolean delete(String id) throws Exception{
 		String idString = String.valueOf(id);
 		PreparedStatement ps = null;
 		boolean resul = false;
@@ -130,15 +122,12 @@ public class UsuariosDaoJDBC implements CrudAble<Usuario> {
 				resul = false;
 			}
 			
-		} catch (Exception e) {
-			System.out.println("Error en UsuariosDAO delete");
-			e.printStackTrace();
-		}
+		} 
 		return resul;
 	}
 
 	@Override
-	public boolean update(Usuario pojo) {
+	public boolean update(Usuario pojo) throws Exception {
 		/**
 		 * nombre=?,password=? WHERE id=? 
 		 */
@@ -153,7 +142,8 @@ public class UsuariosDaoJDBC implements CrudAble<Usuario> {
 			
 			ps.setString(index++, pojo.getNombre());// parametro 1
 			ps.setString(index++, pojo.getPass());// parametro 1
-			ps.setLong(index, pojo.getId());// parametro 1
+			/*ps.setInt(index++, pojo.getRol());// parametro 1
+*/			ps.setLong(index, pojo.getId());// parametro 1
 			rows = ps.executeUpdate();
 			if (rows == 1) {
 				resul = true;
@@ -161,10 +151,7 @@ public class UsuariosDaoJDBC implements CrudAble<Usuario> {
 				resul = false;
 			}
 			
-		} catch (Exception e) {
-			System.out.println("Error en UsuariosDAO delete");
-			e.printStackTrace();
-		}
+		} 
 		return resul;
 	}
 

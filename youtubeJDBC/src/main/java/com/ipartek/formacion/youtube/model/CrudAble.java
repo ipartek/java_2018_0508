@@ -1,5 +1,6 @@
 package com.ipartek.formacion.youtube.model;
 
+import java.sql.SQLException;
 import java.util.List;
 
 /**
@@ -16,26 +17,26 @@ import java.util.List;
 public interface CrudAble<P> {
 	
 	//Create
-	boolean insert(P pojo);
+	boolean insert(P pojo) throws Exception;
 	
 	//Read
 	/**
 	 * Recupera todos los pojo
 	 * @return si no existe resultados retorna Lista vacia, no null
 	 */
-	List<P> getAll();
+	List<P> getAll() throws Exception;
 	
 	/**
 	 * Buscamos un pojo por su identificador
 	 * @param id
 	 * @return VideoYoutube si lo encuentra, null si no lo encuentra
 	 */
-	P getById(String id);
+	P getById(String id) throws Exception;
 	
 	//Upadte
-	boolean update(P pojo);
+	boolean update(P pojo) throws Exception;
 	
 	//Delete
-	boolean delete(String id);
+	boolean delete(String id) throws Exception;
 
 }

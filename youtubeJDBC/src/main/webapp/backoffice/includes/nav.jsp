@@ -33,6 +33,9 @@
                         <li>
                             <a href="<%=request.getContextPath()%>/backoffice/video"><i class="fab fa-youtube"></i> Videos</a>
                         </li>
+                        <li>
+                            <a href="<%=request.getContextPath()%>/backoffice/rol"><i class="fas fa-theater-masks"></i></i> Roles</a>
+                        </li>
                        
                     </ul>
                 </div>
