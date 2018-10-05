@@ -1,12 +1,12 @@
-<!-- Formulario de Usuarios -->
+<!-- Formulario de Roles -->
 
-<%@page import="com.ipartek.formacion.controller.back.BackofficeUsuarioController"%>
-<%@page import="com.ipartek.formacion.pojo.Usuario"%>
 <%@include file="../includes/taglibs.jsp"%>
+
+<%@page import="com.ipartek.formacion.controller.back.BackofficeRolController"%>
 
 <%@include file="../includes/header.jsp"%>
 
-<!-- Listado de Usuarios -->
+<!-- Listado de Roles -->
 
  <div id="wrapper">
 
@@ -18,7 +18,7 @@
         	
             <div class="row">
                 <div class="col-lg-12">
-                    <h1 class="page-header">${(usuario.id==-1)?'Crear Usuario':usuario.nombre}</h1>
+                    <h1 class="page-header">${(rol.id==-1)?'Crear Rol':rol.nombre}</h1>
                 </div>
                 <!-- /.col-lg-12 -->
             </div>
@@ -28,50 +28,31 @@
                 <div class="col-lg-12">
                     <div class="panel panel-default">
                         <div class="panel-heading">
-                            Formulario de gestión de usuarios
+                            Formulario de gestión de roles
                         </div>
                         <!-- /.panel-heading -->
                         <div class="panel-body">
-                            <form novalidate="novalidate" action="usuarios?op=${BackofficeUsuarioController.OP_GUARDAR}" method="post">
+                            <form novalidate="novalidate" action="roles?op=${BackofficeRolController.OP_GUARDAR}" method="post">
                             
                             	<div class="form-row">
                             		<div class="col">
 										<div class="form-group col-md-6">
-										   <label for="id">ID de usuario: </label>
-										   <input readonly="readonly" class="form-control" type="text" name="id" id="id" value="${(usuario.id==-1)?'':usuario.id}">
+										   <label for="id">ID del rol: </label>
+										   <input readonly="readonly" class="form-control" type="text" name="id" id="id" value="${(rol.id==-1)?'':rol.id}">
 									   </div>
 									</div>
 									<div class="col">
 										<div class="form-group col-md-6">
-										   <label class="required" for="nombre">Nombre de usuario: </label>
+										   <label class="required" for="nombre">Nombre del rol: </label>
 										   <input  class="form-control" type="text" name="nombre" id="nombre" placeholder="Mínimo 3 caracteres y máximo 10" autofocus tabindex="1" required
-										   value="${usuario.nombre}">
+										   value="${rol.nombre}">
 									   </div>
-									</div>
-								</div>
-								
-								<div class="form-row">
-                            		<div class="col">
-										<div class="form-group col-md-6">
-										   <label for="contrasena">Contraseña: </label>
-										   <input class="form-control" type="password" name="contrasena" id="contrasena" placeholder="Mínimo 3 caracteres y máximo 10" tabindex="2" required
-										   value="${usuario.contrasena}">
-									   </div>
-									</div>
-									<div class="col">
-										<div class="form-group col-md-6">
-										   <label class="required" for="rol">Rol: </label>
-										   <select class="form-control" required name="rol" id="rol">
-											   <option value="${Usuario.ROL_USER}" ${(usuario.rol==Usuario.ROL_USER)?'selected':''}>Usuario Normal</option>
-											   <option value="${Usuario.ROL_ADMIN}" ${(usuario.rol==Usuario.ROL_ADMIN)?'selected':''}>Administrador</option>
-										   </select>
-										</div>
 									</div>
 								</div>
                             	
-                            	<input type="submit" value="${(usuario.id==-1)?'Crear':'Modificar'}" class="form-control btn btn-primary btn-block" />
-                            	<c:if test="${usuario.id >0 }">
-                            		<a href="usuarios?id=${usuario.id}&op=${BackofficeUsuarioController.OP_ELIMINAR}" onclick="confirmar(event)" class="btn btn-danger btn-block">Eliminar</a>
+                            	<input type="submit" value="${(rol.id==-1)?'Crear':'Modificar'}" class="form-control btn btn-primary btn-block" />
+                            	<c:if test="${rol.id >0 }">
+                            		<a href="roles?id=${rol.id}&op=${BackofficeRolController.OP_ELIMINAR}" onclick="confirmar(event)" class="btn btn-danger btn-block">Eliminar</a>
                             	</c:if>
                             </form>
                             

@@ -1,6 +1,9 @@
 package com.ipartek.formacion.controller.back;
 
 import java.io.IOException;
+import java.sql.SQLException;
+import java.sql.SQLIntegrityConstraintViolationException;
+
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -111,7 +114,7 @@ public class BackofficeUsuarioController extends HttpServlet {
 		rol = request.getParameter("rol");
 	}
 
-	private void listar(HttpServletRequest request) {
+	private void listar(HttpServletRequest request) throws Exception {
 		if(daoUsuario.getAll().size() == 0) {
 			alert = new Alert(Alert.ALERT_WARNING, "No se han encontrado usuarios.");
 		}
@@ -119,7 +122,7 @@ public class BackofficeUsuarioController extends HttpServlet {
 		request.setAttribute("usuarios", daoUsuario.getAll());
 	}
 
-	private void irFormulario(HttpServletRequest request) {	
+	private void irFormulario(HttpServletRequest request) throws Exception {	
 		Usuario usuario = null;
 		if(Integer.parseInt(id)>0) {
 			usuario = daoUsuario.getById(id);
@@ -130,53 +133,87 @@ public class BackofficeUsuarioController extends HttpServlet {
 		view = VIEW_FORM_USUARIOS;
 	}
 
-	private void guardar(HttpServletRequest request) {
+	private void guardar(HttpServletRequest request){
 		Usuario usuario = null;
-		if(nombre != null && contrasena != null) {
-			if(nombre.length() <= 50) {
-				if(contrasena.length() <= 20) {
+//		if(nombre != null && contrasena != null) {
+//			if(nombre.length() <= 50) {
+//				if(contrasena.length() <= 20) {
 					
 					usuario = new Usuario();
 					usuario.setNombre(nombre);
 					usuario.setContrasena(contrasena);
 					usuario.setRol(Integer.parseInt(rol));
 					
-					if(id.equals("")) {
-						//Crear Usuario nuevo
-						if(daoUsuario.insert(usuario)) {
-							alert = new Alert(Alert.ALERT_SUCCESS, "Usuario creado con éxito.");
-						}else {
-							alert = new Alert(Alert.ALERT_DANGER, "No se ha podido crear el usuario.");
+					try {
+						if(id.equals("")) {
+							//Crear Usuario nuevo
+							daoUsuario.insert(usuario);
+//								if(daoUsuario.insert(usuario)) {
+//									alert = new Alert(Alert.ALERT_SUCCESS, "Usuario creado con éxito.");
+//								}else {
+//									alert = new Alert(Alert.ALERT_DANGER, "No se ha podido crear el usuario.");
+//								}
+						}else{
+							//Modificar Usuario existente
+							daoUsuario.update(usuario);
+//								usuario.setId(Long.parseLong(id));
+//								if(daoUsuario.update(usuario)) {
+//									alert = new Alert(Alert.ALERT_SUCCESS, "Usuario modificado con éxito.");
+//								}else {
+//									alert = new Alert(Alert.ALERT_DANGER, "No se ha podido modificar el usuario.");
+//								}
 						}
-					}else{
-						//Modificar Usuario existente
-						usuario.setId(Long.parseLong(id));
-						if(daoUsuario.update(usuario)) {
-							alert = new Alert(Alert.ALERT_SUCCESS, "Usuario modificado con éxito.");
-						}else {
-							alert = new Alert(Alert.ALERT_DANGER, "No se ha podido modificar el usuario.");
-						}
+						alert = new Alert(Alert.ALERT_SUCCESS, "Usuario guardado con éxito.");
+						
+					
 					}
-				}else {
-					alert = new Alert(Alert.ALERT_WARNING, "La contraseña no puede tener más de 20 caracteres.");
-				}
-			}else {
-				alert = new Alert(Alert.ALERT_WARNING, "El nombre de usuario no puede tener más de 50 caracteres.");
-			}
-		}else {
-			alert = new Alert(Alert.ALERT_DANGER, "Debe rellenar todos los campos.");
-		}
-
+					//Nombre repetido
+					catch(SQLIntegrityConstraintViolationException e) {
+						e.printStackTrace();
+						alert = new Alert(Alert.ALERT_WARNING, "El nombre de usuario <b>\" + usuario.getNombre() + \"</b> ya existe.");
+					}
+					//Longitud campos nombre y pswd
+					catch(SQLException e) {
+						e.printStackTrace();
+						if(e.getMessage().contains("nombre")) {
+							alert = new Alert(Alert.ALERT_WARNING, "El nombre de usuario debe tener máx. 50 caracteres.");
+						}else if(e.getMessage().contains("password")) {
+							alert = new Alert(Alert.ALERT_WARNING, "La contraseña debe tener máx. 20 caracteres.");
+						}
+						
+						
+					}
+					catch(Exception e){
+						e.printStackTrace();
+//						alert = new Alert(Alert.ALERT_DANGER, "No se ha podido crear el usuario.");
+					}
+//				}else {
+//					alert = new Alert(Alert.ALERT_WARNING, "La contraseña no puede tener más de 20 caracteres.");
+//				}
+//			}else {
+//				alert = new Alert(Alert.ALERT_WARNING, "El nombre de usuario no puede tener más de 50 caracteres.");
+//			}
+//		}else {
+//			alert = new Alert(Alert.ALERT_DANGER, "Debe rellenar todos los campos.");
+//		}
+	
 		request.setAttribute("usuario", usuario);
 		view = VIEW_FORM_USUARIOS;
 	}
 
-	private void eliminar(HttpServletRequest request) {
-		if(daoUsuario.delete(id)) {
+	private void eliminar(HttpServletRequest request) throws Exception {
+		try {
+			daoUsuario.delete(id);
 			alert = new Alert(Alert.ALERT_SUCCESS, "Usuario borrado con éxito.");
-		}else {
-			alert = new Alert(Alert.ALERT_DANGER, "No se ha podido crear el usuario.");
+		}catch(Exception e) {
+			e.printStackTrace();
+			alert = new Alert(Alert.ALERT_WARNING, "No se puede borrar el usuario porque tiene vídeos creados.");
 		}
+//		if(daoUsuario.delete(id)) {
+//			alert = new Alert(Alert.ALERT_SUCCESS, "Usuario borrado con éxito.");
+//		}else {
+//			alert = new Alert(Alert.ALERT_DANGER, "No se ha podido borrar el usuario.");
+//		}
 		view = VIEW_INDEX_USUARIOS;
 		request.setAttribute("usuarios", daoUsuario.getAll());
 	}

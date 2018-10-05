@@ -44,7 +44,7 @@ public class UsuarioDAOTest {
 	}
 
 	@Test
-	public void testInsert() {
+	public void testInsert() throws Exception {
 		/*Antes de comprobar cuando se inserta, probar con todos los posibles casos de error*/
 		
 		//Prueba Usuario null
