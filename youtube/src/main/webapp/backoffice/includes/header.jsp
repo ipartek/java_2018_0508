@@ -16,16 +16,18 @@
 <meta name="author" content="">
 
 <title>PikaList</title>
-
-<!-- Bootstrap CSS -->
-<link rel="stylesheet"
-	href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
-<!-- FontAwesome CSS -->
-<link rel="stylesheet"
-	href="https://use.fontawesome.com/releases/v5.3.1/css/all.css">
 <!-- Fonts -->
 <link href="https://fonts.googleapis.com/css?family=Roboto"
 	rel="stylesheet">
+<!-- FontAwesome CSS -->
+<link rel="stylesheet"
+	href="https://use.fontawesome.com/releases/v5.3.1/css/all.css">
+<!-- Bootstrap CSS -->
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+<!-- DataTable CSS -->
+<link rel="stylesheet"
+	href="//cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css">
 <!-- Custom CSS -->
 <link href="css/style.css" rel="stylesheet" type="text/css" />
 
