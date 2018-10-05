@@ -37,7 +37,6 @@
                                     <tr>
                                         <th>ID</th>
                                         <th>Nombre</th>
-                                        <th>Contraseña</th>
                                         <th>Rol</th>
                                     </tr>
                                 </thead>
@@ -46,7 +45,6 @@
                                 	 <tr>
                                         <td>${u.id}</td>
                                         <td><a href="usuarios?id=${u.id}&op=${BackofficeUsuarioController.OP_IR_FORMULARIO}">${u.nombre}</a> </td>
-                                        <td>${u.contrasena}</td>
                                         <td>${(u.rol==1)?'Usuario Normal':'Administrador'}</td>
                                     </tr>
                                 </c:forEach>
@@ -55,7 +53,6 @@
                                 	<tr>
                                 		<th>ID</th>
                                 		<th>Nombre</th>
-                                		<th>Contraseña</th>
                                 		<th>Rol</th>
                                 	</tr>
                                 </tfoot>

@@ -177,5 +177,7 @@ public class BackofficeUsuarioController extends HttpServlet {
 		}else {
 			alert = new Alert(Alert.ALERT_DANGER, "No se ha podido crear el usuario.");
 		}
+		view = VIEW_INDEX_USUARIOS;
+		request.setAttribute("usuarios", daoUsuario.getAll());
 	}
 }
