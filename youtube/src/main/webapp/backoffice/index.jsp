@@ -7,7 +7,7 @@
 	
 	<div class="row mt-5">
 		<%@ include file="includes/sidebar.jsp" %>
-		<div class="col-9">
+		<div class="col-8">
 			<div class="row">
 				<!-- include file="includes/alertas.jsp" -->
 			</div><!-- / Gestion de alertas -->
@@ -26,7 +26,7 @@
 				<div class="col-4 mt-1">
 					<div class="card text-center">
 						<div class="card-body bg-pika-kard">
-							<i class="fab fa-youtube fa-5x text-pika-purple"></i>
+							<i class="fas fa-theater-masks fa-5x text-pika-purple"></i>
 							<i class="ml-3 badge bg-pika-purple text-pika-yellow">${roles}</i>
 						</div>
 						<div class="card-footer bg-pika-kard">

@@ -14,7 +14,7 @@
 			class="btn-block text-pika-blue"><i class="fas fa-users fa-lg"></i> Usuarios</a></li>
 			<li class="list-group-item"><a
 			href="backoffice/rol?op=<%=BackofficeRolController.OP_LISTAR%>"
-			class="btn-block text-pika-blue"><i class="fas fa-users fa-lg"></i> Roles</a></li>
+			class="btn-block text-pika-blue"><i class="fas fa-theater-masks fa-lg"></i> Roles</a></li>
 		<li class="list-group-item"><a href="backoffice/video"
 			class="btn-block text-pika-blue"><i class="fab fa-youtube fa-lg"></i> Videos</a></li>
 	</ul>

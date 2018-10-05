@@ -16,7 +16,7 @@
 		<!-- Contenido de la pagina actual -->
 		<div class="row">
 			<h2 class="text-pika-blue">
-				Usuarios <span class="badge bg-pika-yellow text-pika-blue">${nRol}</span>
+				Roles <span class="badge bg-pika-yellow text-pika-blue">${nRoles}</span>
 			</h2>
 		</div>
 		<div class="row m-5">
