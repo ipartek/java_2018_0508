@@ -7,41 +7,39 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.andrea.perez.pojo.Rol;
 import com.andrea.perez.pojo.Usuario;
 import com.mysql.jdbc.Statement;
 
-public class UsuarioDAO implements Crudable<Usuario> {
-	private static UsuarioDAO INSTANCE = null;
-	private static final String SQL_GET_ALL = "SELECT id,nombre, password,rol FROM usuario ORDER BY id DESC LIMIT 1000";
-	private static final String SQL_GET_BY_ID = "SELECT id,nombre, password,rol FROM usuario WHERE id = ?";
-	private static final String SQL_GET_BY_NOMBRE = "SELECT id,nombre,password,rol FROM usuario WHERE nombre=? AND password=?";
-	private static final String SQL_UPDATE = "UPDATE usuario SET nombre= ? ,password= ?,rol=? WHERE id = ?;";
-	private static final String SQL_INSERT = "INSERT INTO usuario (nombre, password,rol) VALUES (?, ?,?);";
-	private static final String SQL_DELETE = "DELETE FROM usuario WHERE id = ?;";
+public class RolDAO implements Crudable<Rol> {
+	private static RolDAO INSTANCE = null;
+	private static final String SQL_GET_ALL = "SELECT id,nombre FROM rol ORDER BY id DESC LIMIT 1000;";
+	private static final String SQL_GET_BY_ID = "SELECT id,nombre FROM rol WHERE id = ?;";
+	private static final String SQL_UPDATE = "UPDATE rol SET nombre= ? WHERE id = ?;";
+	private static final String SQL_INSERT = "INSERT INTO rol (nombre) VALUES (?);";
+	private static final String SQL_DELETE = "DELETE FROM rol WHERE id = ?;";
 
-	private UsuarioDAO() {
+	private RolDAO() {
 		super();
 	}
 
-	public static synchronized UsuarioDAO getInstance() {
+	public static synchronized RolDAO getInstance() {
 		if (INSTANCE == null) {
-			INSTANCE = new UsuarioDAO();
+			INSTANCE = new RolDAO();
 		}
 
 		return INSTANCE;
 	}
 
 	@Override
-	public boolean insert(Usuario pojo) throws Exception {
+	public boolean insert(Rol pojo) throws Exception {
 		boolean resul = false;
 
 		try (Connection con = ConnectionManager.getConnection();
 				PreparedStatement ps = con.prepareStatement(SQL_INSERT, Statement.RETURN_GENERATED_KEYS);) {
 			if (pojo != null) {
-
+				
 				ps.setString(1, pojo.getNombre().trim());
-				ps.setString(2, pojo.getContrasena().trim());
-				ps.setLong(3, pojo.getRol());
 
 				int affectedRows = ps.executeUpdate();
 
@@ -60,29 +58,29 @@ public class UsuarioDAO implements Crudable<Usuario> {
 	}
 
 	@Override
-	public List<Usuario> getAll() throws Exception {
-		List<Usuario> usuarios = new ArrayList<Usuario>();
+	public List<Rol> getAll() throws Exception {
+		List<Rol> roles = new ArrayList<Rol>();
 		try (Connection con = ConnectionManager.getConnection();
 				PreparedStatement ps = con.prepareStatement(SQL_GET_ALL);
 				ResultSet rs = ps.executeQuery();) {
 
 			// Mapear ResultSet a ArrayList
 			while (rs.next()) {
-				usuarios.add(rowMapper(rs));
+				roles.add(rowMapper(rs));
 			}
 
 		}
 
-		return usuarios;
+		return roles;
 	}
 
 	@Override
-	public Usuario getById(String idtem) throws Exception {
+	public Rol getById(String idtem) throws Exception {
 		long id = 0;
 		if (idtem != null) {
 			id = Long.parseLong(idtem);
 		}
-		Usuario u = null;
+		Rol r = null;
 		try (Connection con = ConnectionManager.getConnection();
 				PreparedStatement ps = con.prepareStatement(SQL_GET_BY_ID);) {
 
@@ -92,25 +90,24 @@ public class UsuarioDAO implements Crudable<Usuario> {
 
 				// Mapear ResultSet al objeto o array objetos
 				while (rs.next()) {
-					u = rowMapper(rs);
+					r = rowMapper(rs);
 				}
 			}
 
 		}
 
-		return u;
+		return r;
 	}
 
 	@Override
-	public boolean update(Usuario pojo) throws Exception {
+	public boolean update(Rol pojo) throws Exception {
 		boolean resul = false;
 		try (Connection con = ConnectionManager.getConnection();
 				PreparedStatement ps = con.prepareStatement(SQL_UPDATE);) {
-
+			
 			ps.setString(1, pojo.getNombre());
-			ps.setString(2, pojo.getContrasena());
-			ps.setInt(3, pojo.getRol());
-			ps.setLong(4, pojo.getId());
+			ps.setLong(2, pojo.getId());
+			
 
 			int affectedRows = ps.executeUpdate();
 
@@ -141,41 +138,13 @@ public class UsuarioDAO implements Crudable<Usuario> {
 		return resul;
 	}
 
-	public Usuario getByNombre(String nombre, String password) throws Exception {
-		String nom = "";
-		if (nombre != null) {
-			nom = nombre;
-		}
-
-		Usuario u = null;
-		try (Connection con = ConnectionManager.getConnection();
-				PreparedStatement ps = con.prepareStatement(SQL_GET_BY_NOMBRE)) {
-
-			ps.setString(1, nom);
-			ps.setString(2, password);
-
-			try (ResultSet rs = ps.executeQuery()) {
-
-				// Mapear ResultSet al objeto o array objetos
-				while (rs.next()) {
-					u = rowMapper(rs);
-				}
-			}
-
-		}
-
-		return u;
-	}
-
-	private Usuario rowMapper(ResultSet rs) throws Exception {
-		Usuario u = new Usuario();
+	private Rol rowMapper(ResultSet rs) throws Exception {
+		Rol r = new Rol();
 		if (rs != null) {
-			u.setId(rs.getLong("id"));
-			u.setNombre(rs.getString("nombre"));
-			u.setContrasena(rs.getString("password"));
-			u.setRol(rs.getInt("rol"));
+			r.setId(rs.getLong("id"));
+			r.setNombre(rs.getString("nombre"));
 		}
-		return u;
+		return r;
 	}
 
 }

@@ -16,25 +16,27 @@ import org.hibernate.validator.internal.util.privilegedactions.GetMethod;
 import org.hibernate.validator.internal.xml.GetterType;
 
 import com.andrea.perez.model.ComentarioArrayDAO;
+import com.andrea.perez.model.RolDAO;
 import com.andrea.perez.model.UsuarioDAO;
 import com.andrea.perez.model.VideoDAO;
 import com.andrea.perez.pojo.Alert;
+import com.andrea.perez.pojo.Rol;
 import com.andrea.perez.pojo.Usuario;
 import com.mysql.jdbc.exceptions.MySQLIntegrityConstraintViolationException;
 
 /**
  * Servlet implementation class BackofficeUsuarioController
  */
-@WebServlet("/backoffice/usuarios")
-public class BackofficeUsuarioController extends HttpServlet {
+@WebServlet("/backoffice/roles")
+public class BackofficeRolController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	public static final String OP_LISTAR = "1";
 	public static final String OP_GUARDAR = "2"; // insert id == "" o update id > 0
 	public static final String OP_ELIMINAR = "3";
 	public static final String OP_IR_FORMULARIO = "4";
-	private static final String VIEW_LISTADO = "usuarios/index.jsp";
-	private static final String VIEW_FORMULARIO = "usuarios/form.jsp";
+	private static final String VIEW_LISTADO = "roles/index.jsp";
+	private static final String VIEW_FORMULARIO = "roles/form.jsp";
 
 	private String view;
 	private Alert alert = null;
@@ -42,23 +44,21 @@ public class BackofficeUsuarioController extends HttpServlet {
 	private String op; // parametros necesarios
 	private String id;
 	private String nombre;
-	private String contrasena;
-	private String rol;
 
-	private static UsuarioDAO daoUsuario = null;
+	private static RolDAO daoRol = null;
 
 	@Override
 	public void init(ServletConfig config) throws ServletException {
 		// Se ejecuta solo con la primera peticion. El resto van al service
 		super.init(config);
-		daoUsuario = UsuarioDAO.getInstance();
+		daoRol = RolDAO.getInstance();
 	}
 
 	@Override
 	public void destroy() {
 		// Se ejecuta al parar el servidor
 		super.destroy();
-		daoUsuario = null;
+		daoRol = null;
 	}
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -108,85 +108,77 @@ public class BackofficeUsuarioController extends HttpServlet {
 	private void listar(HttpServletRequest request) throws Exception {
 
 		view = VIEW_LISTADO;
-		request.setAttribute("usuarios", daoUsuario.getAll());
+		request.setAttribute("roles", daoRol.getAll());
 
 	}
 
 	private void guardar(HttpServletRequest request) {
 
-		Usuario usuario = new Usuario();
+		Rol rol = new Rol();
 
-		usuario.setNombre(nombre);
-		usuario.setContrasena(contrasena);
-		if(rol!=null) {
-			usuario.setRol(Integer.parseInt(rol));
-		}
 		
+			rol.setId(Long.parseLong(id));
+		
+		
+		rol.setNombre(nombre);
 
 		try {
 			if (!id.equals("")) { // MODIFICAR
 
-				usuario.setId(Long.parseLong(id));
-
-				if (daoUsuario.update(usuario)) {
-					alert = new Alert(Alert.ALERT_SUCCESS, "Usuario modificado correctamente");
+				if (daoRol.update(rol)) {
+					alert = new Alert(Alert.ALERT_SUCCESS, "Rol modificado correctamente");
 				}
-			} else if (daoUsuario.insert(usuario)) { // Insertar
-				alert = new Alert(Alert.ALERT_SUCCESS, "Usuario registrado correctamente");
+			} else if (daoRol.insert(rol)) { // Insertar
+				alert = new Alert(Alert.ALERT_SUCCESS, "Rol registrado correctamente");
 			}
 			// nombre repetido
 		} catch (SQLIntegrityConstraintViolationException e) {
 			e.printStackTrace();
-			alert = new Alert(Alert.ALERT_WARNING, "<b>" + usuario.getNombre() + " ya existe!!");
+			alert = new Alert(Alert.ALERT_WARNING, "<b>" + rol.getNombre() + " ya existe!!");
 
 		} catch (SQLException e) { // Longitud nombre o pass mas largo de lo debido
 
 			if (e.getMessage().contains("nombre")) {
 				alert = new Alert(Alert.ALERT_WARNING,
 						" superado  el maximo de caracteres permitido(50) para el nombre");
-			} else if (e.getMessage().contains("password")) {
-				alert = new Alert(Alert.ALERT_WARNING,
-						" superado  el maximo de caracteres permitido(20) para la contraseña");
 			}
 
 		} catch (Exception e) {
 			e.printStackTrace();
-			// alert = new Alert();
 		}
 
-		request.setAttribute("usuario", usuario);
+		request.setAttribute("rol", rol);
 		view = VIEW_FORMULARIO;
 
 	}
 
 	private void irFormulario(HttpServletRequest request) throws Exception {
-		Usuario usuario = null;
+		Rol rol = null;
 		if (Integer.parseInt(id) > 0) {
-			usuario = daoUsuario.getById(id);
+			rol = daoRol.getById(id);
 		} else {
-			usuario = new Usuario();
+			rol = new Rol();
 		}
 		view = VIEW_FORMULARIO;
-		request.setAttribute("usuario", usuario);
+		request.setAttribute("rol", rol);
 	}
 
 	private void eliminar(HttpServletRequest request) throws Exception {
 
 		if (id != null) {
 			try {
-				if (daoUsuario.delete(id)) {
-					alert = new Alert(Alert.ALERT_SUCCESS, "Se ha eliminado usuario");
+				if (daoRol.delete(id)) {
+					alert = new Alert(Alert.ALERT_SUCCESS, "Se ha eliminado el rol");
 				}
 
 			} catch (Exception e) {
 
 				e.printStackTrace();
-				alert = new Alert(Alert.ALERT_WARNING, "No puedes eliminar un usuario asociado a un video ");
+				alert = new Alert(Alert.ALERT_WARNING, "No puedes eliminar un rol asociado a un usuario ");
 
 			}
 			view = VIEW_LISTADO;
-			request.setAttribute("usuarios", daoUsuario.getAll());
-
+			request.setAttribute("roles", daoRol.getAll());
 		}
 	}
 
@@ -195,8 +187,7 @@ public class BackofficeUsuarioController extends HttpServlet {
 		op = (request.getParameter("op") != null) ? request.getParameter("op") : OP_LISTAR;
 		id = request.getParameter("id");
 		nombre = request.getParameter("nombre");
-		contrasena = request.getParameter("contrasena");
-		rol = request.getParameter("rol");
+
 	}
 
 }

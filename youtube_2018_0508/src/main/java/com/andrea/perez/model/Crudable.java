@@ -1,5 +1,6 @@
 package com.andrea.perez.model;
 
+
 import java.util.List;
 
 /**
@@ -17,14 +18,15 @@ import java.util.List;
  */
 public interface Crudable<P> {
 
-	boolean insert(P pojo);
+	boolean insert(P pojo) throws Exception;
 
 	/**
 	 * recupera todos los pojos
 	 * 
 	 * @return si no existen resultados retorna Lista vacia, no null
+	 * @throws Exception 
 	 */
-	List<P> getAll();
+	List<P> getAll() throws Exception;
 
 	/**
 	 * Buscamos un Pojo por su identificador
@@ -32,10 +34,10 @@ public interface Crudable<P> {
 	 * @param id long identificador
 	 * @return Pojo si lo encuentra, null si no encuentra
 	 */
-	P getById(String id);
+	P getById(String id) throws Exception;
 
-	boolean update(P pojo);
+	boolean update(P pojo) throws Exception;
 
-	boolean delete(String id);
+	boolean delete(String id) throws Exception;
 
 }

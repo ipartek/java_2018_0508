@@ -19,7 +19,7 @@
 <meta name="author" content="Adriana">
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css">
 
-<link rel="stylesheet" href="css/styles.css">
+
 
 <title>Youtube</title>
 
@@ -28,7 +28,9 @@
 
     <!-- Custom styles for this template -->
     <link href="https://blackrockdigital.github.io/startbootstrap-shop-item/css/shop-item.css" rel="stylesheet">
-
+    
+   <!-- Custom Styles -->
+<link rel="stylesheet" href="css/styles.css">
 </head>
 
 <body>

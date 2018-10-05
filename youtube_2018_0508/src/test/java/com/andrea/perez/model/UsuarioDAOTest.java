@@ -41,7 +41,7 @@ public class UsuarioDAOTest {
 	}
 
 	@Test
-	public void testInsert() {
+	public void testInsert() throws Exception {
 		// usuario nulo
 		assertFalse("Error...test caso usuario null", daoUsuario.insert(null));
 

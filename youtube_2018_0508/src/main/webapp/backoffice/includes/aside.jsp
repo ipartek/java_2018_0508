@@ -40,7 +40,7 @@
 	                <a href="videos"><i class="fa fa-table fa-fw"></i> Vídeos</a>
 	            </li>
 	            <li>
-	                <a href="#"><i class="fa fa-sitemap fa-fw"></i> Roles</a>
+	                <a href="roles"><i class="fa fa-sitemap fa-fw"></i> Roles</a>
 	            </li>
         	</ul>
     	</div>
