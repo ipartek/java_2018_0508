@@ -1,3 +1,5 @@
+<%@page import="com.ipartek.formacion.youtube.controller.back.BackofficeUsuarioController"%>
+
 <%@ include file="../includes/header.jsp" %>
 <%@ include file="../includes/nav.jsp" %>
 
@@ -17,7 +19,7 @@
       			TODO BUSCADOR con su lupita toda txula
       		</div>
       		<div class="col-md-4">
-      			<a href="usuarios?id=-1" class="btn btn-success">Crear Nuevo</a>
+      			<a href="usuarios?id=-1&op=<%=BackofficeUsuarioController.OP_IR_FORMULARIO%>" class="btn btn-success">Crear Nuevo</a>
       		</div>	
       </div>
       
@@ -27,8 +29,7 @@
 		        <thead>
 		            <tr>
 		                <th>id</th>
-		                <th>nombre</th>
-		                <th>password</th>
+		                <th>nombre</th>		               
 		                <th>rol</th>		                
 		            </tr>
 		        </thead>
@@ -36,8 +37,7 @@
 		        	<c:forEach items="${usuarios}" var="u">
 			            <tr>
 			                <td>${u.id}</td>
-			                <td><a href="usuarios?id=${u.id}">${u.nombre}</a></td>
-			                <td>${u.password}</td>
+			                <td><a href="usuarios?id=${u.id}&op=<%=BackofficeUsuarioController.OP_IR_FORMULARIO%>">${u.nombre}</a></td>			                
 			                <td>${ (u.rol==1)?'normal':'adminstrador' }</td>		                
 			            </tr>
 		            </c:forEach>
@@ -45,8 +45,7 @@
 		        <tfoot>
 		            <tr>
 		                <th>id</th>
-		                <th>nombre</th>
-		                <th>password</th>
+		                <th>nombre</th>		               
 		                <th>rol</th>	
 		            </tr>
 		        </tfoot>

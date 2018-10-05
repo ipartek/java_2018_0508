@@ -104,24 +104,63 @@ public class BackofficeUsuarioController extends HttpServlet {
 	}
 
 	private void listar(HttpServletRequest request) {
-		alert = null;
+		
+		alert = null;		
 		view = VIEW_LISTADO;
 		request.setAttribute("usuarios", daoUsuario.getAll());		
 		
 	}
 
 	private void guardar(HttpServletRequest request) {
-		// TODO Auto-generated method stub
+		
+		Usuario u = new Usuario();
+		u.setId(Long.parseLong(id));
+		u.setNombre(nombre);
+		u.setPassword(password);
+		u.setRol(Integer.parseInt(rol));
+		
+		if( u.getId() > 0 ) {                // UPDATE
+			
+			if ( daoUsuario.update(u) ) {
+				alert = new Alert(Alert.SUCCESS, "Cambios realizados");
+			}else {
+				alert = new Alert(Alert.WARNING, "No hemos podido realizar cambios");
+			}
+			
+		}else {                              //INSERT
+			if ( daoUsuario.insert(u) ) {
+				alert = new Alert(Alert.SUCCESS, "Creado Usuario");
+			}else {
+				alert = new Alert(Alert.WARNING, "No hemos podido crear usuario");
+			}
+			
+		}
+		
+		view = VIEW_FORMULARIO;
+		request.setAttribute("usuario", u);
 		
 	}
 
 	private void irFormulario(HttpServletRequest request) {
-		// TODO Auto-generated method stub
-		
+		alert = null;
+		view = VIEW_FORMULARIO;
+		if ( id.equalsIgnoreCase("-1")) {
+			request.setAttribute("usuario", new Usuario() );
+		}else {			
+			request.setAttribute("usuario", daoUsuario.getById( Long.parseLong(id)));
+		}
 	}
 
 	private void eliminar(HttpServletRequest request) {
-		// TODO Auto-generated method stub
+		
+		if ( daoUsuario.delete(Long.parseLong(id))) {
+			alert = new Alert(Alert.SUCCESS, "Usuario Eliminado");
+		}else {
+			alert = new Alert(Alert.WARNING, "No hemos podido eliminar usuario");
+		}
+		
+		view = VIEW_LISTADO;
+		request.setAttribute("usuarios", daoUsuario.getAll());	
 		
 	}
 

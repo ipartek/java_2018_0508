@@ -42,6 +42,7 @@
 				   </select>
 				</div>
       		      		
+      			<input type="hidden" name="op" value="<%=BackofficeUsuarioController.OP_GUARDAR%>">
       			<input type="submit" value="${(usuario.id == -1)?'Crear': 'Modificar' }" class="btn btn-primary btn-block">
       			<c:if test="${usuario.id > 0}">
       				<a href="usuarios?id=${usuario.id}&op=<%=BackofficeUsuarioController.OP_ELIMINAR%>" onclick="confirmar(event)" class="btn btn-danger btn-block">Eliminar(Modal)</a>
