@@ -47,56 +47,77 @@
 
         <!-- Main -->
         <main class="container" role="main" >
-            <h1 class="text-center">Registrar un nuevo producto</h1>
-            <p>Los campos con * son obligatorios.</p>
-            <!-- form -->
-            <form action="formulario" method="post">
-                <div class="form-row">
-                    <div class="col">
-                        <div class="form-group">
-                            <label class="required" for="nombre">Nombre: </label>
-                            <input class="form-control" type="text" name="nombre" placeholder="Mínimo 3 caracteres y máximo 20" minlength="3" maxlength="20" required autofocus>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="form-row">
-                    <div class="col">
-                        <div class="form-group">
-                                <label class="required" for="precio">Precio &euro;: </label>
-                                <input class="form-control" type="number" name="precio" step="0.01" placeholder="Ejemplo: 0,00 &euro;" required>
-                        </div>
-                    </div>
-                    
-                    <div class="col">
-                        <div class="form-group">
-                                <label class="required" for="precioL">Precio por Litro &euro;: </label>
-                                <input class="form-control" type="number" name="precioL" step="0.01" placeholder="Ejemplo: 0,00 &euro;/L" required>
-                        </div>
-                    </div>
-        
-                </div>
-                
-                <div class="form-row mb-3">
-                    <div class="col">
-                        <div class="form-group">
-                            <label class="required" for="url">Dirección web de la imagen: </label>
-                            <input class="form-control" type="url" name="url" step="0.01" placeholder="http://example/image.png" required>
-                        </div>
-                    </div>
-                    <div class="col">
-                        <div class="form-check">
-                            <label class="d-block text-center" for="descuento">En Descuento:</label>
-                            <input class="form-control" type="checkbox" name="descuento">
-                        </div>
-                    </div>
-                </div>
-                
-                <input class="form-control btn btn-outline-primary" type="submit" value="Dar de Alta">
-            </form>
-            <!-- /form -->
+	        <div class="row justify-content-center align-items-end">
+	        	<h1 class="text-center">Registrar un nuevo producto</h1>
+	        </div>
+            <div class="row justify-content-center align-items-center">
+				<div class="col">
+					<form action="formulario" method="post">
+			            <p class="text-center">Los campos con <b class="required"></b> son obligatorios.</p>
+				            <div class="form-row justify-content-center">
+				            	<div class="col col-md-6">
+				            		<div class="form-row">
+					                    <div class="col">
+					                        <div class="form-group">
+					                            <label class="required" for="nombre">Nombre: </label>
+					                            <input class="form-control" type="text" name="nombre" placeholder="Mínimo 3 caracteres y máximo 20" minlength="3" maxlength="20" required autofocus>
+					                        </div>
+					                    </div>
+				                	</div>
+				                
+					                <div class="form-row">
+					                    <div class="col">
+					                        <div class="form-group">
+					                                <label class="required" for="precio">Precio &euro;: </label>
+					                                <input class="form-control" type="number" name="precio" step="0.01" placeholder="Ejemplo: 0,00 &euro;" required>
+					                        </div>
+					                    </div>
+					                    
+					                    <div class="col">
+					                        <div class="form-group">
+					                                <label class="required" for="precioL">Precio por Litro &euro;: </label>
+					                                <input class="form-control" type="number" name="precioL" step="0.01" placeholder="Ejemplo: 0,00 &euro;/L" required>
+					                        </div>
+					                    </div>
+					                </div>
+					                
+					                <div class="form-row mb-3">
+					                    <div class="col">
+					                        <div class="form-group">
+					                            <label class="required" for="url">Dirección web de la imagen: </label>
+					                            <input class="form-control" type="url" name="url" step="0.01" placeholder="http://example/image.png" required>
+					                        </div>
+					                    </div>
+					                    
+					                    <div class="col">
+					                        <div class="form-check">
+					                            <label class="d-block text-center" for="descuento">En Descuento:</label>
+					                            <input class="form-control" type="checkbox" name="descuento">
+					                        </div>
+					                    </div>
+				               		</div>
+					                <input class="form-control btn btn-outline-primary" type="submit" value="Dar de Alta">
+				            	</div>
+				            </div>
+			            </form>
+		            <!-- /form -->
+				</div>
+			</div>
+
         </main>
         <!-- /Main -->
-
+		<footer class="navbar mt-4">
+	        <nav class="redes-sociales">
+	            <a target="_blank" href="https://www.facebook.com/"><i class="fab fa-facebook-square"></i></a>
+	            <a target="_blank" href="https://twitter.com/?lang=es"><i class="fab fa-twitter-square"></i></a>
+	        </nav>
+	        <nav class="enlaces">
+	            <a href="#">Política de privacidad</a>
+	            <a href="#">Contacto</a>
+	            <a href="#">Localización</a>
+	            <a href="#"><i class="far fa-copyright"></i> 2018</a>
+	        </nav>
+	    </footer>
+	    <!-- /footer -->
     </body>
 </html>

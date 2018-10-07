@@ -46,32 +46,53 @@
         <!-- /menu -->
 
         <!-- Main -->
-        <main class="container" role="main" >
-            <h1 class="text-center">Inicio de Sesión</h1>
-
-            <form action="login" method="post">
-                <div class="form-row">
-                    <div class="col">
-                        <div class="form-group">
-                            <label class="required" for="email">Correo electrónico: </label>
-                            <input class="form-control" type="email" name="email" step="0.1" placeholder="example@example.com" autofocus required>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="form-row">
-                    <div class="col">
-                        <div class="form-group">
-                            <label for="pswd">Contraseña: </label>
-                            <input class="form-control" type="password" name="pswd" placeholder="Mínimo 5 caracteres" required minlength="5">
-                        </div>
-                    </div>	
-                </div>
-                
-                <input class="form-control btn btn-outline-primary" type="submit" value="Entrar">
-            </form>
-        </main>
+        <div class="container" role="main" >
+        <div class="row justify-content-center align-items-end">
+        	<h1 class="text-center">Inicio de Sesión</h1>
+        </div>
+	        	
+		<div class="row justify-content-center align-items-center">
+			<div class="col">
+				<form action="login" method="post">
+		            <div class="form-row justify-content-center">
+			            <div class="col col-md-6">
+			            	 <div class="form-row">
+			                    <div class="col">
+			                        <div class="form-group">
+			                            <label class="required" for="email">Correo electrónico: </label>
+			                            <input class="form-control" type="email" name="email" step="0.1" placeholder="example@example.com" autofocus required>
+			                        </div>
+			                    </div>
+			                </div>
+			                
+			                <div class="form-row">
+			                    <div class="col">
+			                        <div class="form-group">
+			                            <label for="pswd">Contraseña: </label>
+			                            <input class="form-control" type="password" name="pswd" placeholder="Mínimo 5 caracteres" required minlength="5">
+			                        </div>
+			                    </div>	
+			                </div>
+			                 <input class="form-control btn btn-outline-primary" type="submit" value="Entrar">
+			            </div>
+		            </div>
+	            </form>
+			</div>
+		</div>
+	            
+        </div>
        <!-- /Main -->
-
+		<footer class="navbar mt-4">
+	        <nav class="redes-sociales">
+	            <a target="_blank" href="https://www.facebook.com/"><i class="fab fa-facebook-square"></i></a>
+	            <a target="_blank" href="https://twitter.com/?lang=es"><i class="fab fa-twitter-square"></i></a>
+	        </nav>
+	        <nav class="enlaces">
+	            <a href="#">Política de privacidad</a>
+	            <a href="#">Contacto</a>
+	            <a href="#">Localización</a>
+	            <a href="#"><i class="far fa-copyright"></i> 2018</a>
+	        </nav>
+	    </footer>
     </body>
 </html>

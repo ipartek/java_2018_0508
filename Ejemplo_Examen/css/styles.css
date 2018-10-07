@@ -53,7 +53,7 @@ li{
 .main-content{
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-evenly;
+    justify-content: space-between;
     background-color: lightblue;
     margin-bottom: 20px;
 }
@@ -63,7 +63,7 @@ li{
     /*height: 400px;*/
     background-color: #8A2BE2;
     left: 100px;
-    margin: 20px 10px;
+    margin: 20px 20px 5px 20px;
     display: flex;
     flex-direction: column;
     flex-wrap: wrap;

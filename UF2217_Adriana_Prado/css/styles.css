@@ -36,6 +36,14 @@ footer{
     padding: 10px 0;
 }
 
+.container{
+	min-height: 80vh;
+}
+
+div.row {
+	min-height: 10rem;
+}
+
 .card{
     margin-bottom: 20px;
 }
