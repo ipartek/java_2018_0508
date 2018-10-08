@@ -51,14 +51,12 @@ public class HomeController extends HttpServlet {
 	@Override
 	public void init(ServletConfig config) throws ServletException {
 		super.init(config);
-		// Se ejecuta solo con la 1º petición, el resto de peticiones iran a "service"
 		dao = VideoYoutubeDAO.getInstance();
 	}
 
 	@Override
 	public void destroy() {
 		super.destroy();
-		// Se ejecuta al parar el servidor
 		dao = null;
 	}
 
