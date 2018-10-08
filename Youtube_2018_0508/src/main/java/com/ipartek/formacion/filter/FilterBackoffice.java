@@ -29,6 +29,9 @@ import com.ipartek.formacion.pojo.Usuario;
 					, urlPatterns = { "/backoffice/*" })
 public class FilterBackoffice implements Filter {
 
+	private static final String VIEW_LOGIN = "login.jsp";
+	private static final String VIEW_HOME = "home";
+	
 	/**
 	 * @see Filter#destroy()
 	 */

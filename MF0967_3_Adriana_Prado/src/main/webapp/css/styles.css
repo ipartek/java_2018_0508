@@ -1,0 +1,80 @@
+/*Hoja de estilos principal*/
+
+/*Tags
+******************************************************/
+body{
+    font-family: 'Roboto Slab', serif;
+}
+
+/*Layouts
+******************************************************/
+div.row {
+	min-height: 5rem;
+}
+
+.message{
+	color: red;
+	font-weight: bold;
+}
+
+.main-content{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    background-color: lightblue;
+    margin-bottom: 20px;
+}
+
+.card{
+    width: 300px;
+    background-color: #9292e2;
+    margin: 10px 15px 10px 15px;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+/*IDs
+*************************************************/
+
+#lista{
+	width : 100%;
+}
+
+/*Card
+******************************************************/
+
+.img-card{
+	width: 100%;
+	height: 100%;
+}
+
+.card .top-box{
+	height: 200px;
+	position:relative;
+}
+
+.card .titulo-card{
+    position: relative;
+    top: -48px;
+    word-wrap: break-word;
+    padding: 10px;
+}
+
+.card .top-box .icon{
+    position: absolute;
+    top: 0;
+    left: 270px;
+    font-size: 20px;
+    color: red;
+}
+
+.card .bottom-box{
+    text-align: center;
+    margin: 10px;
+}
+
+.card .bottom-box .description{
+    padding: 0px 10px 0px 10px;
+}
