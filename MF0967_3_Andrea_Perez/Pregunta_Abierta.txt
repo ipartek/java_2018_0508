@@ -1,0 +1,16 @@
+
+PREGUNTA ABIERTA:
+
+El patrón modelo MVC es que el usuario interactua con la vista(JSP) y hace peticiones tanto por GET(se ve en la URL los parametros) como por POST, que las recoge el controlador(Servlet)es el que contiene toda la logica y es el que hace las peticiones  al modelo(DAO),
+ este consulta a la base de datos y devuelve al controlador los datos solicitados.
+ El controlador decide a que vista enviar los datos.
+ 
+ Proceso de petición request :
+ desde un JSP damos al submit de un formulario con los datos rellenados.
+ en el controlador recogemos los parametros con 
+ 
+ request.getParameter("variable");
+ 
+ Proceso Response:
+ Desde el controlador podemos escribir  en la vista con 
+ response.getWriter().print("<p> La variable vale " + variable + "</p>");
