@@ -23,12 +23,13 @@
 			</div>
 		</div>
 	</c:if>
-	
-		<!-- MOSTRAR PERROS (INICIO)-->
-		<section class="container">
-			<div class="card-group">
 
-				<c:forEach items="${perros}" var="perro" varStatus="loop"> 	
+		<!-- MOSTRAR RESULTADOS BÚSQUEDA (INICIO)-->
+		<section class="container">
+		<p class="h2 text-white">Mostrando resultados para: ${ busqueda }</p> 
+			<div class="card-group">
+			
+				<c:forEach items="${perrosEncontrados}" var="perro" varStatus="loop"> 	
 				
 					    	<div class="card m-2">
 							    <img class="card-img-top" src="${ perro.img }" alt="Imagen del perro">
@@ -47,7 +48,7 @@
 					  		</div> <!-- ./ card -->		
 				</c:forEach>
 			</div> <!-- ./ card-group -->  
-			 
+		 <p class="h2 text-white">${numResultados} resultados.</p>  
 		</section>
 </main>
 
