@@ -8,7 +8,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.ipartek.formacion.youtube.pojo.Rol;
-import com.ipartek.formacion.youtube.pojo.Usuario;
 import com.mysql.jdbc.Statement;
 
 public class RolDAO implements CrudAble<Rol> {
@@ -21,7 +20,7 @@ public class RolDAO implements CrudAble<Rol> {
 	
 	private final String SQL_INSERT = "INSERT INTO ROL (nombre) VALUES (?);";
 	private final String SQL_UPDATE = "UPDATE rol SET nombre = ? WHERE idRol = ?;";
-	private final String SQL_DELETE = "DELETE FROM rol WHERE idUsuario = ?;";
+	private final String SQL_DELETE = "DELETE FROM rol WHERE idRol = ?;";
 
 	private RolDAO() {
 		super();
@@ -127,7 +126,7 @@ public class RolDAO implements CrudAble<Rol> {
 			PreparedStatement ps = cnx.prepareStatement(SQL_UPDATE)) {
 
 			ps.setString(1, pojo.getNombre());
-			ps.setLong  (3, pojo.getId());
+			ps.setLong  (2, pojo.getId());
 			
 			if (ps.executeUpdate() == 1 ) {
 				result = true;

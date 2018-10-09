@@ -1,6 +1,9 @@
 package com.ipartek.formacion.youtube.pojo;
 
 public class Rol {
+	
+	public static int ID_ROL_ADMIN = 1;
+	public static int ID_ROL_USER = 2;
 
 	private long id;
 	private String nombre;
@@ -9,6 +12,7 @@ public class Rol {
 	public Rol() {
 		super();
 		this.id = -1;
+		this.nombre = "";
 	}
 
 	public Rol(int id, String nombre) {

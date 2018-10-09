@@ -2,27 +2,25 @@ package com.ipartek.formacion.youtube.pojo;
 
 public class Usuario {
 	
-	public static int ROL_ADMIN = 0;
-	public static int ROL_USER = 1;
-
 	private long id;
 	private String nombre;
-	private String pass;
-	private int rol; // O: Admin, 1: Cliente
+	private String password;
+	
+	private Rol rol; // 1: Admin, 2: Usuario
 
 	// CONSTRUCTORES
 	public Usuario() {
 		super();
 		this.id = -1;
 		this.nombre = "";
-		this.pass = "";
-		this.rol = 1;
+		this.password = "";
+		this.rol = new Rol();
 	}
 
-	public Usuario(String nombre, String pass) {
+	public Usuario(String nombre, String password) {
 		this();
 		this.nombre = nombre;
-		this.pass = pass;
+		this.password = password;
 	}
 
 	// GETTERS AND SETTERS
@@ -42,25 +40,25 @@ public class Usuario {
 		this.nombre = nombre;
 	}
 
-	public String getPass() {
-		return pass;
+	public String getPassword() {
+		return password;
 	}
 
-	public void setPass(String pass) {
-		this.pass = pass;
+	public void setPass(String password) {
+		this.password = password;
 	}
 
-	public int getRol() {
+	public Rol getRol() {
 		return rol;
 	}
 
-	public void setRol(int rol) {
+	public void setRol(Rol rol) {
 		this.rol = rol;
 	}
 
 	@Override
 	public String toString() {
-		return "Usuario [nombre=" + nombre + ", pass=" + pass + "]";
+		return "Usuario [nombre=" + nombre + ", password=" + password + "]";
 	}
 
 }

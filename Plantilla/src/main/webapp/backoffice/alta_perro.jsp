@@ -72,7 +72,7 @@
 		  </div>
 		</fieldset>
 	
-			<button type="submit" class="btn btn-block btn-danger">Dar de alta</button>
+			<button type="submit" class="btn btn-block btn-danger p-3">Dar de alta</button>
 		</form>
 	</section>
 	

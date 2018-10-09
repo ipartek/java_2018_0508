@@ -16,6 +16,7 @@ import javax.servlet.http.HttpSession;
 
 import com.ipartek.formacion.youtube.model.UsuarioDAO;
 import com.ipartek.formacion.youtube.pojo.Alert;
+import com.ipartek.formacion.youtube.pojo.Rol;
 import com.ipartek.formacion.youtube.pojo.Usuario;
 
 /**
@@ -26,22 +27,26 @@ import com.ipartek.formacion.youtube.pojo.Usuario;
 public class LoginController extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
+	
+	private static final String VIEW_INICIO_ADMIN = "/backoffice/inicio";
+	private static final String VIEW_INICIO_USER = "/inicio";
 
+	private String view;
 	private Alert alert;
-	private UsuarioDAO dao;
+	private UsuarioDAO daoUsuario;
 
 	@Override
 	public void init(ServletConfig config) throws ServletException {
 		super.init(config);
 		// Se ejecuta solo con la 1º petición, el resto de peticiones iran a "service"
-		dao = UsuarioDAO.getInstance();
+		daoUsuario = UsuarioDAO.getInstance();
 	}
 
 	@Override
 	public void destroy() {
 		super.destroy();
 		// Se ejecuta al parar el servidor
-		dao = null;
+		daoUsuario = null;
 	}
 
 	/**
@@ -66,6 +71,7 @@ public class LoginController extends HttpServlet {
 			throws ServletException, IOException {
 
 		alert = new Alert();
+		view = VIEW_INICIO_USER;
 
 		try {
 
@@ -73,10 +79,9 @@ public class LoginController extends HttpServlet {
 			String usuarioNombre = request.getParameter("usuario");
 			String pass = request.getParameter("pass");
 
-			Usuario user = dao.getByName(usuarioNombre);
+			Usuario user = new Usuario(usuarioNombre, pass);
 
-			if (user != null) {
-				if (user.getPass().equals(pass)) { // Usuario encontrado y psw correcta
+			if (  daoUsuario.login(user) != null ) {
 
 					Locale locale = request.getLocale();
 					ResourceBundle idiomas = ResourceBundle.getBundle("idiomas", locale);
@@ -85,10 +90,15 @@ public class LoginController extends HttpServlet {
 					alert.setTexto(MessageFormat.format(idiomas.getString("msj.bienvenida"), usuarioNombre));
 					alert.setTipo(Alert.PRIMARY);
 
-					// Guardar Usuario en session
-					gestionarSesionDeUsuario(request, user);
-					gestionarCookiesDeUsuario(request, response, user);
-				}
+					
+					gestionarSesionDeUsuario(request, user); // Guardar Usuario en session
+					gestionarCookiesDeUsuario(request, response, user); // Guardar Cookies de Usuario
+					
+					if ( user.getRol().getId() == Rol.ID_ROL_ADMIN ) {
+						
+						view = VIEW_INICIO_ADMIN;
+					}
+				
 			}
 
 			else { // Usuario no encontrado
@@ -97,10 +107,13 @@ public class LoginController extends HttpServlet {
 			}
 
 		} catch (Exception e) {
+			
 			e.printStackTrace();
+			
 		} finally {
+			
 			request.getSession().setAttribute("alert", alert);
-			response.sendRedirect(request.getContextPath() + "/inicio");
+			response.sendRedirect(request.getContextPath() + view);
 		}
 
 	}
