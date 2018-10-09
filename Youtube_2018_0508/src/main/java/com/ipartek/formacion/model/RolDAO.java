@@ -35,20 +35,20 @@ private static RolDAO INSTANCE = null;
 		boolean resul = false;
 		try(Connection con =  ConnectionManager.getConnection();
 		PreparedStatement ps = con.prepareStatement(SQL_INSERT, Statement.RETURN_GENERATED_KEYS);){
-		if(pojo != null) {
-			ps.setString(1, pojo.getNombre().trim());
-			
-			int affectedRows = ps.executeUpdate();
-			
-			if(affectedRows == 1) {
-				//Conseguir id generado
-				ResultSet rs = ps.getGeneratedKeys();
-				while(rs.next()) {
-					pojo.setId(rs.getLong(1));
-					resul = true;
-				}
-			}				
-		}
+			if(pojo != null) {
+				ps.setString(1, pojo.getNombre().trim());
+				
+				int affectedRows = ps.executeUpdate();
+				
+				if(affectedRows == 1) {
+					//Conseguir id generado
+					ResultSet rs = ps.getGeneratedKeys();
+					while(rs.next()) {
+						pojo.setId(rs.getLong(1));
+						resul = true;
+					}
+				}				
+			}
 		}
 		return resul;
 	}
@@ -57,13 +57,13 @@ private static RolDAO INSTANCE = null;
 	public List<Rol> getAll() throws Exception {
 		ArrayList<Rol> roles = new ArrayList<Rol>();
 		try(Connection con =  ConnectionManager.getConnection();
-		PreparedStatement ps = con.prepareStatement(SQL_GET_ALL);){
-		ResultSet rs = ps.executeQuery();
-
-		//Mapear ResultSet a ArrayList
-		while(rs.next()) {
-			roles.add(rowMapper(rs));
-		}
+			PreparedStatement ps = con.prepareStatement(SQL_GET_ALL);){
+			ResultSet rs = ps.executeQuery();
+	
+			//Mapear ResultSet a ArrayList
+			while(rs.next()) {
+				roles.add(rowMapper(rs));
+			}
 		}
 		return roles;
 	}
@@ -76,20 +76,20 @@ private static RolDAO INSTANCE = null;
 		}
 		Rol r = null;
 		try(Connection con =  ConnectionManager.getConnection();
-		PreparedStatement ps = con.prepareStatement(SQL_GET_BY_ID);){
-
+			PreparedStatement ps = con.prepareStatement(SQL_GET_BY_ID);){
+	
+				
+			ps.setLong(1, id);
 			
-		ps.setLong(1, id);
-		
-		try (ResultSet rs = ps.executeQuery();){
-			//Obtener resultados
-//				ResultSet rs = ps.executeQuery();
-			
-			//Mapear ResultSet al objeto o array objetos
-			while( rs.next() ) {
-				r = rowMapper(rs);					
-			}	
-		}
+			try (ResultSet rs = ps.executeQuery();){
+				//Obtener resultados
+	//				ResultSet rs = ps.executeQuery();
+				
+				//Mapear ResultSet al objeto o array objetos
+				while( rs.next() ) {
+					r = rowMapper(rs);					
+				}	
+			}
 		}
 		return r;
 	}
@@ -98,16 +98,16 @@ private static RolDAO INSTANCE = null;
 	public boolean update(Rol pojo) throws Exception {
 		boolean resul = false;
 		try(Connection con =  ConnectionManager.getConnection();
-		PreparedStatement ps = con.prepareStatement(SQL_UPDATE);){
-		
-		ps.setString(1, pojo.getNombre());
-		ps.setLong(2, pojo.getId());
-		
-		int affectedRows = ps.executeUpdate();
-		
-		if(affectedRows == 1) {
-			resul = true;
-		}	
+			PreparedStatement ps = con.prepareStatement(SQL_UPDATE);){
+			
+			ps.setString(1, pojo.getNombre());
+			ps.setLong(2, pojo.getId());
+			
+			int affectedRows = ps.executeUpdate();
+			
+			if(affectedRows == 1) {
+				resul = true;
+			}	
 		}
 		return resul;
 	}

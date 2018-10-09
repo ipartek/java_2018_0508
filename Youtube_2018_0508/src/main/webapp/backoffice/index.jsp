@@ -28,7 +28,7 @@
                         </div>
                         <a href="usuarios">
                             <div class="panel-footer">
-                                <span class="pull-left">Ver Usuarios</span>
+                                <span class="pull-left font-weight-bold"><b>Ver Usuarios</b></span>
                                 <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
                                 <div class="clearfix"></div>
                             </div>
@@ -51,7 +51,7 @@
                         </div>
                         <a href="videos">
                             <div class="panel-footer">
-                                <span class="pull-left">Ver Vídeos</span>
+                                <span class="pull-left font-weight-bold"><b>Ver Vídeos</b></span>
                                 <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
                                 <div class="clearfix"></div>
                             </div>
@@ -73,7 +73,7 @@
                         </div>
                         <a href="roles">
                             <div class="panel-footer">
-                                <span class="pull-left">Ver Roles</span>
+                                <span class="pull-left"><b>Ver Roles</b></span>
                                 <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
                                 <div class="clearfix"></div>
                             </div>

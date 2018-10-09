@@ -19,7 +19,7 @@ import com.ipartek.formacion.pojo.Rol;
  * Servlet implementation class BackofficeRolController
  */
 @WebServlet("/backoffice/roles")
-public class BackofficeRolController extends HttpServlet {
+public class BackofficeRolController extends HttpServlet implements CrudControllable{
 	private static final long serialVersionUID = 1L;
 	
 	private static final String VIEW_FORM_ROLES = "roles/form.jsp";
@@ -29,12 +29,7 @@ public class BackofficeRolController extends HttpServlet {
 	private Alert alert = null;
 	
 	private static RolDAO daoRol = null;
-	
-	public static final String OP_LISTAR = "1";
-	public static final String OP_GUARDAR = "2"; //Insert o update en funcion del id (-1 o >0)
-	public static final String OP_ELIMINAR = "3";
-	public static final String OP_IR_FORMULARIO = "4";
-	
+		
 	//Parametros
 	private String op; //Operacion a realizar
 	private String id; //Id del rol
@@ -66,7 +61,8 @@ public class BackofficeRolController extends HttpServlet {
 		doProcess(request, response);
 	}
 
-	private void doProcess(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
+	@Override
+	public void doProcess(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
 		try {
 			alert=null;
 			
@@ -101,11 +97,9 @@ public class BackofficeRolController extends HttpServlet {
 		}
 	}
 
-	private void listar(HttpServletRequest request){
+	@Override
+	public void listar(HttpServletRequest request){
 		try {
-			if(daoRol.getAll().size() == 0) {
-				alert = new Alert(Alert.ALERT_WARNING, "No se han encontrado roles.");
-			}
 			view = VIEW_INDEX_ROLES;
 			request.setAttribute("roles", daoRol.getAll());
 		}catch(Exception e) {
@@ -114,7 +108,8 @@ public class BackofficeRolController extends HttpServlet {
 		
 	}
 
-	private void irFormulario(HttpServletRequest request) throws Exception{
+	@Override
+	public void irFormulario(HttpServletRequest request) throws Exception{
 		Rol rol = null;
 		if(Integer.parseInt(id)>0) {
 			rol = daoRol.getById(id);
@@ -125,7 +120,8 @@ public class BackofficeRolController extends HttpServlet {
 		view = VIEW_FORM_ROLES;
 	}
 
-	private void guardar(HttpServletRequest request) {
+	@Override
+	public void guardar(HttpServletRequest request) {
 		Rol rol = null;
 		
 		rol = new Rol();
@@ -137,6 +133,7 @@ public class BackofficeRolController extends HttpServlet {
 				daoRol.insert(rol);
 			}else{
 				//Modificar Rol existente
+				rol.setId(Long.parseLong(id));
 				daoRol.update(rol);
 			}
 			alert = new Alert(Alert.ALERT_SUCCESS, "Usuario guardado con éxito.");
@@ -161,7 +158,8 @@ public class BackofficeRolController extends HttpServlet {
 		view = VIEW_FORM_ROLES;
 	}
 
-	private void eliminar(HttpServletRequest request) throws Exception {
+	@Override
+	public void eliminar(HttpServletRequest request) throws Exception {
 		try {
 			daoRol.delete(id);
 			alert = new Alert(Alert.ALERT_SUCCESS, "Rol borrado con éxito.");
@@ -173,7 +171,8 @@ public class BackofficeRolController extends HttpServlet {
 		request.setAttribute("roles", daoRol.getAll());
 	}
 
-	private void getParameters(HttpServletRequest request) {
+	@Override
+	public void getParameters(HttpServletRequest request) {
 		op = (request.getParameter("op") != null) ? request.getParameter("op"): OP_LISTAR; 
 		id = request.getParameter("id"); // 0 = crear, 1 = modificar
 		nombre = request.getParameter("nombre");

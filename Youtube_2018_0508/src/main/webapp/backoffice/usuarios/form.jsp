@@ -2,6 +2,7 @@
 
 <%@page import="com.ipartek.formacion.controller.back.BackofficeUsuarioController"%>
 <%@page import="com.ipartek.formacion.pojo.Usuario"%>
+<%@page import="com.ipartek.formacion.pojo.Rol"%>
 <%@include file="../includes/taglibs.jsp"%>
 
 <%@include file="../includes/header.jsp"%>
@@ -53,18 +54,25 @@
 								<div class="form-row">
                             		<div class="col">
 										<div class="form-group col-md-6">
-										   <label for="contrasena">Contraseña: </label>
-										   <input class="form-control" type="password" name="contrasena" id="contrasena" placeholder="Mínimo 3 caracteres y máximo 10" tabindex="2" required
-										   value="${usuario.contrasena}">
+											<label for="contrasena">Contraseña: </label>
+										   	<div class="input-group">
+										  		<input class="form-control" type="password" name="contrasena" id="contrasena" placeholder="Mínimo 3 caracteres y máximo 10" tabindex="2" required
+										  	 	value="${usuario.contrasena}">
+										  		<span class="input-group-addon" id="basic-addon2" ><i id="eye" class="fas fa-eye" onclick="mostrar('contrasena')"></i></span>
+											</div>
 									   </div>
+									   
 									</div>
 									<div class="col">
 										<div class="form-group col-md-6">
 										   <label class="required" for="rol">Rol: </label>
 										   <select class="form-control" required name="rol" id="rol">
-											   <option value="${Usuario.ROL_USER}" ${(usuario.rol==Usuario.ROL_USER)?'selected':''}>Usuario Normal</option>
-											   <option value="${Usuario.ROL_ADMIN}" ${(usuario.rol==Usuario.ROL_ADMIN)?'selected':''}>Administrador</option>
-										   </select>
+												<c:forEach items="${roles}" var="r">
+													<option value="${r.id}" ${(usuario.rol.id==r.id)?'selected':''}>${r.nombre}</option>
+												</c:forEach>
+<%-- 											   <option value="${Usuario.ROL_USER}" ${(usuario.rol==Usuario.ROL_USER)?'selected':''}>Usuario Normal</option> --%>
+<%-- 											   <option value="${Usuario.ROL_ADMIN}" ${(usuario.rol==Usuario.ROL_ADMIN)?'selected':''}>Administrador</option> --%>
+											</select>
 										</div>
 									</div>
 								</div>
@@ -82,6 +90,20 @@
                             		}else{
                             			//Prevenir el evento por defecto del enlace
                             			e.preventDefault();
+                            		}
+                            	}
+                            </script>
+                            
+                            <script>
+                            	function mostrar(contrasena){
+                            		var pswd = document.getElementById(contrasena);
+                            		var eye =  document.getElementById('eye');
+                            		if(pswd.type == "text"){
+                            			pswd.type = "password";
+                            				eye.classList.replace("fa-eye","fa-eye-slash");
+                            		}else{
+                            			pswd.type = "text";
+                            			eye.classList.replace("fa-eye-slash","fa-eye");
                             		}
                             	}
                             </script>

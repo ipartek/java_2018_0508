@@ -16,6 +16,7 @@ import javax.servlet.http.HttpSession;
 
 import com.ipartek.formacion.model.UsuarioDAO;
 import com.ipartek.formacion.pojo.Alert;
+import com.ipartek.formacion.pojo.Rol;
 import com.ipartek.formacion.pojo.Usuario;
 
 /**
@@ -77,7 +78,7 @@ public class UserController extends HttpServlet {
 				
 				//Usuario u = new Usuario(user, pswd);
 				
-				if(usuario.getRol() == Usuario.ROL_ADMIN) {
+				if(usuario.getRol().getId() == Rol.ROL_ADMIN) {
 					view = VIEW_INICIO_ADMIN;
 				}else {
 					view = VIEW_INICIO_USER;

@@ -2,9 +2,6 @@ package com.ipartek.formacion.filter;
 
 import java.io.IOException;
 import java.util.Enumeration;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Set;
 
 import javax.servlet.DispatcherType;
 import javax.servlet.Filter;
@@ -18,6 +15,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.ipartek.formacion.pojo.Rol;
 import com.ipartek.formacion.pojo.Usuario;
 
 /**
@@ -54,7 +52,7 @@ public class FilterBackoffice implements Filter {
 			
 			if(usuario != null) {
 				// pass the request along the filter chain
-				if(usuario.getRol() == Usuario.ROL_ADMIN) {
+				if(usuario.getRol().getId() == Rol.ROL_ADMIN) {
 					chain.doFilter(request, response);
 				}else {
 					res.sendRedirect(req.getContextPath() + "/inicio");

@@ -21,6 +21,8 @@ public class BackofficeVideoController extends HttpServlet {
 	
 	private static VideoDAO daoVideo;
 	
+	String view = "";
+	
 	private static final String VIEW_FORM_VIDEOS = "videos/form.jsp";
 	private static final String VIEW_INDEX_VIDEOS = "videos/index.jsp";
 
@@ -37,17 +39,20 @@ public class BackofficeVideoController extends HttpServlet {
 		try {
 			if(id == null) {
 				request.setAttribute("videos", videos);
-				request.getRequestDispatcher(VIEW_INDEX_VIDEOS).forward(request, response);
+				view = VIEW_INDEX_VIDEOS;
+				
 			}else {
 				Video video = new Video();
 				if(Integer.parseInt(id)>0) {
 					video = daoVideo.getById(id);
 				}
+				view = VIEW_FORM_VIDEOS;
 				request.setAttribute("video", video);
-				request.getRequestDispatcher(VIEW_FORM_VIDEOS).forward(request, response);
 			}
 		}catch(Exception e) {
 			e.printStackTrace();
+		}finally {
+			request.getRequestDispatcher(view).forward(request, response);
 		}
 	}
 

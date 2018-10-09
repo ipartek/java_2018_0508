@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.ipartek.formacion.model.RolDAO;
 import com.ipartek.formacion.model.UsuarioDAO;
 import com.ipartek.formacion.pojo.Alert;
 import com.ipartek.formacion.pojo.Usuario;
@@ -23,6 +24,7 @@ public class BackofficeUsuarioController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
 	private static UsuarioDAO daoUsuario = null;
+	private static RolDAO daoRol = null;
 	
 	private static final String VIEW_FORM_USUARIOS = "usuarios/form.jsp";
 	private static final String VIEW_INDEX_USUARIOS = "usuarios/index.jsp";
@@ -49,6 +51,7 @@ public class BackofficeUsuarioController extends HttpServlet {
 	public void init(ServletConfig config) throws ServletException {
 		super.init(config);
 		daoUsuario = UsuarioDAO.getInstance();
+		daoRol = RolDAO.getInstance();
 	}
 	
 	@Override
@@ -115,9 +118,6 @@ public class BackofficeUsuarioController extends HttpServlet {
 	}
 
 	private void listar(HttpServletRequest request) throws Exception {
-		if(daoUsuario.getAll().size() == 0) {
-			alert = new Alert(Alert.ALERT_WARNING, "No se han encontrado usuarios.");
-		}
 		view = VIEW_INDEX_USUARIOS;
 		request.setAttribute("usuarios", daoUsuario.getAll());
 	}
@@ -130,11 +130,13 @@ public class BackofficeUsuarioController extends HttpServlet {
 			usuario = new Usuario();
 		}
 		request.setAttribute("usuario", usuario);
+		request.setAttribute("roles", daoRol.getAll());
 		view = VIEW_FORM_USUARIOS;
 	}
 
 	private void guardar(HttpServletRequest request){
 		Usuario usuario = null;
+		try {
 //		if(nombre != null && contrasena != null) {
 //			if(nombre.length() <= 50) {
 //				if(contrasena.length() <= 20) {
@@ -142,9 +144,9 @@ public class BackofficeUsuarioController extends HttpServlet {
 					usuario = new Usuario();
 					usuario.setNombre(nombre);
 					usuario.setContrasena(contrasena);
-					usuario.setRol(Integer.parseInt(rol));
 					
-					try {
+					usuario.setRol(daoRol.getById(rol));
+					
 						if(id.equals("")) {
 							//Crear Usuario nuevo
 							daoUsuario.insert(usuario);
@@ -155,6 +157,7 @@ public class BackofficeUsuarioController extends HttpServlet {
 //								}
 						}else{
 							//Modificar Usuario existente
+							usuario.setId(Long.parseLong(id));
 							daoUsuario.update(usuario);
 //								usuario.setId(Long.parseLong(id));
 //								if(daoUsuario.update(usuario)) {
@@ -164,13 +167,12 @@ public class BackofficeUsuarioController extends HttpServlet {
 //								}
 						}
 						alert = new Alert(Alert.ALERT_SUCCESS, "Usuario guardado con éxito.");
-						
-					
+						request.setAttribute("roles", daoRol.getAll());					
 					}
 					//Nombre repetido
 					catch(SQLIntegrityConstraintViolationException e) {
 						e.printStackTrace();
-						alert = new Alert(Alert.ALERT_WARNING, "El nombre de usuario <b>\" + usuario.getNombre() + \"</b> ya existe.");
+						alert = new Alert(Alert.ALERT_WARNING, "El nombre de usuario <b>" + usuario.getNombre() + "</b> ya existe.");
 					}
 					//Longitud campos nombre y pswd
 					catch(SQLException e) {

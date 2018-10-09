@@ -34,14 +34,16 @@
                                         <th>ID</th>
                                         <th>Código</th>
                                         <th>Título</th>
+                                        <th>Icono</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                 <c:forEach items="${videos}" var="v">
                                 	 <tr>
                                         <td>${v.id}</td>
-                                        <td><a href="videos?id=${v.id}">${u.codigo}</a> </td>
-                                        <td>${u.titulo}</td>
+                                        <td><a href="videos?id=${v.id}">${v.codigo}</a> </td>
+                                        <td>${v.titulo}</td>
+                                        <th>Icono</th>
                                     </tr>
                                 </c:forEach>
                                 </tbody>
@@ -50,6 +52,7 @@
                                 		<th>ID</th>
                                 		<th>Código</th>
                                 		<th>Título</th>
+                                		<th>Icono</th>
                                 	</tr>
                                 </tfoot>
                             </table>
