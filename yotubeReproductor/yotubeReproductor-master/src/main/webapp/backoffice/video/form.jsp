@@ -14,6 +14,7 @@
 	<div class="row">
 
 		<form action="videos" method="post">
+			<input type="hidden" name="op" value="2">
 
 
 			<div class="form-group">
@@ -22,15 +23,18 @@
 			</div>
 
 			<div class="form-group">
-				<label for="codigo">Codigo</label> <input type="text"
-					class="form-control" name="codigo" id="codigo"
-					value="${video.codigo}" autofocus>
-			</div>
-
-			<div class="form-group">
 				<label for="nombre">Nombre</label> <input type="text"
 					class="form-control" name="nombre" id="nombre"
 					value="${video.nombre}" autofocus>
+			</div>
+			
+			<div class="form-group">
+				<label for="usuario">Usuario</label> 
+				<select name="usuario" class="form-control" disabled >
+				   		<c:forEach items="${usuarios}" var="usuario">
+				   			<option value="${usuario.id}" ${(usuario.id==video.usuario.id)? 'selected':''}>${usuario.nombre}</option>
+				   		</c:forEach>
+				   </select>
 			</div>
 
 

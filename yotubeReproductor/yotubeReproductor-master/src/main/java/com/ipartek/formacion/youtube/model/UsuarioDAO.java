@@ -15,7 +15,7 @@ public class UsuarioDAO implements CrudAble<Usuario> {
 
 	private static UsuarioDAO INSTANCE = null;
 
-	private static final String SQL_GET_ALL = "SELECT u.id as `id_usuario`, u.nombre as `nombre_usuario`, password, id_rol , r.nombre as `nombre_rol`" + ""
+	private static final String SQL_GET_ALL = "SELECT u.id as `id_usuario`, u.nombre as `nombre_usuario`, u.password, u.id_rol , r.nombre as `nombre_rol`" + ""
 			+ "FROM youtube.usuario as u, youtube.rol as r "+" "
 				+ "WHERE u.id_rol = r.id"+" "
 						+ "ORDER BY u.id DESC LIMIT 1000;";

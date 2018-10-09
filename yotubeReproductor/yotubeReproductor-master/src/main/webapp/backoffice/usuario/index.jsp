@@ -28,7 +28,6 @@
 				<tr>
 					<th>id</th>
 					<th>nombre</th>
-	
 					<th>rol</th>
 				</tr>
 			</thead>
@@ -46,7 +45,6 @@
 				<tr>
 					<th>id</th>
 					<th>nombre</th>
-			
 					<th>rol</th>
 				</tr>
 			</tfoot>

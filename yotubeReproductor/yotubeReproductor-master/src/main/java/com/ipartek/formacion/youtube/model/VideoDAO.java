@@ -1,24 +1,30 @@
 package com.ipartek.formacion.youtube.model;
 
 import java.sql.Connection;
-import java.util.ArrayList;
-import java.util.List;
-
-import com.ipartek.formacion.youtube.Video;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
+
+import com.ipartek.formacion.youtube.Usuario;
+import com.ipartek.formacion.youtube.Video;
 
 public class VideoDAO implements CrudAble<Video> {
 
 	private static VideoDAO INSTANCE = null;
 
-	private final String SQL_GET_ALL = "SELECT id, codigo, nombre FROM video ORDER BY id DESC LIMIT 1000;";
-	private final String SQL_GET_BY_ID = "SELECT  id, codigo, nombre FROM video WHERE id = ?;";
-	private final String SQL_UPDATE = "UPDATE video SET codigo= ? , nombre= ? WHERE id = ?;";
+	private final String SQL_GET_ALL = "SELECT v.id as id_video, v.codigo, v.nombre as nombre_video, u.id as id_usuario, u.nombre as nombre_usuario "+
+										" FROM video as v, usuario as u "+
+										" WHERE u.id = v.id_usuario "+
+										" ORDER BY v.id DESC LIMIT 1000;";
+	private final String SQL_GET_BY_ID = "SELECT v.id as id_video, v.codigo, v.nombre as nombre_video, u.id as id_usuario, u.nombre as nombre_usuario "+
+										" FROM video as v, usuario as u "+
+										" WHERE v.id = ? AND  u.id = v.id_usuario;";
+	private final String SQL_UPDATE = "UPDATE video SET nombre= ? WHERE id = ?;";
 	private final String SQL_DELETE = "DELETE FROM video WHERE id = ?;";
 	//añadir la columna de id_usuario
-	private final String SQL_INSERT = "INSERT INTO video (codigo, nombre) VALUES (?,?);";
+	private final String SQL_INSERT = "INSERT INTO video (codigo, nombre, id_usuario) VALUES (?,?,?);";
 
 	private VideoDAO() {
 		super();
@@ -39,6 +45,7 @@ public class VideoDAO implements CrudAble<Video> {
 
 			ps.setString(1, pojo.getCodigo());
 			ps.setString(2, pojo.getNombre());
+			ps.setLong(3, pojo.getUsuario().getId());
 			//añadir un nuevo setInt para el id del usuario
 
 			int affectedRows = ps.executeUpdate();
@@ -127,9 +134,15 @@ public class VideoDAO implements CrudAble<Video> {
 	private Video rowMapper(ResultSet rs) throws Exception {
 		Video video = new Video();
 		if (rs != null) {
-			video.setId(rs.getLong("id"));
+			video.setId(rs.getLong("id_video"));
 			video.setCodigo(rs.getString("codigo"));
-			video.setNombre(rs.getString("nombre"));
+			video.setNombre(rs.getString("nombre_video"));
+			
+			Usuario usuario = new Usuario();
+			usuario.setId(rs.getLong("id_usuario"));
+			usuario.setNombre(rs.getString("nombre_usuario"));
+
+			video.setUsuario(usuario);
 		}
 
 		return video;
@@ -140,9 +153,9 @@ public class VideoDAO implements CrudAble<Video> {
 
 		try (Connection con = ConnectionManager.getConnection();
 				PreparedStatement ps = con.prepareStatement(SQL_UPDATE);) {
-			ps.setString(1, pojo.getCodigo());
-			ps.setString(2, pojo.getNombre());
-			ps.setLong(3, pojo.getId());
+
+			ps.setString(1, pojo.getNombre());
+			ps.setLong(2, pojo.getId());
 
 			if (ps.executeUpdate() == 1) {
 				resul = true;

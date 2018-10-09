@@ -9,7 +9,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import com.ipartek.formacion.adopcionperros.model.Alert;
 import com.ipartek.formacion.adopcionperros.model.Usuario;
 
 /**
