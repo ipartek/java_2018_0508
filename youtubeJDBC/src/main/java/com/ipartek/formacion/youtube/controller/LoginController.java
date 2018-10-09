@@ -17,6 +17,7 @@ import javax.servlet.http.HttpSession;
 
 import com.ipartek.formacion.youtube.model.UsuariosDaoJDBC;
 import com.ipartek.formacion.youtube.pojo.Alert;
+import com.ipartek.formacion.youtube.pojo.Rol;
 import com.ipartek.formacion.youtube.pojo.Usuario;
 
 /**
@@ -84,7 +85,7 @@ public class LoginController extends HttpServlet {
 				session.setAttribute("usuario", usuario);
 				alert.setTexto("Bienvenido " + usuario.getNombre());
 				alert.setTipo(alert.SUCCESS);
-				if (usuario.getRol() == usuario.ROL_ADMIN) {
+				if (usuario.getRol().getId() == Rol.ROL_ADMIN) {
 					view = VIEW_INICIO_ADMIN;
 				}			
 			}else {

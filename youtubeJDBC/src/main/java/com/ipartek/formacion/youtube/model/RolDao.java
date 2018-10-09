@@ -1,14 +1,13 @@
 package com.ipartek.formacion.youtube.model;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
 import com.ipartek.formacion.youtube.pojo.Rol;
-import com.ipartek.formacion.youtube.pojo.Video;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.Statement;
 
 public class RolDao implements CrudAble<Rol> {
 
@@ -16,11 +15,9 @@ public class RolDao implements CrudAble<Rol> {
 
 	private final String SQL_GET_ALL = "SELECT id, nombre FROM rol ORDER BY id DESC LIMIT 1000;";
 	private final String SQL_GET_BY_ID = "SELECT  id,  nombre FROM rol WHERE id = ?;";
-	private final String SQL_UPDATE = "UPDATE rol SET nombre= ? , WHERE id = ?;";
+	private final String SQL_UPDATE = "UPDATE rol SET nombre= ?  WHERE id = ?;";
 	private final String SQL_DELETE = "DELETE FROM rol WHERE id = ?;";
 	private final String SQL_INSERT = "INSERT INTO rol ( nombre) VALUES (?);";
-
-
 
 	public static synchronized RolDao getInstance() {
 		if (INSTANCE == null) {
@@ -34,21 +31,20 @@ public class RolDao implements CrudAble<Rol> {
 		boolean resul = false;
 
 		try (Connection con = ConnectionManager.getConnection();
-				PreparedStatement ps = con.prepareStatement(SQL_INSERT,Statement.RETURN_GENERATED_KEYS);) {
-
+				PreparedStatement ps = con.prepareStatement(SQL_INSERT, Statement.RETURN_GENERATED_KEYS);) {
 
 			ps.setString(1, pojo.getNombre());
 
 			int affectedRows = ps.executeUpdate();
 			if (affectedRows == 1) {
-				
-				//consegir el id generado 
+
+				// consegir el id generado
 				ResultSet rs = ps.getGeneratedKeys();
-				while(rs.next()) {
+				while (rs.next()) {
 					pojo.setId(rs.getInt(1));
 					resul = true;
 
-				}		
+				}
 			}
 
 		} catch (Exception e) {
@@ -77,7 +73,7 @@ public class RolDao implements CrudAble<Rol> {
 	}
 
 	@Override
-	public Rol getById(String id) {
+	public Rol getById(String id) throws Exception{
 		Rol rol = null;
 		try (Connection con = ConnectionManager.getConnection();
 				PreparedStatement ps = con.prepareStatement(SQL_GET_BY_ID);) {
@@ -90,28 +86,27 @@ public class RolDao implements CrudAble<Rol> {
 				}
 			}
 
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+		} 
 
 		return rol;
 	}
 
 	@Override
-	public boolean update(Rol pojo)  {
+	public boolean update(Rol pojo) {
 		boolean resul = false;
 		int affectedRows;
 		try (Connection con = ConnectionManager.getConnection();
 				PreparedStatement ps = con.prepareStatement(SQL_UPDATE);) {
-			ps.setInt(1, pojo.getId());
-			ps.setString(2, pojo.getNombre());
+			ps.setString(1, pojo.getNombre());
+			ps.setInt(2, pojo.getId());
+			
 			affectedRows = ps.executeUpdate();
 			if (affectedRows == 1) {
 				resul = true;
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
-			
+
 		}
 		return resul;
 	}

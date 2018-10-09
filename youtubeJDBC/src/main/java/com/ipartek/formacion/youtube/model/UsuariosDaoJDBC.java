@@ -9,6 +9,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.ipartek.formacion.youtube.pojo.Rol;
 import com.ipartek.formacion.youtube.pojo.Usuario;
 
 public class UsuariosDaoJDBC implements CrudAble<Usuario> {
@@ -16,13 +17,21 @@ public class UsuariosDaoJDBC implements CrudAble<Usuario> {
 	private static UsuariosDaoJDBC INSTANCE = null;
 	private static List<Usuario> usuarios = null;
 	// querys CRUD
-	private final String SQL_INSERT = "INSERT INTO usuario(nombre,password) VALUES(?,?);";
-	private final String SQL_UPDATE = "UPDATE usuario SET nombre=?,password=? WHERE id=? ;";
-	private final String SQL_SELECT = "SELECT * FROM usuario ORDER BY id DESC ;";
+	private final String SQL_GET_ALL = "SELECT u.id as 'id_usuario',u.nombre as 'nombre_usuario', password, id_rol as 'id_rol',r.nombre as 'nombre_rol'"+
+	"  FROM usuario as u , rol as r"+
+	"  WHERE u.id_rol = r.id"+
+	"  order by u.id desc limit 1000;";
+	private final String SQL_INSERT = "INSERT INTO usuario(nombre,password,id_rol) VALUES(?,?);";
+	private final String SQL_UPDATE = "UPDATE usuario SET nombre=?,password=?,id_rol = ?  WHERE id=? ;";
+	private final String SQL_SELECT = "SELECT id,nombre, password, id_rol FROM usuario ORDER BY id DESC ;";
 	private final String SQL_DELETE = "DELETE from usuario WHERE id=?;";
-	private final String SQL_SELECT_BY_NAMEPASS = "SELECT id,nombre, password, rol FROM usuario WHERE nombre = ? and password = ? ;";
-	private final String SQL_SELECT_BY_NAME = "SELECT id,nombre, password, rol FROM usuario WHERE nombre = ?;";
-	private final String SQL_SELECT_BY_ID = "SELECT id,nombre, password, rol FROM usuario WHERE id = ?;";
+	private final String SQL_SELECT_BY_NAMEPASS = "SELECT u.id  as 'id_usuario',u.nombre as 'nombre_usuario', password, id_rol as 'id_rol'"+
+			" FROM usuario as u, rol as r"+
+			" WHERE u.nombre = ? and password = ? ;" ;
+	private final String SQL_SELECT_BY_NAME = "SELECT id,nombre, password, id_rol FROM usuario WHERE nombre = ?;";
+	private final String SQL_SELECT_BY_ID = "SELECT u.id as 'id_usuario',u.nombre as 'nombre_usuario', password, id_rol as 'id_rol', r.nombre as 'nombre_rol'"+
+	" FROM usuario as u, rol as r"+
+	" WHERE u.id = ?;";
 
 
 
@@ -70,7 +79,7 @@ public class UsuariosDaoJDBC implements CrudAble<Usuario> {
 		ArrayList<Usuario> usuariosArray = new ArrayList<Usuario>();
 		int rows = 0;
 		try (Connection conexion = ConnectionManager.getConnection();
-				PreparedStatement ps = conexion.prepareStatement(SQL_SELECT);
+				PreparedStatement ps = conexion.prepareStatement(SQL_GET_ALL);
 				ResultSet rs = ps.executeQuery();) {
 			System.out.println("Pasando por getAll UsuariosDaoJDBC");
 			while (rs.next()) {
@@ -158,10 +167,13 @@ public class UsuariosDaoJDBC implements CrudAble<Usuario> {
 	private Usuario rowMapper(ResultSet rs) throws Exception {
 		Usuario usuario = new Usuario();
 		if (rs != null) {
-			usuario.setId(rs.getLong("id"));
-			usuario.setNombre(rs.getString("nombre"));
+			usuario.setId(rs.getInt("id_usuario"));
+			usuario.setNombre(rs.getString("nombre_usuario"));
 			usuario.setPass(rs.getString("password"));
-			usuario.setRol(rs.getInt("rol"));
+			//usuario.setId("id_usuario");
+			Rol rol = new Rol();
+			rol.setId((int) rs.getLong("id_rol"));
+			usuario.setRol(rol);
 
 		}
 		return usuario;

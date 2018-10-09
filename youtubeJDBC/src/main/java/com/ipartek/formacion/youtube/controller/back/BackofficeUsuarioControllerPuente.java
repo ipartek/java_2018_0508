@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.ipartek.formacion.youtube.model.RolDao;
 import com.ipartek.formacion.youtube.model.UsuariosDaoJDBC;
 import com.ipartek.formacion.youtube.pojo.Alert;
 import com.ipartek.formacion.youtube.pojo.Usuario;
@@ -24,6 +25,7 @@ import com.ipartek.formacion.youtube.pojo.Usuario;
 public class BackofficeUsuarioControllerPuente extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private static UsuariosDaoJDBC usuariosJDBC;
+	private static RolDao rolDao;
 	private ArrayList<Usuario> usuarios;
 	private String view = "tree";
 
@@ -47,6 +49,7 @@ public class BackofficeUsuarioControllerPuente extends HttpServlet {
 		// Se ejecuta solo con la 1º petición, el resto de peticiones iran a "service"
 		// inicializamos el arraydao de usuarios
 		usuariosJDBC = UsuariosDaoJDBC.getInstance();
+		rolDao = rolDao.getInstance();
 	}
 
 	/**
@@ -109,6 +112,7 @@ public class BackofficeUsuarioControllerPuente extends HttpServlet {
 			view = VIEW_LISTADO;
 			alert = new Alert();
 		} finally {
+			request.setAttribute("roles", rolDao.getAll());
 			request.setAttribute("alert", alert);
 			request.setAttribute("usuarios", usuarios);
 			request.setAttribute("view", view);
@@ -147,7 +151,7 @@ public class BackofficeUsuarioControllerPuente extends HttpServlet {
 					usuarioNuevoActualizar = usuariosJDBC.getById(id);
 					usuarioNuevoActualizar.setNombre(nombre);
 					usuarioNuevoActualizar.setPass(password);
-					/*usuarioNuevoActualizar.setRol(Integer.parseInt(rol));*/
+					usuarioNuevoActualizar.setRol(rolDao.getById( rol));
 					usuariosJDBC.update(usuarioNuevoActualizar);
 					
 					

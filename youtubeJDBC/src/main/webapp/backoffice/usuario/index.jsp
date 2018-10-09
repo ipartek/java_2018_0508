@@ -46,6 +46,8 @@
                         
                         	<!-- VISTA LISTA -->                   	                      	
                         	<c:if test="${view == 'tree'}">
+                        	
+                        	
 	                            <table width="100%" class="userDataTable table table-striped table-bordered table-hover " id="userDataTable">
 	                                <thead>
 	                                    <tr>
@@ -62,7 +64,7 @@
 		                                    	<td><a href="<%=request.getContextPath()%>/backoffice/usuario?usuarioId=${u.id }&op=4">${u.id }</a></td>
 		                                        <td>${u.nombre }</td>
 		                                        <%-- <td>${u.pass }</td> --%>
-		                                       	<td>${(u.rol == 1)?'normal':'administrador' }</td>
+		                                       	<td>${(u.rol.id == 1)?'administrador':'normal' }</td>
 		                                    </tr>
 	                                    </c:forEach>
 	                                   
@@ -101,6 +103,7 @@
 			                            		<h1 class="page-header">${usuarioSeleccionado.id  == -1?'crear Usuario' : usuarioSeleccionado.nombre }</h1>
 			                            		<!-- PAGINACION -->
 												<ul class="pagination">
+													
 												  <li><a href="usuario?accion=menos&usuarioId=${usuarioSeleccionado.id }">&laquo;</a></li>
 												  <li><a href="usuario?accion=mas&usuarioId=${usuarioSeleccionado.id }">&raquo;</a></li>
 												</ul>
@@ -118,7 +121,10 @@
 				                            	</div>
 				                            	<div class="form-group">
 				                            		<label for="nombreUsuario">Contraseña</label>
-				                            		<input type="password" name="password" value="${usuarioSeleccionado.pass }" placeholder ="password">
+				                            		<div class="input-group">
+				                            			<span class="input-group-addon"><i onclick="showPass(event,'password')" class="far fa-eye"></i></span>
+				                            			<input id="password" type="password" name="password" value="${usuarioSeleccionado.pass }" placeholder ="password">
+				                            		</div>
 				                            	</div>
 				                            	<div class="form-group">
 												   <label for="rol">Rol</label>
@@ -126,10 +132,15 @@
 												   		<option value="${Usuario.ROL_USER}"  ${(usuarioSeleccionado.rol == Usuario.ROL_USER)?'selected':'' }>Normal</option>
 												   		<option value="${Usuario.ROL_ADMIN}"  ${(usuarioSeleccionado.rol == Usuario.ROL_ADMIN)?'selected':'' }  >Administrador</option>
 												   </select> --%>
+
 												   <select name="rol" class="form-control">
-												   		<option value="${Usuario.ROL_USER}"  ${(usuarioSeleccionado.rol == Usuario.ROL_USER)?'selected':'' }>Normal</option>
-												   		<option value="${Usuario.ROL_ADMIN}"  ${(usuarioSeleccionado.rol == Usuario.ROL_ADMIN)?'selected':'' }  >Administrador</option>
+												   		<c:forEach items="${roles}" var="rol">
+												   													   				
+												   				<option value="${rol.id }"  ${usuarioSeleccionado.rol.id  == rol.id ? 'selected':''} >${rol.nombre}</option>
+												   			
+												   		</c:forEach>
 												   </select>
+												   
 												</div>
 			                            	</div>
 		                            	</div>
@@ -153,6 +164,7 @@
 	                            				event.preventDefault():
 	                            			}
 	                            		}
+	                            		
 	                            	</script>
                             	</div>
                             	

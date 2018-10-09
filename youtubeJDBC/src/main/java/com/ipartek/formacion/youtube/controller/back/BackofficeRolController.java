@@ -1,9 +1,6 @@
 package com.ipartek.formacion.youtube.controller.back;
 
 import java.io.IOException;
-import java.sql.SQLDataException;
-import java.sql.SQLException;
-import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.ArrayList;
 
 import javax.servlet.ServletConfig;
@@ -14,16 +11,15 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.ipartek.formacion.youtube.model.RolDao;
-import com.ipartek.formacion.youtube.model.UsuariosDaoJDBC;
 import com.ipartek.formacion.youtube.pojo.Alert;
 import com.ipartek.formacion.youtube.pojo.Rol;
-import com.ipartek.formacion.youtube.pojo.Usuario;
+
 
 /**
  * Servlet implementation class BackofficeUsuarioController
  */
 @WebServlet("/backoffice/rol")
-public class BackofficeRolController extends HttpServlet {
+public class BackofficeRolController extends HttpServlet implements CrudControllable {
 	private static final long serialVersionUID = 1L;
 	private static RolDao rolDao;
 	private ArrayList<Rol> roles;
@@ -54,7 +50,7 @@ public class BackofficeRolController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
 	 *      response)
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+	public void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		try {
 			doProcess(request, response);
@@ -68,7 +64,7 @@ public class BackofficeRolController extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
 	 *      response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+	public void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		try {
 			doProcess(request, response);
@@ -81,7 +77,7 @@ public class BackofficeRolController extends HttpServlet {
 
 	}
 
-	protected void doProcess(HttpServletRequest request, HttpServletResponse response)
+	public void doProcess(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		try {
 
@@ -119,7 +115,7 @@ public class BackofficeRolController extends HttpServlet {
 
 	}
 
-	private void listar(HttpServletRequest request) throws Exception {
+	public void listar(HttpServletRequest request) throws Exception {
 		roles = (ArrayList<Rol>) rolDao.getAll();
 		urlView = VIEW_LISTADO;
 		if (view == null) {
@@ -128,7 +124,7 @@ public class BackofficeRolController extends HttpServlet {
 
 	}
 
-	private void guardar(HttpServletRequest request) {
+	public void guardar(HttpServletRequest request) {
 		System.out.println("Guardar");
 		Rol rolNuevoActualizar = new Rol();
 		try {
@@ -180,7 +176,7 @@ public class BackofficeRolController extends HttpServlet {
 
 	}
 
-	private void irFormulario(HttpServletRequest request) throws Exception{
+	public void irFormulario(HttpServletRequest request) throws Exception{
 		Rol rolSeleccionado = new Rol();
 		urlView = VIEW_LISTADO;
 		view = "form";
@@ -191,20 +187,21 @@ public class BackofficeRolController extends HttpServlet {
 
 	}
 
-	private void eliminar(HttpServletRequest request) throws Exception {
+	public void eliminar(HttpServletRequest request) throws Exception {
 		try {
+			getParameters(request);
 			rolDao.delete(id);
-			alert = new Alert(Alert.WARNING, "Usuario eliminado correctamente");
+			alert = new Alert(Alert.WARNING, "rol eliminado correctamente");
 			listar(request);
 		} catch (Exception e) {
 			e.printStackTrace();
-			alert = new Alert(Alert.WARNING, "No podemos borrar un usuario con videos asociados");
+			alert = new Alert(Alert.WARNING, "No podemos borrar un rol con Usuario asociaados");
 		}
 		
 
 	}
 
-	private void getParameters(HttpServletRequest request) {
+	public void getParameters(HttpServletRequest request) {
 		op = (request.getParameter("op") != null) ? request.getParameter("op") : OP_LISTAR;
 		id = request.getParameter("id");
 		nombre = request.getParameter("nombre");

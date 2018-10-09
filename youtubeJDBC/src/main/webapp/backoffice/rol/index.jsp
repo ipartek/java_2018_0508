@@ -109,8 +109,8 @@
 				                            		<input name="op" type="hidden" value="2"   placeholder="operacion">
 			                            		</div>
 			                            		<div class="form-group">
-				                            		<label for="rolId">id</label>
-				                            		<input name="id" type="text" value="${rolSeleccionado.id }"  readonly placeholder="numero de id">
+				                            		
+				                            		<input name="id" type="hidden" value="${rolSeleccionado.id }"  readonly placeholder="numero de id">
 			                            		</div>
 			                            		<div class="form-group">
 				                            		<label for="nombreRol">Rol</label>
@@ -124,7 +124,7 @@
                             			<%-- <input type="submit" value="${usuario.id == -1 ?'Crear' : 'Modificar' }" class="btn btn-primary btn-block"> --%>
 	                            		<input type="submit" value="${(empty rolSeleccionado.id )?'Crear': 'Modificar' }" class="btn btn-primary btn-block">
 	                            		<c:if test="${not empty rolSeleccionado.id}">
-						      				<a href="<%=request.getContextPath()%>/backoffice/rol?rolId=${rolSeleccionado.id}&op=<%=BackofficeUsuarioControllerPuente.OP_ELIMINAR%>" onclick="confirmar(event)" class="btn btn-danger btn-block">Eliminar(Modal)</a>
+						      				<a href="<%=request.getContextPath()%>/backoffice/rol?id=${rolSeleccionado.id}&op=<%=BackofficeUsuarioControllerPuente.OP_ELIMINAR%>" onclick="confirmar(event)" class="btn btn-danger btn-block">Eliminar(Modal)</a>
 						      			</c:if>	
 	                            	</form>
 	                            	<script>

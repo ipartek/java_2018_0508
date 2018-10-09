@@ -10,8 +10,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.ipartek.formacion.youtube.model.RolDao;
 import com.ipartek.formacion.youtube.model.UsuariosDaoJDBC;
 import com.ipartek.formacion.youtube.pojo.Alert;
+import com.ipartek.formacion.youtube.pojo.Rol;
 import com.ipartek.formacion.youtube.pojo.Usuario;
 
 /**
@@ -22,6 +24,8 @@ public class BackofficeUsuarioController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private static UsuariosDaoJDBC usuariosJDBC;
 	private ArrayList<Usuario> usuarios;
+	private static RolDao rolDao;
+	private ArrayList<Rol> roles;
 	private String view = "tree";
 	
 	
@@ -47,6 +51,7 @@ public class BackofficeUsuarioController extends HttpServlet {
 		//Se ejecuta solo con la 1º petición, el resto de peticiones iran a "service"
 		//inicializamos el arraydao de usuarios
 		usuariosJDBC =  UsuariosDaoJDBC.getInstance();
+		rolDao = rolDao.getInstance();
 	}
 	
 	
@@ -165,14 +170,14 @@ public class BackofficeUsuarioController extends HttpServlet {
 			if(nombreUsuario != null && passwordUsuario != null && usuarioId != null) {
 				/*if (rol != null) {*/
 					int intId = Integer.parseInt(usuarioId);
-					usuario = new Usuario(intId,nombreUsuario,passwordUsuario,1);
+					usuario = new Usuario(intId,nombreUsuario,passwordUsuario,new Rol(2,"usuario"));
 					//usuarios.add(usuario);
 					usuariosJDBC.update(usuario);
 				/*}*/
 				
 			}
 			
-			
+			request.setAttribute("roles",rolDao.getAll() );
 			request.setAttribute("usuario", usuario);
 			request.getRequestDispatcher("usuario/index.jsp").forward(request, response);
 		} catch (Exception e) {
