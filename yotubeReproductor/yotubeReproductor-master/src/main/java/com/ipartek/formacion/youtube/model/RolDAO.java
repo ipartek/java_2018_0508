@@ -12,11 +12,11 @@ import com.ipartek.formacion.youtube.Rol;
 
 public class RolDAO implements CrudAble<Rol> {
 	private static RolDAO INSTANCE = null;
-
+//Tablas Auxiliares
 	private static final String SQL_GET_ALL = "SELECT id, nombre FROM rol ORDER BY id DESC LIMIT 500;";
 	private static final String SQL_GET_BY_ID = "SELECT id, nombre FROM rol WHERE id = ?;";
-	private static final String SQL_UPDATE = "UPDATE `youtube`.`rol` SET `nombre` = ? WHERE `id` = ?;";
-	private static final String SQL_DELETE = "DELETE FROM `youtube`.`rol` WHERE id = ?;";
+	private static final String SQL_UPDATE = "UPDATE `rol` SET `nombre` = ? WHERE `id` = ?;";
+	private static final String SQL_DELETE = "DELETE FROM `rol` WHERE id = ?;";
 	private static final String SQL_INSERT = "INSERT INTO `rol` (`nombre`) VALUES (?);";
 
 	public RolDAO() {
@@ -41,9 +41,7 @@ public class RolDAO implements CrudAble<Rol> {
 			int affectedRows = ps.executeUpdate();
 			if (affectedRows == 1) {
 
-				// use youtube;
-				// select MAX(id) as id from usuario;
-				// conseguir ID generado
+				
 				try (ResultSet rs = ps.getGeneratedKeys()) {
 					while (rs.next()) {
 						pojo.setId(rs.getLong(1));
@@ -51,7 +49,7 @@ public class RolDAO implements CrudAble<Rol> {
 
 					}
 				}
-			}
+			}//(affectedRows == 1)
 
 		}
 
@@ -60,6 +58,7 @@ public class RolDAO implements CrudAble<Rol> {
 
 	@Override
 	public List<Rol> getAll() throws Exception {
+		Rol rol= null;
 
 		ArrayList<Rol> roles = new ArrayList<Rol>();
 		try (Connection con = ConnectionManager.getConnection();
@@ -67,7 +66,7 @@ public class RolDAO implements CrudAble<Rol> {
 				ResultSet rs = ps.executeQuery();) {
 
 			while (rs.next()) {
-				roles.add(rowMapper(rs, null));
+				roles.add(rowMapper(rs, rol));
 			}
 
 		}

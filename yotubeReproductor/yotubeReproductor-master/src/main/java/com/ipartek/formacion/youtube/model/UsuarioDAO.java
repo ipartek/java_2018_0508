@@ -8,19 +8,30 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.ipartek.formacion.youtube.Rol;
 import com.ipartek.formacion.youtube.Usuario;
-import com.ipartek.formacion.youtube.Video;
 
 public class UsuarioDAO implements CrudAble<Usuario> {
 
 	private static UsuarioDAO INSTANCE = null;
 
-	private static final String SQL_GET_ALL = "SELECT id, nombre, password, rol FROM usuario ORDER BY id DESC LIMIT 500;";
-	private static final String SQL_GET_BY_ID = "SELECT id, nombre, password, rol FROM usuario WHERE id = ?;";
-	private static final String SQL_UPDATE = "UPDATE `youtube`.`usuario` SET `nombre` = ?, `password` = ?, `rol` = ? WHERE `id` = ?;";
-	private static final String SQL_DELETE = "DELETE FROM `youtube`.`usuario` WHERE id = ?;";
-	private static final String SQL_LOGIN = "SELECT `id`, `nombre`, `password`, `rol` FROM youtube.usuario WHERE nombre = ? AND password = ?;";
-	private static final String SQL_INSERT = "INSERT INTO `usuario` (`nombre`, `password`, `rol` ) VALUES (?,?,?);";
+	private static final String SQL_GET_ALL = "SELECT u.id as `id_usuario`, u.nombre as `nombre_usuario`, password, id_rol , r.nombre as `nombre_rol`" + ""
+			+ "FROM youtube.usuario as u, youtube.rol as r "+" "
+				+ "WHERE u.id_rol = r.id"+" "
+						+ "ORDER BY u.id DESC LIMIT 1000;";
+	private static final String SQL_GET_BY_ID = "SELECT u.id as `id_usuario`, u.nombre as `nombre_usuario`, password, id_rol , r.nombre as `nombre_rol` " + ""
+			+ "FROM youtube.usuario as u, youtube.rol as r "
+			+ "WHERE  u.id_rol = r.id AND u.id = ?;";
+	private static final String SQL_UPDATE = "UPDATE `youtube`.`usuario`" + 
+			"SET `nombre` = ?, `password` = ?, `id_rol` = ? " 
+			+ "WHERE `id` = ?;";
+	private static final String SQL_DELETE = "DELETE FROM `youtube`.`usuario` "
+			+ "WHERE id = ?;";
+	private static final String SQL_LOGIN = "SELECT u.id as `id_usuario`, u.nombre as `nombre_usuario`, password, id_rol , r.nombre as `nombre_rol` "
+			+ "FROM youtube.usuario as u, youtube.rol as r "
+			+ "WHERE u.id_rol = r.id AND u.nombre = ? "
+			+ "AND password = ?;";
+	private static final String SQL_INSERT = "INSERT INTO `usuario` (`nombre`, `password`, `id_rol` ) VALUES (?,?,?);";
 
 	private UsuarioDAO() {
 		super();
@@ -40,7 +51,7 @@ public class UsuarioDAO implements CrudAble<Usuario> {
 	 * @return true si existe en ddbb, false en caso contrario
 	 */
 
-	public Usuario login(Usuario pojo)  throws Exception{
+	public Usuario login(Usuario pojo) throws Exception {
 		Usuario resul = null;
 
 		try (Connection con = ConnectionManager.getConnection();
@@ -64,21 +75,20 @@ public class UsuarioDAO implements CrudAble<Usuario> {
 	}
 
 	@Override
-	public boolean insert(Usuario pojo)  throws Exception {
+	public boolean insert(Usuario pojo) throws Exception {
 		boolean resul = false;
 		try (Connection con = ConnectionManager.getConnection();
 				PreparedStatement ps = con.prepareStatement(SQL_INSERT, Statement.RETURN_GENERATED_KEYS);) {
 
 			ps.setString(1, pojo.getNombre().trim());
 			ps.setString(2, pojo.getPassword().trim());
-			ps.setInt(3, pojo.getRol());
+			ps.setLong(3, pojo.getRol().getId());
 
 			int affectedRows = ps.executeUpdate();
 			if (affectedRows == 1) {
 
-				
-				//use youtube;
-				//select MAX(id) as id from usuario;
+				// use youtube;
+				// select MAX(id) as id from usuario;
 				// conseguir ID generado
 				try (ResultSet rs = ps.getGeneratedKeys()) {
 					while (rs.next()) {
@@ -95,7 +105,7 @@ public class UsuarioDAO implements CrudAble<Usuario> {
 	}
 
 	@Override
-	public List<Usuario> getAll()   throws Exception{
+	public List<Usuario> getAll() throws Exception {
 
 		ArrayList<Usuario> usuarios = new ArrayList<Usuario>();
 		try (Connection con = ConnectionManager.getConnection();
@@ -106,18 +116,18 @@ public class UsuarioDAO implements CrudAble<Usuario> {
 				usuarios.add(rowMapper(rs, null));
 			}
 
-		} 
+		}
 
 		return usuarios;
 	}
 
 	@Override
-	public Usuario getById(String idtem)  throws Exception {
+	public Usuario getById(String idtem) throws Exception {
 		long id = 0;
-		if( idtem != null) {
+		if (idtem != null) {
 			id = Long.parseLong(idtem);
 		}
-			
+
 		Usuario usuario = null;
 		try (Connection con = ConnectionManager.getConnection();
 				PreparedStatement ps = con.prepareStatement(SQL_GET_BY_ID);
@@ -139,27 +149,26 @@ public class UsuarioDAO implements CrudAble<Usuario> {
 	}
 
 	@Override
-	public boolean update(Usuario pojo)  throws Exception {
+	public boolean update(Usuario pojo) throws Exception {
 		boolean resul = false;
 
 		try (Connection con = ConnectionManager.getConnection();
 				PreparedStatement ps = con.prepareStatement(SQL_UPDATE);) {
 			ps.setString(1, pojo.getNombre());
 			ps.setString(2, pojo.getPassword());
-			ps.setInt(3, pojo.getRol());
+			ps.setLong(3, pojo.getRol().getId());
 			ps.setLong(4, pojo.getId());
 
 			if (ps.executeUpdate() == 1) {
 				resul = true;
 			}
 
-		} 
+		}
 		return resul;
 	}
-	
 
 	@Override
-	public boolean delete(String id)  throws Exception {
+	public boolean delete(String id) throws Exception {
 		boolean resul = false;
 
 		try (Connection con = ConnectionManager.getConnection();
@@ -171,7 +180,7 @@ public class UsuarioDAO implements CrudAble<Usuario> {
 				resul = true;
 			}
 
-		} 
+		}
 		return resul;
 	}
 
@@ -182,10 +191,14 @@ public class UsuarioDAO implements CrudAble<Usuario> {
 		}
 
 		if (rs != null) {
-			u.setId(rs.getLong("id"));
-			u.setNombre(rs.getString("nombre"));
+			u.setId(rs.getLong("id_usuario"));
+			u.setNombre(rs.getString("nombre_usuario"));
 			u.setPassword(rs.getString("password"));
-			u.setRol(rs.getInt("rol"));
+			Rol rol = new Rol();
+			rol.setId(rs.getLong("id_rol"));
+			rol.setNombre(rs.getString("nombre_rol"));
+
+			u.setRol(rol);
 		}
 		return u;
 	}

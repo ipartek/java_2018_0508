@@ -28,6 +28,9 @@
                         <li>
                             <a href="usuarios"><i class="fa fa-dashboard fa-fw"></i> Usuarios</a>
                         </li>
+                          <li>
+                            <a href="roles"><i class="fa fa-dashboard fa-fw"></i> Roles</a>
+                        </li>
                         <li>
                             <a href="videos"><i class="fa fa-dashboard fa-fw"></i> Videos</a>
                         </li>

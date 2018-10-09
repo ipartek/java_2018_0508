@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.ipartek.formacion.youtube.Alert;
 import com.ipartek.formacion.youtube.Usuario;
+import com.ipartek.formacion.youtube.model.RolDAO;
 import com.ipartek.formacion.youtube.model.UsuarioDAO;
 
 /**
@@ -24,7 +25,8 @@ public class BackofficeUsuarioController extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
 	private static UsuarioDAO dao;
-	private static ArrayList<Usuario> usuarios = null;
+	private static RolDAO daoRol;
+
 
 	public static final String OP_LISTAR = "1";
 	public static final String OP_GUARDAR = "2"; // insert id == -1 o update id > 0
@@ -48,6 +50,7 @@ public class BackofficeUsuarioController extends HttpServlet {
 		super.init(config);
 		// Se ejecuta solo con la 1º petición, el resto de peticiones iran a "service"
 		dao = UsuarioDAO.getInstance();
+		daoRol = RolDAO.getInstance();
 	}
 
 	@Override
@@ -55,6 +58,7 @@ public class BackofficeUsuarioController extends HttpServlet {
 		super.destroy();
 		// se ejecuta al parar el servidor
 		dao = null;
+		daoRol = null;
 	}
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -123,6 +127,7 @@ public class BackofficeUsuarioController extends HttpServlet {
 		if (Integer.parseInt(id) > 0) {
 			usuario = dao.getById(id);
 		}
+		request.setAttribute("roles", daoRol.getAll());
 		request.setAttribute("usuario", usuario);
 	}
 
@@ -146,14 +151,16 @@ public class BackofficeUsuarioController extends HttpServlet {
 	// Todo para despues gestionar esta throws Exception
 
 	private void guardar(HttpServletRequest request) throws Exception {
-		
 		Usuario u = new Usuario();
-		u.setId(Long.parseLong(id));
-		u.setNombre(nombre);
-		u.setPassword(password);
-		u.setRol(Integer.parseInt(rol));
+
 		
 		try {
+			
+			u.setId(Long.parseLong(id));
+			u.setNombre(nombre);
+			u.setPassword(password);
+			u.setRol(daoRol.getById(rol));
+			
 			if( u.getId() > 0 ) {			
 				dao.update(u);				
 			}else {                 
@@ -188,6 +195,7 @@ public class BackofficeUsuarioController extends HttpServlet {
 		
 		view = VIEW_FORMULARIO;
 		request.setAttribute("usuario", u);
+		request.setAttribute("roles", daoRol.getAll());
 		
 	}
 

@@ -22,6 +22,7 @@
 	</div>
 
 	<div class="row">
+
 		<table id="tablaOrdenable" class="display" style="width: 100%">
 			<thead>
 				<tr>
@@ -37,7 +38,7 @@
 						<td>${u.id}</td>
 						<td><a href="usuarios?id=${u.id}&op=4">${u.nombre}</td></a>
 						
-						<td>${(u.rol==1)?'normal':'administrador'}</td>
+						<td>${u.rol.nombre}</td>
 					</tr>
 				</c:forEach>
 			</tbody>
@@ -54,4 +55,4 @@
 
 </div>
 
-<%@ include file="../includes/footer.jsp" %>    
+<%@ include file="../includes/footer.jsp" %>  

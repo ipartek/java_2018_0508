@@ -3,7 +3,6 @@ package com.ipartek.formacion.youtube.controller.back;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.sql.SQLIntegrityConstraintViolationException;
-import java.util.ArrayList;
 
 import javax.servlet.Servlet;
 import javax.servlet.ServletConfig;
@@ -15,23 +14,16 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.ipartek.formacion.youtube.Alert;
 import com.ipartek.formacion.youtube.Rol;
-import com.ipartek.formacion.youtube.Usuario;
 import com.ipartek.formacion.youtube.model.RolDAO;
-import com.ipartek.formacion.youtube.model.UsuarioDAO;
 
 /**
  * Servlet implementation class BackofficeRolController
  */
 @WebServlet("/backoffice/roles")
-public class BackofficeRolController extends HttpServlet {
+public class BackofficeRolController extends HttpServlet implements CrudControllable {
 	private static final long serialVersionUID = 1L;
 	private static RolDAO dao;
-	private static ArrayList<Usuario> usuarios = null;
 
-	public static final String OP_LISTAR = "1";
-	public static final String OP_GUARDAR = "2"; // insert id == -1 o update id > 0
-	public static final String OP_ELIMINAR = "3";
-	public static final String OP_IR_FORMULARIO = "4";
 
 	private static final String VIEW_LISTADO = "rol/index.jsp";
 	private static final String VIEW_FORMULARIO = "rol/formulario.jsp";
@@ -42,8 +34,6 @@ public class BackofficeRolController extends HttpServlet {
 	private String op; //
 	private String id;
 	private String nombre;
-	private String password;
-	private String rol;
 
 	/**
 	 * @see Servlet#init(ServletConfig)
@@ -81,7 +71,7 @@ public class BackofficeRolController extends HttpServlet {
 		doProcess(request, response);
 	}
 
-	private void doProcess(HttpServletRequest request, HttpServletResponse response)
+	public void doProcess(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
 		try {
@@ -118,17 +108,18 @@ public class BackofficeRolController extends HttpServlet {
 	}
 	// TODO Auto-generated method stub
 
-	private void listar(HttpServletRequest request) throws Exception {
+	public void listar(HttpServletRequest request) throws Exception {
 
 		alert = null;
 		view = VIEW_LISTADO;
 		request.setAttribute("roles", dao.getAll());
 	}
 
-	private void irFormulario(HttpServletRequest request) throws Exception {
+	public void irFormulario(HttpServletRequest request) throws Exception {
 
 		alert = null;
 		view = VIEW_FORMULARIO;
+		
 		Rol rol = new Rol();
 		if (Integer.parseInt(id) > 0) {
 			rol = dao.getById(id);
@@ -136,7 +127,7 @@ public class BackofficeRolController extends HttpServlet {
 		request.setAttribute("rol", rol);
 	}
 
-	private void eliminar(HttpServletRequest request) throws Exception {
+	public void eliminar(HttpServletRequest request) throws Exception {
 
 		try {
 
@@ -148,14 +139,14 @@ public class BackofficeRolController extends HttpServlet {
 		} catch (Exception e) {
 			e.printStackTrace();
 			alert.setTipo("alert-danger");
-			alert.setTexto("No podemos eliminar el rol por que tiene videos creados");
+			alert.setTexto("No podemos eliminar el rol por que tiene usuarios creados");
 		}
 
 		view = VIEW_LISTADO;
 		request.setAttribute("roles", dao.getAll());
 	}
 
-	private void guardar(HttpServletRequest request) throws Exception {
+	public void guardar(HttpServletRequest request) throws Exception {
 
 		Rol r = new Rol();
 		r.setId(Long.parseLong(id));
@@ -167,7 +158,7 @@ public class BackofficeRolController extends HttpServlet {
 			} else {
 				dao.insert(r);
 			}
-			alert.setTexto("Rol guardado");
+			alert.setTexto("Rol guardado con exito");
 			alert.setTipo("alert-success");
 
 			// nombre repetido
@@ -180,8 +171,9 @@ public class BackofficeRolController extends HttpServlet {
 		} catch (SQLException e) {
 			e.printStackTrace();
 			if (e.getMessage().contains("nombre")) {
+				
 				alert.setTipo("alert-danger");
-				alert.setTexto("El <b>nombre</b> debe ser inferior a 40 caracteres");
+				alert.setTexto("El <b>nombre</b> debe ser inferior a 50 caracteres");
 
 			}
 		} catch (Exception e) {
@@ -194,7 +186,7 @@ public class BackofficeRolController extends HttpServlet {
 
 	}
 
-	private void getParameters(HttpServletRequest request) {
+	public void getParameters(HttpServletRequest request) {
 
 		op = (request.getParameter("op") != null) ? request.getParameter("op") : OP_LISTAR;
 		id = request.getParameter("id");

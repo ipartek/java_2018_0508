@@ -19,7 +19,7 @@
 
 		<form action="usuarios" method="post">
 			<input type="hidden" name="op" value="2">
-			
+		
 
 			<div class="form-group">
 				<label for="id">Id</label> <input type="text" class="form-control"
@@ -33,17 +33,20 @@
 			</div>
 
 			<div class="form-group">
-				<label for="password">Contraseña</label> <input type="password"
-					class="form-control" name="password" id="password"
-					value="${usuario.password}">
+				<label for="password">Contraseña</label> 
+					<div class="input-group">
+     				 <div class="input-group-addon"><i class="far fa-eye" onclick="showpass(event, 'password')"></i></div>
+				<input type="password" class="form-control" name="password" id="password" value="${usuario.password}">
+		
 			</div>
 
 			<div class="form-group">
 				<label for="rol">Rol</label> 
-				<select name="rol" class="form-control" value="${usuario.rol}">
-					<option value="${Usuario.ROL_USER}" ${(usuario.rol==1)?'selected':''}>Normal</option>
-					<option value="${Usuario.ROL_ADMIN}" ${(usuario.rol==0)?'selected':''}>Administrador</option>
-				</select>
+				<select name="rol" class="form-control">
+				   		<c:forEach items="${roles}" var="rol">
+				   			<option value="${rol.id}" ${(rol.id==usuario.rol.id)? 'selected':''}>${rol.nombre}</option>
+				   		</c:forEach>
+				   </select>
 			</div>
 
 			<input type="submit"

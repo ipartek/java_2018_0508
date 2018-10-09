@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.ipartek.formacion.youtube.Alert;
+import com.ipartek.formacion.youtube.Rol;
 import com.ipartek.formacion.youtube.Usuario;
 import com.ipartek.formacion.youtube.model.UsuarioDAO;
 
@@ -79,7 +80,7 @@ public class LoginController extends HttpServlet {
 				session.setMaxInactiveInterval(60 * 5); // 5min
 				
 
-				if (u.getRol() == Usuario.ROL_ADMIN) {
+				if (u.getRol().getId() == Rol.ROL_ADMIN) {
 					view = VIEW_INICIO_ADMIN;
 				}
 

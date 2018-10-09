@@ -9,6 +9,8 @@ public class Video {
 	private String nombre;
 	//añadir un atibuto de tipo usuario
 	
+	//https://img.youtube.com/vi/HSpeF-Bu26E/0.jpg
+	
 	public Video() throws Exception {
 		super();
 		this.id = -1;

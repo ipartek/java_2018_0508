@@ -1,3 +1,4 @@
+<%@page import="com.ipartek.formacion.youtube.controller.back.CrudControllable"%>
 <%@ include file="../includes/header.jsp" %>
 <%@ include file="../includes/nav.jsp" %>
 
@@ -10,10 +11,10 @@
 	</div>
 	<!-- /.row -->
 	<div class="row">
-		<div class="col-8">Todo Buscador con su lupita todo txula</div>
+
 		<div class="col-md-4">
-			<a href="roles?id=-1" class="btn btn-success">Crear Nuevo</a>
-		</div>
+      			<a href="roles?id=-1&op=<%=CrudControllable.OP_IR_FORMULARIO%>" class="btn btn-success">Crear Nuevo</a>
+      		</div>
 	</div>
 
 	<div class="row">
@@ -26,12 +27,11 @@
 			</thead>
 			<tbody>
 				<c:forEach items="${roles}" var="r">
-					<tr>
-						<td>${r.id}</td>
-						<td><a href="roles?id=${r.id}&op=4">${r.nombre}</td></a>
-						
-					</tr>
-				</c:forEach>
+			            <tr>
+			                <td>${r.id}</td>
+			                <td><a href="roles?id=${r.id}&op=<%=CrudControllable.OP_IR_FORMULARIO%>">${r.nombre}</a></td>
+			            </tr>
+		            </c:forEach>
 			</tbody>
 			<tfoot>
 				<tr>
