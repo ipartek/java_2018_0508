@@ -16,6 +16,7 @@ import javax.servlet.http.HttpSession;
 
 import com.andrea.perez.model.UsuarioDAO;
 import com.andrea.perez.pojo.Alert;
+import com.andrea.perez.pojo.Rol;
 import com.andrea.perez.pojo.Usuario;
 import com.andrea.perez.pojo.Video;
 
@@ -78,6 +79,7 @@ public class UserController extends HttpServlet {
 			if (user != null && pass != null) {
 
 				Usuario u = new Usuario(user, pass);
+				
 				daoUsuario = UsuarioDAO.getInstance();
 				if (daoUsuario.getByNombre(user, pass) != null) {
 
@@ -89,7 +91,7 @@ public class UserController extends HttpServlet {
 					session.setAttribute("usuario", u);
 					session.setMaxInactiveInterval(60 * 60);// 1 hora
 
-					if (u.getRol() == Usuario.ROL_ADMIN) {
+					if (u.getRol().getId() == Rol.ROL_ADMIN) {
 						view = VIEW_INICIO_ADMIN;
 					}
 

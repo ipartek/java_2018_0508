@@ -3,12 +3,10 @@ package com.andrea.perez.model;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
 import com.andrea.perez.pojo.Rol;
-import com.andrea.perez.pojo.Usuario;
 import com.mysql.jdbc.Statement;
 
 public class RolDAO implements Crudable<Rol> {

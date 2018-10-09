@@ -5,3 +5,7 @@ body{
 span.badge {
     font-size: 44px!important;
 }
+
+a.tam_Font {
+    font-size: 30px;
+}

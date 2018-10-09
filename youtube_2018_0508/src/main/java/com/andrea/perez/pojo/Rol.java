@@ -1,6 +1,8 @@
 package com.andrea.perez.pojo;
 
 public class Rol {
+	public static final int ROL_ADMIN = 1;
+	public static final int ROL_USER = 2;
 
 	private long id;
 	private String nombre;

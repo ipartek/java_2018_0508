@@ -3,7 +3,6 @@ package com.andrea.perez.controller.back;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.sql.SQLIntegrityConstraintViolationException;
-import java.util.ArrayList;
 
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
@@ -12,29 +11,17 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.hibernate.validator.internal.util.privilegedactions.GetMethod;
-import org.hibernate.validator.internal.xml.GetterType;
-
-import com.andrea.perez.model.ComentarioArrayDAO;
 import com.andrea.perez.model.RolDAO;
-import com.andrea.perez.model.UsuarioDAO;
-import com.andrea.perez.model.VideoDAO;
 import com.andrea.perez.pojo.Alert;
 import com.andrea.perez.pojo.Rol;
-import com.andrea.perez.pojo.Usuario;
-import com.mysql.jdbc.exceptions.MySQLIntegrityConstraintViolationException;
 
 /**
  * Servlet implementation class BackofficeUsuarioController
  */
 @WebServlet("/backoffice/roles")
-public class BackofficeRolController extends HttpServlet {
+public class BackofficeRolController extends HttpServlet implements CrudControllable {
 	private static final long serialVersionUID = 1L;
 
-	public static final String OP_LISTAR = "1";
-	public static final String OP_GUARDAR = "2"; // insert id == "" o update id > 0
-	public static final String OP_ELIMINAR = "3";
-	public static final String OP_IR_FORMULARIO = "4";
 	private static final String VIEW_LISTADO = "roles/index.jsp";
 	private static final String VIEW_FORMULARIO = "roles/form.jsp";
 
@@ -74,7 +61,7 @@ public class BackofficeRolController extends HttpServlet {
 
 	}
 
-	protected void doProcess(HttpServletRequest request, HttpServletResponse response)
+	public void doProcess(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
 		try {
@@ -105,31 +92,30 @@ public class BackofficeRolController extends HttpServlet {
 		}
 	}
 
-	private void listar(HttpServletRequest request) throws Exception {
+	public void listar(HttpServletRequest request) throws Exception {
 
 		view = VIEW_LISTADO;
 		request.setAttribute("roles", daoRol.getAll());
 
 	}
 
-	private void guardar(HttpServletRequest request) {
+	public void guardar(HttpServletRequest request) {
 
 		Rol rol = new Rol();
 
-		
-			rol.setId(Long.parseLong(id));
-		
-		
 		rol.setNombre(nombre);
 
 		try {
 			if (!id.equals("")) { // MODIFICAR
-
+				rol.setId(Long.parseLong(id));
 				if (daoRol.update(rol)) {
 					alert = new Alert(Alert.ALERT_SUCCESS, "Rol modificado correctamente");
 				}
-			} else if (daoRol.insert(rol)) { // Insertar
-				alert = new Alert(Alert.ALERT_SUCCESS, "Rol registrado correctamente");
+			} else {
+				
+				if (daoRol.insert(rol)) { // Insertar
+					alert = new Alert(Alert.ALERT_SUCCESS, "Rol registrado correctamente");
+				}
 			}
 			// nombre repetido
 		} catch (SQLIntegrityConstraintViolationException e) {
@@ -152,7 +138,7 @@ public class BackofficeRolController extends HttpServlet {
 
 	}
 
-	private void irFormulario(HttpServletRequest request) throws Exception {
+	public void irFormulario(HttpServletRequest request) throws Exception {
 		Rol rol = null;
 		if (Integer.parseInt(id) > 0) {
 			rol = daoRol.getById(id);
@@ -163,7 +149,7 @@ public class BackofficeRolController extends HttpServlet {
 		request.setAttribute("rol", rol);
 	}
 
-	private void eliminar(HttpServletRequest request) throws Exception {
+	public void eliminar(HttpServletRequest request) throws Exception {
 
 		if (id != null) {
 			try {
@@ -182,7 +168,7 @@ public class BackofficeRolController extends HttpServlet {
 		}
 	}
 
-	private void getParameters(HttpServletRequest request) {
+	public void getParameters(HttpServletRequest request) {
 
 		op = (request.getParameter("op") != null) ? request.getParameter("op") : OP_LISTAR;
 		id = request.getParameter("id");

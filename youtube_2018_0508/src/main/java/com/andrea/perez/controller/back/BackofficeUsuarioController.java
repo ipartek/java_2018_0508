@@ -3,7 +3,6 @@ package com.andrea.perez.controller.back;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.sql.SQLIntegrityConstraintViolationException;
-import java.util.ArrayList;
 
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
@@ -12,15 +11,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.hibernate.validator.internal.util.privilegedactions.GetMethod;
-import org.hibernate.validator.internal.xml.GetterType;
-
-import com.andrea.perez.model.ComentarioArrayDAO;
+import com.andrea.perez.model.RolDAO;
 import com.andrea.perez.model.UsuarioDAO;
-import com.andrea.perez.model.VideoDAO;
 import com.andrea.perez.pojo.Alert;
 import com.andrea.perez.pojo.Usuario;
-import com.mysql.jdbc.exceptions.MySQLIntegrityConstraintViolationException;
 
 /**
  * Servlet implementation class BackofficeUsuarioController
@@ -46,12 +40,14 @@ public class BackofficeUsuarioController extends HttpServlet {
 	private String rol;
 
 	private static UsuarioDAO daoUsuario = null;
+	private static RolDAO daoRol = null;
 
 	@Override
 	public void init(ServletConfig config) throws ServletException {
 		// Se ejecuta solo con la primera peticion. El resto van al service
 		super.init(config);
 		daoUsuario = UsuarioDAO.getInstance();
+		daoRol = RolDAO.getInstance();
 	}
 
 	@Override
@@ -118,12 +114,12 @@ public class BackofficeUsuarioController extends HttpServlet {
 
 		usuario.setNombre(nombre);
 		usuario.setContrasena(contrasena);
-		if(rol!=null) {
-			usuario.setRol(Integer.parseInt(rol));
-		}
-		
 
 		try {
+			if (rol != null) {
+				usuario.setRol(daoRol.getById(rol));
+			}
+
 			if (!id.equals("")) { // MODIFICAR
 
 				usuario.setId(Long.parseLong(id));
@@ -167,6 +163,7 @@ public class BackofficeUsuarioController extends HttpServlet {
 			usuario = new Usuario();
 		}
 		view = VIEW_FORMULARIO;
+		request.setAttribute("roles", daoRol.getAll());
 		request.setAttribute("usuario", usuario);
 	}
 

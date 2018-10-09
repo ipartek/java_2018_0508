@@ -7,7 +7,7 @@
 	        <span class="icon-bar"></span>
 	        <span class="icon-bar"></span>
 	    </button>
-	    <a class="navbar-brand" href="inicio">Backoffice Admin</a>
+	    <a class="navbar-brand tam_Font" href="inicio">Backoffice Admin</a>
 	</div>
 	<!-- /.navbar-header -->
 

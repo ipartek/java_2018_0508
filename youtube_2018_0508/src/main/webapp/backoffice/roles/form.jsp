@@ -27,7 +27,7 @@ ${(rol.id == -1)?'Crear':'Modificar'}
 	      		
 	      		<input type="submit" value="${(rol.id == -1)?'Crear':'Modificar'}" class="btn btn-primary btn-block">
 				<c:if test="${rol.id > 0 }">
-					<a href="roles?id=${rol.id}&op=<%=BackofficeRolController.OP_ELIMINAR%>" onclick="confirmar(event)" class="btn btn-danger btn-block">Eliminar(Modal confirmar)</a>
+					<a href="roles?id=${rol.id}&op=${BackofficeRolController.OP_ELIMINAR}" onclick="confirmar(event)" class="btn btn-danger btn-block">Eliminar(Modal confirmar)</a>
 				</c:if>
       		</form>
       	</div>

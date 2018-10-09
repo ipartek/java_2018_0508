@@ -3,20 +3,30 @@ package com.andrea.perez.model;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.andrea.perez.pojo.Rol;
 import com.andrea.perez.pojo.Usuario;
 import com.mysql.jdbc.Statement;
 
 public class UsuarioDAO implements Crudable<Usuario> {
 	private static UsuarioDAO INSTANCE = null;
-	private static final String SQL_GET_ALL = "SELECT id,nombre, password,rol FROM usuario ORDER BY id DESC LIMIT 1000";
-	private static final String SQL_GET_BY_ID = "SELECT id,nombre, password,rol FROM usuario WHERE id = ?";
-	private static final String SQL_GET_BY_NOMBRE = "SELECT id,nombre,password,rol FROM usuario WHERE nombre=? AND password=?";
-	private static final String SQL_UPDATE = "UPDATE usuario SET nombre= ? ,password= ?,rol=? WHERE id = ?;";
-	private static final String SQL_INSERT = "INSERT INTO usuario (nombre, password,rol) VALUES (?, ?,?);";
+	private static final String SQL_GET_ALL = "SELECT u.id as 'id_usuario',u.nombre as 'nombre_usuario', password,id_rol,r.nombre as 'nombre_rol'"+
+											  " FROM youtube.usuario as u,youtube.rol as r"+
+											  " WHERE u.id_rol=r.id"+
+											  " ORDER BY u.id DESC LIMIT 1000;";
+	
+	private static final String SQL_GET_BY_ID = "SELECT u.id as 'id_usuario',u.nombre as 'nombre_usuario', password,id_rol,r.nombre as 'nombre_rol'"+
+			 									" FROM youtube.usuario as u,youtube.rol as r"+
+			 									" WHERE u.id_rol=r.id AND u.id = ?;";			 									
+	
+	private static final String SQL_GET_BY_NOMBRE = "SELECT u.id as 'id_usuario',u.nombre as 'nombre_usuario', password,id_rol,r.nombre as 'nombre_rol'"+
+												    " FROM youtube.usuario as u,youtube.rol as r"+
+												    " WHERE u.id_rol=r.id AND u.nombre=? AND password=?";
+	
+	private static final String SQL_UPDATE = "UPDATE usuario SET nombre= ? ,password= ?,id_rol=? WHERE id = ?;";
+	private static final String SQL_INSERT = "INSERT INTO usuario (nombre, password,id_rol) VALUES (?, ?,?);";
 	private static final String SQL_DELETE = "DELETE FROM usuario WHERE id = ?;";
 
 	private UsuarioDAO() {
@@ -41,7 +51,7 @@ public class UsuarioDAO implements Crudable<Usuario> {
 
 				ps.setString(1, pojo.getNombre().trim());
 				ps.setString(2, pojo.getContrasena().trim());
-				ps.setLong(3, pojo.getRol());
+				ps.setLong(3, pojo.getRol().getId());
 
 				int affectedRows = ps.executeUpdate();
 
@@ -109,7 +119,7 @@ public class UsuarioDAO implements Crudable<Usuario> {
 
 			ps.setString(1, pojo.getNombre());
 			ps.setString(2, pojo.getContrasena());
-			ps.setInt(3, pojo.getRol());
+			ps.setLong(3, pojo.getRol().getId());
 			ps.setLong(4, pojo.getId());
 
 			int affectedRows = ps.executeUpdate();
@@ -169,11 +179,17 @@ public class UsuarioDAO implements Crudable<Usuario> {
 
 	private Usuario rowMapper(ResultSet rs) throws Exception {
 		Usuario u = new Usuario();
+		
 		if (rs != null) {
-			u.setId(rs.getLong("id"));
-			u.setNombre(rs.getString("nombre"));
+			u.setId(rs.getLong("id_usuario"));
+			u.setNombre(rs.getString("nombre_usuario"));
 			u.setContrasena(rs.getString("password"));
-			u.setRol(rs.getInt("rol"));
+						
+			Rol rol=new Rol();
+			rol.setId(rs.getLong("id_rol"));
+			rol.setNombre(rs.getString("nombre_rol"));
+			
+			u.setRol(rol);
 		}
 		return u;
 	}
