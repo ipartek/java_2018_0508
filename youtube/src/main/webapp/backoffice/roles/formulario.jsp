@@ -29,12 +29,12 @@
 					<input type="text" class="form-control" id="nombre" name="nombre" value="${rol.nombre }" autofocus />
 				</div>
 				
-				<input type="hidden" name="op" value="${CrudControllable.OP_GUARDAR}" />
+				<input type="hidden" name="op" value="<%=CrudControllable.OP_GUARDAR %>" />
 				
 				<input type="submit" value="${(rol.id == -1)? 'Crear' : 'Modificar' }" class="btn btn-success btn-block" />
 			
 				<c:if test="${rol.id >= 0 }">
-					<a href="roles?id=${rol.id}&op=${CrudControllable.OP_ELIMINAR}" onclick="confirmar(event)" class="btn btn-danger btn-block">Eliminar</a>				
+					<a href="roles?id=${rol.id}&op=<%=CrudControllable.OP_ELIMINAR %>" onclick="confirmar(event)" class="btn btn-danger btn-block">Eliminar</a>				
 				</c:if>
 			
 			</form>

@@ -7,12 +7,13 @@ public class Video {
 	private long id;
 	private String codigo;
 	private String nombre;
+	//TODO private Usuario usuario
 	
 	public Video() throws Exception {
 		super();
 		this.id = -1;
-		this.setCodigo("LPDhuthFD98");
-		this.nombre = "Surf Search Spot 2 0 video promo";		
+		this.setCodigo("YjLpGi1b6ig");
+		this.nombre = "TALCO - L'odore della morte - Official Video HD";		
 	}
 	
 	public Video(String codigo, String nombre) throws Exception {
@@ -55,6 +56,5 @@ public class Video {
 	public String toString() {
 		return "Video [id=" + id + ", codigo=" + codigo + ", nombre=" + nombre + "]";
 	}
-	
 	
 }

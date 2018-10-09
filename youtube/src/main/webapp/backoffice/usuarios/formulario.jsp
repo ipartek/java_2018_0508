@@ -31,23 +31,27 @@
 				
 				<div class="form-group">
 					<label for="pass">Contraseña:</label>
-					<input type="password" class="form-control" id="pass" name="pass" value="${usuario.pass }" />
+					<div class="input-group">
+	      				<div class="input-group-addon" onclick="showPass('pass')"><i id="ojo" class="fas fa-eye"></i></div>
+						<input type="password" class="form-control" id="pass" name="pass" value="${usuario.pass }" />
+					</div>
 				</div>
 				
 				<div class="form-group">
 					<label for="rol">Rol:</label>
 					<select id="rol" name="rol" class="form-control">
-						<option value="${Usuario.ROL_USER }" ${(usuario.rol == Usuario.ROL_USER)?'selected' : ''}>Normal</option>
-						<option value="${Usuario.ROL_ADMIN }" ${(usuario.rol == Usuario.ROL_ADMIN)?'selected' : ''}>Administrador</option>
+						<c:forEach items = "${roles }" var = "r">
+							<option value="${r.id }" ${(r.id == usuario.rol.id)? 'selected' : '' }>${r.nombre }</option>
+						</c:forEach>
 					</select>
 				</div>
 				
-				<input type="hidden" name="op" value="${CrudControllable.OP_GUARDAR}" />
+				<input type="hidden" name="op" value="<%=CrudControllable.OP_GUARDAR %>" />
 				
 				<input type="submit" value="${(usuario.id == -1)? 'Crear' : 'Modificar' }" class="btn btn-primary btn-block" />
 			
 				<c:if test="${usuario.id > 0 }">
-					<a href="usuarios?id=${usuario.id}&op=${CrudControllable.OP_ELIMINAR}" onclick="confirmar(event)" class="btn btn-danger btn-block">Eliminar</a>				
+					<a href="usuarios?id=${usuario.id}&op=<%=CrudControllable.OP_ELIMINAR %>" onclick="confirmar(event)" class="btn btn-danger btn-block">Eliminar</a>				
 				</c:if>
 			
 			</form>

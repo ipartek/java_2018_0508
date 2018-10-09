@@ -9,7 +9,7 @@
 	<%@include file="../includes/alert.jsp" %>   
         <div class="row">
             <div class="col-lg-12">
-                <h1 class="page-header titulo">Usuarios <span class="badge nUsuarios">${nUsuarios }</span></h1>
+                <h1 class="page-header titulo">Usuarios <span class="badge nUsuarios">${fn:length(usuarios)}</span></h1>
             </div>
             <!-- /.col-lg-12 -->
         </div>
@@ -23,7 +23,7 @@
   				</form> 			
   			</div>
   			<div class="col-md-4 btn-crear">
-  				<a href="usuarios?id=-1&op=${CrudControllable.OP_IR_FORMULARIO}" class="btn btn-primary">Crear nuevo</a>  			
+  				<a href="usuarios?id=-1&op=<%=CrudControllable.OP_IR_FORMULARIO %>" class="btn btn-primary">Crear nuevo</a>  			
   			</div>
   		
   		</div>
@@ -43,8 +43,8 @@
 				    	
 				    <tr>
 				    	<td>${u.id}</td>
-				    	<td><a href="usuarios?id=${u.id }&op=${CrudControllable.OP_IR_FORMULARIO}">${u.nombre}</a></td>
-				    	<td>${ (u.rol == 1)?'normal' : 'administrador' }</td>			    	
+				    	<td><a href="usuarios?id=${u.id }&op=<%=CrudControllable.OP_IR_FORMULARIO %>">${u.nombre}</a></td>
+				    	<td>${u.rol.nombre}</td>			    	
 				    </tr>
 				    
 				</c:forEach>

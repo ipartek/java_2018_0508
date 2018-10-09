@@ -5,17 +5,14 @@ public class Usuario {
 	private long id;
 	private String nombre;
 	private String pass;
-	private int rol;	//TODO crear pojo y tabla 'rol'
-	
-	public static final int ROL_ADMIN = 0;
-	public static final int ROL_USER = 1;
+	private Rol rol;
 	
 	public Usuario() {
 		super();
 		this.id = -1;
 		this.nombre = "";
 		this.pass = "";
-		this.rol = ROL_USER;
+		this.rol = new Rol();
 	}
 
 		
@@ -52,14 +49,16 @@ public class Usuario {
 		this.pass = pass;
 	}
 
-	public int getRol() {
+
+	public Rol getRol() {
 		return rol;
 	}
 
 
-	public void setRol(int rol) {
+	public void setRol(Rol rol) {
 		this.rol = rol;
 	}
+
 
 	@Override
 	public String toString() {

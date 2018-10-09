@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.ipartek.formacion.youtube.model.RolDAO;
 import com.ipartek.formacion.youtube.model.UsuarioDAO;
 import com.ipartek.formacion.youtube.pojo.Alert;
 import com.ipartek.formacion.youtube.pojo.Usuario;
@@ -22,6 +23,7 @@ import com.ipartek.formacion.youtube.pojo.Usuario;
 public class BackofficeUsuarioController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private static UsuarioDAO daoUsuario;
+	private static RolDAO daoRol;
 	
 	public static final String OP_LISTAR = "1";
 	public static final String OP_GUARDAR = "2";	//insert (id == -1) o update (id > 0) dependiendo del id
@@ -45,6 +47,7 @@ public class BackofficeUsuarioController extends HttpServlet {
 		super.init(config);
 		//Se ejecuta solo con la 1º petición, el resto de peticiones iran a "service"
 		daoUsuario = UsuarioDAO.getInstance();
+		daoRol = RolDAO.getInstance();
 	}
 	
 	@Override
@@ -52,6 +55,7 @@ public class BackofficeUsuarioController extends HttpServlet {
 		super.destroy();
 		//se ejecuta al parar el servidor
 		daoUsuario = null;
+		daoRol = null;
 	}
 	
 	/**
@@ -139,54 +143,55 @@ public class BackofficeUsuarioController extends HttpServlet {
 		
 	}
 
-	private void guardar(HttpServletRequest request) {
+	private void guardar(HttpServletRequest request) throws Exception {
 		
-	
-			Usuario usuario = new Usuario();
-
+		Usuario usuario = new Usuario();
+			
+		try {
 			usuario.setId(Long.parseLong(id));
 			usuario.setNombre(nombre);
 			usuario.setPass(pass);
-			usuario.setRol(Integer.parseInt(rol));
-			
-			try {
-				if(usuario.getId() == -1) {	//Crear nuevo usuario
-					
-					daoUsuario.insert(usuario);
-					
-				}else {		//Modificar usuario existente
-					
-					daoUsuario.update(usuario);
-					
-				}
+			usuario.setRol(daoRol.getById(Long.parseLong(rol)));
 				
-				alert = new Alert(Alert.SUCCESS, "Usuario guardado con éxito");
-			
+			if(usuario.getId() == -1) {	//Crear nuevo usuario
+						
+				daoUsuario.insert(usuario);
+				alert = new Alert(Alert.SUCCESS, "Usuario <b>" + usuario.getNombre() + "</b> creado con éxito");
+						
+			}else {		//Modificar usuario existente
+						
+				daoUsuario.update(usuario);
+				alert = new Alert(Alert.SUCCESS, "Usuario <b>" + usuario.getNombre() + "</b> modificado con éxito");
+						
+			}
 				
-			//Nombre repetido
-			}catch(SQLIntegrityConstraintViolationException e){
-				e.printStackTrace();
-				alert = new Alert(Alert.WARNING, "El usuario <b>" + usuario.getNombre() + "</b> ya existe.");
+		//Nombre repetido
+		}catch(SQLIntegrityConstraintViolationException e){
+			e.printStackTrace();
+			alert = new Alert(Alert.WARNING, "El usuario <b>" + usuario.getNombre() + "</b> ya existe.");
 				
-			//Longitud de campos nombre y password
+		//Longitud de campos nombre y password
 				
-			}catch(SQLException e){
+		}catch(SQLException e){
 				
-				if(e.getMessage().contains("nombre")) {
-					alert = new Alert(Alert.WARNING, "El nombre debe contener como máximo 50 caracteres.");
-				}
-				else if(e.getMessage().contains("password")) {
+			if(e.getMessage().contains("nombre")) {
+				alert = new Alert(Alert.WARNING, "El nombre debe contener como máximo 50 caracteres.");
+			}
+			else if(e.getMessage().contains("password")) {
 					alert = new Alert(Alert.WARNING, "La contraseña debe contener como máximo 20 caracteres.");
-				}
-				
-			}catch (Exception e) {
-				e.printStackTrace();
-				alert = new Alert();
-				
 			}
 			
-			view = VIEW_FORMUALRIO;
-			request.setAttribute("usuario", usuario);
+			e.printStackTrace();
+				
+		}catch (Exception e) {
+			e.printStackTrace();
+			alert = new Alert();
+				
+		}
+			
+		view = VIEW_FORMUALRIO;
+		request.setAttribute("usuario", usuario);
+		request.setAttribute("roles", daoRol.getAll());
 		
 	}
 
@@ -200,6 +205,7 @@ public class BackofficeUsuarioController extends HttpServlet {
 			}
 			
 			request.setAttribute("usuario", usuario);
+			request.setAttribute("roles", daoRol.getAll());
 			view = VIEW_FORMUALRIO;
 			
 		} catch (NumberFormatException e) {

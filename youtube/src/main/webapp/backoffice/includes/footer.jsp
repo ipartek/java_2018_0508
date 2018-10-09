@@ -36,6 +36,21 @@
     		
     	}
     	
+    	function showPass(elementId){
+    		console.log('click showPass '+ elementId);
+    		var el = document.getElementById(elementId);
+    		var ojo = document.getElementById('ojo');
+    		
+    		if(el.type == 'password'){
+    			el.type = 'text';
+    			ojo.className = "fas fa-eye-slash";
+    		}else{
+    			el.type = 'password';
+    			ojo.className = "fas fa-eye";
+    		}
+    		
+    	}
+    	
     </script>
 
 </body>
