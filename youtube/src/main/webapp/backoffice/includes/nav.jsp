@@ -23,16 +23,16 @@
                     <ul class="nav" id="side-menu">
                        
                         <li>
-                            <a href="inicio"><i class="fa fa-dashboard fa-fw"></i> Dashboard</a>
+                            <a href="inicio"><i class="fas fa-tachometer-alt"></i> Dashboard</a>
                         </li>
                         <li>
-                            <a href="usuarios"><i class="fa fa-dashboard fa-fw"></i> Usuarios</a>
+                            <a href="usuarios"><i class="fas fa-users"></i> Usuarios</a>
                         </li>
                         <li>
-                            <a href="roles"><i class="fa fa-dashboard fa-fw"></i> Roles</a>
+                            <a href="roles"><i class="fas fa-tags"></i></i> Roles</a>
                         </li>
                         <li>
-                            <a href="videos"><i class="fa fa-dashboard fa-fw"></i> Videos</a>
+                            <a href="videos"><i class="fab fa-youtube"></i> Videos</a>
                         </li>
                        
                     </ul>
