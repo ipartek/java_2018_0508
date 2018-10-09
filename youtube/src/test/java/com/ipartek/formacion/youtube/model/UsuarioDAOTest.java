@@ -78,7 +78,7 @@ public class UsuarioDAOTest {
 
 	
 	@Test
-	public void testInsert() {
+	public void testInsert() throws Exception {
 		
 		assertFalse("usuario null", dao.insert(null) );
 		assertFalse("Usuario repetido", dao.insert(uMock) );
