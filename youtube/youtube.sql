@@ -1,4 +1,5 @@
-
+CREATE DATABASE  IF NOT EXISTS `youtube` /*!40100 DEFAULT CHARACTER SET latin1 */;
+USE `youtube`;
 -- MySQL dump 10.13  Distrib 5.7.17, for Win64 (x86_64)
 --
 -- Host: localhost    Database: youtube
@@ -16,10 +17,30 @@
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
-DROP DATABASE `youtube`;
-CREATE DATABASE  IF NOT EXISTS `youtube`;
-USE `youtube`;
+--
+-- Table structure for table `rol`
+--
 
+DROP TABLE IF EXISTS `rol`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `rol` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `nombre` varchar(50) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `nombre_UNIQUE` (`nombre`)
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `rol`
+--
+
+LOCK TABLES `rol` WRITE;
+/*!40000 ALTER TABLE `rol` DISABLE KEYS */;
+INSERT INTO `rol` VALUES (1,'administrador'),(2,'usuario');
+/*!40000 ALTER TABLE `rol` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Table structure for table `usuario`
@@ -32,10 +53,12 @@ CREATE TABLE `usuario` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `nombre` varchar(50) CHARACTER SET latin1 NOT NULL,
   `password` varchar(20) CHARACTER SET latin1 NOT NULL,
-  `rol` int(11) NOT NULL DEFAULT '1' COMMENT '0: Administrador\n1: usuario normal',
+  `id_rol` int(11) DEFAULT '2',
   PRIMARY KEY (`id`),
-  UNIQUE KEY `nombre_UNIQUE` (`nombre`)
-) ENGINE=InnoDB AUTO_INCREMENT=79 DEFAULT CHARSET=utf8;
+  UNIQUE KEY `nombre_UNIQUE` (`nombre`),
+  KEY `usuario_has_rol_idx` (`id_rol`),
+  CONSTRAINT `usuario_has_rol` FOREIGN KEY (`id_rol`) REFERENCES `rol` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=68 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -44,7 +67,7 @@ CREATE TABLE `usuario` (
 
 LOCK TABLES `usuario` WRITE;
 /*!40000 ALTER TABLE `usuario` DISABLE KEYS */;
-INSERT INTO `usuario` VALUES (1,'admin','admin',0),(17,'manolo','12345',1),(25,'  maNolito  ','12345',1),(26,'       manolito    ','12345',1),(29,'maria','12345678',1),(34,'Javier','098765432',1),(44,'David','1234',1),(51,'Jose','1234567890',1),(52,'marta','1234567890',1),(53,'joserra','1234567890',1),(54,'DON PIMPOM','12345',1),(57,'TXEMA','12345+6',0),(59,'','',1),(67,'palotes222','',1);
+INSERT INTO `usuario` VALUES (1,'admin','admin',1),(17,'manolo','12345',2),(25,'  maNolito  ','12345',2),(26,'       manolito    ','12345',2),(29,'maria','12345678',2),(34,'Javier','098765432',2),(44,'David','1234',2),(51,'Jose','1234567890',2),(52,'marta','1234567890',2),(53,'joserra','1234567890',2),(54,'DON PIMPOM','12345',2),(57,'TXEMA','12345+6',2),(59,'','',2),(67,'palotes222','',2);
 /*!40000 ALTER TABLE `usuario` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -63,7 +86,7 @@ CREATE TABLE `video` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `codigo_UNIQUE` (`codigo`),
   KEY `video_has_usuario_idx` (`id_usuario`),
-  CONSTRAINT `video_has_usuario` FOREIGN KEY (`id_usuario`) REFERENCES `usuario` (`id`)
+  CONSTRAINT `video_has_usuario` FOREIGN KEY (`id_usuario`) REFERENCES `usuario` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB AUTO_INCREMENT=48 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -86,4 +109,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-10-05 11:44:21
+-- Dump completed on 2018-10-09 10:48:52

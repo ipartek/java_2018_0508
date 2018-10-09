@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.ipartek.formacion.youtube.model.RolDAO;
 import com.ipartek.formacion.youtube.model.UsuarioDAO;
 import com.ipartek.formacion.youtube.pojo.Alert;
 import com.ipartek.formacion.youtube.pojo.Usuario;
@@ -25,6 +26,7 @@ public class BackofficeUsuarioController extends HttpServlet {
 	
 	private static final long serialVersionUID = 1L;
 	private static UsuarioDAO daoUsuario = null;
+	private static RolDAO daoRol = null;
 	
 	public static final String OP_LISTAR = "1";
 	public static final String OP_GUARDAR = "2";  //insert id == -1 o update id > 0
@@ -47,12 +49,14 @@ public class BackofficeUsuarioController extends HttpServlet {
 	public void init(ServletConfig config) throws ServletException {	
 		super.init(config);
 		daoUsuario = UsuarioDAO.getInstance();
+		daoRol = RolDAO.getInstance();
 	}
 	
 	@Override
 	public void destroy() {	
 		super.destroy();
 		daoUsuario = null;
+		daoRol = null;
 	}
     
 	/**
@@ -114,14 +118,16 @@ public class BackofficeUsuarioController extends HttpServlet {
 	}
 
 	private void guardar(HttpServletRequest request) {
-		
 		Usuario u = new Usuario();
-		u.setId(Long.parseLong(id));
-		u.setNombre(nombre);
-		u.setPassword(password);
-		u.setRol(Integer.parseInt(rol));
 		
 		try {
+			
+			u.setId(Long.parseLong(id));
+			u.setNombre(nombre);
+			u.setPassword(password);		
+			u.setRol( daoRol.getById( Long.parseLong(rol)) );
+		
+		
 			if( u.getId() > 0 ) {			
 				daoUsuario.update(u);				
 			}else {                 
@@ -164,6 +170,8 @@ public class BackofficeUsuarioController extends HttpServlet {
 		}else {			
 			request.setAttribute("usuario", daoUsuario.getById( Long.parseLong(id)));
 		}
+		
+		request.setAttribute("roles", daoRol.getAll() );
 	}
 
 	

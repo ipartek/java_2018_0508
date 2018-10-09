@@ -38,7 +38,7 @@
 			            <tr>
 			                <td>${u.id}</td>
 			                <td><a href="usuarios?id=${u.id}&op=<%=BackofficeUsuarioController.OP_IR_FORMULARIO%>">${u.nombre}</a></td>			                
-			                <td>${ (u.rol==1)?'normal':'adminstrador' }</td>		                
+			                <td>${u.rol.nombre}</td>		                
 			            </tr>
 		            </c:forEach>
 		        </tbody>

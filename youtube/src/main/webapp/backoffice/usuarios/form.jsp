@@ -34,11 +34,12 @@
 				   <input type="password" class="form-control" name="password" id="password" value="${usuario.password}">
 				</div>
 				
-				<div class="form-group">
+				<div class="form-group">				
 				   <label for="rol">Rol</label>
 				   <select name="rol" class="form-control">
-				   		<option value="${Usuario.ROL_USER}"  ${(usuario.rol == Usuario.ROL_USER)?'selected':'' }>Normal</option>
-				   		<option value="${Usuario.ROL_ADMIN}"  ${(usuario.rol == Usuario.ROL_ADMIN)?'selected':'' }  >Administrador</option>
+				   		<c:forEach items="${roles}" var="rol">
+				   			<option value="${rol.id}">${rol.nombre}</option>
+				   		</c:forEach>
 				   </select>
 				</div>
       		      		
