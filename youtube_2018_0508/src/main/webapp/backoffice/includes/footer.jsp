@@ -23,7 +23,7 @@
 		        });
 		    });
 		    
-		    <!-- funcion para el confirm de eliminar-->
+		    <!-- funcion para el confirm de eliminar -->
 		    function confirmar(e){
         		if(confirm('¿Estás seguro de que quieres eliminar?')){
         			console.log('Pulsado eliminar');
@@ -33,6 +33,29 @@
         		}
         	}
 		    
+		  //Ocultar y mostrar password
+		  function showpass(event,contrasenna){
+			  
+			  var el=document.getElementById(contrasenna);
+			  
+			  if(el.type=="password"){				  
+				  el.type="text";
+				 
+			  }else{
+				  el.type="password";
+			  }
+			  
+			  
+			  if(event.target.classList.contains("fa-eye")){
+				  event.target.classList.remove("fa-eye");
+				  event.target.classList.add("fa-eye-slash");
+			  }else{
+				  event.target.classList.remove("fa-eye-slash");
+				  event.target.classList.add("fa-eye");
+			  }
+			  
+		  }
+		  
 		    
 	    </script>
 		

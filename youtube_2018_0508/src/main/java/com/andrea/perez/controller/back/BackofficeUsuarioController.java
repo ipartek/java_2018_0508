@@ -130,6 +130,7 @@ public class BackofficeUsuarioController extends HttpServlet {
 			} else if (daoUsuario.insert(usuario)) { // Insertar
 				alert = new Alert(Alert.ALERT_SUCCESS, "Usuario registrado correctamente");
 			}
+			request.setAttribute("roles", daoRol.getAll());
 			// nombre repetido
 		} catch (SQLIntegrityConstraintViolationException e) {
 			e.printStackTrace();
@@ -151,6 +152,8 @@ public class BackofficeUsuarioController extends HttpServlet {
 		}
 
 		request.setAttribute("usuario", usuario);
+		
+		
 		view = VIEW_FORMULARIO;
 
 	}
