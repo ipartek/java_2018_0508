@@ -1,4 +1,4 @@
-<%@page import="com.ipartek.formacion.youtube.controller.back.BackofficeUsuarioController"%>
+<%@page import="com.ipartek.formacion.youtube.controller.back.CrudControllable"%>
 <%@ page import="com.ipartek.formacion.youtube.pojo.Usuario"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@include file="../includes/header.jsp" %>   
@@ -42,12 +42,12 @@
 					</select>
 				</div>
 				
-				<input type="hidden" name="op" value="${BackofficeUsuarioController.OP_GUARDAR}" />
+				<input type="hidden" name="op" value="${CrudControllable.OP_GUARDAR}" />
 				
 				<input type="submit" value="${(usuario.id == -1)? 'Crear' : 'Modificar' }" class="btn btn-primary btn-block" />
 			
 				<c:if test="${usuario.id > 0 }">
-					<a href="usuarios?id=${usuario.id}&op=${BackofficeUsuarioController.OP_ELIMINAR}" onclick="confirmar(event)" class="btn btn-danger btn-block">Eliminar</a>				
+					<a href="usuarios?id=${usuario.id}&op=${CrudControllable.OP_ELIMINAR}" onclick="confirmar(event)" class="btn btn-danger btn-block">Eliminar</a>				
 				</c:if>
 			
 			</form>

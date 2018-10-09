@@ -1,4 +1,4 @@
-<%@page import="com.ipartek.formacion.youtube.controller.back.BackofficeRolController"%>
+<%@page import="com.ipartek.formacion.youtube.controller.back.CrudControllable"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@include file="../includes/header.jsp" %>   
 <%@include file="../includes/nav.jsp" %>   
@@ -23,7 +23,7 @@
   				</form> 			
   			</div>
   			<div class="col-md-4 btn-crear">
-  				<a href="roles?id=-1&op=${BackofficeRolController.OP_IR_FORMULARIO}" class="btn btn-success">Crear nuevo</a>  			
+  				<a href="roles?id=-1&op=${CrudControllable.OP_IR_FORMULARIO}" class="btn btn-success">Crear nuevo</a>  			
   			</div>
   		
   		</div>
@@ -42,7 +42,7 @@
 				    	
 				    <tr>
 				    	<td>${r.id}</td>
-				    	<td><a href="roles?id=${r.id }&op=${BackofficeRolController.OP_IR_FORMULARIO}" class="text-success">${r.nombre}</a></td>		    	
+				    	<td><a href="roles?id=${r.id }&op=${CrudControllable.OP_IR_FORMULARIO}" class="text-success">${r.nombre}</a></td>		    	
 				    </tr>
 				    
 				</c:forEach>

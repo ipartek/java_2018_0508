@@ -13,7 +13,7 @@ public class RolDAO implements CrudAble<Rol> {
 
 	private static RolDAO INSTANCE = null;
 
-	private final String SQL_GET_ALL = "SELECT id, nombre FROM rol ORDER BY id DESC LIMIT 500;";
+	private final String SQL_GET_ALL = "SELECT id, nombre FROM rol ORDER BY id DESC LIMIT 1000;";
 	private final String SQL_GET_BY_ID = "SELECT  id, nombre FROM rol WHERE id = ?;";
 	private final String SQL_UPDATE = "UPDATE rol SET nombre = ? WHERE id = ?;";
 	private final String SQL_DELETE = "DELETE FROM rol WHERE id = ?;";
@@ -47,7 +47,7 @@ public class RolDAO implements CrudAble<Rol> {
 					}
 				}
 
-			}
+			}	//affectedRows == 1
 
 		} 
 		return resul;

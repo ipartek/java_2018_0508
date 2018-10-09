@@ -19,14 +19,9 @@ import com.ipartek.formacion.youtube.pojo.Rol;
  * Servlet implementation class BackofficeRolController
  */
 @WebServlet("/backoffice/roles")
-public class BackofficeRolController extends HttpServlet {
+public class BackofficeRolController extends HttpServlet implements CrudControllable {
 	private static final long serialVersionUID = 1L;
 	private static RolDAO daoRol;
-	
-	public static final String OP_LISTAR = "1";
-	public static final String OP_GUARDAR = "2";	//insert (id == -1) o update (id > 0) dependiendo del id
-	public static final String OP_ELIMINAR = "3";
-	public static final String OP_IR_FORMULARIO = "4";
 
 	private static final String VIEW_LISTADO = "roles/index.jsp";
 	private static final String VIEW_FORMUALRIO = "roles/formulario.jsp";
@@ -69,7 +64,7 @@ public class BackofficeRolController extends HttpServlet {
 		
 	}
 
-	private void doProcess(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	public void doProcess(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		try {
 			
@@ -111,7 +106,7 @@ public class BackofficeRolController extends HttpServlet {
 		
 	}
 	
-	private void getParameters(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	public void getParameters(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		op = (request.getParameter("op") != null)?request.getParameter("op") : OP_LISTAR;
 		id = request.getParameter("id");
@@ -119,7 +114,7 @@ public class BackofficeRolController extends HttpServlet {
 		
 	}
 
-	private void listar(HttpServletRequest request) throws Exception {
+	public void listar(HttpServletRequest request) throws Exception {
 
 		try {
 			view = VIEW_LISTADO;
@@ -133,7 +128,7 @@ public class BackofficeRolController extends HttpServlet {
 		
 	}
 
-	private void guardar(HttpServletRequest request) {
+	public void guardar(HttpServletRequest request) {
 		
 	
 			Rol rol = new Rol();
@@ -142,7 +137,7 @@ public class BackofficeRolController extends HttpServlet {
 			rol.setNombre(nombre);
 			
 			try {
-				if(rol.getId() == -1) {	//Crear nuevo rol
+				if(rol.getId() == -1) {		//Crear nuevo rol
 					
 					daoRol.insert(rol);
 					alert = new Alert(Alert.SUCCESS, "Rol <b>" + rol.getNombre() + "</b> creado con éxito");
@@ -158,13 +153,10 @@ public class BackofficeRolController extends HttpServlet {
 				e.printStackTrace();
 				alert = new Alert(Alert.WARNING, "El rol <b>" + rol.getNombre() + "</b> ya existe.");
 				
-			//Longitud de campos nombre y password
-				
+			//Longitud de campos nombre	
 			}catch(SQLException e){
 				
-				if(e.getMessage().contains("nombre")) {
-					alert = new Alert(Alert.WARNING, "El nombre debe contener como máximo 50 caracteres.");
-				}
+				alert = new Alert(Alert.WARNING, "El nombre debe contener como máximo 50 caracteres.");
 				
 			}catch (Exception e) {
 				e.printStackTrace();
@@ -177,7 +169,7 @@ public class BackofficeRolController extends HttpServlet {
 		
 	}
 
-	private void irFormulario(HttpServletRequest request) throws Exception {
+	public void irFormulario(HttpServletRequest request) throws Exception {
 		
 		try {
 			Rol rol = new Rol();
@@ -196,23 +188,23 @@ public class BackofficeRolController extends HttpServlet {
 		
 	}
 
-	private void eliminar(HttpServletRequest request) throws Exception {
+	public void eliminar(HttpServletRequest request) throws Exception {
 
 		try {
-			if(id != null && op != null && OP_ELIMINAR.equals(op)) {	//Eliminar
-				Rol r  = daoRol.getById(Long.parseLong(id));
-				if(daoRol.delete(Long.parseLong(id))) {
-					alert = new Alert(Alert.SUCCESS, "Rol <b>" + r.getNombre() + "</b> eliminado correctamente");
+			
+			//Eliminar
+			Rol r  = daoRol.getById(Long.parseLong(id));
+			if(daoRol.delete(Long.parseLong(id))) {
+				alert = new Alert(Alert.SUCCESS, "Rol <b>" + r.getNombre() + "</b> eliminado correctamente");
 					
-				}else {
-					alert = new Alert(Alert.WARNING, "No hemos podido eliminar el rol");
-				}
-				
-			}			
+			}else {
+				alert = new Alert(Alert.WARNING, "No hemos podido eliminar el rol.");
+			}
+						
 		} 
 		
 		catch (SQLIntegrityConstraintViolationException e) {
-			//alert = new Alert(Alert.WARNING, "No se puede eliminar el rol, ya que tiene uno o más videos creados.");
+			alert = new Alert(Alert.WARNING, "No hemos podido eliminar el rol porque tiene usuarios asociados.");
 		
 		}catch (Exception e) {
 			e.printStackTrace();

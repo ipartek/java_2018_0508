@@ -1,0 +1,59 @@
+/* Estilos generales */
+img{
+	max-width:100%;
+}
+
+/* Estilos para el menú de cabecera */
+
+nav.menu{
+	background-color:#9ACD32!important;
+	position:relative;
+}
+
+nav .logo{
+	width:100px;
+}
+
+nav .login{
+	position:absolute;
+	right:20px;
+}
+
+.inicio{
+	font-size:1.3em;
+}
+
+.inicio:hover{
+	color:#218838!important;
+}
+
+/* Estilos para el contenido principal */
+
+.container{
+	margin-bottom:2em;
+}
+
+.container .card{
+	margin:1em;
+	padding:0;
+}
+
+#conenidoLogin{
+	min-height:436px;
+}
+
+#listadoPerros img{
+	width:100px;
+}
+
+a.btn-nuevo-perro{
+	margin:1em 0 2em;
+}
+
+/* Estilos para el pie de página */
+.footer{
+	padding:1em;
+	text-align:center;
+	background-color:#9ACD32!important;
+	color:#fff;
+}
