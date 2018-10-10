@@ -7,13 +7,14 @@ public class Video {
 	private long id;
 	private String codigo;
 	private String nombre;
-	//TODO private Usuario usuario
+	private Usuario usuario;
 	
 	public Video() throws Exception {
 		super();
 		this.id = -1;
 		this.setCodigo("YjLpGi1b6ig");
-		this.nombre = "TALCO - L'odore della morte - Official Video HD";		
+		this.nombre = "TALCO - L'odore della morte - Official Video HD";
+		this.usuario = new Usuario();
 	}
 	
 	public Video(String codigo, String nombre) throws Exception {
@@ -52,9 +53,17 @@ public class Video {
 		return codigo;
 	}
 
+	public Usuario getUsuario() {
+		return usuario;
+	}
+
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
+	}
+
 	@Override
 	public String toString() {
-		return "Video [id=" + id + ", codigo=" + codigo + ", nombre=" + nombre + "]";
+		return "Video [id=" + id + ", codigo=" + codigo + ", nombre=" + nombre + ", usuario=" + usuario + "]";
 	}
 	
 }

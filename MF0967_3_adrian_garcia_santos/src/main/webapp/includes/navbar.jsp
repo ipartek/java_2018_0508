@@ -9,6 +9,11 @@
 		<div class="collapse navbar-collapse" id="navbarCollapse">
 			<ul class="navbar-nav mr-auto justify-content-between">
 				<li class="nav-item active"><a class="nav-link inicio" href="home">Inicio</a></li>
+				<li>
+					<form>
+					
+					</form>
+				</li>
 				<li class="nav-item"><a href="${(empty sessionScope.usuario)? 'login.jsp' : 'logout'}" class="btn btn-success login">${(empty sessionScope.usuario)? 'Iniciar sesión' : 'Cerrar sesión'}</a></li>
 			</ul>
 		</div>

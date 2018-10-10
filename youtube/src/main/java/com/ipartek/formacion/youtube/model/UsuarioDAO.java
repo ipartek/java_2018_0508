@@ -74,10 +74,14 @@ public class UsuarioDAO implements CrudAble<Usuario> {
 		ArrayList<Usuario> usuarios = new ArrayList<Usuario>();
 		try (Connection con = ConnectionManager.getConnection();
 				PreparedStatement ps = con.prepareStatement(SQL_GET_ALL);
-				ResultSet rs = ps.executeQuery();) {
+			){
+			
+			try(ResultSet rs = ps.executeQuery()){
 
-			while (rs.next()) {
-				usuarios.add(rowMapper(rs, usuario));
+				while (rs.next()) {
+					usuarios.add(rowMapper(rs, usuario));
+				}
+			
 			}
 
 		} 
@@ -160,9 +164,7 @@ public class UsuarioDAO implements CrudAble<Usuario> {
 	private Usuario rowMapper(ResultSet rs, Usuario u) throws Exception {
 		if (u == null) {
 			u = new Usuario();
-		} else {
-
-		}
+		} 
 
 		if (rs != null) {
 

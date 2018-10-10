@@ -58,3 +58,22 @@
 .panel-footer{
 	background-color:#fff;
 }
+
+#tablaOrdenable img{
+	width:150px;
+}
+
+.eliminarVideo{
+	color:#fff;
+	background-color:#696969;
+}
+
+.eliminarVideo:hover{
+	color:#fff;
+	background-color:#333;
+}
+
+.eliminarVideo:focus{
+	color:#fff;
+}
+

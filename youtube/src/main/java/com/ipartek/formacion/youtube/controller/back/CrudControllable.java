@@ -19,7 +19,7 @@ public interface CrudControllable {
 	
 	public void listar(HttpServletRequest request) throws Exception;
 	
-	public void guardar(HttpServletRequest request);
+	public void guardar(HttpServletRequest request) throws Exception;
 	
 	public void irFormulario(HttpServletRequest request) throws Exception;
 	

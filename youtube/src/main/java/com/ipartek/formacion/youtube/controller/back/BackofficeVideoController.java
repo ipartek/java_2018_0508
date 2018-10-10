@@ -1,7 +1,6 @@
 package com.ipartek.formacion.youtube.controller.back;
 
 import java.io.IOException;
-import java.sql.SQLException;
 import java.sql.SQLIntegrityConstraintViolationException;
 
 import javax.servlet.ServletConfig;
@@ -11,74 +10,63 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.ipartek.formacion.youtube.model.RolDAO;
 import com.ipartek.formacion.youtube.model.UsuarioDAO;
+import com.ipartek.formacion.youtube.model.VideoDAO;
 import com.ipartek.formacion.youtube.pojo.Alert;
-import com.ipartek.formacion.youtube.pojo.Usuario;
+import com.ipartek.formacion.youtube.pojo.Video;
 
 /**
- * Servlet implementation class BackofficeUsuarioController
+ * Servlet implementation class BackofficeVideoController
  */
-@WebServlet("/backoffice/usuarios")
-public class BackofficeUsuarioController extends HttpServlet implements CrudControllable {
+@WebServlet("/backoffice/videos")
+public class BackofficeVideoController extends HttpServlet implements CrudControllable {
 	private static final long serialVersionUID = 1L;
+	private static VideoDAO daoVideo;
 	private static UsuarioDAO daoUsuario;
-	private static RolDAO daoRol;
-	
-	public static final String OP_LISTAR = "1";
-	public static final String OP_GUARDAR = "2";	//insert (id == -1) o update (id > 0) dependiendo del id
-	public static final String OP_ELIMINAR = "3";
-	public static final String OP_IR_FORMULARIO = "4";
-	
-	private static final String VIEW_LISTADO = "usuarios/index.jsp";
-	private static final String VIEW_FORMUALRIO = "usuarios/formulario.jsp";
+
+	private static final String VIEW_LISTADO = "videos/index.jsp";
+	private static final String VIEW_FORMUALRIO = "videos/formulario.jsp";
 	private String view = "";
 	private Alert alert;
-	
+
 	private String op;	//Operación a realizar
 	private String id;
 	private String nombre;
-	private String pass;
-	private String rol;
-
+	private String codigo;
+	private String usuario;
 
 	@Override
 	public void init(ServletConfig config) throws ServletException {	
 		super.init(config);
 		//Se ejecuta solo con la 1º petición, el resto de peticiones iran a "service"
+		daoVideo = VideoDAO.getInstance();
 		daoUsuario = UsuarioDAO.getInstance();
-		daoRol = RolDAO.getInstance();
 	}
 	
 	@Override
 	public void destroy() {	
 		super.destroy();
 		//se ejecuta al parar el servidor
+		daoVideo = null;
 		daoUsuario = null;
-		daoRol = null;
 	}
-	
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
 		doProcess(request, response);
-		
 	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
 		doProcess(request, response);
-		
 	}
-	
+
+	@Override
 	public void doProcess(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-	
-	
+		
 		try {
 			
 			alert = null;
@@ -116,25 +104,27 @@ public class BackofficeUsuarioController extends HttpServlet implements CrudCont
 			request.getRequestDispatcher(view).forward(request, response);
 			
 		}
-	
+		
 	}
 
-	public void getParameters(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	@Override
+	public void getParameters(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		
 		op = (request.getParameter("op") != null)?request.getParameter("op") : OP_LISTAR;
 		id = request.getParameter("id");
 		nombre = request.getParameter("nombre");		
-		pass = request.getParameter("pass");		
-		rol = request.getParameter("rol");
+		codigo = request.getParameter("cod");
+		usuario = request.getParameter("usuario");
 		
 	}
 
+	@Override
 	public void listar(HttpServletRequest request) throws Exception {
-
+		
 		try {
 			view = VIEW_LISTADO;
-			request.setAttribute("nUsuarios", daoUsuario.getAll().size());
-			request.setAttribute("usuarios", daoUsuario.getAll());
+			request.setAttribute("videos", daoVideo.getAll());
 			
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -143,95 +133,92 @@ public class BackofficeUsuarioController extends HttpServlet implements CrudCont
 		
 	}
 
+	@Override
 	public void guardar(HttpServletRequest request) throws Exception {
 		
-		Usuario usuario = new Usuario();
-			
+		Video video = new Video();
+		
 		try {
-			usuario.setId(Long.parseLong(id));
-			usuario.setNombre(nombre);
-			usuario.setPass(pass);
-			usuario.setRol(daoRol.getById(Long.parseLong(rol)));
+			video.setId(Long.parseLong(id));
+			video.setNombre(nombre);
+			video.setUsuario(daoUsuario.getById(Long.parseLong(usuario)));
+			video.setCodigo(codigo);
 				
-			if(usuario.getId() == -1) {	//Crear nuevo usuario
+			if(video.getId() == -1) {	//Crear nuevo usuario
 						
-				daoUsuario.insert(usuario);
-				alert = new Alert(Alert.SUCCESS, "Usuario <b>" + usuario.getNombre() + "</b> creado con éxito");
+				daoVideo.insert(video);
+				alert = new Alert(Alert.SUCCESS, "Video <b>" + video.getNombre() + "</b> creado con éxito");
 						
 			}else {		//Modificar usuario existente
 						
-				daoUsuario.update(usuario);
-				alert = new Alert(Alert.SUCCESS, "Usuario <b>" + usuario.getNombre() + "</b> modificado con éxito");
+				daoVideo.update(video);
+				alert = new Alert(Alert.SUCCESS, "Video <b>" + video.getNombre() + "</b> modificado con éxito");
 						
 			}
 				
-		//Nombre repetido
+		//Codigo repetido
 		}catch(SQLIntegrityConstraintViolationException e){
 			e.printStackTrace();
-			alert = new Alert(Alert.WARNING, "El usuario <b>" + usuario.getNombre() + "</b> ya existe.");
+			alert = new Alert(Alert.WARNING, "El video con código <b>" + video.getCodigo() + "</b> ya existe.");
 				
-		//Longitud de campos nombre y password
-				
-		}catch(SQLException e){
-				
-			if(e.getMessage().contains("nombre")) {
-				alert = new Alert(Alert.WARNING, "El nombre debe contener como máximo 50 caracteres.");
-			}
-			else if(e.getMessage().contains("password")) {
-					alert = new Alert(Alert.WARNING, "La contraseña debe contener como máximo 20 caracteres.");
-			}
-			
-			e.printStackTrace();
-				
+		//Longitud de campo codigo
 		}catch (Exception e) {
-			e.printStackTrace();
-			alert = new Alert();
+			if(e.getMessage().contains("IDENTIFICADOR")) {
+				alert = new Alert(Alert.WARNING, "El código debe ser exactamente de 11 caracteres.");
+				e.printStackTrace();
 				
+			}else {
+				e.printStackTrace();
+				alert = new Alert();
+			}
+
 		}
 			
 		view = VIEW_FORMUALRIO;
-		request.setAttribute("usuario", usuario);
-		request.setAttribute("roles", daoRol.getAll());
+		request.setAttribute("video", video);
+		request.setAttribute("usuarios", daoUsuario.getAll());
 		
 	}
+		
 
+	@Override
 	public void irFormulario(HttpServletRequest request) throws Exception {
 		
 		try {
-			Usuario usuario = new Usuario();
+			
+			Video video = new Video();
 			
 			if(Integer.parseInt(id) > 0) {
-				usuario = daoUsuario.getById(Long.parseLong(id));
+				video = daoVideo.getById(Long.parseLong(id));
 			}
 			
-			request.setAttribute("usuario", usuario);
-			request.setAttribute("roles", daoRol.getAll());
+			request.setAttribute("video", video);
+			request.setAttribute("usuarios", daoUsuario.getAll());
 			view = VIEW_FORMUALRIO;
 			
-		} catch (NumberFormatException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 			alert = new Alert();
 		}
 		
+		
+		
 	}
 
+	@Override
 	public void eliminar(HttpServletRequest request) throws Exception {
 
 		try {
 			if(id != null && op != null && OP_ELIMINAR.equals(op)) {	//Eliminar
-				Usuario u  = daoUsuario.getById(Long.parseLong(id));
-				if(daoUsuario.delete(Long.parseLong(id))) {
-					alert = new Alert(Alert.SUCCESS, "Usuario <b>" + u.getNombre() + "</b> eliminado correctamente");
+				Video v  = daoVideo.getById(Long.parseLong(id));
+				if(daoVideo.delete(Long.parseLong(id))) {
+					alert = new Alert(Alert.SUCCESS, "Video <b>" + v.getNombre() + "</b> eliminado correctamente");
 					
 				}else {
-					alert = new Alert(Alert.WARNING, "No hemos podido eliminar el usuario");
+					alert = new Alert(Alert.WARNING, "No hemos podido eliminar el video");
 				}
 				
 			}			
-		} 
-		
-		catch (SQLIntegrityConstraintViolationException e) {
-			alert = new Alert(Alert.WARNING, "No se puede eliminar el usuario, ya que tiene uno o más videos creados.");
 		
 		}catch (Exception e) {
 			e.printStackTrace();
@@ -240,7 +227,8 @@ public class BackofficeUsuarioController extends HttpServlet implements CrudCont
 		
 		listar(request);
 		
-	}
-	
-	
+		}
+		
 }
+
+
