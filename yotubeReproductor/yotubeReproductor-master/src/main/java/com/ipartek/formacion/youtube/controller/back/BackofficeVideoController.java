@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.ipartek.formacion.youtube.Alert;
+import com.ipartek.formacion.youtube.Usuario;
 import com.ipartek.formacion.youtube.Video;
 import com.ipartek.formacion.youtube.model.UsuarioDAO;
 import com.ipartek.formacion.youtube.model.VideoDAO;
@@ -162,7 +163,12 @@ public class BackofficeVideoController extends HttpServlet {
 			v.setId(Long.parseLong(id));
 			v.setNombre(nombre);
 			v.setCodigo(codigo);
-			v.setUsuario(daoUsuario.getById(usuario));
+			
+			Usuario usuarioVideo = new Usuario();
+			usuarioVideo.setId(Long.parseLong(usuario));
+			v.setUsuario(usuarioVideo);
+			
+			//v.setUsuario(daoUsuario.getById(usuario));
 
 			if (v.getId() > 0) {
 				dao.update(v);
@@ -183,7 +189,7 @@ public class BackofficeVideoController extends HttpServlet {
 			e.printStackTrace();
 			if (e.getMessage().contains("nombre")) {
 				alert.setTipo("alert-danger");
-				alert.setTexto("El <b>nombre</b> debe ser inferior a 50 caracteres");
+				alert.setTexto("El <b>nombre</b> debe ser inferior a 150 caracteres");
 
 			}
 		} catch (Exception e) {

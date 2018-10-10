@@ -39,7 +39,7 @@ public class VideoDAO implements CrudAble<Video> {
 	}
 
 	@Override
-	public boolean insert(Video pojo) {
+	public boolean insert(Video pojo) throws Exception {
 		boolean resul = false;
 		try (Connection con = ConnectionManager.getConnection();
 				PreparedStatement ps = con.prepareStatement(SQL_INSERT, Statement.RETURN_GENERATED_KEYS);) {
@@ -63,10 +63,7 @@ public class VideoDAO implements CrudAble<Video> {
 				}
 			}
 
-		} catch (Exception e) {
-			e.printStackTrace();
-			// TODO: handle exception
-		}
+		} 
 		return resul;
 	}
 
