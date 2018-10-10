@@ -196,7 +196,8 @@ public class HomeController extends HttpServlet {
 			} else {
 
 				//llamar al constructor de video que tiene tambien el usuario pasandole el usuario de la sesion
-				videoInicio = new Video(codigo, nombre);
+				Usuario u = (Usuario) request.getSession().getAttribute("usuario");
+				videoInicio = new Video(codigo, nombre, u);
 				
 				if (dao.insert(videoInicio)) {
 					alert = new Alert(Alert.SUCCESS, "Gracias por subir tu video");
