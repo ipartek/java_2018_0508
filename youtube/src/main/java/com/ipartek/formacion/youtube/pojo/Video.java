@@ -1,32 +1,38 @@
 package com.ipartek.formacion.youtube.pojo;
 
-public class VideoYoutube {
+public class Video {
 
 	public static final int COD_LONGITUD = 11;
 
 	private long id;
 	private String cod;
 	private String nombre;
+	
+	private Usuario usuario;
 
-	public VideoYoutube() throws Exception {
+	//	CONSTRUCTORES
+	public Video() {
 		super();
 		this.id = -1;
-		this.setCod("XBbovuvX-N4");
-		this.setNombre("¿Mejor Afilado Para Cuchillo De Supervivencia? - Scandi VS Plano");
+		this.cod = "";
+		this.nombre = "";
+		this.usuario = new Usuario();
 	}
 
-	public VideoYoutube(String codigo, String nombre) throws Exception {
+	public Video(String codigo, String nombre, Usuario usuario) throws Exception {
 		this();
 		this.id = -1;
 		this.setCod(codigo);
 		this.nombre = nombre;
+		this.usuario = usuario;
 	}
-
+	
+	//	GETTERS AND SETTERS
 	public long getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(long id) {
 		this.id = id;
 	}
 
@@ -49,5 +55,14 @@ public class VideoYoutube {
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
+
+	public Usuario getUsuario() {
+		return usuario;
+	}
+
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
+	}
+	
 
 }

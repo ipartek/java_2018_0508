@@ -15,13 +15,15 @@ public class UsuarioDAO implements CrudAble<Usuario> {
 
 	private static UsuarioDAO INSTANCE = null;
 
-	private final String SQL_GET_ALL = "SELECT u.idUsuario, u.nombre as usuario_nombre, u.password, u.id_rol, "
-			+ "r.idRol, r.nombre as rol_nombre " + "FROM usuario as u, rol as r " + "WHERE u.id_rol = r.idRol "
-			+ "ORDER BY r.idRol DESC LIMIT 1000;";
+	private final String SQL_GET_ALL = "SELECT u.idUsuario, u.nombre as usuario_nombre, u.password, u.id_rol,"
+			+ " r.idRol, r.nombre as rol_nombre" 
+			+ " FROM usuario as u, rol as r " + "WHERE u.id_rol = r.idRol"
+			+ " ORDER BY r.idRol DESC LIMIT 1000;";
 
-	private final String SQL_GET_BY_ID = "SELECT u.idUsuario, u.nombre as 'usuario_nombre', u.password, u.id_rol, r.idRol, r.nombre as 'rol_nombre'"
-			+ " FROM usuario as u, rol as r" 
-			+ " WHERE u.id_rol = r.idRol AND idUsuario=?;";
+	private final String SQL_GET_BY_ID = "SELECT u.idUsuario, u.nombre as usuario_nombre, u.password, u.id_rol,"
+			+ " r.idRol, r.nombre as rol_nombre" 
+			+ " FROM usuario as u, rol as r " + "WHERE u.id_rol = r.idRol AND u.idUsuario = ?"
+			+ " ORDER BY r.idRol DESC LIMIT 1000;";
 	
 	private final String SQL_GET_BY_NAME = "SELECT idUsuario, nombre, password, id_rol FROM usuario WHERE nombre = ?;";
 
@@ -134,7 +136,8 @@ public class UsuarioDAO implements CrudAble<Usuario> {
 
 			ps.setString(1, pojo.getNombre().trim());
 			ps.setString(2, pojo.getPassword().trim());
-			ps.setLong(3, pojo.getRol().getId());
+			
+			ps.setLong(3, pojo.getRol().getId()); // FK id_Rol
 
 			int affectedRows = ps.executeUpdate();
 			if (affectedRows == 1) {

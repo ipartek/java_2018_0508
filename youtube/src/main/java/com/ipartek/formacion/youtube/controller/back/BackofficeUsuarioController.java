@@ -38,7 +38,7 @@ public class BackofficeUsuarioController extends HttpServlet implements ICRUDCon
 	private String id;
 	private String nombre;
 	private String password;
-	private String rol;
+	private String idRol;
 
 	@Override
 	public void init(ServletConfig config) throws ServletException {
@@ -118,7 +118,7 @@ public class BackofficeUsuarioController extends HttpServlet implements ICRUDCon
 		id = request.getParameter("id");
 		nombre = request.getParameter("nombre");
 		password = request.getParameter("password");
-		rol = request.getParameter("rol");
+		idRol = request.getParameter("rol");
 	}
 
 	@Override
@@ -139,7 +139,7 @@ public class BackofficeUsuarioController extends HttpServlet implements ICRUDCon
 		user.setNombre(nombre);
 		user.setPass(password);
 		
-		user.setRol(daoRol.getById(Integer.parseInt(rol)));
+		user.setRol(daoRol.getById(Integer.parseInt(idRol)));
 
 		try {
 

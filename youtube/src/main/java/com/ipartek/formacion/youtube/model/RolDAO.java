@@ -154,7 +154,7 @@ public class RolDAO implements CrudAble<Rol> {
 	}
 	
 	
-	//--------- PRIVATE FUNCITONS --------//
+	//--------- PRIVATE FUNCTIONS --------//
 	//-----------------------------------//
 	private Rol rowMapper(ResultSet rs) throws SQLException {
 

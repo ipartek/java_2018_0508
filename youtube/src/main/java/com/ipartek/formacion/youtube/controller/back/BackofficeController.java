@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.ipartek.formacion.youtube.model.RolDAO;
 import com.ipartek.formacion.youtube.model.UsuarioDAO;
-import com.ipartek.formacion.youtube.model.VideoYoutubeDAO;
+import com.ipartek.formacion.youtube.model.VideoDAO;
 
 /**
  * Servlet implementation class BackofficeController
@@ -23,14 +23,14 @@ public class BackofficeController extends HttpServlet {
 	private static final String VIEW_INICIO = "/backoffice/index.jsp";
 	
 	private static UsuarioDAO daoUsuario;
-	private static VideoYoutubeDAO daoVideo;
+	private static VideoDAO daoVideo;
 	private static RolDAO daoRol;
     
 	@Override
 	public void init(ServletConfig config) throws ServletException {		
 		super.init(config);
 		daoUsuario = UsuarioDAO.getInstance();
-		daoVideo = VideoYoutubeDAO.getInstance();
+		daoVideo = VideoDAO.getInstance();
 		daoRol = RolDAO.getInstance();
 	}
 	
