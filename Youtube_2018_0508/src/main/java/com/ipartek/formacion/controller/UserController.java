@@ -85,7 +85,7 @@ public class UserController extends HttpServlet {
 				
 				//Guardar Usuario en session
 				session.setAttribute("usuario", usuario);
-				session.setMaxInactiveInterval(60*5); //5 minutos
+				session.setMaxInactiveInterval(60*60*5); //5 horas
 				
 				//Gestionar cookies
 				gestionarCookies(request, response, usuario);

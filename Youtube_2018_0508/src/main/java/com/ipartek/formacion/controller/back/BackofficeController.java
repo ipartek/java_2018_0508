@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.ipartek.formacion.model.RolDAO;
 import com.ipartek.formacion.model.UsuarioDAO;
 import com.ipartek.formacion.model.VideoDAO;
+import com.ipartek.formacion.pojo.Alert;
 
 /**
  * Servlet implementation class BackofficeController
@@ -27,12 +28,15 @@ public class BackofficeController extends HttpServlet {
 	private static VideoDAO daoVideo;
 	private static RolDAO daoRol;
 	
+	Alert alert = null;
+	
 	@Override
 	public void init(ServletConfig config) throws ServletException {
 		super.init(config);
 		daoUsuario = UsuarioDAO.getInstance();
 		daoVideo = VideoDAO.getInstance();
 		daoRol = RolDAO.getInstance();
+		alert = null;
 	}	
 
 	/**
@@ -55,6 +59,7 @@ public class BackofficeController extends HttpServlet {
 		}catch(Exception e) {
 			e.printStackTrace();
 		}finally {
+			request.setAttribute("alert", alert);
 			request.getRequestDispatcher(VIEW_INICIO).forward(request, response);
 		}
 	}

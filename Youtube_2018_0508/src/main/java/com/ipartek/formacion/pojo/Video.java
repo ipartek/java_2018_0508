@@ -98,6 +98,6 @@ public class Video {
 
 	@Override
 	public String toString() {
-		return "Video [id=" + id + "codigo=" + codigo + ", titulo=" + titulo + ", descripcion=" + descripcion + "]";
+		return "Video [id=" + id + "codigo=" + codigo + ", titulo=" + titulo + ", usuario=" + usuario + "]";
 	}
 }

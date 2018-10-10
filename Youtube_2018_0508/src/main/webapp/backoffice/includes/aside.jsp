@@ -12,7 +12,7 @@
 	<!-- /.navbar-header -->
 
 	<ul class="nav navbar-top-links navbar-right">
-		<li><a href="../logout"><i class="fa fa-sign-out fa-fw"></i> Cerrar Sesión</a>
+		<li><a href="../logout">Cerrar Sesión <i class="fa fa-sign-out fa-fw"></i></a>
 	</ul>
          
          <!-- /.navbar-top-links -->
@@ -31,13 +31,13 @@
                 <!-- /input-group -->
             	</li>
 	            <li>
-	                <a href="inicio"><i class="fa fa-dashboard fa-fw"></i> Inicio</a>
+	                <a href="inicio"><i class="fas fa-home fa-fw"></i> Inicio</a>
 	            </li>
 	            <li>
 	                <a href="usuarios"><i class="fa fa-table fa-fw"></i> Usuarios</a>
 	            </li>
 	            <li>
-	                <a href="videos"><i class="fa fa-table fa-fw"></i> Vídeos</a>
+	                <a href="videos"><i class="fab fa-youtube fa-fw"></i> Vídeos</a>
 	            </li>
 	            <li>
 	                <a href="roles"><i class="fa fa-sitemap fa-fw"></i> Roles</a>

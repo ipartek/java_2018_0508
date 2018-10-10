@@ -36,12 +36,13 @@ public class BackofficeVideoController extends HttpServlet implements CrudContro
 	private String op; //Operacion a realizar
 	private String id; //Id del video
 	private String codigo;
-	private String titulo; //Nombre del usuario
-	private String usuario;
+	private String titulo; //Nombre del video
+	private String usuario; //ID del usuario
 	
 	@Override
 	public void init(ServletConfig config) throws ServletException {
 		super.init(config);
+		alert = null;
 		daoVideo = VideoDAO.getInstance();
 		daoUsuario = UsuarioDAO.getInstance();
 	}
@@ -58,29 +59,6 @@ public class BackofficeVideoController extends HttpServlet implements CrudContro
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		doProcess(request, response);
-		
-//		ArrayList<Video> videos = (ArrayList<Video>) daoVideo.getAll();
-//		
-//		String id = request.getParameter("id");
-//		
-//		try {
-//			if(id == null) {
-//				request.setAttribute("videos", videos);
-//				view = VIEW_INDEX_VIDEOS;
-//				
-//			}else {
-//				Video video = new Video();
-//				if(Integer.parseInt(id)>0) {
-//					video = daoVideo.getById(id);
-//				}
-//				view = VIEW_FORM_VIDEOS;
-//				request.setAttribute("video", video);
-//			}
-//		}catch(Exception e) {
-//			e.printStackTrace();
-//		}finally {
-//			request.getRequestDispatcher(view).forward(request, response);
-//		}
 	}
 
 	/**
@@ -167,6 +145,7 @@ public class BackofficeVideoController extends HttpServlet implements CrudContro
 			video.setCodigo(codigo);
 			
 			video.setUsuario(daoUsuario.getById(usuario));
+			//video.setUsuario(new Usuario(Long.parseLong(usuario)));
 			
 				if(id.equals("")) {
 					//Crear Video nuevo
@@ -178,10 +157,9 @@ public class BackofficeVideoController extends HttpServlet implements CrudContro
 				}
 				alert = new Alert(Alert.ALERT_SUCCESS, "Vídeo guardado con éxito.");
 				request.setAttribute("usuarios", daoUsuario.getAll());					
-			}
-			//Nombre repetido
-			catch(SQLIntegrityConstraintViolationException e) {
+			}catch(SQLIntegrityConstraintViolationException e) {
 				e.printStackTrace();
+				alert = new Alert(Alert.ALERT_WARNING, "El código del vídeo ya existe.");
 			}
 			//Longitud campos titulo y codigo
 			catch(SQLException e) {

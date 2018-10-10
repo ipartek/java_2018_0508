@@ -12,7 +12,7 @@
 			<a class="navbar-brand" href="#">Youtube Playlist</a>
 			
 			<!--Idiomas -->
-			<div class="ml-1 text-light botones-idioma"><% %>
+			<div class="ml-1 text-light">
 				<span> 
 					<a href="inicio?idioma=es_ES" class="badge badge-${(sessionScope.idioma eq 'es_ES')?'warning':'light'}" ${(sessionScope.idioma eq 'es_ES')?'active':''}>
 					ES</a>
