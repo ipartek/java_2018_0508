@@ -43,7 +43,7 @@
                                         <td>${v.id}</td>
                                         <td><a href="videos?id=${v.id}">${v.codigo}</a> </td>
                                         <td>${v.titulo}</td>
-                                        <th>Icono</th>
+                                        <th><img src="https://img.youtube.com/vi/${v.codigo}/0.jpg"></img></th>
                                     </tr>
                                 </c:forEach>
                                 </tbody>
