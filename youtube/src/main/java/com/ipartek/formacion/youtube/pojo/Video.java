@@ -9,11 +9,11 @@ public class Video {
 	private String nombre;
 	private Usuario usuario;
 	
-	public Video() throws Exception {
+	public Video() {
 		super();
 		this.id = -1;
-		this.setCodigo("YjLpGi1b6ig");
-		this.nombre = "TALCO - L'odore della morte - Official Video HD";
+		this.codigo = "";
+		this.nombre = "";
 		this.usuario = new Usuario();
 	}
 	

@@ -4,7 +4,7 @@
 <%@include file="../includes/nav.jsp" %>   
 
 	<div id="page-wrapper" class="contenedor">   
-<%@include file="../includes/alert.jsp" %> 
+	<%@include file="../includes/alert.jsp" %> 
   
 	    <div class="row">
             <div class="col-lg-12">
@@ -28,25 +28,33 @@
   		</div>
 	    
 		<table id="tablaOrdenable" class="display">
-			    <thead>
-			        <tr>
-			            <th>Id</th>
-			            <th>Nombre</th>
-			            <th>Usuario</th>
-			            <th>Imagen</th>
-			        </tr>
-			    </thead>
-			    <tbody>
-			    	<c:forEach items="${videos}" var="v">
-				        <tr>
-				            <td>${v.id}</td>
-				            <td><a href="videos?id=${v.id }&op=<%=CrudControllable.OP_IR_FORMULARIO %>" class="text-danger">${v.nombre}</a></td>
-				            <td><a href="usuarios?id=${v.usuario.id }&op=<%=CrudControllable.OP_IR_FORMULARIO %>">${v.usuario.nombre}</a></td>
-				            <td><img src="https://img.youtube.com/vi/${v.codigo}/0.jpg" alt="Miniatura de ${v.nombre}" title="Miniatura de ${v.nombre}" /></td>
-				        </tr>
-			        </c:forEach>
-			    </tbody>
-			</table>
-		</div>
+			<thead>
+			    <tr>
+			        <th>Id</th>
+			        <th>Imagen</th>
+			        <th>Nombre</th>
+			        <th>Usuario</th>
+			    </tr>
+			</thead>
+			<tbody>
+			    <c:forEach items="${videos}" var="v">
+				    <tr>
+				        <td>${v.id}</td>
+				        <td><img src="https://img.youtube.com/vi/${v.codigo}/0.jpg" class="thumbnail" alt="Miniatura de ${v.nombre}" title="Miniatura de ${v.nombre}" /></td>
+				        <td><a href="videos?id=${v.id }&op=<%=CrudControllable.OP_IR_FORMULARIO %>" class="text-danger">${v.nombre}</a></td>
+				        <td><a href="usuarios?id=${v.usuario.id }&op=<%=CrudControllable.OP_IR_FORMULARIO %>">${v.usuario.nombre}</a></td>
+				    </tr>
+			    </c:forEach>
+			</tbody>
+			<tfoot>
+			    <tr>
+			        <th>Id</th>
+			        <th>Nombre</th>
+			        <th>Usuario</th>
+			        <th>Imagen</th>
+			    </tr>
+			</tfoot>
+		</table>
+	</div>
     
 <%@include file="../includes/footer.jsp"%>

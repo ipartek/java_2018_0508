@@ -1,3 +1,12 @@
+.menuHorizontal{
+	position:relative;
+}
+
+.cerrarSesion{
+	position:absolute;
+	right:15px;
+}
+
 .btn-crear{
 	text-align:right;
 }
@@ -59,8 +68,9 @@
 	background-color:#fff;
 }
 
-#tablaOrdenable img{
+.thumbnail{
 	width:150px;
+	padding:0;
 }
 
 .eliminarVideo{
@@ -77,3 +87,9 @@
 	color:#fff;
 }
 
+
+@media only screen and (max-width: 768px) {
+	.cerrarSesion{
+		position:static;
+	}
+}

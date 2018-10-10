@@ -50,6 +50,13 @@
 				</c:forEach>
 			        
 			</tbody>
+			<tfoot>
+				<tr>
+				    <th>Id</th>
+				    <th>Nombre</th>
+				    <th>Rol</th>
+			 	</tr>
+			</tfoot>
 		</table>
 		
 		

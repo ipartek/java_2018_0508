@@ -8,15 +8,23 @@
  	<div id="page-wrapper" class="contenedor">
  	  
 	<%@include file="../includes/alert.jsp" %> 
-        <div class="row">
-            <div class="col-lg-12">
-                <h1 class="page-header">${(video.id == -1)? 'Crear Video' : video.nombre }</h1>
+        <div class="row page-header">
+            <div class="col-lg-8">
+                <h1>${(video.id == -1)? 'Crear Video' : video.nombre }</h1>
             </div>
-            <!-- /.col-lg-12 -->
+			
+			<c:if test="${video.id > 0}">
+			
+				<div class="col-lg-4">
+					<img src="https://img.youtube.com/vi/${video.codigo}/0.jpg" class="thumbnail" alt="miniatura_del_video" title="miniatura_del_video" />
+				</div>
+			
+			</c:if>
+		
         </div>
 	
 		<div class="row">
-		${video }
+
 			<form action="videos" method="post">
 				
 				<div class="form-group">

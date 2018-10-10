@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.ipartek.formacion.youtube.model.UsuarioDAO;
 import com.ipartek.formacion.youtube.model.VideoDAO;
 import com.ipartek.formacion.youtube.pojo.Alert;
+import com.ipartek.formacion.youtube.pojo.Usuario;
 import com.ipartek.formacion.youtube.pojo.Video;
 
 /**
@@ -30,10 +31,10 @@ public class BackofficeVideoController extends HttpServlet implements CrudContro
 	private Alert alert;
 
 	private String op;	//Operación a realizar
-	private String id;
+	private String id_video;
 	private String nombre;
 	private String codigo;
-	private String usuario;
+	private String id_usuario;
 
 	@Override
 	public void init(ServletConfig config) throws ServletException {	
@@ -112,10 +113,10 @@ public class BackofficeVideoController extends HttpServlet implements CrudContro
 			throws ServletException, IOException {
 		
 		op = (request.getParameter("op") != null)?request.getParameter("op") : OP_LISTAR;
-		id = request.getParameter("id");
+		id_video = request.getParameter("id");
 		nombre = request.getParameter("nombre");		
 		codigo = request.getParameter("cod");
-		usuario = request.getParameter("usuario");
+		id_usuario = request.getParameter("usuario");
 		
 	}
 
@@ -139,17 +140,20 @@ public class BackofficeVideoController extends HttpServlet implements CrudContro
 		Video video = new Video();
 		
 		try {
-			video.setId(Long.parseLong(id));
+			video.setId(Long.parseLong(id_video));
 			video.setNombre(nombre);
-			video.setUsuario(daoUsuario.getById(Long.parseLong(usuario)));
 			video.setCodigo(codigo);
+			
+			Usuario u = new Usuario();
+			u.setId(Long.parseLong(id_usuario));
+			video.setUsuario(u);
 				
-			if(video.getId() == -1) {	//Crear nuevo usuario
+			if(video.getId() == -1) {	//Crear nuevo video
 						
 				daoVideo.insert(video);
 				alert = new Alert(Alert.SUCCESS, "Video <b>" + video.getNombre() + "</b> creado con éxito");
 						
-			}else {		//Modificar usuario existente
+			}else {		//Modificar video existente
 						
 				daoVideo.update(video);
 				alert = new Alert(Alert.SUCCESS, "Video <b>" + video.getNombre() + "</b> modificado con éxito");
@@ -188,8 +192,8 @@ public class BackofficeVideoController extends HttpServlet implements CrudContro
 			
 			Video video = new Video();
 			
-			if(Integer.parseInt(id) > 0) {
-				video = daoVideo.getById(Long.parseLong(id));
+			if(Integer.parseInt(id_video) > 0) {
+				video = daoVideo.getById(Long.parseLong(id_video));
 			}
 			
 			request.setAttribute("video", video);
@@ -209,9 +213,9 @@ public class BackofficeVideoController extends HttpServlet implements CrudContro
 	public void eliminar(HttpServletRequest request) throws Exception {
 
 		try {
-			if(id != null && op != null && OP_ELIMINAR.equals(op)) {	//Eliminar
-				Video v  = daoVideo.getById(Long.parseLong(id));
-				if(daoVideo.delete(Long.parseLong(id))) {
+			if(id_video != null && op != null && OP_ELIMINAR.equals(op)) {	//Eliminar
+				Video v  = daoVideo.getById(Long.parseLong(id_video));
+				if(daoVideo.delete(Long.parseLong(id_video))) {
 					alert = new Alert(Alert.SUCCESS, "Video <b>" + v.getNombre() + "</b> eliminado correctamente");
 					
 				}else {
