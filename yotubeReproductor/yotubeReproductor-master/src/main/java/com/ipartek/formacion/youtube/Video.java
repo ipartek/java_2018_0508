@@ -12,11 +12,11 @@ public class Video {
 
 	// https://img.youtube.com/vi/HSpeF-Bu26E/0.jpg
 
-	public Video() throws Exception {
+	public Video()  {
 		super();
 		this.id = -1;
-		this.setCodigo("LPDhuthFD98");
-		this.nombre = "Surf Search Spot 2 0 video promo";
+		this.codigo="";
+		this.nombre = "";
 		this.usuario = new Usuario();
 	}
 
@@ -24,7 +24,7 @@ public class Video {
 	public Video(String codigo, String nombre, Usuario usuario) throws Exception {
 		this();
 		this.id = -1;
-		this.setCodigo(codigo);
+		this.codigo = (codigo);
 		this.nombre = nombre;
 		this.usuario = usuario;
 	}

@@ -21,6 +21,12 @@
 				<label for="id">Id</label> <input type="text" class="form-control"
 					name="id" id="id" value="${video.id}" readonly>
 			</div>
+			
+			<div class="form-group">
+				<label for="codigo">Codigo</label> <input type="text"
+					class="form-control" name="codigo" id="codigo"
+					value="${video.codigo}" autofocus>
+			</div>
 
 			<div class="form-group">
 				<label for="nombre">Nombre</label> <input type="text"
@@ -30,7 +36,7 @@
 			
 			<div class="form-group">
 				<label for="usuario">Usuario</label> 
-				<select name="usuario" class="form-control" disabled >
+				<select name="usuario" class="form-control" >
 				   		<c:forEach items="${usuarios}" var="usuario">
 				   			<option value="${usuario.id}" ${(usuario.id==video.usuario.id)? 'selected':''}>${usuario.nombre}</option>
 				   		</c:forEach>
@@ -42,7 +48,7 @@
 				value="${(video.id == -1)?'Crear': 'Modificar'}"
 				class="btn btn-primary btn-block">
 			<c:if test="${video.id > 0 }">
-				<a href="videos?id=${video.id}&op=borrar" onclick="confirmar(event)"
+				<a href="videos?id=${video.id}&op=3" onclick="confirmar(event)"
 					class="btn btn-danger btn-block">Eliminar(Confirmar)</a>
 			</c:if>
 		</form>

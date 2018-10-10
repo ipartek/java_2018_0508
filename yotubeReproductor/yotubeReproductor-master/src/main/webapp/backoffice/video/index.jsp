@@ -21,6 +21,7 @@
 			<thead>
 				<tr>
 					<th>id</th>
+					<th>imagen</th>
 					<th>nombre</th>
 					<th>usuario</th>
 				</tr>
@@ -29,6 +30,7 @@
 				<c:forEach items="${videos}" var="v">
 					<tr>
 						<td>${v.id}</td>
+						<td><img src="http://img.youtube.com/vi/${v.codigo}/0.jpg" alt="imagen por defecto del video " class="thumbnail" /></td>
 						<td><a href="videos?id=${v.id}&op=4">${v.nombre}</td></a>
 						<td>${v.usuario.nombre}</td>
 					</tr>
@@ -37,6 +39,7 @@
 			<tfoot>
 				<tr>
 					<th>id</th>
+					<th>imagen</th>
 					<th>nombre</th>
 					<th>usuario</th>
 				</tr>

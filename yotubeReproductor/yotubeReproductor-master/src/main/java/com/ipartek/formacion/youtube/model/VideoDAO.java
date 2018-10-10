@@ -21,7 +21,8 @@ public class VideoDAO implements CrudAble<Video> {
 	private final String SQL_GET_BY_ID = "SELECT v.id as id_video, v.codigo, v.nombre as nombre_video, u.id as id_usuario, u.nombre as nombre_usuario "+
 										" FROM video as v, usuario as u "+
 										" WHERE v.id = ? AND  u.id = v.id_usuario;";
-	private final String SQL_UPDATE = "UPDATE video SET nombre= ? WHERE id = ?;";
+	
+	private final String SQL_UPDATE = "UPDATE youtube, video SET nombre= ?, codigo= ?, id_usuario= ? WHERE id = ?;";
 	private final String SQL_DELETE = "DELETE FROM video WHERE id = ?;";
 	//añadir la columna de id_usuario
 	private final String SQL_INSERT = "INSERT INTO video (codigo, nombre, id_usuario) VALUES (?,?,?);";
@@ -78,7 +79,7 @@ public class VideoDAO implements CrudAble<Video> {
 				ResultSet rs = ps.executeQuery();) {
 
 			while (rs.next()) {
-				videos.add(rowMapper(rs));
+				videos.add(rowMapper(rs, null));
 			}
 
 		} catch (Exception e) {
@@ -89,8 +90,11 @@ public class VideoDAO implements CrudAble<Video> {
 	}
 
 	@Override
-	public Video getById(String id) {
+	public Video getById(String id) throws Exception  {
+		
+		
 		Video video = null;
+
 		try (Connection con = ConnectionManager.getConnection();
 				PreparedStatement ps = con.prepareStatement(SQL_GET_BY_ID);
 
@@ -100,7 +104,7 @@ public class VideoDAO implements CrudAble<Video> {
 			try (ResultSet rs = ps.executeQuery()) {
 
 				while (rs.next()) {
-					video = rowMapper(rs);
+					video = rowMapper(rs, video);
 
 				}
 			}
@@ -131,14 +135,17 @@ public class VideoDAO implements CrudAble<Video> {
 		return resul;
 	}
 
-	private Video rowMapper(ResultSet rs) throws Exception {
-		Video video = new Video();
+	private Video rowMapper(ResultSet rs, Video video) throws Exception {
+		
+			video = new Video();
+			Usuario usuario = new Usuario();
+		
 		if (rs != null) {
 			video.setId(rs.getLong("id_video"));
 			video.setCodigo(rs.getString("codigo"));
 			video.setNombre(rs.getString("nombre_video"));
 			
-			Usuario usuario = new Usuario();
+			
 			usuario.setId(rs.getLong("id_usuario"));
 			usuario.setNombre(rs.getString("nombre_usuario"));
 
@@ -155,7 +162,9 @@ public class VideoDAO implements CrudAble<Video> {
 				PreparedStatement ps = con.prepareStatement(SQL_UPDATE);) {
 
 			ps.setString(1, pojo.getNombre());
-			ps.setLong(2, pojo.getId());
+			ps.setString(2, pojo.getCodigo());
+			ps.setLong(3, pojo.getUsuario().getId());
+			ps.setLong(4, pojo.getId());
 
 			if (ps.executeUpdate() == 1) {
 				resul = true;

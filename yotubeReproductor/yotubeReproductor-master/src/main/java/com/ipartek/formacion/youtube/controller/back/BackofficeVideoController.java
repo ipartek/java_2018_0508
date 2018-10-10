@@ -39,10 +39,10 @@ public class BackofficeVideoController extends HttpServlet {
 	private String view;
 	private Alert alert;
 
-	private String op;
-	private String id;
+	private String op;//operacion
+	private String id;//id_video
 	private String codigo;
-	private String nombre;
+	private String nombre;//nombre_video
 	private String usuario;
 
 	/**
@@ -161,6 +161,7 @@ public class BackofficeVideoController extends HttpServlet {
 
 			v.setId(Long.parseLong(id));
 			v.setNombre(nombre);
+			v.setCodigo(codigo);
 			v.setUsuario(daoUsuario.getById(usuario));
 
 			if (v.getId() > 0) {
