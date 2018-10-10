@@ -16,6 +16,7 @@ import javax.servlet.http.HttpSession;
 
 import com.ipartek.formacion.youtube.model.UsuarioDAO;
 import com.ipartek.formacion.youtube.pojo.Alert;
+import com.ipartek.formacion.youtube.pojo.Rol;
 import com.ipartek.formacion.youtube.pojo.Usuario;
 
 /**
@@ -88,7 +89,7 @@ public class LoginController extends HttpServlet {
 				
 				gestionarCookies(request, response, u);
 				
-				if ( u.getRol() == Usuario.ROL_ADMIN ) {
+				if ( u.getRol().getId() == Rol.ROL_ADMIN ) {
 					view = VIEW_INICIO_ADMIN;
 				}
 				
@@ -102,8 +103,9 @@ public class LoginController extends HttpServlet {
 		}catch (Exception e) {
 			e.printStackTrace();
 		}finally {
-			session.setAttribute("alert", alert);			
-			response.sendRedirect(request.getContextPath() + view ); 
+			session.setAttribute("alert", alert);	
+			request.getRequestDispatcher(view).forward(request, response);
+			 
 		}
 
 	}

@@ -1,7 +1,7 @@
 
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@page import="com.ipartek.formacion.youtube.controller.back.BackofficeUsuarioController"%>
-<%@page import="com.ipartek.formacion.youtube.controller.back.BackofficeRolController"%>
+
+
 
 <%@ include file="includes/header.jsp" %>
 
@@ -11,6 +11,17 @@
 <%@ include file="includes/sidebar.jsp" %>
 
         <div id="page-wrapper">
+        
+        ${sessionScope.alert=null}
+ 					<c:if test="${not empty alert}">
+						<div class="alert ${alert.tipo} alert-dismissible" role="alert">
+							<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+							<strong>${alert.texto}</strong>
+						</div>
+						${sessionScope.alert=null}
+						${alert=null}
+					</c:if>
+        
         <div class="row">
           <div class="col-lg-12">
               <h1 class="page-header">Dashboard</h1>
@@ -29,7 +40,7 @@
                                 </div>
                             </div>
                         </div>
-                        <a href="usuarios?op=${BackofficeUsuarioController.OP_LISTAR}">
+                        <a href="usuarios">
                             <div class="panel-footer">
                                 <span class="pull-left">View Details</span>
                                 <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
@@ -74,7 +85,7 @@
                                 </div>
                             </div>
                         </div>
-                        <a href="roles?op=${BackofficeRolController.OP_LISTAR}">
+                        <a href="roles">
                             <div class="panel-footer">
                                 <span class="pull-left">View Details</span>
                                 <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>

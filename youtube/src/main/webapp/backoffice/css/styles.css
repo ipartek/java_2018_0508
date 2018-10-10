@@ -28,4 +28,11 @@ span.numUsuarios{
 	margin-left: 20px;
 	background-color: #286090;
 }
+img.miniatura{
+	width:100px;
+	height: 75px;
+   
+}
+td.imagen{
+	text-align: center;
 }

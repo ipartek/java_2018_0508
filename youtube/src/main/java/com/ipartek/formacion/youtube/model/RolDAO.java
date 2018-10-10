@@ -7,7 +7,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.ipartek.formacion.youtube.pojo.Rol;
-import com.ipartek.formacion.youtube.pojo.Usuario;
 import com.mysql.jdbc.Statement;
 
 public class RolDAO implements CrudAble<Rol> {
@@ -31,7 +30,6 @@ public class RolDAO implements CrudAble<Rol> {
 		return INSTANCE;
 	}
 
-
 	@Override
 	public List<Rol> getAll() throws Exception {
 		Rol rol = null;
@@ -50,7 +48,6 @@ public class RolDAO implements CrudAble<Rol> {
 		return roles;
 	}
 
-
 	@Override
 	public boolean delete(long id) throws Exception {
 		boolean resul = false;
@@ -66,17 +63,13 @@ public class RolDAO implements CrudAble<Rol> {
 		return resul;
 	}
 
-	
-
 	@Override
 	public boolean insert(Rol rol) throws Exception {
 		boolean result = false;
 		try (Connection con = ConnectionManager.getConnection();
 				PreparedStatement ps = con.prepareStatement(SQL_INSERT, Statement.RETURN_GENERATED_KEYS);) {
 
-			
 			ps.setString(1, rol.getNombre().trim());
-			
 
 			int affectedRows = ps.executeUpdate();
 			if (affectedRows == 1) {
@@ -90,13 +83,13 @@ public class RolDAO implements CrudAble<Rol> {
 			}
 
 		}
-		
+
 		return result;
 	}
 
 	@Override
 	public Rol getById(long id) throws Exception {
-		Rol rol=null;
+		Rol rol = null;
 		try (Connection con = ConnectionManager.getConnection();
 				PreparedStatement ps = con.prepareStatement(SQL_GET_BY_ID);) {
 
@@ -111,16 +104,16 @@ public class RolDAO implements CrudAble<Rol> {
 		}
 		return rol;
 	}
-	
+
 	@Override
 	public boolean update(Rol rol) throws Exception {
 		boolean resul = false;
 		try (Connection con = ConnectionManager.getConnection();
 				PreparedStatement ps = con.prepareStatement(SQL_UPDATE);) {
-			
+
 			ps.setString(1, rol.getNombre());
 			ps.setLong(2, rol.getId());
-			
+
 			if (ps.executeUpdate() == 1) {
 				resul = true;
 			}
@@ -132,20 +125,16 @@ public class RolDAO implements CrudAble<Rol> {
 	private Rol rowMapper(ResultSet rs, Rol rol) throws Exception {
 		if (rol == null) {
 			rol = new Rol();
-		} else {
-
 		}
 
 		if (rs != null) {
 
 			rol.setId(rs.getLong("id"));
 			rol.setNombre(rs.getString("nombre"));
-			
+
 		}
-		
+
 		return rol;
 	}
-
-	
 
 }

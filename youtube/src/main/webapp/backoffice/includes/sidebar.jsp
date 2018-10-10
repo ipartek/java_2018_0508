@@ -24,7 +24,7 @@
                             <a href="usuarios"><i class="fas fa-users"></i> Usuarios</a>
                         </li>
                         <li>
-                            <a href="/index.jsp"><i class="fab fa-youtube"></i> Videos</a>
+                            <a href="videos"><i class="fab fa-youtube"></i> Videos</a>
                         </li>
                         <li>
                             <a href="roles"><i class="fab fa-youtube"></i> Roles</a>

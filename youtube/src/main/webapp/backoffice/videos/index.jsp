@@ -20,11 +20,11 @@
  
  
  	<div class="col-md-4 botonCrear">
-      			<a href="usuarios?id=-1&op=<%=CrudControllable.OP_IR_FORMULARIO%>" class="btn btn-primary crear">Crear Nuevo</a>
+      			<a href="videos?id=-1&op=<%=CrudControllable.OP_IR_FORMULARIO%>" class="btn btn-primary crear">Crear Nuevo</a>
       		</div>	
   <div class="row">
           <div class="col-lg-12">
-              <h1 class="page-header">Usuarios<span class="badge badge-info numUsuarios">${fn:length(usuarios)}</span></h1>
+              <h1 class="page-header">Videos<span class="badge badge-info numUsuarios">${fn:length(videos)}</span></h1>
           </div>
             <div class="row">
                 <div class="col-lg-12">
@@ -32,19 +32,21 @@
                 	<table id="tablaOrdenable" class="display">
 					    <thead>
 					        <tr>
-					            <th>id</th>
+					            <th>Id</th>
+					            <th>Imagen</th>
 					            <th>Nombre</th>	            
-					            <th>Rol</th>
+					            <th>Usuario</th>
 					            
 					        </tr>
 					    </thead>
 					    <tbody>
 					    
-					    	<c:forEach items="${usuarios}" var="u">
+					    	<c:forEach items="${videos}" var="v">
 					        <tr>
-					            <td>${u.id}</td>
-					            <td><a name="nombre" href="usuarios?id=${u.id}&op=<%=CrudControllable.OP_IR_FORMULARIO%>">${u.nombre}</a></td>	            
-					            <td>${u.rol.nombre}</td>
+					            <td>${v.id}</td>
+					            <td class="imagen"><img class="miniatura" alt="Miniatura del video " src="http://img.youtube.com/vi/${v.codigo}/0.jpg"> </td>
+					            <td><a name="nombre" href="videos?id=${v.id}&op=<%=CrudControllable.OP_IR_FORMULARIO%>">${v.nombre}</a></td>	            
+					            <td><a name="nombre_usuario" href="usuarios?id=${v.usuario.id}&op=<%=CrudControllable.OP_IR_FORMULARIO%>">${v.usuario.nombre}</td>
 					        </tr>
 					        
 					        </c:forEach>
@@ -53,9 +55,10 @@
 					    
 					    <tfoot>
 					    	<tr>
-					            <th>id</th>
-					            <th>Nombre</th>
-					            <th>Rol</th>
+					            <th>Id</th>
+					            <th>Imagen</th>
+					            <th>Nombre</th>	            
+					            <th>Usuario</th>
 					        </tr>
 					    
 					    </tfoot>

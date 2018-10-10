@@ -7,12 +7,25 @@ public class Video {
 	private long id;
 	private String codigo;
 	private String nombre;
+	private Usuario usuario;
+	
 	
 	public Video() throws Exception {
 		super();
 		this.id = -1;
-		this.setCodigo("LPDhuthFD98");
-		this.nombre = "Surf Search Spot 2 0 video promo";		
+		this.codigo="";
+		this.nombre = "Surf Search Spot 2 0 video promo";
+		this.usuario= new Usuario();
+		
+	}
+	
+	public Video(String codigo, String nombre,Usuario usuario) throws Exception {
+		this();
+		this.id = -1;
+		this.setCodigo(codigo);
+		this.nombre = nombre;
+		this.usuario=usuario;
+		
 	}
 	
 	public Video(String codigo, String nombre) throws Exception {
@@ -20,6 +33,7 @@ public class Video {
 		this.id = -1;
 		this.setCodigo(codigo);
 		this.nombre = nombre;
+		
 	}
 
 
@@ -51,10 +65,22 @@ public class Video {
 		return codigo;
 	}
 
+	public Usuario getUsuario() {
+		return usuario;
+	}
+
+	public void setUsuario(Usuario usuarrio) {
+		this.usuario = usuarrio;
+	}
+
+	
+	
 	@Override
 	public String toString() {
-		return "Video [id=" + id + ", codigo=" + codigo + ", nombre=" + nombre + "]";
+		return "Video [id=" + id + ", codigo=" + codigo + ", nombre=" + nombre + ", usuarrio=" + usuario + "]";
 	}
+
+	
 	
 	
 }

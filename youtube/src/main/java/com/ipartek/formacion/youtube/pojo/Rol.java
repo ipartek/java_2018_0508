@@ -3,6 +3,8 @@ package com.ipartek.formacion.youtube.pojo;
 public class Rol {
 private long id;
 private String nombre;
+public static final int ROL_ADMIN=0;
+public static final int ROL_USER=1;
 
 
 public Rol() {

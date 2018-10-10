@@ -24,7 +24,7 @@
             <div class="row">
                 <div class="col-lg-12">
                 
-                	<h1 class="page-header">${(usuario.id== -1)?'Crear Usuario':usuario.nombre } </h1>
+                	<h1 class="page-header">${(video.id== -1)?'Crear video':video.nombre } </h1>
 					    
                     
                 </div>
@@ -32,45 +32,43 @@
             
             <div class="row">
             
-            	<form action="usuarios" method="post">
+            	<form action="videos" method="post">
             	
             	<div class="form-group">
             		<label for="id">ID</label>
-					<input type="text" class="form-control" id="id" name="id" value="${usuario.id}" readonly>            	
-            	
-            	</div>
-            	
-            	<div class="form-group">
-            		<label for="nombre">Nombre</label>
-					<input type="text" class="form-control" id="nombre" name="nombre" value="${usuario.nombre}" autofocus>            	
+					<input type="text" class="form-control" id="id" name="id" value="${video.id}" readonly>            	
             	
             	</div>
             	
             	
             	<div class="form-group">
-            		<label for="pass">Password</label>
-            		<div class="input-group">
-            		<div class="input-group-addon"><i class="fas fa-eye" onclick="showPass(event, 'pass')"></i></div>
-					<input type="password" class="form-control" id="pass" name="pass" value="${usuario.pass}">            	
-            		</div>
+            		<label for="codigo">Codigo</label>
+					<input type="text" class="form-control" id="codigo" name="codigo" value="${video.codigo}" autofocus maxlength="11" minlength="11">            	
+            	
             	</div>
             	
+            	<div class="form-group">
+            		<label for="nombre">Nombre del video</label>
+					<input type="text" class="form-control" id="nombre" name="nombre" value="${video.nombre}" autofocus>            	
+            	
+            	</div>
+
             	
             	<div class="form-group">				
-				   <label for="rol">Rol</label>
-				   <select name="rol" class="form-control" sele>
-				   		<c:forEach items="${roles}" var="rol">
-				   			<option value="${rol.id}" ${(rol.id==usuario.rol.id)?'selected':'' }>${rol.nombre}</option>
-				   			
+				   <label for="usuario">Usuario</label>
+				   <select name="usuario" class="form-control">
+				   		<c:forEach items="${usuarios}" var="u">
+				   			<option value="${u.id}" ${(u.id==video.usuario.id)?'selected':'' }>${u.nombre}</option>
+
 				   		</c:forEach>
 				   </select>
 				</div>
             	
             	<input type="hidden" name="op" value="<%=CrudControllable.OP_GUARDAR%>"/>
-            	<input type="submit" value="${(usuario.id== -1)?'Crear':'Modificar' }" class="btn btn-primary btn-block">
-            	<c:if test="${usuario.id>0}">
+            	<input type="submit" value="${(video.id== -1)?'Crear':'Modificar' }" class="btn btn-primary btn-block">
+            	<c:if test="${video.id>0}">
             	
-            		<a href="usuarios?id=${usuario.id}&op=<%=CrudControllable.OP_ELIMINAR%>" onclick="confirmar(event)" class="btn btn-danger btn-block">Eliminar(confirmar)</a>
+            		<a href="videos?id=${video.id}&op=<%=CrudControllable.OP_ELIMINAR%>" onclick="confirmar(event)" class="btn btn-danger btn-block">Eliminar(confirmar)</a>
             	</c:if>
             	</form>
             

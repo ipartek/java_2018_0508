@@ -48,7 +48,6 @@
             	<input type="hidden" name="op" value="${BackofficeRolController.OP_GUARDAR}"/>
             	<input type="submit" value="${(rol.id== -1)?'Crear':'Modificar' }" class="btn btn-primary btn-block">
             	<c:if test="${rol.id>0}">
-            	
             		<a href="roles?id=${rol.id}&op=<%=BackofficeRolController.OP_ELIMINAR%>" onclick="confirmar(event)" class="btn btn-danger btn-block">Eliminar(confirmar)</a>
             	</c:if>
             	</form>
@@ -58,34 +57,5 @@
                 
  </div><!-- /#page-wrapper -->
             
-      
-        
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 <%@ include file="../includes/footer.jsp" %>

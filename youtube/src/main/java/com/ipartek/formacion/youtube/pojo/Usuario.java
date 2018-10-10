@@ -4,9 +4,8 @@ public class Usuario {
 	private long id;
 	private String nombre;
 	private String pass;
-	private int rol;
-	public static final int ROL_ADMIN=0;
-	public static final int ROL_USER=1;
+	private Rol rol;
+	
 
 	
 	
@@ -16,7 +15,7 @@ public class Usuario {
 		this.nombre = "";
 		this.pass = "";
 		this.id=-1;
-		this.rol=ROL_USER;
+		this.rol=new Rol();
 		
 	}
 
@@ -54,12 +53,14 @@ public class Usuario {
 	public void setPass(String pass) {
 		this.pass = pass;
 	}
-	public int getRol() {
+
+
+	public Rol getRol() {
 		return rol;
 	}
 
 
-	public void setRol(int rol) {
+	public void setRol(Rol rol) {
 		this.rol = rol;
 	}
 
@@ -68,6 +69,7 @@ public class Usuario {
 	public String toString() {
 		return "Usuario [id=" + id + ", nombre=" + nombre + ", pass=" + pass + ", rol=" + rol + "]";
 	}
+	
 
 
 	

@@ -28,6 +28,29 @@
    			
    		}
    		
+   		function showPass(event , elementId){
+   			console.log('click en '+elementId)
+   			var el = document.getElementById(elementId)
+   			if(el.type=="password"){
+   				el.type="text";
+   				
+   			}else{
+   				el.type="password";
+   			}
+   			
+   			if(event.target.classList.contains("fa-eye")){
+  				event.target.classList.remove("fa-eye");
+  				event.target.classList.add("fa-eye-slash");
+   				
+   			}else{
+  				event.target.classList.remove("fa-eye-slash");
+  				event.target.classList.add("fa-eye");
+
+   				
+   			}
+   			
+   		}
+   		
    	</script>
 	
   </body>
