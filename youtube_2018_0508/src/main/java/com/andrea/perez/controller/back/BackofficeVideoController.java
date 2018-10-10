@@ -9,16 +9,17 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.andrea.perez.model.UsuarioDAO;
 import com.andrea.perez.model.VideoDAO;
 import com.andrea.perez.pojo.Alert;
+import com.andrea.perez.pojo.Usuario;
 import com.andrea.perez.pojo.Video;
-
 
 /**
  * Servlet implementation class BackofficeUsuarioController
  */
 @WebServlet("/backoffice/videos")
-public class BackofficeVideolController extends HttpServlet implements CrudControllable {
+public class BackofficeVideoController extends HttpServlet implements CrudControllable {
 	private static final long serialVersionUID = 1L;
 
 	private static final String VIEW_LISTADO = "videos/index.jsp";
@@ -31,16 +32,17 @@ public class BackofficeVideolController extends HttpServlet implements CrudContr
 	private String id;
 	private String codigo;
 	private String titulo;
-	private String descripcion;
-	// private int id_usuario;
+	private String usuario;
 
 	private static VideoDAO daoVideo = null;
+	private static UsuarioDAO daoUsuario = null;
 
 	@Override
 	public void init(ServletConfig config) throws ServletException {
 		// Se ejecuta solo con la primera peticion. El resto van al service
 		super.init(config);
 		daoVideo = VideoDAO.getInstance();
+		daoUsuario = UsuarioDAO.getInstance();
 	}
 
 	@Override
@@ -48,6 +50,7 @@ public class BackofficeVideolController extends HttpServlet implements CrudContr
 		// Se ejecuta al parar el servidor
 		super.destroy();
 		daoVideo = null;
+		daoUsuario = null;
 	}
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -104,23 +107,35 @@ public class BackofficeVideolController extends HttpServlet implements CrudContr
 	public void guardar(HttpServletRequest request) {
 
 		Video video = new Video();
-
-		video.setTitulo(titulo);
-
+		
 		try {
+			
+			video.setTitulo(titulo);
+			video.setCodigo(codigo);
+
+			if (video != null) {
+				
+				Usuario usuarioVideo=new Usuario();
+				usuarioVideo.setId(Long.parseLong(usuario));
+				
+				video.setUsuario(usuarioVideo);
+				
+			}
+
 			if (!id.equals("")) { // MODIFICAR
 				video.setId(Long.parseLong(id));
 				if (daoVideo.update(video)) {
 					alert = new Alert(Alert.ALERT_SUCCESS, "Registro modificado correctamente");
 				}
 			} else {
-
+				
 				if (daoVideo.insert(video)) { // Insertar
 					alert = new Alert(Alert.ALERT_SUCCESS, "Registro agregado correctamente");
 				}
 			}
+			request.setAttribute("usuarios", daoUsuario.getAll());
+			
 			// nombre repetido
-
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -138,6 +153,7 @@ public class BackofficeVideolController extends HttpServlet implements CrudContr
 			video = new Video();
 		}
 		view = VIEW_FORMULARIO;
+		request.setAttribute("usuarios", daoUsuario.getAll());
 		request.setAttribute("video", video);
 	}
 
@@ -146,29 +162,28 @@ public class BackofficeVideolController extends HttpServlet implements CrudContr
 		if (id != null) {
 			try {
 				if (daoVideo.delete(id)) {
-					alert = new Alert(Alert.ALERT_SUCCESS, "Se ha eliminado el rol");
+					alert = new Alert(Alert.ALERT_SUCCESS, "Se ha eliminado el registro");
 				}
 
 			} catch (Exception e) {
 
 				e.printStackTrace();
-				alert = new Alert(Alert.ALERT_WARNING, "No puedes eliminar un rol asociado a un usuario ");
+				alert = new Alert();
 
 			}
 			view = VIEW_LISTADO;
-			request.setAttribute("roles", daoVideo.getAll());
+			request.setAttribute("videos", daoVideo.getAll());
 		}
 	}
 
 	public void getParameters(HttpServletRequest request) {
-		
+
 		// parametros necesarios
-		 String op=(request.getParameter("op") != null) ? request.getParameter("op") : OP_LISTAR; 
-		 String id=request.getParameter("id");
-		 String titulo=request.getParameter("titulo");
-		 String codigo=request.getParameter("codigo");
-		 String descripcion=request.getParameter("descripcion");
-		// private int id_usuario;
+		op = (request.getParameter("op") != null) ? request.getParameter("op") : OP_LISTAR;
+		id = request.getParameter("id");
+		titulo = request.getParameter("titulo");
+		codigo = request.getParameter("codigo");
+		usuario = request.getParameter("usuario");
 
 	}
 

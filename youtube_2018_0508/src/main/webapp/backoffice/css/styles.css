@@ -9,3 +9,8 @@ span.badge {
 a.tam_Font {
     font-size: 30px;
 }
+
+.thumbnail{
+	width: 150px;
+	height: 75px;
+}

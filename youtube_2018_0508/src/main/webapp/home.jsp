@@ -60,7 +60,7 @@
 						<h3 class="card-title">
 							${videoInicio.titulo }
 						</h3>
-						<p class="card-text">${videoInicio.descripcion}</p>
+						
 					</div>
 				</div>
 				<!-- /.card -->

@@ -7,8 +7,9 @@ public class Video {
 	private long id;
 	private String codigo;
 	private String titulo;
-	private String descripcion;
 	private List<Comentario> comentarios;
+	private Usuario usuario;
+	private String miniImg;
 
 	public static final int CODIGO_LENGTH = 11;
 	public static final String CODIGO_LENGTH_EXCEPTION = "La longitud del ID tiene que ser " + CODIGO_LENGTH;
@@ -16,10 +17,10 @@ public class Video {
 	public Video() {
 		super();
 		this.id = -1;
-		this.codigo = "UmYKPY_-ejc";
-		this.titulo = "Game of Thrones - Season 7 - Main Titles";
-		this.descripcion = "Esta es una descripción de ejemplo para el vídeo por defecto.";
+		this.codigo = "";
+		this.titulo = "";
 		this.comentarios = new ArrayList<Comentario>();
+		this.usuario = new Usuario();
 	}
 
 	public Video(String codigo, String titulo) throws Exception {
@@ -27,22 +28,31 @@ public class Video {
 		setCodigo(codigo);
 		this.titulo = titulo;
 	}
-	
-	public Video(String codigo, String titulo, String descripcion) throws Exception {
+
+	public Video(String codigo, String titulo, String descripcion, Usuario u) throws Exception {
 		this();
 		setCodigo(codigo);
 		this.titulo = titulo;
-		this.descripcion = descripcion;
+
+		this.usuario = u;
 	}
-	
+
 	public Video(String codigo, String titulo, String descripcion, List<Comentario> comentarios) throws Exception {
 		this();
 		setCodigo(codigo);
 		this.titulo = titulo;
-		this.descripcion = descripcion;
+
 		this.comentarios = comentarios;
 	}
-	
+
+	public Usuario getUsuario() {
+		return usuario;
+	}
+
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
+	}
+
 	public long getId() {
 		return id;
 	}
@@ -50,7 +60,7 @@ public class Video {
 	public void setId(long id) {
 		this.id = id;
 	}
-	
+
 	public String getCodigo() {
 		return codigo;
 	}
@@ -69,14 +79,6 @@ public class Video {
 	public void setTitulo(String titulo) {
 		this.titulo = titulo;
 	}
-	
-	public String getDescripcion() {
-		return descripcion;
-	}
-
-	public void setDescripcion(String descripcion) {
-		this.descripcion = descripcion;
-	}
 
 	public List<Comentario> getComentarios() {
 		return comentarios;
@@ -88,6 +90,8 @@ public class Video {
 
 	@Override
 	public String toString() {
-		return "Video [id=" + id + "codigo=" + codigo + ", titulo=" + titulo + ", descripcion=" + descripcion + "]";
+		return "Video [id=" + id + ", codigo=" + codigo + ", titulo=" + titulo + ", usuario=" + usuario + ", miniImg="
+				+ miniImg + "]";
 	}
+
 }

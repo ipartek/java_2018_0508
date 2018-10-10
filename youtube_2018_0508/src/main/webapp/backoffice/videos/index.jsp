@@ -1,6 +1,6 @@
+<%@page import="com.andrea.perez.controller.back.BackofficeVideoController"%>
 <%@page import="com.andrea.perez.controller.back.BackofficeUsuarioController"%>
 <%@include file="../includes/taglibs.jsp"%>
-
 <%@include file="../includes/header.jsp"%>
 
 <!-- Listado de Usuarios -->
@@ -11,24 +11,24 @@
 
         <div id="page-wrapper">
         
-        	<%@include file="/includes/alert.jsp"%>
-        
+        	<%@include file="../includes/alert.jsp"%>
+        	
             <div class="row">
                 <div class="col-lg-12">
-                    <h1 class="page-header">Usuarios <span class="badge">${usuarios.size()}</span></h1>
+                    <h1 class="page-header">Vídeos</h1>
                 </div>
                 <!-- /.col-lg-12 -->
                 <div class="col-lg-12">
-                    <a href="usuarios?id=-1&op=${BackofficeUsuarioController.OP_IR_FORMULARIO}" class="btn btn-success">Crear Nuevo</a>
+                    <a href="videos?id=-1&op=${BackofficeVideoController.OP_IR_FORMULARIO}" class="btn btn-success">Crear Nuevo</a>
                 </div>
                 <!-- /.col-lg-12 -->
             </div>
             <!-- /.row -->
             <div class="row">
                 <div class="col-lg-12">
-                    <div class="panel panel-default">
+                    <div class="panel panel-default panel-tabla">
                         <div class="panel-heading">
-                            <strong>Listado de los usuarios registrados en la aplicación</strong>
+                            Tabla de los vídeos creados en la aplicación
                         </div>
                         <!-- /.panel-heading -->
                         <div class="panel-body">
@@ -36,25 +36,30 @@
                                 <thead>
                                     <tr>
                                         <th>ID</th>
-                                        <th>Nombre</th>                                       
-                                        <th>Rol</th>
+                                        <th>Código</th>
+                                        <th>Título</th>
+                                        <th>Icono</th>
+                                        <th>Creado por usuario</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                <c:forEach items="${usuarios}" var="u">
-                                	 <tr>
-                                        <td>${u.id}</td>
-                                        <td><a href="usuarios?id=${u.id}&op=${BackofficeUsuarioController.OP_IR_FORMULARIO}">${u.nombre}</a> </td>                                       
-                                       
-                                        <td>${u.rol.nombre}</td>
-                                    </tr>
-                                </c:forEach>
+	                                <c:forEach items="${videos}" var="v">
+	                                	 <tr>
+	                                        <td>${v.id}</td>
+	                                        <td><a href="videos?id=${v.id}&op=${BackofficeVideoController.OP_IR_FORMULARIO}">${v.codigo}</a> </td>
+	                                        <td>${v.titulo}</td>
+	                                        <td><img width="200px" height="150px" src="https://img.youtube.com/vi/${v.codigo}/0.jpg"></img></td>
+	                                        <td><a href="usuarios?id=${v.usuario.id}&op=${BackofficeUsuarioController.OP_IR_FORMULARIO}">${v.usuario.nombre}</a> </td>
+	                                    </tr>
+	                                </c:forEach>
                                 </tbody>
                                 <tfoot>
                                 	<tr>
                                 		<th>ID</th>
-                                		<th>Nombre</th>                                		
-                                		<th>Rol</th>
+                                		<th>Código</th>
+                                		<th>Título</th>
+                                		<th>Icono</th>
+                                		<th>Creado por usuario</th>
                                 	</tr>
                                 </tfoot>
                             </table>
@@ -63,7 +68,7 @@
                         <!-- /.panel-body -->
                     </div>
                     <!-- /.panel -->
-                  </div>
+                </div>
                 <!-- /.col-lg-12 -->
             </div>
             <!-- /.row -->
@@ -73,7 +78,3 @@
     <!-- /#wrapper -->
 
 <%@include file="../includes/footer.jsp"%>
-                    
-                    
-                    
-                    
