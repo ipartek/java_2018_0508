@@ -7,12 +7,14 @@ public class Video {
 	private long id;
 	private String codigo;
 	private String nombre;
+	private Usuario usuario;
 	
 	public Video() throws Exception {
 		super();
 		this.id = -1;
-		this.setCodigo("OQcS-dZy1mg");
-		this.nombre = "Lágrimas De Sangre - De trankis feat. Rapsusklei, Sharif, Morgan, Vito";		
+		this.setCodigo("11letrasCod");
+		this.nombre = "";
+		this.usuario = new Usuario();
 	}
 	
 	public Video(String codigo, String nombre) throws Exception {
@@ -20,8 +22,25 @@ public class Video {
 		this.id = -1;
 		this.setCodigo(codigo);
 		this.nombre = nombre;
+		this.usuario = new Usuario();
+	}
+	
+	public Video(String codigo, String nombre,Usuario usuario_id) throws Exception {
+		this();
+		this.id = -1;
+		this.setCodigo(codigo);
+		this.nombre = nombre;
+		this.usuario = usuario_id;
 	}
 
+
+	public Usuario getUsuario() {
+		return this.usuario;
+	}
+
+	public void setUsuario(Usuario usuario_id) {
+		this.usuario = usuario_id;
+	}
 
 	public void setCodigo(String codigo) throws Exception {
 		if ( codigo != null && codigo.length() == CODIGO_LONGITUD ) {
@@ -53,8 +72,10 @@ public class Video {
 
 	@Override
 	public String toString() {
-		return "Video [id=" + id + ", codigo=" + codigo + ", nombre=" + nombre + "]";
+		return "Video [id=" + id + ", codigo=" + codigo + ", nombre=" + nombre + ", usuario=" + usuario + "]";
 	}
+
+	
 	
 	
 }

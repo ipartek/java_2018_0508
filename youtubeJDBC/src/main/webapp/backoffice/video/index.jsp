@@ -1,3 +1,5 @@
+<%@page import="com.ipartek.formacion.youtube.controller.back.*"%>
+<%@page import="com.ipartek.formacion.youtube.pojo.*"%>
 <%@ include file="../includes/header.jsp" %>	
 <%@ include file="../includes/nav.jsp"  %>
 
@@ -30,7 +32,7 @@
 								</form>
 				      		</div>
 				      		<div class="col-md-4">
-				      			<a href="<%=request.getContextPath()%>/backoffice/video?view=form" class="btn btn-success">Crear Nuevo</a>
+				      			<a href="<%=request.getContextPath()%>/backoffice/video?view=form&op=4" class="btn btn-success">Crear Nuevo</a>
 				      		</div>	
                         </div>
                         
@@ -38,21 +40,24 @@
                         <div class="panel-body">   
                         <%@ include file="../includes/optionsVideo.jsp" %> 
                         	<!-- VISTA LISTA -->                   	                      	
-                        	<c:if test="${view == 'tree'}">
+                        	<c:if test="${vista == 'lista-video'}">
+                        		${videos}
 	                            <table width="100%" class="userDataTable table table-striped table-bordered table-hover " id="userDataTable">
 	                                <thead>
 	                                    <tr>
 	                                    	<th>Id</th>
 	                                        <th>codigo</th>
 	                                        <th>nombre</th> 
+	                                        <th>subir por</th>
 	                                    </tr>
 	                                </thead>
 	                                <tbody>
 	                                	<c:forEach items="${videos}" var="v">
 		                                    <tr class="odd gradeX">
-		                                    	<td><a href="<%=request.getContextPath()%>/backoffice/video?videoId=${v.id }">${v.id }</a></td>
+		                                    	<td><a href="<%=request.getContextPath()%>/backoffice/video?videoId=${v.id }&op=4">${v.id }</a></td>
 		                                        <td>${v.codigo }</td>
 		                                        <td>${v.nombre }</td>
+		                                        <td>${v.usuario.nombre	 }</td>
 		                                    </tr>
 	                                    </c:forEach>
 	                                   
@@ -60,7 +65,7 @@
 	                            </table>      
                             </c:if>
                             <!-- VISTA KANBAN --> 
-                            <c:if test="${view == 'kanban'}">
+                            <c:if test="${vista == 'kanban-video'}">
                             	<div class="contenedor-cartas">
                             		<c:forEach items="${videos}" var="v">
                             		
@@ -78,10 +83,10 @@
 								</div>                            	
                             </c:if>
                             <!-- VISTA FORMULARIO --> 
-                            <c:if test="${view == 'form'}">
+                            <c:if test="${vista == 'form-video'}">
                             	Vista formulario
-                            	&{usuario}           	
-								<form action="usuario" method="post">                          	
+                            	${video }        	
+								<form action="video" method="post">                          	
                             	<div class="row">
 	                            	<div class="col-lg-12">
 	                            		
@@ -92,24 +97,34 @@
 										  <li><a href="#">&raquo;</a></li>
 										</ul>
 	                            		<div class="form-group">
-		                            		<label for="videoId">id</label>
-		                            		<input name="videoId" type="text" readonly placeholder="numero de id">
+		                            		<input name="videoId" type="hidden" value="${video.id }" placeholder="numero de id">
+		                            		<input name="op" type="hidden" value="2" placeholder="numero de id">
 	                            		</div>
 	                            		<div class="form-group">
-		                            		<label for="codigoVideo">Codigo</label>
-		                            		<input type="text" name="codigoVideo" value="${video.codigo }" placeholder="nombre de usuario" autofocus>
+		                            		<label for="codigoCancion">Codigo</label>
+		                            		<input type="text" name="codigoCancion" value="${video.codigo }" placeholder="11 caracteres" autofocus>
 		                            	</div>
 		                            	<div class="form-group">
 		                            		<label for="nombreCancion">Nombre</label>
 		                            		<input type="text" name="nombreCancion" value="${video.nombre }" >
 		                            	</div>
+		                            	<%-- <div class="form-group">
+		                            		<label for="usuarioCancion">Subido por</label>
+		                            		<input type="text" name="usuarioCancion" value="${video.id_usuario }" >
+		                            	</div> --%>
+		                            	<label>subido por</label>
+		                            	<select name="usuarioCancion" class="form-control">
+		                            		<c:forEach items="${usuarios }" var="u">
+		                            			<option value="${u.id}" ${u.id  == video.usuario.id ? 'selected':''}> ${u.nombre}</option>
+		                            		</c:forEach>
+		                            	</select>
 
 	                            	</div>
                             	</div>
                             	<div class="row">
 	                            	
-	                            		<input type="submit" value="${video.id == 1?'Crear' : 'Modificar' }" class="btn btn-primary btn-block">
-	                            		<c:if test="${video.id == 0 }">
+	                            		<input type="submit" value="${video.id > 0?'Modificar' : 'Crear' }" class="btn btn-primary btn-block">
+	                            		<c:if test="${video.id > 0 }">
 	                            			<a href="usuario" onclick="confirmar(event)" class="btn btn-danger btn-block">Elmiminar modal</a>
 	                            		</c:if>
 	                            	</form>

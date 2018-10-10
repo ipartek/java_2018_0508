@@ -139,7 +139,7 @@ public class BackofficeUsuarioControllerPuente extends HttpServlet {
 				if(nombre != "" && password!= "") {
 					usuarioNuevoActualizar.setNombre(nombre);
 					usuarioNuevoActualizar.setPass(password);
-					/*usuarioNuevoActualizar.setRol(Integer.parseInt(rol));*/
+					usuarioNuevoActualizar.setRol(rolDao.getById( rol));
 					usuariosJDBC.insert(usuarioNuevoActualizar);
 							
 				}

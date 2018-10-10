@@ -21,7 +21,7 @@ public class UsuariosDaoJDBC implements CrudAble<Usuario> {
 	"  FROM usuario as u , rol as r"+
 	"  WHERE u.id_rol = r.id"+
 	"  order by u.id desc limit 1000;";
-	private final String SQL_INSERT = "INSERT INTO usuario(nombre,password,id_rol) VALUES(?,?);";
+	private final String SQL_INSERT = "INSERT INTO usuario(nombre,password,id_rol) VALUES(?,?,?);";
 	private final String SQL_UPDATE = "UPDATE usuario SET nombre=?,password=?,id_rol = ?  WHERE id=? ;";
 	private final String SQL_SELECT = "SELECT id,nombre, password, id_rol FROM usuario ORDER BY id DESC ;";
 	private final String SQL_DELETE = "DELETE from usuario WHERE id=?;";
@@ -61,9 +61,9 @@ public class UsuariosDaoJDBC implements CrudAble<Usuario> {
 			// en ejecucion
 			int index = 1;
 			ps.setString(index++, pojo.getNombre());// parametro 1
-			ps.setString(index, pojo.getPass());// parametro 3
-			/*ps.setInt(index, pojo.getRol());// parametro 3
-*/			System.out.println("INSERTANDO ");
+			ps.setString(index++, pojo.getPass());// parametro 3
+			ps.setInt(index, pojo.getRol().getId());// parametro 3
+			System.out.println("INSERTANDO ");
 			// nos devuelve un entero representado el numero de registros afectados por la
 			// query
 			rows = ps.executeUpdate();
@@ -151,8 +151,8 @@ public class UsuariosDaoJDBC implements CrudAble<Usuario> {
 			
 			ps.setString(index++, pojo.getNombre());// parametro 1
 			ps.setString(index++, pojo.getPass());// parametro 1
-			/*ps.setInt(index++, pojo.getRol());// parametro 1
-*/			ps.setLong(index, pojo.getId());// parametro 1
+			ps.setInt(index++, pojo.getRol().getId());// parametro 1
+			ps.setLong(index, pojo.getId());// parametro 1
 			rows = ps.executeUpdate();
 			if (rows == 1) {
 				resul = true;

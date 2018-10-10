@@ -34,6 +34,7 @@
 							  <button type="submit" class="btn btn-primary">Buscar</button>
 							</form>
 				      		</div>
+				      		<!-- BOTON NUEVO -->
 				      		<div class="col-md-4">
 				      			<a href="<%=request.getContextPath()%>/backoffice/usuario?view=form&op=4" class="btn btn-success">Crear Nuevo</a>
 				      		</div>	
@@ -47,7 +48,7 @@
                         	<!-- VISTA LISTA -->                   	                      	
                         	<c:if test="${view == 'tree'}">
                         	
-                        	
+                        		
 	                            <table width="100%" class="userDataTable table table-striped table-bordered table-hover " id="userDataTable">
 	                                <thead>
 	                                    <tr>

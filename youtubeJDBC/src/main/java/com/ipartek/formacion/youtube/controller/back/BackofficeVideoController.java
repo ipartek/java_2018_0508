@@ -18,7 +18,7 @@ import com.ipartek.formacion.youtube.pojo.Video;
 /**
  * Servlet implementation class BackofficeUsuarioController
  */
-@WebServlet("/backoffice/video")
+@WebServlet("/backoffice/video_")
 public class BackofficeVideoController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private static VideoDAO videosJDBC;
@@ -75,9 +75,11 @@ public class BackofficeVideoController extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		try {
 			Video video = null;
+			String op = request.getParameter("op");
 			String videoId = request.getParameter("videoId");
 			String codigoCancion = request.getParameter("codigoCancion");
 			String nombreCancion = request.getParameter("nombreCancion");
+			String usuarioCancion = request.getParameter("usuarioCancion");
 			//String rol = request.getParameter("rol");
 			
 			if(codigoCancion != null && nombreCancion != null) {
@@ -98,5 +100,7 @@ public class BackofficeVideoController extends HttpServlet {
 			e.printStackTrace();
 		}
 	}
+	
+
 
 }
