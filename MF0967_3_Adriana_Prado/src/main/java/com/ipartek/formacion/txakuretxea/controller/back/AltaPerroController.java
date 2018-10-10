@@ -35,6 +35,8 @@ public class AltaPerroController extends HttpServlet {
 	private double peso;
 	private String raza;
 	private String nChip;
+	private String latitud;
+	private String longitud;
 	private String imagen;
 	private String apadrinado;
 	private String descripcion;
@@ -70,7 +72,7 @@ public class AltaPerroController extends HttpServlet {
 			perro.setEdad(edad);
 			perro.setPeso(peso);
 			perro.setRaza(raza);
-			perro.setChip(new Chip(nChip, "", ""));
+			perro.setChip(new Chip(nChip, longitud, latitud));
 			perro.setImagen(imagen);
 			
 			if(apadrinado != null) {
@@ -106,6 +108,8 @@ public class AltaPerroController extends HttpServlet {
 		peso= Double.parseDouble(request.getParameter("peso"));
 		raza= request.getParameter("raza");
 		nChip= request.getParameter("chip");
+		latitud= request.getParameter("latitud");
+		longitud= request.getParameter("longitud");
 		imagen= request.getParameter("imagen");
 		apadrinado= request.getParameter("apadrinado");
 		descripcion= request.getParameter("descripcion");

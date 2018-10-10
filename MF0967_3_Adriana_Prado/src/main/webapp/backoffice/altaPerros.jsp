@@ -12,7 +12,7 @@
     <div class="row justify-content-center align-items-center">
 	<div class="col">
 	
-		<form action="altaperro" method="post">
+		<form class="altaperro" action="altaperro" method="post">
            <p class="text-center">Los campos con <b class="required"></b> son obligatorios.</p>
             <div class="form-row justify-content-center">
             	<div class="col col-md-8">
@@ -55,6 +55,23 @@
 	                        <div class="form-group">
 	                                <label class="required" for="chip">Nº Chip: </label>
 	                                <input class="form-control" type="text" name="chip" placeholder="Formato: DD-DDDD-AAAA" required>
+	                        </div>
+	                    </div>
+	                </div>
+	                <!-- /.form-row -->
+	                
+	                <div class="form-row">
+	                    <div class="col">
+	                        <div class="form-group">
+                                <label class="required" for="latitud">Latitud: </label>
+                                <input class="form-control" type="number" step="1" name="latitud" placeholder="Ejemplo: 90º" required>
+	                        </div>
+	                    </div>
+	                    
+	                    <div class="col">
+	                        <div class="form-group">
+                                <label class="required" for="longitud">Longitud: </label>
+                                <input class="form-control" type="number" step="1" name="longitud" placeholder="Ejemplo: 90º" required>
 	                        </div>
 	                    </div>
 	                </div>

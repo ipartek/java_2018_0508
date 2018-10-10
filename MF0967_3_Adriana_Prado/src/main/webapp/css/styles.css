@@ -18,11 +18,17 @@ div.row {
 }
 
 .main-content{
-    display: flex;
+    margin-left: 2rem;
+    margin-right: 2rem;
+}
+
+.cartas{
+	display: flex;
     flex-wrap: wrap;
-    justify-content: flex-start;
+    justify-content: center;
     background-color: lightblue;
-    margin-bottom: 20px;
+    margin-bottom: 2rem;
+    min-height: 20rem;
 }
 
 .card{
@@ -59,7 +65,8 @@ div.row {
     position: relative;
     top: -48px;
     word-wrap: break-word;
-    padding: 10px;
+    padding: 6px;
+    background-color: rgba(255,255,255,0.6);
 }
 
 .card .top-box .icon{
@@ -77,4 +84,29 @@ div.row {
 
 .card .bottom-box .description{
     padding: 0px 10px 0px 10px;
+}
+
+.apadrinado{
+	display: none;
+}
+
+/*Media Queries
+*******************************************************/
+
+@media screen and (max-width: 576px){
+    h1{
+        margin-left: 2rem;
+    	margin-right: 2rem;
+    }
+}
+
+@media screen and (max-width: 415px){
+    .card .top-box .icon {
+		display: none;
+	}
+	
+	.apadrinado{
+		display: block;
+		color: red;
+	}
 }

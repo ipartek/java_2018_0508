@@ -11,3 +11,7 @@ body{
 	content: "* ";
 	color: #F00;
 }
+
+.container{
+	margin-bottom: 2rem;
+}

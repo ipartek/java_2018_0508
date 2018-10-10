@@ -1,6 +1,8 @@
 package com.ipartek.formacion.txakuretxea.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
@@ -28,7 +30,6 @@ public class HomeController extends HttpServlet {
 	private Alert alert = null;
 	private String view = "";
 	
-	private String op = "";
 	private String palabra = "";
 	
 	@Override
@@ -67,18 +68,15 @@ public class HomeController extends HttpServlet {
 
 	private void doProcess(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		alert = null;
-		Perro perro = null;
+		List<Perro> perrosEncontrados = new ArrayList<Perro>();
+		
 		try {
-			
-			op = request.getParameter("op");
-			
-			if(op.equals("1")) {
-				palabra = request.getParameter("palabra");
-				if(palabra != null) {
-					perro = buscarPalabra(palabra);
-				}
-				request.setAttribute("perro", perro);
+			palabra = request.getParameter("palabra");
+			if(palabra != null) {
+				perrosEncontrados = buscarPalabra(palabra);
 			}
+			request.setAttribute("palabra", palabra);
+			request.setAttribute("perrosEncontrados", perrosEncontrados);
 
 			view = VIEW_HOME;
 			request.setAttribute("perros", daoPerro.getAll());
@@ -90,14 +88,9 @@ public class HomeController extends HttpServlet {
 		}
 	}
 
-	private Perro buscarPalabra(String palabra) {
-		Perro p = null;
-		if(palabra.contains("-")) {
-			p = daoPerro.getByChip(palabra);
-		}else {
-			p = daoPerro.getByNombre(palabra);
-		}
-		return p;
+	private List<Perro> buscarPalabra(String palabra) {
+		List<Perro> perrosEncontrados = daoPerro.busqueda(palabra);
+		return perrosEncontrados;
 	}
 
 }

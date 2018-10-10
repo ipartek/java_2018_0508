@@ -99,29 +99,16 @@ public class PerroDAO implements Crudable<Perro>{
 		return lista.size();
 	}
 	
-	public Perro getByNombre(String nombre) {
-		Perro resul = null;
-		if (!nombre.equals(null)) {
-			for (Perro perroIteracion : lista) {
-				if (perroIteracion.getNombre().contains(nombre)) {
-					resul = perroIteracion;
-					break;
+	public List<Perro> busqueda(String busqueda){
+		ArrayList<Perro> perrosEncontrados = new ArrayList<Perro>();
+		if(busqueda != null) {
+			for(Perro perro : lista) {
+				String nombreYchip = perro.getNombre()+perro.getChip();
+				if(nombreYchip.toLowerCase().contains(busqueda.toLowerCase())) {
+					perrosEncontrados.add(perro);
 				}
 			}
 		}
-		return resul;
-	}
-	
-	public Perro getByChip(String chip) {
-		Perro resul = null;
-		if (!chip.equals(null)) {
-			for (Perro perroIteracion : lista) {
-				if (perroIteracion.getChip().getCodigo().contains(chip)) {
-					resul = perroIteracion;
-					break;
-				}
-			}
-		}
-		return resul;
+		return perrosEncontrados;
 	}
 }

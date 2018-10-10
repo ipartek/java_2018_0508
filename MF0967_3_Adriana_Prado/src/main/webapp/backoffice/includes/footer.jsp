@@ -8,6 +8,7 @@
 		<script>  
 			window.addEventListener("load", function(event) {
 		      	$('#lista').DataTable({
+		      		responsive: true,
 		        	"language": {
 		        		"url": "http://cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Spanish.json"
 		       		}                  

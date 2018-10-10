@@ -2,7 +2,7 @@
 
 <!-- Menu -->
 <nav class="navbar navbar-expand-md navbar navbar-dark bg-dark mb-2">
-    <a class="navbar-brand" href="home"><img class="logo" src="../images/dogs-icon.png" width="40" height="40" alt="perro-logo"></a>
+    <a class="navbar-brand" href="../home"><img class="logo" src="../images/dogs-icon.png" width="40" height="40" alt="perro-logo"></a>
     
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
