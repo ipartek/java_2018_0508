@@ -20,7 +20,7 @@ public class UsuariosDaoJDBC implements CrudAble<Usuario> {
 	private final String SQL_GET_ALL = "SELECT u.id as 'id_usuario',u.nombre as 'nombre_usuario', password, id_rol as 'id_rol',r.nombre as 'nombre_rol'"+
 	"  FROM usuario as u , rol as r"+
 	"  WHERE u.id_rol = r.id"+
-	"  order by u.id desc limit 1000;";
+	"  order by u.id ASC limit 1000;";
 	private final String SQL_INSERT = "INSERT INTO usuario(nombre,password,id_rol) VALUES(?,?,?);";
 	private final String SQL_UPDATE = "UPDATE usuario SET nombre=?,password=?,id_rol = ?  WHERE id=? ;";
 	private final String SQL_SELECT = "SELECT id,nombre, password, id_rol FROM usuario ORDER BY id DESC ;";

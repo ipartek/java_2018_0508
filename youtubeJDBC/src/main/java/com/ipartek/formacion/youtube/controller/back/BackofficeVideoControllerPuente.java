@@ -137,12 +137,12 @@ public class BackofficeVideoControllerPuente extends HttpServlet {
 
 			Usuario u = usuarioDao.getById(usuarioCancion);
 			if(videoId == null || videoId =="") {
-				//update
+				//create
 				v.setCodigo(codigoCancion);
 				v.setNombre(nombreCancion);
 				v.setUsuario(u);
 				videosJDBC.insert(v);
-			}else {
+			}else {//update
 				v = videosJDBC.getById(videoId);
 				v.setCodigo(codigoCancion);
 				v.setNombre(nombreCancion);
@@ -178,7 +178,13 @@ public class BackofficeVideoControllerPuente extends HttpServlet {
 
 
 	private void eliminar(HttpServletRequest request) {
-		// TODO Auto-generated method stub
+		try {
+			videosJDBC.delete(videoId);
+			alerta = new Alert(Alert.WARNING, "Usuario eliminado correctamente");
+			listar(request);
+		} catch (Exception e) {
+			alerta = new Alert(Alert.WARNING, "No podemos borrar un usuario con videos asociados");
+		}
 		
 	}
 
@@ -190,7 +196,6 @@ public class BackofficeVideoControllerPuente extends HttpServlet {
 		nombreCancion = request.getParameter("nombreCancion");
 		usuarioCancion = request.getParameter("usuarioCancion");
 		vista = request.getParameter("vista");
-
 	}
 
 }

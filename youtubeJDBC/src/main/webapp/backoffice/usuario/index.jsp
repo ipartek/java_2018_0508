@@ -149,7 +149,7 @@
                             			<%-- <input type="submit" value="${usuario.id == -1 ?'Crear' : 'Modificar' }" class="btn btn-primary btn-block"> --%>
 	                            		<input type="submit" value="${(empty usuarioSeleccionado.id )?'Crear': 'Modificar' }" class="btn btn-primary btn-block">
 	                            		<c:if test="${not empty usuarioSeleccionado.id}">
-						      				<a href="<%=request.getContextPath()%>/backoffice/usuario?usuarioId=${usuarioSeleccionado.id}&op=<%=BackofficeUsuarioController.OP_ELIMINAR%>" onclick="confirmar(event)" class="btn btn-danger btn-block">Eliminar(Modal)</a>
+						      				<a href="usuario?usuarioId=${usuarioSeleccionado.id}&op=<%=BackofficeUsuarioController.OP_ELIMINAR%>" onclick="confirmar(event)" class="btn btn-danger btn-block">Eliminar(Modal)</a>
 						      			</c:if>	
 	                            	</form>
 	                            	<script>
@@ -162,7 +162,7 @@
 	                            				console.log("Confirmado eliminar");
 	                            			}else{
 	                            				//previene el evento
-	                            				event.preventDefault():
+	                            				event.preventDefault();
 	                            			}
 	                            		}
 	                            		

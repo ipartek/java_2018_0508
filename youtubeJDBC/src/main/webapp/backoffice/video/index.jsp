@@ -48,7 +48,9 @@
 	                                    	<th>Id</th>
 	                                        <th>codigo</th>
 	                                        <th>nombre</th> 
+	                                        <th>imagen</th>
 	                                        <th>subir por</th>
+	                                        
 	                                    </tr>
 	                                </thead>
 	                                <tbody>
@@ -57,7 +59,9 @@
 		                                    	<td><a href="<%=request.getContextPath()%>/backoffice/video?videoId=${v.id }&op=4">${v.id }</a></td>
 		                                        <td>${v.codigo }</td>
 		                                        <td>${v.nombre }</td>
-		                                        <td>${v.usuario.nombre	 }</td>
+		                                        <th><img class="thumbnail" src="http://img.youtube.com/vi/${v.codigo }/0.jpg" alt="Imagen por defecto"/></th>
+		                                        <td>${v.usuario.nombre	 }</td><!--  -->
+		                                        
 		                                    </tr>
 	                                    </c:forEach>
 	                                   
@@ -125,22 +129,38 @@
 	                            	
 	                            		<input type="submit" value="${video.id > 0?'Modificar' : 'Crear' }" class="btn btn-primary btn-block">
 	                            		<c:if test="${video.id > 0 }">
-	                            			<a href="usuario" onclick="confirmar(event)" class="btn btn-danger btn-block">Elmiminar modal</a>
+	                            			<a href="video?videoId=${video.id}&op=<%=BackofficeUsuarioController.OP_ELIMINAR%>" onclick="confirmar(event)" class="btn btn-danger btn-block">Eliminar(Modal)</a>
 	                            		</c:if>
 	                            	</form>
 	                            	<script>
 	                            	/*pasamos event desde la funcion y con esto nos evitamos un modal a la hora de 
 	                            	confirmar/noconfirmar accion de registro
 	                            	*/
-	                            		function confirmar(event){
-	                            			
-	                            			if(confirm('Estas seguro de querer eliminar')){
-	                            				console.log("Confirmado eliminar");
-	                            			}else{
-	                            				//previene el evento
-	                            				event.preventDefault():
-	                            			}
-	                            		}
+	                            	function showModalEliminar( idVideo, operacion ){
+	                        			console.log('showModalEliminar id=' + idVideo);
+	                        			$('#modalEliminar').modal('show');
+	                        			var btn = document.getElementById('btnEliminar');
+	                        			btn.href = 'inicio?id='+ idVideo + '&op=' + operacion;			
+	                        		}
+	                        		
+	                        		function showModalModificar( idVideo, nombre ){
+	                        			
+	                        			console.log('showModalModificar id=' + idVideo +  " nombre=" + nombre);
+	                        			$('#modalModificar').modal('show');
+	                        			document.getElementById('id').value = idVideo;
+	                        			document.getElementById('nombre').value = nombre;
+	                        						
+	                        		}
+	                        		
+	                        		function confirmar(event){
+                            			
+                            			if(confirm('Estas seguro de querer eliminar')){
+                            				console.log("Confirmado eliminar");
+                            			}else{
+                            				//previene el evento
+                            				event.preventDefault();
+                            			}
+                            		}
 	                            	</script>
                             	</div>                           	                           	
                             </c:if>

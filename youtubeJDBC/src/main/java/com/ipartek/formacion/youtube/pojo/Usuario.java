@@ -18,6 +18,7 @@ public class Usuario {
 	}
 
 		
+
 	public Usuario(String nombre, String pass) {
 		this();
 		

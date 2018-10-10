@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.ipartek.formacion.youtube.model.UsuariosDaoJDBC;
 import com.ipartek.formacion.youtube.model.VideoDAO;
 import com.ipartek.formacion.youtube.pojo.Alert;
 import com.ipartek.formacion.youtube.pojo.Usuario;
@@ -29,6 +30,7 @@ public class HomeController extends HttpServlet {
 	public static final String OP_ELIMINAR = "1";
 	public static final String OP_MODIFICAR = "2";
 	private static VideoDAO dao;
+	private static UsuariosDaoJDBC usuarioDao;
 	private ArrayList<Video> videos;	
 	private Video videoInicio;
 	String editar = null;
@@ -39,6 +41,7 @@ public class HomeController extends HttpServlet {
 		super.init(config);
 		//Se ejecuta solo con la 1º petición, el resto de peticiones iran a "service"
 		dao = VideoDAO.getInstance();
+		usuarioDao = usuarioDao.getInstance();
 	}
 	
 	
@@ -224,6 +227,7 @@ public class HomeController extends HttpServlet {
 			String nombre = request.getParameter("nombre");
 			String editarVideoId = request.getParameter("editarVideoId");
 			String editarNombre = request.getParameter("editarNombre");
+			String usuarioId = request.getParameter("usuarioId");
 			String modifiCacionNombreModal = request.getParameter("modifiCacionNombreModal");
 			
 			if (editarVideoId != null) {
@@ -236,7 +240,8 @@ public class HomeController extends HttpServlet {
 			//insertar
 			if(codigo != null || nombre != null) {
 				boolean resultInsert = false; 
-				videoInicio = new Video(codigo, nombre);
+				Usuario u = usuarioDao.getById(usuarioId);
+				videoInicio = new Video(codigo, nombre,u);
 				resultInsert =dao.insert(videoInicio);
 				if(!resultInsert) {
 					alerta = new Alert();

@@ -8,11 +8,12 @@ public class Video {
 	private String codigo;
 	private String nombre;
 	private Usuario usuario;
+	//private String thumbnail; // primera imagen del video http://img.youtube.com/vi/ID/0.jpg
 	
 	public Video() throws Exception {
 		super();
 		this.id = -1;
-		this.setCodigo("11letrasCod");
+		this.codigo="";
 		this.nombre = "";
 		this.usuario = new Usuario();
 	}
