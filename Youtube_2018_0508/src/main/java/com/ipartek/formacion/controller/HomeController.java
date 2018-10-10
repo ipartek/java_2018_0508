@@ -6,8 +6,6 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.Locale;
-import java.util.ResourceBundle;
 
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
@@ -42,7 +40,6 @@ public class HomeController extends HttpServlet {
 	private static String op = "";
 	
 	//atributos
-	private static String msg = "";
 	private static VideoDAO dao;
 	private static ComentarioArrayDAO daoComentarios;
 	private static ArrayList<Video> videos;
@@ -207,8 +204,6 @@ public class HomeController extends HttpServlet {
 		Video videoEditar = null;
 		
 		try {
-			
-			msg = "";
 			
 			id = request.getParameter("id");
 			codigo = request.getParameter("codigo");

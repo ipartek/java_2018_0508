@@ -8,6 +8,7 @@ public class Video {
 	private String codigo;
 	private String titulo;
 	private String descripcion;
+	private Usuario usuario;
 	private List<Comentario> comentarios;
 
 	public static final int CODIGO_LENGTH = 11;
@@ -19,6 +20,7 @@ public class Video {
 		this.codigo = "UmYKPY_-ejc";
 		this.titulo = "Game of Thrones - Season 7 - Main Titles";
 		this.descripcion = "Esta es una descripción de ejemplo para el vídeo por defecto.";
+		this.usuario = new Usuario();
 		this.comentarios = new ArrayList<Comentario>();
 	}
 
@@ -76,6 +78,14 @@ public class Video {
 
 	public void setDescripcion(String descripcion) {
 		this.descripcion = descripcion;
+	}
+	
+	public Usuario getUsuario() {
+		return usuario;
+	}
+
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
 	}
 
 	public List<Comentario> getComentarios() {

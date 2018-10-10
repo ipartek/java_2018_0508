@@ -6,7 +6,6 @@ public class Comentario {
 	private String contenido;
 	//Clave Externa
 	private String idVideo;
-	private String nombreUsuario;
 	
 	public Comentario() {
 		super();
@@ -14,7 +13,6 @@ public class Comentario {
 		this.fecha = "";
 		this.contenido = "";
 		this.idVideo = "";
-		this.nombreUsuario = "";
 	}
 	
 	public Comentario(String id, String fecha, String contenido, String idVideo) {
@@ -31,7 +29,6 @@ public class Comentario {
 		this.fecha = fecha;
 		this.contenido = contenido;
 		this.idVideo = idVideo;
-		this.nombreUsuario = nombreUsuario;
 	}
 	
 	public String getId() {

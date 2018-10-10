@@ -27,7 +27,7 @@
             
             <div class="row">
                 <div class="col-lg-12">
-                    <div class="panel panel-default">
+                    <div class="panel panel-default panel-tabla">
                         <div class="panel-heading">
                             Formulario de gestión de usuarios
                         </div>

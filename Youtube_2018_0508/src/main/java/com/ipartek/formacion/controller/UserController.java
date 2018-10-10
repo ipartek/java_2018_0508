@@ -2,7 +2,6 @@ package com.ipartek.formacion.controller;
 
 import java.io.IOException;
 import java.text.MessageFormat;
-import java.util.ArrayList;
 import java.util.Locale;
 import java.util.ResourceBundle;
 

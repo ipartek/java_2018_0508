@@ -6,17 +6,31 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.ipartek.formacion.pojo.Usuario;
 import com.ipartek.formacion.pojo.Video;
 import com.mysql.jdbc.Statement;
 
 public class VideoDAO implements Crudable<Video> {
 	
 	private static VideoDAO INSTANCE = null;
-	private final String SQL_GET_ALL = "SELECT id, codigo, nombre FROM video ORDER BY id DESC LIMIT 1000";
-	private final String SQL_GET_BY_ID = "SELECT id, codigo, nombre FROM video WHERE id = ? LIMIT 1000";
-	private final String SQL_UPDATE = "UPDATE video SET codigo = ?, nombre = ? WHERE id = ?;";
-	private final String SQL_INSERT = "INSERT INTO video (codigo, nombre) VALUES (?, ?);";
+//	private final String SQL_GET_ALL = "SELECT id, codigo, nombre FROM video ORDER BY id DESC LIMIT 1000";
+	private final String SQL_GET_ALL = "SELECT v.id as 'id_video', v.codigo, v.nombre as 'nombre_video', id_usuario as 'id_usuario', u.nombre as 'nombre_usuario', u.password"
+										+ " FROM youtube.video as v, youtube.usuario as u"
+										+ " WHERE v.id_usuario = u.id"
+										+ " ORDER BY v.id DESC LIMIT 1000";
+//	private final String SQL_GET_BY_ID = "SELECT id, codigo, nombre FROM video WHERE id = ? LIMIT 1000";
+	private final String SQL_GET_BY_ID = "SELECT v.id as 'id_video', v.codigo, v.nombre as 'nombre_video', id_usuario as 'id_usuario', u.nombre as 'nombre_usuario', u.password"
+										+ " FROM youtube.video as v, youtube.usuario as u"
+										+ " WHERE v.id_usuario = u.id AND v.id = ? LIMIT 1000";
+	private final String SQL_UPDATE = "UPDATE video SET codigo = ?, nombre = ?, id_usuario = ? WHERE id = ?;";
+	private final String SQL_INSERT = "INSERT INTO video (codigo, nombre, id_usuario) VALUES (?, ?, ?);";
 	private final String SQL_DELETE = "DELETE FROM video WHERE id = ?;";
+	
+	
+	/*"SELECT u.id as 'id_usuario', u.nombre as 'nombre_usuario', u.password, id_rol as 'id_rol', r.nombre as 'rol_nombre'"
+												+" FROM youtube.usuario as u, youtube.rol as r"
+												+" WHERE u.id_rol = r.id"
+												+" ORDER BY u.id DESC LIMIT 500";*/
 	
 	private VideoDAO() {
 		super();
@@ -45,6 +59,7 @@ public class VideoDAO implements Crudable<Video> {
 //				PreparedStatement ps = con.prepareStatement(SQL_INSERT);
 				ps.setString(1, pojo.getCodigo());
 				ps.setString(2, pojo.getTitulo());
+				ps.setLong(3, pojo.getUsuario().getId());
 				
 				int affectedRows = ps.executeUpdate();
 				
@@ -135,7 +150,8 @@ public class VideoDAO implements Crudable<Video> {
 				
 				ps.setString(1, pojo.getCodigo());
 				ps.setString(2, pojo.getTitulo());
-				ps.setLong(3, pojo.getId());
+				ps.setLong(3, pojo.getUsuario().getId());
+				ps.setLong(4, pojo.getId());
 				
 				int affectedRows = ps.executeUpdate();
 				
@@ -175,9 +191,16 @@ public class VideoDAO implements Crudable<Video> {
 	private Video rowMapper(ResultSet rs) throws Exception{
 		Video v = new Video();
 		if(rs != null) {
-			v.setId(rs.getLong("id"));
+			v.setId(rs.getLong("id_video"));
 			v.setCodigo( rs.getString("codigo"));
-			v.setTitulo(rs.getString("nombre"));
+			v.setTitulo(rs.getString("nombre_video"));
+			
+			Usuario u = new Usuario();
+			u.setId(rs.getLong("id_usuario"));
+			u.setNombre(rs.getString("nombre_usuario"));
+			u.setContrasena(rs.getString("password"));
+			
+			v.setUsuario(u);
 		}
 		return v;
 	}

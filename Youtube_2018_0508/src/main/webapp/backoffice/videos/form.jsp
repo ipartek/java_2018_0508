@@ -1,11 +1,13 @@
-<!-- Formulario de Usuarios -->
+<!-- Formulario de Videos -->
 
+<%@page import="com.ipartek.formacion.controller.back.BackofficeVideoController"%>
+<%@page import="com.ipartek.formacion.pojo.Video"%>
 <%@page import="com.ipartek.formacion.pojo.Usuario"%>
 <%@include file="../includes/taglibs.jsp"%>
 
 <%@include file="../includes/header.jsp"%>
 
-<!-- Listado de Usuarios -->
+<!-- Listado de Videos -->
 
  <div id="wrapper">
 
@@ -17,7 +19,7 @@
         	
             <div class="row">
                 <div class="col-lg-12">
-                    <h1 class="page-header">${(video.id==-1)?'Crear Vídeo':video.nombre}</h1>
+                    <h1 class="page-header">${(video.id==-1)?'Crear Vídeo':video.titulo}</h1>
                 </div>
                 <!-- /.col-lg-12 -->
             </div>
@@ -25,26 +27,26 @@
             
             <div class="row">
                 <div class="col-lg-12">
-                    <div class="panel panel-default">
+                    <div class="panel panel-default panel-tabla">
                         <div class="panel-heading">
                             Formulario de gestión de vídeos
                         </div>
                         <!-- /.panel-heading -->
                         <div class="panel-body">
-                            <form action="" method="post">
+                            <form action="videos?op=${BackofficeVideoController.OP_GUARDAR}" method="post">
                             
                             	<div class="form-row">
                             		<div class="col">
 										<div class="form-group col-md-6">
 										   <label for="id">ID del vídeo: </label>
-										   <input readonly="readonly" class="form-control" type="text" name="id" id="id" value="${(usuario.id==-1)?'':usuario.id}">
+										   <input readonly="readonly" class="form-control" type="text" name="id" id="id" value="${(video.id==-1)?'':video.id}">
 									   </div>
 									</div>
 									<div class="col">
 										<div class="form-group col-md-6">
-										   <label class="required" for="nombre">Nombre del vídeo: </label>
-										   <input class="form-control" type="text" name="nombre" id="nombre" placeholder="Mínimo 3 caracteres y máximo 10" minlength="3" maxlength="10" autofocus tabindex="1" required
-										   value="${(video.id==-1)?'':video.nombre}">
+										   <label class="required" for="titulo">Título del vídeo: </label>
+										   <input class="form-control" type="text" name="titulo" id="titulo" placeholder="Mínimo 3 caracteres y máximo 150" minlength="3" maxlength="150" autofocus tabindex="1" required
+										   value="${(video.id==-1)?'':video.titulo}">
 									   </div>
 									</div>
 								</div>
@@ -57,6 +59,16 @@
 										   value="${(video.id==-1)?'':video.codigo}">
 									   </div>
 									</div>
+									<div class="col">
+										<div class="form-group col-md-6">
+										   <label class="required" for="rol">Usuario asociado: </label>
+										   <select class="form-control" required name="usuario" id="usuario">
+												<c:forEach items="${usuarios}" var="u">
+													<option value="${u.id}" ${(video.usuario.id==u.id)?'selected':''}>${u.nombre}</option>
+												</c:forEach>
+											</select>
+										</div>
+									</div>
 								</div>
 								
 								<div class="form-row">
@@ -67,7 +79,7 @@
                             	
                             	<input type="submit" value="${(video.id==-1)?'Crear':'Modificar'}" class="form-control btn btn-primary btn-block" />
                             	<c:if test="${video.id >0 }">
-                            		<a href="usuarios?id=${video.id}&op=2" onclick="confirmar(event)" class="btn btn-danger btn-block">Eliminar(Modal)</a>
+                            		<a href="videos?id=${video.id}&op=${BackofficeVideoController.OP_ELIMINAR}" onclick="confirmar(event)" class="btn btn-danger btn-block">Eliminar(Modal)</a>
                             	</c:if>
                             </form>
                             

@@ -20,7 +20,7 @@ import com.ipartek.formacion.pojo.Usuario;
  * Servlet implementation class BackofficeUsuarioController
  */
 @WebServlet("/backoffice/usuarios")
-public class BackofficeUsuarioController extends HttpServlet {
+public class BackofficeUsuarioController extends HttpServlet implements CrudControllable{
 	private static final long serialVersionUID = 1L;
 	
 	private static UsuarioDAO daoUsuario = null;
@@ -33,11 +33,6 @@ public class BackofficeUsuarioController extends HttpServlet {
 	private Alert alert = null;
 	
 //	ArrayList<Usuario> usuarios = null;
-	
-	public static final String OP_LISTAR = "1";
-	public static final String OP_GUARDAR = "2"; //Insert o update en funcion del id (-1 o >0)
-	public static final String OP_ELIMINAR = "3";
-	public static final String OP_IR_FORMULARIO = "4";
 	
 	//Parametros
 	private String op; //Operacion a realizar
@@ -74,7 +69,8 @@ public class BackofficeUsuarioController extends HttpServlet {
 		doProcess(request, response);		
 	}
 
-	private void doProcess(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
+	@Override
+	public void doProcess(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
 		try {
 			alert=null;
 			
@@ -109,20 +105,27 @@ public class BackofficeUsuarioController extends HttpServlet {
 		}
 	}
 	
-	private void getParameters(HttpServletRequest request) {
+	@Override
+	public void getParameters(HttpServletRequest request) {
 		op = (request.getParameter("op") != null) ? request.getParameter("op"): OP_LISTAR; 
 		id = request.getParameter("id"); // 0 = crear, 1 = modificar
 		nombre = request.getParameter("nombre");
 		contrasena = request.getParameter("contrasena");
 		rol = request.getParameter("rol");
 	}
-
-	private void listar(HttpServletRequest request) throws Exception {
+	
+	@Override
+	public void listar(HttpServletRequest request){
 		view = VIEW_INDEX_USUARIOS;
-		request.setAttribute("usuarios", daoUsuario.getAll());
+		try {
+			request.setAttribute("usuarios", daoUsuario.getAll());
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
-
-	private void irFormulario(HttpServletRequest request) throws Exception {	
+	
+	@Override
+	public void irFormulario(HttpServletRequest request) throws Exception {	
 		Usuario usuario = null;
 		if(Integer.parseInt(id)>0) {
 			usuario = daoUsuario.getById(id);
@@ -133,8 +136,9 @@ public class BackofficeUsuarioController extends HttpServlet {
 		request.setAttribute("roles", daoRol.getAll());
 		view = VIEW_FORM_USUARIOS;
 	}
-
-	private void guardar(HttpServletRequest request){
+	
+	@Override
+	public void guardar(HttpServletRequest request){
 		Usuario usuario = null;
 		try {
 //		if(nombre != null && contrasena != null) {
@@ -202,8 +206,9 @@ public class BackofficeUsuarioController extends HttpServlet {
 		request.setAttribute("usuario", usuario);
 		view = VIEW_FORM_USUARIOS;
 	}
-
-	private void eliminar(HttpServletRequest request) throws Exception {
+	
+	@Override
+	public void eliminar(HttpServletRequest request) throws Exception {
 		try {
 			daoUsuario.delete(id);
 			alert = new Alert(Alert.ALERT_SUCCESS, "Usuario borrado con éxito.");
