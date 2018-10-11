@@ -73,7 +73,6 @@ public class ComentarioDAO implements CrudAble<Comentario> {
 
 					comentarios.add(rowMapper(rs)); // Mapear ResultSet
 				}
-
 			}
 		}
 		
@@ -112,7 +111,7 @@ public class ComentarioDAO implements CrudAble<Comentario> {
 		try (Connection cnx = ConnectionManager.getConnection();
 				PreparedStatement ps = cnx.prepareStatement(SQL_INSERT, Statement.RETURN_GENERATED_KEYS);) {
 
-			ps.setString(1, pojo.getTexto());
+			ps.setString(1, pojo.getTexto().trim());
 			ps.setLong(2, pojo.getUsuario().getId()); // FK id_usuario
 			ps.setLong(3, pojo.getVideo().getId()); // FK id_video
 
@@ -140,7 +139,7 @@ public class ComentarioDAO implements CrudAble<Comentario> {
 		try (Connection cnx = ConnectionManager.getConnection();
 				PreparedStatement ps = cnx.prepareStatement(SQL_UPDATE)) {
 
-			ps.setString(1, pojo.getTexto());
+			ps.setString(1, pojo.getTexto().trim());
 			/*
 			 * ps.setString(2, pojo.getNombre()); ps.setLong(3, pojo.getUsuario().getId());
 			 * // FK id_usuario ps.setLong(4, pojo.getId());

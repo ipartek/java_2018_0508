@@ -23,6 +23,9 @@ import com.ipartek.formacion.youtube.pojo.Usuario;
 public class ComentarController extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
+	
+	private static HttpSession session;
+	private static Alert alert;
 
 	private static ComentarioDAO daoComentario;
 
@@ -72,7 +75,7 @@ public class ComentarController extends HttpServlet {
 
 		try {
 
-			HttpSession session = request.getSession();
+			session = request.getSession();
 			usuario = (Usuario) session.getAttribute("usuario");
 
 			// Comprobar si hay un usuario logueado
@@ -82,15 +85,16 @@ public class ComentarController extends HttpServlet {
 				crearComentario();
 				insertarComentario();
 				
-
 			}
 
 		} catch (Exception e) { // Excepciones no controladas
 
+			alert = new Alert();
 			e.printStackTrace();
 
 		} finally {
 			
+			session.setAttribute("alert", alert);
 			response.sendRedirect("inicio?id="+numIdVideo);
 		}
 
@@ -117,7 +121,14 @@ public class ComentarController extends HttpServlet {
 	
 	private void insertarComentario() throws SQLException {
 
-		daoComentario.insert(comentario);	// Comentario insertad
+		if (daoComentario.insert(comentario)) { // Comentario insertado
+
+			alert = new Alert(Alert.SUCCESS, "Comentario compartido.");
+
+		} else {
+
+			alert = new Alert(Alert.DANGER, "Comentario no compartido.");
+		}
 	}
 
 }
