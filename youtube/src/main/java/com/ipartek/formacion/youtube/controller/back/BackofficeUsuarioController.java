@@ -3,6 +3,8 @@ package com.ipartek.formacion.youtube.controller.back;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.sql.SQLIntegrityConstraintViolationException;
+import java.util.ArrayList;
+
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -10,6 +12,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.ipartek.formacion.youtube.model.RolDAO;
 import com.ipartek.formacion.youtube.model.UsuarioDAO;
 import com.ipartek.formacion.youtube.pojo.Alert;
 import com.ipartek.formacion.youtube.pojo.Usuario;
@@ -19,8 +22,11 @@ import com.ipartek.formacion.youtube.pojo.Usuario;
  */
 @WebServlet("/backoffice/usuarios")
 public class BackofficeUsuarioController extends HttpServlet {
+	
+	
 	private static final long serialVersionUID = 1L;
 	private static UsuarioDAO daoUsuario = null;
+	private static RolDAO daoRol = null;
 	
 	public static final String OP_LISTAR = "1";
 	public static final String OP_GUARDAR = "2";  //insert id == -1 o update id > 0
@@ -28,7 +34,7 @@ public class BackofficeUsuarioController extends HttpServlet {
 	public static final String OP_IR_FORMULARIO = "4";
 	
 	private static final String VIEW_LISTADO = "usuarios/index.jsp";
-	private static final String VIEW_FORMULARIO = "usuarios/formulario.jsp";
+	private static final String VIEW_FORMULARIO = "usuarios/form.jsp";
 	private String view;
 	private Alert alert;
 	
@@ -38,16 +44,19 @@ public class BackofficeUsuarioController extends HttpServlet {
 	private String password;
 	private String rol;
 	
+	
 	@Override
 	public void init(ServletConfig config) throws ServletException {	
 		super.init(config);
 		daoUsuario = UsuarioDAO.getInstance();
+		daoRol = RolDAO.getInstance();
 	}
 	
 	@Override
 	public void destroy() {	
 		super.destroy();
 		daoUsuario = null;
+		daoRol = null;
 	}
     
 	/**
@@ -109,38 +118,44 @@ public class BackofficeUsuarioController extends HttpServlet {
 	}
 
 	private void guardar(HttpServletRequest request) {
-		
 		Usuario u = new Usuario();
-		u.setId(Long.parseLong(id));
-		u.setNombre(nombre);
-		u.setPassword(password);
-		u.setRol(Integer.parseInt(rol));
 		
 		try {
-			if( u.getId() > 0 ) {                // UPDATE
-				daoUsuario.update(u);
-			}else {                              //INSERT
-				daoUsuario.insert(u);
-			}
 			
-			alert = new Alert(Alert.SUCCESS, "Usuario guardado con exito");
-
-		//nombre repetido
-		}catch(SQLIntegrityConstraintViolationException e) {
+			u.setId(Long.parseLong(id));
+			u.setNombre(nombre);
+			u.setPassword(password);		
+			u.setRol( daoRol.getById(rol) );
+		
+		
+			if( u.getId() > 0 ) {			
+				daoUsuario.update(u);				
+			}else {                 
+				daoUsuario.insert(u);				
+			}			
+			alert = new Alert(Alert.SUCCESS, "Usuario guardado con exito");	
+	
+		
+		
+			
+		// nombre repetido
+		} catch ( SQLIntegrityConstraintViolationException e ) {
 			e.printStackTrace();
-			alert = new Alert(Alert.WARNING, "<b>" + u.getNombre() + "</b> ya existe!!!");
-		//longitud campos en nombre y password
-		}catch(SQLException e) {
-			if(e.getMessage().contains("nombre")) {
-				alert = new Alert(Alert.WARNING, "El <b>nombre</b> debe ser inferior a 50 caracteres.");
+			alert = new Alert(Alert.WARNING, "<b>" + u.getNombre() +  "</b> ya existe !!!" );
+		
+		//longitud campos nombre y password
+		}catch (SQLException e) {
+			e.printStackTrace();
+			if ( e.getMessage().contains("nombre")) {
+				alert = new Alert(Alert.WARNING, "El <b>nombre</b> debe ser inferior a 50 caracteres");
 			}else {
-				alert = new Alert(Alert.WARNING, "La <b>contraseña</b> debe ser inferior a 20 caracteres.");
-			}
-			
-		}catch(Exception e) {
+				alert = new Alert(Alert.WARNING, "La <b>contraseña</b> debe ser inferior a 20 caracteres");
+			}			
+		}catch (Exception e) {
 			e.printStackTrace();
 			alert = new Alert();
-		}
+		}	
+		
 		
 		view = VIEW_FORMULARIO;
 		request.setAttribute("usuario", u);
@@ -155,21 +170,26 @@ public class BackofficeUsuarioController extends HttpServlet {
 		}else {			
 			request.setAttribute("usuario", daoUsuario.getById(id));
 		}
+		
+		request.setAttribute("roles", daoRol.getAll() );
 	}
 
-	//TODO Gestionar esta exception
-	private void eliminar(HttpServletRequest request) throws Exception{
+	
+	private void eliminar(HttpServletRequest request) throws Exception {
+		
 		try {
 			daoUsuario.delete(id);
 			alert = new Alert(Alert.SUCCESS, "Usuario Eliminado");
-		}catch(Exception e) {
-			alert = new Alert(Alert.WARNING, "No hemos podido eliminar este usuario porque tiene videos creados");
-		}
+		}catch (Exception e) {
+			alert = new Alert(Alert.WARNING, "No podemos eliminar el usuario porque tiene videos creados");
+		}	
 		view = VIEW_LISTADO;
-		request.setAttribute("usuarios", daoUsuario.getAll());
+		request.setAttribute("usuarios", daoUsuario.getAll());	
+		
 	}
 
 	private void getParameters(HttpServletRequest request) {
+		
 		op = ( request.getParameter("op") != null ) ? request.getParameter("op") : OP_LISTAR;		
 		id = request.getParameter("id");
 		nombre = request.getParameter("nombre");

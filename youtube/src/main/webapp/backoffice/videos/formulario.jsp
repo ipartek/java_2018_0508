@@ -1,7 +1,7 @@
 <%@page import="com.ipartek.formacion.youtube.controller.back.BackofficeVideoController"%>
 <%@page import="com.ipartek.formacion.youtube.pojo.Usuario"%>
 <%@include file="../includes/header.jsp" %>
-<%@include file="../includes/navbar.jsp" %>
+<%@include file="../includes/nav.jsp" %>
 
 <div id="page-wrapper">
 <%@ include file="../includes/alerts.jsp" %>

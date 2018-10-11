@@ -15,6 +15,7 @@ import javax.servlet.http.HttpSession;
 
 import com.ipartek.formacion.youtube.model.UsuarioDAO;
 import com.ipartek.formacion.youtube.pojo.Alert;
+import com.ipartek.formacion.youtube.pojo.Rol;
 import com.ipartek.formacion.youtube.pojo.Usuario;
 
 /**
@@ -22,12 +23,13 @@ import com.ipartek.formacion.youtube.pojo.Usuario;
  */
 @WebServlet("/login")
 public class LoginController extends HttpServlet {
+	
 	private static final long serialVersionUID = 1L;
 	private static UsuarioDAO daoUsuario;
 	
 	private static final String VIEW_INICIO_ADMIN = "/backoffice/inicio";
 	private static final String VIEW_INICIO_USER = "/inicio";
-       
+	 
     
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
@@ -50,58 +52,67 @@ public class LoginController extends HttpServlet {
 		String view = VIEW_INICIO_USER;
 		
 		try {
-	
-			daoUsuario = UsuarioDAO.getInstance();
 			
 			//idiomas @see com.ipartek.formacion.youtube.filter.IdiomaFilter
 			String idioma = (String)session.getAttribute("idioma");			
 			Locale locale = new Locale( idioma.split("_")[0] , idioma.split("_")[1] );			
 			ResourceBundle idiomas = ResourceBundle.getBundle("idiomas", locale );
+						
 			
 			//recoger parametros
 			String usuarioNombre = request.getParameter("usuario");
 			String pass = request.getParameter("pass");
-			String recuerda = request.getParameter("recuerdame");
-			
-			Cookie cRecuerda = new Cookie("cRecuerda", "5");
-			
-			if("1".equals(recuerda)) {
-				cRecuerda.setValue(usuarioNombre);
-				cRecuerda.setMaxAge(60*60*24*30*3); //3meses
-			}else {
-				cRecuerda.setValue("");
-				cRecuerda.setMaxAge(0); //No guardar
-			}
-			
-			response.addCookie(cRecuerda);
-			
 			Usuario u = new Usuario(usuarioNombre, pass);
+			daoUsuario = UsuarioDAO.getInstance();	
 			
-			if(daoUsuario.login(u)) {
-				alert.setTexto(MessageFormat.format(idiomas.getString("msj.bienvenida"), usuarioNombre));
-				alert.setTipo(Alert.PRIMARY);
+			 
 			
-				//guardar Usuario en session
-				u.setNombre(usuarioNombre);
-				u.setPassword(pass);
-				session.setAttribute("usuario", u);
+			if (  daoUsuario.login(u) != null ) {
 				
-				if(u.getRol() == Usuario.ROL_ADMIN) {
+				alert.setTexto(MessageFormat.format(idiomas.getString("msj.bienvenida"), usuarioNombre) );
+				alert.setTipo(Alert.PRIMARY);
+				
+				//guardar Usuario en session				
+				session.setAttribute("usuario", u);
+				session.setMaxInactiveInterval(60*5); // 5min				
+				
+				gestionarCookies(request, response, u);
+				
+				if ( u.getRol().getId() == Rol.ROL_ADMIN ) {
 					view = VIEW_INICIO_ADMIN;
 				}
 				
-			}else {
-				alert.setTexto("Credenciales incorrectas. Si aún no te has registrado, puedes hacerlo desde este enlace.");
+				
+			}else{
+				
+				alert.setTexto("Credenciales incorrectas" );
 			}
 			
-			session.setMaxInactiveInterval(60*5); // 5min
 			
 		}catch (Exception e) {
 			e.printStackTrace();
 		}finally {
-			session.setAttribute("alert", alert);
+			session.setAttribute("alert", alert);			
 			response.sendRedirect(request.getContextPath() + view ); 
 		}
+		
+		
+	}
+
+	private void gestionarCookies(HttpServletRequest request, HttpServletResponse response, Usuario u) {
+		
+		String recordar = (String)request.getParameter("recuerdame");
+		Cookie cNombre = new Cookie("cNombre", u.getNombre());
+				
+		if ( recordar != null) {
+			
+			cNombre.setMaxAge(60*60*24*30*3); // 3meses
+			
+		}else {
+			cNombre.setMaxAge(0); // No guardar
+		}
+		
+		response.addCookie(cNombre);
 		
 		
 	}

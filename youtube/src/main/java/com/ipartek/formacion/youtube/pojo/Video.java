@@ -6,13 +6,16 @@ public class Video {
 	
 	private long id;
 	private String codigo;
-	private String nombre;
+	private String nombre;	
+	private Usuario usuario;
+	//thumbnail = "http://img.youtube.com/vi/"+this.codigo+"/0.jpg";
 	
-	public Video() throws Exception {
+	public Video(){
 		super();
 		this.id = -1;
-		this.setCodigo("YlUKcNNmywk");
-		this.nombre = "Red Hot Chili Peppers - Californication";		
+		this.codigo = "";
+		this.nombre = "";			
+		this.usuario = new Usuario();
 	}
 	
 	public Video(String codigo, String nombre) throws Exception {
@@ -22,16 +25,12 @@ public class Video {
 		this.nombre = nombre;
 	}
 
-	public long getId() {
-		return id;
+
+	public Video(long videoId) {
+		this();
+		this.id = videoId;
 	}
-	public void setId(long id) {
-		this.id = id;
-	}
-	
-	public String getCodigo() {
-		return codigo;
-	}
+
 	public void setCodigo(String codigo) throws Exception {
 		if ( codigo != null && codigo.length() == CODIGO_LONGITUD ) {
 			this.codigo = codigo;
@@ -39,19 +38,40 @@ public class Video {
 			throw new Exception("El IDENTIFICADOR debe ser exactamente de " + CODIGO_LONGITUD + " caracteres");
 		}	
 	}
-	
+
+	public long getId() {
+		return id;
+	}
+
+	public void setId(long id) {
+		this.id = id;
+	}
+
 	public String getNombre() {
 		return nombre;
 	}
+
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
+	}
+
+	public String getCodigo() {
+		return codigo;
+	}
+		
+
+	public Usuario getUsuario() {
+		return usuario;
+	}
+
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
 	}
 
 	@Override
 	public String toString() {
 		return "Video [id=" + id + ", codigo=" + codigo + ", nombre=" + nombre + "]";
 	}
-	
 	
 	
 }

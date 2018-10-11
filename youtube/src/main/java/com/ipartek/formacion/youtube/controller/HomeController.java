@@ -13,8 +13,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.ipartek.formacion.youtube.model.ComentarioDAO;
 import com.ipartek.formacion.youtube.model.VideoDAO;
 import com.ipartek.formacion.youtube.pojo.Alert;
+import com.ipartek.formacion.youtube.pojo.Comentario;
 import com.ipartek.formacion.youtube.pojo.Usuario;
 import com.ipartek.formacion.youtube.pojo.Video;
 
@@ -31,7 +33,9 @@ public class HomeController extends HttpServlet {
 	
 	
 	private static VideoDAO dao;
-	private ArrayList<Video> videos;	
+	private static ComentarioDAO daoComentario;
+	private ArrayList<Video> videos;
+	private ArrayList<Comentario> comentarios;
 	private Video videoInicio;
 
 	
@@ -40,6 +44,7 @@ public class HomeController extends HttpServlet {
 		super.init(config);
 		//Se ejecuta solo con la 1º petición, el resto de peticiones iran a "service"
 		dao = VideoDAO.getInstance();
+		daoComentario = ComentarioDAO.getInstance();
 	}
 	
 	
@@ -48,6 +53,7 @@ public class HomeController extends HttpServlet {
 		super.destroy();
 		//se ejecuta al parar el servidor
 		dao = null;
+		daoComentario = null;
 	}
 	
 	
@@ -72,12 +78,19 @@ public class HomeController extends HttpServlet {
 		//despues de realizar GET o POST
 		request.setAttribute("videos", videos);
 		request.setAttribute("videoInicio", videoInicio);
+		try {
+			request.setAttribute("comentarios", daoComentario.getAllByVideo(videoInicio.getId()));
+			
+		} catch (Exception e) {			
+			e.printStackTrace();
+		}
 		
 		String playlist = "";
-		for(int i = 1; i < videos.size(); i++) {
+		for (int i=0; i < videos.size(); i++) {
 			playlist += videos.get(i).getCodigo() + ",";
 		}
 		request.setAttribute("playlist", playlist);
+		
 		
 		request.getRequestDispatcher("home.jsp").forward(request, response);
 		
@@ -97,7 +110,6 @@ public class HomeController extends HttpServlet {
 			//parametros
 			String id = request.getParameter("id");
 			String op = request.getParameter("op");
-			String nombre = request.getParameter("nombre");
 			
 			//eliminar ?			
 			if ( op != null && OP_ELIMINAR.equals(op) ) {
@@ -108,30 +120,13 @@ public class HomeController extends HttpServlet {
 				}
 			}
 			
-			//modificar
-			if ( op != null && OP_MODIFICAR.equals(op) ) {
-				//recuperar video por id
-				Video v = dao.getById(id);
-				
-				//meter nuevo nombre al video recuperado
-				v.setNombre(nombre);
-				
-				//hacer update
-				if(dao.update(v)) {
-					alert = new Alert(Alert.SUCCESS, "Nombre del video Modificado correctamente");
-				}else {
-					alert = new Alert();
-				}
-			}
-			
 			//listado videos			
 			videos = (ArrayList<Video>) dao.getAll();
 			
-			
 			//video de inicio
 			videoInicio = new Video();
-			if ( id != null && !OP_ELIMINAR.equals(op) && !OP_MODIFICAR.equals(op)) {
-				videoInicio = dao.getById(id);
+			if ( id != null && !OP_ELIMINAR.equals(op) ) {
+				videoInicio = dao.getById( id );
 				
 				//guardar video reproducido si esta usuario en session
 				HttpSession session = request.getSession();
@@ -173,14 +168,30 @@ public class HomeController extends HttpServlet {
 			//recoger parametros
 			String codigo = request.getParameter("codigo");
 			String nombre = request.getParameter("nombre");
+			String op = request.getParameter("op");
+			String id = request.getParameter("id");
 			
-			//insertar
-			videoInicio = new Video(codigo, nombre);
-			if ( dao.insert(videoInicio) ) {
-				alert = new Alert(Alert.SUCCESS, "Gracias por subir tu Video");
-			}else {
-				alert = new Alert(Alert.WARNING, "ERROR, no se pudo crear el video, por favor asegurate que no este duplicado el Video.");
-			}
+			if ( op != null && OP_MODIFICAR.equals(op)) {    // modificar
+				
+				Video v = dao.getById( id );
+				v.setNombre(nombre);
+				
+				if ( dao.update(v) ) {
+					alert = new Alert(Alert.SUCCESS, "Video Modificado");
+				}else {
+					alert = new Alert();
+				}
+				
+				
+			}else {  										 //insertar
+							
+				videoInicio = new Video(codigo, nombre);
+				if ( dao.insert(videoInicio) ) {
+					alert = new Alert(Alert.SUCCESS, "Gracias por subir tu Video");
+				}else {
+					alert = new Alert(Alert.WARNING, "ERROR, no se pudo crear el video, por favor asegurate que no este duplicado el Video.");
+				}
+			}	
 			
 			//pedir listado			
 			videos = (ArrayList<Video>) dao.getAll();

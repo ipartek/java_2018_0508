@@ -7,48 +7,47 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.ipartek.formacion.youtube.pojo.Rol;
-import com.ipartek.formacion.youtube.pojo.Usuario;
 import com.mysql.jdbc.Statement;
 
-public class RolDAO implements CrudAble<Rol>{
-	
-	private static final String SQL_INSERT = "INSERT INTO `rol` (`nombre`) VALUES (?);";
-	private static final String SQL_GETALL = "SELECT `id`, `nombre` FROM rol ORDER BY id DESC LIMIT 1000;";
-	private static final String SQL_GET_BY_ID = "SELECT `id`, `nombre` FROM rol WHERE id = ?;";
-	private static final String SQL_UPDATE = "UPDATE rol SET nombre = ? WHERE id = ?;";
-	private static final String SQL_DELETE = "DELETE FROM rol WHERE id = ?;";
+public class RolDAO implements CrudAble<Rol> {
 
 	private static RolDAO INSTANCE = null;
-	
+
+	private final String SQL_GET_ALL = "SELECT id, nombre FROM rol ORDER BY id DESC LIMIT 1000;";
+	private final String SQL_GET_BY_ID = "SELECT id, nombre FROM rol WHERE id = ?;";
+	private final String SQL_UPDATE = "UPDATE rol SET nombre= ? WHERE id = ?;";
+	private final String SQL_DELETE = "DELETE FROM rol WHERE id = ?;";
+	private final String SQL_INSERT = "INSERT INTO rol (nombre) VALUES (?);";
+
 	private RolDAO() {
 		super();
 	}
-	
+
 	public static synchronized RolDAO getInstance() {
 		if (INSTANCE == null) {
 			INSTANCE = new RolDAO();
 		}
 		return INSTANCE;
 	}
-	
+
 	@Override
 	public boolean insert(Rol pojo) throws Exception {
 		boolean resul = false;
-		
+
 		try (Connection con = ConnectionManager.getConnection();
-			PreparedStatement ps = con.prepareStatement(SQL_INSERT, Statement.RETURN_GENERATED_KEYS);){
-			
+				PreparedStatement ps = con.prepareStatement(SQL_INSERT, Statement.RETURN_GENERATED_KEYS);) {
+
 			ps.setString(1, pojo.getNombre().trim());
-			
+
 			int affectedRows = ps.executeUpdate();
-			if ( affectedRows == 1 ) {				
-				try ( ResultSet rs = ps.getGeneratedKeys() ){
-					while( rs.next() ) {
-						pojo.setId( rs.getLong(1) );
-						resul = true;						
+			if (affectedRows == 1) {
+				try (ResultSet rs = ps.getGeneratedKeys()) {
+					while (rs.next()) {
+						pojo.setId(rs.getLong(1));
+						resul = true;
 					}
-				}				
-			}//affectedRows == 1 
+				}
+			} // affectedRows == 1
 
 		}
 		return resul;
@@ -56,37 +55,37 @@ public class RolDAO implements CrudAble<Rol>{
 
 	@Override
 	public List<Rol> getAll() throws Exception {
+		Rol rol = null;
+
 		ArrayList<Rol> roles = new ArrayList<Rol>();
-		
 		try (Connection con = ConnectionManager.getConnection();
-				PreparedStatement ps = con.prepareStatement(SQL_GETALL);
-				ResultSet rs = ps.executeQuery();){			
-				
-				while(rs.next()) {
-					roles.add(rowMapper(rs, null));
-				}
-				
+				PreparedStatement ps = con.prepareStatement(SQL_GET_ALL);
+				ResultSet rs = ps.executeQuery();) {
+
+			while (rs.next()) {
+				roles.add(rowMapper(rs, rol));
 			}
-		
+
+		}
 		return roles;
 	}
 
 	@Override
 	public Rol getById(String id) throws Exception {
 		Rol rol = null;
-		
 		try (Connection con = ConnectionManager.getConnection();
-			PreparedStatement ps = con.prepareStatement(SQL_GET_BY_ID);){
-			rol =	new Rol();
-				ps.setString(1, id);
-				try (ResultSet rs = ps.executeQuery();){
-					//mapear ResultSet a ArrayList<Video>
-					while( rs.next() ) {
-						rol = rowMapper(rs, rol);							
-					}
+				PreparedStatement ps = con.prepareStatement(SQL_GET_BY_ID);) {
+
+			ps.setString(1, id);
+
+			try (ResultSet rs = ps.executeQuery();) {
+
+				while (rs.next()) {
+					rol = rowMapper(rs, rol);
 				}
-			}	
-		
+			}
+
+		}
 		return rol;
 	}
 
@@ -101,7 +100,6 @@ public class RolDAO implements CrudAble<Rol>{
 			if (ps.executeUpdate() == 1) {
 				resul = true;
 			}
-
 		}
 		return resul;
 	}
@@ -109,29 +107,23 @@ public class RolDAO implements CrudAble<Rol>{
 	@Override
 	public boolean delete(String id) throws Exception {
 		boolean resul = false;
-		
 		try (Connection con = ConnectionManager.getConnection();
-			PreparedStatement ps = con.prepareStatement(SQL_DELETE);){
-				
+				PreparedStatement ps = con.prepareStatement(SQL_DELETE);) {
 			ps.setString(1, id);
-			if(ps.executeUpdate() == 1) {
+			if (ps.executeUpdate() == 1) {
 				resul = true;
 			}
-					
 		}
-		
 		return resul;
 	}
-	
+
 	private Rol rowMapper(ResultSet rs, Rol r) throws Exception {
-		
-		if(r == null) {
+		if (r == null) {
 			r = new Rol();
 		}
-		
-		if(rs != null) {
-			r.setId(rs.getLong("id"));
+		if (rs != null) {
 			r.setNombre(rs.getString("nombre"));
+			r.setId(rs.getLong("id"));
 		}
 		return r;
 	}

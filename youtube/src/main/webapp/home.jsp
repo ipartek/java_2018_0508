@@ -1,43 +1,43 @@
 <%@page import="com.ipartek.formacion.youtube.controller.HomeController"%>
-<%@include file="includes/header.jsp" %>
-<%@include file="includes/navbar.jsp" %>
 
+<%@ include file="includes/header.jsp" %>	
+    
     <!-- Page Content -->
     <div class="container">
-    <%@include file="includes/alerts.jsp" %>
-    <h1 class="mt-4">
-	<fmt:message key="msj.video.por.visualizar">
-		<fmt:param value="785"/>
-	</fmt:message>
-	</h1>
+    	
+      <%@ include file="includes/nav.jsp"  %>
+      <%@ include file="includes/alert.jsp"  %>	
+      	
       <div class="row">
 
         <div class="col-lg-3">        	
           <h4 class="my-4"><fmt:message key="lista.reproduccion"/></h4>
-          <ul class="list-group">
-          		<c:forEach items="${videos}" var="v">
+          <ul class="list-group">                     
+          	  <c:forEach items="${videos}" var="v">          
 	            <li class="list-group-item d-flex justify-content-between align-items-center">     
 	          	  	<a href="inicio?id=${v.id}">${v.nombre}</a>
+	          	  	
 	          	  	<c:if test="${not empty sessionScope.usuario}">
-	          	  		<i onclick="showModalEliminar(${v.id}, ${HomeController.OP_ELIMINAR} )" style="color:red;" class="fas fa-trash-alt"></i>
-	          	  		<i onclick="showModalModificar(${v.id},'${v.nombre}' )" style="color:grey;" class="fas fa-pencil-alt"></i>
+	          	  		<i onclick="showModalEliminar(${v.id}, ${HomeController.OP_ELIMINAR} )" style="color:red;" class="float-right fas fa-trash-alt"></i>
+	          	  		<i onclick="showModalModificar(${v.id}, '${v.nombre}' )" style="color:grey;" class="float-right fas fa-pencil-alt"></i>
 	          	  	</c:if>
+	          	  	
 	            </li>
-            	</c:forEach>
+	          </c:forEach>
             </ul>
-            
+            			
 			<!-- Modal Eliminar -->
 			<div class="modal fade" id="modalEliminar" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
 			  <div class="modal-dialog" role="document">
 			    <div class="modal-content">
 			      <div class="modal-header">
-			        <h5 class="modal-title text-danger" id="exampleModalLabel">Atencion!</h5>
+			        <h5 class="modal-title" id="exampleModalLabel">Atenci�n!!!</h5>
 			        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
 			          <span aria-hidden="true">&times;</span>
 			        </button>
 			      </div>
 			      <div class="modal-body">
-			      Estas seguro que quieres ELIMINAR el video?
+			        � Estas seguro que deseas ELIMINAR el Video?
 			      </div>
 			      <div class="modal-footer">
 			        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
@@ -46,72 +46,80 @@
 			    </div>
 			  </div>
 			</div>
-			
-			<!-- Modal Modificar -->
+            
+            
+            
+           <!-- modalModificar -->
 			<div class="modal fade" id="modalModificar" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
 			  <div class="modal-dialog" role="document">
 			    <div class="modal-content">
 			      <div class="modal-header">
-			        <h5 class="modal-title" id="exampleModalLabel">Modificando titulo</h5>
+			        <h5 class="modal-title" id="exampleModalLabel">Modificar Nombre Video</h5>
 			        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
 			          <span aria-hidden="true">&times;</span>
 			        </button>
 			      </div>
 			      <div class="modal-body">
-			      	<p>Introduce el nuevo nombre para el video '<span id="nombre" name="nombre"></span>' :</p>
-			      	<form action="inicio" method="get" class="form-inline mt-2 mt-md-0">
-			      	 	<input name="id" id="id" class="form-control mr-sm-2" type="hidden" title="id del video" value="">
-			      	 	<input name="op" id="op" class="form-control mr-sm-2" type="hidden" title="operacion" value="2">
-	            		<input name="nombre" class="form-control mr-sm-2" type="text" placeholder="Nombre minimo 2 letras" required pattern=".{2,125}">
-	            		<button class="btn btn-outline-info my-2 my-sm-0" type="submit">Modificar</button>
-			        </form>
+			        
 			      </div>
 			      <div class="modal-footer">
-			        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>		        
+			      
+			      	<form action="inicio" method="post">			      		
+			      		<input type="text" id="nombre" name="nombre" required >
+			      		<input type="hidden" name="id" id="id" value="-1">
+			      		<input type="hidden" name="op" value="${HomeController.OP_MODIFICAR}">
+			      		<input type="submit" value="Modificar">
+			      	</form>
+			      
+			        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+			        			        
 			      </div>
 			    </div>
 			  </div>
 			</div>
             
+            
             <hr>
             
             <h4 class="my-4">Videos Visualizados</h4>
-	          <ul class="list-group">
-	          	<c:if test="${not empty usuario}">
-	          			<c:forEach items="${reproducidos}" var="r">
-			            	<li class="list-group-item d-flex justify-content-between align-items-center">     
-			          	  		<a href="?id=${r.id}">${r.nombre}</a>	          	  	
-			            	</li>
-			            </c:forEach>
-		        </c:if>
-		        <c:if test="${empty usuario}">
-	          			<li class="list-group-item d-flex justify-content-between align-items-center">
-	          				<p>*Por favor <a href="registrarse.jsp">registrate</a> para guardar tus videos reproducidos. Si ya estas registrado inicia sesion en el menu superior.</p>
+	          <ul class="list-group mb-3">	          	
+          		   <c:forEach items="${reproducidos}" var="r">
+			            <li class="list-group-item d-flex justify-content-between align-items-center">     
+			          	  	<a href="?id=${r.id}">${r.nombre}</a>	          	  	
+			            </li>
+		           </c:forEach>
+		            
+		            <c:if test="${empty reproducidos}">
+		        		<li class="list-group-item d-flex justify-content-between align-items-center">
+	          				<p>*Por favor Inicia Session para guardar tus video reproducidos</p>
 	          			</li>
-	          	</c:if>
+          			</c:if>
+	          	
 	            </ul>
             
           </div>
-
+         
+        
         <!-- /.col-lg-3 -->
 
         <div class="col-lg-9">
 
           <div class="card mt-4">
-            
-            <!-- https://tutorialzine.com/2015/08/how-to-control-youtubes-video-player-with-javascript -->
+          
+          	<!--  https://tutorialzine.com/2015/08/how-to-control-youtubes-video-player-with-javascript -->
             <div id="video-placeholder"></div>
+			
             
             <div class="card-body">
-              <h3 class="card-title">${v.nombre}</h3>              
+              <h3 class="card-title"></h3>              
               <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sapiente dicta fugit fugiat hic aliquam itaque facere, soluta. Totam id dolores, sint aperiam sequi pariatur praesentium animi perspiciatis molestias iure, ducimus!</p>
               <span class="text-warning">&#9733; &#9733; &#9733; &#9733; &#9734;</span>
               4.0 stars
             </div>
           </div>
           <!-- /.card -->
-          
-		 <%@include file="includes/comments.jsp" %>
+
+          <%@ include file="includes/comentarios.jsp" %>
 
         </div>
         <!-- /.col-lg-9 -->
@@ -121,4 +129,4 @@
     </div>
     <!-- /.container -->
 
-    <%@include file="includes/footer.jsp" %>
+ <%@ include file="includes/footer.jsp" %> 

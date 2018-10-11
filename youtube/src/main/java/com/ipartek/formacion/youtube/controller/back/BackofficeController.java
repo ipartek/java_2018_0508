@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.ipartek.formacion.youtube.model.RolDAO;
 import com.ipartek.formacion.youtube.model.UsuarioDAO;
 import com.ipartek.formacion.youtube.model.VideoDAO;
 
@@ -23,13 +24,16 @@ public class BackofficeController extends HttpServlet {
 	
 	private static UsuarioDAO daoUsuario;
 	private static VideoDAO daoVideo;
-	
+	private static RolDAO daoRol;
+    
 	@Override
-	public void init(ServletConfig config) throws ServletException {
+	public void init(ServletConfig config) throws ServletException {		
 		super.init(config);
 		daoUsuario = UsuarioDAO.getInstance();
 		daoVideo = VideoDAO.getInstance();
+		daoRol = RolDAO.getInstance();
 	}
+	
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
@@ -44,15 +48,18 @@ public class BackofficeController extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		try {
+				
+			request.setAttribute("videos", daoVideo.getAll().size() );
+			request.setAttribute("usuarios", daoUsuario.getAll().size() );
+			request.setAttribute("roles", daoRol.getAll().size() );
+						
 			
-			request.setAttribute("usuarios", daoUsuario.getAll().size());
-			request.setAttribute("videos", daoVideo.getAll().size());
-			
-		}catch(Exception e) {
+		}catch (Exception e) {
 			e.printStackTrace();
-		}finally {
+		}finally {			
 			request.getRequestDispatcher(VIEW_INICIO).forward(request, response);
 		}
+		
 		
 	}
 

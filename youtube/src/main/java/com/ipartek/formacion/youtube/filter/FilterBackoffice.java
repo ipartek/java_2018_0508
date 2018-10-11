@@ -2,8 +2,6 @@ package com.ipartek.formacion.youtube.filter;
 
 import java.io.IOException;
 import java.util.Enumeration;
-import java.util.Map;
-import java.util.Set;
 
 import javax.servlet.DispatcherType;
 import javax.servlet.Filter;
@@ -54,7 +52,9 @@ public class FilterBackoffice implements Filter {
 				// pass the request along the filter chain
 				chain.doFilter(request, response);
 			}else {
-				//TODO comprobar rol del usuario
+				
+				//TODO comprobar ROL del usuario
+				
 				informacionCliente(req);
 				
 				//usuario no logeado
@@ -66,43 +66,56 @@ public class FilterBackoffice implements Filter {
 		}	
 	}
 
+	
+
 	/**
 	 * @see Filter#init(FilterConfig)
 	 */
 	public void init(FilterConfig fConfig) throws ServletException {
 		System.out.println("se ejecuta al inciar la App Web");
 	}
+
 	
 	/**
 	 * Mostramos informacion sobre la Request del cliente
+	 * 
 	 * @param req
 	 */
 	private void informacionCliente(HttpServletRequest req) {
-		System.out.println("-----------------------------------------");
-		System.out.println("RemoteHost: " + req.getRemoteHost());
-		System.out.println("RemoteAddr: " + req.getRemoteAddr());
-		System.out.println("RemotePort: " + req.getRemotePort());
-		System.out.println("RemoteUser: " + req.getRemoteUser());
+		
+		System.out.println("----------------------------------------");
+		
+				
+		System.out.println("RemoteHost: " + req.getRemoteHost() );
+		System.out.println("RemoteAddr: " + req.getRemoteAddr() );
+		System.out.println("RemotePort: " + req.getRemotePort() );
+		System.out.println("RemoteUser: " + req.getRemoteUser() );
 		
 		System.out.println("");
-		System.out.println("Cabeceras:");
-		Enumeration nombresCabeceras = req.getHeaderNames();
+		System.out.println("CABECERAS:");
+		Enumeration<String> nombresCabeceras = req.getHeaderNames();
 		String metadato;
-		while (nombresCabeceras.hasMoreElements()) {
+		while ( nombresCabeceras.hasMoreElements() ) {
 			metadato = (String)nombresCabeceras.nextElement();
-			System.out.println(metadato + ": " + req.getHeader(metadato));
+			System.out.println("    " + metadato + ": " + req.getHeader(metadato));
 		}
 		
 		System.out.println("");
-		System.out.println("Parametros:");
-		Enumeration parametros = req.getParameterNames();
-		String parametro;
-		while (parametros.hasMoreElements()) {
-			parametro = (String)parametros.nextElement();
-			System.out.println(parametro + ": " + req.getParameter(parametro));
+		System.out.println("PARAMETROS:");
+		Enumeration<String> parameterNames = req.getParameterNames();
+		while (parameterNames.hasMoreElements()) {
+			String paramName = parameterNames.nextElement();
+			String[] paramValues = req.getParameterValues(paramName);
+			for (int i = 0; i < paramValues.length; i++) {
+				String paramValue = paramValues[i];
+				System.out.println("    " + paramName + ": " + paramValue);
+			}
+
 		}
 		
-		System.out.println("-----------------------------------------");
+		
+			
+		System.out.println("----------------------------------------");
 	}
-
+	
 }

@@ -1,6 +1,9 @@
 package com.ipartek.formacion.youtube.model;
 
+import java.sql.SQLException;
 import java.util.List;
+
+import com.ipartek.formacion.youtube.pojo.Video;
 
 /**
  * Interfaz para especificar los metodos de <b>CRUD</b>:
@@ -28,7 +31,7 @@ public interface CrudAble<P> {
 	/**
 	 * Buscamos un pojo por su identificador
 	 * @param id
-	 * @return VideoYoutube si lo encuentra, null si no lo encuentra
+	 * @return Pojo si lo encuentra, null si no lo encuentra
 	 */
 	P getById(String id) throws Exception;
 	
@@ -37,5 +40,8 @@ public interface CrudAble<P> {
 	
 	//Delete
 	boolean delete(String id) throws Exception;
+	
+
+	
 
 }

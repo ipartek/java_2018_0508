@@ -1,6 +1,7 @@
+<%@page import="com.ipartek.formacion.youtube.controller.back.CrudControllable"%>
 <%@page import="com.ipartek.formacion.youtube.controller.back.BackofficeVideoController"%>
 <%@include file="../includes/header.jsp" %>
-<%@include file="../includes/navbar.jsp" %>
+<%@include file="../includes/nav.jsp" %>
 
 <div id="page-wrapper">
             <div class="row">
@@ -25,25 +26,32 @@
             	<table id="tablaOrdenable" class="display" style="width:100%">
 				        <thead>
 				            <tr>
-				                <th>ID</th>
-				                <th>Codigo</th>
-				                <th>Nombre</th>
+				                <th>id</th>
+				                <th>imagen</th>
+				                <th>nombre</th>
+				                <th>usuario</th>
 				            </tr>
 				        </thead>
 				        <tbody>
 				        	<c:forEach items="${videos}" var="v">
-					            <tr>
+				        		<tr>			            
 					                <td>${v.id}</td>
-					                <td>${v.codigo}</td>
-					                <td><a href="videos?id=${v.id}&op=<%=BackofficeVideoController.OP_IR_FORMULARIO%>">${v.nombre}</a></td>
+					                <td>
+					                	<a href="videos?op=<%=CrudControllable.OP_IR_FORMULARIO%>&id=${v.id}">
+					                		<img src="http://img.youtube.com/vi/${v.codigo}/0.jpg" alt="imagen por defecto del video" class="thumbnail"/>
+					                	</a>
+					                </td>
+					                <td>${v.nombre}</td>
+					                <td><a href="usuarios?op=<%=CrudControllable.OP_IR_FORMULARIO%>&id=${v.usuario.id}">${v.usuario.nombre}</a></td>
 					            </tr>
 				            </c:forEach>
 				       </tbody>
 				       <tfoot>
 				            <tr>
-				                <th>ID</th>
-				                <th>Codigo</th>
-				                <th>Nombre</th>
+				                <th>id</th>
+				                <th>imagen</th>
+				                <th>nombre</th>
+				                <th>usuario</th>
 				            </tr>
 				        </tfoot>
 				</table>
