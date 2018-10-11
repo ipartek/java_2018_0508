@@ -1,5 +1,7 @@
 package com.ipartek.formacion.youtube.pojo;
 
+import java.util.ArrayList;
+
 public class Video {
 
 	public static final int COD_LONGITUD = 11;
@@ -9,6 +11,7 @@ public class Video {
 	private String nombre;
 	
 	private Usuario usuario;
+	private ArrayList<Comentario> comentarios;
 
 	//	CONSTRUCTORES
 	public Video() {
@@ -63,6 +66,19 @@ public class Video {
 	public void setUsuario(Usuario usuario) {
 		this.usuario = usuario;
 	}
+
+	public ArrayList<Comentario> getComentarios() {
+		return comentarios;
+	}
+
+	public void setComentarios(ArrayList<Comentario> comentarios) {
+		this.comentarios = comentarios;
+	}
 	
+	// OVERRIDES
+	@Override
+	public String toString() {
+		return "Video [id=" + id + ", cod=" + cod + ", nombre=" + nombre + ", usuario=" + usuario + "]";
+	}
 
 }

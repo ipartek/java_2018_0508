@@ -20,15 +20,16 @@
     <div class="row">
 
         <div class="col-lg-3">        	
-        	<h4 class="my-4"><fmt:message key="lista.repr"/></h4>
+        	<h4 class="text-white"> <fmt:message key="lista.repr"/> </h4>
           	<ul class="list-group">
-          		<!--  Cargar lista de videos -->
-	          	<c:forEach items="${videos}" var="video">
+          		
+          		<!--  CARGAR LISTA DE VIDEOS -->
+	          	<c:forEach items="${ videos }" var="video">
 	          		<li class="list-group-item d-flex justify-content-between align-items-center"> 
 	          			
-	          			<a href="inicio?id=${video.id}">${video.nombre}</a>
+	          			<a href="inicio?id=${ video.id }">${ video.nombre }</a>
 	          			
-	          			<c:if test="${not empty sessionScope.usuario}">    
+	          			<c:if test="${ not empty sessionScope.usuario }">    
 			          		<a>
 			          			<i style="color:red;" class="float-right fas fa-trash-alt mr-2" title="Eliminar Video" onClick="showModalForm(${video.id},${HomeController.OP_ELIMINAR});"></i>
 			          		</a>
@@ -44,18 +45,18 @@
             <h4 class="my-4">Videos Reproducidos</h4>
 	        	<ul class="list-group">
 	        	
-	        		<c:if test="${not empty sessionScope.usuario}}">
+	        		<c:if test="${ not empty sessionScope.usuario }}">
 		        		<!--  Cargar historial de  reproducidos -->
-			          	<c:forEach items="${reproducidos}" var="video">
+			          	<c:forEach items="${ reproducidos }" var="video">
 			          		<li class="list-group-item d-flex justify-content-between align-items-center">     
-				          		<a href="inicio?id=${video.cod}">${video.nombre}</a>
-				          		<a href="inicio?id=${video.cod}>&op=${HomeController.OP_ELIMINAR}"><i style="color:red;" class="float-right fas fa-trash-alt mr-2" title="Eliminar Video"></i></a>
-				          		<a href="inicio?id=${video.cod}>&op=${HomeController.OP_MODIFICAR}"><i style="color:green;" class="float-right fas fa-edit" title="Editar Video"></i></a>
+				          		<a href="inicio?id=${ video.cod }">${ video.nombre }</a>
+				          		<a href="inicio?id=${ video.cod }>&op=${ HomeController.OP_ELIMINAR }"><i style="color:red;" class="float-right fas fa-trash-alt mr-2" title="Eliminar Video"></i></a>
+				          		<a href="inicio?id=${ video.cod }>&op=${ HomeController.OP_MODIFICAR }"><i style="color:green;" class="float-right fas fa-edit" title="Editar Video"></i></a>
 				            </li>
 			          	</c:forEach>
 	        		</c:if>
 	        	
-		        	<c:if test="${empty sessionScope.usuario}}">
+		        	<c:if test="${ empty sessionScope.usuario }}">
 		        		<li class="list-group-item d-flex justify-content-between align-items-center">
 		          			<p>Por favor, accede para guardar tus reproducciones.</p>
 		          		</li>
@@ -67,30 +68,13 @@
         <div class="col-lg-9">
           <div class="card mt-4">
           
-          <div id="video-placeholder">
-<%--           	<iframe id="iframe" width="820" height="415" src="https://www.youtube.com/embed/${videoInicio.cod}?autoplay=1" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe> --%>
-          </div>     
-  
-            <div class="card-body">
-              <h3 class="card-title">${videoInicio.nombre}</h3>              
-              <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sapiente dicta fugit fugiat hic aliquam itaque facere, soluta. Totam id dolores, sint aperiam sequi pariatur praesentium animi perspiciatis molestias iure, ducimus!</p>
-              <span class="text-warning">&#9733; &#9733; &#9733; &#9733; &#9734;</span>
-              4.0 stars
-            </div>
-          </div>
-          <!-- /.card -->
+	          <div id="video-placeholder"> </div> <!-- REPRODUCTOR -->
+	          
+	          <%@ include file="include/comentarios.jsp"%>  <!-- GESTIÓN DE COMENTARIOS -->
           
-          <div class="card card-info">
-                <div class="card-block">
-                    <textarea placeholder="Escribe aquí tu comentario..." class="pb-cmnt-textarea"></textarea>
-                    <form class="form-inline"> 
-                        <button class="btn" type="button"><span class="fas fa-file-upload"></span></button>
-                        <button class="btn btn-primary ml-auto" type="button">Comparte!</button>
-                    </form>
-                </div>
-            </div>
-        </div>
-        <!-- /.col-lg-9 -->
+          </div> <!-- /.col-lg-9 -->  
+  			
+        </div> <!-- /.card -->
 
       </div>
 

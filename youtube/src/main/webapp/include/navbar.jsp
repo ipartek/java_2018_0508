@@ -1,5 +1,5 @@
 <!-- Navigation -->
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+<nav class="navbar navbar-expand-lg fixed-top">
 	<div class="container">
 
 		<a
@@ -17,13 +17,12 @@
 			<span class="navbar-toggler-icon"></span>
 		</button>
 
-		<div
-			class="collapse navbar-collapse"
-			id="navbarResponsive">
+		<div class="collapse navbar-collapse" id="navbarResponsive">
 			<ul class="navbar-nav ml-auto">
 				<li class="nav-item active">
+					
 					<!-- Usuario logueado (formulario búsqueda de videos) --> 
-					<c:if test="${not empty sessionScope.usuario}">
+					<c:if test="${ not empty sessionScope.usuario }">
 
 						<div class="nav-user">
 							<i class="fas fa-user mr-2"></i><span class="text-white">${sessionScope.usuario.nombre}</span> 
@@ -54,7 +53,7 @@
 								class="btn btn-outline-info my-2 my-sm-0"
 								type="submit">Añadir</button>
 						</form>
-					</c:if> <!-- Usuario no logueado (formulario login) --> <c:if test="${empty sessionScope.usuario}">
+					</c:if> <!-- Usuario no logueado (formulario login) --> <c:if test="${ empty sessionScope.usuario }">
 
 						<!-- Login Form -->
 						<form action="login" method="post" class="form-inline ">
@@ -64,11 +63,11 @@
 						       </div>
 						            
 						       <div class="form-group ml-3">
-						          <input type="checkbox" name="recuerdame" ${(not empty cookie.cNombre.value)?"checked":""}>
-						          <label class="text-warning">Recuérdame</label>
+						          <input type="checkbox" name="recuerdame" ${ (not empty cookie.cNombre.value) ? "checked" : ""}>
+						          <label class="text-white mr-2">Recuérdame</label>
 						       </div>
 						       
-						       <button class="btn btn-outline-info my-2 my-sm-0" type="submit">Entrar</button>
+						       <button class="btn btn-success my-2 my-sm-0" type="submit">Entrar</button>
 						</form>
 						<a href="#" data-toggle="modal" data-target="#modalRegistrar">Regístrate aquí</a>
 					</c:if>

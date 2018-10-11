@@ -1,5 +1,17 @@
 /*  HOME.JSP CSS*/
 
+body {
+	background: #00231A;
+	margin-top: 35px;
+}
+.navbar {
+	background: #018E5B !important;
+}
+
+.navbar a {
+	color: #FFF;
+}
+
 i {
 	color: #FFF;
 }
@@ -14,7 +26,7 @@ i {
         padding: 20px;
         height: 130px;
         width: 100%;
-        border: 1px solid #F2F2F2;
+        border: 2px solid #FF0;
 }
 
 

@@ -1,86 +1,86 @@
-function initialize(){
+function initialize() {
 
-		    // Update the controls on load
-		    updateTimerDisplay();
-		    updateProgressBar();
+	// Update the controls on load
+	updateTimerDisplay();
+	updateProgressBar();
 
-		    // Clear any old interval.
-		    clearInterval(time_update_interval);
+	// Clear any old interval.
+	clearInterval(time_update_interval);
 
-		    // Start interval to update elapsed time display and
-		    // the elapsed part of the progress bar every second.
-		    time_update_interval = setInterval(function () {
-		        updateTimerDisplay();
-		        updateProgressBar();
-		    }, 1000)
+	// Start interval to update elapsed time display and
+	// the elapsed part of the progress bar every second.
+	time_update_interval = setInterval(function() {
+		updateTimerDisplay();
+		updateProgressBar();
+	}, 1000)
 
-		}
-		
-		// This function is called by initialize()
-		function updateTimerDisplay(){
-		    // Update current time text display.
-		    $('#current-time').text(formatTime( player.getCurrentTime() ));
-		    $('#duration').text(formatTime( player.getDuration() ));
-		}
+}
 
-		function formatTime(time){
-		    time = Math.round(time);
+// This function is called by initialize()
+function updateTimerDisplay() {
+	// Update current time text display.
+	$('#current-time').text(formatTime(player.getCurrentTime()));
+	$('#duration').text(formatTime(player.getDuration()));
+}
 
-		    var minutes = Math.floor(time / 60),
-		    seconds = time - minutes * 60;
+function formatTime(time) {
+	time = Math.round(time);
 
-		    seconds = seconds < 10 ? '0' + seconds : seconds;
+	var minutes = Math.floor(time / 60), seconds = time - minutes * 60;
 
-		    return minutes + ":" + seconds;
-		}
-		
-		$('#progress-bar').on('mouseup touchend', function (e) {
+	seconds = seconds < 10 ? '0' + seconds : seconds;
 
-		    // Calculate the new time for the video.
-		    // new time in seconds = total duration in seconds * ( value of range input / 100 )
-		    var newTime = player.getDuration() * (e.target.value / 100);
+	return minutes + ":" + seconds;
+}
 
-		    // Skip video to new time.
-		    player.seekTo(newTime);
+$('#progress-bar').on('mouseup touchend', function(e) {
 
-		});
-		
-		// This function is called by initialize()
-		function updateProgressBar(){
-		    // Update the value of our progress bar accordingly.
-		    $('#progress-bar').val((player.getCurrentTime() / player.getDuration()) * 100);
-		}
-		
-		
-		$('#play').on('click', function () {
-		    player.playVideo();
-		});
+	// Calculate the new time for the video.
+	// new time in seconds = total duration in seconds * ( value of range input
+	// / 100 )
+	var newTime = player.getDuration() * (e.target.value / 100);
 
-		$('#pause').on('click', function () {
-		    player.pauseVideo();
-		});
-		
-		$('#mute-toggle').on('click', function() {
-		    var mute_toggle = $(this);
+	// Skip video to new time.
+	player.seekTo(newTime);
 
-		    if(player.isMuted()){
-		        player.unMute();
-		        mute_toggle.text('volume_up');
-		    }
-		    else{
-		        player.mute();
-		        mute_toggle.text('volume_off');
-		    }
-		});
-		
-		$('#volume-input').on('change', function () {
-		    player.setVolume($(this).val());
-		});
-		
-		$('#next').on('click', function () {
-		    player.nextVideo()
-		});
+});
 
-		$('#prev').on('click', function () {
-		    player.previousVideo()
-		});
+
+// This function is called by initialize()
+function updateProgressBar() {
+	// Update the value of our progress bar accordingly.
+	$('#progress-bar').val(
+			(player.getCurrentTime() / player.getDuration()) * 100);
+}
+
+$('#play').on('click', function() {
+	player.playVideo();
+});
+
+$('#pause').on('click', function() {
+	player.pauseVideo();
+});
+
+$('#mute-toggle').on('click', function() {
+	var mute_toggle = $(this);
+
+	if (player.isMuted()) {
+		player.unMute();
+		mute_toggle.text('volume_up');
+	} else {
+		player.mute();
+		mute_toggle.text('volume_off');
+	}
+});
+
+$('#volume-input').on('change', function() {
+	player.setVolume($(this).val());
+});
+
+$('#next').on('click', function() {
+	player.nextVideo()
+});
+
+$('#prev').on('click', function() {
+	player.previousVideo()
+});

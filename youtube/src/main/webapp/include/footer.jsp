@@ -20,20 +20,22 @@
        	<span class="m-0 text-center text-white">Copyright &copy; Your Website 2017</span>
        	
        	<span class="m-0 text-center text-white">
-			<a class="${(sessionScope.idioma eq 'es_ES')?'active text-white':'text-warning'}" href="inicio?idioma=es_ES">ES</a>
+			<a class="${ (sessionScope.idioma eq 'es_ES') ? 'active text-white' : 'text-warning' }" href="inicio?idioma=es_ES">ES</a>
 			<label class = "text-warning">|</label>
-			<a class="${(sessionScope.idioma eq 'en_EN')?'active text-white':'text-warning'}"href="inicio?idioma=en_EN">EN</a>
+			<a class="${ (sessionScope.idioma eq 'en_EN') ? 'active text-white' : 'text-warning' }"href="inicio?idioma=en_EN">EN</a>
 			<label class = "text-warning">|</label>
-			<a class="${(sessionScope.idioma eq 'eu_ES')?'active text-white':'text-warning'}" href="inicio?lidioma=eu_ES">EU</a>
+			<a class="${ (sessionScope.idioma eq 'eu_ES') ? 'active text-white' : 'text-warning' }" href="inicio?lidioma=eu_ES">EU</a>
 		</span>
          
       </div>
       <!-- /.container -->
     </footer>
+    
+    <!-- JQUERY core JS -->
+    <script src="vendor/jquery/jquery.min.js"></script>
 
     <!-- Bootstrap core JavaScript -->
-    <script src="https://blackrockdigital.github.io/startbootstrap-shop-item/vendor/jquery/jquery.min.js"></script>
-    <script src="https://blackrockdigital.github.io/startbootstrap-shop-item/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
   </body>
 </html>

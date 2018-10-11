@@ -12,17 +12,17 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
  
-<c:set var="locale" value="${not empty sessionScope.idioma ? sessionScope.idioma : 'es_ES'}" scope="session" />
-<fmt:setLocale value="${locale}" />
+<c:set var="locale" value="${ not empty sessionScope.idioma ? sessionScope.idioma : 'es_ES' }" scope="session" />
+<fmt:setLocale value="${ locale }" />
 <fmt:setBundle basename="idiomas" /> 
 
 <!DOCTYPE html>
-<html lang="${locale}">
+<html lang="${ locale }">
 
   <head>
   
 	<!-- Comenza todas las URLs desde el href indicado -->
-	<base href="<%=request.getContextPath()%>/">
+	<base href="<%= request.getContextPath() %>/">
 	
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -34,7 +34,7 @@
 	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
 	
     <!-- Bootstrap core CSS -->
-    <link href="https://blackrockdigital.github.io/startbootstrap-shop-item/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
     <!-- Custom styles for this template -->
     <link href="https://blackrockdigital.github.io/startbootstrap-shop-item/css/shop-item.css" rel="stylesheet">
@@ -46,8 +46,3 @@
 
   <body>
   
-  	<h1>
-		<fmt:message key="msj.num.reproducciones">
-			<fmt:param value="10"/>
-		</fmt:message>
-	</h1>
