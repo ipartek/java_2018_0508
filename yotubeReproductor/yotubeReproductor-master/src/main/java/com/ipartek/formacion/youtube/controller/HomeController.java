@@ -21,7 +21,7 @@ import javax.servlet.http.HttpSession;
 import com.ipartek.formacion.youtube.Alert;
 import com.ipartek.formacion.youtube.Usuario;
 import com.ipartek.formacion.youtube.Video;
-
+import com.ipartek.formacion.youtube.model.ComentarioDAO;
 import com.ipartek.formacion.youtube.model.VideoDAO;
 
 /**
@@ -36,6 +36,7 @@ public class HomeController extends HttpServlet {
 	public static final String OP_MODIFICAR = "1";
 
 	private static VideoDAO dao;
+	private static ComentarioDAO daoComentarios;
 	private ArrayList<Video> videos;
 	private Video videoInicio;
 
@@ -44,6 +45,7 @@ public class HomeController extends HttpServlet {
 		super.init(config);
 		// Se ejecuta solo con la 1º petición, el resto de peticiones iran a "service"
 		dao = VideoDAO.getInstance();
+		daoComentarios = ComentarioDAO.getInstance();
 	}
 
 	@Override
@@ -51,6 +53,7 @@ public class HomeController extends HttpServlet {
 		super.destroy();
 		// se ejecuta al parar el servidor
 		dao = null;
+		daoComentarios = null;
 	}
 
 	/**
@@ -92,12 +95,21 @@ public class HomeController extends HttpServlet {
 
 		// RECUPERAR TODAS LAS COOKIES
 		Cookie cookies[] = request.getCookies();
+		
+		
 
 		super.service(request, response); // llama a los metodos GET o POST
 
 		// despues de realizar GET o POST
 		request.setAttribute("videos", videos);
 		request.setAttribute("videoInicio", videoInicio);
+		
+		try {
+			request.setAttribute("comentarios", daoComentarios.getAllByVideo(videoInicio.getId()));
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 
 		String playlist = "";
 		for (int i = 1; i < videos.size(); i++) {

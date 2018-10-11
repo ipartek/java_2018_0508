@@ -133,8 +133,6 @@
 
 				<div id="video-placeholder"></div>
 
-	
-
 					<div class="card-body">
 						<h3 class="card-title">${videoInicio.nombre}</h3>
 						<p class="card-text">Lorem ipsum dolor sit amet, consectetur
@@ -146,6 +144,7 @@
 					</div>
 				</div>
 				<!-- /.card -->
+				 <%@ include file="includes/comentarios.jsp"  %>
 	
 				<!-- /.card -->
 
