@@ -45,6 +45,10 @@ public class Video {
 		this.comentarios = comentarios;
 	}
 
+	public Video(long video) {
+		this.id = video;
+	}
+
 	public Usuario getUsuario() {
 		return usuario;
 	}

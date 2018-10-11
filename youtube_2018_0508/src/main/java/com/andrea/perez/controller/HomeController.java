@@ -41,7 +41,7 @@ public class HomeController extends HttpServlet {
 	private static String op = "";
 
 	// atributos
-	private static String msg = "";
+
 	private static VideoDAO dao;
 	private static ComentarioDAO daoComentarios;
 	private static ArrayList<Video> videos;
@@ -106,8 +106,6 @@ public class HomeController extends HttpServlet {
 //			System.out.println(idiomas.getString("msj.bienvenida"));
 //			Locale locale = request.getLocale(); (not empty sessionScope.idioma)?sessionScope.idioma:'es_ES'
 
-			
-			
 		} catch (Exception e) {
 			idioma = "es_ES";
 		} finally {
@@ -130,10 +128,10 @@ public class HomeController extends HttpServlet {
 		try {
 			req.setAttribute("comentarios", daoComentarios.getAllByVideo(videoInicio.getId()));
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
+			
 			e.printStackTrace();
 		}
-		req.setAttribute("playlist", playlist);		
+		req.setAttribute("playlist", playlist);
 		req.getRequestDispatcher("home.jsp").forward(req, resp);
 	}
 
@@ -210,8 +208,6 @@ public class HomeController extends HttpServlet {
 		Comentario comentario = new Comentario();
 		try {
 
-			msg = "";
-
 			id = request.getParameter("id");
 			codigo = request.getParameter("codigo");
 			titulo = request.getParameter("titulo");
@@ -244,30 +240,14 @@ public class HomeController extends HttpServlet {
 
 			videos = (ArrayList<Video>) dao.getAll();
 
-			// Listar comentarios del video:
 			
-			String texto = request.getParameter("texto");
-			Usuario u = new Usuario();
-			u.setId(Long.parseLong(request.getParameter("id_usuario")));
-			Video v = new Video();
-			v.setId(Long.parseLong(request.getParameter("id_video")));
-
-			if (texto != null && texto.length() > 0) {
-
-				comentario.setTexto(texto);
-				comentario.setUsuario(u);
-				comentario.setVideo(v);
-			} else {
-				
-			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
 			request.setAttribute("alert", alert);
 			request.setAttribute("videos", videos);
-			
-			
-//				request.getRequestDispatcher("home.jsp").forward(request, response);
+
+//	request.getRequestDispatcher("home.jsp").forward(request, response);
 		}
 
 	}

@@ -12,6 +12,7 @@ import com.andrea.perez.pojo.Comentario;
 import com.andrea.perez.pojo.Rol;
 import com.andrea.perez.pojo.Usuario;
 import com.andrea.perez.pojo.Video;
+import com.mysql.jdbc.Statement;
 
 public class ComentarioDAO implements Crudable<Comentario> {
 
@@ -26,7 +27,7 @@ public class ComentarioDAO implements Crudable<Comentario> {
 	private final String SQL_GET_BY_ID = "SELECT id, nombre FROM rol WHERE id = ?;";
 	private final String SQL_UPDATE = "UPDATE rol SET nombre= ? WHERE id = ?;";
 	private final String SQL_DELETE = "DELETE FROM rol WHERE id = ?;";
-	private final String SQL_INSERT = "INSERT INTO rol (nombre) VALUES (?);";
+	private final String SQL_INSERT = "INSERT INTO `youtube`.`comentario` (`texto`, `id_video`, `id_usuario`) VALUES ('?', '?', '?');";
 	public static synchronized ComentarioDAO getInstance() {
 
 		if (INSTANCE == null) {
@@ -37,13 +38,32 @@ public class ComentarioDAO implements Crudable<Comentario> {
 	}
 
 	@Override
-	public boolean insert(Comentario comentario) {
-		return false;
-//		boolean resul = false;
-//		if (comentario != null) {
-//			resul = lista.add(comentario);
-//		}
-//		return resul;
+	public boolean insert(Comentario pojo) throws SQLException {
+		boolean resul = false;
+
+		try (Connection con = ConnectionManager.getConnection();
+				PreparedStatement ps = con.prepareStatement(SQL_INSERT, Statement.RETURN_GENERATED_KEYS);) {
+			if (pojo != null) {
+
+				ps.setString(1, pojo.getTexto().trim());
+				ps.setLong(2, pojo.getVideo().getId());
+				ps.setLong(3, pojo.getUsuario().getId());
+				
+
+				int affectedRows = ps.executeUpdate();
+
+				if (affectedRows == 1) {
+					try (ResultSet rs = ps.getGeneratedKeys()) {
+						while (rs.next()) {
+							pojo.setId(rs.getLong(1));// devuelve el valor de la primera columna "id" de la bbdd
+							resul = true;
+						}
+					}
+
+				}
+			}
+		}
+		return resul;
 	}
 
 	@Override
