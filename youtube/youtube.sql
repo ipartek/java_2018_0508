@@ -1,3 +1,5 @@
+CREATE DATABASE  IF NOT EXISTS `youtube` /*!40100 DEFAULT CHARACTER SET utf8 */;
+USE `youtube`;
 -- MySQL dump 10.13  Distrib 8.0.12, for Win64 (x86_64)
 --
 -- Host: 127.0.0.1    Database: youtube
@@ -16,10 +18,35 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `video`
+-- Table structure for table `usuario`
 --
 
-CREATE DATABASE `youtube`;
+DROP TABLE IF EXISTS `usuario`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+ SET character_set_client = utf8mb4 ;
+CREATE TABLE `usuario` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `nombre` varchar(50) NOT NULL,
+  `password` varchar(20) NOT NULL,
+  `rol` int(11) NOT NULL DEFAULT '1' COMMENT '0: admin\n1: usuario normal',
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `nombre_UNIQUE` (`nombre`)
+) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `usuario`
+--
+
+LOCK TABLES `usuario` WRITE;
+/*!40000 ALTER TABLE `usuario` DISABLE KEYS */;
+INSERT INTO `usuario` VALUES (2,'pepe','pepe',1),(3,'manoli','manoli',1),(4,'josepo','josepo',1),(6,'prueba','prueba',1),(7,'pablo','pablo',1),(8,'William','12345678',1),(13,'Alain','12345',1),(18,'admin','admin',0);
+/*!40000 ALTER TABLE `usuario` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `video`
+--
 
 DROP TABLE IF EXISTS `video`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
@@ -28,9 +55,11 @@ CREATE TABLE `video` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `codigo` varchar(11) NOT NULL COMMENT 'identificador del video en youtube',
   `nombre` varchar(150) NOT NULL,
+  `id_usuario` int(11) NOT NULL,
   PRIMARY KEY (`id`),
-  UNIQUE KEY `codigo_UNIQUE` (`codigo`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+  UNIQUE KEY `codigo_UNIQUE` (`codigo`),
+  KEY `video_has_usuario_idx` (`id_usuario`)
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -39,7 +68,7 @@ CREATE TABLE `video` (
 
 LOCK TABLES `video` WRITE;
 /*!40000 ALTER TABLE `video` DISABLE KEYS */;
-INSERT INTO `video` VALUES (1,'YlUKcNNmywk','Red Hot Chili Peppers - Californication'),(2,'NMNgbISmF4I','Aerosmith - Crazy'),(4,'mBJGS55ZTX4','Shipping Up To Boston / Enter Sandman - Bagpipe Cover (Goddesses of Bagpipe)');
+INSERT INTO `video` VALUES (1,'YlUKcNNmywk','Red Hot Chili Peppers - Californication',1),(2,'NMNgbISmF4I','Aerosmith - Crazy',1),(4,'mBJGS55ZTX4','Enter Sandman - Bagpipe Cover',1),(5,'B9FzVhw8_bY','The Dead South - In Hell I\'ll Be In Good Company ',1),(6,'CXm7hPs_als','Ska-P - Jaque al Rey',1),(7,'Zp40yUFNXqs','La Raiz - Entre Poetas y Presos',1),(8,'s06ZesIakhk','Loquillo - Feo, fuerte y formal',1);
 /*!40000 ALTER TABLE `video` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -52,4 +81,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-09-28  8:49:33
+-- Dump completed on 2018-10-05 11:41:15
