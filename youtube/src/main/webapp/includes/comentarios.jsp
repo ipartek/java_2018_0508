@@ -19,9 +19,11 @@
    	 		
    	 <hr>
    	 
-     <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Omnis et enim aperiam inventore, similique necessitatibus neque non! Doloribus, modi sapiente laboriosam aperiam fugiat laborum. Sequi mollitia, necessitatibus quae sint natus.</p>
-     <small class="text-muted">Posted by Anonymous on 3/1/17</small>
-     <hr>
+   	 <c:forEach items="${comentarios}" var="c">
+     	<p>${c.texto}</p>
+     	<small class="text-muted"><b>${c.usuario.nombre}</b>  <fmt:formatDate value="${c.fecha}" pattern="dd/MM/yyyy HH:mm"/></small>
+     	<hr>
+     </c:forEach>
           
    </div>
  </div>

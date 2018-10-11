@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.ipartek.formacion.youtube.model.ComentarioDAO;
 import com.ipartek.formacion.youtube.model.VideoDAO;
 import com.ipartek.formacion.youtube.pojo.Alert;
 import com.ipartek.formacion.youtube.pojo.Usuario;
@@ -31,6 +32,7 @@ public class HomeController extends HttpServlet {
 	
 	
 	private static VideoDAO dao;
+	private static ComentarioDAO daoComentarios;
 	private ArrayList<Video> videos;	
 	private Video videoInicio;
 
@@ -40,6 +42,7 @@ public class HomeController extends HttpServlet {
 		super.init(config);
 		//Se ejecuta solo con la 1º petición, el resto de peticiones iran a "service"
 		dao = VideoDAO.getInstance();
+		daoComentarios = ComentarioDAO.getInstance();
 	}
 	
 	
@@ -48,6 +51,7 @@ public class HomeController extends HttpServlet {
 		super.destroy();
 		//se ejecuta al parar el servidor
 		dao = null;
+		daoComentarios = null;
 	}
 	
 	
@@ -72,14 +76,19 @@ public class HomeController extends HttpServlet {
 		//despues de realizar GET o POST
 		request.setAttribute("videos", videos);
 		request.setAttribute("videoInicio", videoInicio);
+		try {
+			request.setAttribute("comentarios", daoComentarios.getAllByVideo(videoInicio.getId()));
+			
+		} catch (Exception e) {			
+			e.printStackTrace();
+		}
+		
 		
 		String playlist = "";
 		for (int i=0; i < videos.size(); i++) {
 			playlist += videos.get(i).getCodigo() + ",";
 		}
-		request.setAttribute("playlist", playlist);
-		
-		
+		request.setAttribute("playlist", playlist);		
 		request.getRequestDispatcher("home.jsp").forward(request, response);
 		
 	}
