@@ -28,6 +28,11 @@ public class Video {
 		this.nombre = nombre;
 		this.usuario = usuario;
 	}
+	
+	public Video(long videoId) {
+		this();
+		this.id = videoId;
+	}
 
 	public void setCodigo(String codigo) throws Exception {
 		if (codigo != null && codigo.length() == CODIGO_LONGITUD) {

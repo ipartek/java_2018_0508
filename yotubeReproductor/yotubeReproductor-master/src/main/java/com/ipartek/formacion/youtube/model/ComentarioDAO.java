@@ -28,7 +28,7 @@ public class ComentarioDAO implements CrudAble<Comentario> {
 
 	private final String SQL_DELETE = "DELETE FROM comentario WHERE id = ?;";
 	// añadir la columna de id_usuario
-	private final String SQL_INSERT = "INSERT INTO comentario (texto, id_usuario, id_video) VALUES (?,?,?);";
+	private final String SQL_INSERT = "INSERT INTO `comentario` (`texto`, `id_video`, `id_usuario`) VALUES (?,?,?);";
 
 	public static synchronized ComentarioDAO getInstance() {
 		if (INSTANCE == null) {
@@ -40,27 +40,25 @@ public class ComentarioDAO implements CrudAble<Comentario> {
 	@Override
 	public boolean insert(Comentario pojo) throws Exception {
 		boolean resul = false;
+
 		try (Connection con = ConnectionManager.getConnection();
 				PreparedStatement ps = con.prepareStatement(SQL_INSERT, Statement.RETURN_GENERATED_KEYS);) {
 
 			ps.setString(1, pojo.getTexto().trim());
-			ps.setLong(2, pojo.getUsuario().getId());
-			ps.setLong(3, pojo.getVideo().getId());
+			ps.setLong(2, pojo.getVideo().getId());
+			ps.setLong(3, pojo.getUsuario().getId());
+
 			int affectedRows = ps.executeUpdate();
 			if (affectedRows == 1) {
-
-				
 				try (ResultSet rs = ps.getGeneratedKeys()) {
 					while (rs.next()) {
 						pojo.setId(rs.getLong(1));
 						resul = true;
-
 					}
 				}
-			}//(affectedRows == 1)
+			}
 
 		}
-
 		return resul;
 	}
 
