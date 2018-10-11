@@ -64,55 +64,13 @@
 					</div>
 				</div>
 				<!-- /.card -->
+<%@include file="includes/comentarios.jsp"%>
+				
 
-				<div class="card card-outline-secondary my-4">
-					<div class="card-header"><fmt:message key="titulo.comentarios"/></div>
-					<div class="card-body">
-						<c:forEach items="${videos}" var="v">
-<%-- 							<p>${v.comentarios.contenido }</p> --%>
-<%-- 							<small class="text-muted">Posted by ${v.comentarios.nombreUsuario} on ${ v.comentarios.fecha}</small> --%>
-							<hr>
-						</c:forEach>
-						
-						<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-							Omnis et enim aperiam inventore, similique necessitatibus neque
-							non! Doloribus, modi sapiente laboriosam aperiam fugiat laborum.
-							Sequi mollitia, necessitatibus quae sint natus.</p>
-						<small class="text-muted">Posted by Anonymous on 3/1/17</small>
-						<hr>
-						<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-							Omnis et enim aperiam inventore, similique necessitatibus neque
-							non! Doloribus, modi sapiente laboriosam aperiam fugiat laborum.
-							Sequi mollitia, necessitatibus quae sint natus.</p>
-						<small class="text-muted">Posted by Anonymous on 3/1/17</small>
-						<hr>
-						
-						<!-- Si hay usuario loggeado -->
-						<c:if test="${not empty usuario }">
-							<form action="comentar" method="post" id="cmtform">
-								<textarea rows="4" cols="105" name="comentario" form="cmtform" 
-								placeholder="Escribe aquí tu comentario..."></textarea>
-								<input type="hidden" name="fecha" value="${LocalDateTime.now() }">
-								<input type="hidden" name="user" value="${usuario}">
-								
-								<div>
-									<button type="submit" class="btn btn-success"><fmt:message key="boton.comentar"/></button>
-								</div>
-							</form>
-						</c:if>
-						
-						<!-- Si no hay usuario loggeado -->
-						<c:if test="${empty usuario }">
-							<p>****Por favor inicia sesión para comentar en el vídeo****</p>
-						</c:if>
-					</div>
-				</div>
-				<!-- /.card -->
+</div>
+<!-- /.col-lg-9 -->
 
-			</div>
-			<!-- /.col-lg-9 -->
-
-		</div>
+</div>
 
 	</div>
 	<!-- /.container -->

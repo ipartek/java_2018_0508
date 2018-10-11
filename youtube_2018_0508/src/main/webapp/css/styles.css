@@ -8,3 +8,13 @@
 	color: #f00;
 }
 
+
+/*Formulario comentario
+*************************************+*/
+.form-comentario textarea{
+	width: 85% !important;
+}
+
+/* .form_comentario input[type="submit"]{ */
+/* 	height: 44vh; */
+/* } */

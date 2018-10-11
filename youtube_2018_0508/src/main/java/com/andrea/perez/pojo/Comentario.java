@@ -1,75 +1,91 @@
 package com.andrea.perez.pojo;
 
+import java.util.Date;
+
 public class Comentario {
-	private String id;
-	private String fecha;
-	private String contenido;
-	//Clave Externa
-	private String idVideo;
-	private String nombreUsuario;
-	
+	private long id;
+	private Date fecha;
+	private String texto;
+	private boolean aprobado;
+	// Clave Externa
+	private Video video;
+	private Usuario usuario;
+
 	public Comentario() {
 		super();
-		this.id = "";
-		this.fecha = "";
-		this.contenido = "";
-		this.idVideo = "";
-		this.nombreUsuario = "";
+		this.id = -1;
+		this.fecha = null;
+		this.texto = "";
+		this.aprobado = false;
+		this.video = new Video();
+		this.usuario = new Usuario();
+
 	}
-	
-	public Comentario(String id, String fecha, String contenido, String idVideo) {
+
+	public Comentario(long id, Date fecha, String texto, Video video, Usuario usuario, boolean aprobado) {
 		this();
 		this.id = id;
 		this.fecha = fecha;
-		this.contenido = contenido;
-		this.idVideo = idVideo;
+		this.texto = texto;
+		this.video = video;
+		this.usuario = usuario;
+		this.aprobado = aprobado;
 	}
-	
-	public Comentario(String id, String fecha, String contenido, String idVideo, String nombreUsuario) {
-		this();
-		this.id = id;
-		this.fecha = fecha;
-		this.contenido = contenido;
-		this.idVideo = idVideo;
-		this.nombreUsuario = nombreUsuario;
-	}
-	
-	public String getId() {
+
+	public long getId() {
 		return id;
 	}
-	
-	public void setId(String id) {
+
+	public void setId(long id) {
 		this.id = id;
 	}
-	
-	public String getFecha() {
+
+	public Date getFecha() {
 		return fecha;
 	}
-	
-	public void setFecha(String fecha) {
+
+	public void setFecha(Date fecha) {
 		this.fecha = fecha;
 	}
-	
-	public String getContenido() {
-		return contenido;
+
+	public String getTexto() {
+		return texto;
 	}
-	
-	public void setContenido(String contenido) {
-		this.contenido = contenido;
+
+	public void setTexto(String texto) {
+		this.texto = texto;
 	}
-	
-	public String getIdVideo() {
-		return idVideo;
+
+	public boolean isAprobado() {
+		return aprobado;
 	}
-	
-	public void setIdVideo(String idVideo) {
-		this.idVideo = idVideo;
+
+	public void setAprobado(boolean aprobado) {
+		this.aprobado = aprobado;
 	}
-	
+
+	public Video getVideo() {
+		return video;
+	}
+
+	public void setVideo(Video video) {
+		this.video = video;
+	}
+
+	public Usuario getUsuario() {
+		return usuario;
+	}
+
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
+	}
+
 	@Override
 	public String toString() {
-		return "Comentario [id=" + id + ", fecha=" + fecha + ", contenido=" + contenido + ", idVideo=" + idVideo + "]";
+		return "Comentario [id=" + id + ", fecha=" + fecha + ", texto=" + texto + ", aprobado=" + aprobado + ", video="
+				+ video + ", usuario=" + usuario + "]";
 	}
+
 	
-	
+
 }

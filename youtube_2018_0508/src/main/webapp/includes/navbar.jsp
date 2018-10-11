@@ -1,3 +1,4 @@
+<%@page import="com.andrea.perez.pojo.Rol"%>
 <%@include file="taglibs.jsp"%>
 	<!-- Navigation -->
 <%@page import="java.util.Date"%>
@@ -56,7 +57,7 @@
 							<!-- Usuario Loggeado -->
 						<c:if test="${not empty sessionScope.usuario}">
 							<div class="">
-							<c:if test="${usuario.rol==0}">
+							<c:if test="${usuario.rol.id==Rol.ROL_ADMIN}">
 								<a class ="mr-2" href="backoffice/index.jsp"><fmt:message key="boton.backoffice"/></a>
 							</c:if>	
 								<span class="text-center" style="color:#FFF">

@@ -18,15 +18,15 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.andrea.perez.pojo.Rol;
 import com.andrea.perez.pojo.Usuario;
 
 /**
- * Filtramos todas las request que coincidan con urlPatterns = { "/backoffice/*" }
- * Comprobamos que el usuario haya pasado por el login para dejarle continuar
+ * Filtramos todas las request que coincidan con urlPatterns = { "/backoffice/*"
+ * } Comprobamos que el usuario haya pasado por el login para dejarle continuar
  * Si el usuario no ha pasado por login => redirect "/inicio"
  */
-@WebFilter(dispatcherTypes = {DispatcherType.REQUEST }
-					, urlPatterns = { "/backoffice/*" })
+@WebFilter(dispatcherTypes = { DispatcherType.REQUEST }, urlPatterns = { "/backoffice/*" })
 public class FilterBackoffice implements Filter {
 
 	/**
@@ -39,30 +39,33 @@ public class FilterBackoffice implements Filter {
 	/**
 	 * @see Filter#doFilter(ServletRequest, ServletResponse, FilterChain)
 	 */
-	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
+	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
+			throws IOException, ServletException {
 		// Cada vez que coincide la url del filtro se ejecuta
 		HttpServletRequest req = (HttpServletRequest) request;
 		HttpServletResponse res = (HttpServletResponse) response;
-				
-			try {
-				
-				
-			
-			HttpSession session =  req.getSession();
+
+		try {
+
+			HttpSession session = req.getSession();
 			Usuario usuario = (Usuario) session.getAttribute("usuario");
-			
-			if(usuario != null) {
-				// pass the request along the filter chain
-				chain.doFilter(request, response);
-			}else {
-				//TODO comprobar rol del usuario
-				informacionCliente(req);
+
+			if (usuario != null) {
+				if (usuario.getRol().getId() == Rol.ROL_ADMIN) {
+					// pass the request along the filter chain
+					chain.doFilter(request, response);
+				}else {
+					res.sendRedirect(req.getContextPath() + "/inicio");
+				} 
 				
-				//usuario no loggeado
+			} else {
+				// TODO comprobar rol del usuario
+				informacionCliente(req);
+
+				// usuario no loggeado
 				res.sendRedirect(req.getContextPath() + "/inicio");
 			}
-		}
-		catch(Exception e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 			res.sendRedirect(req.getContextPath() + "/inicio");
 		}
@@ -70,37 +73,37 @@ public class FilterBackoffice implements Filter {
 
 	/**
 	 * Mostramos informacion sobre la request del cliente
+	 * 
 	 * @param req
 	 */
 	private void informacionCliente(HttpServletRequest req) {
 		System.out.println("----------------------------------------");
-		
-		
-		System.out.println("Remote Host: "+req.getRemoteHost());
-		System.out.println("Remote Address: "+req.getRemoteAddr());
-		System.out.println("Remote Port: "+req.getRemotePort());
-		System.out.println("Remote User: "+req.getRemoteUser());
-		
+
+		System.out.println("Remote Host: " + req.getRemoteHost());
+		System.out.println("Remote Address: " + req.getRemoteAddr());
+		System.out.println("Remote Port: " + req.getRemotePort());
+		System.out.println("Remote User: " + req.getRemoteUser());
+
 		System.out.println("");
 		System.out.println("Cabeceras: ");
 		Enumeration<String> nombresCabeceras = req.getHeaderNames();
 		String metadato;
-		
-		while(nombresCabeceras.hasMoreElements()) {
+
+		while (nombresCabeceras.hasMoreElements()) {
 			metadato = (String) nombresCabeceras.nextElement();
 			System.out.println(metadato + ": " + req.getHeader(metadato));
 		}
-		
+
 		System.out.println("");
 		System.out.println("Parámetros: ");
-		
+
 		Enumeration<String> parameterNames = req.getParameterNames();
 		while (parameterNames.hasMoreElements()) {
-		    String key = (String) parameterNames.nextElement();
-		    String val = req.getParameter(key);
-		    System.out.println("Key: "+key+", Value: "+val);
+			String key = (String) parameterNames.nextElement();
+			String val = req.getParameter(key);
+			System.out.println("Key: " + key + ", Value: " + val);
 		}
-		
+
 		System.out.println("----------------------------------------");
 	}
 
