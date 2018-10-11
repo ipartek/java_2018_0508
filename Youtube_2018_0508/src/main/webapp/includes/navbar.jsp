@@ -6,6 +6,7 @@
 <%@page import="java.text.DateFormat"%>
 <%@page import="java.net.URLDecoder"%>
 <%@page import="com.ipartek.formacion.pojo.Usuario"%>
+<%@page import="com.ipartek.formacion.pojo.Rol"%>
 
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top mb-2">
 		<div class="container">
@@ -60,7 +61,7 @@
 						<!-- Usuario Loggeado -->
 						<c:if test="${not empty usuario}">
 							<div class="row justify-content-around">
-								<c:if test="${usuario.rol == Usuario.ROL_ADMIN }">
+								<c:if test="${usuario.rol.id == Rol.ROL_ADMIN }">
 									<a class ="text-center" href="backoffice/inicio"><fmt:message key="boton.backoffice"/></a>
 								</c:if>
 								<span class="text-center" style="color:#FFF">

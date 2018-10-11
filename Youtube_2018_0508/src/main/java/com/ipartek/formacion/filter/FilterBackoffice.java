@@ -27,8 +27,8 @@ import com.ipartek.formacion.pojo.Usuario;
 					, urlPatterns = { "/backoffice/*" })
 public class FilterBackoffice implements Filter {
 
-	private static final String VIEW_LOGIN = "login.jsp";
-	private static final String VIEW_HOME = "home";
+//	private static final String VIEW_LOGIN = "login.jsp";
+//	private static final String VIEW_HOME = "home";
 	
 	/**
 	 * @see Filter#destroy()
@@ -58,9 +58,7 @@ public class FilterBackoffice implements Filter {
 					res.sendRedirect(req.getContextPath() + "/inicio");
 				}
 				
-			}else {
-				//TODO Comprobar rol del usuario. Si es 0, pasa, sino, no puede
-				
+			}else {				
 				informacionCliente(req);
 				
 				//usuario no loggeado

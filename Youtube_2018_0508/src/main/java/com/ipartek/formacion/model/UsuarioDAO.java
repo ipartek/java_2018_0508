@@ -44,22 +44,22 @@ public class UsuarioDAO implements Crudable<Usuario>{
 		boolean resul = false;
 		try(Connection con =  ConnectionManager.getConnection();
 		PreparedStatement ps = con.prepareStatement(SQL_INSERT, Statement.RETURN_GENERATED_KEYS);){
-		if(pojo != null) {
-			ps.setString(1, pojo.getNombre().trim());
-			ps.setString(2, pojo.getContrasena().trim());
-			ps.setLong(3, pojo.getRol().getId());
-			
-			int affectedRows = ps.executeUpdate();
-			
-			if(affectedRows == 1) {
-				//Conseguir id generado
-				ResultSet rs = ps.getGeneratedKeys();
-				while(rs.next()) {
-					pojo.setId(rs.getLong(1));
-					resul = true;
-				}
-			}				
-		}
+			if(pojo != null) {
+				ps.setString(1, pojo.getNombre().trim());
+				ps.setString(2, pojo.getContrasena().trim());
+				ps.setLong(3, pojo.getRol().getId());
+				
+				int affectedRows = ps.executeUpdate();
+				
+				if(affectedRows == 1) {
+					//Conseguir id generado
+					ResultSet rs = ps.getGeneratedKeys();
+					while(rs.next()) {
+						pojo.setId(rs.getLong(1));
+						resul = true;
+					}
+				}				
+			}
 		}
 		return resul;
 	}
@@ -117,19 +117,18 @@ public class UsuarioDAO implements Crudable<Usuario>{
 		Usuario u = null;
 		try(Connection con =  ConnectionManager.getConnection();
 		PreparedStatement ps = con.prepareStatement(SQL_GET_BY_NOMBRE);){
-
 			
-		ps.setString(1, nombre);
-		ps.setString(2, pswd);
-		
-		ResultSet rs = ps.executeQuery();
-		//Obtener resultados
-//				ResultSet rs = ps.executeQuery();
-		
-		//Mapear ResultSet al objeto o array objetos
-		while( rs.next() ) {
-			u = rowMapper(rs);					
-		}
+			ps.setString(1, nombre);
+			ps.setString(2, pswd);
+			
+			ResultSet rs = ps.executeQuery();
+			//Obtener resultados
+	//				ResultSet rs = ps.executeQuery();
+			
+			//Mapear ResultSet al objeto o array objetos
+			while( rs.next() ) {
+				u = rowMapper(rs);					
+			}
 		}
 		return u;
 	}
@@ -161,15 +160,15 @@ public class UsuarioDAO implements Crudable<Usuario>{
 		Long id = Long.parseLong(id2);
 		
 		try(Connection con =  ConnectionManager.getConnection();
-		PreparedStatement ps = con.prepareStatement(SQL_DELETE);){
+			PreparedStatement ps = con.prepareStatement(SQL_DELETE);){
+				
+			ps.setLong(1, id.longValue());
 			
-		ps.setLong(1, id.longValue());
-		
-		int affectedRows = ps.executeUpdate();
-		
-		if(affectedRows == 1) {
-			resul = true;
-		}	
+			int affectedRows = ps.executeUpdate();
+			
+			if(affectedRows == 1) {
+				resul = true;
+			}	
 		}
 		return resul;
 	}

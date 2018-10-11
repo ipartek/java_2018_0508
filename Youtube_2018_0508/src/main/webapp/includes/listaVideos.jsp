@@ -73,7 +73,7 @@
 				<c:if test="${not empty usuario}">
 				
 					<h1 class="my-4"><fmt:message key="lista.visualizados"/></h1>
-					<ul class="list-group">
+					<ul class="list-group mb-4">
 						<c:if test="${not empty videosVistos}">
 						
 							<c:forEach items="${videosVistos }" var="vv">
@@ -89,7 +89,7 @@
 						<c:if test="${empty videosVistos}">
 						
 							<li class="list-group-item d-flex justify-content-between align-items-center">
-		          				<p>*Por favor Inicia Sesión para guardar tus video reproducidos</p>
+		          				<p>*No tienes vídeos reproducidos</p>
 		          			</li>
 		          			
 						</c:if>

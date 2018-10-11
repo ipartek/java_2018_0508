@@ -42,6 +42,9 @@
 	            <li>
 	                <a href="roles"><i class="fa fa-sitemap fa-fw"></i> Roles</a>
 	            </li>
+	            <li>
+	                <a href="comentarios"><i class="fas fa-comments fa-fw"></i> Comentarios pendientes</a>
+	            </li>
         	</ul>
     	</div>
    		<!-- /.sidebar-collapse -->
