@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.ipartek.formacion.youtube.model.ComentarioDAO;
 import com.ipartek.formacion.youtube.model.VideoDAO;
 import com.ipartek.formacion.youtube.pojo.Alert;
 import com.ipartek.formacion.youtube.pojo.Usuario;
@@ -29,6 +30,7 @@ public class HomeController extends HttpServlet {
 	public static final String OP_ELIMINAR = "1";
 	public static final String OP_MODIFICAR = "2";
 	private static VideoDAO daoVideo;
+	private static ComentarioDAO daoComentario;
 	private ArrayList<Video> videos;	
 	private Video videoInicio;
 
@@ -38,6 +40,7 @@ public class HomeController extends HttpServlet {
 		super.init(config);
 		//Se ejecuta solo con la 1º petición, el resto de peticiones iran a "service"
 		daoVideo = VideoDAO.getInstance();
+		daoComentario = ComentarioDAO.getInstance();
 	}
 	
 	
@@ -46,6 +49,7 @@ public class HomeController extends HttpServlet {
 		super.destroy();
 		//se ejecuta al parar el servidor
 		daoVideo = null;
+		daoComentario = null;
 	}
 	
 	
@@ -70,6 +74,12 @@ public class HomeController extends HttpServlet {
 		//despues de realizar GET o POST
 		request.setAttribute("videos", videos);
 		request.setAttribute("videoInicio", videoInicio);
+		try {
+			request.setAttribute("comentarios", daoComentario.getAllByVideo(videoInicio.getId()));
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		
 		String playlist = "";
 		
@@ -117,7 +127,7 @@ public class HomeController extends HttpServlet {
 			//video de inicio
 			videoInicio = new Video();
 			if ( id != null && !OP_ELIMINAR.equals(op) ) {
-				videoInicio = daoVideo.getById(Long.parseLong(id));
+				videoInicio = daoVideo.getById(Long.parseLong(id));				
 				
 				//guardar video reproducido si esta usuario en session
 				HttpSession session = request.getSession();

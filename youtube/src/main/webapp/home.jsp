@@ -1,3 +1,4 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@page import="com.ipartek.formacion.youtube.controller.HomeController"%>
 <%@ include file="includes/header.jsp" %>	
     
@@ -30,13 +31,13 @@
 			  <div class="modal-dialog" role="document">
 			    <div class="modal-content">
 			      <div class="modal-header">
-			        <h5 class="modal-title" id="exampleModalLabel">Atenci�n</h5>
+			        <h5 class="modal-title" id="exampleModalLabel">Atención</h5>
 			        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
 			          <span aria-hidden="true">&times;</span>
 			        </button>
 			      </div>
 			      <div class="modal-body">
-			        �Est�s seguro de que deseas eliminar el video?
+			        ¿Estás seguro de que deseas eliminar el video?
 			      </div>
 			      <div class="modal-footer">
 			        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
@@ -90,13 +91,13 @@
 			        	<div class="form-group">
 			        	
 				        	<label for="nombreRegistro">Nombre</label>
-				        	<input type="text" id="nombreRegistro" name="nombreRegistro" class="form-control" autofocus required placeholder="M�nimo 3 y m�ximo 50 caracteres" pattern="{3, 50}" />
+				        	<input type="text" id="nombreRegistro" name="nombreRegistro" class="form-control" autofocus required placeholder="Mínimo 3 y máximo 50 caracteres" pattern="{3, 50}" />
 				        	
-				        	<label for="passRegistro">Contrase�a</label>
-				        	<input type="password" id="passRegistro" name="passRegistro" class="form-control" required placeholder="M�nimo 8 y m�ximo 20 caracteres" pattern="{8, 20}"  />
+				        	<label for="passRegistro">Contraseña</label>
+				        	<input type="password" id="passRegistro" name="passRegistro" class="form-control" required placeholder="Mínimo 8 y máximo 20 caracteres" pattern="{8, 20}"  />
 				        	
-				        	<label for="passRegistroRep">Repita la contrase�a</label>
-				        	<input type="password" id="passRegistroRep" name="passRegistroRep" class="form-control mb-3" required placeholder="M�nimo 8 y m�ximo 20 caracteres" pattern="{8, 20}"  />
+				        	<label for="passRegistroRep">Repita la contraseña</label>
+				        	<input type="password" id="passRegistroRep" name="passRegistroRep" class="form-control mb-3" required placeholder="Mínimo 8 y máximo 20 caracteres" pattern="{8, 20}"  />
 				        	
 				        	<button type="submit" class="btn btn-primary btn-block">Darme de alta</button>
 				       
@@ -119,7 +120,7 @@
 		            
 		            <c:if test="${empty reproducidos}">
 		        		<li class="list-group-item d-flex justify-content-between align-items-center">
-	          				<p>*Por favor Inicia Session para guardar tus video reproducidos</p>
+	          				<p>*Por favor Inicia Sesión para guardar tus video reproducidos</p>
 	          			</li>
           			</c:if>
 	          	
@@ -146,23 +147,7 @@
           </div>
           <!-- /.card -->
 
-          <div class="card card-outline-secondary my-4">
-            <div class="card-header">
-              Comentarios
-            </div>
-            <div class="card-body">
-              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Omnis et enim aperiam inventore, similique necessitatibus neque non! Doloribus, modi sapiente laboriosam aperiam fugiat laborum. Sequi mollitia, necessitatibus quae sint natus.</p>
-              <small class="text-muted">Posted by Anonymous on 3/1/17</small>
-              <hr>
-              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Omnis et enim aperiam inventore, similique necessitatibus neque non! Doloribus, modi sapiente laboriosam aperiam fugiat laborum. Sequi mollitia, necessitatibus quae sint natus.</p>
-              <small class="text-muted">Posted by Anonymous on 3/1/17</small>
-              <hr>
-              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Omnis et enim aperiam inventore, similique necessitatibus neque non! Doloribus, modi sapiente laboriosam aperiam fugiat laborum. Sequi mollitia, necessitatibus quae sint natus.</p>
-              <small class="text-muted">Posted by Anonymous on 3/1/17</small>
-              
-            </div>
-          </div>
-          <!-- /.card -->
+          <%@include file="includes/comentarios.jsp" %>
 
         </div>
         <!-- /.col-lg-9 -->

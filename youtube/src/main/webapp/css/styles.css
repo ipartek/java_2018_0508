@@ -78,6 +78,18 @@ nav li img{
 	background-color:#fff;
 }
 
+/*	FORMULARIO COMENTARIO
+****************************************/
+
+div.form-comentario textarea{
+	width:85%!important;
+	resize:none;
+}
+
+.detalleComentario{
+	padding:0 1.2em;
+}
+
 footer.home-footer{
 	display:flex;
 	justify-content:space-around;

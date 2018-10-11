@@ -1,3 +1,4 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@page import="java.util.Date"%>
 <%@page import="java.text.SimpleDateFormat"%>
 <%@page import="java.text.DateFormat"%>
@@ -20,7 +21,7 @@
 	     			//guardar visita actual
 	     			DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");		
 	     			Cookie cVisita = new Cookie("cVisita", URLEncoder.encode( dateFormat.format(new Date()),"UTF-8") );
-	     			cVisita.setMaxAge(60*60*24*365); //1año
+	     			cVisita.setMaxAge(60*60*24*365); //1aÃ±o
 	     			response.addCookie(cVisita);
 	     			
 	     			break;
@@ -43,7 +44,9 @@
 
     <!-- Bootstrap core JavaScript -->
     <script src="https://blackrockdigital.github.io/startbootstrap-shop-item/vendor/jquery/jquery.min.js"></script>
+    <!-- <script src="vendor/jquery/jquery.min.js"></script> -->
     <script src="https://blackrockdigital.github.io/startbootstrap-shop-item/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <!-- <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script> -->
 	<script src="https://www.youtube.com/iframe_api"></script>
 	
 	<script>

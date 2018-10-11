@@ -1,3 +1,4 @@
+<%@page import="com.ipartek.formacion.youtube.pojo.Rol"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
       <div class="container">
@@ -26,8 +27,10 @@
 		         <!-- usuario logeado -->
 		         <c:if test="${not empty sessionScope.usuario}">
 		           <div class="nav-user">             	
-		           	<i class="fas fa-user logeado"> ${usuario.nombre}</i>             	
-		           	<a href="backoffice/index.jsp">Acceder Backoffice</a>
+		           	<i class="fas fa-user logeado"> ${usuario.nombre}</i>   
+		           	<c:if test="${sessionScope.usuario.rol.id == Rol.ROL_ADMIN}">      	
+		           		<a href="backoffice/index.jsp">Acceder Backoffice</a>
+		           	</c:if>
 		           	<a href="logout">Cerrar sesión</a>
 		           </div>            
 		         
@@ -44,7 +47,7 @@
 		        <li class="nav-item ml-2 mr-2"><a href="inicio?idioma=eu_ES" class="${(sessionScope.idioma eq 'eu_ES')?'idioma-activo':''}"><img src="https://image.flaticon.com/icons/png/128/555/555559.png" title="Euskera" alt="idioma-euskera" /></a></li>
 		        <li class="nav-item mr-2"><a href="inicio?idioma=es_ES" class="${(sessionScope.idioma eq 'es_ES')?'idioma-activo':''}"><img src="https://yeguadalaparrilla.com/Media/yeguadalaparrilla/imagenes/bandera%20Espa%C3%B1a.png" title="Espa�ol" alt="idioma-espa�ol" /></a></li>
 		        <li class="nav-item"><a href="inicio?idioma=en_EN" class="${(sessionScope.idioma eq 'en_EN')?'idioma-activo':''}"><img src="https://yeguadalaparrilla.com/Media/yeguadalaparrilla/imagenes/Bandera%20Inglaterra.png" title="Ingl�s" alt="idioma-ingles" /></a></li>
-            </ul>            
+            </ul>   
           </ul>
           
         </div>
