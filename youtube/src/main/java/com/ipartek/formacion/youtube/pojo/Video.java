@@ -10,7 +10,7 @@ public class Video {
 	private Usuario usuario;
 	
 	
-	public Video() throws Exception {
+	public Video() {
 		super();
 		this.id = -1;
 		this.codigo="";
@@ -36,6 +36,11 @@ public class Video {
 		
 	}
 
+
+	public Video(long videoId) {
+		this();
+		this.id=videoId;
+	}
 
 	public void setCodigo(String codigo) throws Exception {
 		if ( codigo != null && codigo.length() == CODIGO_LONGITUD ) {

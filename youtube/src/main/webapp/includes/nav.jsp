@@ -21,7 +21,6 @@
        <ul class="navbar-nav ml-auto">
          <li class="nav-item active">
               	
-         
 		         <!-- usuario sin pasar por login -->
 		         <c:if test="${empty sessionScope.usuario}">
 		            <!-- formulario Login -->
@@ -38,8 +37,10 @@
 		         <!-- usuario logeado -->
 		         <c:if test="${not empty sessionScope.usuario}">
 		           <div class="nav-user">             	
-		           	<i class="fas fa-user">${usuario.nombre}</i>             	
+		           	<i class="fas fa-user">${usuario.nombre}</i>
+		           	 <c:if test="${usuario.rol.id==Rol.ROL_ADMIN}">             	
 		           	<a href="backoffice/index.jsp">Acceder Backoffice</a>
+		           	</c:if>
 		           	<a href="logout">Cerrar Session</a>
 		           </div>            
 		         

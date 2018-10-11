@@ -13,8 +13,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.ipartek.formacion.youtube.model.ComentarioDAO;
 import com.ipartek.formacion.youtube.model.VideoDAO;
 import com.ipartek.formacion.youtube.pojo.Alert;
+import com.ipartek.formacion.youtube.pojo.Comentario;
 import com.ipartek.formacion.youtube.pojo.Usuario;
 import com.ipartek.formacion.youtube.pojo.Video;
 
@@ -25,107 +27,124 @@ import com.ipartek.formacion.youtube.pojo.Video;
 public class HomeController extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
-
+	
 	public static final String OP_ELIMINAR = "1";
 	public static final String OP_MODIFICAR = "2";
-
+	
+	
 	private static VideoDAO dao;
-	private ArrayList<Video> videos;
+	private static ComentarioDAO daoComentarios;
+	private ArrayList<Video> videos;	
 	private Video videoInicio;
 
+	
 	@Override
-	public void init(ServletConfig config) throws ServletException {
+	public void init(ServletConfig config) throws ServletException {	
 		super.init(config);
-		// Se ejecuta solo con la 1º petición, el resto de peticiones iran a "service"
+		//Se ejecuta solo con la 1º petición, el resto de peticiones iran a "service"
 		dao = VideoDAO.getInstance();
+		daoComentarios = ComentarioDAO.getInstance();
 	}
-
+	
+	
 	@Override
-	public void destroy() {
+	public void destroy() {	
 		super.destroy();
-		// se ejecuta al parar el servidor
+		//se ejecuta al parar el servidor
 		dao = null;
+		daoComentarios = null;
 	}
-
+	
+	
 	/**
 	 * Cada request se ejecuta en un hilo o thread
 	 */
 	@Override
-	protected void service(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-
+	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	
 		System.out.println("Antes de realizar GET o POST");
-
-		// idiomas @see com.ipartek.formacion.youtube.filter.IdiomaFilter
+		
+		
+		//idiomas @see com.ipartek.formacion.youtube.filter.IdiomaFilter
 		HttpSession session = request.getSession();
-		String idioma = (String) session.getAttribute("idioma");
-		Locale locale = new Locale(idioma.split("_")[0], idioma.split("_")[1]);
-		ResourceBundle idiomas = ResourceBundle.getBundle("idiomas", locale);
-
-		super.service(request, response); // llama a los metodos GET o POST
-
-		// despues de realizar GET o POST
+		String idioma = (String)session.getAttribute("idioma");		
+		Locale locale = new Locale( idioma.split("_")[0] , idioma.split("_")[1] );			
+		ResourceBundle idiomas = ResourceBundle.getBundle("idiomas", locale );
+		
+		
+		super.service(request, response);  //llama a los metodos GET o POST
+				
+		//despues de realizar GET o POST
 		request.setAttribute("videos", videos);
 		request.setAttribute("videoInicio", videoInicio);
-
+		try {
+			request.setAttribute("comentarios", daoComentarios.getAllByVideo(videoInicio.getId()));
+			
+		} catch (Exception e) {			
+			e.printStackTrace();
+		}
+		
+		
 		String playlist = "";
-		for (int i = 0; i < videos.size(); i++) {
+		for (int i=0; i < videos.size(); i++) {
 			playlist += videos.get(i).getCodigo() + ",";
 		}
-		request.setAttribute("playlist", playlist);
-
+		request.setAttribute("playlist", playlist);		
 		request.getRequestDispatcher("home.jsp").forward(request, response);
-
+		
 	}
-
+	
+	
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
 	 *      response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-
+		
 		Alert alert = null;
 		try {
-
-			// parametros
+			
+			//parametros
 			String id = request.getParameter("id");
 			String op = request.getParameter("op");
-
-			// eliminar ?
-			if (op != null && OP_ELIMINAR.equals(op)) {
-				if (dao.delete(Long.parseLong(id))) {
+			
+			//eliminar ?			
+			if ( op != null && OP_ELIMINAR.equals(op) ) {
+				if ( dao.delete( Long.parseLong(id) ) ) {
 					alert = new Alert(Alert.SUCCESS, "Video Eliminado correctamente");
-				} else {
+				}else {
 					alert = new Alert();
 				}
 			}
-
-			// listado videos
+			
+			//listado videos			
 			videos = (ArrayList<Video>) dao.getAll();
-
-			// video de inicio
+			
+			
+			//video de inicio
 			videoInicio = new Video();
-			if (id != null && !OP_ELIMINAR.equals(op)) {
-				videoInicio = dao.getById(Long.parseLong(id));
-
-				// guardar video reproducido si esta usuario en session
+			if ( id != null && !OP_ELIMINAR.equals(op) ) {
+				videoInicio = dao.getById( Long.parseLong(id) );
+				
+				//guardar video reproducido si esta usuario en session
 				HttpSession session = request.getSession();
-				Usuario usuario = (Usuario) session.getAttribute("usuario");
-				if (usuario != null) { // Logeado
-
-					ArrayList<Video> reproducidos = (ArrayList<Video>) session.getAttribute("reproducidos");
-					if (reproducidos == null) {
+				Usuario usuario = (Usuario)session.getAttribute("usuario");
+				if ( usuario != null ) { //Logeado
+				
+					ArrayList<Video> reproducidos = (ArrayList<Video>)session.getAttribute("reproducidos");
+					if ( reproducidos == null ) {
 						reproducidos = new ArrayList<Video>();
 					}
 					reproducidos.add(videoInicio);
-					session.setAttribute("reproducidos", reproducidos);
-
-				}
-
-			} else if (!videos.isEmpty()) {
+					session.setAttribute("reproducidos", reproducidos);										
+					
+				}				
+				
+			}else if ( !videos.isEmpty()) {
 				videoInicio = videos.get(0);
 			}
+			
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -141,40 +160,41 @@ public class HomeController extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-
+		
 		Alert alert = null;
 		try {
-
-			// recoger parametros
+						
+			//recoger parametros
 			String codigo = request.getParameter("codigo");
 			String nombre = request.getParameter("nombre");
 			String op = request.getParameter("op");
 			String id = request.getParameter("id");
-
-			if (op != null && OP_MODIFICAR.equals(op)) { // modificar
-
-				Video v = dao.getById(Long.parseLong(id));
+			
+			if ( op != null && OP_MODIFICAR.equals(op)) {    // modificar
+				
+				Video v = dao.getById( Long.parseLong(id) );
 				v.setNombre(nombre);
-
-				if (dao.update(v)) {
+				
+				if ( dao.update(v) ) {
 					alert = new Alert(Alert.SUCCESS, "Video Modificado");
-				} else {
+				}else {
 					alert = new Alert();
 				}
-
-			} else { // insertar
-
+				
+				
+			}else {  										 //insertar
+							
 				videoInicio = new Video(codigo, nombre);
-				if (dao.insert(videoInicio)) {
+				if ( dao.insert(videoInicio) ) {
 					alert = new Alert(Alert.SUCCESS, "Gracias por subir tu Video");
-				} else {
-					alert = new Alert(Alert.WARNING,
-							"ERROR, no se pudo crear el video, por favor asegurate que no este duplicado el Video.");
+				}else {
+					alert = new Alert(Alert.WARNING, "ERROR, no se pudo crear el video, por favor asegurate que no este duplicado el Video.");
 				}
-			}
-
-			// pedir listado
+			}	
+			
+			//pedir listado			
 			videos = (ArrayList<Video>) dao.getAll();
+			
 
 		} catch (Exception e) {
 			e.printStackTrace();

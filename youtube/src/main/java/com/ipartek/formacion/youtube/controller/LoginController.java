@@ -24,55 +24,45 @@ import com.ipartek.formacion.youtube.pojo.Usuario;
  */
 @WebServlet("/login")
 public class LoginController extends HttpServlet {
+	
 	private static final long serialVersionUID = 1L;
 	private static UsuarioDAO daoUsuario;
-
-	private static final String VIEW_INICIO_USER="/inicio";
-	private static final String VIEW_INICIO_ADMIN="/backoffice/inicio";
-
-	private UsuarioDAO dao;
-
-	public void init(ServletConfig config) throws ServletException {
-		super.init(config);
-		// Se ejecuta solo con la 1º petición, el resto de peticiones iran a "service"
-		dao = UsuarioDAO.getInstance();
-	}
-
+	
+	private static final String VIEW_INICIO_ADMIN = "/backoffice/inicio";
+	private static final String VIEW_INICIO_USER = "/inicio";
+	 
+    
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
-	 *      response)
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		doProcess(request, response);
 	}
 
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
-	 *      response)
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		doProcess(request, response);
 	}
 
-	private void doProcess(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-
+	private void doProcess(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
 		Alert alert = new Alert();
 		HttpSession session = request.getSession();
-		String view=VIEW_INICIO_USER;
-
+		String view = VIEW_INICIO_USER;
+		
 		try {
-
-			// idiomas @see com.ipartek.formacion.youtube.filter.IdiomaFilter
-			String idioma = (String) session.getAttribute("idioma");
-			Locale locale = new Locale(idioma.split("_")[0], idioma.split("_")[1]);
-			ResourceBundle idiomas = ResourceBundle.getBundle("idiomas", locale);
-
-			// recoger parametros
-			String usuarioNombre = request.getParameter("usuario").trim().toLowerCase();
-			String pass = request.getParameter("pass").trim().toLowerCase();
+			
+			//idiomas @see com.ipartek.formacion.youtube.filter.IdiomaFilter
+			String idioma = (String)session.getAttribute("idioma");			
+			Locale locale = new Locale( idioma.split("_")[0] , idioma.split("_")[1] );			
+			ResourceBundle idiomas = ResourceBundle.getBundle("idiomas", locale );
+						
+			
+			//recoger parametros
+			String usuarioNombre = request.getParameter("usuario");
+			String pass = request.getParameter("pass");
 			Usuario u = new Usuario(usuarioNombre, pass);
 			daoUsuario = UsuarioDAO.getInstance();	
 			
@@ -81,11 +71,11 @@ public class LoginController extends HttpServlet {
 			if (  daoUsuario.login(u) != null ) {
 				
 				alert.setTexto(MessageFormat.format(idiomas.getString("msj.bienvenida"), usuarioNombre) );
-				alert.setTipo(Alert.PRIMARY);
+				alert.setTipo(Alert.SUCCESS);
 				
 				//guardar Usuario en session				
 				session.setAttribute("usuario", u);
-				session.setMaxInactiveInterval(60*60); // 5min				
+				session.setMaxInactiveInterval(60*5); // 5min				
 				
 				gestionarCookies(request, response, u);
 				
@@ -103,28 +93,29 @@ public class LoginController extends HttpServlet {
 		}catch (Exception e) {
 			e.printStackTrace();
 		}finally {
-			session.setAttribute("alert", alert);	
-			request.getRequestDispatcher(view).forward(request, response);
-			 
+			session.setAttribute("alert", alert);			
+			response.sendRedirect(request.getContextPath() + view ); 
 		}
-
+		
+		
 	}
 
 	private void gestionarCookies(HttpServletRequest request, HttpServletResponse response, Usuario u) {
-
-		String recordar = (String) request.getParameter("recuerdame");
+		
+		String recordar = (String)request.getParameter("recuerdame");
 		Cookie cNombre = new Cookie("cNombre", u.getNombre());
-
-		if (recordar != null) {
-
-			cNombre.setMaxAge(60 * 60 * 24 * 30 * 3); // 3meses
-
-		} else {
+				
+		if ( recordar != null) {
+			
+			cNombre.setMaxAge(60*60*24*30*3); // 3meses
+			
+		}else {
 			cNombre.setMaxAge(0); // No guardar
 		}
-
+		
 		response.addCookie(cNombre);
-
+		
+		
 	}
 
 }

@@ -24,3 +24,13 @@ div.botonCrear{
 td{
 	text-align: center;
 }
+
+
+/*******************************************************/
+.form-comentario textarea{
+	width: 85% !important;
+	resize: none;
+}
+
+.form-comentario input[type="submit"]{
+}
