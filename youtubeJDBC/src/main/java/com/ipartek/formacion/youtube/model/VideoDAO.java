@@ -7,12 +7,14 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.ipartek.formacion.youtube.pojo.Usuario;
 import com.ipartek.formacion.youtube.pojo.Video;
 
 public class VideoDAO implements CrudAble<Video> {
 
 	private static VideoDAO INSTANCE = null;
 	private static UsuariosDaoJDBC usuariosJDBC;
+	private static List<Video> videos = null;
 	private final String SQL_GET_ALL = "SELECT v.id as 'video_id', codigo, v.nombre as 'nombre_video',id_usuario,  u.nombre as 'nombre_usuario' , u.id_rol as 'rol', r.nombre as 'rol_nombre' " + 
 			" FROM video as v , usuario as u , rol as r"+
 			" WHERE v.id_usuario = u.id AND u.id_rol = r.id"+
@@ -27,7 +29,7 @@ public class VideoDAO implements CrudAble<Video> {
 	private final String SQL_INSERT = "INSERT INTO video (codigo, nombre, id_usuario) VALUES (?,?,?);";
 
 	private VideoDAO() {
-		super();
+		videos = new ArrayList<Video>();
 	}
 
 	public static synchronized VideoDAO getInstance() {
@@ -68,7 +70,7 @@ public class VideoDAO implements CrudAble<Video> {
 
 	@Override
 	public List<Video> getAll() {
-		//usuariosJDBC = usuariosJDBC.getInstance();
+		usuariosJDBC = usuariosJDBC.getInstance();
 		ArrayList<Video> videos = new ArrayList<Video>();
 		try (Connection con = ConnectionManager.getConnection();
 				PreparedStatement ps = con.prepareStatement(SQL_GET_ALL);

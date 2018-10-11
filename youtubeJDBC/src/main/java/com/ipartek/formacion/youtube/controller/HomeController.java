@@ -1,5 +1,6 @@
 package com.ipartek.formacion.youtube.controller;
 
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Locale;
@@ -13,6 +14,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.ipartek.formacion.youtube.model.ComentariosDao;
 import com.ipartek.formacion.youtube.model.UsuariosDaoJDBC;
 import com.ipartek.formacion.youtube.model.VideoDAO;
 import com.ipartek.formacion.youtube.pojo.Alert;
@@ -30,6 +32,7 @@ public class HomeController extends HttpServlet {
 	public static final String OP_ELIMINAR = "1";
 	public static final String OP_MODIFICAR = "2";
 	private static VideoDAO dao;
+	private static ComentariosDao daoComentarios;
 	private static UsuariosDaoJDBC usuarioDao;
 	private ArrayList<Video> videos;	
 	private Video videoInicio;
@@ -42,6 +45,7 @@ public class HomeController extends HttpServlet {
 		//Se ejecuta solo con la 1º petición, el resto de peticiones iran a "service"
 		dao = VideoDAO.getInstance();
 		usuarioDao = usuarioDao.getInstance();
+		daoComentarios = ComentariosDao.getInstance();
 	}
 	
 	
@@ -50,6 +54,7 @@ public class HomeController extends HttpServlet {
 		super.destroy();
 		//se ejecuta al parar el servidor
 		dao = null;
+		daoComentarios = null;
 	}
 	
 	
@@ -77,6 +82,12 @@ public class HomeController extends HttpServlet {
 		String playList =null;
 		for(int i=1; i < videos.size();i++ ) {
 			 playList += videos.get(i).getCodigo() +",";
+		}
+		try {
+			request.setAttribute("comentarios", daoComentarios.getAllByVideo(videoInicio.getId()));
+			
+		} catch (Exception e) {			
+			e.printStackTrace();
 		}
 		request.setAttribute("playList", playList);
 		request.getRequestDispatcher("home.jsp").forward(request, response);

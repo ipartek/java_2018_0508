@@ -8,8 +8,18 @@ public class Video {
 	private String codigo;
 	private String nombre;
 	private Usuario usuario;
+	private Comentario comentario;
+	
 	//private String thumbnail; // primera imagen del video http://img.youtube.com/vi/ID/0.jpg
 	
+	public Comentario getComentario() {
+		return comentario;
+	}
+
+	public void setComentario(Comentario comentario) {
+		this.comentario = comentario;
+	}
+
 	public Video() throws Exception {
 		super();
 		this.id = -1;
@@ -73,7 +83,8 @@ public class Video {
 
 	@Override
 	public String toString() {
-		return "Video [id=" + id + ", codigo=" + codigo + ", nombre=" + nombre + ", usuario=" + usuario + "]";
+		return "Video [id=" + id + ", codigo=" + codigo + ", nombre=" + nombre + ", usuario=" + usuario
+				+ ", comentario=" + comentario + "]";
 	}
 
 	
