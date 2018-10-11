@@ -6,13 +6,16 @@ public class Video {
 	
 	private long id;
 	private String codigo;
-	private String nombre;
+	private String nombre;	
+	private Usuario usuario;
+	//thumbnail = "http://img.youtube.com/vi/"+this.codigo+"/0.jpg";
 	
-	public Video() throws Exception {
+	public Video(){
 		super();
 		this.id = -1;
-		this.setCodigo("LPDhuthFD98");
-		this.nombre = "Surf Search Spot 2 0 video promo";		
+		this.codigo = "";
+		this.nombre = "";			
+		this.usuario = new Usuario();
 	}
 	
 	public Video(String codigo, String nombre) throws Exception {
@@ -49,6 +52,15 @@ public class Video {
 
 	public String getCodigo() {
 		return codigo;
+	}
+		
+
+	public Usuario getUsuario() {
+		return usuario;
+	}
+
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
 	}
 
 	@Override

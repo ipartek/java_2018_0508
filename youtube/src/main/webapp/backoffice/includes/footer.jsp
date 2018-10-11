@@ -16,7 +16,27 @@
    		//Habilitar datatables
  		$(document).ready(function() {
 		    $('#tablaOrdenable').DataTable();
-		});	  			
+		});	  	
+   		
+   		
+   		function showpass( event, elementId ){
+   			console.log('click showpass ' + elementId);
+   			var el = document.getElementById(elementId);
+   			if ( el.type === "password"){
+   				el.type = "text";
+   			}else{
+   				el.type = "password";
+   			}   			
+   			
+   			if ( event.target.classList.contains("fa-eye")){
+   				event.target.classList.remove("fa-eye");
+   				event.target.classList.add("fa-eye-slash");
+   			}else{
+   				event.target.classList.add("fa-eye");
+   				event.target.classList.remove("fa-eye-slash");
+   			}
+   			
+   		}
    		
    	</script>
    	

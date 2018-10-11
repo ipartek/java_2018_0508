@@ -70,7 +70,7 @@ public class LoginController extends HttpServlet {
 			if (  daoUsuario.login(u) != null ) {
 				
 				alert.setTexto(MessageFormat.format(idiomas.getString("msj.bienvenida"), usuarioNombre) );
-				alert.setTipo(Alert.PRIMARY);
+				alert.setTipo(Alert.SUCCESS);
 				
 				//guardar Usuario en session				
 				session.setAttribute("usuario", u);

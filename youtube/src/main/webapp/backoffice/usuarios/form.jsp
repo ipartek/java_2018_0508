@@ -31,14 +31,17 @@
 				
 				<div class="form-group">
 				   <label for="password">Contraseña</label>
-				   <input type="password" class="form-control" name="password" id="password" value="${usuario.password}">
+				   <div class="input-group">
+      					<div class="input-group-addon"><i class="fas fa-eye" onclick="showpass(event,'password')"></i></div>
+				   		<input type="password" class="form-control" name="password" id="password" value="${usuario.password}">
+				   	</div>	
 				</div>
 				
 				<div class="form-group">				
 				   <label for="rol">Rol</label>
 				   <select name="rol" class="form-control">
 				   		<c:forEach items="${roles}" var="rol">
-				   			<option value="${rol.id}">${rol.nombre}</option>
+				   			<option value="${rol.id}"  ${(rol.id==usuario.rol.id)?'selected':''} >${rol.nombre}</option>
 				   		</c:forEach>
 				   </select>
 				</div>
@@ -46,7 +49,7 @@
       			<input type="hidden" name="op" value="<%=BackofficeUsuarioController.OP_GUARDAR%>">
       			<input type="submit" value="${(usuario.id == -1)?'Crear': 'Modificar' }" class="btn btn-primary btn-block">
       			<c:if test="${usuario.id > 0}">
-      				<a href="usuarios?id=${usuario.id}&op=<%=BackofficeUsuarioController.OP_ELIMINAR%>" onclick="confirmar(event)" class="btn btn-danger btn-block">Eliminar(Modal)</a>
+      				<a href="usuarios?id=${usuario.id}&op=<%=BackofficeUsuarioController.OP_ELIMINAR%>" onclick="confirmar(event)" class="btn btn-danger btn-block">Eliminar</a>
       			</c:if>	
       		</form>
       		

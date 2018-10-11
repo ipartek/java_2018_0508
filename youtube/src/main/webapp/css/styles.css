@@ -12,3 +12,14 @@ ul.idioma li.active a{
 	color: #ffc107!important;
 	text-decoration: underline;	
 }	
+
+/* formulario comentario
+*******************************************/
+
+.form-comentario textarea{
+	width: 85% !important;
+}
+
+.form-comentario input[type="submit"]{
+	/* height: 44vh; */
+}

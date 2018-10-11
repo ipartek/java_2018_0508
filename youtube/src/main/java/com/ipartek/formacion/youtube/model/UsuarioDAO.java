@@ -19,10 +19,13 @@ public class UsuarioDAO implements CrudAble<Usuario>{
 	                                   " WHERE u.id_rol = r.id" +
 	                                   " ORDER BY u.id DESC LIMIT 1000;";
 	
-	private final String SQL_GET_BY_ID = "SELECT  id, nombre,password,rol FROM usuario WHERE id = ?;";
-	private final String SQL_UPDATE = "UPDATE usuario SET nombre= ? ,password= ?,rol=? WHERE id = ?;";
+	private final String SQL_GET_BY_ID = "SELECT u.id as 'id_usuario', u.nombre as 'nombre_usuario', password, id_rol as 'id_rol', r.nombre as 'nombre_rol'" +
+										" FROM usuario as u, rol as r" +
+									    " WHERE u.id_rol = r.id AND u.id = ?;";
+	
+	private final String SQL_UPDATE = "UPDATE usuario SET nombre= ? ,password= ?,id_rol=? WHERE id = ?;";
 	private final String SQL_DELETE = "DELETE FROM usuario WHERE id = ?;";
-	private final String SQL_INSERT = "INSERT INTO usuario (nombre,password,rol) VALUES (?,?,?);";
+	private final String SQL_INSERT = "INSERT INTO usuario (nombre,password,id_rol) VALUES (?,?,?);";
 	
 	private final String SQL_LOGIN = "SELECT u.id as 'id_usuario', u.nombre as 'nombre_usuario', password, id_rol as 'id_rol', r.nombre as 'nombre_rol' " +
 									 " FROM usuario as u, rol as r " + 
@@ -47,7 +50,7 @@ public class UsuarioDAO implements CrudAble<Usuario>{
 
 			ps.setString(1, pojo.getNombre().trim());
 			ps.setString(2, pojo.getPassword().trim());
-			//ps.setInt(3, pojo.getRol());
+			ps.setLong(3, pojo.getRol().getId() );
 
 			int affectedRows = ps.executeUpdate();
 			if (affectedRows == 1) {
@@ -69,7 +72,7 @@ public class UsuarioDAO implements CrudAble<Usuario>{
 	}
 
 	@Override
-	public List<Usuario> getAll() throws Exception {
+	public List<Usuario> getAll()  {
 		Usuario usuario = null;
 
 		ArrayList<Usuario> usuarios = new ArrayList<Usuario>();
@@ -81,7 +84,9 @@ public class UsuarioDAO implements CrudAble<Usuario>{
 				usuarios.add(rowMapper(rs, usuario));
 			}
 
-		} 
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
 
 		return usuarios;
 	}
@@ -132,7 +137,7 @@ public class UsuarioDAO implements CrudAble<Usuario>{
 
 			ps.setString(1, pojo.getNombre());
 			ps.setString(2, pojo.getPassword());
-			//ps.setInt(3, pojo.getRol());
+			ps.setLong(3, pojo.getRol().getId());
 			ps.setLong(4, pojo.getId());
 			if (ps.executeUpdate() == 1) {
 				resul = true;

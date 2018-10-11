@@ -117,7 +117,7 @@ public class BackofficeUsuarioController extends HttpServlet {
 		
 	}
 
-	private void guardar(HttpServletRequest request) {
+	private void guardar(HttpServletRequest request) throws Exception {
 		Usuario u = new Usuario();
 		
 		try {
@@ -159,6 +159,7 @@ public class BackofficeUsuarioController extends HttpServlet {
 		
 		view = VIEW_FORMULARIO;
 		request.setAttribute("usuario", u);
+		request.setAttribute("roles", daoRol.getAll() );
 		
 	}
 
