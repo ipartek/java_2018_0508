@@ -6,11 +6,13 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 <script src="//cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+<script src="js/scripts.js"></script>
 <script>
 	$(document).ready(function() {
 		$('#tablaBackoffice').DataTable({
 			"order" : [ [ 0, "desc" ] ]
 		});
+		cambiarLogo();
 	});
 
 	function showModalEliminar(id) {

@@ -9,7 +9,9 @@
 	<%@ include file="../includes/sidebar.jsp"%>
 	<div class="col-8 ml-4">
 		<div class="row">
-			<!-- include file="includes/alertas.jsp" -->
+			<c:if test="${not empty alert}">
+				<%@ include file="../includes/alertas.jsp"%>
+			</c:if>
 		</div>
 		<!-- / Gestion de alertas -->
 		<!-- Contenido de la pagina actual -->
