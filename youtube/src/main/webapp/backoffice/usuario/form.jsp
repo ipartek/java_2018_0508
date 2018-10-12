@@ -40,10 +40,12 @@
 							value="${usuario.contrasenya}" required pattern="{1,20}" />
 					</div>
 					<div class="form-group">
-						<label for="rol">Rol:</label> <select name="rol"
-							class="form-control">
-							<option value="<%=Usuario.ROL_USER%>">Normal</option>
-							<option value="<%=Usuario.ROL_ADMIN%>">Administrador</option>
+						<label for="rol">Rol:</label> <select name="rol" class="form-control">
+							<c:forEach items="${roles}" var="r">
+							
+								<option value="${r.id}" ${(r.id==usuario.rol)?'selected':''} >${r.nombre}</option>
+							
+							</c:forEach>
 						</select>
 					</div>
 					<input type="submit"

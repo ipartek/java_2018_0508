@@ -3,6 +3,7 @@ package com.ipartek.formacion.youtube.controller.back;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.sql.SQLIntegrityConstraintViolationException;
+import java.util.ArrayList;
 
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
@@ -11,8 +12,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.ipartek.formacion.youtube.model.RolDAO;
 import com.ipartek.formacion.youtube.model.UsuarioDAO;
 import com.ipartek.formacion.youtube.pojo.Alert;
+import com.ipartek.formacion.youtube.pojo.Rol;
 import com.ipartek.formacion.youtube.pojo.Usuario;
 
 /**
@@ -164,6 +167,12 @@ public class BackofficeUsuarioController extends HttpServlet {
 
 	private void irFormulario(HttpServletRequest request) throws Exception {
 
+		RolDAO daoRol = RolDAO.getInstance();
+		
+		ArrayList<Rol> roles = (ArrayList<Rol>) daoRol.getAll();
+		
+		request.setAttribute("roles", roles);
+		
 		Usuario u = new Usuario();
 
 		if (Integer.parseInt(id) > 0) {
