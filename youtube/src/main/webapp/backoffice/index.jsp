@@ -1,3 +1,4 @@
+<%@page import="com.ipartek.formacion.youtube.controller.back.BackofficeVideoController"%>
 <%@page import="com.ipartek.formacion.youtube.controller.back.BackofficeRolController"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
@@ -41,7 +42,7 @@
 							<i class="ml-3 badge bg-pika-purple text-pika-yellow">${videos}</i>
 						</div>
 						<div class="card-footer bg-pika-kard">
-							<a href="#" class="btn-block text-pika-purple">Videos</a>
+							<a href="backoffice/video?op=<%= BackofficeVideoController.OP_LISTAR%>" class="btn-block text-pika-purple">Videos</a>
 						</div>
 					</div>
 				</div><!-- /Kard  videos -->

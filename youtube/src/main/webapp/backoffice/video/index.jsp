@@ -1,4 +1,4 @@
-<%@page import="com.ipartek.formacion.youtube.controller.back.BackofficeRolController"%>
+<%@page import="com.ipartek.formacion.youtube.controller.back.BackofficeVideoController"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 
@@ -18,7 +18,7 @@
 		<!-- Contenido de la pagina actual -->
 		<div class="row">
 			<h2 class="text-pika-blue">
-				Roles <span class="badge bg-pika-yellow text-pika-blue">${nRoles}</span>
+				Videos <span class="badge bg-pika-yellow text-pika-blue">${nVideo}</span>
 			</h2>
 		</div>
 		<div class="row m-5">
@@ -32,7 +32,7 @@
 			</div>
 			<div class="col-4">
 				<a
-					href="backoffice/rol?id=-1&op=<%=BackofficeRolController.OP_IR_FORMULARIO%>"
+					href="backoffice/video?id=-1&op=<%=BackofficeVideoController.OP_IR_FORMULARIO%>"
 					class="btn btn-outline-info">Crear Nuevo</a>
 			</div>
 		</div>
@@ -42,14 +42,16 @@
 					<tr>
 						<th>ID</th>
 						<th>Nombre</th>
+						<th>Codigo</th>
 					</tr>
 				</thead>
 				<tbody>
-					<c:forEach items="${roles}" var="r">
+					<c:forEach items="${videos}" var="v">
 						<tr>
-							<td>${r.id}</td>
+							<td>${v.id}</td>
 							<td><a
-								href="backoffice/rol?id=${r.id}&op=<%= BackofficeRolController.OP_IR_FORMULARIO%>">${r.nombre}</a></td>
+								href="backoffice/video?id=${v.id}&op=<%= BackofficeVideoController.OP_IR_FORMULARIO%>">${v.nombre}</a></td>
+							<td>${v.codigo}</td>
 						</tr>
 					</c:forEach>
 				</tbody>
@@ -57,6 +59,7 @@
 					<tr>
 						<th>ID</th>
 						<th>Nombre</th>
+						<th>Codigo</th>
 					</tr>
 				</tfoot>
 			</table>

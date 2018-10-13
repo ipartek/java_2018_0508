@@ -1,6 +1,6 @@
+<%@page import="com.ipartek.formacion.youtube.controller.back.BackofficeVideoController"%>
 <%@page import="com.ipartek.formacion.youtube.controller.back.BackofficeRolController"%>
-<%@page
-	import="com.ipartek.formacion.youtube.controller.back.BackofficeUsuarioController"%>
+<%@page import="com.ipartek.formacion.youtube.controller.back.BackofficeUsuarioController"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <!-- Menu Lateral -->
@@ -15,7 +15,7 @@
 			<li class="list-group-item"><a
 			href="backoffice/rol?op=<%=BackofficeRolController.OP_LISTAR%>"
 			class="btn-block text-pika-blue"><i class="fas fa-theater-masks fa-lg"></i> Roles</a></li>
-		<li class="list-group-item"><a href="backoffice/video"
+		<li class="list-group-item"><a href="backoffice/video?op=<%= BackofficeVideoController.OP_LISTAR%>"
 			class="btn-block text-pika-blue"><i class="fab fa-youtube fa-lg"></i> Videos</a></li>
 	</ul>
 </div>

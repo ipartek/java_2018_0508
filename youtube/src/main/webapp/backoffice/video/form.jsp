@@ -18,28 +18,27 @@
 		<!-- / Gestion de alertas -->
 		<div class="row">
 			<div class="col-12">
-				<h1 class="text-pika-blue">${(usuario.id == -1)?'Crear Rol': rol.nombre }</h1>
+				<h1 class="text-pika-blue">${(usuario.id == -1)?'Crear Video': video.nombre }</h1>
 			</div>
 		</div>
 		<!-- Contenido de la pagina actual -->
 		<div class="row m-auto">
 			<div class="col-md-6">
-				<form
-					action="backoffice/rol?op=<%=BackofficeRolController.OP_GUARDAR%>"
-					method="post">
+				<form action="backoffice/video?op=<%=BackofficeVideoController.OP_GUARDAR%>" method="post">
 					<div class="form-group">
 						<input name="id" type="text" class="form-control"
-							value="${rol.id}" readonly />
+							value="${video.id}" readonly />
 					</div>
 					<div class="form-group">
 						<label for="nombre">Nombre:</label> <input name="nombre"
-							type="text" class="form-control" value="${rol.nombre}"
+							type="text" class="form-control" value="${video.nombre}"
 							autofocus required pattern="{1,50}" />
 					</div>
-					<input type="submit"
-						value="${(rol.id == -1)?'Crear':'Modificar'}"
-						class="btn btn-primary btn-block" />
-					<c:if test="${usuario.id>0}">
+					<div class="form-group">
+						<label for="nombre">Codigo:</label> <input name="codigo" type="text" class="form-control" value="${video.codigo}" required pattern="{11}" />
+					</div>
+					<input type="submit" value="${(video.id == -1)?'Crear':'Modificar'}" class="btn btn-primary btn-block" />
+					<c:if test="${video.id>0}">
 						<span data-toggle="modal" data-target="#modal-eliminar"
 							class="btn btn-danger btn-block">Eliminar</span>
 					</c:if>
