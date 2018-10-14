@@ -28,7 +28,7 @@
 					<h2 class="text-pika">Comentarios</h2>
 				</div>
 				<div class="col-6 text-right">
-					<a href=${(not empty usuario)?"#form-comentario":"#login"} class="btn btn-outline-dark btn-outline-pika">Escribe un comentario</a>
+					<a href=${(not empty usuario)?"#form-comentario":"login.jsp"} class="btn-main btn-outline-pika">Escribe un comentario</a>
 				</div>
 			</div>
 		</div>
@@ -55,7 +55,7 @@
 						<label for="comentario-usuario">Escribe tu comentario:</label>
 						<textarea name="comentario-usuario" class="form-control" id="comentario-usuario" rows="3"></textarea>
 					</div>
-					<input type="submit" class="btn btn-outline-success btn-outline-pika-blue btn-block mb-2" value="Enviar comentario">
+					<input type="submit" class="btn-main btn-outline-pika-blue btn-block mb-2" value="Enviar comentario">
 				</form>
 			</c:if>
 		</div>
