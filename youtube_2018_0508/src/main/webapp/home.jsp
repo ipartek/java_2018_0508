@@ -18,7 +18,7 @@
 // 		out.print("<p>" + bean.getNombre() + "</p>");
 	%>
 	
-<%-- 	<jsp:useBean id="bean2" scope="page" class="com.adriana.prado.pojo.Usuario"></jsp:useBean> --%>
+<%-- 	<jsp:useBean id="bean2" scope="page" class="com.andrea.prado.pojo.Usuario"></jsp:useBean> --%>
 <%-- 	<jsp:setProperty property="nombre" name="bean2" value="Marianiko el Corto"/> --%>
 <%-- 	<jsp:getProperty property="nombre" name="bean2"/> --%>
 
