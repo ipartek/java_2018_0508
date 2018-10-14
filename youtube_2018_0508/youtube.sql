@@ -45,7 +45,7 @@ CREATE TABLE `comentario` (
 
 LOCK TABLES `comentario` WRITE;
 /*!40000 ALTER TABLE `comentario` DISABLE KEYS */;
-INSERT INTO `comentario` VALUES (1,'2018-10-11 09:10:15','Me he reido mucho, gran video',0,1,2),(2,'2018-10-11 09:11:28','vaya mierda',0,1,3),(4,'2018-10-11 09:14:02','vaya mierda',0,1,3),(5,'2018-10-11 09:14:39','vaya mierda',0,1,3),(6,'2018-10-11 09:15:04','vaya mierda',0,1,3);
+INSERT INTO `comentario` VALUES (1,'2018-10-11 09:10:15','Me he reido mucho, gran video',0,1,2),(2,'2018-10-11 09:11:28','vaya mierda',0,1,3);
 /*!40000 ALTER TABLE `comentario` ENABLE KEYS */;
 UNLOCK TABLES;
 
