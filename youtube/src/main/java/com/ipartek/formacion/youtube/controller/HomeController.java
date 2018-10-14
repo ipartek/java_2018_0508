@@ -90,6 +90,7 @@ public class HomeController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
 	 *      response)
 	 */
+	@SuppressWarnings("unchecked")
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
@@ -160,6 +161,7 @@ public class HomeController extends HttpServlet {
 			// recoger parametros
 			String codigo = request.getParameter("codigo");
 			String nombre = request.getParameter("nombre");
+			String id_usuario = request.getParameter("id_usuario");
 			// parametros
 			String id = request.getParameter("id");
 			String op = request.getParameter("op");
@@ -174,7 +176,7 @@ public class HomeController extends HttpServlet {
 			
 			// insertar un video
 			if(codigo!=null && nombre!=null) {
-				videoInicio = new Video(codigo, nombre);
+				videoInicio = new Video(codigo, nombre, Long.parseLong(id_usuario));
 				boolean añadido = dao.insert(videoInicio);
 				alert =  new Alert();
 				if(añadido) {

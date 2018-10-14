@@ -14,11 +14,11 @@ public class VideoDAO implements CrudAble<Video> {
 	private static VideoDAO INSTANCE = null;
 	private static List<Video> videos = null;
 
-	private final String SQL_GET_ALL = "SELECT id, codigo, nombre FROM video ORDER BY id DESC LIMIT 50;";
-	private final String SQL_GET_BY_ID = "SELECT id, codigo, nombre FROM video WHERE id = ?;";
-	private final String SQL_UPDATE = "UPDATE video SET codigo = ?, nombre = ? WHERE id = ?;";
+	private final String SQL_GET_ALL = "SELECT id, codigo, nombre, id_usuario FROM video ORDER BY id DESC LIMIT 50;";
+	private final String SQL_GET_BY_ID = "SELECT id, codigo, nombre, id_usuario FROM video WHERE id = ?;";
+	private final String SQL_UPDATE = "UPDATE video SET codigo = ?, nombre = ?, id_usuario = ? WHERE id = ?;";
 	private final String SQL_DELETE = "DELETE FROM video WHERE id = ?;";
-	private final String SQL_INSERT = "INSERT INTO video (codigo,nombre) VALUES (?,?);";
+	private final String SQL_INSERT = "INSERT INTO video (codigo,nombre,id_usuario) VALUES (?,?,?);";
 
 	private VideoDAO() {
 		videos = new ArrayList<Video>();
@@ -40,6 +40,7 @@ public class VideoDAO implements CrudAble<Video> {
 
 			ps.setString(1, pojo.getCodigo());
 			ps.setString(2, pojo.getNombre());
+			ps.setLong(3, pojo.getIdUsuario());
 
 			int affectedRows = ps.executeUpdate();
 			if (affectedRows == 1) {
@@ -108,7 +109,8 @@ public class VideoDAO implements CrudAble<Video> {
 
 			ps.setString(1, pojo.getCodigo());
 			ps.setString(2, pojo.getNombre());
-			ps.setLong(3, pojo.getId());
+			ps.setLong(3, pojo.getIdUsuario());
+			ps.setLong(4, pojo.getId());
 
 			int affectedRows = ps.executeUpdate();
 			if (affectedRows == 1) {
@@ -147,6 +149,7 @@ public class VideoDAO implements CrudAble<Video> {
 			v.setId(rs.getLong("id"));
 			v.setCodigo(rs.getString("codigo"));
 			v.setNombre(rs.getString("nombre"));
+			v.setIdUsuario(rs.getLong("id_usuario"));
 		}
 		return v;
 	}

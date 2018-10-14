@@ -7,19 +7,22 @@ public class Video {
 	private long id;
 	private String codigo;
 	private String nombre;
+	private long idUsuario;
 
 	public Video() throws Exception {
 		super();
 		this.id = -1;
 		this.setCodigo("YlUKcNNmywk");
 		this.nombre = "Red Hot Chili Peppers - Californication";
+		this.idUsuario = -1;
 	}
 
-	public Video(String codigo, String nombre) throws Exception {
+	public Video(String codigo, String nombre, long idUsuario) throws Exception {
 		this();
 		this.id = -1;
 		this.setCodigo(codigo);
 		this.nombre = nombre;
+		this.idUsuario = idUsuario;
 	}
 
 	public long getId() {
@@ -48,6 +51,14 @@ public class Video {
 
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
+	}
+
+	public long getIdUsuario() {
+		return idUsuario;
+	}
+
+	public void setIdUsuario(long idUsuario) {
+		this.idUsuario = idUsuario;
 	}
 
 }

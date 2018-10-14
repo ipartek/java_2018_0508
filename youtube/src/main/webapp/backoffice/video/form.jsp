@@ -26,16 +26,16 @@
 			<div class="col-md-6">
 				<form action="backoffice/video?op=<%=BackofficeVideoController.OP_GUARDAR%>" method="post">
 					<div class="form-group">
-						<input name="id" type="text" class="form-control"
-							value="${video.id}" readonly />
+						<input name="id" type="text" class="form-control" value="${video.id}" readonly />
 					</div>
 					<div class="form-group">
-						<label for="nombre">Nombre:</label> <input name="nombre"
-							type="text" class="form-control" value="${video.nombre}"
-							autofocus required pattern="{1,50}" />
+						<label for="nombre">Nombre:</label> <input name="nombre" type="text" class="form-control" value="${video.nombre}" autofocus required pattern="{1,50}" />
 					</div>
 					<div class="form-group">
 						<label for="nombre">Codigo:</label> <input name="codigo" type="text" class="form-control" value="${video.codigo}" required pattern="{11}" />
+					</div>
+					<div class="form-group">
+						<label for="id_usuario">Id del autor:</label> <input type="number" value="${usuario.id}" name="id_usuario" class="form-control">
 					</div>
 					<input type="submit" value="${(video.id == -1)?'Crear':'Modificar'}" class="btn btn-primary btn-block" />
 					<c:if test="${video.id>0}">
