@@ -184,7 +184,7 @@ a.text-pika-purple:hover {
 *	Pantalla de Login y de registro
 ***********************************************************/
 .fondo-login {
-	background: url("../images/logo.png");
+	background: url("../images/fondo_login.jpg");
 }
 
 .fondo-login .row {

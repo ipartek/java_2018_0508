@@ -4,7 +4,8 @@
 	<header>
 		<nav class="navbar navbar-expand-lg navbar-dark bg-pika-blue">
 			<div class="container">
-				<a class="navbar-brand" href="inicio">Youtube PikaList<img id="logo" src="images/logo.png" alt="Logo de la APP"></a>
+				<!-- <a class="navbar-brand" href="inicio">Youtube PikaList<img id="logo" src="images/logo.png" alt="Logo de la APP"></a>-->
+				<a class="navbar-brand" href="inicio">Youtube PikaList<img id="logo" src="https://banner2.kisspng.com/20180714/rer/kisspng-eevee-leafeon-pokmon-pikachu-autumn-playboy-bunny-logo-5b4a0f355aff19.7055825315315802133727.jpg" alt="Logo de la APP"></a>
 				<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive"
 				 aria-expanded="false" aria-label="Toggle navigation">
 					<span class="navbar-toggler-icon"></span>
