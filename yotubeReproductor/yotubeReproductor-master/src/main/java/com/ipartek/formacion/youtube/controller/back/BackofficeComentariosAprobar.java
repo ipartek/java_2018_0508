@@ -110,7 +110,9 @@ public class BackofficeComentariosAprobar extends HttpServlet {
 
 	private void listar(HttpServletRequest request) throws Exception {
 		alert = null;
-		view = VIEW_LISTADO;
+		view = VIEW_LISTADO
+				;
+		// listado comentarios
 		request.setAttribute("comentarios", dao.getAll());
 		
 	}
