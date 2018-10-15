@@ -44,7 +44,7 @@
                         <div class="panel-body">
                         
                         <%@ include file="../includes/optionsComentario.jsp" %>
-                        
+                        	<a href="<%=request.getContextPath()%>/backoffice/comentario/aprobar" type="submit" class="badge badge-info">Pendientes de aprobar</a>
                         	<!-- VISTA LISTA -->                   	                      	
                         	<c:if test="${vista == 'lista-comentario'}">
 	                            <table width="100%" class="userDataTable table table-striped table-bordered table-hover " id="userDataTable">

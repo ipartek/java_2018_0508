@@ -1,6 +1,7 @@
 package com.ipartek.formacion.youtube.controller.back;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
@@ -13,6 +14,7 @@ import com.ipartek.formacion.youtube.model.ComentariosDao;
 import com.ipartek.formacion.youtube.model.RolDao;
 import com.ipartek.formacion.youtube.model.UsuariosDaoJDBC;
 import com.ipartek.formacion.youtube.model.VideoDAO;
+import com.ipartek.formacion.youtube.pojo.Comentario;
 
 /**
  * Servlet implementation class BackofficeController
@@ -26,6 +28,8 @@ public class BackofficeController extends HttpServlet {
 	private static VideoDAO videosDao;
 	private static RolDao rolDao;
 	private static ComentariosDao comentarioDao;
+	private static ArrayList<Comentario> comentarioSinAprobar;
+	private static ArrayList<Comentario> comentarios;
        
 	@Override
 	public void init(ServletConfig config) throws ServletException {	
@@ -58,11 +62,29 @@ public class BackofficeController extends HttpServlet {
 			request.setAttribute("videos", videosDao.getAll());
 			request.setAttribute("roles", rolDao.getAll());
 			request.setAttribute("comentarios", comentarioDao.getAll());
+			request.setAttribute("comentarios", comentarioSinAprobar());
 		} catch (Exception e) {
 			
 		}finally {
 			request.getRequestDispatcher(VIEW_INICIO).forward(request,response);
 		}
+	}
+
+	private int comentarioSinAprobar() {
+		try {
+			comentarioSinAprobar = new ArrayList<Comentario>();
+			comentarios = (ArrayList<Comentario>) comentarioDao.getAll();
+			for(Comentario c: comentarios) {	
+				if(!c.isAprobado()) {
+					comentarioSinAprobar.add(c);
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return comentarioSinAprobar.size();
+		
+		
 	}
 
 }

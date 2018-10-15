@@ -19,3 +19,7 @@ i{
 	flex-flow:row wrap;
 	
 	}
+.thumbnail{
+	width: 150px;
+	height: 75px;
+}

@@ -86,8 +86,8 @@
                                     <i class="far fa-comments fa-5x"></i>
                                 </div>
                                 <div class="col-xs-9 text-right">
-                                    <div class="huge">${comentarios.size() }</div>
-                                    <div>Comentarios</div>
+                                    <div class="huge">${comentarios }</div>
+                                    <div>Comentarios Pendientes</div>
                                 </div>
                             </div>
                         </div>

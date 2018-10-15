@@ -26,6 +26,8 @@ import com.mysql.jdbc.Statement;
 	private final String SQL_DELETE = "DELETE FROM comentario WHERE id = ?;";
 	private final String SQL_INSERT = "INSERT INTO comentario ( texto ,id_video  ,id_usuario ) VALUES (?,?,? );";
 	private final String SQL_UPDATE = "UPDATE comentario SET  texto = ?  ,id_video = ?   ,id_usuario = ?  WHERE id = ?;";
+	private final String SQL_UPDATE_APROBADO = "UPDATE comentario SET  aprobado = ?  WHERE id = ?;";
+
 
  	private ComentariosDao() {
 		super();
@@ -130,7 +132,33 @@ import com.mysql.jdbc.Statement;
 		}
 		return resul;
 	}
+ 	
+	public boolean updateAprobado(Comentario pojo) throws Exception {
+ 		boolean resul = false;
+ 		try (Connection con = ConnectionManager.getConnection();
+				PreparedStatement ps = con.prepareStatement(SQL_UPDATE_APROBADO,Statement.RETURN_GENERATED_KEYS);) {
+			int index = 1;
+			
+			ps.setBoolean(index++, pojo.isAprobado());
+			ps.setLong(index++, pojo.getId());
 
+			int affectedRows = ps.executeUpdate();
+			if (affectedRows == 1) {
+				
+				//consegir el id generado 
+				ResultSet rs = ps.getGeneratedKeys();
+				while(rs.next()) {
+					pojo.setId(rs.getLong(1));
+					resul = true;
+					System.out.println(rs.getLong(1));
+				}		
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return resul;
+	}
 	
  	private Comentario rowMapper(ResultSet rs, Comentario c) throws Exception {
 		if (c == null) {

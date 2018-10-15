@@ -19,9 +19,11 @@
    	 	
    	 <hr>
    	 <c:forEach items="${comentarios}" var="c">
-	   	 <p>${c.texto}</p>
-      	<small class="text-muted"><b>${c.usuario.nombre}</b>  <fmt:formatDate value="${c.fecha}" pattern="dd/MM/yyyy HH:mm"/></small>
+   	 	<c:if test="${ c.aprobado == true}">
+		   	 <p>${c.texto}</p>
+	      	<small class="text-muted"><b>${c.usuario.nombre}</b>  <fmt:formatDate value="${c.fecha}" pattern="dd/MM/yyyy HH:mm"/></small>
      	<hr>
+     	</c:if>
      </c:forEach>   
    </div>
  </div>
