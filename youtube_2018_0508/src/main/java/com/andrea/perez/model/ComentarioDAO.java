@@ -9,7 +9,6 @@ import java.util.Iterator;
 import java.util.List;
 
 import com.andrea.perez.pojo.Comentario;
-import com.andrea.perez.pojo.Rol;
 import com.andrea.perez.pojo.Usuario;
 import com.andrea.perez.pojo.Video;
 import com.mysql.jdbc.Statement;
@@ -17,7 +16,7 @@ import com.mysql.jdbc.Statement;
 public class ComentarioDAO implements Crudable<Comentario> {
 
 	private static ComentarioDAO INSTANCE = null;
-
+	
 	private final String SQL_GET_ALL = "SELECT id, nombre FROM rol ORDER BY id DESC LIMIT 1000;";
 	private final String SQL_GET_ALL_BY_VIDEO_ID = "SELECT 	c.id as 'id_comentario',    u.id as 'id_usuario',    fecha,    texto,    aprobado,    u.nombre,id_video "+ 
 												  " FROM comentario as c , usuario as u " +
@@ -25,9 +24,15 @@ public class ComentarioDAO implements Crudable<Comentario> {
 												  " c.id_video = ? " +
 												  " ORDER BY c.id DESC LIMIT 500;";
 	private final String SQL_GET_BY_ID = "SELECT id, nombre FROM rol WHERE id = ?;";
-	private final String SQL_UPDATE = "UPDATE rol SET nombre= ? WHERE id = ?;";
+	private final String SQL_UPDATE = "UPDATE comentario SET aprobado= ? WHERE id = ?;";
 	private final String SQL_DELETE = "DELETE FROM rol WHERE id = ?;";
 	private final String SQL_INSERT = "INSERT INTO `youtube`.`comentario` (`texto`, `id_video`, `id_usuario`) VALUES (?, ?, ?);";
+	private final String SQL_GET_APROBAR = " SELECT c.id as 'id_comentario', u.id as 'id_usuario',fecha,texto,aprobado,u.nombre,id_video"+ 
+										   " FROM comentario as c , usuario as u " + 
+										   " WHERE c.id_usuario = u.id AND c.aprobado=0" + 
+										   " ORDER BY c.id DESC LIMIT 500;";
+	private final String SQL_UPDATE_APROBAR="UPDATE comentario SET aprobado=? WHERE id=?;";
+	
 	public static synchronized ComentarioDAO getInstance() {
 
 		if (INSTANCE == null) {
@@ -124,25 +129,24 @@ public class ComentarioDAO implements Crudable<Comentario> {
 	}
 
 	@Override
-	public boolean update(Comentario comentarioUpdate) {
-		return false;
-//		boolean resul = false;
-//		Comentario comentarioIteracion = null;
-//		int i = 0;
-//		if (comentarioUpdate != null) {
-//			// Iterator
-//			Iterator<Comentario> it = lista.iterator();
-//			while (it.hasNext()) {
-//				comentarioIteracion = it.next();
-//				if (comentarioIteracion.getId() == comentarioUpdate.getId()) {
-//					lista.set(i, comentarioUpdate);
-//					resul = true;
-//					break;
-//				}
-//				i++;
-//			}
-//		}
-//		return resul;
+	public boolean update(Comentario pojo) {
+		boolean resul = false;
+		try (Connection con =  ConnectionManager.getConnection();
+				PreparedStatement ps = con.prepareStatement(SQL_UPDATE);){
+				
+				ps.setBoolean(1,pojo.isAprobado());
+				ps.setLong(2, pojo.getId());
+				
+				int affectedRows = ps.executeUpdate();
+				
+				if(affectedRows == 1) {
+					resul = true;
+				}	
+				
+			}catch(Exception e) {
+				e.printStackTrace();
+			}
+		return resul;
 	}
 
 	@Override
@@ -161,6 +165,49 @@ public class ComentarioDAO implements Crudable<Comentario> {
 //			}
 //		}
 //		return resul;
+	}
+	public ArrayList<Comentario> aprobarComentario() throws Exception {		
+		
+		Comentario comentario = null;
+		ArrayList<Comentario> comentarios = new ArrayList<Comentario>();
+		try (Connection con = ConnectionManager.getConnection();
+				PreparedStatement ps = con.prepareStatement(SQL_GET_APROBAR);
+			) {	
+			
+				try(ResultSet rs = ps.executeQuery()){			
+					while (rs.next()) {
+						
+						comentarios.add(rowMapper(rs));
+					}
+				}	
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return comentarios;
+		
+	}
+	
+	
+	private boolean updateAprobar(String idComent) {
+		boolean resul = false;
+		try (Connection con =  ConnectionManager.getConnection();
+				PreparedStatement ps = con.prepareStatement(SQL_UPDATE_APROBAR);){
+				
+				ps.setLong(1, 1);
+				ps.setLong(2, Long.parseLong(idComent));
+				
+				int affectedRows = ps.executeUpdate();
+				
+				if(affectedRows == 1) {
+					resul = true;
+				}	
+				
+			}catch(Exception e) {
+				e.printStackTrace();
+			}
+		return resul;
 	}
 
 	private Comentario rowMapper(ResultSet rs) throws Exception {
@@ -186,5 +233,4 @@ public class ComentarioDAO implements Crudable<Comentario> {
 		}
 		return c;
 	}
-
 }

@@ -43,7 +43,7 @@
 	                <a href="roles"><i class="fa fa-sitemap fa-fw"></i> Roles</a>
 	            </li>
 	            <li>
-	                <a href="roles"><i class="fa fa-sitemap fa-fw"></i> Comentarios</a>
+	                <a href="comentarios"><i class="fa fa-sitemap fa-fw"></i> Comentarios</a>
 	            </li>
         	</ul>
     	</div>

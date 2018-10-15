@@ -22,7 +22,7 @@
 			<div>
 				<p>¡<b class="text-warning"> ${usuario.nombre}</b>, danos tu opinión!</p>
 				<form action="publicar" method="post">
-					<textarea class="form-control mb-2 pb-cmnt-textarea" rows="4" cols="10" name="texto"
+					<textarea class="form-control mb-2 pb-cmnt-textarea" rows="4" cols="10" 
 						placeholder="Escribe aquí tu comentario..." name="texto"  required></textarea>
 					<input type="hidden" name="id_video" value="${videoInicio.id}">
 					<input type="submit" class="btn btn-success" value="<fmt:message key="boton.comentar"/>">
