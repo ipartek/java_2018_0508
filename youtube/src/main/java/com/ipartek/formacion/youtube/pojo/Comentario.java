@@ -1,28 +1,32 @@
 package com.ipartek.formacion.youtube.pojo;
 
+import java.util.Date;
+
 public class Comentario {
 	
-	private String autor;
+	private long id;
 	private String texto;
+	private boolean aprobado;
+	private Date fecha;
+	private Video video;
+	private Usuario usuario;
 	
-	public Comentario() {
+	public Comentario() throws Exception {
 		super();
-		this.autor = "";
+		this.id = -1;
 		this.texto = "";
+		this.aprobado = false;
+		this.fecha = null;
+		this.video = new Video();
+		this.usuario = new Usuario();
 	}
 
-	public Comentario(String autor, String texto) {
-		this();
-		this.autor = autor;
-		this.texto = texto;
+	public long getId() {
+		return id;
 	}
 
-	public String getAutor() {
-		return autor;
-	}
-
-	public void setAutor(String autor) {
-		this.autor = autor;
+	public void setId(long id) {
+		this.id = id;
 	}
 
 	public String getTexto() {
@@ -33,11 +37,42 @@ public class Comentario {
 		this.texto = texto;
 	}
 
+	public boolean isAprobado() {
+		return aprobado;
+	}
+
+	public void setAprobado(boolean aprobado) {
+		this.aprobado = aprobado;
+	}
+
+	public Date getFecha() {
+		return fecha;
+	}
+
+	public void setFecha(Date fecha) {
+		this.fecha = fecha;
+	}
+
+	public Video getVideo() {
+		return video;
+	}
+
+	public void setVideo(Video video) {
+		this.video = video;
+	}
+
+	public Usuario getUsuario() {
+		return usuario;
+	}
+
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
+	}
+
 	@Override
 	public String toString() {
-		return "Comentario [autor=" + autor + ", texto=" + texto + "]";
+		return "Comentario [id=" + id + ", texto=" + texto + ", aprobado=" + aprobado + ", fecha=" + fecha + ", video="
+				+ video + ", usuario=" + usuario + "]";
 	}
 	
-	
-
 }

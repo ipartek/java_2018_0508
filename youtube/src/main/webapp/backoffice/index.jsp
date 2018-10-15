@@ -46,6 +46,17 @@
 						</div>
 					</div>
 				</div><!-- /Kard  videos -->
+				<div class="col-4 mt-1">
+					<div class="card text-center">
+						<div class="card-body bg-pika-kard">
+							<i class="fab fa-youtube fa-5x text-pika-purple"></i>
+							<i class="ml-3 badge bg-pika-purple text-pika-yellow">${videos}</i>
+						</div>
+						<div class="card-footer bg-pika-kard">
+							<a href="backoffice/comentario/aprobar" class="btn-block text-pika-purple">Comentarios Pedientes</a>
+						</div>
+					</div>
+				</div><!-- /Kard  comentarios no aprobado -->
 			</div>
 		</div><!-- / Col de datos -->
 	</div> <!-- / Row Principal -->

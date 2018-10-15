@@ -10,8 +10,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.ipartek.formacion.youtube.model.ComentarioDAO;
+import com.ipartek.formacion.youtube.model.VideoDAO;
+import com.ipartek.formacion.youtube.pojo.Alert;
 import com.ipartek.formacion.youtube.pojo.Comentario;
 import com.ipartek.formacion.youtube.pojo.Usuario;
+import com.ipartek.formacion.youtube.pojo.Video;
 
 /**
  * Servlet implementation class ComentarioController
@@ -19,6 +23,7 @@ import com.ipartek.formacion.youtube.pojo.Usuario;
 @WebServlet("/comentario")
 public class ComentarioController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	private ComentarioDAO dao;
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
@@ -35,28 +40,39 @@ public class ComentarioController extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+
+		String videoId = "-1";
+		Alert alert = null;
+
 		try {
 
-			String texto = (String) request.getParameter("comentario-usuario");
+			dao = ComentarioDAO.getInstance();
 
-			HttpSession session = request.getSession();
-			Usuario u = (Usuario) session.getAttribute("usuario");
-			String autor = u.getNombre();
+			// parametros
+			String texto = request.getParameter("texto");
+			videoId = request.getParameter("id_video");
 
-			Comentario c = new Comentario(autor, texto);
+			Usuario usuario = (Usuario) request.getSession().getAttribute("usuario");
 
-			ArrayList<Comentario> listaComentarios = (ArrayList<Comentario>) session.getAttribute("comentario");
-			if (listaComentarios == null) {
-				listaComentarios = new ArrayList<Comentario>();
+			Comentario comentario = new Comentario();
+			comentario.setTexto(texto);
+
+			comentario.setUsuario(usuario);
+			comentario.setVideo(VideoDAO.getInstance().getById(videoId));
+
+			if (dao.insert(comentario)) {
+				alert = new Alert(Alert.SUCCESS, "Tu comentario esta pendiente de moderación");
+			} else {
+				alert = new Alert();
 			}
-			listaComentarios.add(c);
 
-			session.setAttribute("comentario", listaComentarios);
 		} catch (Exception e) {
+			alert = new Alert();
 			e.printStackTrace();
 		} finally {
-			response.sendRedirect(request.getContextPath() + "/inicio");
+			request.getSession().setAttribute("alert", alert);
+			response.sendRedirect(request.getContextPath() + "/inicio?id=" + videoId);
 		}
-	}
 
+	}
 }
