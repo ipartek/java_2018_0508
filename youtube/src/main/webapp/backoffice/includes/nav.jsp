@@ -34,7 +34,12 @@
                         <li>
                             <a href="videos"><i class="fab fa-youtube"></i> Videos</a>
                         </li>
-                       
+                       	<li>
+                            <a href="comentarios"><i class="fas fa-comment-alt"></i> Comentarios</a>
+                        </li>
+                        <li>
+                            <a href="comentarios/aprobar"><i class="far fa-check-square"></i> Moderar comentarios</a>
+                        </li>
                     </ul>
                 </div>
                 <!-- /.sidebar-collapse -->
