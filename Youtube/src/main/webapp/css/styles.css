@@ -1,0 +1,269 @@
+/*  HOME.JSP CSS*/
+body {
+	margin-top: 25px;
+	color: #000;
+}
+
+a, button, .btn {
+	cursor: pointer;
+}
+
+/* HEADER - NAV */
+/*------------- */
+button:focus {
+	outline: 0;
+}
+
+.navbar .dropdown-menu .form-control {
+	width: 250px;
+}
+
+/*  SEARCH BAR */
+/*------------ */
+.stylish-input-group .input-group-addon {
+	background: white !important;
+}
+
+.stylish-input-group .form-control {
+	border-right: 0;
+	box-shadow: 0 0 0;
+	border-color: #ccc;
+}
+
+.stylish-input-group button {
+	border: 0;
+}
+
+.stylish-input-group .input-group-text:hover {
+	background: #808080;
+}
+
+/* REPRODUCTOR */
+/*-------------*/
+#video-placeholder {
+	height: 75vh;
+	width: 100%;
+}
+
+/* PROGRESS BAR */
+/*--------------*/
+input[type=range] {
+	-webkit-appearance: none;
+	width: 70%;
+}
+
+input[type=range]:focus {
+	outline: none;
+}
+
+input[type=range]::-webkit-slider-runnable-track {
+	/*width: 60%;*/
+	height: 5px;
+	cursor: pointer;
+	animate: 0.2s;
+	box-shadow: 0px 0px 0px #000000;
+	background: #2497E3;
+	border-radius: 1px;
+	border: 0px solid #000000;
+}
+
+input[type=range]::-webkit-slider-thumb {
+	box-shadow: 0px 0px 0px #000000;
+	border: 1px solid #2497E3;
+	height: 18px;
+	width: 18px;
+	border-radius: 25px;
+	background: #A1D0FF;
+	cursor: pointer;
+	-webkit-appearance: none;
+	margin-top: -7px;
+}
+
+input[type=range]:focus::-webkit-slider-runnable-track {
+	background: #2497E3;
+}
+
+input[type=range]::-moz-range-track {
+	/*width: 60%;*/
+	height: 5px;
+	cursor: pointer;
+	animate: 0.2s;
+	box-shadow: 0px 0px 0px #000000;
+	background: #2497E3;
+	border-radius: 1px;
+	border: 0px solid #000000;
+}
+
+input[type=range]::-moz-range-thumb {
+	box-shadow: 0px 0px 0px #000000;
+	border: 1px solid #2497E3;
+	height: 18px;
+	width: 18px;
+	border-radius: 25px;
+	background: #A1D0FF;
+	cursor: pointer;
+}
+
+input[type=range]::-ms-track {
+	/*width: 60%;*/
+	height: 5px;
+	cursor: pointer;
+	animate: 0.2s;
+	background: transparent;
+	border-color: transparent;
+	color: transparent;
+}
+
+input[type=range]::-ms-fill-lower {
+	background: #2497E3;
+	border: 0px solid #000000;
+	border-radius: 2px;
+	box-shadow: 0px 0px 0px #000000;
+}
+
+input[type=range]::-ms-fill-upper {
+	background: #2497E3;
+	border: 0px solid #000000;
+	border-radius: 2px;
+	box-shadow: 0px 0px 0px #000000;
+}
+
+input[type=range]::-ms-thumb {
+	margin-top: 1px;
+	box-shadow: 0px 0px 0px #000000;
+	border: 1px solid #2497E3;
+	height: 18px;
+	width: 18px;
+	border-radius: 25px;
+	background: #A1D0FF;
+	cursor: pointer;
+}
+
+input[type=range]:focus::-ms-fill-lower {
+	background: #2497E3;
+}
+
+input[type=range]:focus::-ms-fill-upper {
+	background: #2497E3;
+}
+
+/*  CARROUSEL  */
+/*-------------*/
+#carouselExample a img {
+	width: 500px;
+	height: 250px;
+}
+
+.carousel-control-next .carousel-control-prev {
+	width: 8% !important;
+}
+
+/* COMENTARIOS */
+/*-------------*/
+.pb-cmnt-container {
+	font-family: Lato;
+	margin-top: 100px;
+}
+
+.pb-cmnt-textarea {
+	resize: none;
+	padding: 20px;
+	height: 130px;
+	width: 100%;
+	border: 2px solid #FF0;
+}
+
+/* 404  - 500  */
+/*-------------*/
+div.404 {
+	background-image:
+		url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABoAAAAaCAYAAACpSkzOAAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAALEgAACxIB0t1+/AAAABZ0RVh0Q3JlYXRpb24gVGltZQAxMC8yOS8xMiKqq3kAAAAcdEVYdFNvZnR3YXJlAEFkb2JlIEZpcmV3b3JrcyBDUzVxteM2AAABHklEQVRIib2Vyw6EIAxFW5idr///Qx9sfG3pLEyJ3tAwi5EmBqRo7vHawiEEERHS6x7MTMxMVv6+z3tPMUYSkfTM/R0fEaG2bbMv+Gc4nZzn+dN4HAcREa3r+hi3bcuu68jLskhVIlW073tWaYlQ9+F9IpqmSfq+fwskhdO/AwmUTJXrOuaRQNeRkOd5lq7rXmS5InmERKoER/QMvUAPlZDHcZRhGN4CSeGY+aHMqgcks5RrHv/eeh455x5KrMq2yHQdibDO6ncG/KZWL7M8xDyS1/MIO0NJqdULLS81X6/X6aR0nqBSJcPeZnlZrzN477NKURn2Nus8sjzmEII0TfMiyxUuxphVWjpJkbx0btUnshRihVv70Bv8ItXq6Asoi/ZiCbU6YgAAAABJRU5ErkJggg==);
+}
+
+div.error-template {
+	padding: 40px 15px;
+	text-align: center;
+}
+
+div.error-actions {
+	margin-top: 15px;
+	margin-bottom: 15px;
+}
+
+div.error-actions .btn {
+	margin-right: 10px;
+	margin-bottom: 10px;
+}
+
+/* LISTADO DE VIDEOS */
+/* ----------------- */
+@media ( min-width : 768px) {
+	/* show 3 items */
+	.carousel-inner .active, .carousel-inner .active+.carousel-item,
+		.carousel-inner .active+.carousel-item+.carousel-item, .carousel-inner .active+.carousel-item+.carousel-item+.carousel-item
+		{
+		display: block;
+	}
+	.carousel-inner .carousel-item.active:not (.carousel-item-right ):not (.carousel-item-left
+		), .carousel-inner .carousel-item.active:not (.carousel-item-right ):not
+		(.carousel-item-left ) +.carousel-item, .carousel-inner .carousel-item.active:not
+		(.carousel-item-right ):not (.carousel-item-left ) +.carousel-item+.carousel-item,
+		.carousel-inner .carousel-item.active:not (.carousel-item-right ):not
+		(.carousel-item-left ) +.carousel-item+.carousel-item+.carousel-item {
+		transition: none;
+	}
+	.carousel-inner .carousel-item-next, .carousel-inner .carousel-item-prev
+		{
+		position: relative;
+		transform: translate3d(0, 0, 0);
+	}
+	.carousel-control-next:hover, .carousel-control-prev:hover {
+		background-color: #000;
+		opacity: 30%;
+	}
+	.carousel-inner .active.carousel-item+.carousel-item+.carousel-item+.carousel-item+.carousel-item
+		{
+		position: absolute;
+		top: 0;
+		right: -25%;
+		z-index: -1;
+		display: block;
+		visibility: visible;
+	}
+
+	/* left or forward direction */
+	.active.carousel-item-left+.carousel-item-next.carousel-item-left,
+		.carousel-item-next.carousel-item-left+.carousel-item,
+		.carousel-item-next.carousel-item-left+.carousel-item+.carousel-item,
+		.carousel-item-next.carousel-item-left+.carousel-item+.carousel-item+.carousel-item,
+		.carousel-item-next.carousel-item-left+.carousel-item+.carousel-item+.carousel-item+.carousel-item
+		{
+		position: relative;
+		transform: translate3d(-100%, 0, 0);
+		visibility: visible;
+	}
+
+	/* farthest right hidden item must be absolute position for animations */
+	.carousel-inner .carousel-item-prev.carousel-item-right {
+		position: absolute;
+		top: 0;
+		left: 0;
+		z-index: -1;
+		display: block;
+		visibility: visible;
+	}
+
+	/* right or prev direction */
+	.active.carousel-item-right+.carousel-item-prev.carousel-item-right,
+		.carousel-item-prev.carousel-item-right+.carousel-item,
+		.carousel-item-prev.carousel-item-right+.carousel-item+.carousel-item,
+		.carousel-item-prev.carousel-item-right+.carousel-item+.carousel-item+.carousel-item,
+		.carousel-item-prev.carousel-item-right+.carousel-item+.carousel-item+.carousel-item+.carousel-item
+		{
+		position: relative;
+		transform: translate3d(100%, 0, 0);
+		visibility: visible;
+		display: block;
+		visibility: visible;
+	}
+}
