@@ -24,10 +24,13 @@ public class ComentarioDAO implements CrudAble<Comentario> {
 			  " ORDER BY c.id DESC LIMIT 500;";
 
 //por abrobar 
-	private static final String SQL_GET_COMENTARIOS = "c.id as 'id_comentario',    u.id as 'id_usuario',    fecha,    texto,    aprobado,    u.nombre"+ 
+	private static final String SQL_GET_COMENTARIOS_APROBAR = "SELECT 	c.id as 'id_comentario',    u.id as 'id_usuario',    fecha,    texto,    aprobado,    u.nombre"+ 
 			  " FROM comentario as c " +
-			  " INNER JOIN usuario as u ON c.id_usuario = u.id AND aprobado = 0 ;";
+			  " INNER JOIN usuario as u ON c.id_usuario = u.id" +
+			  " WHERE aprobado = 0;";
 	
+	//"select c.texto, c.aprobado, u.nombre from comentario as c, usuario as u where c.id_usuario = u.id AND c.aprobado = 0"
+	private final String SQL_UPDATE_COMENTARIOS_APROBAR = "UPDATE comentario SET aprobado=? WHERE id=?;";
 
 	private final String SQL_DELETE = "DELETE FROM comentario WHERE id = ?;";
 	// añadir la columna de id_usuario
@@ -104,14 +107,12 @@ public class ComentarioDAO implements CrudAble<Comentario> {
 	}
 	
 
-	public List<Comentario>  getAllAprobado(long comentarioId) throws Exception {
+	public List<Comentario>  getAllAprobado() throws Exception {
 
 		Comentario comentario = null;
 		ArrayList<Comentario> comentarios = new ArrayList<Comentario>();
 		try (Connection con = ConnectionManager.getConnection();
-				PreparedStatement ps = con.prepareStatement(SQL_GET_COMENTARIOS);) {
-
-			ps.setLong(1, comentarioId);
+				PreparedStatement ps = con.prepareStatement(SQL_GET_COMENTARIOS_APROBAR);) {
 
 			try (ResultSet rs = ps.executeQuery()) {
 				while (rs.next()) {
@@ -122,6 +123,31 @@ public class ComentarioDAO implements CrudAble<Comentario> {
 		}
 		return comentarios;
 	
+	}
+	
+	public boolean updateAprobar(String[] ComAprobado) {
+		boolean resul = false;
+		try (Connection con = ConnectionManager.getConnection();
+				PreparedStatement ps = con.prepareStatement(SQL_UPDATE_COMENTARIOS_APROBAR);) {
+
+			for (int i = 0; i < ComAprobado.length; i++) {
+				ps.setLong(1, 1);
+				ps.setLong(2, Long.parseLong(ComAprobado[i]));
+
+				int affectedRows = ps.executeUpdate();
+
+				if (affectedRows == 1) {
+					resul = true;
+				}
+			}
+			
+
+			
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return resul;
 	}
 	@Override
 	public Comentario getById(String id) throws Exception {
