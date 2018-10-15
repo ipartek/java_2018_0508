@@ -2,7 +2,6 @@ package com.andrea.perez.controller;
 
 import java.io.IOException;
 import java.net.URLEncoder;
-import java.sql.SQLException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -20,7 +19,6 @@ import javax.servlet.http.HttpSession;
 import com.andrea.perez.model.ComentarioDAO;
 import com.andrea.perez.model.VideoDAO;
 import com.andrea.perez.pojo.Alert;
-import com.andrea.perez.pojo.Comentario;
 import com.andrea.perez.pojo.Usuario;
 import com.andrea.perez.pojo.Video;
 
@@ -41,18 +39,16 @@ public class HomeController extends HttpServlet {
 	private static String op = "";
 
 	// atributos
-
-	private static VideoDAO dao;
+	private static VideoDAO daoVideo;
 	private static ComentarioDAO daoComentarios;
 	private static ArrayList<Video> videos;
-	private static ArrayList<Comentario> comentarios;
 	private Video videoInicio;
 
 	@Override
 	public void init(ServletConfig config) throws ServletException {
 		// Se ejecuta solo con la primera peticion. El resto van al service
 		super.init(config);
-		dao = VideoDAO.getInstance();
+		daoVideo = VideoDAO.getInstance();
 		daoComentarios = ComentarioDAO.getInstance();
 	}
 
@@ -60,7 +56,7 @@ public class HomeController extends HttpServlet {
 	public void destroy() {
 		// Se ejecuta al parar el servidor
 		super.destroy();
-		dao = null;
+		daoVideo = null;
 		daoComentarios = null;
 	}
 
@@ -106,6 +102,8 @@ public class HomeController extends HttpServlet {
 //			System.out.println(idiomas.getString("msj.bienvenida"));
 //			Locale locale = request.getLocale(); (not empty sessionScope.idioma)?sessionScope.idioma:'es_ES'
 
+			req.setAttribute("comentarios", daoComentarios.getAllByVideo(videoInicio.getId()));
+
 		} catch (Exception e) {
 			idioma = "es_ES";
 		} finally {
@@ -121,17 +119,13 @@ public class HomeController extends HttpServlet {
 		// despues de Get y Post
 		req.setAttribute("videos", videos);
 		req.setAttribute("videoInicio", videoInicio);
+
 		String playlist = "";
 		for (int i = 1; i < videos.size(); i++) {
 			playlist += videos.get(i).getCodigo() + ",";
 		}
-		try {
-			req.setAttribute("comentarios", daoComentarios.getAllByVideo(videoInicio.getId()));
-		} catch (Exception e) {
-			
-			e.printStackTrace();
-		}
 		req.setAttribute("playlist", playlist);
+
 		req.getRequestDispatcher("home.jsp").forward(req, resp);
 	}
 
@@ -150,22 +144,21 @@ public class HomeController extends HttpServlet {
 
 			// Eliminar video
 			if (op != null && OP_ELIMINAR.equals(op)) {
-				if (dao.delete(id)) {
+				if (daoVideo.delete(id)) {
 					alert = new Alert(Alert.ALERT_SUCCESS, "Vídeo eliminado correctamente.");
 				} else {
 					alert = new Alert(Alert.ALERT_WARNING, "No se ha podido borrar el vídeo.");
 				}
 			}
 
-			// listar videos
-			comentarios = (ArrayList<Comentario>) daoComentarios.getAll();
-			videos = (ArrayList<Video>) dao.getAll();
+			// listar
+			videos = (ArrayList<Video>) daoVideo.getAll();
 
 			// Video inicio
 			videoInicio = new Video();
 
 			if (id != null && !OP_ELIMINAR.equals(op)) {
-				videoInicio = dao.getById(id);
+				videoInicio = daoVideo.getById(id);
 
 				// Guardar video reproducido si el user esta en sesion
 				HttpSession session = request.getSession();
@@ -188,11 +181,15 @@ public class HomeController extends HttpServlet {
 				videoInicio = videos.get(0);
 			}
 
+			request.setAttribute("comentarios", daoComentarios.getAllByVideo(videoInicio.getId()));
+
 		} catch (Exception e) {
 			e.printStackTrace();
 			alert = new Alert();
 		} finally {
 			request.setAttribute("alert", alert);
+			request.setAttribute("videos", daoVideo.getAll());
+
 		}
 	}
 
@@ -205,7 +202,7 @@ public class HomeController extends HttpServlet {
 		Alert alert = null;
 		Video videoInicio;
 		Video videoEditar = null;
-		Comentario comentario = new Comentario();
+
 		try {
 
 			id = request.getParameter("id");
@@ -216,9 +213,9 @@ public class HomeController extends HttpServlet {
 			String titulo2 = request.getParameter("titulo2");
 
 			if (id2 != null && titulo2 != null) {
-				videoEditar = dao.getById(id2);
+				videoEditar = daoVideo.getById(id2);
 				videoEditar.setTitulo(titulo2);
-				if (dao.update(videoEditar)) {
+				if (daoVideo.update(videoEditar)) {
 					alert = new Alert(Alert.ALERT_SUCCESS, "Vídeo actualizado correctamente.");
 				} else {
 					alert = new Alert(Alert.ALERT_DANGER, "No se ha podido actualizar el vídeo.");
@@ -228,7 +225,7 @@ public class HomeController extends HttpServlet {
 			if (codigo != null && titulo != null) {
 				if (!codigo.equals("") && !titulo.equals("")) {
 					videoInicio = new Video(codigo, titulo);
-					if (dao.insert(videoInicio)) {
+					if (daoVideo.insert(videoInicio)) {
 						alert = new Alert(Alert.ALERT_SUCCESS, "Registro dado de alta correctamente.");
 						request.setAttribute("alert", alert);
 					} else
@@ -237,19 +234,14 @@ public class HomeController extends HttpServlet {
 				} else
 					alert = new Alert(Alert.ALERT_WARNING, "Debe introducir un ID y un título.");
 			}
-
-			videos = (ArrayList<Video>) dao.getAll();
-
-			
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
 			request.setAttribute("alert", alert);
-			request.setAttribute("videos", videos);
-
-//	request.getRequestDispatcher("home.jsp").forward(request, response);
+			request.setAttribute("videos", daoVideo.getAll());
+//			request.setAttribute("comentarios", daoComentarios.getAll());
+//			request.getRequestDispatcher("home.jsp").forward(request, response);
 		}
-
 	}
 
 }

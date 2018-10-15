@@ -23,24 +23,26 @@ import com.andrea.perez.pojo.Video;
 public class PublicarComentarioVideoController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	private Usuario usuario;
-	private Comentario comentario;
-	private ComentarioDAO daoComentario;
-	private Alert alert;
+	private String id_video;
+	private String texto;
+
+	private static final String VIEW_INDEX = "home.jsp";
+
+	private ComentarioDAO comentarioDAO;
+
+	Alert alert = null;
+	String view = "";
 
 	@Override
 	public void init(ServletConfig config) throws ServletException {
-		// TODO Auto-generated method stub
 		super.init(config);
-		daoComentario = ComentarioDAO.getInstance();
-
+		comentarioDAO = ComentarioDAO.getInstance();
 	}
 
 	@Override
 	public void destroy() {
-		// TODO Auto-generated method stub
 		super.destroy();
-		daoComentario = null;
+		comentarioDAO = null;
 	}
 
 	/**
@@ -63,33 +65,45 @@ public class PublicarComentarioVideoController extends HttpServlet {
 
 	private void doProcess(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-
-		Comentario comentario = new Comentario();
-		String texto = request.getParameter("texto");		
-		long video = Long.parseLong(request.getParameter("id_video"));
+		Usuario usuario = null;
+		Video video = null;
+		Comentario comentario = null;
 
 		try {
+
 			HttpSession session = request.getSession();
-			Usuario u = (Usuario) session.getAttribute("usuario");
-			if (texto != null && texto.length() > 0) {
+			usuario = (Usuario) session.getAttribute("usuario");
 
-				comentario.setTexto(texto);
-				comentario.setUsuario(u);
-				comentario.setVideo(new Video(video));
-				if (daoComentario.insert(comentario)) {
-					alert=new Alert(Alert.ALERT_SUCCESS,"Comentario en proceso de aceptacion para publicar");
-				}else {
-					alert=new Alert(Alert.ALERT_WARNING,"No se pudo guardar el comentario");
-				}
+			id_video = request.getParameter("id_video");
+			texto = request.getParameter("texto");
 
+			comentario = new Comentario();
+			comentario.setTexto(texto);
+
+			comentario.setUsuario(usuario);
+
+			video = new Video();
+			video.setId(Long.parseLong(id_video));
+			comentario.setVideo(video);
+
+			if (comentarioDAO.insert(comentario)) {
+				alert = new Alert(Alert.ALERT_SUCCESS,
+						"Gracias por escribir un comentario. Está pendiente de moderación.");
 			} else {
-				alert=new Alert(Alert.ALERT_WARNING,"Tiene que haber escrito algo para poder insertarlo");
+				alert = new Alert(Alert.ALERT_WARNING, "No se ha podido añadir el comentario.");
 			}
+
+			view = VIEW_INDEX;
+
+			session.setAttribute("alert", alert);
+//			request.setAttribute("comentario", comentario);
 
 		} catch (Exception e) {
 			e.printStackTrace();
+			alert = new Alert(Alert.ALERT_DANGER, "Ha ocurrido un error no controlado.");
 		} finally {
-			response.sendRedirect(request.getContextPath() + "/inicio?id=id_video");
+			response.sendRedirect(request.getContextPath() + "/inicio?id=" + id_video);
+//			request.getRequestDispatcher(view).forward(request, response);
 		}
 	}
 

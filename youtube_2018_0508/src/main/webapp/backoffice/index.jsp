@@ -82,6 +82,29 @@
                     </div>
                 </div>
                 
+                <div class="col-lg-3 col-md-6">
+                    <div class="panel panel-yellow">
+                        <div class="panel-heading">
+                            <div class="row">
+                                <div class="col-xs-3">
+                                    <i class="fas fa-user-tag fa-5x"></i>
+                                </div>
+                                <div class="col-xs-9 text-right">
+                                    <div class="huge">${comentarios}</div>
+                                    <div>Comentarios</div>
+                                </div>
+                            </div>
+                        </div>
+                        <a href="comentarios">
+                            <div class="panel-footer">
+                                <span class="pull-left">Ver Comentarios por aprobar</span>
+                                <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                                <div class="clearfix"></div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                
                 
             </div>
             <!-- /.row -->

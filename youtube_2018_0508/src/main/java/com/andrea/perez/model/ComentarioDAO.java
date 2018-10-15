@@ -27,7 +27,7 @@ public class ComentarioDAO implements Crudable<Comentario> {
 	private final String SQL_GET_BY_ID = "SELECT id, nombre FROM rol WHERE id = ?;";
 	private final String SQL_UPDATE = "UPDATE rol SET nombre= ? WHERE id = ?;";
 	private final String SQL_DELETE = "DELETE FROM rol WHERE id = ?;";
-	private final String SQL_INSERT = "INSERT INTO `youtube`.`comentario` (`texto`, `id_video`, `id_usuario`) VALUES ('?', '?', '?');";
+	private final String SQL_INSERT = "INSERT INTO `youtube`.`comentario` (`texto`, `id_video`, `id_usuario`) VALUES (?, ?, ?);";
 	public static synchronized ComentarioDAO getInstance() {
 
 		if (INSTANCE == null) {
