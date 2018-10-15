@@ -29,8 +29,8 @@
 							<li class="nav-item">
 								<div class="text-light text-right m-1">
 									Bienvenido ${usuario.nombre} <i class="fas fa-user-circle"></i>
-									<a class="text-pika-yellow" href="inicio">Ir al Inicio</a> <a
-										class="text-pika-yellow" href="logout">Cerrar Sesion</a>
+									<a class="text-pika-yellow" href="inicio">Ir al Inicio</a> 
+									<a class="text-pika-yellow" href="logout">Cerrar Sesion</a>
 								</div>
 							</li>
 						</ul>
