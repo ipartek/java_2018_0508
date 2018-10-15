@@ -21,9 +21,9 @@
 	
 	<div class="row d-flex justify-content-center">
 		
-		<div class="col  mr-2">
+		<div class="col  mr-2 text-center">
 			
-			<h2>${ videoInicio.nombre }</h2>
+			<h2 class="mb-0">${ videoInicio.nombre }</h2>
 		
 		</div>	<!-- /.col -->
 		
@@ -80,7 +80,7 @@
   		<!-- VIDEO BUTTONS -->
 		<div class="col  d-flex justify-content-between">
 			
-				<a href="inicio?op=${ HomeController.OP_PREV }" id="button_prev" class="btn btn-light">
+				<a href="inicio?op=${ HomeController.OP_PREV }&id=${ videoInicio.id }" id="button_prev" class="btn btn-light">
 					<i class="fa fa-fast-backward"></i>
 				</a>
 					    
@@ -88,7 +88,7 @@
 					<i class="fa fa-play" id="label_play"></i>
 				</button>
 					    
-				<a href="inicio?op=${ HomeController.OP_NEXT }" id="button_next" class="btn btn-light">
+				<a href="inicio?op=${ HomeController.OP_NEXT }&id=${ videoInicio.id }" id="button_next" class="btn btn-light">
 					<i class="fa fa-fast-forward"></i>
 				</a> 
 				
@@ -134,11 +134,11 @@
 			         	<p>		
 			          		<a>
 			          			<i class="text-danger fas fa-trash-alt mr-2" title="Eliminar Video" 
-			          			onClick="showModalForm(${ video.id },${ HomeController.OP_ELIMINAR });"></i>
+			          			onclick="showModalForm(${ video.id },${ HomeController.OP_ELIMINAR });"></i>
 			          		</a>
 			          		<a>
 			          			<i class="text-primary fas fa-edit" title="Editar Video" 
-			          			onClick="showModalForm(${ video.id }, ${ HomeController.OP_MODIFICAR });"></i>
+			          			onclick="showModalForm(${ video.id }, ${ HomeController.OP_MODIFICAR });"></i>
 			          		</a>
 			          	</p>
 		          	</c:if>
@@ -172,9 +172,9 @@
     	    player = new YT.Player('video-placeholder', {
     	        videoId: '${ videoInicio.cod }',
     	        playerVars: {
-    	            enablejsapi: 1,
-    	            origin: 'http://localhost:8080',
-    	            autoplay: 1,
+    	            //enablejsapi: 1,
+    	            //origin: 'http://localhost:8080',
+    	            //autoplay: 1,
     	            rel: 0, 
     	            controls: 0
     	        },

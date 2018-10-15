@@ -70,6 +70,9 @@ function checkLightsChanged() { // LIGHTS
 	var lblLights = document.getElementById('lblLights');
 
 	var btns = document.getElementsByTagName('button');
+	var btnNext = document.getElementById('button_next'); 
+	var btnPrev = document.getElementById('button_prev'); 
+	
 	var progressBar = document.getElementById('progress-bar');
 	
 	if (document.getElementById('chckLights').checked == true) {	// Switch off the light
@@ -89,6 +92,12 @@ function checkLightsChanged() { // LIGHTS
 			btns[i].classList.add("btn-dark");
 		}
 		
+		btnNext.classList.remove("btn-light");
+		btnNext.classList.add("btn-dark");
+		
+		btnPrev.classList.remove("btn-light");
+		btnPrev.classList.add("btn-dark");
+		
 
 	} else { // Switch on the light
 
@@ -103,9 +112,15 @@ function checkLightsChanged() { // LIGHTS
 		progressBar.style.color = '#000';	
 		
 		for (i = 0; i < btns.length; i++) {
-			btnsList[i].classList.remove("btn-dark");
-			btnsList[i].classList.add("btn-light");
+			btns[i].classList.remove("btn-dark");
+			btns[i].classList.add("btn-light");
 		}
+		
+		btnNext.classList.remove("btn-dark");
+		btnNext.classList.add("btn-light");
+		
+		btnPrev.classList.remove("btn-dark");
+		btnPrev.classList.add("btn-light");
 	}
 }
 

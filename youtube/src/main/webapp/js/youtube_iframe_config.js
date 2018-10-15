@@ -41,7 +41,7 @@ function formatTime(time) {
 
 	seconds = seconds < 10 ? '0' + seconds : seconds;
 
-	return minutes + ":" + (seconds-1);
+	return minutes + ":" + (seconds);
 }
 
 function nextVideo() {

@@ -97,7 +97,7 @@ public class HomeController extends HttpServlet {
 
 			idNo = videos.get(0).getId(); // Video por defecto
 
-		} else if (!"false".equals(isRandom)) {
+		} else if (isRandom != null && !"false".equals(isRandom)) {
 
 			int rndmPos = (int) (Math.random() * videos.size());
 			idNo = videos.get(rndmPos).getId();
@@ -107,12 +107,14 @@ public class HomeController extends HttpServlet {
 			System.out.println("Random generado");
 
 		} else if (id != null) { // Casteamos a Long el ID recibido
-
+			
 			idNo = Long.parseLong(id);
+			System.out.println(idNo);
 
 		} 
 		
 		try {
+			
 			videoInicio = daoVideo.getById(idNo); // Actualizar video de inicio
 		
 		} catch (Exception e1) {
@@ -203,12 +205,12 @@ public class HomeController extends HttpServlet {
 					break;
 				}
 
-			} else if (!"true".equals(isRandom)) {
+			} /*else if (!"true".equals(isRandom)) {
 
 				reproducirPrimerVideo();
 				System.out.println("Reproducir primer video");
 
-			}
+			}*/
 
 			cargarComentarios();
 
