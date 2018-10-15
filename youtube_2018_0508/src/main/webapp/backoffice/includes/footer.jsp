@@ -23,7 +23,7 @@
 		        });
 		    });
 		    
-		    <!-- funcion para el confirm de eliminar -->
+		    //funcion para el confirm de eliminar 
 		    function confirmar(e){
         		if(confirm('¿Estás seguro de que quieres eliminar?')){
         			console.log('Pulsado eliminar');
@@ -32,6 +32,13 @@
         			e.preventDefault();
         		}
         	}
+		    
+		    //funcion para leer comentario completo
+		    function showModalComentario(idComentario, texto){
+				$('#modalVerComentario').modal('show');
+				var comentario = document.getElementById('comentarioCompleto');
+				comentario.innerHTML = texto;
+			}
 		    
 		  //Ocultar y mostrar password
 		  function showpass(event,contrasenna){

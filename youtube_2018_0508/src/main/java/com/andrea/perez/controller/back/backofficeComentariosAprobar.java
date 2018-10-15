@@ -17,11 +17,15 @@ import com.andrea.perez.pojo.Comentario;
 /**
  * Servlet implementation class backofficeComentariosAprobar
  */
-@WebServlet("/backoffice/comentarios")
+@WebServlet("/backoffice/comentarios/aprobar")
 public class backofficeComentariosAprobar extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+
+	private static final String VIEW_APROBAR_COMENTARIOS = "../comentarios/aprobar.jsp";
+
 	private static ComentarioDAO daoComentario = null;
 	private Alert alert = null;
+	String view = "";
 
 	@Override
 	public void init(ServletConfig config) throws ServletException {
@@ -41,24 +45,18 @@ public class backofficeComentariosAprobar extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		
+
 		try {
-			ArrayList<Comentario>comentariosAprobar=daoComentario.aprobarComentario();
-			
-			
-			if (comentariosAprobar.size()>0 && comentariosAprobar!=null) {
-				request.setAttribute("comentarios", comentariosAprobar);
-			}else {
-				
-			}
+
+			request.setAttribute("comentarios", daoComentario.getAllAprobarComentario());
+
 		} catch (Exception e) {
-			// TODO: handle exception
-		}finally {
+			e.printStackTrace();
+		} finally {
 			request.setAttribute("alert", alert);
-			request.getRequestDispatcher("comentarios/aprobar.jsp").forward(request, response);
+			request.getRequestDispatcher(VIEW_APROBAR_COMENTARIOS).forward(request, response);
 		}
-		
-		
+
 	}
 
 	/**
@@ -67,13 +65,30 @@ public class backofficeComentariosAprobar extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		
-		//Recoger comentarios aprobados
-		String []comentariosAprobados=request.getParameterValues("aprobado");
-		//daoComentario.
-		
-		
-		
+
+		// Recoger comentarios aprobados
+		String[] comentariosAprobados = request.getParameterValues("aprobado");
+
+		try {
+			if (comentariosAprobados.length > 0) {
+				if (daoComentario.updateAprobar(comentariosAprobados)) {
+					request.setAttribute("comentarios", daoComentario.getAllAprobarComentario());
+					alert = new Alert(Alert.ALERT_SUCCESS, "Comentarios aprobados correctamente");
+				} else {
+					alert = new Alert(Alert.ALERT_DANGER, "Error en aprobar comentarios");
+				}
+			} else {
+				alert = new Alert(Alert.ALERT_WARNING, "No se ha seleccionado ningún comentario");
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			alert = new Alert(Alert.ALERT_DANGER, "Ha ocurrido un error no controlado.");
+		} finally {
+			request.setAttribute("alert", alert);
+			request.getRequestDispatcher(VIEW_APROBAR_COMENTARIOS).forward(request, response);
+		}
+
 	}
 
 }

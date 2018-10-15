@@ -27,7 +27,7 @@
                         </div>
                         <!-- /.panel-heading -->
                         <div class="panel-body">
-                        <form action="comentarios" method="post">
+                        <form action="comentarios/aprobar" method="post">
 	                         <table width="100%" class="table table-striped table-bordered table-hover" id="dataTable-ordenable">
 	                                <thead>
 	                                    <tr>

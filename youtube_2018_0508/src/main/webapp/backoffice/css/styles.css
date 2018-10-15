@@ -14,3 +14,15 @@ a.tam_Font {
 	width: 150px;
 	height: 75px;
 }
+
+i.tam_back {
+    font-size: 69px;
+}
+
+.comentarioCorto{
+	overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 500px;
+    height: 20px;
+    white-space: nowrap;
+}
