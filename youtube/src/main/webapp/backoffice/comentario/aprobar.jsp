@@ -17,15 +17,13 @@
 		<!-- Contenido de la pagina actual -->
 		<div class="row">
 			<h2 class="text-pika-blue">
-				Comentarios para aprobar <span class="badge bg-pika-yellow text-pika-blue">${nUsuario}</span>
+				Comentarios para aprobar <span class="badge bg-pika-yellow text-pika-blue">${nComentarios}</span>
 			</h2>
 		</div>
 		<div class="row m-5">
 			<div class="col-6">
 			</div>
 			<div class="col-6">
-				<a href="" class="btn-main btn-outline-pika">Aprobar</a>
-				<a href="" class="btn-main btn-outline-pika-red">Eliminar</a>
 			</div>
 		</div>
 		<div class="container">
@@ -42,16 +40,16 @@
 					</tr>
 				</thead>
 				<tbody>
-					<c:forEach items="${comentarios}" var="c">
-						<tr>
-							<td><input type="checkbox" value="c.id" name="ids"></td>
-							<td>${c.id}</td>
-							<td>${c.fecha}</td>
-							<td>${c.texto}</td>
-							<td>${c.usuario.nombre}</td>
-							<td>${c.video.nombre}</td>
-						</tr>
-					</c:forEach>
+						<c:forEach items="${comentarios}" var="c">
+							<tr>
+								<td><input type="checkbox" value="${c.id}" name="ids"></td>
+								<td>${c.id}</td>
+								<td>${c.fecha}</td>
+								<td>${c.texto}</td>
+								<td>${c.usuario.nombre}</td>
+								<td>${c.video.nombre}</td>
+							</tr>
+						</c:forEach>	
 				</tbody>
 				<tfoot>
 					<tr>
@@ -65,6 +63,7 @@
 				</tfoot>
 			</table>
 			<input type="submit" value="Aprobar" class="btn-main btn-outline-pika">
+			<a href="" class="btn-main btn-outline-pika-red">Eliminar</a>
 			</form>
 		</div>
 	</div>

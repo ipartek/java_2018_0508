@@ -17,5 +17,7 @@
 			class="btn-block text-pika-blue"><i class="fas fa-theater-masks fa-lg"></i> Roles</a></li>
 		<li class="list-group-item"><a href="backoffice/video?op=<%= BackofficeVideoController.OP_LISTAR%>"
 			class="btn-block text-pika-blue"><i class="fab fa-youtube fa-lg"></i> Videos</a></li>
+		<li class="list-group-item"><a href="backoffice/comentario/aprobar"
+			class="btn-block text-pika-blue"><i class="fas fa-comment-slash fa-lg"></i>Comentarios Pendientes</a></li>
 	</ul>
 </div>

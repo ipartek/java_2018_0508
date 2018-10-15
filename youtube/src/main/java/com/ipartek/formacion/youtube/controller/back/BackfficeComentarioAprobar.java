@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.ipartek.formacion.youtube.model.ComentarioDAO;
+import com.ipartek.formacion.youtube.pojo.Alert;
 import com.ipartek.formacion.youtube.pojo.Comentario;
 
 /**
@@ -25,8 +26,11 @@ public class BackfficeComentarioAprobar extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
 		dao = ComentarioDAO.getInstance();
 		ArrayList<Comentario> comentarios = new ArrayList<Comentario>();
+		Alert alert = null;
+		
 		try {
 			
 			comentarios = (ArrayList<Comentario>) dao.getAllNoAprobado();
@@ -42,16 +46,23 @@ public class BackfficeComentarioAprobar extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
 		dao = ComentarioDAO.getInstance();
 		ArrayList<Comentario> comentarios = new ArrayList<Comentario>();
+		Alert alert = null;
+		
 		try {
 			
 			String[] ids = request.getParameterValues("ids");
 			
 			if (ids != null) {
-				dao.updateAprobarComentarios(ids);
+				if(dao.updateAprobarComentarios(ids)){
+					alert = new Alert("Se han aprobados los comentarios.", Alert.SUCCESS);
+				}
+			}else {
+				alert = new Alert("Selecciona algún comentario.", Alert.WARNING);
 			}
-			
+			request.setAttribute("alert", alert);
 			comentarios = (ArrayList<Comentario>) dao.getAllNoAprobado();
 			request.setAttribute("comentarios", comentarios);
 			request.getRequestDispatcher("../comentario/aprobar.jsp").forward(request, response);

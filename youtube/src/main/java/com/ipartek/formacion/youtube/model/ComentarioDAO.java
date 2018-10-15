@@ -3,6 +3,7 @@ package com.ipartek.formacion.youtube.model;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,10 +29,7 @@ public class ComentarioDAO implements CrudAble<Comentario> {
 			"INNER JOIN Video as v ON c.id_video = v.id "+
 			"INNER JOIN Usuario as u ON c.id_usuario = u.id "+
 			"WHERE c.aprobado = 0;";
-	private final String SQL_UPDATE_APROBAR = "UPDATE Comentario" + 
-			"SET aprobado = 1" + 
-			"WHERE id IN (?);";
-	
+
 	private ComentarioDAO() {
 		super();
 	}
@@ -45,8 +43,28 @@ public class ComentarioDAO implements CrudAble<Comentario> {
 	
 	@Override
 	public boolean insert(Comentario pojo) throws Exception {
-		// TODO Auto-generated method stub
-		return false;
+		boolean resul = false;
+		try (Connection con = ConnectionManager.getConnection();
+				PreparedStatement ps = con.prepareStatement(SQL_INSERT,Statement.RETURN_GENERATED_KEYS);) {
+
+			ps.setString(1, pojo.getTexto());
+			ps.setLong(2, pojo.getUsuario().getId());
+			ps.setLong(3, pojo.getVideo().getId());
+
+			int affectedRows = ps.executeUpdate();
+			if (affectedRows == 1) {
+				
+				// conseguir id generado
+				try (ResultSet rs = ps.getGeneratedKeys()){
+					while(rs.next()) {
+						pojo.setId(rs.getLong(1));
+						resul = true;
+					}
+				}
+			}
+
+		} 
+		return resul;
 	}
 
 	@Override
@@ -107,11 +125,19 @@ public class ComentarioDAO implements CrudAble<Comentario> {
 	
 	public boolean updateAprobarComentarios(String[] ids) throws Exception{
 		boolean resul = false;
+		String id = "";
+		for (int i = 0; i < ids.length; i++) {
+			if (i==ids.length-1) {
+				id+=ids[i];
+			}else {
+				id+=ids[i]+",";
+			}
+		}
 		
-		try (Connection con = ConnectionManager.getConnection();
-				PreparedStatement ps = con.prepareStatement(SQL_UPDATE_APROBAR);) {
+		String sql_query = "UPDATE Comentario SET aprobado = 1 WHERE id IN ("+id+");";
 
-			ps.setArray(1,con.createArrayOf("id_aprobar", ids));
+		try (Connection con = ConnectionManager.getConnection();
+				PreparedStatement ps = con.prepareStatement(sql_query);) {
 
 			int affectedRows = ps.executeUpdate();
 			if (affectedRows == 1) {

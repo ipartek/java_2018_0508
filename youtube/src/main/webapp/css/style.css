@@ -121,6 +121,10 @@ a.text-pika-purple:hover {
 	background-image: none;
 }
 
+.btn-main:hover{
+	cursor: pointer;
+}
+
 .btn-outline-pika {
 	color: #72FC5C;
 	border-color: #72FC5C;

@@ -1,21 +1,18 @@
 package com.ipartek.formacion.youtube.controller;
 
 import java.io.IOException;
-import java.util.ArrayList;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import com.ipartek.formacion.youtube.model.ComentarioDAO;
 import com.ipartek.formacion.youtube.model.VideoDAO;
 import com.ipartek.formacion.youtube.pojo.Alert;
 import com.ipartek.formacion.youtube.pojo.Comentario;
 import com.ipartek.formacion.youtube.pojo.Usuario;
-import com.ipartek.formacion.youtube.pojo.Video;
 
 /**
  * Servlet implementation class ComentarioController
@@ -49,7 +46,7 @@ public class ComentarioController extends HttpServlet {
 			dao = ComentarioDAO.getInstance();
 
 			// parametros
-			String texto = request.getParameter("texto");
+			String texto = request.getParameter("comentario-usuario");
 			videoId = request.getParameter("id_video");
 
 			Usuario usuario = (Usuario) request.getSession().getAttribute("usuario");

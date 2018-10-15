@@ -45,12 +45,13 @@
 				</ul>
 			</c:if>
 		<!-- Si no los hay, saca este texto -->
-			<c:if test="${empty comentario}">
+			<c:if test="${empty comentarios}">
 				<h4 class="text-pika-red">Aun no hay ningun comentario...</h4>
 			</c:if>
 			<!-- Si el usuario esta logueado le deja escribir comentarios -->
 			<c:if test="${not empty usuario}">
 				<form id="form-comentario" action="comentario" method="post">
+					<input type="hidden" value="${videoInicio.id}" name="id_video">
 					<div class="form-group">
 						<label for="comentario-usuario">Escribe tu comentario:</label>
 						<textarea name="comentario-usuario" class="form-control" id="comentario-usuario" rows="3"></textarea>
