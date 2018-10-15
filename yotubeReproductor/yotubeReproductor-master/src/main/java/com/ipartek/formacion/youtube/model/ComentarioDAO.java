@@ -23,8 +23,11 @@ public class ComentarioDAO implements CrudAble<Comentario> {
 			  " c.id_video = ? " +
 			  " ORDER BY c.id DESC LIMIT 500;";
 
-	private static final String SQL_GET_BY_ID = "SSELECT c.id as `id_comentario`, c.fecha, c.texto, c.aprobado, c.id_usuario, c.id_video, u.nombre as nombre_usuario"
-			+ "FROM youtube.comentario as c, youtube.usuario as u" + "WHERE c.id_usuario = u.id AND c.id_video = ?;";
+//por abrobar 
+	private static final String SQL_GET_COMENTARIOS = "c.id as 'id_comentario',    u.id as 'id_usuario',    fecha,    texto,    aprobado,    u.nombre"+ 
+			  " FROM comentario as c " +
+			  " INNER JOIN usuario as u ON c.id_usuario = u.id AND aprobado = 0 ;";
+	
 
 	private final String SQL_DELETE = "DELETE FROM comentario WHERE id = ?;";
 	// añadir la columna de id_usuario
@@ -99,7 +102,27 @@ public class ComentarioDAO implements CrudAble<Comentario> {
 		}
 		return comentarios;
 	}
+	
 
+	public List<Comentario>  getAllAprobado(long comentarioId) throws Exception {
+
+		Comentario comentario = null;
+		ArrayList<Comentario> comentarios = new ArrayList<Comentario>();
+		try (Connection con = ConnectionManager.getConnection();
+				PreparedStatement ps = con.prepareStatement(SQL_GET_COMENTARIOS);) {
+
+			ps.setLong(1, comentarioId);
+
+			try (ResultSet rs = ps.executeQuery()) {
+				while (rs.next()) {
+					comentarios.add(rowMapper(rs, comentario));
+				}
+			}
+
+		}
+		return comentarios;
+	
+	}
 	@Override
 	public Comentario getById(String id) throws Exception {
 		// TODO Auto-generated method stub

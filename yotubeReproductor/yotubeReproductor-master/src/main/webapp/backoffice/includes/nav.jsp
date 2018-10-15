@@ -34,6 +34,9 @@
                         <li>
                             <a href="videos"><i class="fa fa-dashboard fa-fw"></i> Videos</a>
                         </li>
+                         <li>
+                            <a href="comentarios"><i class="fa fa-dashboard fa-fw"></i> Comentarios</a>
+                        </li>
                        
                     </ul>
                 </div>
