@@ -34,7 +34,10 @@
                             <a href="<%=request.getContextPath()%>/backoffice/video"><i class="fab fa-youtube"></i> Videos</a>
                         </li>
                         <li>
-                            <a href="<%=request.getContextPath()%>/backoffice/rol"><i class="fas fa-theater-masks"></i></i> Roles</a>
+                            <a href="<%=request.getContextPath()%>/backoffice/rol"><i class="fas fa-theater-masks"></i> Roles</a>
+                        </li>
+                        <li>
+                            <a href="<%=request.getContextPath()%>/backoffice/comentario"><i class="far fa-comments"></i> Comentários</a>
                         </li>
                        
                     </ul>
