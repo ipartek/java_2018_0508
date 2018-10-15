@@ -42,7 +42,7 @@
 		                                	 <tr>
 		                                        <td><input type="checkbox" name="aprobado" value="${c.id }"></td>
 		                                        <td>${c.usuario.nombre}</td>
-		                                        <td>${c.texto}</td>	                   
+		                                        <td onclick="showModalComentario(${c.id},'${c.texto}')"><p class="comentarioCorto">${c.texto}</p></td>                   
 		                                    </tr>
 		                                </c:forEach>
 	                                </tbody>
@@ -69,5 +69,28 @@
         <!-- /#page-wrapper -->
     </div>
     <!-- /#wrapper -->
+    
+    <!-- Modal para leer comentario completo -->
+		    <div class="modal fade" id="modalVerComentario" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+				<div class="modal-dialog" role="document">
+					<div class="modal-content modal-fondo">
+						<div class="modal-header bg-pika-red">
+							<h5 class="modal-title text-pika-blue" id="exampleModalLabel">COMENTARIO COMPLETO</h5>
+							<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+								<span aria-hidden="true">&times;</span>
+							</button>
+						</div>
+						<div class="modal-body">
+							<p><b>Comentario seleccionado completo:</b></p>
+							<p id="comentarioCompleto"></p>
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-outline-info btn-outline-pika-red" data-dismiss="modal">Cerrar</button>
+						</div>
+					</div>
+				</div>
+			</div>
+    
+    
 
 <%@include file="../includes/footer.jsp"%>

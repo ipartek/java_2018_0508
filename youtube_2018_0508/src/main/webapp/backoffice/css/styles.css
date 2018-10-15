@@ -7,7 +7,7 @@ span.badge {
 }
 
 a.tam_Font {
-    font-size: 30px;
+    font-size: 10px;
 }
 
 .thumbnail{
@@ -25,4 +25,12 @@ i.tam_back {
     max-width: 500px;
     height: 20px;
     white-space: nowrap;
+}
+
+td {
+    font-size: 17px;
+}
+
+div.modal-fondo{
+	background-color: #fcf8e3;
 }

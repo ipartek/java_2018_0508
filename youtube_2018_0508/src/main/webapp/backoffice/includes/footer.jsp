@@ -31,15 +31,8 @@
         			//Prevenir el evento por defecto del enlace
         			e.preventDefault();
         		}
-        	}
-		    
-		    //funcion para leer comentario completo
-		    function showModalComentario(idComentario, texto){
-				$('#modalVerComentario').modal('show');
-				var comentario = document.getElementById('comentarioCompleto');
-				comentario.innerHTML = texto;
-			}
-		    
+        	}		    
+		    		    
 		  //Ocultar y mostrar password
 		  function showpass(event,contrasenna){
 			  
@@ -62,6 +55,13 @@
 			  }
 			  
 		  }
+		  
+		  //Mostrar comentario completo del usuario
+		  function showModalComentario(idComentario, texto){
+				$('#modalVerComentario').modal('show');
+				var comentario = document.getElementById('comentarioCompleto');
+				comentario.innerHTML = texto;
+			}
 		  
 		    
 	    </script>
