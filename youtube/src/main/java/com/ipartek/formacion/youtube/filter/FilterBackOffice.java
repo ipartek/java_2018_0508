@@ -54,11 +54,11 @@ public class FilterBackOffice implements Filter {
 				chain.doFilter(request, response);
 			} else {
 
-				// TODO comprobar rol
-				
-				informacionCliente(req);
+				if(u.getRol() == Usuario.ROL_ADMIN) {
+					informacionCliente(req);
 
-				res.sendRedirect(req.getContextPath() + "/inicio");
+					res.sendRedirect(req.getContextPath() + "/inicio");
+				}
 			}
 		} catch (Exception e) {
 			e.printStackTrace();

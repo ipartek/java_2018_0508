@@ -24,15 +24,15 @@
 	</c:if>
 	<!-- Formulario de añadir video, solo cuando el usuario este logueado -->
 	<c:if test="${not empty usuario}">
-		<ul class="navbar-nav m-3 align-items-left">
-			<li class="nav-item active">
+		<ul class="navbar-nav m-3 p-3 align-items-left bg-pika">
+			<li class="nav-item">
 				<h2 class="text-pika-blue">Añade una nueva cancion:</h2>
 				<!-- Formulario para dar de alta un nuevo video -->
 				<form action="inicio" method="post" class="form-inline">
 					<input type="hidden" value="${usuario.id}" name="id_usuario">
 					<input name="codigo" class="form-control m-1" type="text" placeholder="ID 11 caracerteres" title="11 caracteres" required pattern=".{11,11}">
 					<input name="nombre" class="form-control m-1" type="text" placeholder="Nombre minimo 2 letras" required pattern=".{2,125}">
-					<button class="btn btn-outline-info btn-outline-pika-blue m-1" type="submit">Añadir</button>
+					<button class="btn-main btn-outline-pika-blue m-1" type="submit">Añadir</button>
 				</form>
 			</li>
 		</ul>
