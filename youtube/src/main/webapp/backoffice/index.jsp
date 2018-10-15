@@ -23,7 +23,7 @@
                                     <i class="fas fa-users fa-4x"></i>
                                 </div>
                                 <div class="col-xs-9 text-right">
-                                    <div class="huge">${usuarios}</div>
+                                    <div class="huge">${fn:length(usuarios)}</div>
                                     <div>Usuarios registrados</div>
                                 </div>
                             </div>
@@ -46,7 +46,7 @@
                                     <i class="fab fa-youtube fa-4x"></i>
                                 </div>
                                 <div class="col-xs-9 text-right">
-                                    <div class="huge">${videos}</div>
+                                    <div class="huge">${fn:length(videos)}</div>
                                     <div>Videos almacenados</div>
                                 </div>
                             </div>
@@ -69,7 +69,7 @@
                                     <i class="fas fa-address-card fa-4x"></i>
                                 </div>
                                 <div class="col-xs-9 text-right">
-                                    <div class="huge">${roles}</div>
+                                    <div class="huge">${fn:length(roles)}</div>
                                     <div>Roles almacenados</div>
                                 </div>
                             </div>
@@ -77,6 +77,29 @@
                         <a href="roles">
                             <div class="panel-footer">
                                 <span class="pull-left">Ver roles</span>
+                                <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                                <div class="clearfix"></div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="col-lg-3 col-md-6">
+                    <div class="panel panel-yellow">
+                        <div class="panel-heading">
+                            <div class="row">
+                                <div class="col-xs-3">
+                                    <i class="far fa-comment fa-4x"></i>
+                                </div>
+                                <div class="col-xs-9 text-right">
+                                    <div class="huge">${fn:length(comentarios)}</div>
+                                	<div>Comentarios pendientes de moderación</div>
+                                </div>
+                            </div>
+                        </div>
+                        <a href="comentarios/aprobar">
+                            <div class="panel-footer">
+                                <span class="pull-left">Moderar Comentarios</span>
                                 <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
                                 <div class="clearfix"></div>
                             </div>

@@ -22,7 +22,14 @@ public class ComentarioDAO implements CrudAble<Comentario> {
 	
 	private final String SQL_INSERT = "INSERT INTO comentario (texto,id_video,id_usuario) VALUES (?,?,?);";
 	
-
+	private final String SQL_GET_ALL_BY_APROBADO = "SELECT c.id as 'id_comentario', texto,  u.id as 'id_usuario', c.id_video, fecha, aprobado,  u.nombre as 'nombre_usuario'" + 
+												   " FROM comentario as c, usuario as u" + 
+												   " WHERE c.id_usuario = u.id AND aprobado = '0'" + 
+												   " ORDER BY c.id DESC" + 
+												   " LIMIT 500;";
+	
+	private final String SQL_APROBAR = "UPDATE comentario SET aprobado = 1 WHERE id = ?"; 
+	
 	private ComentarioDAO() {
 		super();
 	}
@@ -56,7 +63,47 @@ public class ComentarioDAO implements CrudAble<Comentario> {
 		
 		return comentarios;
 	}
+	
+	public List<Comentario> getAllByAprobado() throws Exception {
+		Comentario comentario = null;
+		
+		ArrayList<Comentario> comentarios = new ArrayList<Comentario>();
+		
+		try(Connection con = ConnectionManager.getConnection();
+				PreparedStatement ps = con.prepareStatement(SQL_GET_ALL_BY_APROBADO)){
+						
+			try(ResultSet rs = ps.executeQuery()){
 
+				while (rs.next()) {
+					comentarios.add(rowMapper(rs, comentario));
+				}
+			
+			}
+			
+		}
+		
+		return comentarios;
+	}
+	
+	public boolean aprobar(long[] ids) throws Exception {
+		boolean resul = false;
+		
+		for (int i = 0; i < ids.length; i++) {
+					
+			try (Connection con = ConnectionManager.getConnection();
+					PreparedStatement ps = con.prepareStatement(SQL_APROBAR);) {
+	
+				ps.setLong(1, ids[i]);
+	
+				if (ps.executeUpdate() == 1) {
+					resul = true;
+				}
+	
+			} 
+		}
+		
+		return resul;
+	}
 	
 	@Override
 	public List<Comentario> getAll() throws Exception {

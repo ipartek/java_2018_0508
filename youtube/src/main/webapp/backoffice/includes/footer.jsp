@@ -50,6 +50,13 @@
     		}
     		
     	}
+		
+		function showModalComentario(nombre, texto){
+			console.log("showModalModificar id = " +texto);
+			$('#modalComentario').modal('show');
+			document.getElementById('cabeceraModal').innerHTML = "Comentario de " + nombre;
+			document.getElementById('textoComentario').innerHTML = texto;
+		}
     	
     </script>
 

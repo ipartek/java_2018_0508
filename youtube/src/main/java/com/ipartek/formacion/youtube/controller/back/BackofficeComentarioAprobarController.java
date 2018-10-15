@@ -10,46 +10,44 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.ipartek.formacion.youtube.model.ComentarioDAO;
-import com.ipartek.formacion.youtube.model.RolDAO;
-import com.ipartek.formacion.youtube.model.UsuarioDAO;
-import com.ipartek.formacion.youtube.model.VideoDAO;
 
 /**
- * Servlet implementation class BackofficeController
+ * Servlet implementation class BackofficeComentarioAprobarController
  */
-@WebServlet("/backoffice/inicio")
-public class BackofficeController extends HttpServlet {
+@WebServlet("/backoffice/comentarios/aprobar")
+public class BackofficeComentarioAprobarController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private static final String VIEW_INICIO = "/backoffice/index.jsp";
-	private static UsuarioDAO daoUsuario;
-	private static VideoDAO daoVideo;
-	private static RolDAO daoRol;
 	private static ComentarioDAO daoComentario;
 	
+    
 	@Override
 	public void init(ServletConfig config) throws ServletException {
 		super.init(config);
-		daoUsuario = UsuarioDAO.getInstance();
-		daoVideo = VideoDAO.getInstance();
-		daoRol = RolDAO.getInstance();
 		daoComentario = ComentarioDAO.getInstance();
+		
 	}
 	
 	@Override
 	public void destroy() {
 		super.destroy();
-		daoUsuario = null;
-		daoVideo = null;
-		daoRol = null;
 		daoComentario = null;
 	}
-     
+	
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
-		doPost(request, response);
+		
+		try {
+			request.setAttribute("comentarios", daoComentario.getAllByAprobado());
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			
+		}
+		
+		request.getRequestDispatcher("../comentarios/aprobar.jsp").forward(request, response);
+		
 		
 	}
 
@@ -57,21 +55,24 @@ public class BackofficeController extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-				
+		
+		String ids[] = request.getParameterValues("id");
+		
+		long[] data = new long[ids.length];
+		for (int i = 0; i < ids.length; i++) {
+		  data[i] = Long.valueOf(ids[i]);
+		}
+		
 		try {
-			
-			request.setAttribute("usuarios", daoUsuario.getAll());
-			request.setAttribute("videos", daoVideo.getAll());
-			request.setAttribute("roles", daoRol.getAll());
-			request.setAttribute("comentarios", daoComentario.getAllByAprobado());
+			if(daoComentario.aprobar(data)){
+				request.setAttribute("comentarios", daoComentario.getAllByAprobado());
+				request.getRequestDispatcher("../comentarios/aprobar.jsp").forward(request, response);
+			}
 			
 		} catch (Exception e) {
 			e.printStackTrace();
-			
-		}finally {
-			request.getRequestDispatcher(VIEW_INICIO).forward(request, response);
 		}
-		
+				
 	}
 
 }
