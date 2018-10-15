@@ -24,5 +24,14 @@
 		    });
 	    </script>
 		
+	<script>
+		
+		function showModalComentario(idComentario, texto){
+			$('#modalVerComentario').modal('show');
+			var comentario = document.getElementById('comentarioCompleto');
+			comentario.innerHTML = texto;
+		}
+	</script>
+		
 	</body>
 </html>

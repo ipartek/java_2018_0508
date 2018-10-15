@@ -11,5 +11,5 @@
 	 		<span aria-hidden="true">&times;</span>
 	 	</button>
 	</div>
-	${alert = null }
+	${sessionScope.alert=null}
 </c:if>

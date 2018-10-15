@@ -10,3 +10,11 @@
  .panel-tabla{
  	margin-top: 20px;
  }
+ 
+ .comentarioCorto{
+	overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 500px;
+    height: 20px;
+    white-space: nowrap;
+}

@@ -44,7 +44,7 @@
 							<form class="form-inline navbar-nav ml-auto" action="login"
 								method="post">
 								<input required type="text" class="form-control mb-1 mr-sm-2" id="inlineFormInputName2" placeholder="Usuario"
-									name="user" value="${cookie.cNombre.value}" pattern=".{3,30}">
+									name="user" value="${cookie.cNombre.value}" pattern=".{3,30}" autofocus>
 								<div class="input-group mb-1 mr-sm-2">
 									<input required type="password" class="form-control" id="inlineFormInputGroupUsername2"
 										placeholder="Contraseña" name="pswd" value="" pattern=".{2,50}">

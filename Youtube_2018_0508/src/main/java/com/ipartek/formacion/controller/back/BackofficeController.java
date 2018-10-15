@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.ipartek.formacion.model.ComentarioArrayDAO;
 import com.ipartek.formacion.model.RolDAO;
 import com.ipartek.formacion.model.UsuarioDAO;
 import com.ipartek.formacion.model.VideoDAO;
@@ -27,6 +28,7 @@ public class BackofficeController extends HttpServlet {
 	private static UsuarioDAO daoUsuario;
 	private static VideoDAO daoVideo;
 	private static RolDAO daoRol;
+	private static ComentarioArrayDAO daoComentario;
 	
 	Alert alert = null;
 	
@@ -36,6 +38,7 @@ public class BackofficeController extends HttpServlet {
 		daoUsuario = UsuarioDAO.getInstance();
 		daoVideo = VideoDAO.getInstance();
 		daoRol = RolDAO.getInstance();
+		daoComentario = ComentarioArrayDAO.getInstance();
 		alert = null;
 	}	
 
@@ -55,6 +58,7 @@ public class BackofficeController extends HttpServlet {
 			request.setAttribute("usuarios", daoUsuario.getAll().size());
 			request.setAttribute("videos", daoVideo.getAll().size());
 			request.setAttribute("roles", daoRol.getAll().size());
+			request.setAttribute("comentarios", daoComentario.getAll().size());
 			
 		}catch(Exception e) {
 			e.printStackTrace();

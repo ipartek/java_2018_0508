@@ -17,10 +17,13 @@ public class ComentarioArrayDAO implements Crudable<Comentario>{
 	private static List<Comentario> lista = null;
 	
 	//Consultas
-//	private final String SQL_GET_ALL = "SELECT v.id as 'id_video', v.codigo, v.nombre as 'nombre_video', id_usuario as 'id_usuario', u.nombre as 'nombre_usuario', u.password"
-//										+ " FROM youtube.video as v, youtube.usuario as u"
-//										+ " WHERE v.id_usuario = u.id"
-//										+ " ORDER BY v.id DESC LIMIT 1000";
+	private final String SQL_GET_ALL = "SELECT c.id as 'id_comentario', c.fecha, c.texto, c.aprobado," 
+										+ " c.id_usuario,"
+										+ " u.nombre as 'nombre_usuario'"
+										+ " FROM comentario as c, "
+										+ " usuario as u"
+										+ " WHERE c.id_usuario = u.id AND aprobado = 0"
+										+ " ORDER BY c.id DESC LIMIT 500";
 	private final String SQL_GET_ALL_BY_VIDEO = "SELECT c.id as 'id_comentario', c.fecha, c.texto, c.aprobado," 
 										+ " c.id_usuario,"
 										+ " c.id_video,"
@@ -36,7 +39,8 @@ public class ComentarioArrayDAO implements Crudable<Comentario>{
 //	private final String SQL_GET_BY_ID = "SELECT v.id as 'id_video', v.codigo, v.nombre as 'nombre_video', id_usuario as 'id_usuario', u.nombre as 'nombre_usuario', u.password"
 //										+ " FROM youtube.video as v, youtube.usuario as u"
 //										+ " WHERE v.id_usuario = u.id AND v.id = ? LIMIT 1000";
-	private final String SQL_UPDATE = "UPDATE comentario SET texto = ? WHERE id = ?;";
+	private final String SQL_UPDATE = "UPDATE comentario SET texto = ?, aprobado = 1 WHERE id = ?;";
+	private final String SQL_APROBAR = "UPDATE comentario SET aprobado = 1 WHERE id = ?;";
 	private final String SQL_INSERT = "INSERT INTO comentario (texto, id_video, id_usuario) VALUES (?, ?, ?);";
 	private final String SQL_DELETE = "DELETE FROM comentario WHERE id = ?;";
 	
@@ -79,8 +83,18 @@ public class ComentarioArrayDAO implements Crudable<Comentario>{
 	}
 
 	@Override
-	public List<Comentario> getAll() {
-		return lista;
+	public List<Comentario> getAll() throws Exception {
+		ArrayList<Comentario> comentarios = new ArrayList<Comentario>();
+		try(Connection con =  ConnectionManager.getConnection();
+			PreparedStatement ps = con.prepareStatement(SQL_GET_ALL);){
+			ResultSet rs = ps.executeQuery();
+	
+			//Mapear ResultSet a ArrayList
+			while(rs.next()) {
+				comentarios.add(rowMapper(rs));
+			}
+		}
+		return comentarios;
 	}
 	
 	public List<Comentario> getAllByVideo(Long idVideo) throws Exception {
@@ -128,6 +142,22 @@ public class ComentarioArrayDAO implements Crudable<Comentario>{
 		}
 		return resul;
 	}
+	
+	public boolean aprobar(String id) throws SQLException {
+		boolean resul = false;
+		try(Connection con =  ConnectionManager.getConnection();
+			PreparedStatement ps = con.prepareStatement(SQL_APROBAR);){
+			
+			ps.setLong(1, Long.parseLong(id));			
+			
+			int affectedRows = ps.executeUpdate();
+			
+			if(affectedRows == 1) {
+				resul = true;
+			}	
+		}
+		return resul;
+	}
 
 	@Override
 	public boolean delete(String id2) throws Exception {
@@ -165,12 +195,6 @@ public class ComentarioArrayDAO implements Crudable<Comentario>{
 			u.setNombre(rs.getString("nombre_usuario"));
 			
 			c.setUsuario(u);
-			
-//			Video v = new Video();
-//			v.setId(rs.getLong("id_video"));
-//			v.setTitulo(rs.getString("nombre_video"));
-//			
-//			c.setVideo(v);
 		}
 		return c;
 	}

@@ -88,12 +88,12 @@
                                    <i class="fas fa-comments fa-5x"></i></i>
                                 </div>
                                 <div class="col-xs-9 text-right">
-                                    <div class="huge">100</div>
+                                    <div class="huge">${comentarios}</div>
                                     <div>Comentarios</div>
                                 </div>
                             </div>
                         </div>
-                        <a href="roles">
+                        <a href="comentarios/aprobar">
                             <div class="panel-footer">
                                 <span class="pull-left"><b>Ver Comentarios pendientes</b></span>
                                 <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
