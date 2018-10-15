@@ -24,6 +24,11 @@ public class VideoDAO implements CrudAble<Video> {
 	private final String SQL_GET_BY_ID = "SELECT v.idvideo, v.codigo, v.nombre as 'video_nombre' , v.id_usuario"
 			+ " , u.idusuario, u.nombre as 'usuario_nombre', u.password" + " FROM video as v, usuario as u"
 			+ " WHERE v.idvideo = ? AND v.id_usuario = u.idusuario;";
+	
+	private final String SQL_GET_ONE_VIDEO_PER_CATEGORY = "SELECT (c.nombre), v.idvideo, v.nombre"
+			+ " FROM categoria as c INNER JOIN video as v"
+			+ " ON c.idcategoria = v.id_categoria"
+			+ " GROUP BY c.nombre;";
 
 	private final String SQL_INSERT = "INSERT INTO video (codigo, nombre, id_usuario) VALUES (?, ?, ?);";
 	private final String SQL_UPDATE = "UPDATE video SET codigo = ?, nombre = ?, id_usuario = ? WHERE idvideo = ?;";
@@ -49,6 +54,22 @@ public class VideoDAO implements CrudAble<Video> {
 
 		try (Connection cnx = ConnectionManager.getConnection();
 				PreparedStatement ps = cnx.prepareStatement(SQL_GET_ALL);
+				ResultSet rs = ps.executeQuery()) {
+
+			while (rs.next()) {
+
+				videos.add(rowMapper(rs)); // Mapear ResultSet
+			}
+		}
+		return videos;
+	}
+	
+	public List<Video> getOnePerCategory() throws Exception {
+
+		ArrayList<Video> videos = new ArrayList<Video>();
+
+		try (Connection cnx = ConnectionManager.getConnection();
+				PreparedStatement ps = cnx.prepareStatement(SQL_GET_ONE_VIDEO_PER_CATEGORY);
 				ResultSet rs = ps.executeQuery()) {
 
 			while (rs.next()) {

@@ -25,6 +25,9 @@
             <ul class="nav navbar-nav flex-row ml-auto">
                 
                 <li class="nav-item order-2 order-md-1">
+                	<a href="categorias" class="nav-link" title="Categorias">Categorias</a>
+                </li>
+                <li class="nav-item order-2 order-md-1">
                 	<a href="backoffice" class="nav-link" title="Ajustes">
                 		<i class="fa fa-cog fa-fw fa-lg"></i>
                 	</a>
