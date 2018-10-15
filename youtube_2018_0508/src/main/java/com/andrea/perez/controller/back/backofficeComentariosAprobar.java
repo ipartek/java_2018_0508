@@ -46,6 +46,8 @@ public class backofficeComentariosAprobar extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
+		alert = null;
+
 		try {
 
 			request.setAttribute("comentarios", daoComentario.getAllAprobarComentario());

@@ -56,7 +56,7 @@
 			  
 		  }
 		  
-		  //Mostrar comentario completo del usuario
+		  //Mostrar comentario completo del usuario por aprobar
 		  function showModalComentario(idComentario, texto){
 				$('#modalVerComentario').modal('show');
 				var comentario = document.getElementById('comentarioCompleto');

@@ -28,8 +28,8 @@
                             </div>
                         </div>
                         <a href="usuarios">
-                            <div class="panel-footer">
-                                <span class="pull-left">Ver Usuarios</span>
+                            <div class="panel-footer pie-tarjeta">
+                                <span class="pull-left ">Ver Usuarios</span>
                                 <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
                                 <div class="clearfix"></div>
                             </div>
@@ -52,8 +52,8 @@
                             </div>
                         </div>
                         <a href="videos">
-                            <div class="panel-footer">
-                                <span class="pull-left">Ver Vídeos</span>
+                            <div class="panel-footer pie-tarjeta">
+                                <span class="pull-left ">Ver Vídeos</span>
                                 <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
                                 <div class="clearfix"></div>
                             </div>
@@ -75,8 +75,8 @@
                             </div>
                         </div>
                         <a href="roles">
-                            <div class="panel-footer">
-                                <span class="pull-left">Ver Roles</span>
+                            <div class="panel-footer pie-tarjeta">
+                                <span class="pull-left ">Ver Roles</span>
                                 <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
                                 <div class="clearfix"></div>
                             </div>
@@ -90,7 +90,7 @@
                         <div class="panel-heading">
                             <div class="row">
                                 <div class="col-xs-3">
-                                    <i class="fas fa-user-tag fa-5x tam_back"></i>
+                                    <i class="fas fa-5x fa-comment-dots tam_back"></i>
                                 </div>
                                 <div class="col-xs-9 text-right">
                                     <div class="huge">${comentarios}</div>
@@ -99,9 +99,10 @@
                             </div>
                         </div>
                         <a href="comentarios/aprobar">
-                            <div class="panel-footer">
-                                <span class="pull-left">Ver Comentarios Pendientes</span>
+                            <div class="panel-footer pie-tarjeta">
+                                <span class="pull-left ">Ver Comentarios</span>
                                 <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                                						 
                                 <div class="clearfix"></div>
                             </div>
                         </a>

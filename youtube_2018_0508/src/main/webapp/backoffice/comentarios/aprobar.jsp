@@ -23,7 +23,7 @@
                 <div class="col-lg-12">
                     <div class="panel panel-default panel-tabla">
                         <div class="panel-heading">
-                            Tabla de los Coemntarios 
+                            Tabla de los Comentarios 
                         </div>
                         <!-- /.panel-heading -->
                         <div class="panel-body">
@@ -73,13 +73,7 @@
     <!-- Modal para leer comentario completo -->
 		    <div class="modal fade" id="modalVerComentario" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
 				<div class="modal-dialog" role="document">
-					<div class="modal-content modal-fondo">
-						<div class="modal-header bg-pika-red">
-							<h5 class="modal-title text-pika-blue" id="exampleModalLabel">COMENTARIO COMPLETO</h5>
-							<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-								<span aria-hidden="true">&times;</span>
-							</button>
-						</div>
+					<div class="modal-content modal-fondo">						
 						<div class="modal-body">
 							<p><b>Comentario seleccionado completo:</b></p>
 							<p id="comentarioCompleto"></p>
