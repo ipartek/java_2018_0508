@@ -3,6 +3,7 @@
 <div class="container">
 <div class="row">
 	<div class="col">
+	ññññpingÜinñóó
 		<div class="card">
 		  	<div class="card-body">
 		    	<h3 class="card-title text-center">${ videoInicio.nombre }</h3>              

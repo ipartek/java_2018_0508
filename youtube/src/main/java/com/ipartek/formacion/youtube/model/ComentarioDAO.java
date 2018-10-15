@@ -9,24 +9,35 @@ import java.util.List;
 
 import com.ipartek.formacion.youtube.pojo.Comentario;
 import com.ipartek.formacion.youtube.pojo.Usuario;
+import com.ipartek.formacion.youtube.pojo.Video;
 import com.mysql.jdbc.Statement;
 
 public class ComentarioDAO implements CrudAble<Comentario> {
 
 	private static ComentarioDAO INSTANCE = null;
 
-	private final String SQL_GET_ALL = "SELECT c.idcomentario, c.fecha, c.texto, c.aprobado, c.id_video, c.id_usuario, u.nombre"
-			+ " FROM comentario as c, usuario as u" + " ORDER BY idComentario DESC LIMIT 1000;";
+	private final String SQL_GET_ALL = "SELECT c.*, u.nombre as 'us_nombre', v.nombre as 'vid_nombre'"
+			+ " FROM comentario as c INNER JOIN usuario as u ON c.id_usuario = u.idusuario"
+			+ " INNER JOIN video as v ON c.id_video=v.idvideo"
+			+ " ORDER BY idcomentario DESC;";
 
-	private final String SQL_GET_BY_ID = "SELECT idcomentario, fecha, texto, aprobado, id_video, id_usuario"
-			+ " FROM comentario" + " WHERE idcomentario = ?";
+	private final String SQL_GET_BY_ID = "SELECT c.*, u.nombre as 'us_nombre', v.nombre as 'vid_nombre'"
+			+ " FROM comentario as c INNER JOIN usuario as u ON c.id_usuario = u.idusuario"
+			+ " INNER JOIN video as v ON c.id_video=v.idvideo"
+			+ " WHERE idcomentario = ?;";
 
-	private final String SQL_GET_BY_ID_VIDEO = "SELECT idcomentario, fecha, texto, aprobado, id_video, id_usuario, u.nombre"
-			+ " FROM comentario, usuario as u" 
-			+ " WHERE id_usuario = u.idUsuario AND id_video = ?";
+	private final String SQL_GET_BY_ID_VIDEO = "SELECT c.*, u.nombre as 'us_nombre', v.nombre as 'vid_nombre'"
+			+ " FROM comentario as c INNER JOIN usuario as u ON c.id_usuario = u.idusuario"
+			+ " INNER JOIN video as v ON c.id_video=v.idvideo"
+			+ " WHERE idvideo = ?;";
+	
+	private final String SQL_GET_BY_APROBADOS = "SELECT c.*, u.nombre as 'us_nombre', v.nombre as 'vid_nombre'"
+			+ " FROM comentario as c INNER JOIN usuario as u ON c.id_usuario = u.idusuario"
+			+ " INNER JOIN video as v ON c.id_video=v.idvideo"
+			+ " WHERE aprobado = ?;";
 
 	private final String SQL_INSERT = "INSERT INTO comentario (texto, id_usuario, id_video) VALUES (?, ?, ?);";
-	private final String SQL_UPDATE = "UPDATE comentario SET texto = ? WHERE idcomentario = ?;";
+	private final String SQL_UPDATE = "UPDATE comentario SET aprobado = ? WHERE idcomentario = ?;";
 	private final String SQL_DELETE = "DELETE FROM comentario WHERE idcomentario = ?;";
 
 	private ComentarioDAO() {
@@ -67,6 +78,27 @@ public class ComentarioDAO implements CrudAble<Comentario> {
 				PreparedStatement ps = cnx.prepareStatement(SQL_GET_BY_ID_VIDEO);) {
 
 			ps.setLong(1, id);
+			try (ResultSet rs = ps.executeQuery();) {
+
+				while (rs.next()) {
+
+					comentarios.add(rowMapper(rs)); // Mapear ResultSet
+				}
+			}
+		}
+		
+		return comentarios;
+
+	}
+	
+	public List<Comentario> getAllByAprobado(int aprobado) throws Exception {
+
+		ArrayList<Comentario> comentarios = new ArrayList<Comentario>();
+
+		try (Connection cnx = ConnectionManager.getConnection();
+				PreparedStatement ps = cnx.prepareStatement(SQL_GET_BY_APROBADOS);) {
+
+			ps.setLong(1, aprobado);
 			try (ResultSet rs = ps.executeQuery();) {
 
 				while (rs.next()) {
@@ -139,12 +171,10 @@ public class ComentarioDAO implements CrudAble<Comentario> {
 		try (Connection cnx = ConnectionManager.getConnection();
 				PreparedStatement ps = cnx.prepareStatement(SQL_UPDATE)) {
 
-			ps.setString(1, pojo.getTexto().trim());
-			/*
-			 * ps.setString(2, pojo.getNombre()); ps.setLong(3, pojo.getUsuario().getId());
-			 * // FK id_usuario ps.setLong(4, pojo.getId());
-			 */
-
+			ps.setBoolean(1, pojo.isAprobado());
+			ps.setLong(2, pojo.getId());
+			
+			
 			if (ps.executeUpdate() == 1) {
 				result = true;
 			}
@@ -178,6 +208,8 @@ public class ComentarioDAO implements CrudAble<Comentario> {
 		Comentario comentario = new Comentario();
 		
 		Usuario usuario = new Usuario();
+		
+		Video video = new Video();
 
 		if (rs != null) {
 
@@ -188,9 +220,13 @@ public class ComentarioDAO implements CrudAble<Comentario> {
 			comentario.setFecha(rs.getTimestamp("fecha"));
 			
 			usuario.setId(rs.getLong("id_usuario"));
-			usuario.setNombre(rs.getString("nombre"));
+			usuario.setNombre(rs.getString("us_nombre"));
+			
+			video.setId(rs.getLong("id_video"));
+			video.setNombre(rs.getString("vid_nombre"));
 			
 			comentario.setUsuario(usuario);
+			comentario.setVideo(video);
 
 		}
 

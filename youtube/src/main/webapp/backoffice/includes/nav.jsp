@@ -33,7 +33,10 @@
                         </li>
                         <li>
                             <a href="videos"><i class="fas fa-video"></i> Videos</a>
-                        </li>   
+                        </li> 
+                        <li>
+                            <a href="comentarios"><i class="fas fa-comments"></i> Comentarios</a>
+                        </li>          
                     </ul>
                 </div>
                 <!-- /.sidebar-collapse -->

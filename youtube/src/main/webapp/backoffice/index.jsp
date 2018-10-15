@@ -1,3 +1,5 @@
+<%@page import="com.ipartek.formacion.youtube.controller.back.BackofficeComentarioController"%>
+<%@page import="com.ipartek.formacion.youtube.model.ComentarioDAO"%>
 <%@ include file="includes/header.jsp" %>
 <%@ include file="includes/nav.jsp" %>
 
@@ -78,9 +80,32 @@
               </div>
           </div>
                 
+         <div class="col-lg-3 col-md-6">
+              <div class="panel panel-yellow">
+                  <div class="panel-heading">
+                      <div class="row">
+                          <div class="col-xs-3">
+                              <i class="fas fa-comments fa-5x"></i>
+                          </div>
+                          <div class="col-xs-9 text-right">
+                              <div class="huge">${ comentarios }</div>                              
+                          </div>
+                      </div>
+                  </div>
+                  <a href="comentarios?op=${ BackofficeComentarioController.OP_VER_PENDIENTES}">
+                      <div class="panel-footer">
+                          <span class="pull-left">Aprobar Comentarios</span>
+                          <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                          <div class="clearfix"></div>
+                      </div>
+                  </a>
+              </div>
+      	</div> <!-- /.col-lg-3 -->
       
       </div>
       <!-- /.row -->
+      
+ 
   </div>
   <!-- /#page-wrapper -->
 

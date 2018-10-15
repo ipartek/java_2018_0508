@@ -1,7 +1,8 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top" role="navigation">
     <div class="container">
         
-        <a class="navbar-brand" href="inicio">Lista de Reproducción</a>
+        <a class="navbar-brand" href="inicio">Lista de ReproducciÃ³n</a>
         
         <button class="navbar-toggler border-0" type="button" data-toggle="collapse" data-target="#exCollapsingNavbar">
             &#9776;
@@ -12,7 +13,7 @@
             <!-- SEARCH BAR -->
             <form class="form-inline text-center ml-auto">
             	<div class="input-group stylish-input-group">
-                    <input type="text" class="form-control"  placeholder="Código o título del video" size="40">
+                    <input type="text" class="form-control"  placeholder="CÃ³digo o tÃ­tulo del video" size="40">
                     <span class="input-group-text">
                         <button type="submit">
                             <i class="fas fa-search"></i>
@@ -24,7 +25,7 @@
             <ul class="nav navbar-nav flex-row ml-auto">
                 
                 <li class="nav-item order-2 order-md-1">
-                	<a href="#" class="nav-link" title="Ajustes">
+                	<a href="backoffice" class="nav-link" title="Ajustes">
                 		<i class="fa fa-cog fa-fw fa-lg"></i>
                 	</a>
                 </li>
