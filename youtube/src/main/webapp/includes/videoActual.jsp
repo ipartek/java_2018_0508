@@ -34,12 +34,12 @@
 		</div>
 		<div class="card-body">
 		<!-- Si hay comentarios los pinta -->
-			<c:if test="${not empty comentario}">
+			<c:if test="${not empty comentarios}">
 				<ul class="group-list">
-					<c:forEach items="${comentario}" var="c">
+					<c:forEach items="${comentarios}" var="c">
 						<li class="list-group-item">
 							<p class="card-text">${c.texto}</p>
-							<small class="text-muted">Escrito por ${c.autor}</small>
+							<small class="text-muted">Escrito por ${c.usuario.nombre} -- ${c.fecha}</small>
 						</li>
 					</c:forEach>
 				</ul>

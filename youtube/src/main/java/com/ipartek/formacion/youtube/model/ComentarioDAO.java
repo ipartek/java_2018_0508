@@ -24,6 +24,11 @@ public class ComentarioDAO implements CrudAble<Comentario> {
 	private final String SQL_DELETE = "DELETE FROM Comentario WHERE id = ?;";
 	private final String SQL_INSERT = "INSERT INTO Comentario (texto, id_usuario, id_video) VALUES (?, ?, ?);";
 
+	private final String SQL_GET_BY_ID_VIDEO = "SELECT c.id, c.fecha, c.texto, c.aprobado,c.id_video as id_where, v.id as id_video, v.nombre as n_video,u.id as id_usuario, u.nombre as n_usuario "+
+			"FROM Comentario as c "+
+			"INNER JOIN Video as v ON c.id_video = v.id "+
+			"INNER JOIN Usuario as u ON c.id_usuario = u.id "+
+			"WHERE c.id_video = ? AND c.aprobado = 1;";
 	private final String SQL_GET_NO_APROBADOS = "SELECT c.id, c.fecha, c.texto, c.aprobado, v.id as id_video, v.nombre as n_video,u.id as id_usuario, u.nombre as n_usuario "+
 			"FROM Comentario as c "+
 			"INNER JOIN Video as v ON c.id_video = v.id "+
@@ -148,6 +153,28 @@ public class ComentarioDAO implements CrudAble<Comentario> {
 			e.printStackTrace();
 		}		
 		return resul;
+	}
+	
+	public List<Comentario> getByIdVideo(String id_video) throws Exception {
+		
+		ArrayList<Comentario> comentarios = new ArrayList<Comentario>();
+		try (Connection con = ConnectionManager.getConnection();
+
+				) {
+					try (PreparedStatement ps = con.prepareStatement(SQL_GET_BY_ID_VIDEO);) {
+						ps.setString(1, id_video);
+						ResultSet rs = ps.executeQuery();
+						
+						while (rs.next()) {
+
+							comentarios.add(rowMapper(rs));
+
+						}
+					}
+
+				}
+
+		return comentarios;
 	}
 	
 	private Comentario rowMapper(ResultSet rs) throws Exception {
