@@ -11,7 +11,7 @@
 		</c:if>
 	
 		<c:forEach items="${comentarios}" var="c">
-			<p>${c.texto}</p>
+			<p class="textoComentario">${c.texto}</p>
 			<small class="text-muted">Publicado por ${c.usuario.nombre} el <fmt:formatDate value="${c.fecha}" pattern="dd/MM/yyyy HH:mm"/> </small>
 			<hr>
 		</c:forEach>
@@ -26,16 +26,8 @@
 					<input type="hidden" name="id_video" value="${videoInicio.id}">
 					<input type="submit" class="btn btn-success" value="<fmt:message key="boton.comentar"/>">
 				</form>
-				<hr>
 			</div>
 		</c:if>
-		
-<!-- 		<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. -->
-<!-- 			Omnis et enim aperiam inventore, similique necessitatibus neque -->
-<!-- 			non! Doloribus, modi sapiente laboriosam aperiam fugiat laborum. -->
-<!-- 			Sequi mollitia, necessitatibus quae sint natus.</p> -->
-<!-- 		<small class="text-muted">Posted by Anonymous on 3/1/17</small> -->
-<!-- 		<hr> -->
 		
 	</div>
 </div>

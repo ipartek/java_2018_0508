@@ -64,6 +64,9 @@
 								<c:if test="${usuario.rol.id == Rol.ROL_ADMIN }">
 									<a class ="text-center" href="backoffice/inicio"><fmt:message key="boton.backoffice"/></a>
 								</c:if>
+								<c:if test="${usuario.rol.id == Rol.ROL_USER }">
+									<a class ="text-center" href="perfil/inicio">Mi perfil</a>
+								</c:if>
 								<span class="text-center" style="color:#FFF">
 									<i class="fas fa-user mr-1"></i> 
 									${usuario.nombre} |
