@@ -8,10 +8,16 @@
 	color: #f00;
 }
 
+.scroll-text{
+	max-height:20vh;
+	overflow-y: scroll;
+}
+
 
 /*Formulario comentario
-*************************************+*/
+**************************************/
 .form-comentario textarea{
+	
 	width: 85% !important;
 }
 

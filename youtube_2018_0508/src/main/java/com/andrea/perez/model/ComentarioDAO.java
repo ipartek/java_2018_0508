@@ -22,10 +22,11 @@ public class ComentarioDAO implements Crudable<Comentario> {
 			+ " ORDER BY c.id DESC LIMIT 500;";
 	private final String SQL_GET_BY_ID = "SELECT id, nombre FROM comentario WHERE id = ?;";
 	private final String SQL_UPDATE = "UPDATE comentario SET aprobado= ? WHERE id = ?;";
+	private final String SQL_APROBAR = "UPDATE comentario SET aprobado = 1 WHERE id IN "; // IN (1,3);
 	private final String SQL_DELETE = "DELETE FROM comentario WHERE id = ?;";
 	private final String SQL_INSERT = "INSERT INTO `youtube`.`comentario` (`texto`, `id_video`, `id_usuario`) VALUES (?, ?, ?);";
-	private final String SQL_GET_APROBAR = " SELECT c.id as 'id_comentario', u.id as 'id_usuario',fecha,texto,aprobado,u.nombre,id_video"
-			+ " FROM comentario as c , usuario as u " + " WHERE c.id_usuario = u.id AND c.aprobado=0"
+	private final String SQL_GET_APROBAR = " SELECT c.id as 'id_comentario', u.id as 'id_usuario',fecha,texto,aprobado,u.nombre,id_video,v.nombre as 'nombre_video'"
+			+ " FROM comentario as c , usuario as u,video v " + " WHERE c.id_usuario = u.id AND c.id_video=v.id AND c.aprobado=0"
 			+ " ORDER BY c.id DESC LIMIT 500;";
 	private final String SQL_UPDATE_APROBAR = "UPDATE comentario SET aprobado=? WHERE id=?;";
 
@@ -137,6 +138,33 @@ public class ComentarioDAO implements Crudable<Comentario> {
 		}
 		return resul;
 	}
+	
+	public boolean aprobar(String[] ids) throws Exception {
+
+		boolean resul = false;
+
+		String in = "(";
+		for (int i = 0; i < ids.length; i++) {			
+			if ( i == (ids.length-1)) {
+				in += ids[i];
+			}else {
+				in += ids[i] + ",";	
+			}			
+		}
+		in += ");";
+		String sql = SQL_APROBAR + in;
+
+		try (Connection con = ConnectionManager.getConnection(); 
+			PreparedStatement ps = con.prepareStatement(sql); ) {
+
+			int affectedRows = ps.executeUpdate();
+			if (affectedRows == ids.length) {
+				resul = true;
+			}
+
+		}
+		return resul;
+	}
 
 	@Override
 	public boolean delete(String id) {
@@ -189,13 +217,10 @@ public class ComentarioDAO implements Crudable<Comentario> {
 
 				int affectedRows = ps.executeUpdate();
 
-				if (affectedRows == 1) {
+				if (affectedRows == idComent.length) {
 					resul = true;
 				}
 			}
-			
-
-			
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -218,9 +243,15 @@ public class ComentarioDAO implements Crudable<Comentario> {
 
 			c.setUsuario(usuario);
 
-			Video video = new Video();
-			video.setId(rs.getLong("id_video"));
-			c.setVideo(video);
+			try {
+				Video video = new Video();
+				video.setId(rs.getLong("id_video"));
+				video.setTitulo(rs.getString("nombre_video"));
+				c.setVideo(video);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			
 
 		}
 		return c;

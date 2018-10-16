@@ -73,7 +73,7 @@ public class backofficeComentariosAprobar extends HttpServlet {
 
 		try {
 			if (comentariosAprobados.length > 0) {
-				if (daoComentario.updateAprobar(comentariosAprobados)) {
+				if (daoComentario.aprobar(comentariosAprobados)) {
 					request.setAttribute("comentarios", daoComentario.getAllAprobarComentario());
 					alert = new Alert(Alert.ALERT_SUCCESS, "Comentarios aprobados correctamente");
 				} else {

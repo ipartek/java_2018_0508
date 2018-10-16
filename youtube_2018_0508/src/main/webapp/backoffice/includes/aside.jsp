@@ -40,10 +40,10 @@
 	                <a href="videos"><i class="fa fa-table fa-fw"></i> Vídeos</a>
 	            </li>
 	            <li>
-	                <a href="roles"><i class="fa fa-sitemap fa-fw"></i> Roles</a>
+	               <a href="roles"><i class="fa fa-sitemap fa-fw"></i> Roles</a>
 	            </li>
 	            <li>
-	            	<a href="comentarios/aprobar" ><i class="fa fa-sitemap fa-fw"></i> Comentarios</a>  
+	            	<a href="comentarios/aprobar"><i class="fas fa-comments fa-fw"></i> Comentarios</a>  
 	            </li>
         	</ul>
     	</div>

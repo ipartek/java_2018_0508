@@ -30,7 +30,7 @@
     <link href="https://blackrockdigital.github.io/startbootstrap-shop-item/css/shop-item.css" rel="stylesheet">
     
    <!-- Custom Styles -->
-<link  href="css/styles.css" rel="stylesheet">
+<link rel="stylesheet" href="css/styles.css?<%=System.currentTimeMillis()%>">
 </head>
 
 <body>

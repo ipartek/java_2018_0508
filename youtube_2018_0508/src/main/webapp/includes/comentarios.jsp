@@ -12,7 +12,7 @@
 		</c:if>
 	
 		<c:forEach items="${comentarios}" var="c">
-			<p>${c.texto}</p>
+			<p class="scroll-text">${c.texto}</p>
 			<small class="text-muted">Publicado por ${c.usuario.nombre} el <fmt:formatDate value="${c.fecha}" pattern="dd/MM/yyyy HH:mm"/> </small>
 			<hr>
 		</c:forEach>

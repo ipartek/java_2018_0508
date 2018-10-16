@@ -39,3 +39,20 @@ div.modal-fondo{
 .pie-tarjeta{
 	padding-left: 4px;
 }
+
+.btn-aprobar{
+	    font-size: 1em;
+}
+
+/*icono cursor mano*/
+.hover-hand{
+	cursor:pointer;
+}
+
+.modal-body {
+    max-height: 50vh;
+    overflow-y: auto;
+}
+
+
+

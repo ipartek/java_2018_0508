@@ -21,6 +21,7 @@
 		        		"url": "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Spanish.json"
 		       		}		            
 		        });
+		        $('[data-toggle="tooltip"]').tooltip(); 
 		    });
 		    
 		    //funcion para el confirm de eliminar 
@@ -63,6 +64,9 @@
 				comentario.innerHTML = texto;
 			}
 		  
+		  
+		  
+		 
 		    
 	    </script>
 		

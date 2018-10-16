@@ -31,8 +31,11 @@
 	                         <table width="100%" class="table table-striped table-bordered table-hover" id="dataTable-ordenable">
 	                                <thead>
 	                                    <tr>
-	                                        <th>Aprobado</th>
+	                                    	<th>Id</th>
+	                                        <th>Aprobar</th>
+	                                        <th>Fecha</th>
 	                                        <th>Usuario</th>
+	                                        <th>Video</th>
 	                                        <th>Texto</th>
 	                                        
 	                                    </tr>
@@ -40,16 +43,22 @@
 	                                <tbody>
 		                                <c:forEach items="${comentarios}" var="c">
 		                                	 <tr>
+		                                	 	<td>${c.id }</td>
 		                                        <td><input type="checkbox" name="aprobado" value="${c.id }"></td>
+		                                        <td>${c.fecha}</td>
 		                                        <td>${c.usuario.nombre}</td>
-		                                        <td onclick="showModalComentario(${c.id},'${c.texto}')"><p class="comentarioCorto">${c.texto}</p></td>                   
+		                                        <td data-toggle="tooltip" title="${c.video.titulo}">${fn:substring(c.video.titulo,0,25)}...</td>
+		                                        <td class="hover-hand" onclick="showModalComentario(${c.id},'${c.texto}')"><p class="comentarioCorto">${c.texto}</p></td>                   
 		                                    </tr>
 		                                </c:forEach>
 	                                </tbody>
 	                                <tfoot>
 	                                	<tr>
-	                                        <th>Aprobado</th>
+	                                		<th>Id</th>
+	                                        <th>Aprobar</th>
+	                                        <th>Fecha</th>
 	                                        <th>Usuario</th>
+	                                        <th>Video</th>
 	                                        <th>Texto</th>                                        
 	                                    </tr>
 	                                </tfoot>
@@ -57,7 +66,7 @@
 	                            <!-- /.table-responsive -->
 	                        </div>
 	                        <!-- /.panel-body -->
-	                        <input type="submit" name="aceptar" value="aprobar Comentarios">
+	                        <input type="submit" name="aceptar" value="aprobar Comentarios" class="btn btn-info btn-block btn-aprobar">
                         </form>
                     </div>
                     <!-- /.panel -->
@@ -69,6 +78,8 @@
         <!-- /#page-wrapper -->
     </div>
     <!-- /#wrapper -->
+    
+    
     
     <!-- Modal para leer comentario completo -->
 		    <div class="modal fade" id="modalVerComentario" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
