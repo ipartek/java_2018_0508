@@ -15,7 +15,7 @@
         	<form action="comentarios/aprobar" method="post">
         		<div class="row">
 	                <div class="col-lg-12">
-	                    <h1 class="page-header">Comentarios <span class="badge">${comentarios.size()}</span></h1>
+	                    <h1 class="page-header">Comentarios sin aprobar <span class="badge">${comentarios.size()}</span></h1>
 	                </div>
 	                <!-- /.col-lg-12 -->
             	</div>
@@ -32,6 +32,8 @@
 	                                <thead>
 	                                    <tr>
 	                                    	<th></th>
+	                                    	<th>Id</th>
+	                                    	<th>Fecha creación</th>
 	                                        <th>Usuario</th>
 	                                        <th>Comentario</th>
 	                                    </tr>
@@ -39,7 +41,9 @@
 	                                <tbody>
 	                                <c:forEach items="${comentarios}" var="c">
 	                                	 <tr>
-	                                	 	<th><input type="checkbox" value="${c.id}" name="checkboxAprobar"/> </th>
+	                                	 	<td><input type="checkbox" value="${c.id}" name="checkboxAprobar"/> </td>
+	                                	 	<td>${c.id}</td>
+	                                	 	<td>${c.fecha}</td>
 	                                        <td>${c.usuario.nombre}</td>
 	                                        <td onclick="showModalComentario(${c.id},'${c.texto}')"><p class="comentarioCorto">${c.texto}</p></td>
 	                                    </tr>
@@ -48,6 +52,8 @@
 	                                <tfoot>
 	                                	<tr>
 	                                		<th></th>
+	                                		<th>Id</th>
+	                                		<th>Fecha creación</th>
 	                                		<th>Usuario</th>
 	                                		<th>Comentario</th>
 	                                	</tr>
@@ -64,7 +70,7 @@
 	            <!-- /.row -->
             	<div class="row">
 	            	<div class="col-md-4 col-md-offset-8">
-                    	<input type="submit" value="Aprobar" class="form-control btn btn-primary btn-block" />
+                    	<input type="submit" value="Aprobar Comentarios" class="form-control btn btn-primary btn-block" />
                 	</div>
             	</div>
         	</form>

@@ -53,7 +53,7 @@ public class BackofficeComentarioAprobar extends HttpServlet{
 //					comentariosSinAprobar.add(comentarios.get(i));
 //				}
 //			}
-			request.setAttribute("comentarios", daoComentarios.getAll());
+			request.setAttribute("comentarios", daoComentarios.getAllByAprobado());
 		}catch(Exception e) {
 			e.printStackTrace();
 		}finally {
@@ -69,21 +69,23 @@ public class BackofficeComentarioAprobar extends HttpServlet{
 			String[] ids = request.getParameterValues("checkboxAprobar");
 			
 			if(ids.length>0) {
-				for(int i=0;i<ids.length;i++){
-					daoComentarios.aprobar(ids[i]);	
-				}
+//				for(int i=0;i<ids.length;i++){
+//					daoComentarios.aprobar(ids[i]);	
+//				}
+				daoComentarios.aprobar(ids);	
 				alert = new Alert(Alert.ALERT_SUCCESS, "Comentarios aprobados con éxito.");
 			}else {
 				alert = new Alert(Alert.ALERT_WARNING, "No se ha seleccionado ningún comentario.");
 			}
 			
-			request.setAttribute("comentarios", daoComentarios.getAll());
+			request.setAttribute("comentarios", daoComentarios.getAllByAprobado());
 		}catch(Exception e) {
 			alert = new Alert(Alert.ALERT_DANGER, "Ha ocurrido un error no controlado.");
 			e.printStackTrace();
 		}finally {
 			request.setAttribute("alert", alert);
 			request.getRequestDispatcher(VIEW_INDEX_COMENTARIOS).forward(request, response);
+//			response.sendRedirect(request.getContextPath() + "backoffice/comentarios/aprobar");
 		}
 	}
 }

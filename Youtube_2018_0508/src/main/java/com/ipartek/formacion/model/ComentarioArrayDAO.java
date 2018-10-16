@@ -15,9 +15,18 @@ public class ComentarioArrayDAO implements Crudable<Comentario>{
 	
 	private static ComentarioArrayDAO INSTANCE = null;
 	private static List<Comentario> lista = null;
+	public static final String NOT_APROBADO = "0";
+	public static final String APROBADO = "1";
 	
 	//Consultas
 	private final String SQL_GET_ALL = "SELECT c.id as 'id_comentario', c.fecha, c.texto, c.aprobado," 
+										+ " c.id_usuario,"
+										+ " u.nombre as 'nombre_usuario'"
+										+ " FROM comentario as c, "
+										+ " usuario as u"
+										+ " WHERE c.id_usuario = u.id"
+										+ " ORDER BY c.id DESC LIMIT 500";
+	private final String SQL_GET_ALL_BY_APROBADO = "SELECT c.id as 'id_comentario', c.fecha, c.texto, c.aprobado," 
 										+ " c.id_usuario,"
 										+ " u.nombre as 'nombre_usuario'"
 										+ " FROM comentario as c, "
@@ -40,7 +49,7 @@ public class ComentarioArrayDAO implements Crudable<Comentario>{
 //										+ " FROM youtube.video as v, youtube.usuario as u"
 //										+ " WHERE v.id_usuario = u.id AND v.id = ? LIMIT 1000";
 	private final String SQL_UPDATE = "UPDATE comentario SET texto = ?, aprobado = 1 WHERE id = ?;";
-	private final String SQL_APROBAR = "UPDATE comentario SET aprobado = 1 WHERE id = ?;";
+	private final String SQL_APROBAR = "UPDATE comentario SET aprobado = 1 WHERE id IN "; //(1,3);
 	private final String SQL_INSERT = "INSERT INTO comentario (texto, id_video, id_usuario) VALUES (?, ?, ?);";
 	private final String SQL_DELETE = "DELETE FROM comentario WHERE id = ?;";
 	
@@ -97,6 +106,20 @@ public class ComentarioArrayDAO implements Crudable<Comentario>{
 		return comentarios;
 	}
 	
+	public List<Comentario> getAllByAprobado() throws Exception {
+		ArrayList<Comentario> comentarios = new ArrayList<Comentario>();
+		try(Connection con =  ConnectionManager.getConnection();
+			PreparedStatement ps = con.prepareStatement(SQL_GET_ALL_BY_APROBADO);){
+			ResultSet rs = ps.executeQuery();
+	
+			//Mapear ResultSet a ArrayList
+			while(rs.next()) {
+				comentarios.add(rowMapper(rs));
+			}
+		}
+		return comentarios;
+	}
+	
 	public List<Comentario> getAllByVideo(Long idVideo) throws Exception {
 		List<Comentario> listaComentarios = new ArrayList<Comentario>();
 		try(Connection con =  ConnectionManager.getConnection();
@@ -143,14 +166,34 @@ public class ComentarioArrayDAO implements Crudable<Comentario>{
 		return resul;
 	}
 	
-	public boolean aprobar(String id) throws SQLException {
+	public boolean aprobar(String [] ids) throws SQLException {
 		boolean resul = false;
-		try(Connection con =  ConnectionManager.getConnection();
-			PreparedStatement ps = con.prepareStatement(SQL_APROBAR);){
+		
+		String in = "(";
+		
+		for(int i = 0; i<ids.length;i++) {
 			
-			ps.setLong(1, Long.parseLong(id));			
+			if(i != ids.length-1) {
+				in += ",";
+			}else {
+				in += ids[i];
+			}
+		}
+		
+		in += ");";
+		
+		String sql = SQL_APROBAR + in;
+		
+		try(Connection con =  ConnectionManager.getConnection();
+			PreparedStatement ps = con.prepareStatement(sql);){
+			
+//			ps.setLong(1, Long.parseLong(id));			
 			
 			int affectedRows = ps.executeUpdate();
+			
+			if(affectedRows == ids.length) {
+				resul = true;
+			}
 			
 			if(affectedRows == 1) {
 				resul = true;
