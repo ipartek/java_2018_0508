@@ -29,7 +29,12 @@
 							<li class="nav-item">
 								<div class="text-light text-right m-1">
 									Bienvenido ${usuario.nombre} <i class="fas fa-user-circle"></i>
-									<a class="text-pika-yellow" href="backoffice/inicio">Acceder BackOffice</a>
+									<c:if test="${usuario.rol == 0}">
+										<a class="text-pika-yellow" href="backoffice/inicio">Acceder BackOffice</a>
+									</c:if>
+									<c:if test="${usuario.rol != 0}">
+										<a class="text-pika-yellow" href="perfil">Acceder Mi Perfil</a>
+									</c:if>
 									<a class="text-pika-yellow" href="logout">Cerrar Sesion</a>
 								</div>
 							</li>
