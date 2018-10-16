@@ -31,7 +31,6 @@ public class LogoutController extends HttpServlet {
 
 	private void doProcess(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		HttpSession session = request.getSession();
-//		Cookie[] cookies = request.getCookies();
 		
 		try {
 			if(session != null) {
@@ -43,8 +42,6 @@ public class LogoutController extends HttpServlet {
 		}catch(Exception e) {
 			e.printStackTrace();
 		}finally {
-			//request.setAttribute("alert", new Alert(Alert.ALERT_PRIMARY, "Has cerrado sesión."));
-			//request.getRequestDispatcher("/").forward(request, response);
 			response.sendRedirect(request.getContextPath() + "/inicio");
 		}
 	}
