@@ -6,7 +6,9 @@ body {
 	background-color: #F4EEFE;
 	/*#FC965C*/
 }
-
+.body-perfil{
+	background-color: #fdcaad;
+}
 ul, li {
 	list-style: none;
 }
@@ -65,8 +67,16 @@ td[onclick]:hover,td[data-toggle]:hover{
 	background-color: #965CFC;
 }
 
+.bg-pika-orange{
+	background-color: #FC965C;
+}
+
 .bg-pika-kard {
 	background-color: #FFF;
+}
+
+.text-pika-brown{
+	color:#7e4b2e;
 }
 
 .text-pika-purple {
@@ -112,7 +122,9 @@ a.text-pika-blue:hover {
 a.text-pika-purple:hover {
 	color: #965CFC !important;
 }
-
+a.text-pika-brown:hover{
+	color:#7e4b2e !important;
+}
 .btn-main{
 	display: inline-block;
     font-weight: 400;
