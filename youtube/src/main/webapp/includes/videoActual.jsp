@@ -37,7 +37,7 @@
 			<c:if test="${not empty comentarios}">
 					<c:forEach items="${comentarios}" var="c">
 						<div class="comentario">
-							<p class="card-text">${c.texto}</p>
+							<p class="card-text" onclick="showModalDetalle('${c.texto}')">${fn:substring(c.texto,0,55)}...</p>
 							<small class="text-pika-red">Escrito por ${c.usuario.nombre} -- ${c.fecha}</small>
 						</div>
 					</c:forEach>
@@ -60,4 +60,20 @@
 		</div>
 	</div>
 	<!-- Fin Comentarios -->
+</div>
+<div id="modal-detalle" class="modal fade" role="dialog">
+	<div class="modal-dialog">
+		<!-- Modal content-->
+		<div class="modal-content">
+			<div class="modal-header bg-pika-blue">
+				<h4 class="modal-title">Detalle del comentario</h4>
+				<button type="button" class="close" data-dismiss="modal">&times;</button>
+			</div>
+			<div class="modal-body">
+				<p id="texto_comentario"></p>
+				<button type="button" class="btn-main btn-outline-pika-blue btn-block" data-dismiss="modal">Cerrar</button>
+			</div>
+			<div class="modal-footer bg-pika-blue"></div>
+		</div>
+	</div>
 </div>
