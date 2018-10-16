@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.ipartek.formacion.youtube.model.ComentarioDAO;
+import com.ipartek.formacion.youtube.pojo.Alert;
 
 /**
  * Servlet implementation class BackofficeComentarioAprobarController
@@ -18,6 +19,8 @@ import com.ipartek.formacion.youtube.model.ComentarioDAO;
 public class BackofficeComentarioAprobarController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private static ComentarioDAO daoComentario;
+	private static final String VIEW = "../comentarios/aprobar.jsp";
+	private Alert alert;
 	
     
 	@Override
@@ -39,14 +42,14 @@ public class BackofficeComentarioAprobarController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		try {
-			request.setAttribute("comentarios", daoComentario.getAllByAprobado());
+			request.setAttribute("comentarios", daoComentario.getAllByAprobado(0));
 			
 		} catch (Exception e) {
 			e.printStackTrace();
 			
 		}
 		
-		request.getRequestDispatcher("../comentarios/aprobar.jsp").forward(request, response);
+		request.getRequestDispatcher(VIEW).forward(request, response);
 		
 		
 	}
@@ -56,21 +59,37 @@ public class BackofficeComentarioAprobarController extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		String ids[] = request.getParameterValues("id");
-		
-		long[] data = new long[ids.length];
-		for (int i = 0; i < ids.length; i++) {
-		  data[i] = Long.valueOf(ids[i]);
-		}
+		alert = null;
 		
 		try {
-			if(daoComentario.aprobar(data)){
-				request.setAttribute("comentarios", daoComentario.getAllByAprobado());
-				request.getRequestDispatcher("../comentarios/aprobar.jsp").forward(request, response);
+			
+		String ids[] = request.getParameterValues("id");
+		
+		if(ids != null) {
+						
+			if(daoComentario.aprobar(ids)){
+				alert = new Alert(Alert.SUCCESS, "Los comentarios han sido aprobados");
+				
+			}else {
+				alert = new Alert(Alert.DANGER, "No hemos podido aprobar los comentarios");
 			}
 			
+		}else {
+			alert = new Alert(Alert.WARNING, "Por favor, selecciona un comentario para aprobar");
+		}
+		
 		} catch (Exception e) {
 			e.printStackTrace();
+			alert = new Alert();
+		
+		}finally {
+			request.setAttribute("alert", alert);
+			try {
+				request.setAttribute("comentarios", daoComentario.getAllByAprobado(0));
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			request.getRequestDispatcher(VIEW).forward(request, response);
 		}
 				
 	}

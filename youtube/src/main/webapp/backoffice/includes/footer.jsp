@@ -24,6 +24,10 @@
 		    	"pageLength": 25
 		    } );
 		} );
+    	
+	    $(function () {
+	    	$('[data-toggle="tooltip"]').tooltip()
+	    })
     
     	function confirmar(e){
     		
@@ -54,7 +58,7 @@
 		function showModalComentario(nombre, texto){
 			console.log("showModalModificar id = " +texto);
 			$('#modalComentario').modal('show');
-			document.getElementById('cabeceraModal').innerHTML = "Comentario de " + nombre;
+			document.getElementById('cabeceraModal').innerHTML = "Comentario de <span>" + nombre + "</span>";
 			document.getElementById('textoComentario').innerHTML = texto;
 		}
     	

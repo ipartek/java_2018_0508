@@ -34,6 +34,10 @@
                             <a href="roles" class="rol"><i class="fas fa-address-card"></i> Roles</a>
                         </li>
                         
+                        <li>
+                            <a href="comentarios/aprobar" class="comentario"><i class="fas fa-comments"></i> Comentarios</a>
+                        </li>
+                        
                         
                     </ul>
                 </div>

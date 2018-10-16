@@ -89,11 +89,11 @@
                         <div class="panel-heading">
                             <div class="row">
                                 <div class="col-xs-3">
-                                    <i class="far fa-comment fa-4x"></i>
+                                    <i class="far fa-comments fa-4x"></i>
                                 </div>
                                 <div class="col-xs-9 text-right">
                                     <div class="huge">${fn:length(comentarios)}</div>
-                                	<div>Comentarios pendientes de moderación</div>
+                                	<div>Comentarios</div>
                                 </div>
                             </div>
                         </div>

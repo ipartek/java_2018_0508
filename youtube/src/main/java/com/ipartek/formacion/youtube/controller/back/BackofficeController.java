@@ -63,7 +63,7 @@ public class BackofficeController extends HttpServlet {
 			request.setAttribute("usuarios", daoUsuario.getAll());
 			request.setAttribute("videos", daoVideo.getAll());
 			request.setAttribute("roles", daoRol.getAll());
-			request.setAttribute("comentarios", daoComentario.getAllByAprobado());
+			request.setAttribute("comentarios", daoComentario.getAllByAprobado(0));
 			
 		} catch (Exception e) {
 			e.printStackTrace();

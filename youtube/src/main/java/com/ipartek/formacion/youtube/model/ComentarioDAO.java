@@ -8,6 +8,7 @@ import java.util.List;
 
 import com.ipartek.formacion.youtube.pojo.Comentario;
 import com.ipartek.formacion.youtube.pojo.Usuario;
+import com.ipartek.formacion.youtube.pojo.Video;
 import com.mysql.jdbc.Statement;
 
 public class ComentarioDAO implements CrudAble<Comentario> {
@@ -22,13 +23,13 @@ public class ComentarioDAO implements CrudAble<Comentario> {
 	
 	private final String SQL_INSERT = "INSERT INTO comentario (texto,id_video,id_usuario) VALUES (?,?,?);";
 	
-	private final String SQL_GET_ALL_BY_APROBADO = "SELECT c.id as 'id_comentario', texto,  u.id as 'id_usuario', c.id_video, fecha, aprobado,  u.nombre as 'nombre_usuario'" + 
-												   " FROM comentario as c, usuario as u" + 
-												   " WHERE c.id_usuario = u.id AND aprobado = '0'" + 
+	private final String SQL_GET_ALL_BY_APROBADO = "SELECT c.id as 'id_comentario', texto, v.id as 'id_video', v.nombre as 'nombre_video',  u.id as 'id_usuario', c.id_video, fecha, aprobado,  u.nombre as 'nombre_usuario'" + 
+												   " FROM comentario as c, usuario as u, video as v" + 
+												   " WHERE c.id_usuario = u.id AND c.id_video = v.id AND aprobado = ?" + 
 												   " ORDER BY c.id DESC" + 
 												   " LIMIT 500;";
 	
-	private final String SQL_APROBAR = "UPDATE comentario SET aprobado = 1 WHERE id = ?"; 
+	private final String SQL_APROBAR = "UPDATE comentario SET aprobado = 1 WHERE id IN "; // IN (1,3);
 	
 	private ComentarioDAO() {
 		super();
@@ -64,13 +65,15 @@ public class ComentarioDAO implements CrudAble<Comentario> {
 		return comentarios;
 	}
 	
-	public List<Comentario> getAllByAprobado() throws Exception {
+	public List<Comentario> getAllByAprobado(int aprobado) throws Exception {
 		Comentario comentario = null;
 		
 		ArrayList<Comentario> comentarios = new ArrayList<Comentario>();
 		
 		try(Connection con = ConnectionManager.getConnection();
 				PreparedStatement ps = con.prepareStatement(SQL_GET_ALL_BY_APROBADO)){
+			
+			ps.setLong(1, aprobado);
 						
 			try(ResultSet rs = ps.executeQuery()){
 
@@ -85,22 +88,37 @@ public class ComentarioDAO implements CrudAble<Comentario> {
 		return comentarios;
 	}
 	
-	public boolean aprobar(long[] ids) throws Exception {
+	public boolean aprobar(String[] ids) throws Exception {
+		
 		boolean resul = false;
 		
+		String in = "(";
+		
 		for (int i = 0; i < ids.length; i++) {
-					
-			try (Connection con = ConnectionManager.getConnection();
-					PreparedStatement ps = con.prepareStatement(SQL_APROBAR);) {
-	
-				ps.setLong(1, ids[i]);
-	
-				if (ps.executeUpdate() == 1) {
-					resul = true;
-				}
-	
-			} 
+			
+			if(i == (ids.length - 1)) {
+				in += ids[i];
+				
+			}else {
+				in += ids[i] + ",";
+			}
+			
 		}
+		
+		in += ");";
+		
+		String sql = SQL_APROBAR + in;
+					
+		try (Connection con = ConnectionManager.getConnection();
+				PreparedStatement ps = con.prepareStatement(sql);) {
+	
+			int affectedRows = ps.executeUpdate();
+				
+			if(affectedRows == ids.length) {
+				resul = true;
+			}
+	
+		} 
 		
 		return resul;
 	}
@@ -169,6 +187,20 @@ public class ComentarioDAO implements CrudAble<Comentario> {
 			u.setNombre(rs.getString("nombre_usuario"));
 			
 			c.setUsuario(u);
+			
+			Video v = new Video();
+			
+			try {
+				
+				v.setId(rs.getLong("id_video"));
+				v.setNombre(rs.getString("nombre_video"));
+				
+				c.setVideo(v);
+				
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			
 		}
 		return c;
 	}
