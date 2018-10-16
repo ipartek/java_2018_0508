@@ -50,8 +50,37 @@
    			}
    			
    		}
+   		function showComentario(elementId){
+   			var el = document.getElementById(elementId)
+   		}
+   		
+   		function showModal(texto, titulo){
+ 			console.log('click showModal texto=' + texto);
+ 			
+ 			document.getElementById('myModalBody').innerHTML = texto;
+ 			document.getElementById('myModalTitle').innerHTML = titulo;
+ 			
+ 			$('#myModal').modal('show');  
+ 		}
    		
    	</script>
+   	<!-- Modal del comentario  -->
+   	<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalTitle">Modal title</h4>
+      </div>
+      <div class="modal-body" id="myModalBody">
+        ...
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+     </div>
+    </div>
+  </div>
+</div>
 	
   </body>
 

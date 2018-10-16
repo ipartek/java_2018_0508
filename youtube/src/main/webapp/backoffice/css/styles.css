@@ -28,6 +28,10 @@ span.numUsuarios{
 	margin-left: 20px;
 	background-color: #286090;
 }
+span.numComentarios{
+	margin-left: 20px;
+	background-color: #c67605;
+}
 img.miniatura{
 	width:100px;
 	height: 75px;
@@ -36,3 +40,8 @@ img.miniatura{
 td.imagen{
 	text-align: center;
 }
+
+td.hover-hand{
+	cursor: pointer;
+}
+

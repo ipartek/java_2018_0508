@@ -29,6 +29,9 @@
                         <li>
                             <a href="roles"><i class="fab fa-youtube"></i> Roles</a>
                         </li>
+                         <li>
+                            <a href="comentarios/aprobar"><i class="fas fa-comments"></i> Comentarios</a>
+                        </li>
                     </ul>
                 </div>
                 <!-- /.sidebar-collapse -->

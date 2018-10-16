@@ -15,6 +15,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.ipartek.formacion.youtube.model.RolDAO;
+import com.ipartek.formacion.youtube.model.UsuarioDAO;
+import com.ipartek.formacion.youtube.pojo.Rol;
 import com.ipartek.formacion.youtube.pojo.Usuario;
 
 /**
@@ -48,7 +51,7 @@ public class FilterBackoffice implements Filter {
 			HttpSession session = req.getSession();
 			Usuario usuario = (Usuario) session.getAttribute("usuario");
 			
-			if ( usuario != null ) {
+			if ( usuario != null && usuario.getRol().getId()==Rol.ROL_ADMIN) {
 				// pass the request along the filter chain
 				chain.doFilter(request, response);
 			}else {
