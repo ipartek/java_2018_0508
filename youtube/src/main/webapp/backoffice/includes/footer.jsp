@@ -12,8 +12,8 @@
 		$('#tablaBackoffice').DataTable({
 			"order" : [ [ 0, "desc" ] ]
 		});
-		cambiarLogo();
 		$('[data-toggle="tooltip"]').tooltip()
+		cambiarLogo();
 	});
 
 	function showModalEliminar(id) {
