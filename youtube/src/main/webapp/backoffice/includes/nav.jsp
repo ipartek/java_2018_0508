@@ -9,7 +9,7 @@
                     <span class="icon-bar"></span>
                 </button>
                 <a class="navbar-brand" href="inicio">Administración</a>
-                <a href="../logout" class="navbar-brand cerrarSesion">Cerrar sesión</a>
+                <a href="../logout" class="navbar-brand cerrarSesion">Cerrar sesión</a> 
             </div>
             <!-- /.navbar-header -->
 
