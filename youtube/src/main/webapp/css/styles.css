@@ -30,6 +30,13 @@ td{
 .form-comentario textarea{
 	width: 85% !important;
 	resize: none;
+	overflow-y: scroll
+}
+
+p.comentario{
+	max-height:200px;
+	overflow-y: scroll;
+	
 }
 
 .form-comentario input[type="submit"]{
