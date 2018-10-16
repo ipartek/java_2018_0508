@@ -30,7 +30,7 @@
     <link href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" rel="stylesheet" type="text/css">
 
     <!-- Custom CSS -->
-    <link href="css/sb-admin-2.css" rel="stylesheet">
+    <link href="css/styles.css" rel="stylesheet">
    
     
    
@@ -43,4 +43,4 @@
 
 <body>
 
-    <div id="wrapper">
+    <div class="container">

@@ -24,7 +24,7 @@ public class FrontofficeController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
 	private static final String VIEW_INICIO = "/perfil/index.jsp";
-
+	
 	private static UsuarioDAO daoUsuario;
 	private static VideoDAO daoVideo;
 	private static RolDAO daoRol;
