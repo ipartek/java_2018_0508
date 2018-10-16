@@ -33,6 +33,7 @@
     <!-- Custom styles for this template -->
     <link href="css/shop-item.css" rel="stylesheet">    
     <link href="css/styles.css" rel="stylesheet"></link>
+    <link rel="shortcut icon" href="images/youtube.ico" type="image/x-icon" />
 
   </head>
 

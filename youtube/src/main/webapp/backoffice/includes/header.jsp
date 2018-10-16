@@ -31,6 +31,7 @@
     
     <link rel="stylesheet" href="css/sb-admin-2.min.css">
     <link rel="stylesheet" href="css/styles.css?<%=System.currentTimeMillis() %>">
+    <link rel="shortcut icon" href="../images/youtube.ico" type="image/x-icon" />
 
 </head>
 
