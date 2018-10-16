@@ -50,7 +50,7 @@ public class FilterBackoffice implements Filter {
 			Usuario usuario = (Usuario) session.getAttribute("usuario");
 			
 			if (usuario != null) {
-				if(usuario != null && usuario.getRol().getId()==Rol.ROL_ADMIN) {
+				if(usuario != null && usuario.getRol().getId() == Rol.ROL_ADMIN) {
 					informacionCliente(req);
 				}else {
 					informacionCliente(req);

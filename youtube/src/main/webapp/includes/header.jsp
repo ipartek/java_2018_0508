@@ -23,6 +23,7 @@
     <meta name="author" content="">
 
     <title>Youtube Video Play List</title>
+	<link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon" />
 
 	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
 	

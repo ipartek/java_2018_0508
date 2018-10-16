@@ -23,3 +23,8 @@ ul.idioma li.active a{
 .form-comentario input[type="submit"]{
 	/*height: 44vh;*/
 }
+
+.comentario-publico{
+	max-height:200px;
+	overflow-y:auto;
+}
