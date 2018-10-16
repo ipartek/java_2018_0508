@@ -83,6 +83,7 @@
 								</div>
 								<button type="submit" class="btn btn-primary mb-1"><fmt:message key="boton.anadir"/></button>
 							</form> 
+							<!-- /form -->
 						</c:if>
 					</li>
 				</ul>
