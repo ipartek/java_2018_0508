@@ -26,6 +26,7 @@
 		            <tr>
 		                <th>id</th>
 		                <th>usuario</th>
+		                <th>video</th>
 		                <th>fecha</th>
 		                <th>texto</th>
 		            </tr>
@@ -35,8 +36,9 @@
 			            <tr>
 			                <td>${c.id} <input type="checkbox" name="ids" value="${c.id}"> </td>
 			                <td>${c.usuario.nombre}</td>
+			                <td class="hover-hand"  data-toggle="tooltip" data-placement="right" title="${c.video.nombre}">${fn:substring(c.video.nombre,0,25)}...</td>
 			                <td>${c.fecha}</td>
-			                <td>${c.texto}</td>
+			                <td class="hover-hand" onclick="showModal('${c.texto}', 'Detalle Comentario' )">${fn:substring(c.texto,0,100)}...</td>
 			            </tr>
 		            </c:forEach>
 		        </tbody>
