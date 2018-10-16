@@ -17,11 +17,13 @@
 	content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <meta name="description" content="videos youtube">
 <meta name="author" content="Andrea">
+
+<link rel="icon" href="images/YouTube_icon.png">
+
+
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css">
 
-
-
-<title>Youtube</title>
+<title>Youtube playList</title>
 
 <!-- Bootstrap core CSS -->
     <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -31,6 +33,8 @@
     
    <!-- Custom Styles -->
 <link rel="stylesheet" href="css/styles.css?<%=System.currentTimeMillis()%>">
+
+
 </head>
 
 <body>
