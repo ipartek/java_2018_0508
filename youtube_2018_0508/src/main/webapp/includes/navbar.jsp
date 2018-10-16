@@ -59,7 +59,11 @@
 							<div class="">
 							<c:if test="${usuario.rol.id==Rol.ROL_ADMIN}">
 								<a class ="mr-2" href="backoffice/index.jsp"><fmt:message key="boton.backoffice"/></a>
-							</c:if>	
+							</c:if>
+							<c:if test="${usuario.rol.id==Rol.ROL_USER}">
+								<a class ="mr-2" href="perfil/index.jsp">Ver mi Perfil</a>
+							</c:if>
+								
 								<span class="text-center" style="color:#FFF">
 									<i class="fas fa-user mr-1 ml-2"></i> 
 									${usuario.nombre} |
