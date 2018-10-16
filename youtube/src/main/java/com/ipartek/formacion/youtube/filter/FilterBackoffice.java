@@ -15,6 +15,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.ipartek.formacion.youtube.pojo.Rol;
 import com.ipartek.formacion.youtube.pojo.Usuario;
 
 /**
@@ -48,18 +49,14 @@ public class FilterBackoffice implements Filter {
 			HttpSession session = req.getSession();
 			Usuario usuario = (Usuario) session.getAttribute("usuario");
 			
-			if ( usuario != null ) {
-				// pass the request along the filter chain
-				chain.doFilter(request, response);
-			}else {
-				
-				//TODO comprobar ROL del usuario
-				
-				informacionCliente(req);
-				
-				//usuario no logeado
-				res.sendRedirect( req.getContextPath() + "/inicio");
-			}	
+			if (usuario != null) {
+				if(usuario != null && usuario.getRol().getId()==Rol.ROL_ADMIN) {
+					informacionCliente(req);
+				}else {
+					informacionCliente(req);
+					res.sendRedirect( req.getContextPath() + "/inicio");
+				}
+			}
 		}catch (Exception e) {
 			e.printStackTrace();
 			res.sendRedirect( req.getContextPath() + "/inicio");

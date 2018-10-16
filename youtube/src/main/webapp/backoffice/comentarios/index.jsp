@@ -37,11 +37,11 @@
 				        <tbody>
 				        	<c:forEach items="${comentarios}" var="c">
 				        		<tr>			            
-					                <td>${c.id}</td>
+					                <td><a href="comentarios?id=${c.id}&op=<%=BackofficeComentarioController.OP_IR_FORMULARIO%>">${c.id}</a></td>
 					                <td>${c.fecha}</td>
-					                <td><a href="comentarios?id=${c.id}&op=<%=BackofficeComentarioController.OP_IR_FORMULARIO%>">${c.texto}</a></td>
+					                <td onclick="showModal('${c.texto}', 'Detalle Comentario');" class="hover-hand">${fn:substring(c.texto, 0, 100)}...</td>
 					                <td>${(not c.aprobado)?'Pendiente de moderación':'Aprobado'}</td>
-					                <td>${c.video.nombre}</td>
+					                <td>${fn:substring(c.video.nombre, 0, 25)}...</td>
 					                <td>${c.usuario.nombre}</td>
 					            </tr>
 				            </c:forEach>
