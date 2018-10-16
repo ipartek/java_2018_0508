@@ -1,4 +1,4 @@
-package com.ipartek.formacion.youtube.controller.back;
+package com.ipartek.formacion.youtube.controller.front;
 
 import java.io.IOException;
 
@@ -13,65 +13,74 @@ import com.ipartek.formacion.youtube.model.ComentarioDAO;
 import com.ipartek.formacion.youtube.model.RolDAO;
 import com.ipartek.formacion.youtube.model.UsuarioDAO;
 import com.ipartek.formacion.youtube.model.VideoDAO;
+import com.ipartek.formacion.youtube.pojo.Alert;
 
 /**
  * Servlet implementation class FrontofficeController
  */
-@WebServlet("/backoffice/inicio")
-public class BackofficeController extends HttpServlet {
-	
+@WebServlet("/perfil/inicio")
+public class FrontofficeController extends HttpServlet {
+
 	private static final long serialVersionUID = 1L;
-	private static final String VIEW_INICIO = "/backoffice/index.jsp";
 	
+	private static final String VIEW_INICIO = "/perfil/index.jsp";
+
 	private static UsuarioDAO daoUsuario;
 	private static VideoDAO daoVideo;
 	private static RolDAO daoRol;
 	private static ComentarioDAO daoComentario;
-    
+	
+	private static Alert alert;
+
 	@Override
-	public void init(ServletConfig config) throws ServletException {		
+	public void init(ServletConfig config) throws ServletException {
 		super.init(config);
 		daoUsuario = UsuarioDAO.getInstance();
 		daoVideo = VideoDAO.getInstance();
 		daoRol = RolDAO.getInstance();
 		daoComentario = ComentarioDAO.getInstance();
 	}
-	
+
 	@Override
-	public void destroy() {		
+	public void destroy() {
 		daoUsuario = null;
 		daoVideo = null;
 		daoRol = null;
 		daoComentario = null;
 	}
-	
 
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+	 *      response)
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		doPost(request, response);
 	}
 
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+	 *      response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+
 		try {
-				
-			request.setAttribute("videos", daoVideo.getAll().size() );
-			request.setAttribute("usuarios", daoUsuario.getAll().size() );
-			request.setAttribute("roles", daoRol.getAll().size());
-			request.setAttribute("comentarios", daoComentario.getAllByAprobado(0).size());
-						
-		}catch (Exception e) {
+			
+			alert = new Alert(Alert.SUCCESS, "Panel de Usuario");
+			
+			request.setAttribute("alert", alert);
+
+		} catch (Exception e) {
+			
+			alert = new Alert();
 			e.printStackTrace();
-		}finally {			
+		
+		} finally {
+			
 			request.getRequestDispatcher(VIEW_INICIO).forward(request, response);
 		}
-		
-		
+
 	}
 
 }
