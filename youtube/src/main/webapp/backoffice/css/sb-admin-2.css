@@ -437,3 +437,16 @@ table.dataTable thead .sorting:after {
 	width: 100px;
 	height: 75px;
 }
+
+.mb-3{
+	margin-botton: 10px;
+}
+
+.hover-hand{
+	cursor: pointer;
+}
+
+.modal-body{
+	overflow-y: scroll;
+	max-height: 50vh;
+}

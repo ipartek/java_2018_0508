@@ -18,12 +18,12 @@
 	            	<form action="videos" method="post" class="col-3 shadow p-3 mb-5 bg-white rounded">
 	            		<div class="form-group">
 	            			<label for="id">ID:</label>
-	            			<input type="text" name="id" id="id" value="${(c.id == -1)? -1: comentario.id }" placeholder="" class="form-control" readonly>
+	            			<input type="text" name="id" id="id" value="${(comentario.id == -1)? -1: comentario.id }" placeholder="" class="form-control" readonly>
 	            		</div>
 	            		
 	            		<div class="form-group">
 	            			<label for="fecha">Fecha:</label>
-	            			<input type="text" name="fecha" id="fecha" value="${(comentario.id == -1)? '': comentario.fecha }" placeholder="Codigo (11 car)" class="form-control" autofocus>
+	            			<input type="text" name="fecha" id="fecha" value="${(comentario.id == -1)? '': comentario.fecha }" placeholder="" class="form-control" autofocus>
 	            		</div>
 	            		
 	            		<div class="form-group">
@@ -38,12 +38,12 @@
 	            		
 	            		<div class="form-group">
 	            			<label for="video">Video:</label>
-	            			<input type="text" name="video" id="video" value="prueba" class="form-control" readonly>
+	            			<input type="text" name="video" id="video" value="prueba" class="form-control" ${(c.id == -1)? '': 'readonly'}>
 	            		</div>
 	            		
 	            		<div class="form-group">
 		            		<label for="usuario">Usuario propietario:</label>
-		            		<select name="usuario" id="usuario" class="form-control">
+		            		<select name="usuario" id="usuario" class="form-control" ${(c.id == -1)? '': 'readonly'}>
 		            			<c:forEach items="${usuarios}" var="u">
 		            				<option value="${u.id}">${u.nombre}</option>
 		            			</c:forEach>

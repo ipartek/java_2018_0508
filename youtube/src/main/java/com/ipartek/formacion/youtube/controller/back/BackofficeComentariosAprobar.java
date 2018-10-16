@@ -20,53 +20,48 @@ public class BackofficeComentariosAprobar extends HttpServlet{
 	
 	
 	private static final long serialVersionUID = 1L;
-	private static ComentarioDAO daoComentario = null;
-	
-	private static final String VIEW_APROBAR = "comentarios/aprobar.jsp";
-	private String view;
-	private Alert alert;		
-	
-	@Override
-	public void init(ServletConfig config) throws ServletException {	
+	private static final String VIEW = "../comentarios/aprobar.jsp";
+	private static ComentarioDAO daoComentario;
+ 	@Override
+	public void init(ServletConfig config) throws ServletException {
 		super.init(config);
-		daoComentario  = ComentarioDAO.getInstance();
+		daoComentario = ComentarioDAO.getInstance();
 	}
-	
-	@Override
-	public void destroy() {	
+ 	@Override
+	public void destroy() {
 		super.destroy();
 		daoComentario = null;
 	}
-    
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+ 	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+	 *      response)
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {		
-		doProcess(request, response);
-	}
-
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {		
-		doProcess(request, response);		
-	}
-	
-	public void doProcess(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-		try {
-			alert = new Alert();
-			view = VIEW_APROBAR;
-			
-		}catch (Exception e) {
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+ 		try {
+ 			request.setAttribute("comentarios", daoComentario.getAllByAprobado(ComentarioDAO.NOT_APROBADO));
+ 		} catch (Exception e) {
 			e.printStackTrace();
-			view = VIEW_APROBAR;
-			alert = new Alert();
-		}finally {
-			request.setAttribute("alert", alert);
-			request.getRequestDispatcher(view).forward(request, response);			
+		} finally {
+			request.getRequestDispatcher(VIEW).forward(request, response);
 		}
-		
-	}
+ 	}
+ 	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+	 *      response)
+	 */
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+ 		try {
+ 			String[] ids = request.getParameterValues("ids");
+			System.out.println(ids);
+			
+			daoComentario.updateAprobar(ids);
+ 		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+ 			response.sendRedirect( request.getContextPath() + "/backoffice/comentarios/aprobar");
+		}
+ 	}
 
 }

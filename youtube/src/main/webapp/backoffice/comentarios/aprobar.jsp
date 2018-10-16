@@ -4,28 +4,43 @@
 <div id="page-wrapper">
             <div class="row">
                 <div class="col-lg-12">
-                    <h1 class="page-header">Comentarios</h1>
+                    <h1 class="page-header">Moderación de comentarios</h1>
                 </div>
                 <!-- /.col-lg-12 -->
             </div>
             <!-- /.row -->
             
-            <div class="row">
-            	<c:forEach items="${comentarios}" var="c">
-            	<form action="">
-            		<div class="row">
-	            			<div class="col">
-	            				<input class="form-check-input" type="checkbox" name="" id="" value="${c.id}">
-	            			</div>
-	            			<div class="col">
-								<input type="text" readonly class="form-control-plaintext" id="staticEmail" value="${c.usuario.nombre}">
-	            			</div>
-	            			<div class="col">
-	            				<textarea readonly class="form-control-plaintext" id="exampleFormControlTextarea1" rows="3">${c.texto}</textarea>
-	            			</div>
-            		</div>
-            	</form>
-            	</c:forEach>
+            <div class="row mb-3">
+            	<form action="comentarios/aprobar" method="post">
+            	<table id="tablaOrdenable" class="display" style="width:100%">
+				        <thead>
+				            <tr>
+				                <th>id</th>
+				                <th>usuario</th>
+				                <th>video</th>
+				                <th>fecha</th>
+				                <th>comentario</th>
+				            </tr>
+				        </thead>
+				        <tbody>
+				        	<c:forEach items="${comentarios}" var="c">
+					            <tr>
+					                <td>${c.id} <input type="checkbox" name="ids" value="${c.id}"> </td>
+					                <td>${c.usuario.nombre}</td>
+					                <th title="${c.video.nombre}" data-toggle="tooltip" data-placement="right" class="hover-hand">${fn:substring(c.video.nombre, 0, 25)}...</th>
+					                <td>${c.fecha}</td>
+					                <td onclick="showModal('${c.texto}', 'Detalle Comentario');" class="hover-hand">${fn:substring(c.texto, 0, 100)}...</td>
+					            </tr>
+				            </c:forEach>
+				       </tbody>
+				</table>
+				<!-- table#tablaOrdenable -->
+				<input type="submit" value="Aprobar comentarios" class="btn btn-info btn-block">
+				</form>
+				<!-- /form -->
+				
+				
+				
             </div>
 </div>
 <!-- /#page-wrapper -->
