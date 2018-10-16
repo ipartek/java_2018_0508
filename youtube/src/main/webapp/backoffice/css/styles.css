@@ -138,11 +138,8 @@
 	color:#F0AD4E;
 }
 
-.modal-dialog{
-    overflow-y: initial !important
-}
 .modal-body{
-    height: 250px;
+    max-height: 50vh;
     overflow-y: auto;
 }
 

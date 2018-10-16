@@ -13,8 +13,7 @@
 
 		<div class="row">
 			<div class="col-lg-12">
-				<h1 class="page-header titulo">
-					Comentarios <span class="badge nComentarios">${fn:length(comentarios)}</span>
+				<h1 class="page-header titulo">Aprobar Comentarios <span class="badge nComentarios">${fn:length(comentarios)}</span>
 				</h1>
 			</div>
 			<!-- /.col-lg-12 -->

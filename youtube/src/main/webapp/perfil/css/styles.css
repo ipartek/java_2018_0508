@@ -1,0 +1,14 @@
+.menuHorizontal{
+	position:relative;
+}
+
+.cerrarSesion{
+	position:absolute;
+	right:15px;
+}
+
+@media only screen and (max-width: 768px) {
+	.cerrarSesion{
+		position:static;
+	}
+}

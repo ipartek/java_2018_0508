@@ -29,8 +29,12 @@
 		           <div class="nav-user">             	
 		           	<i class="fas fa-user logeado"> ${usuario.nombre}</i>   
 		           	<c:if test="${sessionScope.usuario.rol.id == Rol.ROL_ADMIN}">      	
-		           		<a href="backoffice/index.jsp">Acceder Backoffice</a>
+		           		<a href="backoffice/inicio">Acceder Backoffice</a>
+		           	</c:if>   
+		           	<c:if test="${sessionScope.usuario.rol.id == Rol.ROL_USER}">      	
+		           		<a href="perfil/inicio">Mi perfil</a>
 		           	</c:if>
+		           	
 		           	<a href="logout">Cerrar sesión</a>
 		           </div>            
 		         
