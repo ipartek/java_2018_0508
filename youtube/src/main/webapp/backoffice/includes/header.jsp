@@ -15,7 +15,10 @@
 <meta name="description" content="">
 <meta name="author" content="">
 
-<title>PikaList</title>
+<link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon">
+<link rel="icon" href="images/favicon.ico" type="image/x-icon">
+
+<title>PikaList-BackOffice</title>
 <!-- Fonts -->
 <link href="https://fonts.googleapis.com/css?family=Roboto"
 	rel="stylesheet">

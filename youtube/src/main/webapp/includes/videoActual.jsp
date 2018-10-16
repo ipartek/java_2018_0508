@@ -1,3 +1,6 @@
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
 <div class="col-lg-8">
@@ -37,7 +40,7 @@
 			<c:if test="${not empty comentarios}">
 					<c:forEach items="${comentarios}" var="c">
 						<div class="comentario">
-							<p class="card-text" onclick="showModalDetalle('${c.texto}')">${fn:substring(c.texto,0,55)}...</p>
+							<p class="card-text">${c.texto}</p>
 							<small class="text-pika-red">Escrito por ${c.usuario.nombre} -- ${c.fecha}</small>
 						</div>
 					</c:forEach>

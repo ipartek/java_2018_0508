@@ -35,6 +35,10 @@ i.badge{
 	overflow-y: scroll;
 	max-height: 50vh;
 }
+.card-text{
+	max-height: 100px;
+	overflow-y: scroll;
+}
 td[onclick]:hover,td[data-toggle]:hover{
 	cursor: pointer;
 }
