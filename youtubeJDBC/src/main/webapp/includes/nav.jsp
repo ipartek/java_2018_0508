@@ -39,8 +39,13 @@
 		         <!-- usuario logeado -->
 		         <c:if test="${not empty sessionScope.usuario}">
 		           <div class="nav-user">             	
-		           	<i class="fas fa-user">${usuario.nombre}</i>             	
-		           	<a href="backoffice/inicio">Acceder Backoffice</a>
+		           	<i class="fas fa-user">${usuario.nombre}</i> 
+		           	         	
+		           		<a href="backoffice/inicio">Acceder Backoffice</a>
+		           	
+		                   	
+		           		<a href="backoffice/inicio">Panel de control</a>
+		           
 		           	<a href="logout">Cerrar Session</a>
 		           </div>            
 		         

@@ -34,6 +34,14 @@
 				
 			}
 		}
+		function showModal(texto){
+			
+			console.log(texto);
+			document.getElementById('modalBody').innerHTML = texto;
+
+			$('#myModal').modal('show');
+			
+		}
 	</script>
 	
 </body>

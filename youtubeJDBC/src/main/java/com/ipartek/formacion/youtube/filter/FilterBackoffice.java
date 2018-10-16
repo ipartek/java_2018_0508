@@ -49,8 +49,17 @@ public class FilterBackoffice implements Filter {
 			Usuario usuario = (Usuario) session.getAttribute("usuario");
 			
 			if ( usuario != null ) {
-				// pass the request along the filter chain
-				chain.doFilter(request, response);
+				if("admin".contentEquals(usuario.getNombre())) {
+					// pass the request along the filter chain
+					//session.setAttribute("usuario", "admin");
+					chain.doFilter(request, response);
+				}else {
+					informacionCliente(req);
+					
+					//usuario no logeado
+					res.sendRedirect( req.getContextPath() + "/inicio");
+				}
+				
 			}else {
 				
 				informacionCliente(req);

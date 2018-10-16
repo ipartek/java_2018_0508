@@ -27,6 +27,8 @@ import com.mysql.jdbc.Statement;
 	private final String SQL_INSERT = "INSERT INTO comentario ( texto ,id_video  ,id_usuario ) VALUES (?,?,? );";
 	private final String SQL_UPDATE = "UPDATE comentario SET  texto = ?  ,id_video = ?   ,id_usuario = ?  WHERE id = ?;";
 	private final String SQL_UPDATE_APROBADO = "UPDATE comentario SET  aprobado = ?  WHERE id = ?;";
+	private final String SQL_UPDATE_APROBADO_MASIVO = "UPDATE comentario SET  aprobado = ?  WHERE id = ?;";
+
 
 
  	private ComentariosDao() {
@@ -159,6 +161,8 @@ import com.mysql.jdbc.Statement;
 		}
 		return resul;
 	}
+	
+	
 	
  	private Comentario rowMapper(ResultSet rs, Comentario c) throws Exception {
 		if (c == null) {

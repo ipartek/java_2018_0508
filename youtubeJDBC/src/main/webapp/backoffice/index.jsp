@@ -69,7 +69,7 @@
                                 </div>
                             </div>
                         </div>
-                        <a href="#">
+                        <a href="rol/index.jsp">
                             <div class="panel-footer">
                                 <span class="pull-left">ver detalle</span>
                                 <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
@@ -91,7 +91,7 @@
                                 </div>
                             </div>
                         </div>
-                        <a href="#">
+                        <a href="comentario/index.jsp">
                             <div class="panel-footer">
                                 <span class="pull-left">ver detalle</span>
                                 <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
