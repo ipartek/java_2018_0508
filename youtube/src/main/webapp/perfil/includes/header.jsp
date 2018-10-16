@@ -10,7 +10,7 @@
 
 <head>
 
-	<base href="<%=request.getContextPath()%>/backoffice/">
+	<base href="${ pageContext.request.contextPath }/perfil/">
 	
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -18,21 +18,16 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>SB Admin 2 - Bootstrap Admin Theme</title>
+    <title>Perfil de Usuario</title>
 
     <!-- Bootstrap Core CSS -->
-    <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
-
-	<!-- Datatables -->
-	<link href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css" rel="stylesheet" type="text/css">		
+    <link href="../vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 	
 	<!-- Custom Fonts -->
     <link href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" rel="stylesheet" type="text/css">
 
     <!-- Custom CSS -->
     <link href="css/styles.css" rel="stylesheet">
-   
-    
    
     <!--[if lt IE 9]>
         <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
@@ -42,5 +37,3 @@
 </head>
 
 <body>
-
-    <div class="container">
