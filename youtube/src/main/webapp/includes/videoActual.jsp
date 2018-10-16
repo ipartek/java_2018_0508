@@ -3,7 +3,7 @@
 <div class="col-lg-8">
 	<!-- Inicio Video -->
 	<div class="card m-2">
-		<div class="container">
+		<div class="container pt-4 text-center">
 			<c:if test="${not empty videoInicio}">
 				<div id="video-placeholder"></div>
 			</c:if>
@@ -35,14 +35,12 @@
 		<div class="card-body">
 		<!-- Si hay comentarios los pinta -->
 			<c:if test="${not empty comentarios}">
-				<ul class="group-list">
 					<c:forEach items="${comentarios}" var="c">
-						<li class="list-group-item">
+						<div class="comentario">
 							<p class="card-text">${c.texto}</p>
-							<small class="text-muted">Escrito por ${c.usuario.nombre} -- ${c.fecha}</small>
-						</li>
+							<small class="text-pika-red">Escrito por ${c.usuario.nombre} -- ${c.fecha}</small>
+						</div>
 					</c:forEach>
-				</ul>
 			</c:if>
 		<!-- Si no los hay, saca este texto -->
 			<c:if test="${empty comentarios}">

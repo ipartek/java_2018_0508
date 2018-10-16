@@ -13,6 +13,7 @@
 			"order" : [ [ 0, "desc" ] ]
 		});
 		cambiarLogo();
+		$('[data-toggle="tooltip"]').tooltip()
 	});
 
 	function showModalEliminar(id) {
@@ -21,6 +22,8 @@
 		let btn = document.getElementById('btnEliminar');
 		btn.href = 'backoffice/usuario?id=' + id + '&op=77';
 	}
+
+	
 </script>
 </body>
 

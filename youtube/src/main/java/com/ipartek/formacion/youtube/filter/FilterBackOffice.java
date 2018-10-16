@@ -50,15 +50,15 @@ public class FilterBackOffice implements Filter {
 			Usuario u = (Usuario) session.getAttribute("usuario");
 
 			if (u != null) {
-				// pass the request along the filter chain
-				chain.doFilter(request, response);
-			} else {
-
-				if(u.getRol() == Usuario.ROL_ADMIN) {
+							
+				if(u.getRol() != Usuario.ROL_ADMIN) {
 					informacionCliente(req);
 
 					res.sendRedirect(req.getContextPath() + "/inicio");
 				}
+				
+				// pass the request along the filter chain
+				chain.doFilter(request, response);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();

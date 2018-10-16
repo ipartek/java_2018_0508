@@ -12,7 +12,7 @@
 <main class="container" role="main">
 	<%@ include file="includes/ventanasModales.jsp" %>
 	<!-- Tratamiento de las alertas -->
-	<c:if test="${not empty sessionScope.alert}">
+	<c:if test="${not empty alert}">
 		<div class="container">
 			<div class="alert alert-${alert.tipo} alert-dismissible fade show" role="alert">
 				<strong>${alert.texto}</strong>

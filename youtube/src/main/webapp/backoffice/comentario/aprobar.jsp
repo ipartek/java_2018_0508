@@ -45,9 +45,9 @@
 								<td><input type="checkbox" value="${c.id}" name="ids"></td>
 								<td>${c.id}</td>
 								<td>${c.fecha}</td>
-								<td>${c.texto}</td>
+								<td onclick="showModalDetalle('${c.texto}')">${fn:substring(c.texto,0,55)}...</td>
 								<td>${c.usuario.nombre}</td>
-								<td>${c.video.nombre}</td>
+								<td data-toggle="tooltip" data-placement="top" title="${c.video.nombre}">${fn:substring(c.video.nombre,0,25)}</td>
 							</tr>
 						</c:forEach>	
 				</tbody>
@@ -70,4 +70,20 @@
 	<!-- / Col de datos -->
 </div>
 <!-- / Row Principal -->
+<div id="modal-detalle" class="modal fade" role="dialog">
+	<div class="modal-dialog">
+		<!-- Modal content-->
+		<div class="modal-content">
+			<div class="modal-header bg-pika-blue">
+				<h4 class="modal-title">Detalle del comentario</h4>
+				<button type="button" class="close" data-dismiss="modal">&times;</button>
+			</div>
+			<div class="modal-body">
+				<p id="texto_comentario"></p>
+				<button type="button" class="btn-main btn-outline-pika-blue btn-block" data-dismiss="modal">Cerrar</button>
+			</div>
+			<div class="modal-footer bg-pika-blue"></div>
+		</div>
+	</div>
+</div>
 <%@ include file="../includes/footer.jsp"%>

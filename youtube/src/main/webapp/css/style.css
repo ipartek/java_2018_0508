@@ -26,6 +26,18 @@ li.nav-item a img {
 i.badge{
 	font-size: 2em;
 }
+.comentario{
+	background-color: rgba(92,114,252,0.35);
+    padding: 1em;
+    margin: .5em 0;
+}
+#texto_comentario{
+	overflow-y: scroll;
+	max-height: 50vh;
+}
+td[onclick]:hover,td[data-toggle]:hover{
+	cursor: pointer;
+}
 /****
 *	BG-Colorsm, Colores y botones Custom
 ******************************************************************/
