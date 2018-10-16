@@ -13,9 +13,12 @@
 <meta name="author" content="Adriana">
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css">
 
+<!-- Favicon-->
+<link rel="shortcut icon" href="images/admin.png">
+
 <link rel="stylesheet" href="css/styles.css?<%=System.currentTimeMillis()%>">
 
-<title>Youtube</title>
+<title>Youtube Backoffice</title>
 
 	<!-- Bootstrap 3.3.7-->
 	<link href="https://stackpath.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
