@@ -1,0 +1,14 @@
+body{margin-top:20px;} 
+
+
+footer{
+	background-color:#ffffe0;;	
+}
+
+div.min-container{
+	min-height: 79vh;	
+}
+
+li.totales{
+	    height: 40px;
+}

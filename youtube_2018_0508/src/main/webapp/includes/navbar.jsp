@@ -61,7 +61,7 @@
 								<a class ="mr-2" href="backoffice/index.jsp"><fmt:message key="boton.backoffice"/></a>
 							</c:if>
 							<c:if test="${usuario.rol.id==Rol.ROL_USER}">
-								<a class ="mr-2" href="perfil/index.jsp">Ver mi Perfil</a>
+								<a class ="text-center" href="perfil/inicio">Mi perfil</a>
 							</c:if>
 								
 								<span class="text-center" style="color:#FFF">

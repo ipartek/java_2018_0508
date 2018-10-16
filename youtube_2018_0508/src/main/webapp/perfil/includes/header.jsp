@@ -4,7 +4,7 @@
 <head>
 
 <!-- Comienza todas las URLs desde el href indicado -->
-<base href="<%=request.getContextPath()%>/backoffice/">
+<base href="<%=request.getContextPath()%>/perfil/">
 
 <meta charset="utf-8">
 <meta name="viewport"
@@ -15,7 +15,7 @@
 <link rel="stylesheet"
 	href="https://use.fontawesome.com/releases/v5.2.0/css/all.css">
 
-<title>BackOffice Youtube</title>
+<title>Perfil </title>
 
 <!-- Bootstrap 3.3.7-->
 <link

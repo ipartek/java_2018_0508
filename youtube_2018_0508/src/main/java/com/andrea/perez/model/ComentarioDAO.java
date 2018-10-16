@@ -16,19 +16,25 @@ import com.mysql.jdbc.Statement;
 public class ComentarioDAO implements Crudable<Comentario> {
 
 	private static ComentarioDAO INSTANCE = null;
+	public final String NOT_APROBADO = "0";
+	public final String APROBADO = "1";
+	public final String TOTAL = "-1";
 
-	private final String SQL_GET_ALL_BY_VIDEO_ID = "SELECT 	c.id as 'id_comentario',    u.id as 'id_usuario',    fecha,    texto,    aprobado,    u.nombre,id_video "
-			+ " FROM comentario as c , usuario as u " + " WHERE c.id_usuario = u.id AND " + " c.id_video = ? "
-			+ " ORDER BY c.id DESC LIMIT 500;";
-	private final String SQL_GET_BY_ID = "SELECT id, nombre FROM comentario WHERE id = ?;";
-	private final String SQL_UPDATE = "UPDATE comentario SET aprobado= ? WHERE id = ?;";
-	private final String SQL_APROBAR = "UPDATE comentario SET aprobado = 1 WHERE id IN "; // IN (1,3);
-	private final String SQL_DELETE = "DELETE FROM comentario WHERE id = ?;";
-	private final String SQL_INSERT = "INSERT INTO `youtube`.`comentario` (`texto`, `id_video`, `id_usuario`) VALUES (?, ?, ?);";
-	private final String SQL_GET_APROBAR = " SELECT c.id as 'id_comentario', u.id as 'id_usuario',fecha,texto,aprobado,u.nombre,id_video,v.nombre as 'nombre_video'"
-			+ " FROM comentario as c , usuario as u,video v " + " WHERE c.id_usuario = u.id AND c.id_video=v.id AND c.aprobado=0"
-			+ " ORDER BY c.id DESC LIMIT 500;";
-	private final String SQL_UPDATE_APROBAR = "UPDATE comentario SET aprobado=? WHERE id=?;";
+	private final static String SQL_GET_ALL_BY_VIDEO_ID = "SELECT c.id as 'id_comentario',u.id as 'id_usuario',fecha,texto,aprobado,u.nombre,id_video, v.nombre as 'nombre_video'"
+			+ " FROM comentario as c , usuario as u ,video v"
+			+ " WHERE c.id_usuario = u.id AND c.id_video=v.id AND c.id_video = ? " + " ORDER BY c.id DESC LIMIT 500;";
+	private final static String SQL_GET_BY_ID = "SELECT id, nombre FROM comentario WHERE id = ?;";
+	private final static String SQL_UPDATE = "UPDATE comentario SET aprobado= ? WHERE id = ?;";
+	private final static String SQL_APROBAR = "UPDATE comentario SET aprobado = 1 WHERE id IN "; // IN (1,3);
+	private final static String SQL_DELETE = "DELETE FROM comentario WHERE id = ?;";
+	private final static String SQL_INSERT = "INSERT INTO `youtube`.`comentario` (`texto`, `id_video`, `id_usuario`) VALUES (?, ?, ?);";
+	private final static String SQL_GET_APROBAR = " SELECT c.id as 'id_comentario', u.id as 'id_usuario',fecha,texto,aprobado,u.nombre,id_video,v.nombre as 'nombre_video'"
+			+ " FROM comentario as c , usuario as u,video v "
+			+ " WHERE c.id_usuario = u.id AND c.id_video=v.id AND c.aprobado=0" + " ORDER BY c.id DESC LIMIT 500;";
+	private final static String SQL_UPDATE_APROBAR = "UPDATE comentario SET aprobado=? WHERE id=?;";
+
+	public final String SQL_PERFIL_COUNT_APROBAR_COMENTARIOS = "select count(*) from comentario c INNER JOIN usuario u ON c.id_usuario=u.id AND id_usuario=? AND aprobado=?;";
+	public final String SQL_PERFIL_COUNT = "select count(*) from comentario c INNER JOIN usuario u ON c.id_usuario=u.id AND id_usuario=?;";
 
 	public static synchronized ComentarioDAO getInstance() {
 
@@ -138,24 +144,23 @@ public class ComentarioDAO implements Crudable<Comentario> {
 		}
 		return resul;
 	}
-	
+
 	public boolean aprobar(String[] ids) throws Exception {
 
 		boolean resul = false;
 
 		String in = "(";
-		for (int i = 0; i < ids.length; i++) {			
-			if ( i == (ids.length-1)) {
+		for (int i = 0; i < ids.length; i++) {
+			if (i == (ids.length - 1)) {
 				in += ids[i];
-			}else {
-				in += ids[i] + ",";	
-			}			
+			} else {
+				in += ids[i] + ",";
+			}
 		}
 		in += ");";
 		String sql = SQL_APROBAR + in;
 
-		try (Connection con = ConnectionManager.getConnection(); 
-			PreparedStatement ps = con.prepareStatement(sql); ) {
+		try (Connection con = ConnectionManager.getConnection(); PreparedStatement ps = con.prepareStatement(sql);) {
 
 			int affectedRows = ps.executeUpdate();
 			if (affectedRows == ids.length) {
@@ -228,6 +233,37 @@ public class ComentarioDAO implements Crudable<Comentario> {
 		return resul;
 	}
 
+	public int cantComentariosUsuario(int id, String sql, String op) {
+
+		int cant = 0;
+		try (Connection con = ConnectionManager.getConnection(); PreparedStatement ps = con.prepareStatement(sql);) {
+
+			if (SQL_PERFIL_COUNT.equals(sql)) {
+
+				ps.setLong(1, id);
+
+			} else if (SQL_PERFIL_COUNT_APROBAR_COMENTARIOS.equals(sql)) {
+
+				ps.setLong(1, id);
+				ps.setString(2, op);
+
+			}
+
+			try (ResultSet rs = ps.executeQuery()) {
+				while (rs.next()) {
+
+					cant = rs.getInt(1);
+				}
+			}
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return cant;
+
+	}
+
 	private Comentario rowMapper(ResultSet rs) throws Exception {
 		Comentario c = new Comentario();
 
@@ -251,9 +287,9 @@ public class ComentarioDAO implements Crudable<Comentario> {
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-			
 
 		}
 		return c;
 	}
+
 }

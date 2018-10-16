@@ -74,12 +74,11 @@ public class UserController extends HttpServlet {
 			user = request.getParameter("user");
 			pass = request.getParameter("pswd");
 			// recordar = request.getParameter("recordar"); Gestionar las cockies
-			
 
 			if (user != null && pass != null) {
 
 				Usuario u = new Usuario(user, pass);
-				
+
 				daoUsuario = UsuarioDAO.getInstance();
 				if (daoUsuario.getByNombre(user, pass) != null) {
 
@@ -103,7 +102,6 @@ public class UserController extends HttpServlet {
 
 			}
 
-			
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
