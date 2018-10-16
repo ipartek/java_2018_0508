@@ -90,6 +90,11 @@ div.form-comentario textarea{
 	padding:0 1.2em;
 }
 
+.comentario-publico{
+	max-height:200px;
+	overflow-y:auto;
+}
+
 footer.home-footer{
 	display:flex;
 	justify-content:space-around;

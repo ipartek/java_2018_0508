@@ -27,8 +27,8 @@
 			
 			<c:forEach items="${comentarios}" var="c">
 		
-				<p>${c.texto}</p>
-					
+				<p class="comentario-publico">${c.texto}</p>
+				<hr>
 				<small class="text-muted row justify-content-between detalleComentario"><b>${c.usuario.nombre}</b> <span><fmt:formatDate value="${c.fecha}" pattern="dd/MM/yyyy HH:mm"/></span></small>
 				
 				<hr>
