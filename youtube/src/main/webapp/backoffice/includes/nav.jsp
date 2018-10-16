@@ -34,6 +34,9 @@
                         <li>
                             <a href="videos"><i class="fab fa-youtube"></i> Videos</a>
                         </li>
+                        <li>
+                            <a href="comentarios/aprobar"><i class="fas fa-comments"></i> Aprobar Comentarios</a>
+                        </li>
                        
                     </ul>
                 </div>
