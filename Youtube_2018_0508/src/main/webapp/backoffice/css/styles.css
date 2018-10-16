@@ -18,3 +18,12 @@
     height: 20px;
     white-space: nowrap;
 }
+
+.over-hand:hover{
+	cursor: pointer;
+}
+
+.modal-body{
+	overflow-y: auto;
+	max-height: 50vh;
+}

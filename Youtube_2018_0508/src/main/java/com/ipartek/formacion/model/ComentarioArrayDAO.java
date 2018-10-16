@@ -9,6 +9,7 @@ import java.util.List;
 
 import com.ipartek.formacion.pojo.Comentario;
 import com.ipartek.formacion.pojo.Usuario;
+import com.ipartek.formacion.pojo.Video;
 import com.mysql.jdbc.Statement;
 
 public class ComentarioArrayDAO implements Crudable<Comentario>{
@@ -26,12 +27,12 @@ public class ComentarioArrayDAO implements Crudable<Comentario>{
 										+ " usuario as u"
 										+ " WHERE c.id_usuario = u.id"
 										+ " ORDER BY c.id DESC LIMIT 500";
-	private final String SQL_GET_ALL_BY_APROBADO = "SELECT c.id as 'id_comentario', c.fecha, c.texto, c.aprobado," 
+	private final String SQL_GET_ALL_BY_APROBADO = "SELECT c.id as 'id_comentario', c.fecha, c.texto, c.aprobado, v.id as id_video, v.nombre as nombre_video, " 
 										+ " c.id_usuario,"
 										+ " u.nombre as 'nombre_usuario'"
 										+ " FROM comentario as c, "
-										+ " usuario as u"
-										+ " WHERE c.id_usuario = u.id AND aprobado = 0"
+										+ " usuario as u, video v"
+										+ " WHERE c.id_usuario = u.id AND aprobado = 0 AND c.id_video = v.id"
 										+ " ORDER BY c.id DESC LIMIT 500";
 	private final String SQL_GET_ALL_BY_VIDEO = "SELECT c.id as 'id_comentario', c.fecha, c.texto, c.aprobado," 
 										+ " c.id_usuario,"
@@ -238,6 +239,16 @@ public class ComentarioArrayDAO implements Crudable<Comentario>{
 			u.setNombre(rs.getString("nombre_usuario"));
 			
 			c.setUsuario(u);
+			
+			
+			Video v = new Video();
+			try {
+				v.setId(rs.getLong("id_video"));
+				v.setTitulo(rs.getString("nombre_video"));
+				c.setVideo(v);
+			}catch(Exception e) {
+				
+			}
 		}
 		return c;
 	}

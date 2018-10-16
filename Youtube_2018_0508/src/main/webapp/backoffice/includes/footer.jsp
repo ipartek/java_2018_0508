@@ -31,6 +31,8 @@
 			var comentario = document.getElementById('comentarioCompleto');
 			comentario.innerHTML = texto;
 		}
+		
+		$(document.getElementsByClassName('popoverOption')).popover({ trigger: "hover" });
 	</script>
 		
 	</body>

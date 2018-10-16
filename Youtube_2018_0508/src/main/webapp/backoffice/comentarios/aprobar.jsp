@@ -35,6 +35,7 @@
 	                                    	<th>Id</th>
 	                                    	<th>Fecha creación</th>
 	                                        <th>Usuario</th>
+	                                        <th>Video</th>
 	                                        <th>Comentario</th>
 	                                    </tr>
 	                                </thead>
@@ -45,7 +46,8 @@
 	                                	 	<td>${c.id}</td>
 	                                	 	<td>${c.fecha}</td>
 	                                        <td>${c.usuario.nombre}</td>
-	                                        <td onclick="showModalComentario(${c.id},'${c.texto}')"><p class="comentarioCorto">${c.texto}</p></td>
+	                                        <td id="popoverOption" data-content="${c.video.titulo}" rel="popover" data-placement="top" class="popoverOption btn over-hand" onclick="showModalComentario(${c.id},'${c.video.titulo}')" >${fn:substring(c.video.titulo, 0,25)}...</td>
+	                                        <td class="over-hand" onclick="showModalComentario(${c.id},'${c.texto}')"><p class="comentarioCorto">${c.texto}</p></td>
 	                                    </tr>
 	                                </c:forEach>
 	                                </tbody>
@@ -54,6 +56,7 @@
 	                                		<th></th>
 	                                		<th>Id</th>
 	                                		<th>Fecha creación</th>
+	                                		<th>Usuario</th>
 	                                		<th>Usuario</th>
 	                                		<th>Comentario</th>
 	                                	</tr>
@@ -76,21 +79,18 @@
         	</form>
         	
         	<!-- Modal Mostrar Comentario -->
-			<div class="modal fade" id="modalVerComentario" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+			<div class="modal fade" id="modalVerComentario" tabindex="-1" role="dialog">
 				<div class="modal-dialog" role="document">
 					<div class="modal-content">
-						<div class="modal-header bg-pika-red">
-							<h5 class="modal-title text-pika-blue" id="exampleModalLabel">COMENTARIO COMPLETO</h5>
-							<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-								<span aria-hidden="true">&times;</span>
-							</button>
+						<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+							<h4 class="modal-title">Texto seleccionado completo</h4>
 						</div>
-						<div class="modal-body">
-							<p><b>Comentario seleccionado completo:</b></p>
-							<p id="comentarioCompleto"></p>
+						<div class="modal-body" >
+							<p  id="comentarioCompleto"></p>
 						</div>
 						<div class="modal-footer">
-							<button type="button" class="btn btn-outline-info btn-outline-pika-red" data-dismiss="modal">Cerrar</button>
+							<button type="button" class="btn btn-primary" data-dismiss="modal">Cerrar</button>
 						</div>
 					</div>
 				</div>
