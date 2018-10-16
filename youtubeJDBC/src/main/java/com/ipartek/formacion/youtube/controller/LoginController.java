@@ -33,7 +33,7 @@ public class LoginController extends HttpServlet {
 	private String msg;
 	
 	private static final String VIEW_INICIO_ADMIN="/backoffice/inicio";
-	private static final String VIEW_INICIO_USER="/inicio";
+	private static final String VIEW_INICIO_USER="/perfil/inicio";
 	
     
 	@Override
@@ -87,7 +87,10 @@ public class LoginController extends HttpServlet {
 				alert.setTipo(alert.SUCCESS);
 				if (usuario.getRol().getId() == Rol.ROL_ADMIN) {
 					view = VIEW_INICIO_ADMIN;
-				}			
+				}else {
+					//view = VIEW_INICIO_USER;
+					view = "/perfil/inicio?usuarioId="+usuario.getId();
+				}
 			}else {
 				alert.setTexto("Intentelo de nuevo, el usuario o contraseña son incorrectas ");
 				alert.setTipo(alert.DANGER);

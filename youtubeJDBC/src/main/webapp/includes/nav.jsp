@@ -40,11 +40,11 @@
 		         <c:if test="${not empty sessionScope.usuario}">
 		           <div class="nav-user">             	
 		           	<i class="fas fa-user">${usuario.nombre}</i> 
-		           	         	
-		           		<a href="backoffice/inicio">Acceder Backoffice</a>
-		           	
-		                   	
-		           		<a href="backoffice/inicio">Panel de control</a>
+		           	     <c:if test="${ sessionScope.usuario.nombre == 'admin'}">       	
+		           			<a href="backoffice/inicio">Acceder Backoffice</a>
+	           			</c:if>
+		                     	
+		           			<a href="perfil/index.jsp">Panel de control</a>
 		           
 		           	<a href="logout">Cerrar Session</a>
 		           </div>            
@@ -62,8 +62,8 @@
 		           <input name="editarCodigo" class="form-control mr-sm-2" type="text" placeholder="ID 11 caracerteres" title="11 caracteres" required pattern=".{11,11}">
 		           <input name="editarNombre" class="form-control mr-sm-2" type="text" placeholder="Nuevo nombre del video 2 letras" required pattern=".{2,125}">
 		           <button class="btn btn-outline-info my-2 my-sm-0" type="submit">Editar</button>
-		         </form>	          	          
-		       </c:if> -->	        
+		         </form>	 -->	               	          
+		       </c:if>   
          </li>            
        </ul> 
      </div>
