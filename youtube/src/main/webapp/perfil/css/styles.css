@@ -30,12 +30,14 @@ h1, h2, h3, h4, h5 {
 	clear: both;
 	margin: auto;
 	position: relative;
+	max-width: 20vh;
+	max-height: 20vh;
 }
 
 .user-details .user-info-block {
 	width: 100%;
 	position: absolute;
-	top: 55px;
+	top: 65px;
 	background: rgb(255, 255, 255);
 	z-index: 0;
 	padding-top: 35px;

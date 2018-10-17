@@ -7,7 +7,7 @@
 	<div class="row">
 		<div class="col-sm-8 col-md-10 col-lg-12 user-details col-centered">
             <div class="user-image">
-                <img src="http://www.gravatar.com/avatar/2ab7b2009d27ec37bffee791819a090c?s=100&d=mm&r=g" alt="Karan Singh Sisodia" title="Karan Singh Sisodia" class="img-circle">
+                <img src="https://st.depositphotos.com/1734074/4662/v/950/depositphotos_46622619-stock-illustration-user-man-with-glasses-icon.jpg" alt="Imagen de perfil" title="${ sessionScope.usuario.nombre }" class="img-circle">
             </div>
             <div class="user-info-block">
                 <div class="user-heading">
