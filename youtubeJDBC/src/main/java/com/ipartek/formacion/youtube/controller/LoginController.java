@@ -83,13 +83,14 @@ public class LoginController extends HttpServlet {
 			if(usuario != null) {
 				//guardamos session
 				session.setAttribute("usuario", usuario);
+				session.setMaxInactiveInterval(60 * 60 * 60); // 1 hora
 				alert.setTexto("Bienvenido " + usuario.getNombre());
 				alert.setTipo(alert.SUCCESS);
 				if (usuario.getRol().getId() == Rol.ROL_ADMIN) {
 					view = VIEW_INICIO_ADMIN;
 				}else {
 					//view = VIEW_INICIO_USER;
-					view = "/perfil/inicio?usuarioId="+usuario.getId();
+					view = VIEW_INICIO_USER;
 				}
 			}else {
 				alert.setTexto("Intentelo de nuevo, el usuario o contraseña son incorrectas ");

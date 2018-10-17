@@ -44,7 +44,7 @@
 		           			<a href="backoffice/inicio">Acceder Backoffice</a>
 	           			</c:if>
 		                     	
-		           			<a href="perfil/index.jsp">Panel de control</a>
+		           			<a href="perfil/inicio">Panel de control</a>
 		           
 		           	<a href="logout">Cerrar Session</a>
 		           </div>            

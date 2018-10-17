@@ -15,15 +15,17 @@ public class VideoDAO implements CrudAble<Video> {
 	private static VideoDAO INSTANCE = null;
 	private static UsuariosDaoJDBC usuariosJDBC;
 	private static List<Video> videos = null;
-	private final String SQL_GET_ALL = "SELECT v.id as 'video_id', codigo, v.nombre as 'nombre_video',id_usuario,  u.nombre as 'nombre_usuario' , u.id_rol as 'rol', r.nombre as 'rol_nombre' " + 
-			" FROM video as v , usuario as u , rol as r"+
-			" WHERE v.id_usuario = u.id AND u.id_rol = r.id"+
+	private final String SQL_GET_ALL = "SELECT v.id as 'video_id', codigo, v.nombre as 'nombre_video',id_usuario,  u.nombre as 'nombre_usuario' , u.id_rol as 'rol', r.nombre as 'rol_nombre' "
+			+ " FROM video as v , usuario as u , rol as r" + " WHERE v.id_usuario = u.id AND u.id_rol = r.id"
+			+ " order by v.id asc limit 1000;";
+	private final String SQL_GET_ALL_by_USER = "SELECT v.id as 'video_id', codigo, v.nombre as 'nombre_video',id_usuario, u.id as 'id_usuario',  u.nombre as 'nombre_usuario'"
+			+ " FROM video as v, usuario as u" + " WHERE id_usuario = ? and u.nombre = ?" + // igual al id y a su nombre
 			" order by v.id asc limit 1000;";
-	//private final String SQL_GET_ALL_1 = "select id,  codigo,nombre,id_usuario from video";
-	
-	private final String SQL_GET_BY_ID = "SELECT  v.id as 'video_id', codigo, v.nombre as 'nombre_video',id_usuario"+
-			" FROM video as v"+
-			" WHERE v.id = ?;";
+	// private final String SQL_GET_ALL_1 = "select id, codigo,nombre,id_usuario
+	// from video";
+
+	private final String SQL_GET_BY_ID = "SELECT  v.id as 'video_id', codigo, v.nombre as 'nombre_video',id_usuario"
+			+ " FROM video as v" + " WHERE v.id = ?;";
 	private final String SQL_UPDATE = "UPDATE video SET codigo= ? , nombre= ?,id_usuario= ? WHERE id = ?;";
 	private final String SQL_DELETE = "DELETE FROM video WHERE id = ?;";
 	private final String SQL_INSERT = "INSERT INTO video (codigo, nombre, id_usuario) VALUES (?,?,?);";
@@ -44,22 +46,22 @@ public class VideoDAO implements CrudAble<Video> {
 		boolean resul = false;
 
 		try (Connection con = ConnectionManager.getConnection();
-				PreparedStatement ps = con.prepareStatement(SQL_INSERT,Statement.RETURN_GENERATED_KEYS);) {
+				PreparedStatement ps = con.prepareStatement(SQL_INSERT, Statement.RETURN_GENERATED_KEYS);) {
 			int index = 1;
 			ps.setString(index++, pojo.getCodigo());
 			ps.setString(index++, pojo.getNombre());
-			ps.setInt(index,(int) pojo.getUsuario().getId());
+			ps.setInt(index, (int) pojo.getUsuario().getId());
 
 			int affectedRows = ps.executeUpdate();
 			if (affectedRows == 1) {
-				
-				//consegir el id generado 
+
+				// consegir el id generado
 				ResultSet rs = ps.getGeneratedKeys();
-				while(rs.next()) {
+				while (rs.next()) {
 					pojo.setId(rs.getLong(1));
 					resul = true;
 					System.out.println(rs.getLong(1));
-				}		
+				}
 			}
 
 		} catch (Exception e) {
@@ -108,6 +110,24 @@ public class VideoDAO implements CrudAble<Video> {
 		return video;
 	}
 
+	public List<Video> getByActiveUser(Usuario pojo) {
+		ArrayList<Video> videos = new ArrayList<Video>();
+		try (Connection con = ConnectionManager.getConnection();
+				PreparedStatement ps = con.prepareStatement(SQL_GET_ALL_by_USER);) {
+			ps.setLong(1, pojo.getId());
+			ps.setString(2, pojo.getNombre());
+			try (ResultSet rs = ps.executeQuery()) {
+				while (rs.next()) {
+					videos.add(rowMapper(rs));
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return videos;
+	}
+
 	@Override
 	public boolean update(Video pojo) {
 		boolean resul = false;
@@ -124,7 +144,7 @@ public class VideoDAO implements CrudAble<Video> {
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
-			
+
 		}
 		return resul;
 	}
@@ -149,21 +169,24 @@ public class VideoDAO implements CrudAble<Video> {
 
 	private Video rowMapper(ResultSet rs) throws Exception {
 		Video video = new Video();
- 		if (rs != null) {
-			//asi cojeriamos con la query normal los datos ahora debemos usar los 
-			//alias de la query
-			/*video.setId(rs.getLong("id"));
-			video.setCodigo(rs.getString("codigo"));
-			video.setNombre(rs.getString("nombre"));
-			Usuario usuario = new Usuario();
-			usuario.setId( rs.getInt("id_usuario"));
-			video.setUsuario_id(usuario);*/
-			
+		Usuario u = new Usuario();
+		if (rs != null) {
+			// asi cojeriamos con la query normal los datos ahora debemos usar los
+			// alias de la query
+			/*
+			 * video.setId(rs.getLong("id")); video.setCodigo(rs.getString("codigo"));
+			 * video.setNombre(rs.getString("nombre")); Usuario usuario = new Usuario();
+			 * usuario.setId( rs.getInt("id_usuario")); video.setUsuario_id(usuario);
+			 */
+
 			video.setId(rs.getLong("video_id"));
-			video.setCodigo(rs.getString("codigo"));//este no usamos alias
+			video.setCodigo(rs.getString("codigo"));// este no usamos alias
 			video.setNombre(rs.getString("nombre_video"));
-			video.setUsuario(usuariosJDBC.getById(rs.getString("id_usuario")));//no es lo mas optimo
-			
+			//video.setUsuario(usuariosJDBC.getById(rs.getString("id_usuario")));// no es lo mas optimo
+			u.setId(rs.getLong("id_usuario"));
+			u.setNombre(rs.getString("nombre_usuario"));
+			video.setUsuario(u);
+
 		}
 		return video;
 	}

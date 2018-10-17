@@ -4,7 +4,6 @@ package com.ipartek.formacion.youtube.model;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
@@ -77,7 +76,6 @@ public class UsuariosDaoJDBC implements CrudAble<Usuario> {
 	public List<Usuario> getAll() throws Exception {
 		// donde guardaremos el numero de registros afectados
 		ArrayList<Usuario> usuariosArray = new ArrayList<Usuario>();
-		int rows = 0;
 		try (Connection conexion = ConnectionManager.getConnection();
 				PreparedStatement ps = conexion.prepareStatement(SQL_GET_ALL);
 				ResultSet rs = ps.executeQuery();) {
@@ -93,7 +91,6 @@ public class UsuariosDaoJDBC implements CrudAble<Usuario> {
 	public Usuario getById(String id) throws Exception{
 		Usuario u = new Usuario();
 		PreparedStatement ps = null;
-		boolean resul = false;
 		try (Connection conexion = ConnectionManager.getConnection();) {
 			int index = 1;
 			ps = conexion.prepareStatement(SQL_SELECT_BY_ID);
@@ -182,8 +179,6 @@ public class UsuariosDaoJDBC implements CrudAble<Usuario> {
 	public Usuario checkByNamePass(String nombre, String pass) {
 		Usuario usuario = new Usuario();
 		PreparedStatement ps = null;
-		boolean resul = false;
-		int rows = 0;
 		try (Connection conexion = ConnectionManager.getConnection();) {
 			int index = 1;
 			ps = conexion.prepareStatement(SQL_SELECT_BY_NAMEPASS);
@@ -194,9 +189,6 @@ public class UsuariosDaoJDBC implements CrudAble<Usuario> {
 			ResultSet rs = ps.executeQuery();
 			while (rs.next()) {
 				usuario = (rowMapper(rs));
-				if (usuario != null) {
-					resul = true;
-				}
 			}
 			if(usuario.getNombre() == "" && usuario.getPass() == "") {
 				usuario = null;
