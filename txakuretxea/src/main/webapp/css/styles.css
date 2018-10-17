@@ -1,0 +1,138 @@
+/* .contenido{
+	min-height: 67vh;
+	width: 100%;
+	border:1px solid black;
+	
+}
+*/
+
+.perros-principal{
+	display: flex;
+	flex-flow:row wrap;
+	justify-content: flex-start;
+	
+}
+.card{
+	margin:10px;
+}
+.contenedor-padre{
+	width:100%;
+}
+.alerta{
+	width: 75%;
+	height: 20px;
+	margin:auto;
+	text-align: center;
+}
+body{
+	background: #bdf1ef;
+	overflow-x: hidden;
+}
+.custom-navbar{
+	background: #48a09c;
+	
+}
+.vertical-navbar{
+	margin-top:-25px;
+	width:100px;
+	background: #48a09c;
+	min-height: 90vh;
+}
+.vertical-navbar > ul > li{
+	
+	margin-left:5px;
+	font-size:20px;
+}
+.columna-contenido{
+	margin-top:-25px;
+}
+h1{
+	text-align: center;
+}
+.contenido-logged{
+	min-height:75vh;
+	width: 100%;
+	
+}
+.contenido-logut{
+	min-height: 75vh;
+	width: 100%;
+}	
+.nav-complemento{
+
+	width: 60%;
+	display:flex;
+	justify-content: space-between;
+	}	
+	
+
+
+.formularioAlta{
+	margin:auto;
+	width: 50%;
+	min-height:500px;
+	display: flex;
+	align-items: center;	
+	
+}
+.login-container{
+	background: #bdf1ef;
+}
+.inputLogin{
+	margin-bottom: 10px;
+	
+}
+.checkbox{
+	font-size: 15px;
+}
+.icono-login{
+	text-align:center;
+	margin-bottom: 30px;
+}
+.boton-login{
+	width: 256px;
+	
+}
+
+.boton-formulario{
+	background: #BDF1EF;
+}
+.apadrinado{
+	position:absolute;
+	position:top;
+	font-size: 20px;
+}
+.form-alta-contenido{
+	border:1px solid black;
+	background: #48A09C;
+	box-shadow: 5px 10px #343A40;
+}
+label{
+	width: 100%;
+	text-align: center;
+}
+
+.center-button{
+	margin:auto;
+	text-align: center;
+}
+.pantallas-pequeñas{
+	display:none;
+}
+.footer > p{
+	text-align: center;
+	margin-bottom: 2px;
+}
+
+@media (min-width: 280px) and (max-width: 566px) {
+h1{
+	font-size: 15px;
+}
+.vertical-navbar{
+	display: none;
+}
+.pantallas-pequeñas{
+	display:block;
+}
+	
+}
