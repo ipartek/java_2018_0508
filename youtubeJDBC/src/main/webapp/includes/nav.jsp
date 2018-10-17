@@ -11,7 +11,7 @@
      
      <div class="collapse navbar-collapse" id="navbarResponsive">
      	
-     	
+     	 ${checked }${ur }
      	<ul class="navbar-nav ml-auto idioma">
      		<li class="nav-item ${(sessionScope.idioma eq 'es_ES')?'active':''}"><a href="inicio?idioma=es_ES">es</a></li>
      		<li class="nav-item ${(sessionScope.idioma eq 'eu_ES')?'active':''}"><a href="inicio?idioma=eu_ES">eu</a></li>
@@ -21,15 +21,15 @@
        <ul class="navbar-nav ml-auto">
          <li class="nav-item active">
               	
-         
+        
 		         <!-- usuario sin pasar por login -->
 	         <c:if test="${empty sessionScope.usuario}">
 
 		          	<form action="login" method="post" class="form-inline mt-2 mt-md-0">
-		            <input id="usuario" name="usuario" class="form-control mr-sm-2" type="text" placeholder="Nombre Usuario" value="admin" required pattern=".{3,30}"> 
-		            <input name="pass" class="form-control mr-sm-2" type="password" placeholder="Contraseña" value="admin" required pattern=".{2,50}">
+		            <input id="usuario" name="usuario" class="form-control mr-sm-2" type="text" placeholder="Nombre Usuario" value="${ur }" required pattern=".{3,30}"> 
+		            <input name="pass" class="form-control mr-sm-2" type="password" placeholder="Contraseña"  required pattern=".{2,50}">
 		            <span class="text-primary">Recuerdame</span>
-		            <input name="recuerdame" type="checkbox" class="form-check-input" id="exampleCheck1">
+		            <input name="recuerdame" type="checkbox" ${checked } class="form-check-input" id="exampleCheck1">
 		            <button class="btn btn-outline-info my-2 my-sm-0" type="submit">Entrar</button>
 		         
 		         </form> 

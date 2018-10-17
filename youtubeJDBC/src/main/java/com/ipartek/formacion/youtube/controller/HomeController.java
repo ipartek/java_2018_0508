@@ -113,6 +113,8 @@ public class HomeController extends HttpServlet {
 			String editarNombreIdGet = request.getParameter("editarNombreIdGet");
 			String edicion = request.getParameter("edicion");
 			String modifiCacionNombreModal = request.getParameter("modifiCacionNombreModal");
+			String checked = request.getParameter("checked");//recogemos x si hay que recordar
+			String ur = request.getParameter("ur");//recogemos x si hay que recordar
 			/*//solo cuando editar este activo haremos la comprobacion
 			if (editar != null) {
 				
@@ -178,6 +180,15 @@ public class HomeController extends HttpServlet {
 				//establezco el atributo editar para que al refrescar la vista enseñe los campos editables
 				request.setAttribute("editar", editar);
 				editar = null;
+			}
+			
+			//COOKIES RECUERDAME
+			if(ur != null && checked!= null) {
+				request.setAttribute("ur", ur);
+				request.setAttribute("checked", checked);
+			}else {
+				request.setAttribute("ur", "");
+				request.setAttribute("checked", "");
 			}
 			
 

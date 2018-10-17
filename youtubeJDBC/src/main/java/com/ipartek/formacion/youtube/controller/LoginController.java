@@ -34,6 +34,7 @@ public class LoginController extends HttpServlet {
 	
 	private static final String VIEW_INICIO_ADMIN="/backoffice/inicio";
 	private static final String VIEW_INICIO_USER="/perfil/inicio";
+	private static final String VIEW_FAIL_USER="/inicio";
 	
     
 	@Override
@@ -70,9 +71,16 @@ public class LoginController extends HttpServlet {
 		try {
 			
 			//idiomas @see com.ipartek.formacion.youtube.filter.IdiomaFilter
-			String idioma = (String)session.getAttribute("idioma");			
-			Locale locale = new Locale( idioma.split("_")[0] , idioma.split("_")[1] );			
+			Locale localeTest = request.getLocale();			
+			String localeTestString = localeTest.toString();
+			String idioma = (String)session.getAttribute("idioma");	
+			String[] parts = localeTestString.split("_");
+			Locale locale = new Locale(parts[0],parts[1]);
 			ResourceBundle idiomas = ResourceBundle.getBundle("idiomas", locale );
+			
+			Cookie coockies[]  = request.getCookies();
+			
+			String recuerdame = request.getParameter("recuerdame");
 						
 			
 			//recoger parametros
@@ -81,6 +89,29 @@ public class LoginController extends HttpServlet {
 			usuario = usuariosJDBC.checkByNamePass(usuarioNombre, pass);
 			//boolean test = usuariosJDBC.checkByName(usuarioNombre);
 			if(usuario != null) {
+				//creamos cookies
+				if(recuerdame != null) {
+					Cookie cUsuario= new Cookie("cUsuario",usuarioNombre) ;
+					
+					Cookie uRecuerdame= new Cookie("uRecuerdame","on") ;
+					response.addCookie(uRecuerdame);
+					response.addCookie(cUsuario);
+					//ur es el nombre a recordar
+					if( recuerdame != "") {
+						request.setAttribute("checked", "checked");
+						request.setAttribute("ur", usuario.getNombre());
+					}else {
+						request.setAttribute("checked", "");
+						request.setAttribute("ur", "");
+					}
+
+				}else {
+					Cookie cUsuario= new Cookie("cUsuario","") ;
+					Cookie uRecuerdame= new Cookie("uRecuerdame","off") ;
+					response.addCookie(uRecuerdame);
+					response.addCookie(cUsuario);
+					session.setAttribute("recuerdame", recuerdame);
+				}
 				//guardamos session
 				session.setAttribute("usuario", usuario);
 				session.setMaxInactiveInterval(60 * 60 * 60); // 1 hora
@@ -95,14 +126,21 @@ public class LoginController extends HttpServlet {
 			}else {
 				alert.setTexto("Intentelo de nuevo, el usuario o contraseña son incorrectas ");
 				alert.setTipo(alert.DANGER);
+				//request.getRequestDispatcher(VIEW_FAIL_USER).forward(request, response);
+				
 			}
 
 		}catch (Exception e) {
 			e.printStackTrace();
 		}finally {
+			
 			session.setAttribute("alert", alert);
-			//request.getRequestDispatcher("home.jsp").forward(request, response);
-			response.sendRedirect(request.getContextPath() + view ); 
+			if("alert-danger".contentEquals(alert.getTipo())) {
+				response.sendRedirect(request.getContextPath() + VIEW_FAIL_USER ); 
+			}else {
+				response.sendRedirect(request.getContextPath() + view ); 
+
+			}
 		}
 		
 		
