@@ -28,7 +28,6 @@ public class FrontofficeController extends HttpServlet {
 	
 	private static UsuarioDAO daoUsuario;
 	private static VideoDAO daoVideo;
-	private static RolDAO daoRol;
 	private static ComentarioDAO daoComentario;
 	
 	private static Alert alert;
@@ -38,7 +37,6 @@ public class FrontofficeController extends HttpServlet {
 		super.init(config);
 		daoUsuario = UsuarioDAO.getInstance();
 		daoVideo = VideoDAO.getInstance();
-		daoRol = RolDAO.getInstance();
 		daoComentario = ComentarioDAO.getInstance();
 	}
 
@@ -46,7 +44,6 @@ public class FrontofficeController extends HttpServlet {
 	public void destroy() {
 		daoUsuario = null;
 		daoVideo = null;
-		daoRol = null;
 		daoComentario = null;
 	}
 
