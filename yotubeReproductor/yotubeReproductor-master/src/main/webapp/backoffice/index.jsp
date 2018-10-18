@@ -79,7 +79,7 @@
               </div>
           </div>  
           
-                  <div class="col-lg-3 col-md-6">
+        <div class="col-lg-3 col-md-6">
               <div class="panel panel-warning">
                   <div class="panel-heading">
                       <div class="row">
@@ -91,15 +91,15 @@
                           </div>
                       </div>
                   </div>
-                  <a href="comentarios">
+                  <a href="comentarios/aprobar">
                       <div class="panel-footer">
-                          <span class="pull-left">Ver Comentarios</span>
+                          <span class="pull-left">Aprobar Comentarios</span>
                           <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
                           <div class="clearfix"></div>
                       </div>
                   </a>
               </div>
-          </div>  
+          </div> 
                    
       
       </div>

@@ -1,3 +1,23 @@
+
+<!-- Modal -->
+	<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+	  <div class="modal-dialog" role="document">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+	        <h4 class="modal-title" id="myModalTitle"></h4>
+	      </div>
+	      <div class="modal-body" id="myModalBody">
+	        ...
+	      </div>
+	      <div class="modal-footer">
+	        <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>        
+	      </div>
+	    </div>
+	  </div>
+	</div>
+ 	<!-- Modal:end -->
+ 	
 </div>
     <!-- /#wrapper -->
 
@@ -9,56 +29,68 @@
     
     <!-- DataTables.net -->
     <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
-    
-    <script>
+
+<script>
     
     /* custom javascript*/
     
     //habilitar datatables
     
-
-		$(document).ready(function() {
+/* custom javascript */
+   	
+   		//Habilitar datatables
+ 		$(docume
+	nt).ready(function() {
 		$('#tablaOrdenable').DataTable();
-		});
-    
-   
-					function showpass(event, elementId) {
+		$('[data-toggle="tooltip"]').tooltip();
+	});
 
-						console.log('click showpass' + elementId);
-						var el = document.getElementById(elementId);
-						if (el.type == "password") {
-							el.type = "text";
-						} else {
-							el.type = "password";
+	function showModal(texto, titulo) {
+		console.log('click showModal texto=' + texto);
 
-						}
-						if (event.target.classList.contains("fa-eye")) {
-							event.target.classList.remove("fa-eye");
-							event.target.classList.add("fa-eye-slash");
-						} else {
-							event.target.classList.remove("fa-eye")
-							event.target.classList.add("fa-eye-slash");
+		document.getElementById('myModalBody').innerHTML = texto;
+		document.getElementById('myModalTitle').innerHTML = titulo;
 
-						}
+		$('#myModal').modal('show');
+	}
 
-					}
-				</script>
-	
-	<script>
-			function confirmar(e) {
+	function showpass(event, elementId) {
 
-				if (confirm('¿Estas seguro que quieres eliminar?')) {
-					console.log('confirmado eliminar')
+		console.log('click showpass' + elementId);
+		var el = document.getElementById(elementId);
+		if (el.type == "password") {
+			el.type = "text";
+		} else {
+			el.type = "password";
 
-				} else {
-					//prevenir el evento por defecto de <a href=''>
-					e.preventDefault();
-				}
+		}
+		if (event.target.classList.contains("fa-eye")) {
+			event.target.classList.remove("fa-eye");
+			event.target.classList.add("fa-eye-slash");
+		} else {
+			event.target.classList.remove("fa-eye")
+			event.target.classList.add("fa-eye-slash");
 
-			}
-		</script>
-   
-   
+		}
+
+	}
+</script>
+
+<script>
+	function confirmar(e) {
+
+		if (confirm('¿Estas seguro que quieres eliminar?')) {
+			console.log('confirmado eliminar')
+
+		} else {
+			//prevenir el evento por defecto de <a href=''>
+			e.preventDefault();
+		}
+
+	}
+</script>
+
+
 </body>
 
 </html>

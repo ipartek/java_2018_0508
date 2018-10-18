@@ -34,8 +34,8 @@
                         <li>
                             <a href="videos"><i class="fa fa-dashboard fa-fw"></i> Videos</a>
                         </li>
-                         <li>
-                            <a href="comentarios"><i class="fa fa-dashboard fa-fw"></i> Comentarios</a>
+                      <li>
+                            <a href="comentarios/aprobar"><i class="fas fa-comments"></i> Aprobar Comentarios</a>
                         </li>
                        
                     </ul>
