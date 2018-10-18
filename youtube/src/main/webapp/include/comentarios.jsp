@@ -3,7 +3,6 @@
 <div class="container">
 <div class="row">
 	<div class="col">
-	ññññpingÜinñóó
 		<div class="card">
 		  	<div class="card-body">
 		    	<h3 class="card-title text-center">${ videoInicio.nombre }</h3>              
@@ -13,7 +12,7 @@
 		            	<input type="hidden" name="idVideo" value="${ videoInicio.id }">
 		            	<span class="text-warning">&#9733; &#9733; &#9733; &#9733; &#9734;</span>
 		              	 4.0 stars
-		                <input type="submit" class="btn btn-primary ml-auto">Comparte!</button>
+		                <input type="submit" class="btn btn-primary ml-auto" value="Publicar Comentario"></button>
 		            </form>
 		        	
 		    </div> <!-- /. card-body -->
@@ -21,7 +20,7 @@
 	     
 	     <div class="card card-outline-secondary my-4">
 	            <div class="card-header">
-	            	<p>${ fn:length( videoInicio.comentarios ) } Comentarios</p>
+	            	<p>${ fn:length( videoInicio.comentarios ) } comentarios para " ${ videoInicio.nombre } "</p>
 	            </div>
 	            
 	            <div class="card-body">

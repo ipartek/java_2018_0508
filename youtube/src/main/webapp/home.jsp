@@ -113,51 +113,35 @@
 </div> <!-- /.container -->
 
 <!--  LISTA DE REPRODUCCIÓN --> 
-<div class="container-fluid mt-5 mb-5">
-    <div id="carouselExample" class="carousel slide" data-ride="carousel" data-interval="9000">
-        <div class="carousel-inner row w-100 mx-auto" role="listbox">
-        
-        	<c:forEach items="${ videos }" var="video" varStatus="loop">
-            <div class="carousel-item col-md-3 ${ (videoInicio.id == video.id) ? 'active' : '' }">
-                
-                <!-- CAROUSEL IMAGE -->
-                <a href="inicio?id=${ video.id }">
-                	<img class="img-fluid mx-auto d-block" src="https://img.youtube.com/vi/${ video.cod }/0.jpg?text=${ loop.index }" alt="slide ${ loop.index }">
-                </a>
-                
-                <!-- CAROUSEL TEXT -->
-                <div class="carousel-caption d-none d-md-block">
-			    	<h5><a href="inicio?id=${ video.id }">${ video.nombre }</a></h5>
-			    	
-			    	<!-- DELETE/UPDATE VIDEO OPTIONS -->
-			    	<c:if test="${ not empty sessionScope.usuario }">    
-			         	<p>		
-			          		<a>
-			          			<i class="text-danger fas fa-trash-alt mr-2" title="Eliminar Video" 
-			          			onclick="showModalForm(${ video.id },${ HomeController.OP_ELIMINAR });"></i>
-			          		</a>
-			          		<a>
-			          			<i class="text-primary fas fa-edit" title="Editar Video" 
-			          			onclick="showModalForm(${ video.id }, ${ HomeController.OP_MODIFICAR });"></i>
-			          		</a>
-			          	</p>
-		          	</c:if>
-			    	
-			  	</div>
-            </div>
-            </c:forEach>
-            
-        </div>
-        
-        <a class="carousel-control-prev" href="#carouselExample" role="button" data-slide="prev">
-            <i class="fa fa-chevron-left fa-2x text-white"></i>
-            <span class="sr-only">Previous</span>
-        </a>
-        <a class="carousel-control-next" href="#carouselExample" role="button" data-slide="next">
-            <i class="fa fa-chevron-right fa-2x text-warning"></i>
-            <span class="sr-only">Next</span>
-        </a>
-    </div>
+
+<div class="container mt-5 mb-5">
+	<div class="row">
+			<c:forEach items="${ videos }" var="video" varStatus="loop">
+			
+			<div class="col-lg-3 col-md-4 col-sm-6 col-xs-12 mt-3">
+			    <div class="hovereffect">
+			        <img class="img-responsive" src="https://img.youtube.com/vi/${ video.cod }/0.jpg" alt="${ video.nombre }">
+			        <div class="overlay">
+			           <h2>${ video.nombre }</h2>
+			           <a class="info" href="inicio?id=${ video.id }"><i class="fa fa-play" title="Reproducir Video"></i></a>
+			           
+			           <!-- DELETE/UPDATE VIDEO OPTIONS -->
+				    	<c:if test="${ not empty sessionScope.usuario }">   	
+				          		<a class="info">
+				          			<i class="text-danger fas fa-trash-alt mr-2" title="Eliminar Video" 
+				          			onclick="showModalForm(${ video.id },${ HomeController.OP_ELIMINAR });"></i>
+				          		</a>
+				          		<a class="info">
+				          			<i class="text-primary fas fa-edit" title="Editar Video" 
+				          			onclick="showModalForm(${ video.id }, ${ HomeController.OP_MODIFICAR });"></i>
+				          		</a>
+			          	</c:if>
+			        </div>
+			    </div>
+			</div>
+		
+		    </c:forEach>
+	</div>
 </div>
 
 <%@ include file="include/comentarios.jsp" %>

@@ -1,3 +1,4 @@
+DROP DATABASE IF EXISTS `youtube`;
 CREATE DATABASE  IF NOT EXISTS `youtube` /*!40100 DEFAULT CHARACTER SET utf8 */;
 USE `youtube`;
 -- MySQL dump 10.13  Distrib 5.7.12, for Win32 (AMD64)
@@ -112,12 +113,13 @@ CREATE TABLE `usuario` (
   `apellido_2` varchar(45) NOT NULL,
   `alias` varchar(45) NOT NULL,
   `email` varchar(45) NOT NULL,
-  `direccion` varchar(150) DEFAULT NULL,
+  `direccion` varchar(150) NOT NULL,
   `password` varchar(50) NOT NULL,
   `imagen` varchar(255) DEFAULT NULL,
   `fecha_alta` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `status` int(11) NOT NULL DEFAULT '1' COMMENT '0: Baja, 1: Activo, 2: Baneado',
   `id_rol` int(11) DEFAULT NULL,
+  `descripcion` tinytext NOT NULL,
   PRIMARY KEY (`idusuario`),
   UNIQUE KEY `nombre_UNIQUE` (`nombre`),
   KEY `usuario_has_rol_idx` (`id_rol`),
@@ -131,7 +133,7 @@ CREATE TABLE `usuario` (
 
 LOCK TABLES `usuario` WRITE;
 /*!40000 ALTER TABLE `usuario` DISABLE KEYS */;
-INSERT INTO `usuario` VALUES (1,'Luis','Galdos','García','admin','correo@gmail.com','c/Gran Vía, 8','admin',NULL,'2018-10-16 21:20:25',1,1),(2,'Pepe','Habichuela','Losantos','pepe','pepe@gmail.com','c/Mazarredo, 48','12345678',NULL,'2018-10-16 21:20:25',1,2),(3,'Lola','Mento','Mucho','manoli','lolitalola@gmail.com','c/Piruleta, 10','12345678',NULL,'2018-10-16 21:20:25',1,2),(4,'Armando','Bronca','Segura','broncas','armandobronca@gmail.com','c/No me encuentro, 12','12345678',NULL,'2018-10-16 21:24:24',1,1);
+INSERT INTO `usuario` VALUES (1,'Luis','Galdos','García','admin','correo@gmail.com','c/Gran Vía, 8','admin','https://d6ce0no7ktiq.cloudfront.net/images/stickers/1511.png','2018-10-16 21:20:25',1,1,'“Nos dicen que recordemos los ideales, no al hombre, porque un hombre se puede acabar. Pueden detenerle, pueden matarle, pueden olvidarle, pero 400 años más tarde los ideales pueden seguir cambiando el mundo.” '),(2,'Pepe','Habichuela','Losantos','pepe','pepe@gmail.com','c/Mazarredo, 48','12345678','https://icon2.kisspng.com/20180626/yqb/kisspng-yogi-bear-boo-boo-ranger-smith-cindy-bear-cartoon-yogi-bear-5b32c3a4cf8079.3564737115300535408499.jpg','2018-10-16 21:20:25',1,2,'\"Yo soy más listo que un oso común.\"'),(3,'Lola','Mento','Mucho','manoli','lolitalola@gmail.com','c/Piruleta, 10','12345678','https://www.clipartmax.com/png/middle/114-1143891_gifs-y-fondos-paz-enla-tormenta-im-genes-de-minnie-minnie-mouse.png','2018-10-16 21:20:25',1,2,'“Piensa, Sueña, Cree y Atrévete.”'),(4,'Armando','Bronca','Segura','broncas','armandobronca@gmail.com','c/No me encuentro, 12','12345678','https://www.clipartmax.com/png/middle/0-6256_new-mickey-mouse-mickey-mouse-transparent-background.png','2018-10-16 21:24:24',1,1,'“Hacer lo imposible es una forma de diversión.”');
 /*!40000 ALTER TABLE `usuario` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -174,4 +176,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-10-16 21:30:16
+-- Dump completed on 2018-10-18 22:37:14

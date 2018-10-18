@@ -7,12 +7,12 @@
 	<div class="row">
 		<div class="col-sm-8 col-md-10 col-lg-12 user-details col-centered">
             <div class="user-image mb-3">
-                <img src="https://st.depositphotos.com/1734074/4662/v/950/depositphotos_46622619-stock-illustration-user-man-with-glasses-icon.jpg" alt="Imagen de perfil" title="${ sessionScope.usuario.nombre }" class="img-circle">
+                <img src="${ sessionScope.usuario.imagen }" alt="Imagen de perfil" title="${ sessionScope.usuario.alias }" class="img-circle">
             </div>
             <div class="user-info-block">
                 <div class="user-heading">
-                    <h3>${ sessionScope.usuario.nombre }</h3>
-                    <span class="help-block">Dirección</span>
+                    <h3>${ sessionScope.usuario.alias }</h3>
+                    <span class="help-block">${ sessionScope.usuario.direccion }</span>
                 </div>
                 <ul class="navigation nav-center">
                     <li class="active">
@@ -41,12 +41,23 @@
                         
                         <div id="information" class="tab-pane active">
                             <h4>Información General</h4>
+                            
+                            <div class="row-lg-8">
+                            	<h2 class="text-center"> ${ sessionScope.usuario.nombre.concat(' ').concat(sessionScope.usuario.apellido1).concat(' ').concat(sessionScope.usuario.apellido2)  }</h2>
+                            	<p class="text-center"> ${ sessionScope.usuario.descripcion }</p>
+                            </div>
+                            
+                             <div class="row-lg-8">
+								<p class="text-center"><i class="fas fa-envelope"></i> ${ sessionScope.usuario.email }</p>	
+                             	<p class="text-center"><i class="fas fa-phone"></i><a href="tel:"> +34 622 123 123</a></p>
+                             </div>
+                            
                         </div>
                         
                         <div id="settings" class="tab-pane">
                             <h4>Configuración</h4>
                             
-                            <form class="form" action="/action_page.php">
+                            <form class="form" action="usuario?op=">
 							  
 							  <div class="form-group row">
 							    <div class="col">

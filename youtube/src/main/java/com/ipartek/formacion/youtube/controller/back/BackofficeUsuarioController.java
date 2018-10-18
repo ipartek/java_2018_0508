@@ -136,8 +136,8 @@ public class BackofficeUsuarioController extends HttpServlet implements ICRUDCon
 		Usuario user = new Usuario();
 
 		user.setId(Long.parseLong(id));
-		user.setNombre(nombre);
-		user.setPass(password);
+		user.setAlias(nombre);
+		user.setPassword(password);
 		
 		user.setRol(daoRol.getById(Integer.parseInt(idRol)));
 

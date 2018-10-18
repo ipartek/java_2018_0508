@@ -15,24 +15,28 @@ public class UsuarioDAO implements CrudAble<Usuario> {
 
 	private static UsuarioDAO INSTANCE = null;
 
-	private final String SQL_GET_ALL = "SELECT u.idusuario, u.nombre as usuario_nombre, u.password, u.id_rol,"
-			+ " r.idrol, r.nombre as rol_nombre" 
-			+ " FROM usuario as u, rol as r " + "WHERE u.id_rol = r.idrol"
-			+ " ORDER BY r.idRol DESC LIMIT 1000;";
+	private final String SQL_GET_ALL = "SELECT u.*, r.nombre FROM usuario as u,"
+			+ " INNER JOIN rol as r ON u.id_rol = r.idrol" 
+			+ " ORDER BY r.idrol DESC LIMIT 1000;";
 
-	private final String SQL_GET_BY_ID = "SELECT u.idusuario, u.nombre as usuario_nombre, u.password, u.id_rol,"
-			+ " r.idrol, r.nombre as rol_nombre" 
-			+ " FROM usuario as u, rol as r " + "WHERE u.id_rol = r.idrol AND u.idusuario = ?;";
+	private final String SQL_GET_BY_ID = "SELECT u.*, r.nombre FROM usuario as u,"
+			+ " INNER JOIN rol as r ON u.id_rol = r.idrol" 
+			+ " WHERE u.idusuario = ?;";
 	
-	private final String SQL_GET_BY_NAME = "SELECT idusuario, nombre, password, id_rol FROM usuario WHERE nombre = ?;";
+	private final String SQL_GET_BY_NAME = "SELECT u.*, r.nombre as 'rol_nombre'"
+			+ " FROM usuario as u INNER JOIN rol as r ON u.id_rol = r.idrol" 
+			+ " WHERE u.alias = ?;";
 
-	private final String SQL_INSERT = "INSERT INTO usuario (nombre, password, id_rol) VALUES (?, ?, ?);";
-	private final String SQL_UPDATE = "UPDATE usuario SET nombre = ?, password = ? WHERE idusuario = ?;";
+	private final String SQL_INSERT = "INSERT INTO usuario (nombre, apellido_1, apellido_2, descripcion, imagen, alias, password, email, status, id_rol)"
+			+ " VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
+	private final String SQL_UPDATE = "UPDATE usuario SET nombre = ?, apellido_1 = ?, , apellido_2 = ?,"
+			+ " descripcion = ?, imagen = ?, alias = ?, password = ?, email = ?, status = ?, id_rol = ?"
+			+ " WHERE idusuario = ?;";
 	private final String SQL_DELETE = "DELETE FROM usuario WHERE idusuario = ?;";
 
-	private final String SQL_LOGIN = "SELECT u.idusuario, u.nombre as 'usuario_nombre', u.password, u.id_rol, r.idrol, r.nombre as 'rol_nombre'"
-			+ " FROM usuario as u, rol as r" 
-			+ " WHERE u.id_rol = r.idrol AND u.nombre=? AND u.password=?;";
+	private final String SQL_LOGIN = "SELECT u.*, r.nombre as 'rol_nombre'"
+			+ " FROM usuario as u INNER JOIN rol as r ON u.id_rol = r.idrol" 
+			+ " WHERE u.alias = ? AND u.password = ?;";
 
 	private UsuarioDAO() {
 		super();
@@ -110,7 +114,7 @@ public class UsuarioDAO implements CrudAble<Usuario> {
 		Connection cnx = ConnectionManager.getConnection();
 		PreparedStatement ps = cnx.prepareStatement(SQL_LOGIN);
 
-		ps.setString(1, pojo.getNombre());
+		ps.setString(1, pojo.getAlias());
 		ps.setString(2, pojo.getPassword());
 
 		try (ResultSet rs = ps.executeQuery()) {
@@ -202,12 +206,23 @@ public class UsuarioDAO implements CrudAble<Usuario> {
 		if (rs != null) {
 
 			usuario.setId(rs.getLong("idUsuario"));
-			usuario.setNombre(rs.getString("usuario_nombre"));
-			usuario.setPass(rs.getString("password"));
+			
+			usuario.setNombre(rs.getString("nombre"));
+			usuario.setApellido1(rs.getString("apellido_1"));
+			usuario.setApellido2(rs.getString("apellido_2"));
+			usuario.setEmail(rs.getString("email"));
+			usuario.setImagen(rs.getString("imagen"));
+			usuario.setAlias(rs.getString("alias"));
+			usuario.setPassword(rs.getString("password"));
+			usuario.setDireccion(rs.getString("direccion"));
+			usuario.setDescripcion(rs.getString("descripcion"));
+			
+			usuario.setFecha_alta(rs.getDate("fecha_alta"));
+			usuario.setStatus(rs.getInt("status"));
 
 			// Detectamos el Rol
 			Rol rol = new Rol();
-			rol.setId(rs.getLong("idRol"));
+			rol.setId(rs.getLong("id_rol"));
 			rol.setNombre(rs.getString("rol_nombre"));
 
 			usuario.setRol(rol);

@@ -15,15 +15,13 @@ public class VideoDAO implements CrudAble<Video> {
 
 	private static VideoDAO INSTANCE = null;
 
-	private final String SQL_GET_ALL = "SELECT v.idvideo, v.codigo, v.nombre as 'video_nombre' , v.id_usuario"
-			+ ", u.idusuario, u.nombre as 'usuario_nombre', u.password" 
-			+ " FROM video as v, usuario as u"
-			+ " WHERE v.id_Usuario = u.idusuario" 
+	private final String SQL_GET_ALL = "SELECT v.*, u.alias, u.password"
+			+ " FROM video as v INNER JOIN usuario as u ON v.id_usuario = u.idusuario " 
 			+ " ORDER BY idvideo DESC LIMIT 1000;";
 
-	private final String SQL_GET_BY_ID = "SELECT v.idvideo, v.codigo, v.nombre as 'video_nombre' , v.id_usuario"
-			+ " , u.idusuario, u.nombre as 'usuario_nombre', u.password" + " FROM video as v, usuario as u"
-			+ " WHERE v.idvideo = ? AND v.id_usuario = u.idusuario;";
+	private final String SQL_GET_BY_ID = "SELECT v.*, u.alias, u.password"
+			+ " FROM video as v INNER JOIN usuario as u ON v.id_usuario = u.idusuario "
+			+ " WHERE v.idvideo = ?;";
 	
 	private final String SQL_GET_ONE_VIDEO_PER_CATEGORY = "SELECT (c.nombre), v.idvideo, v.nombre"
 			+ " FROM categoria as c INNER JOIN video as v"
@@ -180,15 +178,15 @@ public class VideoDAO implements CrudAble<Video> {
 		if (rs != null) {
 
 			// Campos de clase Video
-			video.setId(rs.getInt("idVideo"));
+			video.setId(rs.getInt("idvideo"));
 			video.setCod(rs.getString("codigo"));
-			video.setNombre(rs.getString("video_nombre"));
+			video.setNombre(rs.getString("nombre"));
 
 			// Campos de clase Usuario -> (video_has_usuario)
 			usuario = new Usuario();
 			usuario.setId(rs.getLong("id_usuario"));
-			usuario.setNombre(rs.getString("usuario_nombre"));
-			usuario.setPass(rs.getString("password"));
+			usuario.setAlias(rs.getString("alias"));
+			usuario.setPassword(rs.getString("password"));
 			
 			video.setUsuario(usuario);
 		}

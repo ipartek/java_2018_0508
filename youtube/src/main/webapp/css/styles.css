@@ -62,7 +62,6 @@ input[type=range]:focus {
 }
 
 input[type=range]::-webkit-slider-runnable-track {
-	/*width: 60%;*/
 	height: 5px;
 	cursor: pointer;
 	animate: 0.2s;
@@ -89,7 +88,6 @@ input[type=range]:focus::-webkit-slider-runnable-track {
 }
 
 input[type=range]::-moz-range-track {
-	/*width: 60%;*/
 	height: 5px;
 	cursor: pointer;
 	animate: 0.2s;
@@ -152,22 +150,103 @@ input[type=range]:focus::-ms-fill-upper {
 	background: #2497E3;
 }
 
-/*  CARROUSEL  */
-/*-------------*/
-#carouselExample a img {
-	width: 500px;
-	height: 250px;
+/* LISTADO DE VIDEOS */
+/* ----------------- */
+.hovereffect {
+	width: 100%;
+	height: 100%;
+	float: left;
+	overflow: hidden;
+	position: relative;
+	text-align: center;
+	cursor: default;
 }
 
-.carousel-control-next .carousel-control-prev {
-	width: 8% !important;
+.hovereffect .overlay {
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	overflow: hidden;
+	top: 0;
+	left: 0;
+	opacity: 0;
+	background-color: rgba(0, 0, 0, 0.5);
+	-webkit-transition: all .4s ease-in-out;
+	transition: all .4s ease-in-out
+}
+
+.hovereffect img {
+	display: block;
+	height: 200px;
+	width: 350px;
+	position: relative;
+	-webkit-transition: all .4s linear;
+	transition: all .4s linear;
+}
+
+.hovereffect h2 {
+	text-transform: uppercase;
+	color: #fff;
+	text-align: center;
+	position: relative;
+	font-size: 17px;
+	background: rgba(0, 0, 0, 0.6);
+	-webkit-transform: translatey(-100px);
+	-ms-transform: translatey(-100px);
+	transform: translatey(-100px);
+	-webkit-transition: all .2s ease-in-out;
+	transition: all .2s ease-in-out;
+	padding: 10px;
+}
+
+.hovereffect a.info {
+	text-decoration: none;
+	display: inline-block;
+	text-transform: uppercase;
+	color: #fff;
+	border: 1px solid #fff;
+	background-color: transparent;
+	opacity: 0;
+	filter: alpha(opacity = 0);
+	-webkit-transition: all .2s ease-in-out;
+	transition: all .2s ease-in-out;
+	margin: 50px 0 0;
+	padding: 7px 14px;
+}
+
+.hovereffect a.info:hover {
+	box-shadow: 0 0 5px #fff;
+}
+
+.hovereffect:hover img {
+	-ms-transform: scale(1.2);
+	-webkit-transform: scale(1.2);
+	transform: scale(1.2);
+}
+
+.hovereffect:hover .overlay {
+	opacity: 1;
+	filter: alpha(opacity = 100);
+}
+
+.hovereffect:hover h2, .hovereffect:hover a.info {
+	opacity: 1;
+	filter: alpha(opacity = 100);
+	-ms-transform: translatey(0);
+	-webkit-transform: translatey(0);
+	transform: translatey(0);
+}
+
+.hovereffect:hover a.info {
+	-webkit-transition-delay: .2s;
+	transition-delay: .2s;
 }
 
 /* COMENTARIOS */
 /*-------------*/
 .pb-cmnt-container {
 	font-family: Lato;
-	margin-top: 100px;
+	margin-top: 20px;
 }
 
 .pb-cmnt-textarea {
@@ -175,7 +254,7 @@ input[type=range]:focus::-ms-fill-upper {
 	padding: 20px;
 	height: 130px;
 	width: 100%;
-	border: 2px solid #FF0;
+	border: 2px solid #FFF;
 }
 
 /* 404  - 500  */
@@ -198,77 +277,4 @@ div.error-actions {
 div.error-actions .btn {
 	margin-right: 10px;
 	margin-bottom: 10px;
-}
-
-/* LISTADO DE VIDEOS */
-/* ----------------- */
-@media ( min-width : 768px) {
-	/* show 3 items */
-	.carousel-inner .active, .carousel-inner .active+.carousel-item,
-		.carousel-inner .active+.carousel-item+.carousel-item, .carousel-inner .active+.carousel-item+.carousel-item+.carousel-item
-		{
-		display: block;
-	}
-	.carousel-inner .carousel-item.active:not (.carousel-item-right ):not (.carousel-item-left
-		), .carousel-inner .carousel-item.active:not (.carousel-item-right ):not
-		(.carousel-item-left ) +.carousel-item, .carousel-inner .carousel-item.active:not
-		(.carousel-item-right ):not (.carousel-item-left ) +.carousel-item+.carousel-item,
-		.carousel-inner .carousel-item.active:not (.carousel-item-right ):not
-		(.carousel-item-left ) +.carousel-item+.carousel-item+.carousel-item {
-		transition: none;
-	}
-	.carousel-inner .carousel-item-next, .carousel-inner .carousel-item-prev
-		{
-		position: relative;
-		transform: translate3d(0, 0, 0);
-	}
-	.carousel-control-next:hover, .carousel-control-prev:hover {
-		background-color: #000;
-		opacity: 30%;
-	}
-	.carousel-inner .active.carousel-item+.carousel-item+.carousel-item+.carousel-item+.carousel-item
-		{
-		position: absolute;
-		top: 0;
-		right: -25%;
-		z-index: -1;
-		display: block;
-		visibility: visible;
-	}
-
-	/* left or forward direction */
-	.active.carousel-item-left+.carousel-item-next.carousel-item-left,
-		.carousel-item-next.carousel-item-left+.carousel-item,
-		.carousel-item-next.carousel-item-left+.carousel-item+.carousel-item,
-		.carousel-item-next.carousel-item-left+.carousel-item+.carousel-item+.carousel-item,
-		.carousel-item-next.carousel-item-left+.carousel-item+.carousel-item+.carousel-item+.carousel-item
-		{
-		position: relative;
-		transform: translate3d(-100%, 0, 0);
-		visibility: visible;
-	}
-
-	/* farthest right hidden item must be absolute position for animations */
-	.carousel-inner .carousel-item-prev.carousel-item-right {
-		position: absolute;
-		top: 0;
-		left: 0;
-		z-index: -1;
-		display: block;
-		visibility: visible;
-	}
-
-	/* right or prev direction */
-	.active.carousel-item-right+.carousel-item-prev.carousel-item-right,
-		.carousel-item-prev.carousel-item-right+.carousel-item,
-		.carousel-item-prev.carousel-item-right+.carousel-item+.carousel-item,
-		.carousel-item-prev.carousel-item-right+.carousel-item+.carousel-item+.carousel-item,
-		.carousel-item-prev.carousel-item-right+.carousel-item+.carousel-item+.carousel-item+.carousel-item
-		{
-		position: relative;
-		transform: translate3d(100%, 0, 0);
-		visibility: visible;
-		display: block;
-		visibility: visible;
-	}
 }
