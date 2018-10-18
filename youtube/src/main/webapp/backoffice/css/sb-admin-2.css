@@ -450,3 +450,8 @@ table.dataTable thead .sorting:after {
 	overflow-y: scroll;
 	max-height: 50vh;
 }
+
+.cerrarSesion{
+	position:absolute;
+	right:15px;
+}

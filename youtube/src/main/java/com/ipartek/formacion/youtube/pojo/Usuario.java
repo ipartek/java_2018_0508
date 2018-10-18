@@ -7,9 +7,6 @@ public class Usuario {
 	private String password;	
 	private Rol rol;
 	
-	public static final int ROL_ADMIN = 0;
-	public static final int ROL_USER = 1;
-	
 	public Usuario() {
 		super();
 		this.id=-1;
