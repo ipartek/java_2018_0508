@@ -1,7 +1,5 @@
 	
 	<footer>I'm the footer</footer>
-
-   
    
    	<script src="js/profile.js"></script>
    	 

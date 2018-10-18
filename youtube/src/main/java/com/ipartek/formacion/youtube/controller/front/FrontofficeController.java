@@ -14,6 +14,7 @@ import com.ipartek.formacion.youtube.model.RolDAO;
 import com.ipartek.formacion.youtube.model.UsuarioDAO;
 import com.ipartek.formacion.youtube.model.VideoDAO;
 import com.ipartek.formacion.youtube.pojo.Alert;
+import com.ipartek.formacion.youtube.pojo.Usuario;
 
 /**
  * Servlet implementation class FrontofficeController
@@ -67,8 +68,12 @@ public class FrontofficeController extends HttpServlet {
 
 		try {
 			
+			Usuario user = (Usuario) request.getSession().getAttribute("usuario");
+			
 			alert = new Alert(Alert.SUCCESS, "Panel de Usuario");
 			
+			
+			request.setAttribute("comentarios", daoComentario.getAllByIdUsuario(user.getId()));
 			request.setAttribute("alert", alert);
 
 		} catch (Exception e) {

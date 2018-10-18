@@ -31,6 +31,11 @@ public class ComentarioDAO implements CrudAble<Comentario> {
 			+ " INNER JOIN video as v ON c.id_video=v.idvideo"
 			+ " WHERE idvideo = ?;";
 	
+	private final String SQL_GET_BY_ID_USUARIO = "SELECT c.*, u.nombre as 'us_nombre', v.nombre as 'vid_nombre'"
+			+ " FROM comentario as c INNER JOIN usuario as u ON c.id_usuario = u.idusuario"
+			+ " INNER JOIN video as v ON c.id_video=v.idvideo"
+			+ " WHERE idusuario = ?;";
+	
 	private final String SQL_GET_BY_APROBADOS = "SELECT c.*, u.nombre as 'us_nombre', v.nombre as 'vid_nombre'"
 			+ " FROM comentario as c INNER JOIN usuario as u ON c.id_usuario = u.idusuario"
 			+ " INNER JOIN video as v ON c.id_video=v.idvideo"
@@ -76,6 +81,27 @@ public class ComentarioDAO implements CrudAble<Comentario> {
 
 		try (Connection cnx = ConnectionManager.getConnection();
 				PreparedStatement ps = cnx.prepareStatement(SQL_GET_BY_ID_VIDEO);) {
+
+			ps.setLong(1, id);
+			try (ResultSet rs = ps.executeQuery();) {
+
+				while (rs.next()) {
+
+					comentarios.add(rowMapper(rs)); // Mapear ResultSet
+				}
+			}
+		}
+		
+		return comentarios;
+
+	}
+	
+	public List<Comentario> getAllByIdUsuario(long id) throws Exception {
+
+		ArrayList<Comentario> comentarios = new ArrayList<Comentario>();
+
+		try (Connection cnx = ConnectionManager.getConnection();
+				PreparedStatement ps = cnx.prepareStatement(SQL_GET_BY_ID_USUARIO);) {
 
 			ps.setLong(1, id);
 			try (ResultSet rs = ps.executeQuery();) {
