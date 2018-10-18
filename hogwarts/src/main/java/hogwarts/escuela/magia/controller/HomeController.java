@@ -30,6 +30,6 @@ public class HomeController extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-
+		request.getRequestDispatcher(request.getContextPath()+"home.jsp").forward(request, response);
 	}
 }
