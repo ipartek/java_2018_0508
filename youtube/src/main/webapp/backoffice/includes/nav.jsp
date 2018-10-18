@@ -14,7 +14,7 @@
             <ul class="nav navbar-top-links navbar-right">
             	<li>
                 	<a href="../logout" class="navbar-brand cerrarSesion">Cerra Session</a>
-                </li>	
+                </li>
             </ul>
             <!-- /.navbar-top-links -->
 
