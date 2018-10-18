@@ -5,7 +5,8 @@
     <div class="container">
     	
      
-      <h4>Lista de reproduccion</h4>	
+      
+      <h4 class="my-4"><fmt:message key="lista.reproduccion"/></h4>	
       <div class="row">
         <div class="col-lg-3">        	
           <ul class="list-group">                     
@@ -109,7 +110,7 @@
             
             <hr>
 	         <!-- ****************************************** -->
-	        <h4 class="my-4"><fmt:message key="lista.reproduccion"/>Lista edicion masiva</h4>
+	        <h4 class="my-4"><fmt:message key="lista.reproduccion.masiva"/></h4>
           
 			<c:if test="${ empty editar}">
 				<c:if test="${not empty sessionScope.usuario}">

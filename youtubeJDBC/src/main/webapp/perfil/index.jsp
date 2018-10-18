@@ -61,6 +61,7 @@
             </div>
             <c:if test=""></c:if>
             <div class="row">
+            	<h2>Modifica tus datos</h2>
             	<form>
 					  <div class="form-row">
 					    <div class="form-group col-md-12">
@@ -90,4 +91,4 @@
         </div>
         <!-- /#page-wrapper -->
 
-   
+<%@ include file="includes/footer.jsp"  %>

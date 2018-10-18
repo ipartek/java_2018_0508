@@ -154,11 +154,13 @@ public class PerfilController extends HttpServlet {
 						listarComentarios(session);
 						break;
 					}
-				/*case OP_PRINCIPAL:
-					switch (accion) {
-					default:
-						vista = VISTA_PRINCIPAL;
-					}*/
+				default:
+					//cargamos para representar el nº de comentarios y videos en el perfil
+					Usuario u = (Usuario) session.getAttribute("usuario");
+					comentarios = (ArrayList<Comentario>) comentariosDao.getAllByActiveUser(u);
+					videos = (ArrayList<Video>) videosDao.getByActiveUser(u);
+
+					
 				
 				
 				}
