@@ -1,0 +1,12 @@
+/*
+	Custom CSS by Adrian Perozzo
+*/
+.login-body {
+	height: 100vh;
+	background-image: url("../images/fondo-login.jpg");
+	background-position: center;
+	background-repeat: no-repeat;
+}
+.login-body *{
+	margin: auto;
+}

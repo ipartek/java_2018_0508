@@ -11,8 +11,8 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * Servlet implementation class HomeController
  */
-@WebServlet("/grancomedor")
-public class HomeController extends HttpServlet {
+@WebServlet("/backoffice")
+public class LoginController extends HttpServlet {
 	
 	private static final long serialVersionUID = 1L;
 
@@ -22,7 +22,7 @@ public class HomeController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		doPost(request, response);
+		request.getRequestDispatcher("/login.jsp").forward(request, response);
 	}
 
 	/**
