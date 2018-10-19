@@ -34,12 +34,12 @@ i.badge{
     margin: .5em 0;
 }
 #texto_comentario{
-	overflow-y: scroll;
+	overflow-y: auto;
 	max-height: 50vh;
 }
 .card-text{
 	max-height: 100px;
-	overflow-y: scroll;
+	overflow-y: auto;
 }
 td[onclick]:hover,td[data-toggle]:hover{
 	cursor: pointer;
@@ -216,7 +216,9 @@ a.text-pika-brown:hover{
 *	Pantalla de Login y de registro
 ***********************************************************/
 .fondo-login {
-	background: url("../images/fondo_login.jpg");
+	background-image: url("../images/fondo_login.jpg");
+	background-repeat: repeat;
+	background-origin: content-box;
 }
 
 .fondo-login .row {
@@ -229,7 +231,13 @@ a.text-pika-brown:hover{
 	border-radius: .25em;
 }
 
-.fondo-login-form h1, .fondo-login-form small, .fondo-login-form i,
+.fondo-login-form h1, .fondo-login-form, .fondo-login-form i,
 	.fondo-login-form label {
 	color: #72FC5C;
+}
+.fondo-login-form .correcto, .fondo-login-form .correcto:focus{
+	border: 3px solid #5C72FC;
+}
+.fondo-login-form .incorrecto{
+	border: 3px solid #FC5C72;
 }

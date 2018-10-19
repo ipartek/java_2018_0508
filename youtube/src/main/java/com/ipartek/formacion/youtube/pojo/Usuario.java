@@ -10,6 +10,7 @@ public class Usuario {
 	private String nombre;
 	private String contrasenya;
 	private int rol;
+	private String avatar; // Campo donde se guarda la url de la imagen
 	
 	public Usuario() {
 		super();
@@ -55,6 +56,14 @@ public class Usuario {
 		this.rol = rol;
 	}
 	
+
+	public String getAvatar() {
+		return avatar;
+	}
+
+	public void setAvatar(String avatar) {
+		this.avatar = avatar;
+	}
 
 	@Override
 	public String toString() {

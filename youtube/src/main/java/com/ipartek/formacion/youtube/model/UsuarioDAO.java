@@ -14,14 +14,14 @@ public class UsuarioDAO implements CrudAble<Usuario> {
 	private static UsuarioDAO INSTANCE = null;
 	private static List<Usuario> usuarios = null;
 
-	private final String SQL_GET_ALL = "SELECT id, nombre, password, rol FROM usuario ORDER BY id DESC LIMIT 50;";
-	private final String SQL_GET_BY_ID = "SELECT id, nombre, password, rol FROM usuario WHERE id = ?;";
+	private final String SQL_GET_ALL = "SELECT id, nombre, password, rol, avatar FROM usuario ORDER BY id DESC LIMIT 50;";
+	private final String SQL_GET_BY_ID = "SELECT id, nombre, password, rol, avatar FROM usuario WHERE id = ?;";
 	private final String SQL_UPDATE = "UPDATE usuario SET nombre = ?, password = ?, rol = ? WHERE id = ?;";
 	private final String SQL_DELETE = "DELETE FROM usuario WHERE id = ?;";
 	private final String SQL_INSERT = "INSERT INTO usuario (nombre, password) VALUES (?,?);";
 	
-	private final String SQL_NOMBRE_LIBRE = "SELECT id, nombre, password, rol FROM youtube.usuario  WHERE nombre LIKE ?;";
-	private final String SQL_USUARIO = "SELECT id, nombre, password, rol FROM youtube.usuario  WHERE nombre LIKE ? AND password LIKE ?;";
+	private final String SQL_NOMBRE_LIBRE = "SELECT id, nombre, password, rol, avatar FROM youtube.usuario  WHERE nombre LIKE ?;";
+	private final String SQL_USUARIO = "SELECT id, nombre, password, rol, avatar FROM youtube.usuario  WHERE nombre LIKE ? AND password LIKE ?;";
 
 	private UsuarioDAO() {
 		usuarios = new ArrayList<Usuario>();
@@ -198,6 +198,7 @@ public class UsuarioDAO implements CrudAble<Usuario> {
 			u.setNombre(rs.getString("nombre"));
 			u.setContrasenya(rs.getString("password"));
 			u.setRol(rs.getInt("rol"));
+			u.setAvatar(rs.getString("avatar"));
 		}
 		return u;
 	}

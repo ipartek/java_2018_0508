@@ -42,6 +42,7 @@
 						<th>ID</th>
 						<th>Nombre</th>
 						<th>Rol</th>
+						<th>Avatar</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -51,6 +52,7 @@
 							<td><a
 								href="backoffice/usuario?id=${u.id}&op=<%= BackofficeUsuarioController.OP_IR_FORMULARIO%>">${u.nombre}</a></td>
 							<td>${(u.rol==1)?'usuario':'admin'}</td>
+							<td>${u.avatar}</td>
 						</tr>
 					</c:forEach>
 				</tbody>
@@ -59,6 +61,7 @@
 						<th>ID</th>
 						<th>Nombre</th>
 						<th>Rol</th>
+						<th>Avatar</th>
 					</tr>
 				</tfoot>
 			</table>

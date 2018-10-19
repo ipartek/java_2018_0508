@@ -8,24 +8,31 @@
 	<div class="row mt-3">
 		<div class="col-3">
 			<ul class="list-group">
-	  			<li class="list-group-item">Mostrar imagen subida con etiqueta IMG </li>
-	  			<li class="list-group-item">Mostrar Tamaño bytes imagen subida</li>
-	  			<li class="list-group-item">Permitir solo extensiones .PNG, .JPG y JPEG</li>
-	  			<li class="list-group-item">¿ Que pasa si pesa mas de 2MB?</li>
+				<li class="list-group-item">Datos</li>
+	  			<li class="list-group-item">Videos</li>
+	  			<li class="list-group-item">Amigos</li>
 			</ul> 
 		</div><!-- Cierre col De la parte izquierda -->
 		<div class="col-9">
-			<form>
-				<div class="row">
+			<form action="" method="post">
+			<h2>Datos de ${usuario.nombre}:</h2>
+				<div class="row mt-2 mb-2">
 					<div class="col-4">
-						Nombre: ${usuario.nombre}
+						Nombre: 
+						<input type="text" name="nombre" placeholder="${usuario.nombre}" class="form-control">
 					</div>
 				</div>
-				<div class="row">
+				<div class="row mt-2 mb-2">
 					<div class="col">
-						
+						Nueva contraseña:
+						<input type="password" name="contrasenya" placeholder="ejemplo: P1K4L_sT" class="form-control">
+					</div>
+					<div class="col">
+						Repita la contraseña:
+						<input type="password" name="contrasenya" placeholder="ejemplo: P1K4L_sT" class="form-control">
 					</div>
 				</div><!-- Cierre row contraseñas -->
+				<input type="submit" value="Actualizar" class="btn-main btn-outline-pika">
 			</form>
 		</div><!-- Cierre col De la parte derecha -->
 	</div><!-- Cierre del row principal -->

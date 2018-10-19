@@ -1,10 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!-- Cabecera -->
 	<header>
-		<nav class="navbar navbar-expand-lg navbar-dark bg-pika-orange">
+		<nav class="navbar navbar-expand-lg navbar-dark bg-pika-blue">
 			<div class="container">
 				<a class="navbar-brand" href="backoffice/inicio">Mi Perfil<img
-					id="logo" src="images/usuarios/default.png" alt="Logo de la APP"></a>
+					id="logo" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRjge14kg_H1Ykhm0IN7us7WSYTuxX5LFUNxBZ0XiZG3l08YrQY" alt="Logo de la APP"></a>
 				<button class="navbar-toggler" type="button" data-toggle="collapse"
 					data-target="#navbarResponsive" aria-controls="navbarResponsive"
 					aria-expanded="false" aria-label="Toggle navigation">

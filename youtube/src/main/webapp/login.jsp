@@ -52,7 +52,8 @@
 		<h1><i class="fas fa-user-circle"></i>Login</h1>
 			<form id="login" action="login" method="post" class="">
 				<div class="form-group">
-					<input autofocus name="usuario" class="form-control mr-2" type="text" placeholder="Nombre de usuario" required pattern=".{3,30}" value="${cookie.nombreRecordado.value}">
+				<!-- ${cookie.nombreRecordado.value} -->
+					<input autofocus name="usuario" class="form-control mr-2" type="text" placeholder="Nombre de usuario" required pattern=".{3,30}" value="manoli">
 					 <br> <input type="checkbox" name="recordar" checked><small>Recuerdame</small>
 				</div>
 				<div class="form-group">
