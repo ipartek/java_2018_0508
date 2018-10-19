@@ -13,13 +13,14 @@
       		
       		<form method="post" action="registro">
       		 	<div class="form-group">
-	      			<input type="text" name="nombre" class="form-control" placeholder="Dime Tu nombre,min 3 maximo 50 letras" required autofocus pattern="{3,50}">
+	      			<input type="text" onblur="checkNombre()" id="nombre" name="nombre" class="form-control" placeholder="Dime Tu nombre,min 3 maximo 50 letras" required autofocus pattern=".{3,50}">	      			
+	      			<small id="nombreHelp" class="form-text"></small>
 	      		</div>
 	      		<div class="form-group">
-	      			<input type="password" name="password" class="form-control" placeholder="Contraseña, minimo 8" required pattern="{8,20}">
+	      			<input type="password" name="password" class="form-control" placeholder="Contraseña, minimo 8" required pattern=".{8,20}">
 	      		</div>
 	      		<div class="form-group">
-	      			<input type="password" name="repassword" class="form-control" placeholder="repite de nuevo Contraseña por favor" required pattern="{8,20}">
+	      			<input type="password" name="repassword" class="form-control" placeholder="repite de nuevo Contraseña por favor" required pattern=".{8,20}">
 	      		</div>
 	      		<div class="form-group">
 	      			<input type="submit" value="Crear Usuario" class="btn btn-primary btn-block">

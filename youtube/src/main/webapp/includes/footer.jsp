@@ -51,6 +51,33 @@
 
 	<script>
 	
+	  	function checkNombre(){
+			
+			var nombre = $("#nombre").val();
+			var help = $("#nombreHelp"); // document.getElemntById('nombreHelp')
+			
+			console.log('checkNombre ' + nombre);
+			
+			//lamada Ajax es ASINCRONA
+			var url = "checknombre";
+			$.ajax( url , {
+				"type": "get", 
+				"success": function(data) {
+					console.log("Llego el contenido y no hubo error", data);					
+					help.html(data.resultado);
+				},
+				"error": function(result) {
+					console.error("Este callback maneja los errores", result);
+					help.html('ERROR INESPERADO');
+					help.removeClass('text-success');
+					help.addClass('text-danger');
+				},
+				"data": { "nombre": nombre }				
+			});			
+			
+	  	}
+	
+	
 		function showModalEliminar( idVideo, operacion ){
 			console.log('showModalEliminar id=' + idVideo);
 			$('#modalEliminar').modal('show');
