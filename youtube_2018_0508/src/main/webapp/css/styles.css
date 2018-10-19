@@ -13,6 +13,10 @@
 	overflow-y: scroll;
 }
 
+/*registro usuario*/
+small#nombreHelp {
+    font-size: 1em;
+}
 
 /*Formulario comentario
 **************************************/

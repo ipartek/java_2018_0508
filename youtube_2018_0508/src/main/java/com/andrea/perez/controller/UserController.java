@@ -90,7 +90,7 @@ public class UserController extends HttpServlet {
 					session.setAttribute("usuario", u);
 					session.setMaxInactiveInterval(60 * 60);// 1 hora
 
-					if (u.getRol().getId() == Rol.ROL_ADMIN) {
+					if (u.getRol() == Rol.ROL_ADMIN) {
 						view = VIEW_INICIO_ADMIN;
 					}
 

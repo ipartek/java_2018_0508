@@ -117,7 +117,8 @@ public class BackofficeUsuarioController extends HttpServlet {
 
 		try {
 			if (rol != null) {
-				usuario.setRol(daoRol.getById(rol));
+				//usuario.setRol(daoRol.getById(rol));
+				
 			}
 
 			if (!id.equals("")) { // MODIFICAR

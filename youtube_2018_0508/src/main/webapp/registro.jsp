@@ -56,7 +56,10 @@
 			<div class="col">
 				<div class="form-group">
 				   <label class="required" for="usuario">Usuario: </label>
-				   <input class="form-control" type="text" name="usuario" placeholder="Mínimo 3 caracteres y máximo 50" minlength="3" maxlength="50" required autofocus tabindex="1" required>
+				   <input class="form-control" type="text" onblur="checkNombre()" id="nombre" name="usuario" placeholder="Mínimo 3 caracteres y máximo 50" minlength="3" maxlength="50" required autofocus tabindex="1" required>
+<!-- 			   <small id="nombreHelp" class="form-text text-danger">*Nombre no disponible.</small> -->
+<!-- 			   <small id="nombreHelp" class="form-text text-success">Nombre disponible.</small> -->
+				   <small id="nombreHelp" class="form-text"></small>
 			   </div>
 			</div>
 		</div>

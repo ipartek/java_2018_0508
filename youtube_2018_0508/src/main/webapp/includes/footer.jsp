@@ -150,6 +150,36 @@
 		$('#volume-input').on('change', function () {
 		    player.setVolume($(this).val());
 		});
+		
+		
+		function checkNombre() {
+			
+			var nombre=$("#nombre").val();
+			var help=$("#nombreHelp");
+// 			console.log('checkNombre '+nombre);
+
+			//llamada Ajax es ASINCRONA
+			var url="checknombre";
+			$.ajax(url, {
+				"type": "post", // en este caso esta puenteado los metodos Get y Post
+				"success": function(data) {//va bien
+				console.log("Llego el contenido y no hubo error", data);				
+				help.html(data.resultado);//pintamos el data en el json creado en el controllador
+				help.removeClass('text-danger');
+				help.addClass('text-success');
+				},
+				"error": function(data) {
+				console.error("Este callback maneja los errores", data);
+				help.html("ERROR INESPERADO");
+				c
+				help.addClass('text-danger');
+				},
+				"data": {"nombre": nombre} //datos a enviar				
+				});
+			
+			//El resultado de la llamada Ajax se hace en success o en error
+			
+		}
 	</script>
 
 </body>

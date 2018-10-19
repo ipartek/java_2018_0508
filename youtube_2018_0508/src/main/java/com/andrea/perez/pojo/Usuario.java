@@ -4,14 +4,14 @@ public class Usuario {
 	private long id;
 	private String nombre;
 	private String contrasena;
-	private Rol rol;// TODO crear pojo y tabla bbdd 'Rol'
+	private int rol;
 
 	public Usuario() {
 		super();
 		this.id = -1;
 		this.nombre = "";
 		this.contrasena = "";
-		this.rol = new Rol();
+		this.rol = 1;
 
 	}
 
@@ -21,11 +21,11 @@ public class Usuario {
 		this.contrasena = contraseña;
 	}
 
-	public Rol getRol() {
+	public int getRol() {
 		return rol;
 	}
 
-	public void setRol(Rol rol) {
+	public void setRol(int rol) {
 		this.rol = rol;
 	}
 
