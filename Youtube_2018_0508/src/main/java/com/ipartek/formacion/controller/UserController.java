@@ -70,7 +70,7 @@ public class UserController extends HttpServlet {
 			//Comprobar usuario contra BBDD
 			daoUsuario = UsuarioDAO.getInstance();
 			
-			Usuario usuario = daoUsuario.getByNombre(user, pswd);
+			Usuario usuario = daoUsuario.getByNombreAndPswd(user, pswd);
 			
 			if(/*usuario.getNombre().equals(user) && usuario.getContrasena().equals(pswd)*/ usuario != null){
 				alert = new Alert(Alert.ALERT_PRIMARY, MessageFormat.format(idiomas.getString("msj.bienvenida"),user));

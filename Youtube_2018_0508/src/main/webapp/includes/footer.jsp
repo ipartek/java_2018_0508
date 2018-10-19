@@ -6,7 +6,7 @@
 <%@page import="java.text.DateFormat"%>
 <%@page import="java.net.URLDecoder"%>
 
-<footer class="py-5 bg-dark">
+<footer class="py-3 bg-dark">
 	<div class="container">
 		<%
 			String user ="";
@@ -35,6 +35,52 @@
 <script src="vendor/jquery/jquery.min.js"></script>
 <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 <script src="https://www.youtube.com/iframe_api"></script>
+
+<script>
+	function checkNombre(){
+		var help = $("#nombreHelp");
+		var nombre = $("#nombre").val();
+		
+		//llamada ajax => "/checknombre"
+		
+		
+		//llamada ajax es ASINCRONA
+		var url = "checknombre";
+		$.ajax(url, {
+			"type": "post", // usualmente post o get
+			"success": function(data) {
+				console.log("Llego el contenido y no hubo error", data);
+				if(data.resultado == true){
+					help.html('Nombre disponible');
+					help.removeClass('text-danger');
+					help.addClass('text-success');
+				}else{
+					help.html('Nombre no disponible');
+					help.removeClass('text-success');
+					help.addClass('text-danger');
+				}
+			},
+			"error": function(data) {
+				console.error("Este callback maneja los errores", data);
+				help.html('ERROR INESPERADO');
+				help.removeClass('text-success');
+				help.addClass('text-danger');
+			},
+			"data": {"nombre": nombre}
+		});
+		
+		/*if(nombre != undefined & nombre === "pepe"){
+			help.html('Nombre disponible');
+			help.removeClass('text-danger');
+			help.addClass('text-success');
+		}else{
+			help.html('Nombre no disponible');
+			help.removeClass('text-success');
+			help.addClass('text-danger');
+			
+		}*/
+	}
+</script>
 
 <script>
 	function showModalEliminar(idVideo, operacion){

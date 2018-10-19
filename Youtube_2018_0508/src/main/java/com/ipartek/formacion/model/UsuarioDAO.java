@@ -3,6 +3,7 @@ package com.ipartek.formacion.model;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,8 +23,10 @@ public class UsuarioDAO implements Crudable<Usuario>{
 												+ " FROM youtube.usuario as u, youtube.rol as r"
 												+ " WHERE u.id_rol = r.id AND u.id = ?;";
 	private static final String SQL_GET_BY_NOMBRE = "SELECT u.id as 'id_usuario', u.nombre as 'nombre_usuario', u.password, id_rol as 'id_rol', r.nombre as 'rol_nombre'"
+													+ " FROM youtube.usuario as u, youtube.rol as r";
+private static final String SQL_GET_NOMBRE = "SELECT u.id as 'id_usuario', u.nombre as 'nombre_usuario', u.password, id_rol as 'id_rol', r.nombre as 'rol_nombre'"
 													+ " FROM youtube.usuario as u, youtube.rol as r"
-													+ " WHERE u.id_rol = r.id AND u.nombre = ? AND password = ?;";
+													+ " WHERE u.id_rol = r.id AND u.nombre = ?;";
 	private static final String SQL_UPDATE = "UPDATE usuario SET nombre = ?, password = ?, id_rol = ? WHERE id = ?;";
 	private static final String SQL_DELETE = "DELETE FROM usuario WHERE id = ?;";
 	
@@ -105,6 +108,27 @@ public class UsuarioDAO implements Crudable<Usuario>{
 		}
 		return u;
 	}
+	
+	public boolean getByNombre(String nombre) throws Exception {
+		boolean resul = false;
+		@SuppressWarnings("unused")
+		Usuario u = null;
+		try(Connection con =  ConnectionManager.getConnection();
+		PreparedStatement ps = con.prepareStatement(SQL_GET_NOMBRE);){
+			
+			ps.setString(1, nombre);
+			
+			//Obtener resultados
+			ResultSet rs = ps.executeQuery();
+			
+			//Mapear ResultSet al objeto o array objetos
+			while( rs.next() ) {
+				u = rowMapper(rs);
+				resul = true;
+			}
+		}
+		return resul;
+	}
 
 	/**
 	 * Funcion que comprueba el nombre y la contraseña de un usuario y si existe devuelve el objeto Usuario de la bbdd
@@ -113,7 +137,7 @@ public class UsuarioDAO implements Crudable<Usuario>{
 	 * @return El usuario de la bbdd que coincida con los parametros. Si no existe, devuelve null.
 	 */
 	//Metodo extra para encontrar un usuario registrado por su nombre, ya que es UK
-	public Usuario getByNombre(String nombre, String pswd)  throws Exception{
+	public Usuario getByNombreAndPswd(String nombre, String pswd)  throws Exception{
 		Usuario u = null;
 		try(Connection con =  ConnectionManager.getConnection();
 		PreparedStatement ps = con.prepareStatement(SQL_GET_BY_NOMBRE);){
@@ -188,4 +212,6 @@ public class UsuarioDAO implements Crudable<Usuario>{
 		}
 		return u;
 	}
+
+	
 }
