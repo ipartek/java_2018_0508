@@ -10,8 +10,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.ipartek.formacion.youtube.model.ComentarioDAO;
-import com.ipartek.formacion.youtube.model.RolDAO;
-import com.ipartek.formacion.youtube.model.UsuarioDAO;
 import com.ipartek.formacion.youtube.model.VideoDAO;
 import com.ipartek.formacion.youtube.pojo.Alert;
 import com.ipartek.formacion.youtube.pojo.Usuario;
@@ -26,7 +24,6 @@ public class FrontofficeController extends HttpServlet {
 	
 	private static final String VIEW_INICIO = "/perfil/index.jsp";
 	
-	private static UsuarioDAO daoUsuario;
 	private static VideoDAO daoVideo;
 	private static ComentarioDAO daoComentario;
 	
@@ -35,14 +32,12 @@ public class FrontofficeController extends HttpServlet {
 	@Override
 	public void init(ServletConfig config) throws ServletException {
 		super.init(config);
-		daoUsuario = UsuarioDAO.getInstance();
 		daoVideo = VideoDAO.getInstance();
 		daoComentario = ComentarioDAO.getInstance();
 	}
 
 	@Override
 	public void destroy() {
-		daoUsuario = null;
 		daoVideo = null;
 		daoComentario = null;
 	}
@@ -71,6 +66,7 @@ public class FrontofficeController extends HttpServlet {
 			
 			
 			request.setAttribute("comentarios", daoComentario.getAllByIdUsuario(user.getId()));
+			request.setAttribute("videos", daoVideo.getAllPerUserId(user.getId()));
 			request.setAttribute("alert", alert);
 
 		} catch (Exception e) {

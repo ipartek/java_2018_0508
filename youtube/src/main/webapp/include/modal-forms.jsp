@@ -25,28 +25,10 @@
 	     </div>
 	     
 	     <div class="form-group text-center">
-	        <small><a href="#" data-toggle="modal" data-target="#modalPassword">¿Olvidaste tu contraseña?</a></small>
+	        <small><a href="registro.jsp">Registrarse</a></small>
 	     </div>
 	 </form>
-	 
-	 <!-- RECUPERAR CONTRASEÑA -->
-	<div id="modalPassword" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-	    <div class="modal-dialog">
-	        <div class="modal-content">
-	            <div class="modal-header">
-	                <h3>Forgot password</h3>
-	                <button type="button" class="close font-weight-light" data-dismiss="modal" aria-hidden="true">×</button>
-	            </div>
-	            <div class="modal-body">
-	                <p>Reset your password..</p>
-	            </div>
-	            <div class="modal-footer">
-	                <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
-	                <button class="btn btn-primary">Save changes</button>
-	            </div>
-	        </div>
-	    </div>
-	</div>
+
 </c:if>
                             
 <c:if test="${ not empty sessionScope.usuario }">

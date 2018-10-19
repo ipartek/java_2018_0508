@@ -139,11 +139,6 @@ public class HomeController extends HttpServlet {
 			e.printStackTrace();
 		}
 
-		// Enviar Atributos
-		enviarAtributos(request);
-
-		// Ir a la vista
-		request.getRequestDispatcher("home.jsp").forward(request, response);
 
 	}
 
@@ -204,19 +199,26 @@ public class HomeController extends HttpServlet {
 					reproducirPrimerVideo();
 					break;
 				}
+			}
 
-			} /*else if (!"true".equals(isRandom)) {
-
-				reproducirPrimerVideo();
-				System.out.println("Reproducir primer video");
-
-			}*/
 
 			cargarComentarios();
+			
+			// Enviar Atributos
+			enviarAtributos(request);
+
+			// Ir a la vista
+			request.getRequestDispatcher("home.jsp").forward(request, response);
 
 		} catch (Exception e) {
 
 			e.printStackTrace();
+			
+			// Enviar Atributos
+			enviarAtributos(request);
+
+			// Ir a la vista
+			request.getRequestDispatcher("home.jsp").forward(request, response);
 		}
 	}
 
@@ -253,7 +255,8 @@ public class HomeController extends HttpServlet {
 			e.printStackTrace();
 		}
 
-		response.sendRedirect("inicio?alert=" + alert);
+		request.getSession().setAttribute("alert", alert);
+		response.sendRedirect("inicio");
 	}
 
 	private void reproducirPrimerVideo() throws Exception {

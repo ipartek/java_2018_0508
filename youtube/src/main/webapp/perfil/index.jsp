@@ -79,6 +79,36 @@
                         
                         <div id="videos" class="tab-pane">
                             <h4>Videos</h4>
+                            	
+                            	<div class="row">
+                            		
+                            		<c:forEach items="${ videos }" var="video" varStatus="loop">
+			
+									<div class="col-lg-3 col-md-4 col-sm-6 col-xs-12 mt-3">
+									    <div class="hovereffect">
+									        <img class="img-responsive" src="https://img.youtube.com/vi/${ video.cod }/0.jpg" alt="${ video.nombre }">
+									        <div class="overlay">
+									           <h2>${ video.nombre }</h2>
+									           <a class="info" href="inicio?id=${ video.id }"><i class="fa fa-play" title="Reproducir Video"></i></a>
+									           
+									           <!-- DELETE/UPDATE VIDEO OPTIONS -->
+										    	<c:if test="${ not empty sessionScope.usuario }">   	
+										          		<a class="info">
+										          			<i class="text-danger fas fa-trash-alt mr-2" title="Eliminar Video" 
+										          			onclick="showModalForm(${ video.id },${ HomeController.OP_ELIMINAR });"></i>
+										          		</a>
+										          		<a class="info">
+										          			<i class="text-primary fas fa-edit" title="Editar Video" 
+										          			onclick="showModalForm(${ video.id }, ${ HomeController.OP_MODIFICAR });"></i>
+										          		</a>
+									          	</c:if>
+									        </div>
+									    </div>
+									</div>
+								
+								    </c:forEach>
+                            	</div>
+
                         </div>
                         
                         <div id="comments" class="tab-pane">

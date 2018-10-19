@@ -23,6 +23,9 @@
       <!-- /.container -->
     </footer>
     
+    <!-- JQUERY core JS -->
+    <script src="vendor/jquery/jquery.min.js"></script>
+    
     <!-- Include API Youtube-->
     <script src="https://www.youtube.com/iframe_api"></script>
     <script src="js/youtube_iframe_config.js"></script>

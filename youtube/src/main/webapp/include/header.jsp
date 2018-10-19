@@ -43,8 +43,6 @@
     <!-- My own CSS -->
     <link href="css/styles.css?v10" rel="stylesheet"></link>
     
-    <!-- JQUERY core JS -->
-    <script src="vendor/jquery/jquery.min.js"></script>
 
   </head>
 

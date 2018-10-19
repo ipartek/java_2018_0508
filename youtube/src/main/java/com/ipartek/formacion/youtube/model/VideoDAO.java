@@ -23,6 +23,10 @@ public class VideoDAO implements CrudAble<Video> {
 			+ " FROM video as v INNER JOIN usuario as u ON v.id_usuario = u.idusuario "
 			+ " WHERE v.idvideo = ?;";
 	
+	private final String SQL_GET_BY_USER_ID = "SELECT v.*, u.alias, u.password"
+			+ " FROM video as v INNER JOIN usuario as u ON v.id_usuario = u.idusuario "
+			+ " WHERE u.idusuario = ?;";
+	
 	private final String SQL_GET_ONE_VIDEO_PER_CATEGORY = "SELECT (c.nombre), v.idvideo, v.nombre"
 			+ " FROM categoria as c INNER JOIN video as v"
 			+ " ON c.idcategoria = v.id_categoria"
@@ -75,6 +79,28 @@ public class VideoDAO implements CrudAble<Video> {
 				videos.add(rowMapper(rs)); // Mapear ResultSet
 			}
 		}
+		return videos;
+	}
+	
+	public List<Video> getAllPerUserId(long idUsuario) throws Exception {
+
+		ArrayList<Video> videos = new ArrayList<Video>();
+
+
+		try (Connection cnx = ConnectionManager.getConnection();
+				PreparedStatement ps = cnx.prepareStatement(SQL_GET_BY_USER_ID);) {
+
+			ps.setLong(1, idUsuario);
+			try (ResultSet rs = ps.executeQuery();) {
+
+				while (rs.next()) {
+
+					videos.add(rowMapper(rs)); // Mapear ResultSet
+				}
+
+			}
+		}
+		
 		return videos;
 	}
 

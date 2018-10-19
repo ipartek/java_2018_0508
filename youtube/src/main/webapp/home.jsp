@@ -60,22 +60,11 @@
 	</div> <!--  /.row -->
 	
 	<!-- REPRODUCTOR -->
-	<div class="row">	
-		
-		<div class="col">
-          
-          <div class="card">   
-	         
-	          <div id="video-placeholder"></div> <!-- IFRAME --> 
-          
-          </div> <!-- /.card -->  		
-       
-        </div> <!-- /.col -->
-     
-     </div> <!-- /.row -->
+	<!-- 16:9 ASPECT RATIO -->
+	<div class="embed-responsive embed-responsive-16by9">
+	  <div class="embed-responsive-item" id="video-placeholder"></div>
      
      <!-- PLAYER CONTROLS -->
-     <div class="row">
   		
   		<!-- VIDEO BUTTONS -->
 		<div class="col  d-flex justify-content-between">
@@ -108,7 +97,7 @@
 			
 		</div> 	<!-- /.col -->
 	
-	</div>	<!-- /.row -->
+	</div>	<!-- /.embed-responsive -->
      
 </div> <!-- /.container -->
 
@@ -156,9 +145,9 @@
     	    player = new YT.Player('video-placeholder', {
     	        videoId: '${ videoInicio.cod }',
     	        playerVars: {
-    	            //enablejsapi: 1,
-    	            //origin: 'http://localhost:8080',
-    	            //autoplay: 1,
+    	            enablejsapi: 1,
+    	            origin: 'http://localhost:8080',
+    	            autoplay: 1,
     	            rel: 0, 
     	            controls: 0
     	        },
