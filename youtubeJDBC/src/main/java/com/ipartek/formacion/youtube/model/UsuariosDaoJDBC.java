@@ -27,7 +27,7 @@ public class UsuariosDaoJDBC implements CrudAble<Usuario> {
 	private final String SQL_SELECT_BY_NAMEPASS = "SELECT u.id  as 'id_usuario',u.nombre as 'nombre_usuario', password, id_rol as 'id_rol'"+
 			" FROM usuario as u, rol as r"+
 			" WHERE u.nombre = ? and password = ? ;" ;
-	private final String SQL_SELECT_BY_NAME = "SELECT id,nombre, password, id_rol FROM usuario WHERE nombre = ?;";
+	private final String SQL_SELECT_BY_NAME = "SELECT id as 'id_usuario',nombre as 'nombre_usuario', password, id_rol FROM usuario WHERE nombre = ?;";
 	private final String SQL_SELECT_BY_ID = "SELECT u.id as 'id_usuario',u.nombre as 'nombre_usuario', password, id_rol as 'id_rol', r.nombre as 'nombre_rol'"+
 	" FROM usuario as u, rol as r"+
 	" WHERE u.id = ?;";

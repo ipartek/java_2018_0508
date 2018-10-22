@@ -13,7 +13,9 @@
 					  <div class="form-row">
 					  <div class="form-group col-md-12">
 					      <label for="nombreUsuario">Usuario</label>
-					      <input type="text" class="form-control" name="nombreUsuario" autofocus required="required" placeholder="5 caracteres minimo" pattern="[A-Za-z]{5,45}">
+					      <input type="text" class="form-control " id="nombre" onblur="checkNombre()" name="nombreUsuario" autofocus required="required" placeholder="5 caracteres minimo" pattern="[A-Za-z]{5,45}">
+					     <!--  <small id="noDisponilbe" class="form-text  text-danger" >Nombre no disponible</small> -->
+					      <small id="nombreHelp" class="form-text" ></small>
 					    </div>
 					    <!-- <div class="form-group col-md-6">
 					      <label for="emailUsuario">Email</label>
