@@ -53,12 +53,13 @@
 		       	<!-- <small id="nombreHelp" class="form-text text-pika-red">*Nombre disponible</small> -->
 		       	<small id="nombreHelp" class="form-text"></small>
 		       	<label for="pass">Introduzca su contraseña:</label>
-		       	<input onkeyup="prueba()" class="form-control" id="pass" name="pass" type="password" value="" required maxlength="20" pattern="{8,20}"/>
+		       	<input onkeyup="strengthOfPass()" class="form-control" id="pass" name="pass" type="password" value="" required maxlength="20" pattern="{8,20}"/>
 		       	<small id="fuerza_pass" class="form-text"></small>
 		       	<label for="pass">Repita la contraseña:</label>
-		       	<input class="form-control" id="pass2" name="pass2" type="password" value="" required maxlength="20" pattern="{8,20}"/>
-		       		<br>
-		       		<input class="btn btn-outline-info btn-outline-pika btn-block" type="submit" value="Darse de Alta" />
+		       	<input onkeyup="comprobarContrasenyas()" class="form-control" id="pass2" name="pass2" type="password" value="" required maxlength="20" pattern="{8,20}"/>
+		       	<small id="dual_pass" class="form-text"></small>
+		       	<br>
+		       	<input class="btn-main btn-outline-pika btn-block" type="submit" value="Registrarse" />
 		     </form>
 		</div>
 	</div>
@@ -66,66 +67,6 @@
     <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
 	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
-	<script>
-		function prueba() {
-			var fuerza = $("#fuerza_pass");
-			var pass = $("#pass").val();
-			console.log(pass);
-			if (pass.length < 6) {
-				fuerza.addClass("text-pika-red");
-				fuerza.removeClass("text-pika-yellow");
-				fuerza.removeClass("text-pika-blue");
-				fuerza.html("Weak");
-			}else if(pass.length < 12){
-				fuerza.removeClass("text-pika-red");
-				fuerza.addClass("text-pika-yellow");
-				fuerza.removeClass("text-pika-blue");
-				fuerza.html("Medium");
-			}else{
-				fuerza.removeClass("text-pika-red");
-				fuerza.removeClass("text-pika-yellow");
-				fuerza.addClass("text-pika-blue");
-				fuerza.html("Strong");
-			}
-		}
-		function checkNombre() {
-			var nombre = $("#nombre").val();
-			var input_nombre = $("#nombre");
-			var help = $("#nombreHelp");
-			console.log(nombre);
-			var url = "CheckNombre";
-			if (nombre != "") {
-				// Llamada es asincrona
-				$.ajax(url, {
-					"type": "post",
-					"success": function(result) {
-						console.log("Llego el contenido y no hubo error", result);
-						// result.resultado
-						if(true === result.resultado){
-							help.html('*nombre de usuario no disponible!');
-							help.addClass("text-pika-red");
-							help.removeClass("text-pika-blue");
-							input_nombre.addClass("incorrecto");
-							input_nombre.removeClass("correcto");
-						}else{
-							help.html('*nombre de usuario disponible!');
-							help.addClass("text-pika-blue");
-							help.removeClass("text-pika-red");
-							input_nombre.addClass("correcto");
-							input_nombre.removeClass("incorrecto");
-						}
-					},
-					"error": function(result) {
-						console.error("Este callback maneja los errores", result);
-						help.html('*error inesperado');
-						input_nombre.addClass("incorrecto");
-						input_nombre.removeClass("correcto");
-					},
-					"data": {"nombre": nombre}
-				});
-			}
-			
-		}
-	</script>
+	<script src="js/scripts.js"></script>
 	</body>
 </html>
