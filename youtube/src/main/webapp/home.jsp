@@ -22,6 +22,9 @@
 			</div>
 		</div>
 	</c:if>
+	<hr>
+	${pa}
+	<hr>
 	<!-- Formulario de añadir video, solo cuando el usuario este logueado -->
 	<c:if test="${not empty usuario}">
 		<ul class="navbar-nav m-3 p-3 align-items-left bg-pika">

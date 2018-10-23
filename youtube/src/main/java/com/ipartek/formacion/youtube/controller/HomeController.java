@@ -97,6 +97,9 @@ public class HomeController extends HttpServlet {
 		for (int i = 1; i < videos.size(); i++) {
 			playlist+=videos.get(i).getCodigo()+",";
 		}
+		
+		request.setAttribute("pa", daoVideos.ejemploPA(11));
+		
 		request.setAttribute("playlist", playlist);
 		request.setAttribute("videoInicio", videoInicio);
 		request.getRequestDispatcher("home.jsp").forward(request, response);

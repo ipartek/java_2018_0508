@@ -1,5 +1,6 @@
 package com.ipartek.formacion.youtube.model;
 
+import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -152,5 +153,29 @@ public class VideoDAO implements CrudAble<Video> {
 			v.setIdUsuario(rs.getLong("id_usuario"));
 		}
 		return v;
+	}
+
+	public String ejemploPA(long i) {
+		
+		String resul = "peta fijo";
+		String sql = "{CALL videoGetByID(?)}";
+		
+		try (Connection con = ConnectionManager.getConnection();
+				CallableStatement cs = con.prepareCall(sql)){
+			
+			cs.setLong(1, i);
+			
+			try(ResultSet rs = cs.executeQuery() ){
+				while (rs.next()) {
+					resul = rs.getString("nombre");
+				}
+				
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			resul += " causa: "+e.getCause();
+		}
+		return resul;
 	}
 }
