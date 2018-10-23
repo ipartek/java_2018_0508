@@ -70,6 +70,43 @@
 			$('#modalRegistro').modal('show');
 		}
 		
+		function checkNombre(){
+			var nombre = $('#nombreRegistro').val();
+			var help = $('#nombreHelp');		//document.getElementById;
+
+			console.log('check nombre ' + nombre);
+			
+			//Llamada Ajax es ASÍNCRONA => "/checknombre"
+			
+			var url = "checknombre";
+			
+			$.ajax(url, {
+			"type": "post", // usualmente post o get
+			"success": function(data) {
+				console.log("Llegó el contenido y no hubo error", data);
+				help.html(data.resultado);
+				
+				if(nombre != undefined && nombre == 'pepi'){
+					help.removeClass('text-success');
+					help.addClass('text-danger');				
+				
+				}else{
+					help.removeClass('text-danger');
+					help.addClass('text-success');					
+				}
+				
+			},
+			"error": function(result) {
+				console.error("Este callback maneja los errores", result);
+				help.html('ERROR INESPERADO');
+				help.removeClass('text-success');
+				help.addClass('text-danger');				
+			},
+			"data": {"nombreRegistro" : nombre}
+			});
+			
+		}
+		
 		/* YOUTUBE IFRAME API */
 	
 		var player;

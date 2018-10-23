@@ -152,6 +152,8 @@ public class HomeController extends HttpServlet {
 			e.printStackTrace();
 			alert = new Alert();
 		} finally {
+			
+			request.setAttribute("pa", daoVideo.ejemploPA(32));
 			request.setAttribute("alert", alert);
 		}
 	}

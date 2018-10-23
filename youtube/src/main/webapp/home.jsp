@@ -9,6 +9,8 @@
       <%@ include file="includes/alert.jsp"  %>	
       	
       <div class="row">
+      
+      <p>${pa}</p>
 
         <div class="col-lg-3">        	
           <h4 class="my-4"><fmt:message key="lista.reproduccion"/></h4>
@@ -91,13 +93,16 @@
 			        	<div class="form-group">
 			        	
 				        	<label for="nombreRegistro">Nombre</label>
-				        	<input type="text" id="nombreRegistro" name="nombreRegistro" class="form-control" autofocus required placeholder="Mínimo 3 y máximo 50 caracteres" pattern="{3, 50}" />
+				        	<input type="text" id="nombreRegistro" onblur="checkNombre()" name="nombreRegistro" class="form-control" required placeholder="Mínimo 3 y máximo 50 caracteres" pattern=".{3,50}" />
+							<!-- <small id="nombreHelp" class="form-text text-danger mb-2">* Nombre no disponible</small> -->
+							<!-- <small id="nombreHelp" class="form-text text-success mb-2">Nombre disponible</small> -->
+							<small id="nombreHelp" class="form-text mb-2"></small>
 				        	
 				        	<label for="passRegistro">Contraseña</label>
-				        	<input type="password" id="passRegistro" name="passRegistro" class="form-control" required placeholder="Mínimo 8 y máximo 20 caracteres" pattern="{8, 20}"  />
+				        	<input type="password" id="passRegistro" name="passRegistro" class="form-control" required placeholder="Mínimo 8 y máximo 20 caracteres" pattern=".{8, 20}"  />
 				        	
 				        	<label for="passRegistroRep">Repita la contraseña</label>
-				        	<input type="password" id="passRegistroRep" name="passRegistroRep" class="form-control mb-3" required placeholder="Mínimo 8 y máximo 20 caracteres" pattern="{8, 20}"  />
+				        	<input type="password" id="passRegistroRep" name="passRegistroRep" class="form-control mb-3" required placeholder="Mínimo 8 y máximo 20 caracteres" pattern=".{8, 20}"  />
 				        	
 				        	<button type="submit" class="btn btn-primary btn-block">Darme de alta</button>
 				       

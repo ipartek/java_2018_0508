@@ -23,6 +23,10 @@ public class UsuarioDAO implements CrudAble<Usuario> {
 										 " FROM usuario as u, rol as r" + 
 										 " WHERE u.id_rol = r.id AND u.id = ?;";
 	
+	private final String SQL_GET_BY_NOMBRE = "select u.id as 'id_usuario', u.nombre as 'nombre_usuario', password, id_rol as 'id_rol', r.nombre as 'nombre_rol'" + 
+											 " from usuario as u, rol as r" + 
+											 " where u.nombre = ?;";
+	
 	private final String SQL_UPDATE = "UPDATE usuario SET nombre = ?,password= ?, id_rol = ? WHERE id = ?";
 	private final String SQL_DELETE = "DELETE FROM usuario WHERE id = ?;";
 	private final String SQL_INSERT = "INSERT INTO usuario (nombre,password,id_rol) VALUES (?,?,?);";
@@ -96,6 +100,24 @@ public class UsuarioDAO implements CrudAble<Usuario> {
 				PreparedStatement ps = con.prepareStatement(SQL_GET_BY_ID);) {
 
 			ps.setLong(1, id);
+
+			try (ResultSet rs = ps.executeQuery()) {
+				while (rs.next()) {
+					usuario = rowMapper(rs, usuario);
+				}
+			}
+
+		} 
+
+		return usuario;
+	}
+	
+	public Usuario getByNombre(String nombre) throws Exception {
+		Usuario usuario = null;
+		try (Connection con = ConnectionManager.getConnection();
+				PreparedStatement ps = con.prepareStatement(SQL_GET_BY_NOMBRE);) {
+
+			ps.setString(1, nombre);
 
 			try (ResultSet rs = ps.executeQuery()) {
 				while (rs.next()) {

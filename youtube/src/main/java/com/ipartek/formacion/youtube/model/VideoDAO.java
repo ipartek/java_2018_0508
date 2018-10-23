@@ -9,6 +9,7 @@ import java.util.List;
 
 import com.ipartek.formacion.youtube.pojo.Usuario;
 import com.ipartek.formacion.youtube.pojo.Video;
+import java.sql.CallableStatement;
 
 public class VideoDAO implements CrudAble<Video> {
 
@@ -162,6 +163,34 @@ public class VideoDAO implements CrudAble<Video> {
 			v.setUsuario(u);
 		}
 		return v;
+	}
+	
+	public String ejemploPA(long idVideo) {
+		
+		String resul = "PETA FIJO";
+		String sql = "{CALL `ejemplo`(?)}";	//Siempre entre llaves
+		
+		try(Connection con = ConnectionManager.getConnection();
+				CallableStatement cs = con.prepareCall(sql)) {
+			
+			//Preparar parámetros
+			cs.setLong(1, idVideo);
+			
+			//Ejecutar cs
+			try(ResultSet rs = cs.executeQuery()){
+							
+				//TODO Mapear los datos
+				while(rs.next()) {
+					resul = rs.getString("nombre");
+				}
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			resul += " causa:" + e.getCause();
+		}
+		
+		return resul;
 	}
 	
 	
