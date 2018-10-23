@@ -1,3 +1,4 @@
+<%@page import="com.ipartek.formacion.youtube.controller.back.BackofficeUsuarioControllerPuente"%>
 <%@ include file="../includes/header.jsp" %>	
 
 <%@ include file="../includes/nav.jsp"  %>
@@ -38,30 +39,23 @@
                         
                        
                         
-                        	<!-- VISTA LISTA -->                   	                      	
+                        	<!-- VISTA LISTA -->
+                        		<c:if test="${tipoVista == 'lista-video' }">                 	                      	
 								 <form action="<%=request.getContextPath()%>/backoffice/comentario/aprobar" method="post">
 	                            <table width="100%" class="userDataTable table table-striped table-bordered table-hover " id="userDataTable">
 	                                <thead>
 	                                    <tr>
-	                                    	<th>Id</th>
 	                                    	<th>Video</th>
-	                                        <th>Codigo</th>
-	                                        
-	                                       
-	                                        
-	                                        
+	                                        <th>Codigo</th>  
 	                                    </tr>
 	                                </thead>
 	                                <tbody>
 	                               
-	                                	<c:forEach items="${videos}" var="c">
+	                                	<c:forEach items="${videos}" var="v">
 	                                	
-		                                    <tr class="odd gradeX">
-		                                    	<td><input name="registro" type="checkbox" value="${v.id }"></td>
-		                                    	<%-- <td>${v.id }</td> --%>
-		                                    	<td>${c.nombre }</td>
-		                                        <%-- <td class="hover-hand" onclick="showModal('${c.video.nombre },${c.texto}')">${fn:substring(c.texto, 0, 30)}...  </td> --%>		                                        
-												<td>${c.codigo }</td>
+		                                    <tr class="odd gradeX">                                  	
+		                                    	<td><a href="<%=request.getContextPath()%>/perfil/inicio?op=<%=PerfilController.OP_VIDEO%>&accion=<%=PerfilController.OP_MODIFICAR%>&videoId=${v.id }">${v.nombre }</a></td>
+												<td>${v.codigo }</td>
 		                                    </tr>
 	                                    </c:forEach>
 	                                   	
@@ -72,18 +66,32 @@
 				      			
 					      			<button class="btn btn-success" type="submit">Aprobar</button>
 					      		
-					      		 <form>   
+					      		 <form> 
+					      	</c:if>  
+					      	<!-- VISTA FORMULARIO -->
+                        		<c:if test="${tipoVista == 'form-video' }">
+                        			<div class="perfil-form">
+                        			
+	                        			<h2>Edita tu video</h2>
+	                        			<form action="/perfil/video">
+	                        				<label for="nombreCancion">Nombre</label>
+	                        				<input name="nombreCancion" type="text" value="${videoSeleccionado.nombre }">
+	                        				<label for="codigo">Codigo</label>
+	                        				<input name="codigo" type="text" value="${videoSeleccionado.codigo }">
+	                        			</form>      
+	                        			<button class="btn btn-success btn-block btn-lg" type="submit">Guardar</button>
+					      				<a href="<%=request.getContextPath()%>/backoffice/comentario?id=${comentarioSeleccionado.id}&op=<%=BackofficeUsuarioControllerPuente.OP_ELIMINAR%>" onclick="confirmar(event)" class="btn btn-danger btn-block">Eliminar(Modal)</a>
+	                        			
+	                        		</div>
+                        		</c:if>           	 
+					      		   
 							<script type="text/javascript">
 								$(document).ready(function(){
 								    $('[data-toggle="tooltip"]').tooltip();   
 								});
 							</script>
                            
-                            <div class="well">
-                                <h4>DataTables Usage Information</h4>
-                                <p>DataTables is a very flexible, advanced tables plugin for jQuery. In SB Admin, we are using a specialized version of DataTables built for Bootstrap 3. We have also customized the table headings to use Font Awesome icons in place of images. For complete documentation on DataTables, visit their website at <a target="_blank" href="https://datatables.net/">https://datatables.net/</a>.</p>
-                                <a class="btn btn-default btn-lg btn-block" target="_blank" href="https://datatables.net/">View DataTables Documentation</a>
-                            </div>
+                           
                         </div>
                         <!-- /.panel-body -->
                     </div>

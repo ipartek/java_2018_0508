@@ -24,8 +24,9 @@ public class VideoDAO implements CrudAble<Video> {
 	// private final String SQL_GET_ALL_1 = "select id, codigo,nombre,id_usuario
 	// from video";
 
-	private final String SQL_GET_BY_ID = "SELECT  v.id as 'video_id', codigo, v.nombre as 'nombre_video',id_usuario"
-			+ " FROM video as v" + " WHERE v.id = ?;";
+	private final String SQL_GET_BY_ID = "SELECT  v.id as 'video_id', codigo, v.nombre as 'nombre_video',id_usuario,u.nombre as 'nombre_usuario'"+ 
+			" FROM video as v, usuario as u" +
+			" WHERE v.id = ?;";
 	private final String SQL_UPDATE = "UPDATE video SET codigo= ? , nombre= ?,id_usuario= ? WHERE id = ?;";
 	private final String SQL_DELETE = "DELETE FROM video WHERE id = ?;";
 	private final String SQL_INSERT = "INSERT INTO video (codigo, nombre, id_usuario) VALUES (?,?,?);";

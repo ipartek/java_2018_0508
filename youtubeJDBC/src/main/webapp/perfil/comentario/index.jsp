@@ -37,19 +37,14 @@
                         <div class="panel-body">
                         
                        
-                        
+                        	<c:if test="${tipoVista == 'lista-comentario' }">
                         	<!-- VISTA LISTA -->                   	                      	
-								 <form action="<%=request.getContextPath()%>/backoffice/comentario/aprobar" method="post">
+								 <form action="<%=request.getContextPath()%>/perfil/inicio" method="post">
 	                            <table width="100%" class="userDataTable table table-striped table-bordered table-hover " id="userDataTable">
 	                                <thead>
 	                                    <tr>
-	                                    	<th>Editar</th>
+	                                    	<th>Video</th>
 	                                    	<th>texto</th>
-	                                        <th>Codigo</th>
-	                                        
-	                                       
-	                                        
-	                                        
 	                                    </tr>
 	                                </thead>
 	                                <tbody>
@@ -57,9 +52,8 @@
 	                                	<c:forEach items="${comentarios}" var="c">
 	                                	
 		                                    <tr class="odd gradeX">
-		                                    	<td><input name="registro" type="checkbox" value="${c.id }"></td>
-		                                    	<td>${c.id }</td>
-		                                        <td class="hover-hand" onclick="showModal('${c.video.nombre },${c.texto}')">${fn:substring(c.texto, 0, 30)}...  </td>		                                        
+		                                    	<th>${c.video.nombre }</th>
+		                                        <td class="hover-hand" ><a href="<%=request.getContextPath()%>/perfil/inicio?op=<%=PerfilController.OP_COMENTARIO%>&accion=<%=PerfilController.OP_MODIFICAR%>&comentarioId=${c.id }">${fn:substring(c.texto, 0, 30)}...  </a></td>	<%-- onclick="showModal('${c.video.nombre },${c.texto}')" --%>	                                        
 												
 		                                    </tr>
 	                                    </c:forEach>
@@ -69,20 +63,26 @@
 	                            </table>     
 	                             
 				      			
-					      			<button class="btn btn-success" type="submit">Aprobar</button>
+					      			<!-- <button class="btn btn-success" type="submit">Aprobar</button> -->
 					      		
 					      		 <form>   
+					      	</c:if>
+					      	<!-- VISTA FORMULARIO -->
+                        		<c:if test="${tipoVista == 'form-comentario' }">
+                        			<h2>Edita tu video</h2>
+                        			<form action="/perfil/video">
+                        				<%-- <input name="comentarioTexto" type="text" value="${comentarioSeleccionado.texto }"> --%>
+                        				<textarea class="textArea" name="comentarioTexto" >${comentarioSeleccionado.texto }</textarea>
+                        				<button class="btn btn-success btn-block btn-lg" type="submit">Guardar</button>
+                        			</form>      
+                        		</c:if>         
 							<script type="text/javascript">
 								$(document).ready(function(){
 								    $('[data-toggle="tooltip"]').tooltip();   
 								});
 							</script>
                            
-                            <div class="well">
-                                <h4>DataTables Usage Information</h4>
-                                <p>DataTables is a very flexible, advanced tables plugin for jQuery. In SB Admin, we are using a specialized version of DataTables built for Bootstrap 3. We have also customized the table headings to use Font Awesome icons in place of images. For complete documentation on DataTables, visit their website at <a target="_blank" href="https://datatables.net/">https://datatables.net/</a>.</p>
-                                <a class="btn btn-default btn-lg btn-block" target="_blank" href="https://datatables.net/">View DataTables Documentation</a>
-                            </div>
+                            
                         </div>
                         <!-- /.panel-body -->
                     </div>

@@ -9,6 +9,31 @@
                 </div>
                 <!-- /.col-lg-12 -->
             </div>
+            
+            <c:if test=""></c:if>
+            <div class="row">
+            	<h2>Modifica tus datos</h2>
+            	<form>
+					  <div class="form-row">
+					    <div class="form-group col-md-12">
+					      <label for="nombre">Nombre</label>
+					      <input type="text" name="nombre" value="${ sessionScope.usuario.nombre}" class="form-control" id="nombre" placeholder="Nuevo nombre de usuario">
+					    </div>
+					    
+					  </div>
+					  <div class="form-group col-md-6">
+					    <label for="newPass">Contraseña</label>
+					    <input type="text" name="newPass" class="form-control" id="newPass" placeholder="Nueva contraseña">
+					  </div>
+					  <div class="form-group col-md-6">
+					    <label for="newPass2"> Repita contraseña</label>
+					    <input type="text" name="newPass2" class="form-control" id="newPass2" placeholder="Introduzca nuevamente la contreñar">
+					  </div>
+					  
+					  <button type="submit" class="btn btn-primary btn-lg btn-block">Guardar</button>
+				</form>
+            </div>
+            <hr>
             <!-- /.row -->
             <div class="row justify-content-around">
                 
@@ -59,32 +84,6 @@
                 </div>
 
             </div>
-            <c:if test=""></c:if>
-            <div class="row">
-            	<h2>Modifica tus datos</h2>
-            	<form>
-					  <div class="form-row">
-					    <div class="form-group col-md-12">
-					      <label for="nombre">Nombre</label>
-					      <input type="text" name="nombre" value="${ sessionScope.usuario.nombre}" class="form-control" id="nombre" placeholder="Nuevo nombre de usuario">
-					    </div>
-					    
-					  </div>
-					  <div class="form-group col-md-6">
-					    <label for="newPass">Contraseña</label>
-					    <input type="text" name="newPass" class="form-control" id="newPass" placeholder="Nueva contraseña">
-					  </div>
-					  <div class="form-group col-md-6">
-					    <label for="newPass2"> Repita contraseña</label>
-					    <input type="text" name="newPass2" class="form-control" id="newPass2" placeholder="Introduzca nuevamente la contreñar">
-					  </div>
-					  
-					  <button type="submit" class="btn btn-primary btn-lg btn-block">Guardar</button>
-				</form>
-            </div>
-            <c:if test="">
-            	
-            </c:if>
             
             
             <!-- /.row -->

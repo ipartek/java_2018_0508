@@ -45,11 +45,15 @@ public class PerfilController extends HttpServlet {
 	private ArrayList<Comentario> comentarios;
 	private static UsuariosDaoJDBC usuariosDao;
 	private ArrayList<Video> videos;	
-	private Video videoInicio;
+	private Video videoSeleccionado;
+	private Comentario comentarioSeleccionado;
 	String editar = null;
 	String op = "";
 	String accion = "";
 	String vista  ;
+	String tipoVista;
+	String videoId;
+	String comentarioId;
 
 	
 	@Override
@@ -130,7 +134,7 @@ public class PerfilController extends HttpServlet {
 					switch (accion) {
 
 					case OP_MODIFICAR:
-						listarVideos(session);
+						modificarVideos(session);
 						break;
 					case OP_ELIMINAR:
 						listarVideos(session);
@@ -144,7 +148,7 @@ public class PerfilController extends HttpServlet {
 					switch (accion) {
 
 					case OP_MODIFICAR:
-						listarComentarios(session);
+						modificarComentarios(session);
 						break;
 					case OP_ELIMINAR:
 						listarComentarios(session);
@@ -172,6 +176,9 @@ public class PerfilController extends HttpServlet {
 				if (vista == null || "-1".contentEquals(op)) {
 					vista = VISTA_PRINCIPAL;
 				}
+				request.setAttribute("comentarioSeleccionado", comentarioSeleccionado);
+				request.setAttribute("videoSeleccionado", videoSeleccionado);
+				request.setAttribute("tipoVista", tipoVista);
 				request.setAttribute("videos", videos);
 				request.setAttribute("comentarios", comentarios);
 				request.getRequestDispatcher(vista).forward(request, response);
@@ -180,9 +187,40 @@ public class PerfilController extends HttpServlet {
 	}
 
 
+	private void modificarComentarios(HttpSession session) {
+		try {
+			if(comentarioId != null) {
+				comentarioSeleccionado = comentariosDao.getById(comentarioId);
+				tipoVista = "form-comentario";
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+	}
+
+
+	private void modificarVideos(HttpSession session) {
+		try {
+			if(videoId != null) {
+				videoSeleccionado = videosDao.getById(videoId);
+				tipoVista = "form-video";			
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		
+		
+	}
+
+
 	private void getParameters(HttpServletRequest request) {
 		op = request.getParameter("op");
 		accion = request.getParameter("accion");
+		videoId = request.getParameter("videoId");
+		comentarioId = request.getParameter("comentarioId");
 		if (accion == null) {
 			accion = "";
 		}
@@ -197,6 +235,7 @@ public class PerfilController extends HttpServlet {
 	private void listarComentarios(HttpSession session) {
 		try {
 			Usuario u = (Usuario) session.getAttribute("usuario");
+			tipoVista = "lista-comentario";
 			vista = VISTA_COMENTARIO;
 			comentarios = (ArrayList<Comentario>) comentariosDao.getAllByActiveUser(u);
 			
@@ -212,10 +251,11 @@ public class PerfilController extends HttpServlet {
 		 * Lista videos filtrados por usuario
 		 */
 		try {
-			Usuario u = (Usuario) session.getAttribute("usuario");
-
-			videos = (ArrayList<Video>) videosDao.getByActiveUser(u);
+			tipoVista = "lista-video";
 			vista = VISTA_VIDEO;
+			Usuario u = (Usuario) session.getAttribute("usuario");
+			videos = (ArrayList<Video>) videosDao.getByActiveUser(u);
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 			

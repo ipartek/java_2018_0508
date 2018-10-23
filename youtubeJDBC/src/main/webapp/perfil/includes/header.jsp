@@ -10,20 +10,20 @@
 <head>
 
 	<!-- Etiqueta HTML para comenzar las urls desde href indicado. -->
-	<base href="<%=request.getContextPath()%>/backoffice/">
+	<base href="<%=request.getContextPath()%>/perfil/">
 	
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Youtube backoffice</title>
+    <title>Perfil de usuario</title>
 
     <!-- Bootstrap Core CSS -->
     <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
 
     <!-- Custom CSS -->
-    <link href="css/sb-admin-2.css" rel="stylesheet">
+    <link href="<%=request.getContextPath()%>/backoffice/css/sb-admin-2.css" rel="stylesheet">
     <link href="css/styles.css" rel="stylesheet">
 
    <!-- datatable css -->
