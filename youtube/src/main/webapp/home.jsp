@@ -118,11 +118,11 @@
 				    	<c:if test="${ not empty sessionScope.usuario }">   	
 				          		<a class="info">
 				          			<i class="text-danger fas fa-trash-alt mr-2" title="Eliminar Video" 
-				          			onclick="showModalForm(${ video.id },${ HomeController.OP_ELIMINAR });"></i>
+				          			onclick="showModalForm(${ video.id },${ HomeController.OP_ELIMINAR }, ${ video.cod });"></i>
 				          		</a>
 				          		<a class="info">
 				          			<i class="text-primary fas fa-edit" title="Editar Video" 
-				          			onclick="showModalForm(${ video.id }, ${ HomeController.OP_MODIFICAR });"></i>
+				          			onclick="showModalForm(${ video.id }, ${ HomeController.OP_MODIFICAR }, ${ video.cod });"></i>
 				          		</a>
 			          	</c:if>
 			        </div>

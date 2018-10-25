@@ -2,7 +2,7 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top" role="navigation">
     <div class="container">
         
-        <a class="navbar-brand" href="inicio">Lista de Reproducción</a>
+        <a class="navbar-brand" href="/youtube/inicio">Lista de Reproducción</a>
         
         <button class="navbar-toggler border-0" type="button" data-toggle="collapse" data-target="#exCollapsingNavbar">
             &#9776;

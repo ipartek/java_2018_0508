@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.sql.SQLException;
+import java.sql.SQLIntegrityConstraintViolationException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -106,7 +107,7 @@ public class HomeController extends HttpServlet {
 			System.out.println(idNo);
 			System.out.println("Random generado");
 
-		} else if (id != null) { // Casteamos a Long el ID recibido
+		} else if (id != null && !id.isEmpty()) { // Casteamos a Long el ID recibido
 			
 			idNo = Long.parseLong(id);
 			System.out.println(idNo);
@@ -117,9 +118,9 @@ public class HomeController extends HttpServlet {
 			
 			videoInicio = daoVideo.getById(idNo); // Actualizar video de inicio
 		
-		} catch (Exception e1) {
+		} catch (Exception e) {
 	
-			e1.printStackTrace();
+			e.printStackTrace();
 		}	
 
 		setIdioma(request, response); // Establecer idioma
@@ -139,7 +140,9 @@ public class HomeController extends HttpServlet {
 			e.printStackTrace();
 		}
 
-
+		// Enviar Atributos
+		enviarAtributos(request);
+		request.getRequestDispatcher("home.jsp").forward(request, response);
 	}
 
 	private String getCookieValue(String cName, HttpServletRequest request) {
@@ -203,22 +206,11 @@ public class HomeController extends HttpServlet {
 
 
 			cargarComentarios();
-			
-			// Enviar Atributos
-			enviarAtributos(request);
-
-			// Ir a la vista
-			request.getRequestDispatcher("home.jsp").forward(request, response);
 
 		} catch (Exception e) {
 
 			e.printStackTrace();
-			
-			// Enviar Atributos
-			enviarAtributos(request);
 
-			// Ir a la vista
-			request.getRequestDispatcher("home.jsp").forward(request, response);
 		}
 	}
 
@@ -241,22 +233,27 @@ public class HomeController extends HttpServlet {
 
 				default:
 
-					insertarVideo(request, videoInicio);
-					alert = new Alert(Alert.SUCCESS, "Video correctamente insertado.");
+					reproducirPrimerVideo();
 					break;
 				}
+			} else {
+				
+				insertarVideo(request, videoInicio);
+				alert = new Alert(Alert.SUCCESS, "Video correctamente insertado.");
 			}
 
 			reproducirPrimerVideo(); // Recuperamos el primer video de la lista
 
+		} catch (SQLIntegrityConstraintViolationException e) {
+			
+			alert = new Alert(Alert.WARNING, "Ya existe un video con ese código.");
+		
 		} catch (Exception e) {
 
 			alert = new Alert();
 			e.printStackTrace();
 		}
-
-		request.getSession().setAttribute("alert", alert);
-		response.sendRedirect("inicio");
+		
 	}
 
 	private void reproducirPrimerVideo() throws Exception {
@@ -264,6 +261,7 @@ public class HomeController extends HttpServlet {
 		if (!videos.isEmpty()) { // Videos correctamente cargados
 
 			videoInicio = videos.get(0); // Cargamos el primer video
+			idNo = videoInicio.getId();
 		}
 
 	}
@@ -277,6 +275,7 @@ public class HomeController extends HttpServlet {
 			if (actualPos == videos.size() - 1) { // Estamos en el ÚLTIMO video
 
 				actualPos = 0;
+			
 			} else { // Podemos Avanzar
 
 				actualPos++;
@@ -287,6 +286,7 @@ public class HomeController extends HttpServlet {
 			if (actualPos == 0) { // Estamos en el PRIMER video
 
 				actualPos = videos.size() - 1;
+			
 			} else { // Podemos retroceder
 
 				actualPos--;
@@ -327,7 +327,7 @@ public class HomeController extends HttpServlet {
 
 			alert = new Alert(Alert.DANGER, "El video no se ha podido insertar. Posiblemente, el código ya exista.");
 
-		}
+		} 
 	}
 
 	/**
@@ -402,6 +402,7 @@ public class HomeController extends HttpServlet {
 		} catch (Exception e) {
 
 			idioma = "es_ES"; // Idioma por defecto
+			
 		} finally {
 
 			session.setAttribute("idioma", idioma); // Guardar en session el idioma
