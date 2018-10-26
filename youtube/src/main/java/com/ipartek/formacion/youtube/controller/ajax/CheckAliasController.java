@@ -72,6 +72,7 @@ public class CheckAliasController extends HttpServlet {
 				out.print("{}");
 			
 			} else {
+				
 				response.setStatus(HttpServletResponse.SC_OK);
 				out.print("{}");
 			}

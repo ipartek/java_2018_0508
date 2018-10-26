@@ -144,12 +144,13 @@
     	function onYouTubeIframeAPIReady() {
     	    player = new YT.Player('video-placeholder', {
     	        videoId: '${ videoInicio.cod }',
+    	        host: 'https://www.youtube.com',
     	        playerVars: {
-    	            enablejsapi: 1,
-    	            origin: 'http://localhost:8080',
-    	            autoplay: 1,
-    	            rel: 0, 
-    	            controls: 0
+    	            'enablejsapi': 1,
+    	            'origin': 'http://localhost:8080',
+    	            'autoplay': 1,
+    	            'rel': 0, 
+    	            'controls': 0
     	        },
     	        events: {
     	            onReady: initialize

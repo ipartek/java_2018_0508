@@ -11,6 +11,7 @@ function showModalForm(idVideo, codOp) {
 		modalForm = $('#modalModificar');
 		btnGo = $('#btnModificarVideo');
 	}
+	
 	modalForm.modal('show');
 	btnGo.attr("href", "inicio?id=" + idVideo + "&op=" + codOp);
 	$('#idModificar').val(idVideo);
