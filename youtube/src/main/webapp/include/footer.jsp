@@ -35,7 +35,6 @@
     <script src="vendor/bootstrap/js/bootstrap-toggle.min.js"></script>
     
     <!-- JS Propios -->
-    <script src="js/listado-videos.js"></script>
     <script src="js/control-panel.js"></script>
     <script src="js/confirm-actions.js"></script>
     

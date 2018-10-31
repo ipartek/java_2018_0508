@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.sql.SQLException;
+import java.sql.SQLIntegrityConstraintViolationException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -107,7 +108,7 @@ public class HomeController extends HttpServlet {
 			System.out.println(idNo);
 			System.out.println("Random generado");
 
-		} else if (id != null) { // Casteamos a Long el ID recibido
+		} else if (id != null && !id.isEmpty()) { // Casteamos a Long el ID recibido
 			
 			idNo = Long.parseLong(id);
 			System.out.println(idNo);
@@ -118,9 +119,9 @@ public class HomeController extends HttpServlet {
 			
 			videoInicio = daoVideo.getById(idNo); // Actualizar video de inicio
 		
-		} catch (Exception e1) {
+		} catch (Exception e) {
 	
-			e1.printStackTrace();
+			e.printStackTrace();
 		}	
 
 		setIdioma(request, response); // Establecer idioma
@@ -229,6 +230,11 @@ public class HomeController extends HttpServlet {
 			e.printStackTrace();
 		}
 
+=======
+		// Enviar Atributos
+		enviarAtributos(request);
+		request.getRequestDispatcher("home.jsp").forward(request, response);
+>>>>>>> branch 'luisgaldos' of https://github.com/ipartek/java_2018_0508.git
 	}
 
 	private String getCookieValue(String cName, HttpServletRequest request) {
@@ -255,6 +261,95 @@ public class HomeController extends HttpServlet {
 
 	}
 
+<<<<<<< HEAD
+=======
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+	 *      response)
+	 */
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+
+		try {
+
+			if (op != null) {
+
+				switch (op) {
+				case OP_PREV:
+
+					reproducirSiguiente(false);
+					break;
+
+				case OP_NEXT:
+
+					reproducirSiguiente(true);
+					break;
+
+				case OP_ELIMINAR:
+
+					eliminarVideo(idNo);
+					alert = new Alert(Alert.PRIMARY, "Video eliminado.");
+					break;
+
+				default:
+
+					reproducirPrimerVideo();
+					break;
+				}
+			}
+
+
+			cargarComentarios();
+
+		} catch (Exception e) {
+
+			e.printStackTrace();
+
+		}
+	}
+
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+	 *      response)
+	 */
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		try {
+
+			if (op != null) {
+
+				switch (op) {
+				case OP_MODIFICAR:
+
+					modificarVideo(request);
+					alert = new Alert(Alert.SUCCESS, "Video correctamente modificado.");
+					break;
+
+				default:
+
+					reproducirPrimerVideo();
+					break;
+				}
+			} else {
+				
+				insertarVideo(request, videoInicio);
+				alert = new Alert(Alert.SUCCESS, "Video correctamente insertado.");
+			}
+
+			reproducirPrimerVideo(); // Recuperamos el primer video de la lista
+
+		} catch (SQLIntegrityConstraintViolationException e) {
+			
+			alert = new Alert(Alert.WARNING, "Ya existe un video con ese código.");
+		
+		} catch (Exception e) {
+
+			alert = new Alert();
+			e.printStackTrace();
+		}
+		
+	}
+>>>>>>> branch 'luisgaldos' of https://github.com/ipartek/java_2018_0508.git
 
 	private void reproducirPrimerVideo() throws Exception {
 
@@ -327,10 +422,14 @@ public class HomeController extends HttpServlet {
 
 			alert = new Alert(Alert.DANGER, "El video no se ha podido insertar. Posiblemente, el código ya exista.");
 
+<<<<<<< HEAD
 		} else {
 			
 			alert = new Alert(Alert.SUCCESS, "Video correctamente insertado.");
 		}
+=======
+		} 
+>>>>>>> branch 'luisgaldos' of https://github.com/ipartek/java_2018_0508.git
 	}
 
 	/**
@@ -407,7 +506,11 @@ public class HomeController extends HttpServlet {
 		} catch (Exception e) {
 
 			idioma = "es_ES"; // Idioma por defecto
+<<<<<<< HEAD
 		
+=======
+			
+>>>>>>> branch 'luisgaldos' of https://github.com/ipartek/java_2018_0508.git
 		} finally {
 
 			session.setAttribute("idioma", idioma); // Guardar en session el idioma
