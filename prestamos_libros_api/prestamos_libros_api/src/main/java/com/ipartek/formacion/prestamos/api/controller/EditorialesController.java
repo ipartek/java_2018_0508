@@ -20,7 +20,7 @@ import com.ipartek.formacion.prestamos_libros.service.ServiceEditorial;
 
 public class EditorialesController {
 	private ServiceEditorial serviceEditorial = ServiceEditorial.getInstance();
-	private static ServiceEditorial INSTANCE = null;
+
 	
 
 	@RequestMapping(method = RequestMethod.GET)
@@ -48,8 +48,7 @@ public class EditorialesController {
 		if (id > 0) {
 			
 			ServiceEditorial serviceEditorial = new ServiceEditorial();
-			Editorial editorial = new Editorial();
-			editorial = serviceEditorial.buscarId(id);
+			Editorial editorial = serviceEditorial.buscarId(id);  
 			response = new ResponseEntity<>(HttpStatus.OK);
 			
 		} else {
@@ -60,18 +59,15 @@ public class EditorialesController {
 	}
 
 	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
-	public ResponseEntity<Editorial> eliminar(@PathVariable long id) {
+	public ResponseEntity<Editorial> eliminar(@PathVariable long id) throws Exception {
 		ResponseEntity<Editorial> response = new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
 
-		if (serviceEditorial.eliminar(id) ) {
-			Editorial editorial = new Editorial();
-			editorial = serviceEditorial.eliminar(id);
-			ServiceEditorial ServiceEditorial = new ServiceEditorial();
+	serviceEditorial.eliminar(id);
 		
 			response = new ResponseEntity<>(HttpStatus.OK);
-		} else {
+		
 			response = new ResponseEntity<>(HttpStatus.NOT_FOUND);
-		}
+		
 
 		return response;
 	}
