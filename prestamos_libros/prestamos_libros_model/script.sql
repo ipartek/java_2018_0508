@@ -219,10 +219,11 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `editorialesInsert`(IN nom varchar(255))
+CREATE DEFINER=`root`@`localhost` PROCEDURE `editorialesInsert`(IN nom varchar(255), OUT id INT )
 BEGIN
 
 INSERT INTO editorial (`nombre`) VALUES (nom);
+SET id = LAST_INSERT_ID();
 
 END ;;
 DELIMITER ;
