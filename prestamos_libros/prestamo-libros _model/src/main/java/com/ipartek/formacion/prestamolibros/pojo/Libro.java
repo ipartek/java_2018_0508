@@ -3,10 +3,12 @@ package com.ipartek.formacion.prestamolibros.pojo;
 public class Libro {
 
 	private long id;
+	
 	private String titulo;
+	
 	private String isbn;
+	
 	private Editorial editorial;
-	private boolean prestado;
 	
 	public Libro() {
 		super();
@@ -14,7 +16,6 @@ public class Libro {
 		this.titulo="";
 		this.isbn="";
 		this.editorial= new Editorial();
-		this.prestado=false;
 	}
 
 	public Libro(long id, String titulo, String isbn, Editorial editorial,boolean prestrado) {
@@ -23,7 +24,6 @@ public class Libro {
 		this.titulo = titulo;
 		this.isbn = isbn;
 		this.editorial = editorial;
-		this.prestado = prestrado;
 	}
 
 	public long getId() {
@@ -57,22 +57,10 @@ public class Libro {
 	public void setEditorial(Editorial editorial) {
 		this.editorial = editorial;
 	}
-	
-
-	public boolean isPrestado() {
-		return prestado;
-	}
-
-	public void setPrestado(boolean prestado) {
-		this.prestado = prestado;
-	}
 
 	@Override
 	public String toString() {
-		return "Libro [id=" + id + ", titulo=" + titulo + ", isbn=" + isbn + ", editorial=" + editorial + ", prestado="
-				+ prestado + "]";
+		return "Libro [id=" + id + ", titulo=" + titulo + ", isbn=" + isbn + ", editorial=" + editorial + "]";
 	}
-
-	
-	
+		
 }

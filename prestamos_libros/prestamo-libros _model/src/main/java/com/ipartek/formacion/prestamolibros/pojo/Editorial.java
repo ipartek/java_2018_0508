@@ -1,7 +1,15 @@
 package com.ipartek.formacion.prestamolibros.pojo;
 
+import javax.validation.constraints.Size;
+
+import org.hibernate.validator.constraints.NotBlank;
+
 public class Editorial {
+	
+	@NotBlank
+	@Size(min=2, max=50)
 	private String editorial;
+	
 	private long id;
 
 	public Editorial() {
