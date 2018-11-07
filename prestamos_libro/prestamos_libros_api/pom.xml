@@ -69,8 +69,17 @@
 			<version>${junit.version}</version>
 			<scope>test</scope> <!-- solo se usa para Test, cuando se crea el projecto no se incluye -->
 		</dependency>
-
-
+<!-- Validaciones -->
+ 		<dependency>
+			<groupId>javax.validation</groupId>
+			<artifactId>validation-api</artifactId>
+			<version>1.1.0.Final</version>
+		</dependency>
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-validator</artifactId>
+			<version>5.2.4.Final</version>
+		</dependency>
 
 	</dependencies>
 	
