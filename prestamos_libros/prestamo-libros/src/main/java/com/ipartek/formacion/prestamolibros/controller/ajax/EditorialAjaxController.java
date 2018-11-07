@@ -34,7 +34,7 @@ public class EditorialAjaxController extends HttpServlet {
 		response.setCharacterEncoding("UTF-8");
 		response.setStatus(HttpServletResponse.SC_OK);
 		PrintWriter out = response.getWriter();
-		out.print("estamos dentro de editorial");
+		out.print("estamos dentro de editorial"); 
 	}
 
 }
