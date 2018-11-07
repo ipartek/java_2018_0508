@@ -1,9 +1,13 @@
 package com.ipartek.formacion.prestamos_libros.pojo;
 
 public class Libro {
+	
 	private Long id;
+	
 	private String titulo;
+	
 	private String isbn;
+		
 	private Editorial editorial;
 	
 	public Libro() {

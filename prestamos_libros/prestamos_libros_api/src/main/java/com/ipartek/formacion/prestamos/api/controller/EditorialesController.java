@@ -5,7 +5,14 @@ import org.springframework.web.bind.annotation.RestController;
 import com.ipartek.formacion.prestamos_libros.pojo.Editorial;
 import com.ipartek.formacion.prestamos_libros.service.ServiceEditorial;
 
+import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.ArrayList;
+import java.util.Set;
+
+import javax.validation.ConstraintViolation;
+import javax.validation.Validation;
+import javax.validation.Validator;
+import javax.validation.ValidatorFactory;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,10 +27,14 @@ import org.springframework.web.bind.annotation.RequestMethod;
 public class EditorialesController {
 
 	ServiceEditorial serviceEditorial = null;
+	ValidatorFactory factory = null;
+	Validator validator = null;
 
 	public EditorialesController() {
 		super();
 		serviceEditorial = ServiceEditorial.getInstance();
+		factory = Validation.buildDefaultValidatorFactory();
+		validator = factory.getValidator();
 	}
 
 	@RequestMapping(method = RequestMethod.GET)
@@ -63,9 +74,9 @@ public class EditorialesController {
 	}
 
 	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
-	public ResponseEntity<Editorial> eliminar(@PathVariable long id) {
+	public ResponseEntity<Object> eliminar(@PathVariable long id) {
 
-		ResponseEntity<Editorial> response = new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+		ResponseEntity<Object> response = new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 		try {
 						
 			if ( serviceEditorial.eliminar(id) ) {
@@ -73,7 +84,9 @@ public class EditorialesController {
 			}else {
 				response = new ResponseEntity<>(HttpStatus.NOT_FOUND);
 			}
-			
+		
+		}catch( SQLIntegrityConstraintViolationException e ) {	
+			response = new ResponseEntity<>(new ResponseMensaje("No se puede eliminar si tiene Libors asociados"), HttpStatus.CONFLICT);
 		}catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -81,16 +94,34 @@ public class EditorialesController {
 	}
 
 	@RequestMapping(method = RequestMethod.POST)
-	public ResponseEntity<Editorial> crear(@RequestBody Editorial editorial) {
+	public ResponseEntity<Object> crear(@RequestBody Editorial editorial) {
 
-		ResponseEntity<Editorial> response = new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+		ResponseEntity<Object> response = new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 		try {
-							
-			if ( serviceEditorial.crear(editorial) ) {
-				response = new ResponseEntity<>(editorial, HttpStatus.CREATED);
+			
+			
+			Set<ConstraintViolation<Editorial>> violations =  validator.validate(editorial);
+			if ( violations.isEmpty() ) {
+			
+				if ( serviceEditorial.crear(editorial) ) {
+					response = new ResponseEntity<>(editorial, HttpStatus.CREATED);
+				}else {
+					response = new ResponseEntity<>(HttpStatus.CONFLICT);
+				}
+				
 			}else {
-				response = new ResponseEntity<>(HttpStatus.CONFLICT);
-			}
+				ResponseMensaje mensaje = new ResponseMensaje("Los datos no son correctos");
+				violations.forEach( v -> {
+					mensaje.addError( v.getPropertyPath() + ": " + v.getMessage() );
+				});
+				response = new ResponseEntity<>( mensaje ,  HttpStatus.CONFLICT);
+			}	
+		
+		}catch ( SQLIntegrityConstraintViolationException e) {
+			
+			
+			ResponseMensaje msj = new ResponseMensaje("Ya existe la Editorial, por favor prueba con otro nombre");			
+			response = new ResponseEntity<>(msj, HttpStatus.CONFLICT);
 			
 		}catch (Exception e) {
 			//TODO gestionar duplicate key entry
@@ -100,9 +131,9 @@ public class EditorialesController {
 	}
 
 	@RequestMapping(value = "/{id}", method = RequestMethod.PUT)
-	public ResponseEntity<Editorial> modificar(@PathVariable long id, @RequestBody Editorial editorial) {
+	public ResponseEntity<Object> modificar(@PathVariable long id, @RequestBody Editorial editorial) {
 
-		ResponseEntity<Editorial> response = new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+		ResponseEntity<Object> response = new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 		try {
 			editorial.setId(id);				
 			if ( serviceEditorial.modificar(editorial) ) {
@@ -110,7 +141,10 @@ public class EditorialesController {
 			}else {
 				response = new ResponseEntity<>(HttpStatus.CONFLICT);
 			}
+		
+		}catch (SQLIntegrityConstraintViolationException e) {
 			
+			response = new ResponseEntity<>( new ResponseMensaje("Ya existe la Editorial, por favor prueba con otro nombre")  ,HttpStatus.CONFLICT);
 		}catch (Exception e) {
 			//TODO gestionar duplicate key entry
 			e.printStackTrace();
