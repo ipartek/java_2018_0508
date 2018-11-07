@@ -1,36 +1,42 @@
 window.addEventListener("load", function(event) {
-  console.log("Todos los recursos terminaron de cargar, comenzamos a jugar");
 
-  const ENDPOIN = "http://192.168.0.44:8080/PrestamosAPI/";
-  var ulEditoriales = document.getElementById("editoriales");
-  var mensaje = document.getElementById("mensaje");
-  var editoriales = [];
+    console.log("Todos los recursos terminaron de cargar, comenzamos a jugar!");
 
-  ulEditoriales.innerHTML = "<li>Elemento</li>";
+    const ENDPOINT = "http://localhost:8080/PrestamosAPI/";
+    var ulEditoriales = document.getElementById('ulEditoriales');
+    var mensaje = document.getElementById('mensaje');
+    var editoriales = [];
 
-  //llamada Ajax para obtener editoriales
-  var request = new XMLHttpRequest();
+    //varciar lista
+    ulEditoriales.innerHTML = "";
 
-  request.onreadystatechange = function() {
-    if (request.readyState === 4) {
-      if (request.status === 200) {
-        console.log("response 200" + request.responseText);
-        editoriales = JSON.parse(request.responseText);
-        console.log("editoriales %o", editoriales);
+    //llamada Ajax para obtener Editoriales
+    var request = new XMLHttpRequest();
 
-        var lis="";
-        editoriales.forEach(editorial => {
-            //console.log(editorial);
-            //lis += "<li>Elemento</li>";
-            list += `<li> ${editorial.id} ${editorial.nombre}</li>`
-        });
+    request.onreadystatechange = function() {
 
-        ulEditoriales.innerHTML = lis;
-        mensaje.textContent = '';
-      }
-    }
-  };
+        if( request.readyState === 4 ){
 
-  request.open("GET", ENDPOINT + "editoriales");
-  request.send();
+            if ( request.status === 200 ){
+
+                console.log('response 200 '  + request.responseText);
+                editoriales = JSON.parse(request.responseText);
+                console.log('editoriales %o', editoriales );
+
+                var lis = "";
+                editoriales.forEach( editorial => {                    
+                    lis += `<li> ${editorial.id} ${editorial.nombre} </li>`;
+                });
+                ulEditoriales.innerHTML = lis;
+                mensaje.textContent = '';
+            }
+
+        }
+        
+    };    
+
+    request.open('GET', ENDPOINT + 'editoriales');
+    request.send();
+
+
 });
