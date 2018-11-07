@@ -111,9 +111,9 @@ public class EditorialesController {
 				
 			}else {
 				ResponseMensaje mensaje = new ResponseMensaje("Los datos no son correctos");
-				violations.forEach( v -> {
+				for ( ConstraintViolation<Editorial> v : violations ) {
 					mensaje.addError( v.getPropertyPath() + ": " + v.getMessage() );
-				});
+				};
 				response = new ResponseEntity<>( mensaje ,  HttpStatus.CONFLICT);
 			}	
 		
@@ -135,12 +135,24 @@ public class EditorialesController {
 
 		ResponseEntity<Object> response = new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 		try {
-			editorial.setId(id);				
-			if ( serviceEditorial.modificar(editorial) ) {
-				response = new ResponseEntity<>(editorial, HttpStatus.OK);
+			
+			Set<ConstraintViolation<Editorial>> violations =  validator.validate(editorial);
+			if ( violations.isEmpty() ) {
+			
+				editorial.setId(id);			
+				if ( serviceEditorial.modificar(editorial) ) {
+					response = new ResponseEntity<>(editorial, HttpStatus.OK);
+				}else {
+					response = new ResponseEntity<>(HttpStatus.CONFLICT);
+				}
+				
 			}else {
-				response = new ResponseEntity<>(HttpStatus.CONFLICT);
-			}
+				ResponseMensaje mensaje = new ResponseMensaje("Los datos no son correctos");
+				for ( ConstraintViolation<Editorial> v : violations ) {
+					mensaje.addError( v.getPropertyPath() + ": " + v.getMessage() );
+				};
+				response = new ResponseEntity<>( mensaje ,  HttpStatus.CONFLICT);
+			}	
 		
 		}catch (SQLIntegrityConstraintViolationException e) {
 			
