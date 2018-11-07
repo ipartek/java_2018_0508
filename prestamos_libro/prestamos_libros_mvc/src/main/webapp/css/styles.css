@@ -1,0 +1,60 @@
+/*Hoja de estilos principal*/
+
+body{
+	background-color: #F4F4F4;
+    overflow-x: hidden;
+}
+
+.container{
+	min-height: 59vh;
+	margin-top: 10vh;
+}
+
+.login-body{
+	background-color: #FFF;
+	border-radius: 12px;
+}
+
+/*NAVBAR*/
+nav {
+	height:100%;
+}
+
+#topbar{
+	background-color: #0099CC !important;
+	border-radius: 12px;
+}
+
+#footer{
+	border-radius: 12px;
+}
+
+#topbar .nav-link{
+	color: #FFFFFF !important;
+}
+
+#topbar .nav-item:hover{
+	background-color: #0073cc;
+	border-radius: 12px;
+}
+
+.navegacion{
+	padding: 0;
+}
+
+#footer .nav-link{
+	color: #0099CC;
+}
+
+#footer .nav-link:hover{
+	color: #0044cc;
+}
+
+.required::before{
+	content: "* ";
+	color: red;
+}
+
+#login-small{
+    margin-bottom:1em;
+}

@@ -10,9 +10,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.andrea.perez.model.ComentarioDAO;
 import com.andrea.perez.model.UsuarioDAO;
-import com.andrea.perez.pojo.Usuario;
 
 /**
  * Servlet implementation class checkNombreUsuarioController

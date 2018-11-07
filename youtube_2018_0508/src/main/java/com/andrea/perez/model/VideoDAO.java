@@ -8,6 +8,7 @@ import java.util.List;
 
 import com.andrea.perez.pojo.Usuario;
 import com.andrea.perez.pojo.Video;
+import java.sql.CallableStatement;
 import com.mysql.jdbc.Statement;
 
 public class VideoDAO implements Crudable<Video> {
@@ -25,8 +26,8 @@ public class VideoDAO implements Crudable<Video> {
 	private final String SQL_DELETE = "DELETE FROM video WHERE id = ?;";
 
 	private final String SQL_GET_ALL_TO_USER = "SELECT v.id as 'id_video', v.codigo, v.nombre as 'nombre_video', id_usuario as 'id_usuario', u.nombre as 'nombre_usuario', u.password"
-			+ " FROM youtube.video as v, youtube.usuario as u" + " WHERE v.id_usuario = u.id AND v.id_usuario = ? LIMIT 1000";
-	
+			+ " FROM youtube.video as v, youtube.usuario as u"
+			+ " WHERE v.id_usuario = u.id AND v.id_usuario = ? LIMIT 1000";
 
 	/*
 	 * "SELECT u.id as 'id_usuario', u.nombre as 'nombre_usuario', u.password, id_rol as 'id_rol', r.nombre as 'rol_nombre'"
@@ -191,11 +192,10 @@ public class VideoDAO implements Crudable<Video> {
 
 		ArrayList<Video> videos = new ArrayList<Video>();
 		try (Connection con = ConnectionManager.getConnection();
-				PreparedStatement ps = con.prepareStatement(SQL_GET_ALL_TO_USER);
-				) {
+				PreparedStatement ps = con.prepareStatement(SQL_GET_ALL_TO_USER);) {
 
 			ps.setLong(1, id);
-			
+
 			ResultSet rs = ps.executeQuery();
 			// Mapear ResultSet a ArrayList
 			while (rs.next()) {
@@ -225,8 +225,39 @@ public class VideoDAO implements Crudable<Video> {
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-			
+
 		}
 		return v;
+	}
+
+	private String ejemploPA(long idVideo) {
+		String resul = "PETA FIJO";
+		String sql="{call personaGETBYDNI(?);}";//siempre entre llaves{}
+
+		try(
+				Connection con = ConnectionManager.getConnection();
+			CallableStatement cs=con.prepareCall(sql);
+				) {
+			//Preparar parametro
+			cs.setLong(1, idVideo);
+			
+			try (ResultSet rs=cs.executeQuery()){
+				//ejecutar CS
+				while(rs.next()) {
+					resul=rs.getString("nombre");
+				}
+				
+			} catch (Exception e) {
+				// TODO: handle exception
+			}
+			
+			
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			resul += e.getCause();
+		}
+		return resul;
+
 	}
 }

@@ -1,0 +1,61 @@
+/*Hoja de estilos principal*/
+body{
+    overflow-x: hidden;
+}
+
+#dataTable_filter{
+	margin-bottom: 5px;
+}
+
+.dataTables_wrapper .dataTables_filter input{
+	border: #CCCCCC solid 1px;
+    border-radius: 12px;
+    padding: 5px;
+}
+
+td.moroso{
+	color: red;
+}
+
+/*NAVBAR*/
+nav {
+	height:100%;
+}
+
+#topbar{
+	background-color: #0099CC !important;
+	border-radius: 12px;
+}
+
+#footer{
+	border-radius: 12px;
+}
+
+#topbar .nav-link{
+	color: #FFFFFF !important;
+}
+
+#topbar .nav-item:hover{
+	background-color: #0073cc;
+	border-radius: 12px;
+}
+
+.navegacion{
+	padding: 0;
+}
+
+#footer .nav-link{
+	color: #0099CC;
+}
+
+#footer .nav-link:hover{
+	color: #0044cc;
+}
+
+#dataTable thead.bg-info{
+	background-color: #0099CC !important;
+}
+
+#dataTable tfoot.bg-info{
+	background-color: #0099CC !important;
+}
