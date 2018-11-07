@@ -24,7 +24,7 @@ public class PrestamosController {
 	public @ResponseBody ArrayList<Prestamo> listado() {
 
 		ArrayList<Prestamo> list = new ArrayList<Prestamo>();
-		
+		 
 
 		try {
 		list = (ArrayList<Prestamo>) servicePrestamo.listar();
