@@ -7,7 +7,7 @@
 		maxWait="10000" 
 		name="jdbc/mydb"	 
 		type="javax.sql.DataSource"
-		url="jdbc:mysql://127.0.0.1:3306/youtube?useSSL=false" 
+		url="jdbc:mysql://127.0.0.1:3306/libros?useSSL=false" 
 		username="root"
 		password="root" 
 		/>
