@@ -1,7 +1,14 @@
 package com.ipartek.formacion.prestamolibros.pojo;
 
+import javax.validation.constraints.Size;
+
+import org.hibernate.validator.constraints.NotBlank;
+
 public class Editorial {
+	@NotBlank(message="No puede estar vacio")
+	@Size(min=2,max=50 ,message="El tamaño tiene que estar entre 2 y 50")
 	private String editorial;
+	
 	private long id;
 
 	public Editorial() {
