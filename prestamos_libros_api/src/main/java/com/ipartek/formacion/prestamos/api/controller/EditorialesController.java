@@ -2,6 +2,9 @@ package com.ipartek.formacion.prestamos.api.controller;
 
 import org.springframework.web.bind.annotation.RestController;
 
+import com.ipartek.formacion.prestamos_libros.pojo.Editorial;
+import com.ipartek.formacion.prestamos_libros.service.ServiceEditorial;
+
 import java.util.ArrayList;
 
 import org.springframework.http.HttpStatus;
@@ -10,20 +13,31 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 @RestController
 @RequestMapping("/editoriales")
 public class EditorialesController {
+	
+	ServiceEditorial serviceEditorial = null;
+	
+	public EditorialesController() {
+		super();
+		serviceEditorial = ServiceEditorial.getInstance();
+	}
 
 	@RequestMapping( method = RequestMethod.GET)
-	public @ResponseBody ArrayList<Editorial> listado() {
+	public ResponseEntity<ArrayList<Editorial>> listado() {
+		ResponseEntity<ArrayList<Editorial>> response = new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
 		ArrayList<Editorial> editoriales = new ArrayList<Editorial>();
-		for(long i = 0; i<5 ; i++){
-			editoriales.add(new Editorial(i, "Nombre"+i));
+		
+		try {
+			editoriales = (ArrayList<Editorial>) serviceEditorial.listar();
+			response = new ResponseEntity<>(editoriales, HttpStatus.OK);
+		}catch(Exception e) {
+			e.printStackTrace();
 		}
 		
-		return editoriales;
+		return response;
 	}
 
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
@@ -31,16 +45,17 @@ public class EditorialesController {
 		
 		ResponseEntity<Editorial> response = new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
 		
-		
-		if(id < 0) {
-			response = new ResponseEntity<>(HttpStatus.NOT_FOUND);
-		}else {
-			Editorial editorial = new Editorial();
-			editorial.setId(id);
-			editorial.setNombre("nombre"+id);
-			response = new ResponseEntity<>(editorial, HttpStatus.OK);
+		try {
+			Editorial editorial = serviceEditorial.buscarPorId(id);
+			if(editorial != null && editorial.getId() > 0) {
+				response = new ResponseEntity<>(editorial, HttpStatus.OK);
+			}else {
+				response = new ResponseEntity<>(HttpStatus.NOT_FOUND);
+			}
+		}catch(Exception e) {
+			e.printStackTrace();
 		}
-		
+
 		return response;
 	}
 	
@@ -49,9 +64,16 @@ public class EditorialesController {
 		
 		ResponseEntity<Editorial> response = new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
 		
-		editorial.setId(69);
-		
-		response = new ResponseEntity<>(editorial, HttpStatus.OK);
+		try {
+			if(serviceEditorial.crear(editorial)) {
+				response = new ResponseEntity<>(editorial, HttpStatus.CREATED);
+			}else {
+				response = new ResponseEntity<>(HttpStatus.CONFLICT);
+			}
+		}catch(Exception e) {
+			//TODO gestionar duplicate key entry
+			e.printStackTrace();
+		}
 		 
 		return response;
 	}
@@ -61,12 +83,16 @@ public class EditorialesController {
 		
 		ResponseEntity<Editorial> response = new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
 		
-		if(id>0) {
+		try {
 			editorial.setId(id);
-			
-			response = new ResponseEntity<>(editorial, HttpStatus.OK);
-		}else {
-			response = new ResponseEntity<>(HttpStatus.NOT_FOUND);
+			if(serviceEditorial.modificar(editorial)) {
+				response = new ResponseEntity<>(editorial, HttpStatus.OK);
+			}else {
+				response = new ResponseEntity<>(HttpStatus.CONFLICT);
+			}
+		}catch(Exception e) {
+			//TODO gestionar duplicate key entry
+			e.printStackTrace();
 		}
 		 
 		return response;
@@ -75,15 +101,16 @@ public class EditorialesController {
 	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
 	public ResponseEntity<Editorial> eliminar(@PathVariable long id) {
 		
-		ResponseEntity<Editorial> response = new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);		
+		ResponseEntity<Editorial> response = new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
 		
-		if(id < 0) {
-			response = new ResponseEntity<>(HttpStatus.NOT_FOUND);
-		}else {
-			Editorial editorial = new Editorial();
-			editorial.setId(id);
-			editorial.setNombre("nombre"+id);
-			response = new ResponseEntity<>(HttpStatus.OK);
+		try {
+			if(serviceEditorial.eliminar(id)) {
+				response = new ResponseEntity<>(HttpStatus.OK);
+			}else {
+				response = new ResponseEntity<>(HttpStatus.NOT_FOUND);
+			}
+		}catch(Exception e) {
+			e.printStackTrace();
 		}
 		
 		return response;

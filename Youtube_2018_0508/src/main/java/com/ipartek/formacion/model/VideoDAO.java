@@ -8,6 +8,7 @@ import java.util.List;
 
 import com.ipartek.formacion.pojo.Usuario;
 import com.ipartek.formacion.pojo.Video;
+import java.sql.CallableStatement;
 import com.mysql.jdbc.Statement;
 
 public class VideoDAO implements Crudable<Video> {
@@ -203,5 +204,30 @@ public class VideoDAO implements Crudable<Video> {
 			v.setUsuario(u);
 		}
 		return v;
+	}
+
+	public String ejemploPA(long idVideo) {
+		String resul = "peta fijo";
+		String sql = "{call `ejemplo` (?)}"; //Siempre entre llaves
+		try(Connection con =  ConnectionManager.getConnection(); 
+			CallableStatement cs = con.prepareCall(sql);
+				) {
+			
+			//Preparar parametros
+			cs.setLong(1, idVideo);
+			
+			//Ejecutar cs
+			try(ResultSet rs = cs.executeQuery();){
+				while(rs.next()) {
+					//Mapear los datos
+					resul = rs.getString("nombre");
+				}
+			}
+			
+		}catch(Exception e) {
+			e.printStackTrace();
+			resul += "causa: "+ e.getCause();
+		}
+		return resul;
 	}
 }

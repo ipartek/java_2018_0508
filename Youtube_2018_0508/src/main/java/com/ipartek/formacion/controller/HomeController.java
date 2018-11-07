@@ -122,6 +122,8 @@ public class HomeController extends HttpServlet {
 		req.setAttribute("videos", videos);
 		req.setAttribute("videoInicio", videoInicio);
 		
+		req.setAttribute("pa", "Sentencia del PA: "+daoVideo.ejemploPA(videoInicio.getId()));
+		
 		String playlist = "";
 		for(int i = 1; i<videos.size(); i++) {
 			playlist+= videos.get(i).getCodigo()+",";

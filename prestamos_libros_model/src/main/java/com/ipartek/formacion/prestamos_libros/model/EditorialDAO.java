@@ -27,21 +27,19 @@ public class EditorialDAO implements Crudable<Editorial> {
 	@Override
 	public boolean insert(Editorial pojo) throws Exception {
 		boolean resul = false;
-//		Editorial editorial = new Editorial();
 		String sql = "{call `editorialInsert`(?,?)}";
-//		int id = 0;
 		try (Connection con = ConnectionManager.getConnection(); CallableStatement cs = con.prepareCall(sql);) {
 
 			cs.setString(1, pojo.getNombre().trim());
-			cs.registerOutParameter("pid", Types.INTEGER);
+			cs.registerOutParameter(2, Types.INTEGER);
 
 			int affectedRows = cs.executeUpdate();
 
 			if (affectedRows == 1) {
+				int id = cs.getInt(2);
+				pojo.setId(id);
 				resul = true;
 			}
-//			id = cs.getInt("pid");
-//			editorial.setId(id);
 
 		} 
 		return resul;
@@ -96,9 +94,7 @@ public class EditorialDAO implements Crudable<Editorial> {
 	public boolean update(Editorial pojo) throws Exception {
 
 		boolean resul = false;
-//		Editorial editorial = new Editorial();
 		String sql = "{call `editorialUpdate`(?,?)}";
-//		int id = 0;
 		try (Connection con = ConnectionManager.getConnection(); CallableStatement cs = con.prepareCall(sql);) {
 
 			cs.setString(1, pojo.getNombre().trim());
@@ -118,7 +114,6 @@ public class EditorialDAO implements Crudable<Editorial> {
 	public boolean delete(String id) throws Exception {
 
 		boolean resul = false;
-//		Editorial editorial = new Editorial();
 		String sql = "{call `editorialDelete`(?)}";
 		try (Connection con = ConnectionManager.getConnection(); CallableStatement cs = con.prepareCall(sql);) {
 

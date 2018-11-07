@@ -3,6 +3,9 @@
         <wb-resource deploy-path="/" source-path="/target/m2e-wtp/web-resources"/>
         <wb-resource deploy-path="/" source-path="/src/main/webapp" tag="defaultRootSource"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/java"/>
+        <dependent-module archiveName="prestamos_libros_model-1.0.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/prestamos_libros_model/prestamos_libros_model">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
         <property name="context-root" value="PrestamosAPI"/>
         <property name="java-output-path" value="/prestamos_libros_api/target/classes"/>
     </wb-module>
