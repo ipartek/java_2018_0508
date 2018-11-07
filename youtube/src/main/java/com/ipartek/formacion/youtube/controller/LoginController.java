@@ -29,7 +29,7 @@ public class LoginController extends HttpServlet {
 	private static UsuarioDAO daoUsuario;
 	
 	private static final String VIEW_INICIO_ADMIN = "/backoffice/inicio";
-	private static final String VIEW_INICIO_USER = "/inicio";
+	private static final String VIEW_INICIO_USER = "/perfil";
 	 
     
 	/**
@@ -81,6 +81,8 @@ public class LoginController extends HttpServlet {
 				
 				if ( u.getRol().getId() == Rol.ROL_ADMIN ) {
 					view = VIEW_INICIO_ADMIN;
+				}else {
+					view=VIEW_INICIO_USER;
 				}
 				
 				

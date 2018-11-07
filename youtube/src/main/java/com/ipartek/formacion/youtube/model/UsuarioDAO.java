@@ -28,6 +28,10 @@ public class UsuarioDAO implements CrudAble<Usuario> {
 	private final String SQL_LOGIN = "SELECT u.id as id_usuario, u.nombre as nombre_usuario,u.password,u.id_rol as id_rol,r.nombre as nombre_rol" 
 									+" FROM usuario as u, rol as r"
 									+" WHERE u.nombre=? AND password=? AND u.id_rol=r.id;";
+	
+	private final String SQL_GET_BY_NOMBRE="SELECT u.id as id_usuario, u.nombre as nombre_usuario,u.password,u.id_rol as id_rol,r.nombre as nombre_rol"
+											+" FROM usuario as u, rol as r"
+											+" WHERE u.nombre=?";
 
 	private UsuarioDAO() {
 		super();
@@ -91,6 +95,25 @@ public class UsuarioDAO implements CrudAble<Usuario> {
 				PreparedStatement ps = con.prepareStatement(SQL_GET_BY_ID);) {
 
 			ps.setLong(1, id);
+
+			try (ResultSet rs = ps.executeQuery()) {
+				while (rs.next()) {
+					usuario = rowMapper(rs, usuario);
+				}
+			}
+
+		}
+
+		return usuario;
+	}
+	
+	
+	public Usuario getByNombre(String nombre) throws Exception {
+		Usuario usuario = null;
+		try (Connection con = ConnectionManager.getConnection();
+				PreparedStatement ps = con.prepareStatement(SQL_GET_BY_NOMBRE);) {
+
+			ps.setString(1, nombre);
 
 			try (ResultSet rs = ps.executeQuery()) {
 				while (rs.next()) {

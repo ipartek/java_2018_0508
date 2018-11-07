@@ -7,7 +7,7 @@
     	
       <%@ include file="includes/nav.jsp"  %>
       <%@ include file="includes/alert.jsp"  %>	
-      	
+      	${pa}
       <div class="row">
 
         <div class="col-lg-3">        	
@@ -98,8 +98,9 @@
 			      <div class="modal-body">
 				      <form action="registro" method="post">
 					        <div class="form-group">
-					            <label for="nombre" class="col-form-label">Nombre:</label>
-					            <input type="text" class="form-control" id="nombreRegistro" name="nombreRegistro" placeholder="Introduce tu nombre"/>
+					            <label for="nombre" class="col-form-label"  name="nombre">Nombre:</label>
+					            <input type="text" class="form-control" onblur="checkNombre()" id="nombreRegistro" name="nombreRegistro" placeholder="Introduce tu nombre"/>
+					       		<small id="nombreHelp" class="form-text">Nombre disponible</small>
 					        </div>
 					        <div class="form-group">
 					            <label for="pass" class="col-form-label">Contraseña</label>

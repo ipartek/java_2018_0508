@@ -18,7 +18,7 @@ public class ComentarioDAO implements CrudAble<Comentario> {
 	public static final int APROBADO = 1;
 	public static final int NOT_APROBADO = 0;
 
-	private final String SQL_GET_ALL = "SELECT id, nombre FROM rol ORDER BY id DESC LIMIT 1000;";
+	private final String SQL_GET_ALL_BY_USER_ID = "SELECT id as id_comentario,id_usuario, nombre_usuario, texto,aprobado,fecha FROM comentario where id_usuario=? ORDER BY id  DESC LIMIT 1000;";
 	private final String SQL_GET_ALL_BY_VIDEO_ID = "SELECT 	c.id as 'id_comentario',    u.id as 'id_usuario',    fecha,    texto,    aprobado,    u.nombre as 'nombre_usuario' "
 			+ " FROM comentario as c , usuario as u " + " WHERE c.id_usuario = u.id AND "
 			+ " c.id_video = ? AND aprobado = 1 " + " ORDER BY c.id DESC LIMIT 500;";
@@ -72,6 +72,7 @@ public class ComentarioDAO implements CrudAble<Comentario> {
 
 	@Override
 	public List<Comentario> getAll() throws Exception {
+		
 
 		return null;
 	}
@@ -81,7 +82,7 @@ public class ComentarioDAO implements CrudAble<Comentario> {
 		Comentario comentario = null;
 		ArrayList<Comentario> comentarios = new ArrayList<Comentario>();
 		try (Connection con = ConnectionManager.getConnection();
-				PreparedStatement ps = con.prepareStatement(SQL_GET_ALL_BY_APROBADO);) {
+				PreparedStatement ps = con.prepareStatement(SQL_GET_ALL_BY_USER_ID);) {
 
 			ps.setInt(1, aprobado);
 
@@ -103,6 +104,26 @@ public class ComentarioDAO implements CrudAble<Comentario> {
 				PreparedStatement ps = con.prepareStatement(SQL_GET_ALL_BY_VIDEO_ID);) {
 
 			ps.setLong(1, videoId);
+
+			try (ResultSet rs = ps.executeQuery()) {
+				while (rs.next()) {
+					comentarios.add(rowMapper(rs, comentario));
+				}
+			}
+
+		}
+		return comentarios;
+	}
+	
+	
+	public List<Comentario> getAllByUserId(long id) throws Exception {
+
+		Comentario comentario = null;
+		ArrayList<Comentario> comentarios = new ArrayList<Comentario>();
+		try (Connection con = ConnectionManager.getConnection();
+				PreparedStatement ps = con.prepareStatement(SQL_GET_ALL_BY_USER_ID);) {
+
+			ps.setLong(1, id);
 
 			try (ResultSet rs = ps.executeQuery()) {
 				while (rs.next()) {

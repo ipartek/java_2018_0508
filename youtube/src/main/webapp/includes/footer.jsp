@@ -44,12 +44,14 @@
     
 
     <!-- Bootstrap core JavaScript -->
-    <script src="https://blackrockdigital.github.io/startbootstrap-shop-item/vendor/jquery/jquery.min.js"></script>
-    <script src="https://blackrockdigital.github.io/startbootstrap-shop-item/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="vendor/jquery/jquery.js"></script>
+    <script src="vendor/bootstrap/js/bootstrap.bundle.js"></script>
 
 	<script src="https://www.youtube.com/iframe_api"></script>
 
 	<script>
+	
+		
 	
 		function showModalEliminar( idVideo, operacion ){
 			console.log('showModalEliminar id=' + idVideo);
@@ -72,6 +74,45 @@
 			console.log('showModalRegistrar id=');
 			
 		}
+		
+		function checkNombre(){
+			var nombre =$('#nombreRegistro').val();
+			var help=$('#nombreHelp');
+			console.log('checkNombre' + nombre);
+			
+			
+			//llamada AJAX es asincrona=>"/checknombre"
+			var url="checknombre";
+			$.ajax(url, {
+				"type": "post", // usualmente post o get
+				"success": function(data) {
+					console.log("Llego el contenido y no hubo error", data);
+					help.html(data.resultado);
+					
+					
+					if(nombre!=undefined && nombre==data.resultado){
+						
+						help.removeClass('text-success');
+						help.addClass('text-danger');
+						
+					}else{
+						help.removeClass('text-danger');
+						help.addClass('text-success');
+					}
+					
+				},
+				"error": function(result) {
+					console.error("Este callback maneja los errores", result);
+					
+				},
+				"data": {"nombre": nombre}
+				
+				});
+			
+		}
+		
+		
+		
 		
 		/* YOTUBE IFRAME API */
 		/** https://tutorialzine.com/2015/08/how-to-control-youtubes-video-player-with-javascript */
