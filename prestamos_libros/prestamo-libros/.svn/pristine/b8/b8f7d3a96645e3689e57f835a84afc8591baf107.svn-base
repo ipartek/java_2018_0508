@@ -1,0 +1,126 @@
+package com.ipartek.formacion.prestamolibros.model;
+
+import java.sql.CallableStatement;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.Types;
+import java.util.ArrayList;
+
+import com.ipartek.formacion.prestamolibros.pojo.Editorial;
+
+public class EditorialDAO {
+	private static EditorialDAO INSTANCE = null;
+
+	private EditorialDAO() {
+		super();
+	}
+
+	public static synchronized EditorialDAO getInstance() {
+		if (INSTANCE == null) {
+			INSTANCE = new EditorialDAO();
+		}
+		return INSTANCE;
+	}
+
+	public ArrayList<Editorial> editorialGetAll() {
+		ArrayList<Editorial> editoriales = new ArrayList<Editorial>();
+		Editorial editorial = null;
+		String sql = "{CALL `editorialGetAll`()}";
+		try (Connection con = ConnectionManager.getConnection(); CallableStatement cs = con.prepareCall(sql);) {
+
+			try (ResultSet rs = cs.executeQuery()) {
+				while (rs.next()) {
+					editorial = new Editorial();
+					editorial.setEditorial(rs.getString("editorial"));
+					editorial.setId(rs.getLong("id"));
+					editoriales.add(editorial);
+
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+
+		}
+
+		return editoriales;
+
+	}
+
+	public Editorial editorialGetById(long id) {
+		Editorial editorial = null;
+		String sql = "{CALL `editorialGetById`(?)}";
+		try (Connection con = ConnectionManager.getConnection(); CallableStatement cs = con.prepareCall(sql);) {
+			cs.setLong(1, id);
+			try (ResultSet rs = cs.executeQuery()) {
+
+				while (rs.next()) {
+					editorial = new Editorial();
+					editorial.setEditorial(rs.getString("editorial"));
+					editorial.setId(rs.getLong("id"));
+
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+
+		}
+
+		return editorial;
+
+	}
+
+	public boolean editorialInsert(String nombre) {
+		boolean resul = false;
+		String sql = "{CALL `editorialInsert`(?, ?)}";
+		Editorial editorial = new Editorial();
+		int id;
+
+		try (Connection con = ConnectionManager.getConnection(); CallableStatement cs = con.prepareCall(sql);) {
+			cs.setString(1, nombre);
+			cs.registerOutParameter("id", Types.INTEGER);
+
+			cs.execute();
+			id = cs.getInt("id");
+			editorial.setEditorial(nombre);
+			editorial.setId(id);
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return resul;
+
+	}
+
+	public boolean update(String nombre, long id) throws Exception {
+		boolean resul = false;
+		String sql = "{CALL editorialUpdate (?, ?)}";
+		try (Connection con = ConnectionManager.getConnection(); CallableStatement cs = con.prepareCall(sql);) {
+
+			cs.setString(1, nombre);
+			cs.setLong(2, id);
+
+			if (cs.executeUpdate() == 1) {
+				resul = true;
+			}
+
+		}
+		return resul;
+	}
+
+	public boolean delete(long id) {
+		boolean resul = false;
+		String sql = "{CALL editorialDelete (?)}";
+		try (Connection con = ConnectionManager.getConnection(); CallableStatement cs = con.prepareCall(sql);) {
+
+			cs.setLong(1, id);
+			if (cs.executeUpdate() == 1) {
+				resul = true;
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return resul;
+	}
+
+}

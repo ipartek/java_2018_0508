@@ -1,0 +1,14 @@
+package com.ipartek.formacion.prestamolibros.service;
+
+import java.util.List;
+
+import com.ipartek.formacion.prestamolibros.pojo.Editorial;
+
+public interface IServiceEditorial {
+
+	boolean crear(Editorial e)throws Exception;
+	boolean modificar(Editorial e)throws Exception;
+	boolean eliminar(long id) throws Exception;
+	Editorial buscar(long idEditorial) throws Exception;
+	List<Editorial> listar() throws Exception;
+}

@@ -1,0 +1,47 @@
+package com.ipartek.formacion.prestamolibros.model;
+
+import java.sql.CallableStatement;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.util.ArrayList;
+
+import com.ipartek.formacion.prestamolibros.pojo.Editorial;
+
+public class EditorialDAO {
+	private static EditorialDAO INSTANCE = null;
+
+	private EditorialDAO() {
+		super();
+	}
+
+	public static synchronized EditorialDAO getInstance() {
+		if (INSTANCE == null) {
+			INSTANCE = new EditorialDAO();
+		}
+		return INSTANCE;
+	}
+
+	public ArrayList<Editorial> editorialGetAll() {
+		ArrayList<Editorial> editoriales = null;
+		Editorial editorial=null;
+		String sql = "{CALL `editorialGetAll`()}";
+		try (Connection con = ConnectionManager.getConnection(); CallableStatement cs = con.prepareCall(sql);) {
+
+			try (ResultSet rs = cs.executeQuery()) {
+				while (rs.next()) {
+					editorial.setEditorial(rs.getString("editorial"));
+					editorial.setId(rs.getLong("id"));
+					editoriales.add(editorial);
+
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			
+		}
+
+		return editoriales;
+
+	}
+
+}

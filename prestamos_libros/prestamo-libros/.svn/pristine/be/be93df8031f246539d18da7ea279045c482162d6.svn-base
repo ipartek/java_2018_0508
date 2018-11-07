@@ -1,0 +1,200 @@
+package com.ipartek.formacion.prestamolibros.controller;
+
+import java.io.IOException;
+import java.sql.SQLIntegrityConstraintViolationException;
+
+import javax.servlet.ServletConfig;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import com.ipartek.formacion.prestamolibros.model.EditorialDAO;
+import com.ipartek.formacion.prestamolibros.pojo.Alert;
+import com.ipartek.formacion.prestamolibros.pojo.Editorial;
+
+/**
+ * Servlet implementation class EditorialController
+ */
+@WebServlet("/backoffice/editoriales")
+public class EditorialesController extends HttpServlet implements CrudControllable {
+	private static final long serialVersionUID = 1L;
+	private EditorialDAO daoEditorial;
+	private Alert alert;
+	private String op;
+	private String view;
+	private String id;
+	private String nombre;
+
+	@Override
+	public void init(ServletConfig config) throws ServletException {
+		super.init(config);
+		daoEditorial = EditorialDAO.getInstance();
+	}
+
+	@Override
+	public void destroy() {
+		super.destroy();
+		daoEditorial = null;
+	}
+
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+	 *      response)
+	 */
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		doProcess(request, response);
+
+	}
+
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+	 *      response)
+	 */
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		doProcess(request, response);
+
+	}
+
+	@Override
+	public void getParameters(HttpServletRequest request) {
+		op = (request.getParameter("op") != null) ? request.getParameter("op") : OP_LISTAR;
+		id = request.getParameter("id");
+		nombre = request.getParameter("nombre");
+
+	}
+
+	@Override
+	public void doProcess(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		try {
+			alert = null;
+			getParameters(request);
+			switch (op) {
+			case OP_ELIMINAR:
+				eliminar(request);
+				break;
+
+			case OP_IR_FORMULARIO:
+				irFormulario(request);
+				break;
+
+			case OP_GUARDAR:
+				guardar(request);
+				break;
+
+			default:// LISTAR
+
+				listar(request);
+				break;
+
+			// buscar operacion a realizar
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+
+			alert = new Alert();
+		} finally {
+
+			request.setAttribute("alert", alert);
+			request.getRequestDispatcher(view).forward(request, response);
+
+			try {
+				listar(request);
+			} catch (Exception e) {
+
+				e.printStackTrace();
+			}
+
+		}
+
+	}
+
+	@Override
+	public void guardar(HttpServletRequest request) throws Exception {
+			
+		Editorial editorial = new Editorial();
+		
+		try {
+			
+			editorial.setId(Long.parseLong(id));
+			editorial.setEditorial(nombre);
+			
+			if(editorial.getId() == -1) {
+				daoEditorial.editorialInsert(nombre);
+				alert = new Alert(Alert.SUCCESS, "Editorial <b>" + editorial.getEditorial() + "</b> creada correctamente.");
+			
+			}else {
+				daoEditorial.editorialUpdate(Long.parseLong(id), nombre);
+				alert = new Alert(Alert.SUCCESS, "Editorial <b>" + editorial.getEditorial() + "</b> modificada correctamente.");
+			}
+									
+			
+		}catch (SQLIntegrityConstraintViolationException e) {
+			e.printStackTrace();
+			alert = new Alert(Alert.WARNING, "La editorial <b>" + editorial.getEditorial() + "</b> ya existe.");
+		}
+		
+		catch (Exception e) {
+			e.printStackTrace();
+			alert = new Alert();
+		}
+		
+		listar(request);
+		
+	}
+
+	@Override
+	public void listar(HttpServletRequest request) throws Exception {
+		request.setAttribute("editoriales", daoEditorial.editorialGetAll());
+		view = "editoriales/editorial.jsp";
+
+	}
+
+	@Override
+	public void irFormulario(HttpServletRequest request) throws Exception {
+		alert = null;
+		view = "editoriales/formulario.jsp";
+		if (id.equalsIgnoreCase("-1")) {
+			request.setAttribute("editorial", new Editorial());
+		} else {
+
+			request.setAttribute("editorial", daoEditorial.editorialGetById(Long.parseLong(id)));
+
+		}
+		request.setAttribute("editoriales", daoEditorial.editorialGetAll());
+	}
+
+	@Override
+	public void eliminar(HttpServletRequest request) throws Exception {
+		
+		try {
+			if(id != null && op != null && OP_ELIMINAR.equals(op)) {	//Eliminar
+				
+				Editorial e  = daoEditorial.editorialGetById(Long.parseLong(id));
+				
+				if(daoEditorial.editorialDelete(Long.parseLong(id))) {
+					alert = new Alert(Alert.SUCCESS, "Editorial <b>" + e.getEditorial() + "</b> eliminada correctamente");
+					
+				}else {
+					alert = new Alert(Alert.WARNING, "No hemos podido eliminar la editorial");
+				}
+				
+			}	
+			
+		}catch (SQLIntegrityConstraintViolationException e) {
+			alert = new Alert(Alert.WARNING, "No se puede eliminar la editorial, ya que tiene uno o más libros asociados.");
+		
+		}catch (Exception e) {
+			e.printStackTrace();
+			alert = new Alert();
+		}
+		
+		listar(request);
+		
+	}
+
+}

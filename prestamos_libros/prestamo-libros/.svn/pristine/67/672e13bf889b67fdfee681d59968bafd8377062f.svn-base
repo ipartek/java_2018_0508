@@ -1,0 +1,58 @@
+<%@page
+	import="com.ipartek.formacion.prestamolibros.controller.CrudControllable"%>
+<%@include file="../includes/header.jsp"%>
+<%@include file="../includes/nav.jsp"%>
+
+<div id="page-wrapper">
+
+	<%@include file="../includes/alert.jsp"%>
+
+	<div class="row">
+		<form action="biblioteca" method="post">
+
+			<div class="form-group">
+				<label for="id">ID:</label> <input type="text" class="form-control" id="id" name="id" value="${libro.id }" readonly />
+			</div>
+
+			<div class="form-group">
+				<label for="titulo">Título:</label> 
+				<input type="text" class="form-control" id="titulo" name="titulo" value="${libro.titulo }" required autofocus />
+			</div>
+			
+			<div class="form-group">
+				<label for="editorial">Editorial:</label>
+				<select id="editorial" name="editorial" class="form-control">
+					<c:forEach items = "${editoriales}" var = "e">
+						<option value="${e.id }" ${(e.id == libro.editorial.id)? 'selected' : '' }>${e.editorial }</option>
+					</c:forEach>
+				</select>			
+			</div>
+			
+			<c:if test="${libro.id == -1 }">
+				<div class="form-group">
+					<label for="numLibros">Cantidad:</label>
+					<input type="number" class="form-control" id="numLibros" name="numLibros" min="1" value="1" required />
+				</div>
+			</c:if>
+			<div class="form-group">
+				<label for="isbn">ISBN:</label>
+				<input type="text" class="form-control" id="isbn" name="isbn" value="${libro.isbn}" required />
+			</div>
+
+			<input type="hidden" name="op"
+				value="<%=CrudControllable.OP_GUARDAR%>" /> <input type="submit"
+				value="${(libro.id == -1)? 'Crear' : 'Modificar' }"
+				class="btn btn-primary btn-block" />
+
+			<c:if test="${libro.id >= 0}">
+				<a
+					href="biblioteca?id=${libro.id}&op=<%=CrudControllable.OP_ELIMINAR %>"
+					class="btn btn-danger btn-block">Eliminar</a>
+			</c:if>
+
+		</form>
+
+	</div>
+
+</div>
+<%@include file="../includes/footer.jsp"%>

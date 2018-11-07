@@ -1,0 +1,160 @@
+/* Estilos generales para el backoffice */
+
+body, nav, .sidebar{
+	background-color:#fff !important;
+}
+
+img{
+	max-width:100%;
+}
+
+.rojo{
+	color:red;
+}
+
+.gris{
+	color:#333333;
+}
+
+/* Estilos para el menú del backoffice */
+
+nav{
+	min-height:12vh !important;
+	border-color:#0C2661 !important;
+}
+
+.logo{
+	width:55% !important;
+}
+
+.cerrarSesion{
+	position:absolute;
+	right:15px;
+	top:10px;
+	color:#72C7DC !important;
+}
+
+.cerrarSesion:hover{
+	color:#0C2661 !important;
+}
+
+.sidebar{
+	margin-top:6em;
+}
+
+.sidebar ul li {
+	border-color:#72C7DC;
+}
+
+.sidebar ul li a{
+	color:#0C2661;
+}
+
+/* Estilos contenido principal del backoffice */
+
+#page-wrapper{
+	padding:2em 3em;
+	min-height:75vh;
+	border-color:#0C2661;
+}
+
+.divTitulo{
+	margin-bottom:2em;
+	border-bottom:1px solid #868686;
+	padding-bottom:1em;
+}
+
+.titulo{
+	display:inline;
+	border:none;
+}
+
+.titulo .badge{
+	background-color:#72C7DC;
+}
+
+.btn-crear{
+	text-align:right;
+}
+
+.btn-crear a{
+	color:#fff;
+	background-color:#0C2661;
+}
+
+.btn-crear a:hover{
+	background-color:transparent;
+	color:#0C2661;
+	border-color:#0C2661;
+}
+
+.btnCrear{
+	color:#fff;
+	background-color:#0C2661;
+}
+
+.btnCrear:hover{
+	background-color:transparent;
+	color:#0C2661;
+	border-color:#0C2661;
+}
+
+.btnModificar{
+	background-color:transparent;
+	color:#72C7DC;
+	border-color:#72C7DC;
+}
+
+.btnModificar:hover{
+	background-color:#72C7DC;
+	color:#fff;
+}
+
+.btn-modificar{
+	background-color:#72C7DC;
+	color:#fff;
+}
+
+.btn-modificar:hover{
+	background-color:transparent;
+	color:#72C7DC;
+	border-color:#72C7DC;
+}
+
+/*#D9534F*/
+
+.btnFinalizar{
+	background-color:transparent;
+	color:#0C2661;
+	border-color:#0C2661;
+}
+
+.btnFinalizar:hover{
+	background-color:#0C2661;
+	color:#fff;
+}
+
+.btn-finalizar{
+	background-color:#0C2661;
+	color:#fff;
+}
+
+.btn-finalizar:hover{
+	background-color:transparent;
+	color:#0C2661;
+	border-color:#0C2661;
+}
+
+#btnAnadirAlumno{
+	float:left;
+}
+
+/* Estilos para el footer del backoffice */
+
+.footer{
+	border-top:1px solid #0C2661;
+	color:#868686;
+	padding-top:2em;
+	padding-bottom:1em;
+	text-align:center;
+}

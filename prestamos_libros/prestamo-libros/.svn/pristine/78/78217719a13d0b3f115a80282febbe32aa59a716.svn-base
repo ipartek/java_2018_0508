@@ -1,0 +1,194 @@
+package com.ipartek.formacion.prestamolibros.model;
+
+import java.sql.CallableStatement;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.Types;
+import java.util.ArrayList;
+import java.util.List;
+
+import com.ipartek.formacion.prestamolibros.pojo.Editorial;
+import com.ipartek.formacion.prestamolibros.pojo.Libro;
+
+public class LibroDAO implements CrudAble<Libro> {
+	private static LibroDAO INSTANCE = null;
+
+	private LibroDAO() {
+		super();
+	}
+
+	public static synchronized LibroDAO getInstance() {
+		if (INSTANCE == null) {
+			INSTANCE = new LibroDAO();
+		}
+		return INSTANCE;
+	}
+
+	public boolean libroInsert(String titulo, String isbn, long idEditorial, int numLibros) {
+		boolean resul = false;
+
+		for (int i = 0; i < numLibros; i++) {
+
+			String sql = "{CALL `editorialInsert`(?, ?)}";
+			Libro libro = new Libro();
+			int id;
+
+			try (Connection con = ConnectionManager.getConnection(); CallableStatement cs = con.prepareCall(sql);) {
+				cs.setString(1, titulo);
+				cs.registerOutParameter("o_id", Types.INTEGER);
+
+				cs.execute();
+				id = cs.getInt("o_id");
+				libro.setId(id);
+				libro.setTitulo(titulo);
+				libro.setIsbn(isbn);
+
+				Editorial editorial = new Editorial();
+				editorial.setId(idEditorial);
+				editorial.setEditorial(EditorialDAO.getInstance().editorialGetById(id).getEditorial());
+
+				libro.setEditorial(editorial);
+
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		return resul;
+
+	}
+
+	
+
+	public boolean libroDelete(long id) throws Exception {
+		boolean resul = false;
+		String sql = "{CALL editorialDelete (?)}";
+		try (Connection con = ConnectionManager.getConnection(); CallableStatement cs = con.prepareCall(sql);) {
+
+			cs.setLong(1, id);
+			if (cs.executeUpdate() == 1) {
+				resul = true;
+			}
+
+		}
+		return resul;
+	}
+
+	@Override
+	public boolean insert(Libro pojo) throws Exception {
+		boolean resul = false;
+
+		String sql = "{CALL `libroInsert`(?, ?,?,?)}";
+		
+
+		try (Connection con = ConnectionManager.getConnection(); CallableStatement cs = con.prepareCall(sql);) {
+			cs.setString(1, pojo.getTitulo());
+			cs.setString(2, pojo.getIsbn());
+			cs.setLong(3, pojo.getEditorial().getId());
+			cs.registerOutParameter("o_id", Types.INTEGER);
+
+			cs.execute();
+			resul=true;
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return resul;
+	}
+
+	@Override
+	public List<Libro> getAll() throws Exception {
+		ArrayList<Libro> libros = new ArrayList<Libro>();
+		Libro libro = null;
+		String sql = "{CALL `libroGetAll`())}";
+		try (Connection con = ConnectionManager.getConnection(); CallableStatement cs = con.prepareCall(sql);) {
+
+			try (ResultSet rs = cs.executeQuery()) {
+				while (rs.next()) {
+					libro = new Libro();
+					libro.setId(rs.getLong("id"));
+					libro.setTitulo(rs.getString("titulo"));
+					libro.setIsbn(rs.getString("isbn"));
+
+					Editorial editorial = new Editorial();
+					editorial.setId(rs.getLong("id_tipo_editorial"));
+					editorial.setEditorial(rs.getString("editorial"));
+
+					libro.setEditorial(editorial);
+
+					libros.add(libro);
+
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+
+		}
+
+		return libros;
+	}
+
+	@Override
+	public Libro getById(long id) throws Exception {
+		Libro libro = new Libro();
+		String sql = "{CALL `libroGetById`(?)}";
+		try (Connection con = ConnectionManager.getConnection(); CallableStatement cs = con.prepareCall(sql);) {
+			cs.setLong(1, id);
+			try (ResultSet rs = cs.executeQuery()) {
+
+				while (rs.next()) {
+					libro = new Libro();
+					libro.setId(rs.getLong("id"));
+					libro.setIsbn(rs.getString("isbn"));
+					libro.setTitulo(rs.getString("titulo"));
+
+					Editorial editorial = new Editorial();
+					editorial.setId(rs.getLong("id_tipo_editorial"));
+					editorial.setEditorial(rs.getString("editorial"));
+
+					libro.setEditorial(editorial);
+
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+
+		}
+
+		return libro;
+	}
+
+	@Override
+	public boolean update(Libro pojo) throws Exception {
+		boolean resul = false;
+		String sql = "{CALL `libroUpdate`(?,?,?,?)}";
+		try (Connection con = ConnectionManager.getConnection(); CallableStatement cs = con.prepareCall(sql);) {
+
+			cs.setString(1, pojo.getTitulo());
+			cs.setString(2, pojo.getIsbn());
+			cs.setLong(3, pojo.getEditorial().getId());
+			cs.setLong(4, pojo.getId());
+
+			if (cs.executeUpdate() == 1) {
+				resul = true;
+			}
+
+		}
+		return resul;
+	}
+
+	@Override
+	public boolean delete(long id) throws Exception {
+		boolean resul = false;
+		String sql = "{CALL editorialDelete (?)}";
+		try (Connection con = ConnectionManager.getConnection(); CallableStatement cs = con.prepareCall(sql);) {
+
+			cs.setLong(1, id);
+			if (cs.executeUpdate() == 1) {
+				resul = true;
+			}
+
+		}
+		return resul;
+	}
+}

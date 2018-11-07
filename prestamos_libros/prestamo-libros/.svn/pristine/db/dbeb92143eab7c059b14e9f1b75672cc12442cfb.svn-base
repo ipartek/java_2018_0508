@@ -1,0 +1,80 @@
+package com.ipartek.formacion.prestamolibros.pojo;
+
+import java.sql.Date;
+import java.util.Calendar;
+
+public class Prestamo {
+	private long idAlumno;
+	private long idLibro;
+	private Date fechaInicio;
+	private Date fechaFin;
+	
+	
+	public Prestamo() {
+		super();
+		this.idAlumno=-1;
+		this.idLibro=-1;
+		this.fechaInicio=new Date(Calendar.getInstance().getTime().getTime());
+		this.fechaFin=new Date(Calendar.getInstance().getTime().getTime()); 
+	}
+
+
+	public Prestamo(long idAlumno, long idLibro, Date fechaInicio, Date fechaFin) {
+		super();
+		this.idAlumno = idAlumno;
+		this.idLibro = idLibro;
+		this.fechaInicio = fechaInicio;
+		this.fechaFin = fechaFin;
+	}
+
+
+	public long getIdAlumno() {
+		return idAlumno;
+	}
+
+
+	public void setIdAlumno(long idAlumno) {
+		this.idAlumno = idAlumno;
+	}
+
+
+	public long getIdLibro() {
+		return idLibro;
+	}
+
+
+	public void setIdLibro(long idLibro) {
+		this.idLibro = idLibro;
+	}
+
+
+	public Date getFechaInicio() {
+		return fechaInicio;
+	}
+
+
+	public void setFechaInicio(Date fechaInicio) {
+		this.fechaInicio = fechaInicio;
+	}
+
+
+	public Date getFechaFin() {
+		return fechaFin;
+	}
+
+
+	public void setFechaFin(Date fechaFin) {
+		this.fechaFin = fechaFin;
+	}
+
+
+	@Override
+	public String toString() {
+		return "Prestamo [idAlumno=" + idAlumno + ", idLibro=" + idLibro + ", fechaInicio=" + fechaInicio
+				+ ", fechaFin=" + fechaFin + "]";
+	}
+	
+	
+	
+	
+}

@@ -1,0 +1,132 @@
+package com.ipartek.formacion.prestamolibros.controller;
+
+import java.io.IOException;
+
+import javax.servlet.ServletConfig;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import com.ipartek.formacion.prestamolibros.model.EditorialDAO;
+import com.ipartek.formacion.prestamolibros.pojo.Alert;
+
+/**
+ * Servlet implementation class EditorialController 
+ */
+@WebServlet("/editoriales")
+public class EditorialesController extends HttpServlet implements CrudControllable {
+	private static final long serialVersionUID = 1L;
+	private EditorialDAO daoEditorial;
+	private Alert alerta;
+	private String op;
+	private String view;
+	
+	@Override
+	public void init(ServletConfig config) throws ServletException {
+		super.init(config);
+		daoEditorial = EditorialDAO.getInstance();
+	}
+	
+	@Override
+	public void destroy() {
+		super.destroy();
+		daoEditorial = null;
+	}
+    
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		doProcess(request, response);
+		
+		
+	}
+
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		doProcess(request, response);
+		
+	}
+
+	@Override
+	public void getParameters(HttpServletRequest request) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void doProcess(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		try {
+			alerta = new Alert();
+			getParameters(request);
+			switch (op) {
+			case OP_ELIMINAR:
+				eliminar(request);
+				break;
+
+			case OP_IR_FORMULARIO:
+				irFormulario(request);
+				break;
+
+			case OP_GUARDAR:
+				guardar(request);
+				break;
+
+			default:// LISTAR
+
+				listar(request);
+				break;
+
+			// buscar operacion a realizar
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+
+			alerta = new Alert();
+		} finally {
+
+			request.setAttribute("alert", alerta);
+			request.getRequestDispatcher(view).forward(request, response);
+			
+			try {
+				listar(request);
+			} catch (Exception e) {
+
+				e.printStackTrace();
+			}
+
+		}
+		
+	}
+
+	@Override
+	public void guardar(HttpServletRequest request) throws Exception {
+		
+		
+	}
+
+	@Override
+	public void listar(HttpServletRequest request) throws Exception {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void irFormulario(HttpServletRequest request) throws Exception {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void eliminar(HttpServletRequest request) throws Exception {
+		// TODO Auto-generated method stub
+		
+
+	}
+
+}
