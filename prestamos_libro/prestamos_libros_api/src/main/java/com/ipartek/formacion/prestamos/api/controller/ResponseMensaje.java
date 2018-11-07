@@ -1,17 +1,28 @@
 package com.ipartek.formacion.prestamos.api.controller;
 
+import java.util.ArrayList;
+
 public class ResponseMensaje {
 
 	private String mensaje;
+	private ArrayList<String> errores;
 
 	public ResponseMensaje() {
 		super();
+		this.errores = new ArrayList<String>();
 		this.mensaje = "Soy una tetera";
 	}
 
 	public ResponseMensaje(String mensaje) {
-		this();
+		super();
 		this.mensaje = mensaje;
+
+	}
+
+	public ResponseMensaje(String mensaje, ArrayList<String> errorViolation) {
+		super();
+		this.mensaje = mensaje;
+		this.errores = errorViolation;
 	}
 
 	public String getMensaje() {
@@ -22,9 +33,17 @@ public class ResponseMensaje {
 		this.mensaje = mensaje;
 	}
 
+	public ArrayList<String> getErrores() {
+		return errores;
+	}
+
+	public void setErrores(ArrayList<String> errorViolation) {
+		this.errores = errorViolation;
+	}
+
 	@Override
 	public String toString() {
-		return "ResponseMensaje [mensaje=" + mensaje + "]";
+		return "ResponseMensaje [mensaje=" + mensaje + ", errorViolation=" + errores + "]";
 	}
 
 }

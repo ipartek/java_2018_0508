@@ -1,7 +1,14 @@
 package com.ipartek.formacion.pojo;
 
+import javax.validation.constraints.Size;
+
+import org.hibernate.validator.constraints.NotBlank;
+
 public class Editorial {
 	private long id;
+	
+	@NotBlank
+	@Size(min=2, max=50)
 	private String nombre;
 	
 	public Editorial() {

@@ -1,6 +1,12 @@
 package com.ipartek.formacion.prestamos.api.controller;
 
 import java.util.ArrayList;
+import java.util.Set;
+
+import javax.validation.ConstraintViolation;
+import javax.validation.Validation;
+import javax.validation.Validator;
+import javax.validation.ValidatorFactory;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,10 +25,15 @@ import com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationExceptio
 public class EditorialesController {
 
 	ServiceEditorial serviceEditorial = null;
+	ValidatorFactory factory = null;
+	Validator validator = null;
 
 	public EditorialesController() {
 		super();
 		serviceEditorial = ServiceEditorial.getInstance();
+		// Crear Factoria y Validador
+		factory = Validation.buildDefaultValidatorFactory();
+		validator = factory.getValidator();
 	}
 
 	@RequestMapping(method = RequestMethod.GET)
@@ -44,8 +55,8 @@ public class EditorialesController {
 	}
 
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
-	public ResponseEntity<Editorial> detalle(@PathVariable long id) throws Exception {
-		ResponseEntity<Editorial> response = new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
+	public ResponseEntity<Object> detalle(@PathVariable long id) throws Exception {
+		ResponseEntity<Object> response = new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
 		Editorial editorial = new Editorial();
 		editorial = serviceEditorial.buscarPorId(id);
 
@@ -53,7 +64,9 @@ public class EditorialesController {
 
 			response = new ResponseEntity<>(editorial, HttpStatus.OK);
 		} else {
-			response = new ResponseEntity<>(HttpStatus.NOT_FOUND);
+			response = new ResponseEntity<>(
+					new ResponseMensaje("No se ha encotrado ningun registro, cambie de identificador"),
+					HttpStatus.NOT_FOUND);
 		}
 
 		return response;
@@ -87,14 +100,32 @@ public class EditorialesController {
 	@RequestMapping(method = RequestMethod.POST)
 	public ResponseEntity<Object> crear(@RequestBody Editorial editorial) throws Exception {
 		ResponseEntity<Object> response = new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+		ResponseMensaje responseMensaje = new ResponseMensaje();
+
 		try {
 
-			if (serviceEditorial.crear(editorial)) {
-				response = new ResponseEntity<>(editorial, HttpStatus.CREATED);
-			} else {
-				response = new ResponseEntity<>(HttpStatus.CONFLICT);
+			Set<ConstraintViolation<Editorial>> violations = validator.validate(editorial);
+			if (violations.size() > 0) {
+				/* No ha pasado la valiadacion, iterar sobre los mensajes de validacion */
 
+				ArrayList<String> errores = new ArrayList<>();
+				for (ConstraintViolation<Editorial> violation : violations) {
+					errores.add(violation.getPropertyPath() + ": " + violation.getMessage());
+
+				}
+				responseMensaje.setErrores(errores);
+				responseMensaje.setMensaje("Datos no validos");
+
+				response = new ResponseEntity<>(responseMensaje, HttpStatus.CONFLICT);
+			} else {
+				if (serviceEditorial.crear(editorial)) {
+					response = new ResponseEntity<>(editorial, HttpStatus.CREATED);
+				} else {
+					response = new ResponseEntity<>(HttpStatus.CONFLICT);
+
+				}
 			}
+
 		} catch (MySQLIntegrityConstraintViolationException e) {
 
 			response = new ResponseEntity<>(
@@ -110,15 +141,31 @@ public class EditorialesController {
 
 	@RequestMapping(value = "/{id}", method = RequestMethod.PUT)
 	public ResponseEntity<Object> modificar(@PathVariable long id, @RequestBody Editorial editorial) throws Exception {
+		
 		ResponseEntity<Object> response = new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
-
+		ResponseMensaje responseMensaje = new ResponseMensaje();
+		
 		try {
 			editorial.setId(id);
+			Set<ConstraintViolation<Editorial>> violations = validator.validate(editorial);
+			if (violations.size() > 0) {
+				/* No ha pasado la valiadacion, iterar sobre los mensajes de validacion */
 
-			if (serviceEditorial.modificar(editorial)) {
-				response = new ResponseEntity<>(editorial, HttpStatus.OK);
+				ArrayList<String> errores = new ArrayList<>();
+				for (ConstraintViolation<Editorial> violation : violations) {
+					errores.add(violation.getPropertyPath() + ": " + violation.getMessage());
+
+				}
+				responseMensaje.setErrores(errores);
+				responseMensaje.setMensaje("Datos no validos");
+
+				response = new ResponseEntity<>(responseMensaje, HttpStatus.CONFLICT);
 			} else {
-				response = new ResponseEntity<>(HttpStatus.NOT_FOUND);
+				if (serviceEditorial.modificar(editorial)) {
+					response = new ResponseEntity<>(editorial, HttpStatus.OK);
+				} else {
+					response = new ResponseEntity<>(HttpStatus.NOT_FOUND);
+				}
 			}
 
 		} catch (MySQLIntegrityConstraintViolationException e) {
