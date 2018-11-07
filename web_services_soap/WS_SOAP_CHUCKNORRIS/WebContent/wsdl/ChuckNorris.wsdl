@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions targetNamespace="http://chuck.com" xmlns:apachesoap="http://xml.apache.org/xml-soap" xmlns:impl="http://chuck.com" xmlns:intf="http://chuck.com" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:wsdlsoap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+<!--WSDL created by Apache Axis version: 1.4
+Built on Apr 22, 2006 (06:55:48 PDT)-->
+ <wsdl:types>
+  <schema elementFormDefault="qualified" targetNamespace="http://chuck.com" xmlns="http://www.w3.org/2001/XMLSchema">
+   <element name="dimeFrase">
+    <complexType/>
+   </element>
+   <element name="dimeFraseResponse">
+    <complexType>
+     <sequence>
+      <element name="dimeFraseReturn" type="xsd:string"/>
+     </sequence>
+    </complexType>
+   </element>
+  </schema>
+ </wsdl:types>
+
+   <wsdl:message name="dimeFraseRequest">
+
+      <wsdl:part element="impl:dimeFrase" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="dimeFraseResponse">
+
+      <wsdl:part element="impl:dimeFraseResponse" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:portType name="ChuckNorris">
+
+      <wsdl:operation name="dimeFrase">
+
+         <wsdl:input message="impl:dimeFraseRequest" name="dimeFraseRequest">
+
+       </wsdl:input>
+
+         <wsdl:output message="impl:dimeFraseResponse" name="dimeFraseResponse">
+
+       </wsdl:output>
+
+      </wsdl:operation>
+
+   </wsdl:portType>
+
+   <wsdl:binding name="ChuckNorrisSoapBinding" type="impl:ChuckNorris">
+
+      <wsdlsoap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+
+      <wsdl:operation name="dimeFrase">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="dimeFraseRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="dimeFraseResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+   </wsdl:binding>
+
+   <wsdl:service name="ChuckNorrisService">
+
+      <wsdl:port binding="impl:ChuckNorrisSoapBinding" name="ChuckNorris">
+
+         <wsdlsoap:address location="http://localhost:8080/WS_SOAP_CHUCKNORRIS/services/ChuckNorris"/>
+
+      </wsdl:port>
+
+   </wsdl:service>
+
+</wsdl:definitions>
