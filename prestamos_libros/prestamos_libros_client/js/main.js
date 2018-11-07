@@ -3,11 +3,12 @@ window.addEventListener("load", function(event) {
 
     const ENDPOINT = "http://localhost:8080/PrestamosAPI/";
     var ulEditoriales = document.getElementById('ulEditoriales');
+    var cardGroup = document.getElementById('cardGroup');
     var mensaje = document.getElementById('mensaje');
     var editoriales = [];
 
     //Vaciar lista
-    ulEditoriales.innerHTML = "<li>Elemento</li>";
+    //ulEditoriales.innerHTML = "<li>Elemento</li>";
 
     //Llamada Ajax para obtener editoriales
     var request = new XMLHttpRequest();
@@ -21,14 +22,30 @@ window.addEventListener("load", function(event) {
                 console.log('editoriales %o', editoriales);
                 
                 var lis = "";
+                var card = "";
 
                 editoriales.forEach(editorial => {
                     console.log(editorial);
                     lis += "<li>"+editorial.id+": "+editorial.nombre+"</li>"
                     //lis += `<li> ${editorial.id}: ${editorial.nombre}</li>`
+                    
+                    card += `<div class="col-lg-4 mb-4">
+                    <div class="card h-100">
+                        <h4 class="card-header">${editorial.nombre}</h4>
+                        <div class="card-body">
+                        <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sapiente esse necessitatibus neque.</p>
+                        </div>
+                        <div class="card-footer">
+                        <a href="#" class="btn btn-primary">Learn More</a>
+                        </div>
+                    </div>
+                    </div>`
+
+                    
                 });
 
-                ulEditoriales.innerHTML = lis;
+                cardGroup.innerHTML = card;
+                //ulEditoriales.innerHTML = lis;
             } 
         }else{
             //console.error('No se ha podido realizar la llamada Ajax');
