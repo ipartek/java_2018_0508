@@ -11,8 +11,6 @@ window.addEventListener("load", function(event) {
     cargarEditoriales();
 });
 
-
-
 function cargarEditoriales(){
     console.log('cargarEditoriales');
    
@@ -27,7 +25,7 @@ function cargarEditoriales(){
 
                 var lis = "";
                 editoriales.forEach( (editorial, index) => {                    
-                    lis += `<li onclick="editorialClick(${index}, event)" class="list-group-item"> ${editorial.id} ${editorial.nombre} </li>`;
+                    lis += `<li onclick="editorialClick(${index}, event)" class="list-group-item"> ${editorial.id} ${editorial.nombre} <i class="fas fa-trash-alt"></i></li>`;
                 });
                 ulEditoriales.innerHTML = lis;
                 mensaje.textContent = '';
