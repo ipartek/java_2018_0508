@@ -3,8 +3,10 @@ const ENDPOINT = "http://localhost:8080/PrestamosAPI/";
 var ulEditoriales = document.getElementById('ulEditoriales');
 var cardGroup = document.getElementById('cardGroup');
 var mensaje = document.getElementById('mensaje');
+var alerta = document.getElementById('alerta');
 var editoriales = [];
 var editorial;
+var error;
 
 //Document Ready
 window.addEventListener("load", function(event) {    
@@ -34,7 +36,19 @@ function cargarEditoriales(){
                 editoriales.forEach((editorial, index) => {
                     console.log(editorial);
                     //lis += "<li class=list-group-item>"+editorial.id+": "+editorial.nombre+"</li>"
-                    lis += `<li onclick="editorialClick(${index}, event)" class="list-group-item"> ${editorial.id}: ${editorial.nombre}</li>`
+                    lis += `<li onclick="editorialClick(${index}, event)" class="list-group-item">
+                    <div class="row justify-content-around">
+                        <div class="col">
+                            ${editorial.id}: ${editorial.nombre}
+                        </div>
+                        <div class="col text-right">
+                            <i onclick="editarEditorial(${editorial.id}, ${editorial.nombre}, event)" class="fas fa-pencil-alt text-success"></i>
+                        </div>
+                        <div class="col text-right">
+                            <i onclick="eliminarEditorial(${editorial.id},event)" class="fas fa-trash-alt text-danger"></i>
+                        </div>
+                    </div>
+                    </li>`
                     
                     card += `<div class="col-lg-4 mb-4">
                     <div class="card h-100">
@@ -45,10 +59,10 @@ function cargarEditoriales(){
                         <div class="card-footer">
                             <div class="row justify-content-between">
                                 <div class="col">
-                                    <a href="#" class="btn btn-primary">Detalle</a>
+                                    <a href="#" onclick="editarEditorial(${editorial.id}, ${editorial.nombre}, event)" class="btn btn-primary">Editar</a>
                                 </div>
                                 <div class="col text-right">
-                                    <a onclick="eliminarEditorial(${editorial.id})" href="#" class="btn btn-danger">Eliminar</a>
+                                    <a onclick="eliminarEditorial(${editorial.id},event)" href="#" class="btn btn-danger">Eliminar</a>
                                 </div>
                             </div>
                         
@@ -72,8 +86,9 @@ function cargarEditoriales(){
 
 function editorialClick(posicion, event){
     console.log(`editorialClick ${posicion}`);
-    document.querySelectorAll('#ulEditoriales li').forEach(el => el.classList.remove('active'));
-    event.target.classList.add('active');
+    var lis = document.querySelectorAll('#ulEditoriales li');
+    lis.forEach(el => el.classList.remove('active'));
+    lis[posicion].classList.add('active');
 }
 
 function crear(){
@@ -95,7 +110,16 @@ function crear(){
                 cargarEditoriales();
             }
             if(request.status === 409){
-                console.warning('409 conflicto' + request.responseText);
+                error = JSON.parse(request.responseText);
+                var contenido = `<div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                <p>${error.mensaje}</p>
+                                <p>${error.errores}</p>
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>`;
+                alerta.innerHTML = contenido;
+                console.warn('409 conflicto' + request.responseText);
             }
         }
       }; //onreadystatechange
@@ -109,29 +133,56 @@ function crear(){
     request.send(JSON.stringify(data));
 }
 
-function eliminarEditorial(idEditorial){
-    //Llamada Ajax para obtener editoriales
-    var request = new XMLHttpRequest();    
+function eliminarEditorial(idEditorial, event){
+    event.stopImmediatePropagation();
 
-    request.onreadystatechange = function() {
-        console.log('Cambio de estado '+ request.readyState);
-        if(request.readyState == 4){
-            if(request.status === 200) { 
-                console.log('response 201 '+ request.responseText);
-                cargarEditoriales();
+
+    if(confirm(`¿Quieres eliminar este registro?`)){
+        //Llamada Ajax para obtener editoriales
+        var request = new XMLHttpRequest();    
+
+        request.onreadystatechange = function() {
+            console.log('Cambio de estado '+ request.readyState);
+            if(request.readyState == 4){
+                if(request.status === 200) { 
+                    console.log('response 200 '+ request.responseText);
+                    cargarEditoriales();
+                }
+                if(request.status === 409){
+                    console.warn('409 conflicto' + request.responseText);
+                    error = JSON.parse(request.responseText);
+                    var contenido = `<div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                    <p>${error.mensaje}</p>
+                                    <p>${error.errores}</p>
+                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>`;
+                    alerta.innerHTML = contenido;
+                }
+
+                if(request.status === 404){
+                    console.warn('404 error' + request.responseText);
+                    error = JSON.parse(request.responseText);
+                    var contenido = `<div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                    <p>${error.mensaje}</p>
+                                    <p>${error.errores}</p>
+                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>`;
+                    alerta.innerHTML = contenido;
+                }
             }
-            if(request.status === 409){
-                console.warning('409 conflicto' + request.responseText);
-            }
+        }; //onreadystatechange
 
-            if(request.status === 404){
-                console.warning('404 error' + request.responseText);
-            }
-        }
-      }; //onreadystatechange
+        request.open('DELETE', ENDPOINT+'editoriales/'+idEditorial);
 
-    request.open('DELETE', ENDPOINT+'editoriales/'+idEditorial);
+        //Enviar data si procede
+        request.send();
+    }
+}
 
-    //Enviar data si procede
-    request.send();
+function editarEditorial(id, nombre, event){
+
 }
