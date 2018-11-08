@@ -1,5 +1,7 @@
 package com.ipartek.formacion.prestamos.api.controller;
 
+import java.util.Arrays;
+
 public class ResponseMensaje {
 
 	private String mensaje;
@@ -28,7 +30,7 @@ public class ResponseMensaje {
 
 	@Override
 	public String toString() {
-		return "ResponseMensaje [mensaje=" + mensaje + "]";
+		return "ResponseMensaje [mensaje=" + mensaje + ", errores=" + Arrays.toString(errores) + "]";
 	}
 
 }
