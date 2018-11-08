@@ -15,7 +15,9 @@ function cargarEditoriales(){
     console.log('cargarEditoriales');
    
     ulEditoriales.innerHTML = "";                   //varciar lista    
-    var request = new XMLHttpRequest();             //llamada Ajax 
+    var request = new XMLHttpRequest();             //llamada Ajax
+
+    //asincrono
     request.onreadystatechange = function() {
         if( request.readyState === 4 ){
             if ( request.status === 200 ){
@@ -25,7 +27,18 @@ function cargarEditoriales(){
 
                 var lis = "";
                 editoriales.forEach( (editorial, index) => {                    
-                    lis += `<li onclick="editorialClick(${index}, event)" class="list-group-item"> ${editorial.id} ${editorial.nombre} <i class="fas fa-trash-alt"></i></li>`;
+                    lis +=
+                     `<li onclick="editorialClick(${index}, event)" class="list-group-item"> 
+                            
+                            <div class="row justify-content-arround">
+                                <div class="col">
+                                   <p>${editorial.id} ${editorial.nombre} </p>
+                                </div>
+                                <div class="col text-right">
+                                    <i class="fas fa-trash-alt text-danger" onclick="eliminar(${editorial.id})"></i>
+                                </div>
+                            <div>
+                            </li>`;
                 });
                 ulEditoriales.innerHTML = lis;
                 mensaje.textContent = '';
@@ -50,7 +63,9 @@ function crear(){
     console.log(`click crear nombre= ${nombre}`);
 
     var data = {"nombre": nombre};                  //json a enviar
-    var request = new XMLHttpRequest();             //llamada Ajax     
+    var request = new XMLHttpRequest();             //llamada Ajax    
+    
+
     request.onreadystatechange = function() {
         if( request.readyState === 4 ){
             if ( request.status === 201 ){
@@ -59,12 +74,56 @@ function crear(){
                 cargarEditoriales();               
             }
             if ( request.status === 409 ){
+                var responseError = JSON.parse(request.responseText);//recoger mensajes errores
                 console.warn('409 Conflicto ' + request.responseText);
+                responseError.errores.forEach(el=>{
+                    lis+=`<li>${el}<li>`;
+                });
+                document.getElementById('ulErrores').innerHTML(lis);
             }    
         }        
     };//onreadystatechange  
     request.open('POST', ENDPOINT + 'editoriales'); 
     request.setRequestHeader('content-type','application/json');   
     request.send(JSON.stringify(data));
+
+}
+
+function eliminar(id){
+
+    var request = new XMLHttpRequest();
+    //asincrono
+    request.onreadystatechange = function() {
+
+        if( request.readyState === 4 ){
+            if ( request.status === 200 ){ 
+                //OK                
+                console.log('elimnado 200 ok ' + request.responseText);
+                  cargarEditoriales();  
+            }
+            if ( request.status === 409 ){
+                var responseError = JSON.parse(request.responseText);//recoger mensajes errores
+                console.warn('409 Conflicto ' + request.responseText);
+                var lis = "";
+                responseError.errores.forEach(el=>{
+                    lis+=`<li>${el}<li>`;
+                });
+
+                document.getElementById('ulErrores').innerHTML(lis);
+            }
+            if(request.status === 404){
+                var responseError = JSON.parse(request.responseText);//recoger mensajes errores
+                var lis = "";
+                responseError.errores.forEach(el=>{
+                    lis+=`<li>${el}<li>`;
+                });
+                document.getElementById('ulErrores').innerHTML = lis;
+            }
+        }        
+    };
+    
+    //onreadystatechange  
+    request.open('DELETE', ENDPOINT + 'editoriales/'+id);
+    request.send();
 
 }
