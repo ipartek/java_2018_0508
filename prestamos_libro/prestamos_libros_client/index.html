@@ -1,4 +1,4 @@
-<!doctype html>
+
 <html lang="en">
   <head>
     <!-- Required meta tags -->
@@ -7,42 +7,55 @@
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
-
-    <!--Iconos fontAwesome-->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
-
 
     <title>Hello, world!</title>
   </head>
   <body>
-
-    <nav class="navbar navbar-dark bg-primary mb-4">
-        <h1 class="text-white">Prestamos Libros</h1>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary text-white">
+      <a class="navbar-brand " href="index.html"><img src="image/icono.png"></a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav">
+          <li class="nav-item active">
+            <a class="nav-link .text-info" href="index.html">Inicio</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link .text-info" href="#">Libros</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link .text-info" href="#">Editoriales</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link .text-info" href="#">ALumnos</a>
+          </li>
+        </ul>
+      </div>
     </nav>
-    
-    <main class="container" role="main">      
 
-
-        <h2 class="text-primary">Editoriales</h2>
+    <main class="container" role="main">     
+         <h2 class="text-primary">Editoriales</h2>
 
         <p id="mensaje">Cargando.....</p>
 
         <ul id="ulEditoriales" class="list-group">
            <li class="list-group-item">Editorial 1</li>            
         </ul>
-
         <hr>
-
         <h5 class="text-primary">Crear Editorial</h5>
         <ul id="ulErrores" class="text-danger"></ul>
         <form class="form-inline">            
             <input id="iNombre" type="text" placeholder="Nombre min 2 max 50" class="form-control">  
             <a onclick="crear()" class="btn btn-outline-primary form-control" href="#">Crear</a>            
-        </form>
-       
-
-
+        </form> 
     </main>
+    <footer class="footer footer-dark bg-primary text-white">
+        <p class="m-0 text-center text-white">Copyright &copy; Prestamos libros 2018</p>
+
+    </footer>
+
 
     
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
