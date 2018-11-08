@@ -16,6 +16,7 @@ window.addEventListener("load", function(event) {
 });
 
 function cargarEditoriales(){
+    
     //Llamada Ajax para obtener editoriales
     var request = new XMLHttpRequest();
 
@@ -42,7 +43,16 @@ function cargarEditoriales(){
                         <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sapiente esse necessitatibus neque.</p>
                         </div>
                         <div class="card-footer">
-                        <a href="#" class="btn btn-primary">Learn More</a>
+                            <div class="row justify-content-between">
+                                <div class="col">
+                                    <a href="#" class="btn btn-primary">Detalle</a>
+                                </div>
+                                <div class="col text-right">
+                                    <a onclick="eliminarEditorial(${editorial.id})" href="#" class="btn btn-danger">Eliminar</a>
+                                </div>
+                            </div>
+                        
+                        
                         </div>
                     </div>
                     </div>`
@@ -97,4 +107,31 @@ function crear(){
 
     //Enviar data si procede
     request.send(JSON.stringify(data));
+}
+
+function eliminarEditorial(idEditorial){
+    //Llamada Ajax para obtener editoriales
+    var request = new XMLHttpRequest();    
+
+    request.onreadystatechange = function() {
+        console.log('Cambio de estado '+ request.readyState);
+        if(request.readyState == 4){
+            if(request.status === 200) { 
+                console.log('response 201 '+ request.responseText);
+                cargarEditoriales();
+            }
+            if(request.status === 409){
+                console.warning('409 conflicto' + request.responseText);
+            }
+
+            if(request.status === 404){
+                console.warning('404 error' + request.responseText);
+            }
+        }
+      }; //onreadystatechange
+
+    request.open('DELETE', ENDPOINT+'editoriales/'+idEditorial);
+
+    //Enviar data si procede
+    request.send();
 }
