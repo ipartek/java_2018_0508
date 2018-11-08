@@ -12,7 +12,6 @@
 
     <!-- Bootstrap core CSS -->
     <link href="https://blackrockdigital.github.io/startbootstrap-modern-business/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-
     <!-- Custom styles for this template -->
     <link href="https://blackrockdigital.github.io/startbootstrap-modern-business/css/modern-business.css" rel="stylesheet">
     
@@ -22,15 +21,6 @@
   </head>
 
   <body>
-
-        <!-- <h1>Editoriales</h1>
-
-        <p id="mensaje">Cargando...</p>
-    
-        <ul id="ulEditoriales">
-            <li>Editorial 1</li>
-            <li>Editorial 2</li>
-        </ul> -->
 
     <!-- Navigation -->
     <nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-dark fixed-top">
@@ -42,13 +32,16 @@
         <div class="collapse navbar-collapse" id="navbarResponsive">
           <ul class="navbar-nav ml-auto">
             <li class="nav-item">
-              <a class="nav-link" href="https://blackrockdigital.github.io/startbootstrap-modern-business/about.html">About</a>
+              <a class="nav-link" href="https://blackrockdigital.github.io/startbootstrap-modern-business/about.html">Préstamos</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="https://blackrockdigital.github.io/startbootstrap-modern-business/services.html">Services</a>
+              <a class="nav-link" href="https://blackrockdigital.github.io/startbootstrap-modern-business/services.html">Libros</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="https://blackrockdigital.github.io/startbootstrap-modern-business/contact.html">Contact</a>
+              <a class="nav-link" href="https://blackrockdigital.github.io/startbootstrap-modern-business/contact.html">Alumnos</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="https://blackrockdigital.github.io/startbootstrap-modern-business/contact.html">Editoriales</a>
             </li>
           </ul>
         </div>
@@ -99,13 +92,46 @@
     <!-- /end header -->
 
     <!-- Page Content -->
-    <div class="container">
+    <main class="container" role="container">
 
       <h1 class="my-4">Editoriales</h1>
 
       <p id="mensaje">Cargando...</p>
+    
+      <!--<ul id="ulEditoriales">
+          <li>Editorial 1</li>
+          <li>Editorial 2</li>
+      </ul> -->
+  
+      <ul class="list-group" id="ulEditoriales">
+        <li class="list-group-item">Cras justo odio</li>
+        <li class="list-group-item">Dapibus ac facilisis in</li>
+      </ul>
 
-      <!-- Marketing Icons Section -->
+      <hr>
+
+      <div class="row">
+        <div class="col col-12">
+          <h5 class="text-primary">Crear nueva editorial</h5>
+        </div>
+        <div class="col col-12">
+          <form>
+            <div class="form-row">
+              <div class="col col-10">
+                <input id="iNombre" class="form-control" type="text" placeholder="Mínimo 2 máximo 50 caracteres">
+              </div>
+              <div class="col col-2">
+                  <a onclick="crear()" class="btn btn-outline-primary form-control" href="#">Crear</a>
+              </div>
+            </div>
+          </form>
+        </div>
+        
+      </div>
+
+      <hr>
+
+      <!-- Cards de Editoriales -->
       <div class="row" id="cardGroup">
         <div class="col-lg-4 mb-4">
           <div class="card h-100">
@@ -143,7 +169,7 @@
       </div>
       <!-- /.row -->
 
-    </div>
+    </main>
     <!-- /.container -->
 
     <!-- Footer -->
@@ -158,6 +184,7 @@
     <script src="https://blackrockdigital.github.io/startbootstrap-modern-business/vendor/jquery/jquery.min.js"></script>
     <script src="https://blackrockdigital.github.io/startbootstrap-modern-business/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
+    <!-- Custom Javascript -->
     <script src="js/main.js"></script>
   </body>
 
