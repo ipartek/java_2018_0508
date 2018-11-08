@@ -28,7 +28,10 @@ function cargarEditoriales(){
 
                 var lis = "";
                 editoriales.forEach( (editorial, index) => {                    
-                    lis += `<li onclick="editorialClick(${index}, event)" class="list-group-item"> ${editorial.id} ${editorial.nombre} </li>`;
+                    lis += `<li onclick="editorialClick(${index}, event)" class="list-group-item">
+                                 ${editorial.id} ${editorial.nombre} 
+                                 <i class="fas fa-trash-alt float-right text-danger" onclick="eliminar(${index}, event)"></i>
+                            </li>`;
                 });
                 ulEditoriales.innerHTML = lis;
                 mensaje.textContent = '';
@@ -62,7 +65,13 @@ function crear(){
                 cargarEditoriales();               
             }
             if ( request.status === 409 ){
-                console.warning('409 Conflicto ' + request.responseText);
+                console.warn('409 Conflicto ' + request.responseText);
+                var responseError = JSON.parse(request.responseText);
+                var lis = "";
+                responseError.errores.forEach( el => {
+                    lis += `<li>${el}</li>`; 
+                });
+                document.getElementById('ulErrores').innerHTML = lis;
             }    
         }        
     };//onreadystatechange  
@@ -70,4 +79,35 @@ function crear(){
     request.setRequestHeader('content-type','application/json');   
     request.send(JSON.stringify(data));
 
-}
+}//crear
+
+
+function eliminar( posicion, event ){
+
+    event.stopPropagation(); //@see https://javascript.info/bubbling-and-capturing
+                            //@see inetresante leer sobre event.preventDefault
+    editorial = editoriales[posicion];
+    console.log('click eliminar editorial %o', editorial );
+
+    if ( confirm(`¿Quieres Eliminar ${editorial.nombre}?`) ){
+              
+        var request = new XMLHttpRequest();             //llamada Ajax     
+        request.onreadystatechange = function() {
+            if( request.readyState === 4 ){
+                if ( request.status === 200 ){
+                    console.log('response 200 '  + request.responseText);                    
+                    cargarEditoriales();               
+                }
+                if ( request.status === 409 ){
+                    console.warn('409 Conflicto ' + request.responseText);
+                    var responseError = JSON.parse(request.responseText);                   
+                    mensaje.style.color = 'red';
+                    mensaje.textContent = responseError.mensaje;                   
+                }    
+            }        
+        };//onreadystatechange  
+        request.open('DELETE', ENDPOINT + 'editoriales/' + editorial.id);         
+        request.send();
+    
+    }
+}  //eliminar  
