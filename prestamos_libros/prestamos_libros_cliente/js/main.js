@@ -1,4 +1,5 @@
 var ENDPOINT = "http://localhost:8080/PrestamosAPI/";
+var editorial;
 
 window.addEventListener("load", function(event) {
 
@@ -8,12 +9,12 @@ window.addEventListener("load", function(event) {
     
 
     //cojer la lista por id y la vacioamos
-    //var ulEditoriales = document.getElementById("ulEditoriales");
+    var ulEditoriales = document.getElementById("ulEditoriales");
     var tbodyEditoriales = document.getElementById("tbodyEditoriales");
     var editoriales = [];
 
     // vaciamos el listado
-    //ulEditoriales.innerHTML="";
+    ulEditoriales.innerHTML="";
     tbodyEditoriales.innerHTML="";
 
     //Llamada ajax
@@ -27,20 +28,21 @@ window.addEventListener("load", function(event) {
 
                 editoriales =JSON.parse(request.responseText) ;
 
-                //var lis = "";
+                var lis = "";
                 var bodyTr = "";
-                editoriales.forEach(editorial => {
+                editoriales.forEach( (editorial ,index) =>  {
                 
                     bodyTr += `
-                                    <tr id="${editorial.id}">
+                                    <tr id="${editorial.id}" >
                                     <td id="${editorial.id}" value="${editorial.id}" onclick="editorialId(${editorial.id})">${editorial.id} </td>
-                                    <td id="${editorial.nombre}" value="${editorial.nombre}" onclick="editorialNombre('${editorial.nombre}')" >${editorial.nombre} </td>
+                                    <td id="${editorial.nombre}" value="${editorial.nombre}" onclick="editorialNombre('${editorial.nombre}')" >${editorial.nombre} <i class="fas fa-trash-alt" onclick="eliminarEditorial('${editorial.id}')"></i></td>
                                     </tr>
                                 `;
-                    //lis += `<li>${editorial.id} : ${editorial.nombre}</li>`;
+                    lis += `<li id="${editorial.id}" class='list-group-item' onclick="editorialLi('${editorial.id}','${editorial.nombre}','${index}')">${editorial.id} : ${editorial.nombre}<i class="fas fa-pen float-right" ></i> <i class="fas fa-trash-alt float-right text-danger" data-toggle="modal" onclick="showConfirmation('${editorial.id}')" ></i></li>`;
                     
                 });
-                //ulEditoriales.innerHTML = lis;
+                ulEditoriales.classList.add('list-group');
+                ulEditoriales.innerHTML = lis;
                 tbodyEditoriales.innerHTML = bodyTr;
 
             }
@@ -59,6 +61,13 @@ window.addEventListener("load", function(event) {
 
   });
 
+  function editorialLi(id,nombre,index){
+      console.log(id ,+" "+ nombre, +" "+ index);
+      //document.querySelector('#ulEditoriales li').foreach(el =>{
+      //  console.log(el);
+      //});
+  }
+
   function editorialId(id){
 
     console.log("Click sobre el id: "+id);
@@ -75,8 +84,10 @@ window.addEventListener("load", function(event) {
 
     var table = document.getElementById("tableEditoriales");
     var form = document.getElementById("formularioEditorial");
+   
     table.style='display:none';
     form.style='display:inline';
+    
     if (accion > 0){
 
         
@@ -89,9 +100,12 @@ window.addEventListener("load", function(event) {
   function listar(){
     var table = document.getElementById("tableEditoriales");
     var form = document.getElementById("formularioEditorial");
-    
+    var ul = document.getElementById("ulEditoriales");
+
+
     form.style='display:none';
     table.style='display:table';
+    ul.style='display:block';
     location.reload();
     
   }
@@ -99,33 +113,91 @@ window.addEventListener("load", function(event) {
   function crearEditorial(){
     var table = document.getElementById("tableEditoriales");
     var form = document.getElementById("formularioEditorial");
-
+    var ul = document.getElementById("ulEditoriales");
     table.style='display:none';
     form.style='display:inline';
+    ul.style='display:none';
     };
 
 function GuardarEditorial(){
-    
-    var request = new XMLHttpRequest();
+
     var nombreEditorial = document.getElementById("nombreEditorial").value;
-    console.log(nombreEditorial);
-    console.log("*****************************************************");
-    var obj = {nombre : nombreEditorial};
-    var myJSON = JSON.stringify(obj);
+    var data = {"nombre":nombreEditorial};
+    //Llamada ajax
+    var request = new XMLHttpRequest();
+
     
-                console.log("Cambio de estado" + request.readyState);
 
-                    
-                //peticion get
+    request.onreadystatechange = function() {
+        console.log("Cambio de estado" + request.readyState);
+        if(request.readyState == 4){
+            if(request.status == 201){
+                editoriales =JSON.parse(request.responseText) ;
+                console.log("201 Perfect");
+                listar();
+            }
+            if(request.status === 409) {
+                console.log("409 Conflicto");
+                var responseError = JSON.parse(request.responseText);
+                var lis = "";
+                console.log(responseError);
+                
+            }
+        }else{
+            
+        }
+    };
 
-                request.open('POST', ENDPOINT+'editoriales', true);
-                //hacemos la llamada ya montada
-                request.send(myJSON);
+    //peticion get
+    request.open('POST', ENDPOINT+'editoriales');
+
+    request.setRequestHeader('content-type','application/json');
+    //hacemos la llamada ya montada
+    request.send(JSON.stringify(data));
            
-    //listar();
+   
 }
 
-    
+function eliminarEditorial(id){
+
+    //Llamada ajax
+    var request = new XMLHttpRequest();
+    console.log("Pasamos por eliminar");
+    request.onreadystatechange = function() {
+        console.log("Cambio de estado" + request.readyState);
+        if(request.readyState == 4){
+            if(request.status == 200){
+                editoriales =JSON.parse(request.responseText) ;
+                console.log("201 Perfect");
+                console.log(editoriales);
+                listar(); 
+            }
+            if(request.status === 409) {
+                console.log("409 Conflicto");
+                
+            }
+        }else{
+            
+        }
+    };
+
+    //peticion get
+    request.open('DELETE', ENDPOINT+'editoriales/'+id);
+    //hacemos la llamada ya montada
+    request.send();
+          
+   
+}
+
+
+  function showConfirmation(id) {
+        var r = confirm("¿ Desea eliminar el registro ?!");
+        if (r == true) {
+            eliminarEditorial(id);
+        } else {
+            txt = "You pressed Cancel!";
+        }
+  }
 
 
   
