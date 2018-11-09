@@ -168,6 +168,11 @@ public class EditorialesController {
 			response = BAD_REQUEST_RESPONSE;
 			e.printStackTrace();
 			
+		} catch (SQLIntegrityConstraintViolationException e) {
+		
+			response = CONFLICT_RESPONSE;
+			e.printStackTrace();
+		
 		} catch (Exception e) {
 			
 			response = INTERNAL_SERVER_ERROR_RESPONSE;
