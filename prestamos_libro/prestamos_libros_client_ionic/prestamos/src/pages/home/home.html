@@ -1,0 +1,32 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>
+      Prestamos
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+
+  <h2>Editoriales</h2>
+
+  <ion-grid>
+      <ion-row>
+        <ion-col col-8 align-self-center>
+            <ion-input type="text" placeholder="Inserta una nueva editorial"></ion-input>
+        </ion-col>
+        <ion-col col-4>
+            <button ion-button outline (click)="crear()">Crear</button>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+    
+ 
+  <!--Si no existe editoriales-->
+  <p *ngIf="!editoriales">Cargando</p>
+  <ion-list>
+    <button ion-item *ngFor="let editorial of editoriales" (click)="itemSelected(editorial)">
+      {{ editorial }}
+    </button>  
+  </ion-list>
+</ion-content>
