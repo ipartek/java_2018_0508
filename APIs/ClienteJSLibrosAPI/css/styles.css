@@ -1,0 +1,9 @@
+body {
+    background-color: #0000ff;
+    color: #FFF;
+}
+
+li {
+    text-transform: uppercase;
+    background-color: #000055 !important;
+}
