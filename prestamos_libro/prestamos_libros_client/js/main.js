@@ -11,13 +11,13 @@ window.addEventListener("load", function(event) {
     cargarEditoriales();
 });
 
+
+
 function cargarEditoriales(){
     console.log('cargarEditoriales');
    
     ulEditoriales.innerHTML = "";                   //varciar lista    
-    var request = new XMLHttpRequest();             //llamada Ajax
-
-    //asincrono
+    var request = new XMLHttpRequest();             //llamada Ajax 
     request.onreadystatechange = function() {
         if( request.readyState === 4 ){
             if ( request.status === 200 ){
@@ -27,17 +27,9 @@ function cargarEditoriales(){
 
                 var lis = "";
                 editoriales.forEach( (editorial, index) => {                    
-                    lis +=
-                     `<li onclick="editorialClick(${index}, event)" class="list-group-item"> 
-                            
-                            <div class="row justify-content-arround">
-                                <div class="col">
-                                   <p>${editorial.id} ${editorial.nombre} </p>
-                                </div>
-                                <div class="col text-right">
-                                    <i class="fas fa-trash-alt text-danger" onclick="eliminar(${editorial.id})"></i>
-                                </div>
-                            <div>
+                    lis += `<li onclick="editorialClick(${index}, event)" class="list-group-item">
+                                 ${editorial.id} ${editorial.nombre} 
+                                 <i class="fas fa-trash-alt float-right text-danger" onclick="eliminar(${index}, event)"></i>
                             </li>`;
                 });
                 ulEditoriales.innerHTML = lis;
@@ -63,9 +55,7 @@ function crear(){
     console.log(`click crear nombre= ${nombre}`);
 
     var data = {"nombre": nombre};                  //json a enviar
-    var request = new XMLHttpRequest();             //llamada Ajax    
-    
-
+    var request = new XMLHttpRequest();             //llamada Ajax     
     request.onreadystatechange = function() {
         if( request.readyState === 4 ){
             if ( request.status === 201 ){
@@ -74,12 +64,13 @@ function crear(){
                 cargarEditoriales();               
             }
             if ( request.status === 409 ){
-                var responseError = JSON.parse(request.responseText);//recoger mensajes errores
                 console.warn('409 Conflicto ' + request.responseText);
-                responseError.errores.forEach(el=>{
-                    lis+=`<li>${el}<li>`;
+                var responseError = JSON.parse(request.responseText);
+                var lis = "";
+                responseError.errores.forEach( el => {
+                    lis += `<li>${el}</li>`; 
                 });
-                document.getElementById('ulErrores').innerHTML(lis);
+                document.getElementById('ulErrores').innerHTML = lis;
             }    
         }        
     };//onreadystatechange  
@@ -87,43 +78,35 @@ function crear(){
     request.setRequestHeader('content-type','application/json');   
     request.send(JSON.stringify(data));
 
-}
+}//crear
 
-function eliminar(id){
 
-    var request = new XMLHttpRequest();
-    //asincrono
-    request.onreadystatechange = function() {
+function eliminar( posicion, event ){
 
-        if( request.readyState === 4 ){
-            if ( request.status === 200 ){ 
-                //OK                
-                console.log('elimnado 200 ok ' + request.responseText);
-                  cargarEditoriales();  
-            }
-            if ( request.status === 409 ){
-                var responseError = JSON.parse(request.responseText);//recoger mensajes errores
-                console.warn('409 Conflicto ' + request.responseText);
-                var lis = "";
-                responseError.errores.forEach(el=>{
-                    lis+=`<li>${el}<li>`;
-                });
+    event.stopPropagation(); //@see https://javascript.info/bubbling-and-capturing
+                            //@see inetresante leer sobre event.preventDefault
+    editorial = editoriales[posicion];
+    console.log('click eliminar editorial %o', editorial );
 
-                document.getElementById('ulErrores').innerHTML(lis);
-            }
-            if(request.status === 404){
-                var responseError = JSON.parse(request.responseText);//recoger mensajes errores
-                var lis = "";
-                responseError.errores.forEach(el=>{
-                    lis+=`<li>${el}<li>`;
-                });
-                document.getElementById('ulErrores').innerHTML = lis;
-            }
-        }        
-    };
+    if ( confirm(`¿Quieres Eliminar ${editorial.nombre}?`) ){
+              
+        var request = new XMLHttpRequest();             //llamada Ajax     
+        request.onreadystatechange = function() {
+            if( request.readyState === 4 ){
+                if ( request.status === 200 ){
+                    console.log('response 200 '  + request.responseText);                    
+                    cargarEditoriales();               
+                }
+                if ( request.status === 409 ){
+                    console.warn('409 Conflicto ' + request.responseText);
+                    var responseError = JSON.parse(request.responseText);                   
+                    mensaje.style.color = 'red';
+                    mensaje.textContent = responseError.mensaje;                   
+                }    
+            }        
+        };//onreadystatechange  
+        request.open('DELETE', ENDPOINT + 'editoriales/' + editorial.id);         
+        request.send();
     
-    //onreadystatechange  
-    request.open('DELETE', ENDPOINT + 'editoriales/'+id);
-    request.send();
-
-}
+    }
+}  
