@@ -35,7 +35,7 @@ window.addEventListener("load", function(event) {
                     bodyTr += `
                                     <tr id="${editorial.id}" >
                                     <td id="${editorial.id}" value="${editorial.id}" onclick="editorialId(${editorial.id})">${editorial.id} </td>
-                                    <td id="${editorial.nombre}" value="${editorial.nombre}" onclick="editorialNombre('${editorial.nombre}')" >${editorial.nombre} <i class="fas fa-trash-alt" onclick="eliminarEditorial('${editorial.id}')"></i></td>
+                                    <td id="${editorial.nombre}" value="${editorial.nombre}" onclick="editorialNombre('${editorial.nombre}')" >${editorial.nombre} <i class="fas fa-trash-alt float-right text-danger ml-3 fa-lg" onclick="showConfirmation('${editorial.id}')"></i><i class="fas fa-pen float-right ml-3 fa-lg" onclick="editoraEditorial('${editorial.id}','${editorial.nombre}')"></i></td>
                                     </tr>
                                 `;
                     lis += `<li id="${editorial.id}" class='list-group-item' onclick="editorialLi('${editorial.id}','${editorial.nombre}','${index}')">${editorial.id} : ${editorial.nombre}<i class="fas fa-pen float-right" ></i> <i class="fas fa-trash-alt float-right text-danger" data-toggle="modal" onclick="showConfirmation('${editorial.id}')" ></i></li>`;
@@ -146,6 +146,7 @@ function GuardarEditorial(){
         }else{
             
         }
+        
     };
 
     //peticion get
@@ -170,7 +171,7 @@ function eliminarEditorial(id){
                 editoriales =JSON.parse(request.responseText) ;
                 console.log("201 Perfect");
                 console.log(editoriales);
-                listar(); 
+                
             }
             if(request.status === 409) {
                 console.log("409 Conflicto");
@@ -180,13 +181,30 @@ function eliminarEditorial(id){
             
         }
     };
-
+    listar(); 
     //peticion get
     request.open('DELETE', ENDPOINT+'editoriales/'+id);
     //hacemos la llamada ya montada
     request.send();
+    
           
    
+}
+
+function editoraEditorial(ideditorial,nombre){
+    console.log(ideditorial);
+    var table = document.getElementById("tableEditoriales");
+    var form = document.getElementById("formularioEditorial");
+    var ul = document.getElementById("ulEditoriales");
+    document.getElementById("nombreEditorial").value=nombre;
+    //document.getElementById("idEditorial").value=id;
+    table.style='display:none';
+    form.style='display:inline';
+    ul.style='display:none';
+    
+
+    
+    
 }
 
 

@@ -9,35 +9,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
 </head>
-<body>
-
-    <!-- MODAL ELIMINAR-->
-<div class="modal fade" id="eliminarEditorial" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-          <div class="modal-content">
-            
-            <div class="modal-header">
-              <h5 class="modal-title text-center" id="exampleModalLabel">Aviso: Cambios irreversibles</h5>
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-              </button>
-            </div>
-            
-            <div class="modal-body">
-             
-             <p>Vas a eliminar un registro. Los cambios serán irreversibles. No obstante, siempre puedes volver
-              a introducirlo en la lista. ¿Desear continuar?</p>
-              
-            </div>
-            
-            <div class="modal-footer">
-              <button type="button" class="btn btn-primary" data-dismiss="modal">No eliminar</button>
-              <a id="btnEliminar" type="button" class="btn btn-danger">Eliminar</a>
-            </div>
-          </div>
-        </div>
-      </div>
-        
+<body>     
         <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
                 <a class="navbar-brand" href="#"><i class="fas fa-book-dead "></i>Gestion de prestamos</a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -88,6 +60,7 @@
         <form method="post">
             <label>Nombre editorial</label>
             <input type="text" placeholder="minimo 2 caracteres maximo 50 caracteres" id="nombreEditorial" >
+            <input type="hidden" id="idEditorial">
             <a onclick="GuardarEditorial();"  class="btn btn-success" >Guardar Editorial</a>
         </form>
         
