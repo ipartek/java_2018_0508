@@ -4,6 +4,7 @@ var ulEditoriales = document.getElementById('ulEditoriales');
 var mensaje = document.getElementById('mensaje');
 var editoriales = [];
 var editorial;
+var errores= document.getElementById('ulErrores');
 
 //Document Ready
 window.addEventListener("load", function(event) {
@@ -13,7 +14,7 @@ window.addEventListener("load", function(event) {
 
 
 
-function cargarEditoriales(){
+function cargarEditoriales(textoMensaje){
     console.log('cargarEditoriales');
    
     ulEditoriales.innerHTML = "";                   //varciar lista    
@@ -30,10 +31,16 @@ function cargarEditoriales(){
                     lis += `<li onclick="editorialClick(${index}, event)" class="list-group-item">
                                  ${editorial.id} ${editorial.nombre} 
                                  <i class="fas fa-trash-alt float-right text-danger" onclick="eliminar(${index}, event)"></i>
+                                 <i class="fas fa-pencil-alt float-right mr-3" onclick="editar(${index}, event)"></i>                                
                             </li>`;
                 });
                 ulEditoriales.innerHTML = lis;
-                mensaje.textContent = '';
+                
+                if(textoMensaje){
+                    mensaje.innerHTML=textoMensaje;
+                }else{
+                    mensaje.textContent = '';
+                }
             }
         }        
     };//onreadystatechange  
@@ -67,10 +74,17 @@ function crear(){
                 console.warn('409 Conflicto ' + request.responseText);
                 var responseError = JSON.parse(request.responseText);
                 var lis = "";
-                responseError.errores.forEach( el => {
-                    lis += `<li>${el}</li>`; 
-                });
-                document.getElementById('ulErrores').innerHTML = lis;
+                errores.innerHTML='';
+                
+                if(responseError.errores == null ){
+                    errores.innerHTML=`<li>${responseError.mensaje}</li>`;
+                }else{
+                    responseError.errores.forEach( el => {
+                        lis += `<li>${el}</li>`; 
+                    });
+                }
+               
+                errorres.innerHTML += lis;
             }    
         }        
     };//onreadystatechange  
@@ -109,4 +123,46 @@ function eliminar( posicion, event ){
         request.send();
     
     }
-}  
+} 
+
+function editar(posicion,event){
+    event.stopPropagation();    
+    editorial = editoriales[posicion];
+    console.log('click editar editorial %o', editorial );  
+    
+    var nuevoNombre=prompt("dinos el nuevo nombre",editorial.nombre);
+
+    console.debug('nuevoNombre = ' + nuevoNombre);
+    if(nuevoNombre!=null){
+
+        var data = {"nombre": nuevoNombre};                  //json a enviar
+    var request = new XMLHttpRequest();                          //llamada Ajax     
+    request.onreadystatechange = function() {
+        if( request.readyState === 4 ){
+            if ( request.status === 200 ){
+                console.log('response 200 '  + request.responseText);
+
+                cargarEditoriales('Editorial modificada correctamente');   
+                // TODO cpomo es asincrono cargarEditoriales, 
+                // nos limpia el mesaje de abajo.Debenos usar PROMISES
+               // mensaje.innerHTML='Editorial modificada correctamente';                  
+                 
+                      
+            }
+            if ( request.status === 409 ){
+                console.warn('409 Conflicto ' + request.responseText);
+                var responseError = JSON.parse(request.responseText);
+                var errores = "";
+                responseError.errores.forEach( el => {
+                    errores += `${el}<br>`; 
+                });
+                document.getElementById('ulErrores').innerHTML = lis;
+            }    
+        }        
+    };//onreadystatechange  
+    request.open('PUT', ENDPOINT + 'editoriales/'+editorial.id); 
+    request.setRequestHeader('content-type','application/json');   
+    request.send(JSON.stringify(data));//Parse de String a JSON
+
+    }
+}
