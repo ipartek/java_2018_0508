@@ -135,7 +135,7 @@ function editar(posicion,event){
     console.debug('nuevoNombre = ' + nuevoNombre);
     if(nuevoNombre!=null){
 
-        var data = {"nombre": nuevoNombre};                  //json a enviar
+    var data = {"nombre": nuevoNombre};                  //json a enviar
     var request = new XMLHttpRequest();                          //llamada Ajax     
     request.onreadystatechange = function() {
         if( request.readyState === 4 ){
