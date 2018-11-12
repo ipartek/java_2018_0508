@@ -1,3 +1,4 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="es">
 
@@ -23,6 +24,8 @@
 
   <body>
   
+  	<h1> Servicios Libros IPARTEK </h1>
+  
   	<p>	Los Servicios Web públicos de la escuela de Ipartek no precisan de ningún usuario y clave para poder acceder a ellos,
   		aunque están dirigidos a sus estudiantes en particular.
   		Se pueden utilizar para la gestión de los diferentes libros a los cuales se pueden acceder
@@ -38,6 +41,12 @@
 				<li>Alumnos</li>
 				<li>Libros</li>
 				<li>Préstamos</li>
+			</ul> 	
+		</li>
+		<li>	
+		<p>Para el alumnado:</p>
+			<ul>
+				<li>Alumnos</li>
 			</ul> 	
 		</li>
 	</ul>

@@ -18,6 +18,7 @@
 
 <body>
         <main class="container" role="main">
+            <p id = "mensaje"></p>
 
             <h1 class="text-center">Editoriales</h1>
 
@@ -33,6 +34,8 @@
             </nav>
 
             <div class="tab-content" id="nav-tabContent">
+
+                <!-- LISTADO EDITORIALES -->
                 <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
                     
                     <ul id="ulEditoriales" class="list-group"></ul>
@@ -40,12 +43,15 @@
                 </div>
                 <div class="tab-pane fade" id="nav-crear" role="tabpanel" aria-labelledby="nav-profile-tab">
 
-                    <div class="form-group mx-sm-3 mb-2">
-                        <ul id="editorialError" class="form-text text-muted"></ul>
-                        <input type="text" class="form-control" id="editorialNombre" placeholder="De 2 a 5 caracteres.">
-                    </div>
-    
-                    <button id="btnGo" type="submit" class="btn btn-primary btn-lg mb-2 ml-auto" onclick="crearEditorial();">Crear</button>
+                        <form class="form-inline mx-auto">
+                            <div class="form-group mt-2 mb-2">
+                                <label for="editorialNombre" class="mx-5">Nombre</label>
+                                <input type="text" class="form-control" id="editorialNombre" placeholder="De 2 a 5 caracteres.">
+                                <ul id="editorialError" class="form-text text-muted"></ul>
+                            </div>
+                        </form>
+                        <button id="btnGo" type="submit" class="btn btn-primary btn-block p-3 m-3" onclick="crearEditorial();">Crear</button>
+                        
 
                 </div>
                 <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">...</div>

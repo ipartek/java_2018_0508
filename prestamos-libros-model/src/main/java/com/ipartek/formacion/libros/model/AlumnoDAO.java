@@ -103,6 +103,7 @@ public class AlumnoDAO implements CrudAble<Alumno> {
 			int resultado = sp.executeUpdate();
 
 			int id = sp.getInt("o_id");
+			pojo.setId(id);
 
 			if (resultado == 1) {
 
