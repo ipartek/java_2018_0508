@@ -102,6 +102,7 @@ public class EditorialesController {
 	@RequestMapping(method = RequestMethod.POST)
 	public ResponseEntity<Object> crear(@RequestBody Editorial editorial) throws Exception {
 		ResponseEntity<Object> response = new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+		
 		ResponseMensaje responseMensaje = new ResponseMensaje();
 
 		try {
