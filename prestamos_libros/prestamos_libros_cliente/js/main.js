@@ -114,21 +114,26 @@ window.addEventListener("load", function(event) {
     var table = document.getElementById("tableEditoriales");
     var form = document.getElementById("formularioEditorial");
     var ul = document.getElementById("ulEditoriales");
+    var idEditorial = document.getElementById("idEditorial");
     table.style='display:none';
     form.style='display:inline';
     ul.style='display:none';
-    };
+    }
 
 function GuardarEditorial(){
 
     var nombreEditorial = document.getElementById("nombreEditorial").value;
+    var idEditorial = document.getElementById("idEditorial").value;
+    if(idEditorial == 'idEditorial'){
+        idEditorial = -1;
+    }
+    
     var data = {"nombre":nombreEditorial};
     //Llamada ajax
     var request = new XMLHttpRequest();
 
-    
-
-    request.onreadystatechange = function() {
+    if (idEditorial == -1){
+        request.onreadystatechange = function() {
         console.log("Cambio de estado" + request.readyState);
         if(request.readyState == 4){
             if(request.status == 201){
@@ -143,8 +148,6 @@ function GuardarEditorial(){
                 console.log(responseError);
                 
             }
-        }else{
-            
         }
         
     };
@@ -157,6 +160,49 @@ function GuardarEditorial(){
     request.send(JSON.stringify(data));
            
    
+}else{
+    editaEditorial(nombreEditorial,idEditorial);
+}
+}
+
+function editaEditorial(){
+
+    var nombreEditorial = document.getElementById("nombreEditorial").value;
+    var idEditorial = document.getElementById("idEditorial").value;
+
+    
+    var data = {"nombre":nombreEditorial};
+    //Llamada ajax
+    var request = new XMLHttpRequest();
+
+    if (idEditorial != -1){
+        request.onreadystatechange = function() {
+        console.log("Cambio de estado" + request.readyState);
+        if(request.readyState == 4){
+            if(request.status == 201){
+                editoriales =JSON.parse(request.responseText) ;
+                console.log("201 Perfect");
+                listar();
+            }
+            if(request.status === 409) {
+                console.log("409 Conflicto");
+                var responseError = JSON.parse(request.responseText);
+                var lis = "";
+                console.log(responseError);
+                
+            }
+        }
+        
+    }
+
+    //peticion get
+    request.open('PUT', ENDPOINT+'editoriales/'+idEditorial);
+
+    request.setRequestHeader('content-type','application/json');
+    //hacemos la llamada ya montada
+    request.send(JSON.stringify(data));
+    listar();
+    }
 }
 
 function eliminarEditorial(id){
@@ -187,9 +233,12 @@ function eliminarEditorial(id){
     //hacemos la llamada ya montada
     request.send();
     
+    }
+
+    
           
    
-}
+
 
 function editoraEditorial(ideditorial,nombre){
     console.log(ideditorial);
@@ -197,7 +246,7 @@ function editoraEditorial(ideditorial,nombre){
     var form = document.getElementById("formularioEditorial");
     var ul = document.getElementById("ulEditoriales");
     document.getElementById("nombreEditorial").value=nombre;
-    //document.getElementById("idEditorial").value=id;
+    document.getElementById("idEditorial").value=ideditorial;
     table.style='display:none';
     form.style='display:inline';
     ul.style='display:none';

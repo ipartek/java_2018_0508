@@ -104,7 +104,8 @@ public class AlumnoDAO implements CrudAble<Alumno> {
 			// Se ejecuta el procedimiento almacenado
 			int resultado = sp.executeUpdate();
 
-			//int id = sp.getInt("o_id");
+			int id = sp.getInt("o_id");
+			pojo.setId(id);
 
 			if (resultado == 1) {
 

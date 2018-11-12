@@ -1,5 +1,6 @@
 package com.ipartek.formacion.prestamos.api.controller;
 
+import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.ArrayList;
 import java.util.Set;
 
@@ -17,21 +18,23 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.ipartek.formacion.libros.pojo.Alumno;
 import com.ipartek.formacion.libros.pojo.Editorial;
+import com.ipartek.formacion.libros.service.ServiceAlumno;
 import com.ipartek.formacion.libros.service.ServiceEditorial;
 
 @CrossOrigin(origins = "*")
 @RestController
-@RequestMapping("/editoriales")
-public class EditorialesController {
+@RequestMapping("/alumnos")
+public class AlumnosController {
 
-	ServiceEditorial serviceEditorial = null;
+	ServiceAlumno serviceAlumno = null;
 	ValidatorFactory factory = null;
 	Validator validator = null;
 
-	public EditorialesController() {
+	public AlumnosController() {
 		super();
-		serviceEditorial = ServiceEditorial.getInstance();
+		serviceAlumno = ServiceAlumno.getInstance();
 		// Crear Factoria y Validador
 		factory = Validation.buildDefaultValidatorFactory();
 		validator = (Validator) factory.getValidator();
@@ -39,18 +42,18 @@ public class EditorialesController {
 	}
 
 	@RequestMapping(method = RequestMethod.GET)
-	public ResponseEntity<ArrayList<Editorial>> listado() {
+	public ResponseEntity<ArrayList<Alumno>> listado() {
 
-		ArrayList<Editorial> list = new ArrayList<Editorial>();
-		ResponseEntity<ArrayList<Editorial>> response = new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+		ArrayList<Alumno> list = new ArrayList<Alumno>();
+		ResponseEntity<ArrayList<Alumno>> response = new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 
 		try {
 
-			list = (ArrayList<Editorial>) serviceEditorial.listar();
+			list = (ArrayList<Alumno>) serviceAlumno.listar();
 			response = new ResponseEntity<>(list, HttpStatus.OK);
 
 		} catch (Exception e) {
-			
+
 			e.printStackTrace();
 		}
 
@@ -58,21 +61,22 @@ public class EditorialesController {
 	}
 
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
-	public ResponseEntity<Editorial> detalle(@PathVariable long id) {
+	public ResponseEntity<Alumno> detalle(@PathVariable long id) {
 
-		ResponseEntity<Editorial> response = new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+		ResponseEntity<Alumno> response = new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 
 		try {
 
-			Editorial editorial = serviceEditorial.obtener(id);
+			Alumno alumno = serviceAlumno.obtener(id);
 
-			if (editorial != null && editorial.getId() > 0) {
+			if (alumno != null && alumno.getId() > 0) {
 
-				response = new ResponseEntity<>(editorial, HttpStatus.OK);
+				response = new ResponseEntity<>(alumno, HttpStatus.OK);
 
 			} else {
 
 				response = new ResponseEntity<>(HttpStatus.NOT_FOUND);
+				
 
 			}
 
@@ -83,19 +87,23 @@ public class EditorialesController {
 	}
 
 	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
-	public ResponseEntity<Editorial> eliminar(@PathVariable long id) {
+	public ResponseEntity<Object> eliminar(@PathVariable long id) {
 
-		ResponseEntity<Editorial> response = new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+		ResponseEntity<Object> response = new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 
 		try {
+			ResponseMensaje rm = new ResponseMensaje();
 
-			if (serviceEditorial.eliminar(String.valueOf(id))) {
+			if (serviceAlumno.eliminar(String.valueOf(id))) {
 
 				response = new ResponseEntity<>(HttpStatus.OK);
 
 			} else {
 
-				response = new ResponseEntity<>(HttpStatus.NOT_FOUND);
+				
+				rm.setMensaje("Usuario no encontrado en la base de datos");
+
+				response = new ResponseEntity<>(rm, HttpStatus.NOT_FOUND);
 			}
 
 		} catch (Exception e) {
@@ -106,22 +114,23 @@ public class EditorialesController {
 	}
 
 	@RequestMapping(method = RequestMethod.POST,consumes="application/json")
-	public ResponseEntity<Object> crear(@RequestBody Editorial editorial) {
+	public ResponseEntity<Object> crear(@RequestBody Alumno alumno) {
 
 		ResponseEntity<Object> response = new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+		ResponseMensaje rm = new ResponseMensaje();
 
 		try {
 
-			Set<ConstraintViolation<Editorial>> violations = validator.validate(editorial);
+			Set<ConstraintViolation<Alumno>> violations = validator.validate(alumno);
 			String[] errores = new String[violations.size()];
-			ResponseMensaje rm = new ResponseMensaje();
+			
 
 			if (violations.size() > 0) {
 
 				int contador = 0;
 
-				/* No tenemos ningun fallo, la Validacion es correcta */
-				for (ConstraintViolation<Editorial> violation : violations) {
+				// No tenemos ningun fallo, la Validacion es correcta 
+				for (ConstraintViolation<Alumno> violation : violations) {
 
 					System.out.println(violation.getMessage());
 					System.out.println(violation.getPropertyPath());
@@ -135,16 +144,19 @@ public class EditorialesController {
 
 			} else {
 
-				if (serviceEditorial.crear(editorial)) {
+				if (serviceAlumno.crear(alumno)) {
 
-					response = new ResponseEntity<>(editorial, HttpStatus.CREATED);
+					response = new ResponseEntity<>(alumno, HttpStatus.CREATED);
 
 				} else {
-
-					response = new ResponseEntity<>(HttpStatus.CONFLICT);
+					rm.setMensaje("Error");
+					response = new ResponseEntity<>(rm,HttpStatus.CONFLICT);
 				}
 			}
-
+		}catch(SQLIntegrityConstraintViolationException x) {
+			rm.setMensaje("Nombre Duplicado");
+			x.printStackTrace();
+		
 		} catch (Exception e) {
 
 			e.printStackTrace();
@@ -154,21 +166,22 @@ public class EditorialesController {
 	}
 
 	@RequestMapping(value = "/{id}", method = RequestMethod.PUT)
-	public ResponseEntity<Object> modificar(@PathVariable long id, @RequestBody Editorial editorial) {
+	public ResponseEntity<Object> modificar(@PathVariable long id, @RequestBody Alumno alumno) {
 
 		ResponseEntity<Object> response = new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+		ResponseMensaje rm = new ResponseMensaje();
 
 		try {
 
-			Set<ConstraintViolation<Editorial>> violations = validator.validate(editorial);
+			Set<ConstraintViolation<Alumno>> violations = validator.validate(alumno);
 			String[] errores = new String[violations.size()];
-			ResponseMensaje rm = new ResponseMensaje();
+			
 
 			if (violations.size() > 0) {
 
 				int contador = 0;
-				/* No ha pasado la valiadacion, iterar sobre los mensajes de validacion */
-				for (ConstraintViolation<Editorial> violation : violations) {
+				 //No ha pasado la valiadacion, iterar sobre los mensajes de validacion 
+				for (ConstraintViolation<Alumno> violation : violations) {
 
 					errores[contador] = violation.getPropertyPath() + " :" + violation.getMessage();
 					contador++;
@@ -181,11 +194,11 @@ public class EditorialesController {
 
 			} else {
 
-				editorial.setId(id);
+				alumno.setId(id);
 
-				if (serviceEditorial.modificar(editorial)) {
+				if (serviceAlumno.modificar(alumno)) {
 
-					response = new ResponseEntity<>(editorial, HttpStatus.OK);
+					response = new ResponseEntity<>(alumno, HttpStatus.OK);
 
 				} else {
 
@@ -193,7 +206,12 @@ public class EditorialesController {
 				}
 			}
 
-		} catch (Exception e) {
+		}
+	catch(SQLIntegrityConstraintViolationException x) {
+		rm.setMensaje("Nombre Duplicado");
+		x.printStackTrace();
+	
+	} catch (Exception e) {
 
 			e.printStackTrace();
 		}
