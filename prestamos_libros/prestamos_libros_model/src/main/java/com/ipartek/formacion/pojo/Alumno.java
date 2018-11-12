@@ -1,9 +1,17 @@
 package com.ipartek.formacion.pojo;
 
+import javax.validation.constraints.Size;
+
+import org.hibernate.validator.constraints.NotBlank;
+
 public class Alumno {
 
 	private long id;
+	@NotBlank
+	@Size(min=2, max=100)
 	private String nombre;
+	@NotBlank
+	@Size(min=2, max=100)
 	private String apellidos;
 
 	public Alumno() {
