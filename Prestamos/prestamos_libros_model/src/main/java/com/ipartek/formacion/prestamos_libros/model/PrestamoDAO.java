@@ -63,7 +63,7 @@ public class PrestamoDAO implements CrudAble<Prestamo> {
 					p.setLibro(l);
 					Usuario u = new Usuario();
 					u.setId(rs.getLong("id_usuario"));
-					u.setNombre_apellidos(rs.getString("nombre_apellidos"));
+					u.setNombreApellido(rs.getString("nombre_apellidos"));
 					p.setUsuario(u);
 
 					long diffInMillies = Math.abs(p.getFech_fin().getTime() - Calendar.getInstance().getTimeInMillis());
@@ -103,7 +103,7 @@ public class PrestamoDAO implements CrudAble<Prestamo> {
 					p.setLibro(l);
 					Usuario u = new Usuario();
 					u.setId(rs.getLong("id_usuario"));
-					u.setNombre_apellidos(rs.getString("nombre_apellidos"));
+					u.setNombreApellido(rs.getString("nombre_apellidos"));
 					p.setUsuario(u);
 
 					prestamos.add(p);
@@ -145,7 +145,7 @@ public class PrestamoDAO implements CrudAble<Prestamo> {
 					p.setLibro(l);
 					Usuario u = new Usuario();
 					u.setId(rs.getLong("id_usuario"));
-					u.setNombre_apellidos(rs.getString("nombre_apellidos"));
+					u.setNombreApellido(rs.getString("nombre_apellidos"));
 					p.setUsuario(u);
 				}
 			}
@@ -210,7 +210,7 @@ public class PrestamoDAO implements CrudAble<Prestamo> {
 					p.setLibro(l);
 					Usuario u = new Usuario();
 					u.setId(rs.getLong("id_usuario"));
-					u.setNombre_apellidos(rs.getString("nombre_apellidos"));
+					u.setNombreApellido(rs.getString("nombre_apellidos"));
 					p.setUsuario(u);
 				}
 			}
@@ -255,7 +255,7 @@ public class PrestamoDAO implements CrudAble<Prestamo> {
 				while (rs.next()) {
 					Usuario u = new Usuario();
 					u.setId(rs.getLong("id"));
-					u.setNombre_apellidos(rs.getString("nombre_apellidos"));
+					u.setNombreApellido(rs.getString("nombre_apellidos"));
 
 					usuariosDisponibles.add(u);
 				}

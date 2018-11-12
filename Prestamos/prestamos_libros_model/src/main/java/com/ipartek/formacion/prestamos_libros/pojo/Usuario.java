@@ -5,40 +5,42 @@ import javax.validation.constraints.Size;
 import org.hibernate.validator.constraints.NotBlank;
 
 public class Usuario {
-	
+
 	@NotBlank
-	@Size(min=2, max=150)
+	@Size(min = 2, max = 150)
 	private Long id;
-	private String nombre_apellidos;
-	
+	private String nombreApellido;
+
 	public Usuario() {
 		super();
 	}
 
-	public Usuario(Long id, String nombre_apellidos) {
+	public Usuario(Long id, String nombreApellido) {
 		super();
 		this.id = id;
-		this.nombre_apellidos = nombre_apellidos;
-		
+		this.nombreApellido = nombreApellido;
+
 	}
 
-	public Long getId() {
+	public long getId() {
 		return id;
 	}
+
 	public void setId(Long id) {
 		this.id = id;
 	}
 
-	public String getNombre_apellidos() {
-		return nombre_apellidos;
+	public String getNombreApellido() {
+		return nombreApellido;
 	}
-	public void setNombre_apellidos(String nombre_apellidos) {
-		this.nombre_apellidos = nombre_apellidos;
+
+	public void setNombreApellido(String nombreApellido) {
+		this.nombreApellido = nombreApellido;
 	}
 
 	@Override
 	public String toString() {
-		return "Usuario [id=" + id + ", nombre_apellidos=" + nombre_apellidos + "]";
+		return "Usuario [id=" + id + ", nombreApellido=" + nombreApellido + "]";
 	}
 
 }

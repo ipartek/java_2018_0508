@@ -32,7 +32,7 @@ public class UsuarioDAO implements CrudAble<Usuario>{
 		try (Connection con = ConnectionManager.getConnection();
 				CallableStatement cs =  con.prepareCall(sql);
 				){
-			cs.setString(1, pojo.getNombre_apellidos());
+			cs.setString(1, pojo.getNombreApellido());
 			cs.registerOutParameter(2, Types.INTEGER );
 			
 			int affectedRows = cs.executeUpdate(); 
@@ -60,7 +60,7 @@ public class UsuarioDAO implements CrudAble<Usuario>{
 				while (rs.next()) {
 					Usuario u = new Usuario();
 					u.setId(rs.getLong("id"));
-					u.setNombre_apellidos(rs.getString("nombre_apellidos"));
+					u.setNombreApellido(rs.getString("nombre_apellidos"));
 					
 					usuarios.add(u);
 				}
@@ -84,7 +84,7 @@ public class UsuarioDAO implements CrudAble<Usuario>{
 
 				while (rs.next()) {
 					u.setId(rs.getLong("id"));
-					u.setNombre_apellidos(rs.getString("nombre_apellidos"));
+					u.setNombreApellido(rs.getString("nombre_apellidos"));
 
 				}
 			}
@@ -103,7 +103,7 @@ public class UsuarioDAO implements CrudAble<Usuario>{
 				){
 			//parseInt para convertir de Long a INT
 			cs.setInt(1, new Long(pojo.getId()).intValue());
-			cs.setString(2, pojo.getNombre_apellidos());
+			cs.setString(2, pojo.getNombreApellido());
 			int affectedRows = cs.executeUpdate();
 			if ( affectedRows == 1 ) {
 				result = true;
