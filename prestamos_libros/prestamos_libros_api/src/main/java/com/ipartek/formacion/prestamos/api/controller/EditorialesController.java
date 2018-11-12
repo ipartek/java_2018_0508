@@ -155,8 +155,10 @@ public class EditorialesController {
 			Set<ConstraintViolation<Editorial>> violations = validator.validate(editorial);
 			if(violations.isEmpty()) {
 				
+				editorial.setId(id);
+				
 				if(servicioEditorial.modificar(editorial)) {
-					response = new ResponseEntity<>(editorial, HttpStatus.CREATED);
+					response = new ResponseEntity<>(editorial, HttpStatus.OK);
 				}else {
 					response = new ResponseEntity<>(editorial, HttpStatus.CONFLICT);
 				}
