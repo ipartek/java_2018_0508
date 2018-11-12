@@ -26,30 +26,34 @@ import com.ipartek.formacion.libros.pojo.Alumno;
 @RestController
 @RequestMapping("/alumnos")
 public class AlumnosController {
-	
-	private static final String SYNTAXIS_ERROR_MSG = "ERROR DE SYNTAXIS: Alguno de los campos no es el esperado.";
+
 	private static final String CONFLICT_MSG = "CONFLICTO: El registro ya existe en la base de datos (al crear) o tiene datos asociados (al eliminar).";
 	private static final String NOT_FOUND_MSG = "NO ENCONTRADO: El recurso no existe en la base de datos.";
 	private static final String INTERNAL_ERROR = "ERROR INTERNO: No controlado.";
+
+	private static final ResponseEntity<Object> CONFLICT_RESPONSE = new ResponseEntity<Object>(
+			new ResponseMessage(CONFLICT_MSG), HttpStatus.CONFLICT);
 	
-	private static final ResponseEntity<Object> CONFLICT_RESPONSE = new ResponseEntity<Object>(CONFLICT_MSG, HttpStatus.CONFLICT);
-	private static final ResponseEntity<Object> NOT_FOUND_RESPONSE = new ResponseEntity<Object>(NOT_FOUND_MSG, HttpStatus.NOT_FOUND);
-	private static final ResponseEntity<Object> INTERNAL_SERVER_ERROR_RESPONSE =  new ResponseEntity<Object>(INTERNAL_ERROR, HttpStatus.INTERNAL_SERVER_ERROR);
+	private static final ResponseEntity<Object> NOT_FOUND_RESPONSE = new ResponseEntity<Object>(
+			new ResponseMessage(NOT_FOUND_MSG), HttpStatus.NOT_FOUND);
 	
+	private static final ResponseEntity<Object> INTERNAL_SERVER_ERROR_RESPONSE = new ResponseEntity<Object>(
+			new ResponseMessage(INTERNAL_ERROR), HttpStatus.INTERNAL_SERVER_ERROR);
+
 	private static ServiceAlumno servicio;
 	private static Alumno alumno;
-	
+
 	private static ValidatorFactory factory;
 	private static Validator validator;
-	
+
 	public AlumnosController() {
 		super();
 		servicio = ServiceAlumno.getInstance();
-		
-		//Crear Factoria y Validador
-		 factory = Validation.buildDefaultValidatorFactory();
-		 validator = factory.getValidator();
-		 
+
+		// Crear Factoria y Validador
+		factory = Validation.buildDefaultValidatorFactory();
+		validator = factory.getValidator();
+
 	}
 
 	@RequestMapping(value = { "", "/" }, method = RequestMethod.GET)
@@ -58,15 +62,15 @@ public class AlumnosController {
 		ResponseEntity<ArrayList<Alumno>> response = new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
 
 		try {
-			
+
 			response = new ResponseEntity<ArrayList<Alumno>>((ArrayList<Alumno>) servicio.listar(), HttpStatus.OK);
-		
+
 		} catch (Exception e) {
-			
+
 			response = new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 			e.printStackTrace();
 		}
-		
+
 		return response;
 	}
 
@@ -74,67 +78,67 @@ public class AlumnosController {
 	public ResponseEntity<Object> detalle(@PathVariable long id) {
 
 		ResponseEntity<Object> response = new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
-		
+
 		try {
-			
+
 			alumno = servicio.obtener(id);
-			
+
 			if (alumno != null && alumno.getId() > 0) {
-				
+
 				response = new ResponseEntity<Object>(alumno, HttpStatus.OK);
-			
+
 			} else {
-				
+
 				response = NOT_FOUND_RESPONSE;
 			}
-		
+
 		} catch (Exception e) {
-			
+
 			response = INTERNAL_SERVER_ERROR_RESPONSE;
 			e.printStackTrace();
 		}
 
 		return response;
 	}
-	
+
 	@RequestMapping(method = RequestMethod.POST)
 	public ResponseEntity<Object> crear(@RequestBody Alumno alumno) {
 
 		ResponseEntity<Object> response = new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
-		
+
 		try {
-			
+
 			Set<ConstraintViolation<Alumno>> violations = validator.validate(alumno);
-			
+
 			if (violations.size() == 0) {
-				
+
 				if (servicio.crear(alumno)) {
-					
+
 					response = new ResponseEntity<Object>(alumno, HttpStatus.CREATED);
-				
-				} 
-				
-			} else {
-				
-				ArrayList<String> msgs = new ArrayList<String>();
-				
-				for (ConstraintViolation<Alumno> v : violations) {
-					
-					msgs.add(v.getMessage());
-					
+
 				}
-				
+
+			} else {
+
+				ArrayList<String> msgs = new ArrayList<String>();
+
+				for (ConstraintViolation<Alumno> v : violations) {
+
+					msgs.add(v.getMessage());
+
+				}
+
 				ResponseMessage msg = new ResponseMessage("El campo no tiene una longitud adecuada.", msgs);
-				response = new ResponseEntity<Object>(msg, HttpStatus.BAD_REQUEST);	
+				response = new ResponseEntity<Object>(msg, HttpStatus.BAD_REQUEST);
 			}
-			
+
 		} catch (SQLIntegrityConstraintViolationException e) {
-			
+
 			response = CONFLICT_RESPONSE;
 			e.printStackTrace();
-				
+
 		} catch (Exception e) {
-			
+
 			response = INTERNAL_SERVER_ERROR_RESPONSE;
 			e.printStackTrace();
 		}
@@ -142,7 +146,6 @@ public class AlumnosController {
 		return response;
 
 	}
-
 
 	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
 	public ResponseEntity<Object> eliminar(@PathVariable long id) {
@@ -150,24 +153,24 @@ public class AlumnosController {
 		ResponseEntity<Object> response = new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
 
 		try {
-			
+
 			if (id != 0 && servicio.eliminar(Long.toString(id))) {
-				
+
 				response = new ResponseEntity<Object>(new String("SUCCESS: Eliminado."), HttpStatus.NO_CONTENT);
-			
+
 			} else {
-				
+
 				response = NOT_FOUND_RESPONSE;
-				
+
 			}
 
 		} catch (SQLIntegrityConstraintViolationException e) {
-		
+
 			response = CONFLICT_RESPONSE;
 			e.printStackTrace();
-		
+
 		} catch (Exception e) {
-			
+
 			response = INTERNAL_SERVER_ERROR_RESPONSE;
 			e.printStackTrace();
 		}
@@ -175,32 +178,31 @@ public class AlumnosController {
 		return response;
 	}
 
-
 	@RequestMapping(value = "/{id}", method = RequestMethod.PUT)
 	public ResponseEntity<Object> modificar(@PathVariable long id, @RequestBody Alumno alumno) {
 
 		ResponseEntity<Object> response = new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
 		alumno.setId(id);
-		
+
 		try {
-			
+
 			if (servicio.modificar(alumno)) {
-				
+
 				response = new ResponseEntity<Object>(alumno, HttpStatus.OK);
-			
+
 			} else {
-				
+
 				response = NOT_FOUND_RESPONSE;
-				
+
 			}
-			
+
 		} catch (SQLIntegrityConstraintViolationException e) {
-			
+
 			response = CONFLICT_RESPONSE;
 			e.printStackTrace();
-				
+
 		} catch (Exception e) {
-			
+
 			response = INTERNAL_SERVER_ERROR_RESPONSE;
 			e.printStackTrace();
 		}

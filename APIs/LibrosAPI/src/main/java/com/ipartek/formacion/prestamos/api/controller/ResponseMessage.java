@@ -14,7 +14,14 @@ public class ResponseMessage {
 		this.mensaje = "ERROR: Inesperado.";
 		this.errores = null;
 	}
+	
+	public ResponseMessage(String mensaje) {
 
+		super();
+		this.mensaje = mensaje;
+		this.errores = null;
+	}
+	
 	public ResponseMessage(String mensaje, ArrayList<String> errores) {
 		super();
 		this.mensaje = mensaje;

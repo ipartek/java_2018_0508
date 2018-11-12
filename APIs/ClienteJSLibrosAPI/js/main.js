@@ -1,7 +1,11 @@
 var ENDPOINT = "http://localhost:8080/PrestamosAPI/";
+
 var ulEditoriales = document.getElementById("ulEditoriales");
 var editoriales = [];
-var editorial;
+var editorial;      // Editorial seleccionada
+
+var ulErrores = document.getElementById("editorialError");
+var mensaje = document.getElementById("mensaje"); // Mostrar mensajes
 
 window.addEventListener("load", function(event) {
 
@@ -11,7 +15,9 @@ window.addEventListener("load", function(event) {
 
 });
 
-function cargarEditoriales() {
+function cargarEditoriales(txtMensaje) {
+
+    mensaje.innerHTML = "";
 
     // Vaciar UL
     ulEditoriales.innerHTML = "";
@@ -21,7 +27,6 @@ function cargarEditoriales() {
     editoriales = [];
 
     var request = new XMLHttpRequest();
-    request.open('GET', ENDPOINT + URL);
 
     var li = "";
 
@@ -29,11 +34,15 @@ function cargarEditoriales() {
         if (request.readyState == 4) {
 
             if (request.status === 200) {   
-    
-                editoriales = JSON.parse(request.responseText); // Parsear a JSON
+                
+                editoriales = JSON.parse(request.responseText); // Parsear a JSON el array recibido
                 
                 for (var i = 0, len = editoriales.length; i < len; i++) {
-                      li += `<li id= ${editoriales[i].id} class='list-group-item'> ${editoriales[i].nombre} <a class='btn btn-xs btn-danger float-right ml-2' onclick='eliminarEditorial( ${i}, event );'> Eliminar </a> <a class='btn btn-xs btn-success float-right ml-2' onclick='showTabModificar( ${i} );'> Modificar </a> </li>`
+                      li += `<li id= ${editoriales[i].id} class='list-group-item'> 
+                      ${editoriales[i].nombre} 
+                      <a class='btn btn-xs btn-danger float-right ml-3' onclick='eliminarEditorial( ${i}, event );'> Eliminar </a> 
+                      <a class='btn btn-xs btn-success float-right' onclick='modificarEditorial(${i}, event);'> Modificar </a> 
+                      </li>`
                 }
 
                 ulEditoriales.innerHTML = li;
@@ -41,19 +50,19 @@ function cargarEditoriales() {
                 addClickListenerLIActive(event);
             } 
         } 
+
+        if (txtMensaje != null) {
+            mensaje.innerHTML = txtMensaje;
+        }
+        else {
+            mensaje.textContent = "";
+        }
+        
        
     };   
+
+    request.open('GET', ENDPOINT + URL);
     request.send();
-}
-
-function removeActiveClassFromEditoriales() {
-
-	var children = ulEditoriales.children;
-    
-    for (var i = 0; i < children.length; i++) {  
-        var child = children[i];
-        child.classList.remove("active");
-    }
 }
 
 function addClickListenerLIActive(e) {
@@ -67,6 +76,16 @@ function addClickListenerLIActive(e) {
         }
 
     });
+}
+
+function removeActiveClassFromEditoriales() {
+
+	var children = ulEditoriales.children;
+    
+    for (var i = 0; i < children.length; i++) {  
+        var child = children[i];
+        child.classList.remove("active");
+    }
 }
 
 function crearEditorial() {
@@ -84,28 +103,27 @@ function crearEditorial() {
 
     var nombre = inputNombre.value; // Recoger valor del input
     
-    var data = {nombre};    // Añadimos llaves
-
-    var formattedJsonData = JSON.stringify(data);   // Formatear JSON
+    var formattedJsonData = JSON.stringify(nombre);   // Formatear JSON
 
     request.onreadystatechange  = function() {
 
         if (request.readyState == 4) {
 
             if (request.status === 201) {   
-    
-                console.log("Editorial creada.");
+
+                cargarEditoriales("Editorial creada.");
             } 
             else {  
                 
                 var responseError = JSON.parse(request.responseText);
                 var liError;
 
-                responseError.forEach(error => {
+                liError = "<li>" + responseError.mensaje + "</li>";
+                responseError.errores.forEach(error => {
                     liError += "<li class='text-danger'>" + error + "</li>";
                 });
 
-                document.getElementById("editorialError").innerHTML = liError;
+                ulErrores.innerHTML += liError;
             }
         } 
     };   
@@ -114,7 +132,7 @@ function crearEditorial() {
 
 }
 
-function showTabModificar(i) {
+function showTabModificar(i, event) {
 
     var inputNombre = document.getElementById("editorialNombre");
     inputNombre.value = editoriales[i].nombre;
@@ -127,11 +145,22 @@ function showTabModificar(i) {
     });
 }
 
-function modificarEditorial(i) {
+function modificarEditorial(i, event) {
 
+    event.stopPropagation();
+    editorial = editoriales[i];
+    console.log('modificar editorial %o', editorial);
+
+    var nuevoNombre;
+   
+    while (nuevoNombre == null) {
+        nuevoNombre = prompt("Por favor, Introduce un nuevo nombre (De 2 - 150 caracteres).");
+    }
+
+    console.log (nuevoNombre);
 
     // Llamada a AJAX (Asíncrona)
-	var URL = "editoriales";
+	var URL = "editoriales/" + editorial.id;
 
     var request = new XMLHttpRequest(); // Crear request
     
@@ -139,19 +168,15 @@ function modificarEditorial(i) {
 
     request.setRequestHeader("Content-type", "application/json"); // Dar formato JSON
 
-    var nombre = inputNombre.value; // Recoger valor del input
-    
-    var data = {nombre};    // Añadimos llaves
-
-    var formattedJsonData = JSON.stringify(data);   // Formatear JSON
+    var formattedJsonData = JSON.stringify(nuevoNombre);   // Formatear JSON
 
     request.onreadystatechange  = function() {
 
         if (request.readyState == 4) {
 
-            if (request.status === 201) {   
+            if (request.status === 200) {   
     
-                console.log("Editorial creada.");
+                cargarEditoriales("Editorial modificada.");
             } 
             else {  
                 
@@ -162,7 +187,7 @@ function modificarEditorial(i) {
                     liError += "<li class='text-danger'>" + error + "</li>";
                 });
 
-                document.getElementById("editorialError").innerHTML = liError;
+                ulErrores.innerHTML = liError;
             }
         } 
     };   
@@ -191,11 +216,11 @@ function eliminarEditorial(pos, event) {
 
                 if (request.status === 204) {   
         
-                    console.log("Editorial eliminada.");
+                    cargarEditoriales("Editorial eliminada.");
                 } 
                 else {  
                     
-                    console.warn("Conflicto: " + request.responseText);
+                    mensaje.innerHTML = "La editorial no puede ser liminada porque tiene registros asociados.";
                 }
             }  
         };   

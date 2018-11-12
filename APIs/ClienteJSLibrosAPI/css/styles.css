@@ -1,9 +1,25 @@
 body {
-    background-color: #0000ff;
-    color: #FFF;
+    margin: 0;
+    padding: 0;
+    margin-bottom: 5vh;
+}
+
+.nav a {
+    text-decoration: none;
+}
+
+ul .active {
+    background-color: #000055 !important;
+    color: #FFF !important;
 }
 
 li {
     text-transform: uppercase;
     background-color: #000055 !important;
+    color: #FFF;
+}
+
+form {
+   /* max-width: 75vh;*/
+    margin: 0px auto;
 }
