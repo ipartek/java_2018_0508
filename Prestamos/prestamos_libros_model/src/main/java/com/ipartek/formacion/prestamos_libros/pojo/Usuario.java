@@ -1,7 +1,13 @@
 package com.ipartek.formacion.prestamos_libros.pojo;
 
+import javax.validation.constraints.Size;
+
+import org.hibernate.validator.constraints.NotBlank;
+
 public class Usuario {
 	
+	@NotBlank
+	@Size(min=2, max=150)
 	private Long id;
 	private String nombre_apellidos;
 	

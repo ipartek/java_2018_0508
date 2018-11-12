@@ -3,6 +3,7 @@ package com.ipartek.formacion.prestamos_libros.model;
 import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.ResultSet;
+import java.sql.Types;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,18 +26,26 @@ public class UsuarioDAO implements CrudAble<Usuario>{
 	
 	@Override
 	public boolean insert(Usuario pojo) throws Exception {
-		String sql = "{ CALL `usuariosInsert` (?) }";
+		String sql = "{ CALL `usuariosInsert` (?,?) }";
 		boolean result = false;
 		
 		try (Connection con = ConnectionManager.getConnection();
 				CallableStatement cs =  con.prepareCall(sql);
 				){
 			cs.setString(1, pojo.getNombre_apellidos());
-			result = cs.execute();
+			cs.registerOutParameter(2, Types.INTEGER );
+			
+			int affectedRows = cs.executeUpdate(); 
+			if( affectedRows ==  1 ) {
+				
+				pojo.setId(cs.getLong(2));
+				return true;
+			}
+			
 		}
-		
 		return result;
 	}
+
 
 	@Override
 	public List<Usuario> getAll() throws Exception {
@@ -95,10 +104,14 @@ public class UsuarioDAO implements CrudAble<Usuario>{
 			//parseInt para convertir de Long a INT
 			cs.setInt(1, new Long(pojo.getId()).intValue());
 			cs.setString(2, pojo.getNombre_apellidos());
-			result = cs.execute();
+			int affectedRows = cs.executeUpdate();
+			if ( affectedRows == 1 ) {
+				result = true;
+			}
 		}
 		return result;
 	}
+
 
 	@Override
 	public boolean delete(String id) throws Exception {
