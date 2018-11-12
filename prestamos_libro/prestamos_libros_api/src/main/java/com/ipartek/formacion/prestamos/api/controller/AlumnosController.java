@@ -17,37 +17,37 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.ipartek.formacion.pojo.Editorial;
-import com.ipartek.formacion.service.ServiceEditorial;
+import com.ipartek.formacion.pojo.Alumno;
+import com.ipartek.formacion.service.ServiceAlumno;
 import com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationException;
 
 @CrossOrigin(origins = "*")
 @RestController
-@RequestMapping("/editoriales")
-public class EditorialesController {
+@RequestMapping("/alumnos")
+public class AlumnosController {
 
-	ServiceEditorial serviceEditorial = null;
+	ServiceAlumno serviceAlumno = null;
 	ValidatorFactory factory = null;
 	Validator validator = null;
 
-	public EditorialesController() {
+	public AlumnosController() {
 		super();
-		serviceEditorial = ServiceEditorial.getInstance();
+		serviceAlumno = ServiceAlumno.getInstance();
 		// Crear Factoria y Validador
 		factory = Validation.buildDefaultValidatorFactory();
 		validator = factory.getValidator();
 	}
 
 	@RequestMapping(method = RequestMethod.GET)
-	public ResponseEntity<ArrayList<Editorial>> listar() {
+	public ResponseEntity<ArrayList<Alumno>> listar() {
 
-		ArrayList<Editorial> editoriales = new ArrayList<Editorial>();
-		ResponseEntity<ArrayList<Editorial>> response = new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
+		ArrayList<Alumno> alumnos = new ArrayList<Alumno>();
+		ResponseEntity<ArrayList<Alumno>> response = new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
 
 		try {
 
-			editoriales = (ArrayList<Editorial>) serviceEditorial.listar();
-			response = new ResponseEntity<>(editoriales, HttpStatus.OK);
+			alumnos = (ArrayList<Alumno>) serviceAlumno.listar();
+			response = new ResponseEntity<>(alumnos, HttpStatus.OK);
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -59,12 +59,12 @@ public class EditorialesController {
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
 	public ResponseEntity<Object> detalle(@PathVariable long id) throws Exception {
 		ResponseEntity<Object> response = new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
-		Editorial editorial = new Editorial();
-		editorial = serviceEditorial.buscarPorId(id);
+		Alumno alumno = new Alumno();
+		alumno = serviceAlumno.buscarPorId(id);
 
-		if (editorial != null && editorial.getId() > 0) {
+		if (alumno != null && alumno.getId() > 0) {
 
-			response = new ResponseEntity<>(editorial, HttpStatus.OK);
+			response = new ResponseEntity<>(alumno, HttpStatus.OK);
 		} else {
 			response = new ResponseEntity<>(
 					new ResponseMensaje("No se ha encotrado ningun registro, cambie de identificador"),
@@ -81,7 +81,7 @@ public class EditorialesController {
 
 		try {
 
-			if (serviceEditorial.eliminar(id)) {
+			if (serviceAlumno.eliminar(id)) {
 				response = new ResponseEntity<>(HttpStatus.OK);
 			} else {
 				response = new ResponseEntity<>(
@@ -92,7 +92,8 @@ public class EditorialesController {
 		} catch (MySQLIntegrityConstraintViolationException e) {
 
 			response = new ResponseEntity<>(
-					new ResponseMensaje("No es posible eliminar la editorial deseada porque está asociada a un libro."),
+					new ResponseMensaje(
+							"No es posible eliminar el registro deseado porque tiene algun prestamo pendiente."),
 					HttpStatus.CONFLICT);
 
 		} catch (Exception e) {
@@ -101,20 +102,21 @@ public class EditorialesController {
 		return response;
 	}
 
+
 	@RequestMapping(method = RequestMethod.POST)
-	public ResponseEntity<Object> crear(@RequestBody Editorial editorial) throws Exception {
+	public ResponseEntity<Object> crear(@RequestBody Alumno alumno) throws Exception {
 		ResponseEntity<Object> response = new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 		
 		ResponseMensaje responseMensaje = new ResponseMensaje();
 
 		try {
 
-			Set<ConstraintViolation<Editorial>> violations = validator.validate(editorial);
+			Set<ConstraintViolation<Alumno>> violations = validator.validate(alumno);
 			if (violations.size() > 0) {
 				/* No ha pasado la valiadacion, iterar sobre los mensajes de validacion */
 
 				ArrayList<String> errores = new ArrayList<>();
-				for (ConstraintViolation<Editorial> violation : violations) {
+				for (ConstraintViolation<Alumno> violation : violations) {
 					errores.add(violation.getPropertyPath() + ": " + violation.getMessage());
 
 				}
@@ -123,8 +125,8 @@ public class EditorialesController {
 
 				response = new ResponseEntity<>(responseMensaje, HttpStatus.CONFLICT);
 			} else {
-				if (serviceEditorial.crear(editorial)) {
-					response = new ResponseEntity<>(editorial, HttpStatus.CREATED);
+				if (serviceAlumno.crear(alumno)) {
+					response = new ResponseEntity<>(alumno, HttpStatus.CREATED);
 				} else {
 					response = new ResponseEntity<>(HttpStatus.CONFLICT);
 
@@ -134,7 +136,7 @@ public class EditorialesController {
 		} catch (MySQLIntegrityConstraintViolationException e) {
 
 			response = new ResponseEntity<>(
-					new ResponseMensaje("Ya existe la editorial,Por favor prueba con otro nombre."),
+					new ResponseMensaje("Ya existe el alumno,Por favor prueba con otro nombre."),
 					HttpStatus.CONFLICT);
 
 		} catch (Exception e) {
@@ -145,19 +147,19 @@ public class EditorialesController {
 	}
 
 	@RequestMapping(value = "/{id}", method = RequestMethod.PUT)
-	public ResponseEntity<Object> modificar(@PathVariable long id, @RequestBody Editorial editorial) throws Exception {
-		
+	public ResponseEntity<Object> modificar(@PathVariable long id, @RequestBody Alumno alumno) throws Exception {
+
 		ResponseEntity<Object> response = new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
 		ResponseMensaje responseMensaje = new ResponseMensaje();
-		
+
 		try {
-			editorial.setId(id);
-			Set<ConstraintViolation<Editorial>> violations = validator.validate(editorial);
+			alumno.setId(id);
+			Set<ConstraintViolation<Alumno>> violations = validator.validate(alumno);
 			if (violations.size() > 0) {
 				/* No ha pasado la valiadacion, iterar sobre los mensajes de validacion */
 
 				ArrayList<String> errores = new ArrayList<>();
-				for (ConstraintViolation<Editorial> violation : violations) {
+				for (ConstraintViolation<Alumno> violation : violations) {
 					errores.add(violation.getPropertyPath() + ": " + violation.getMessage());
 
 				}
@@ -166,8 +168,8 @@ public class EditorialesController {
 
 				response = new ResponseEntity<>(responseMensaje, HttpStatus.CONFLICT);
 			} else {
-				if (serviceEditorial.modificar(editorial)) {
-					response = new ResponseEntity<>(editorial, HttpStatus.OK);
+				if (serviceAlumno.modificar(alumno)) {
+					response = new ResponseEntity<>(alumno, HttpStatus.OK);
 				} else {
 					response = new ResponseEntity<>(
 							new ResponseMensaje("No se ha encotrado ningun registro, cambie de identificador"),
@@ -178,7 +180,7 @@ public class EditorialesController {
 		} catch (MySQLIntegrityConstraintViolationException e) {
 
 			response = new ResponseEntity<>(
-					new ResponseMensaje("Ya existe la editorial,Por favor prueba con otro nombre."),
+					new ResponseMensaje("Ya existe el alumno,Por favor prueba con otro nombre."),
 					HttpStatus.CONFLICT);
 
 		} catch (Exception e) {
