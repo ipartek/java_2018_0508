@@ -17,7 +17,7 @@ window.addEventListener("load", function(event) {
     //ulEditoriales.innerHTML = "<li>Elemento</li>";
 });
 
-function cargarEditoriales(){
+function cargarEditoriales(textoMensaje){
     
     //Llamada Ajax para obtener editoriales
     var request = new XMLHttpRequest();
@@ -42,7 +42,7 @@ function cargarEditoriales(){
                             ${editorial.id}: ${editorial.nombre}
                         </div>
                         <div class="col text-right">
-                            <i onclick="editarEditorial(${editorial.id}, ${editorial.nombre}, event)" class="fas fa-pencil-alt text-success"></i>
+                            <i onclick="editarEditorial(${editorial.id}, '${editorial.nombre}', event)" class="fas fa-pencil-alt text-success"></i>
                         </div>
                         <div class="col text-right">
                             <i onclick="eliminarEditorial(${editorial.id},event)" class="fas fa-trash-alt text-danger"></i>
@@ -59,7 +59,7 @@ function cargarEditoriales(){
                         <div class="card-footer">
                             <div class="row justify-content-between">
                                 <div class="col">
-                                    <a href="#" onclick="editarEditorial(${editorial.id}, ${editorial.nombre}, event)" class="btn btn-primary">Editar</a>
+                                    <a href="#" onclick="editarEditorial(${editorial.id}, '${editorial.nombre}', event)" class="btn btn-primary">Editar</a>
                                 </div>
                                 <div class="col text-right">
                                     <a onclick="eliminarEditorial(${editorial.id},event)" href="#" class="btn btn-danger">Eliminar</a>
@@ -74,7 +74,12 @@ function cargarEditoriales(){
 
                 cardGroup.innerHTML = card;
                 ulEditoriales.innerHTML = lis;
-                mensaje.textContent = '';
+
+                if(textoMensaje){
+                    mensaje.textContent = textoMensaje;
+                }else{
+                    mensaje.textContent = '';
+                }                
             } 
         }
     }//onreadystatechange  
@@ -184,5 +189,52 @@ function eliminarEditorial(idEditorial, event){
 }
 
 function editarEditorial(id, nombre, event){
+    console.log("Entra en editar");
+    event.stopImmediatePropagation();
 
+    //Cambiar formato de datos a json
+    var data = {"id": id, "nombre": nombre};
+
+    editorial = data;
+
+    var nuevoNombre = prompt("Escribe el nuevo nombre", editorial.nombre);
+
+    if(nuevoNombre != null){
+        editorial.nombre = nuevoNombre;
+
+        //Llamada Ajax para obtener editoriales
+        var request = new XMLHttpRequest();    
+
+        request.onreadystatechange = function() {
+            console.log('Cambio de estado '+ request.readyState);
+            if(request.readyState === 4){
+                if(request.status === 200) { 
+                    console.log('response 200 '+ request.responseText);
+                    cargarEditoriales("Editorial modificada con exito");
+                    //TODO como es asincrono limpia el mensaje. Usar promises
+                    //mensaje.textContent = "Editorial modificada con exito";
+                }
+                if(request.status === 409){
+                    error = JSON.parse(request.responseText);
+                    var contenido = `<div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                    <p>${error.mensaje}</p>
+                                    <p>${error.errores}</p>
+                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>`;
+                    alerta.innerHTML = contenido;
+                    console.warn('409 conflicto' + request.responseText);
+                }
+            }
+        }; //onreadystatechange
+
+        request.open('PUT', ENDPOINT+'editoriales/'+editorial.id);
+
+        //Especificar en cabeceras el tipo de contenido (como en el postman)
+        request.setRequestHeader('content-type', 'application/json');
+
+        //Enviar data si procede
+        request.send(JSON.stringify(data));
+    }//End AJAX
 }
