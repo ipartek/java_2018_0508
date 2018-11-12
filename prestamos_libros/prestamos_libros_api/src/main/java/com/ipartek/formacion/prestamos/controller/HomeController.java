@@ -10,8 +10,9 @@ public class HomeController {
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String home() {
 		
+		//Spring usa un InternalResourceViewResolver
 		//nombre de la vista => index.jsp
-		//@see 
+		//@see WEB-INF\spring\appServlet\servlet-context.xml
 		return "index";
 	}
 	

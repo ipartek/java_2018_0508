@@ -1,0 +1,7 @@
+{
+  "name": "prestamosApp",
+  "integrations": {
+    "cordova": {}
+  },
+  "type": "ionic-angular"
+}
