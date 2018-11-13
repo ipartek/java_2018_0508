@@ -27,7 +27,7 @@ public class AlumnoDAO implements Crudable<Alumno> {
 	public boolean insert(Alumno pojo) throws Exception {
 		boolean resul = false;
 		String sql = "{call `alumnoInsert`(?,?)}";
-
+		int id = -1;
 		try (Connection con = ConnectionManager.getConnection(); CallableStatement cs = con.prepareCall(sql);) {
 
 			cs.setString(1, pojo.getNombre().trim());
@@ -36,6 +36,8 @@ public class AlumnoDAO implements Crudable<Alumno> {
 			int affectedRows = cs.executeUpdate();
 
 			if (affectedRows == 1) {
+				id = cs.getInt("pid");
+				pojo.setId(id);
 				resul = true;
 			}
 
@@ -110,7 +112,7 @@ public class AlumnoDAO implements Crudable<Alumno> {
 	public boolean delete(String id) throws Exception {
 
 		boolean resul = false;
-		
+
 		String sql = "{call `alumnoDelete`(?)}";
 		try (Connection con = ConnectionManager.getConnection(); CallableStatement cs = con.prepareCall(sql);) {
 

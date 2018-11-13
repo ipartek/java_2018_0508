@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.ipartek.formacion.pojo.Alumno;
+import com.ipartek.formacion.pojo.Editorial;
 import com.ipartek.formacion.pojo.Libro;
 import com.ipartek.formacion.pojo.Prestamo;
 
@@ -71,8 +72,9 @@ public class PrestamoDAO implements Crudable<Prestamo> {
 
 				Libro l = new Libro();
 				l.setId(rs.getLong("id_libro"));
-				l.setTitulo(rs.getString("titulo"));
+				l.setTitulo(rs.getString("titulo"));	
 				p.setLibro(l);
+				
 
 				prestamos.add(p);
 			}
@@ -101,6 +103,13 @@ public class PrestamoDAO implements Crudable<Prestamo> {
 				Libro l = new Libro();
 				l.setId(rs.getLong("id_libro"));
 				l.setTitulo(rs.getString("titulo"));
+				l.setIsbn(rs.getString("isbn"));
+				
+				Editorial e =new Editorial();
+				e.setId(rs.getLong("id_editorial"));
+				e.setNombre(rs.getString("nombre_editorial"));
+				
+				l.setEditorial(e);	
 				p.setLibro(l);
 
 				prestamos.add(p);
@@ -129,6 +138,13 @@ public class PrestamoDAO implements Crudable<Prestamo> {
 				Libro l = new Libro();
 				l.setId(rs.getLong("id_libro"));
 				l.setTitulo(rs.getString("titulo"));
+				l.setIsbn(rs.getString("isbn"));
+				
+				Editorial e =new Editorial();
+				e.setId(rs.getLong("id_editorial"));
+				e.setNombre(rs.getString("nombre_editorial"));
+				
+				l.setEditorial(e);
 				p.setLibro(l);
 
 				prestamos.add(p);

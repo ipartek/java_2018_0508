@@ -10,8 +10,8 @@ import java.util.List;
 import com.ipartek.formacion.pojo.Editorial;
 import com.ipartek.formacion.pojo.Libro;
 
-public class LibroDAO implements Crudable<Libro>{
-	
+public class LibroDAO implements Crudable<Libro> {
+
 	private static LibroDAO INSTANCE = null;
 
 	private LibroDAO() {
@@ -31,7 +31,7 @@ public class LibroDAO implements Crudable<Libro>{
 		boolean resul = false;
 		int aux = 0;
 		String sql = "{call `libroInsert`(?,?,?,?)}";
-
+		int id = -1;
 		try (Connection con = ConnectionManager.getConnection(); CallableStatement cs = con.prepareCall(sql);) {
 			if (pojo.getCant() > 1) {
 				for (int i = 0; i < pojo.getCant(); i++) {
@@ -47,18 +47,24 @@ public class LibroDAO implements Crudable<Libro>{
 						aux += 1;
 
 						if (aux == pojo.getCant()) {
+							id = cs.getInt("pid");
+							pojo.setId(id);
 							resul = true;
 						}
 					}
 				}
 			} else {
+				
 				cs.setString(1, pojo.getTitulo().trim());
 				cs.setString(2, pojo.getIsbn().trim());
 				cs.setLong(3, pojo.getEditorial().getId());
 				cs.registerOutParameter("pid", Types.INTEGER);
+				
 
 				int affectedRows = cs.executeUpdate();
 				if (affectedRows == 1) {
+					id = cs.getInt("pid");
+					pojo.setId(id);
 					resul = true;
 				}
 			}
@@ -144,7 +150,7 @@ public class LibroDAO implements Crudable<Libro>{
 				resul = true;
 			}
 
-		} 
+		}
 		return resul;
 	}
 

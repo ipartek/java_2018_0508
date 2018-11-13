@@ -42,6 +42,8 @@ public class ServicePrestamo implements IServicePrestamo {
 	@Override
 	public boolean prestar(long idLibro, long idAlumno, Date fechaInicio) throws Exception {
 		boolean resul = false;
+		boolean alumnoLibre = false;
+		boolean libroLibre = false;
 
 		Prestamo p = new Prestamo();
 		p.setFecha_prestado(fechaInicio);
@@ -54,8 +56,25 @@ public class ServicePrestamo implements IServicePrestamo {
 		l.setId(idLibro);
 		p.setLibro(l);
 
-		if (daoPrestamo.insert(p)) {
-			resul = true;
+		// Comprobar que el alumno y el libro esten disponibles
+		ArrayList<Alumno> alumnosDisponibles = (ArrayList<Alumno>) this.alumnosDisponibles();
+		for (Alumno alumno : alumnosDisponibles) {
+
+			if (alumno.getId() != idAlumno) {
+				alumnoLibre = true;
+			}
+		}
+		ArrayList<Libro> libroDisponibles = (ArrayList<Libro>) this.librosDisponibles();
+		for (Libro libro : libroDisponibles) {
+
+			if (libro.getId() != idLibro) {
+				libroLibre = true;
+			}
+		}
+		if (alumnoLibre && libroLibre) {
+			if (daoPrestamo.insert(p)) {
+				resul = true;
+			}
 		}
 
 		return resul;
@@ -78,7 +97,7 @@ public class ServicePrestamo implements IServicePrestamo {
 	@Override
 	public Prestamo buscarPorId(long idLibro, long idAlumno, Date fecha_prestado) throws Exception {
 		Prestamo p = null;
-		p = daoPrestamo.buscarPorId( idLibro, idAlumno, fecha_prestado);
+		p = daoPrestamo.buscarPorId(idLibro, idAlumno, fecha_prestado);
 		return p;
 	}
 
@@ -95,12 +114,12 @@ public class ServicePrestamo implements IServicePrestamo {
 		l.setId(idLibro);
 
 		p.setLibro(l);
-		
+
 		p.setFecha_prestado(fechaPrestado);
-		p.setFecha_retorno(fechaRetorno);		
+		p.setFecha_retorno(fechaRetorno);
 
 		if (daoPrestamo.update(p)) {
-			resul=true;
+			resul = true;
 		}
 		return resul;
 	}
@@ -110,8 +129,9 @@ public class ServicePrestamo implements IServicePrestamo {
 			Date fechaPrestadoNew, Date fechaFinal, Date fechaRetorno) throws Exception {
 		boolean resul = false;
 
-		if (daoPrestamo.modifyAll(idAlumnoOld, idLibroOld, fechaPrestadoOld, idAlumnoNew, idLibroNew, fechaPrestadoNew, fechaFinal, fechaRetorno)) {
-			resul=true;
+		if (daoPrestamo.modifyAll(idAlumnoOld, idLibroOld, fechaPrestadoOld, idAlumnoNew, idLibroNew, fechaPrestadoNew,
+				fechaFinal, fechaRetorno)) {
+			resul = true;
 		}
 		return resul;
 	}
