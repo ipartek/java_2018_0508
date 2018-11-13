@@ -48,5 +48,7 @@ public class ResponseMessage {
 	public String toString() {
 		return "ResponseMessage [mensaje=" + mensaje + ", errores=" + errores + "]";
 	}
+	
+	// TODO: Errores.
 
 }

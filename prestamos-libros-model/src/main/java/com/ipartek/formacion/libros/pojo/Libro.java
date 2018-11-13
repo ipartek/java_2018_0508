@@ -1,10 +1,21 @@
 package com.ipartek.formacion.libros.pojo;
 
+import javax.validation.constraints.Size;
+
+import org.hibernate.validator.constraints.NotBlank;
+
 public class Libro {
 
 	private long id;
+	
+	@NotBlank
+	@Size(min = 3, max = 150)
 	private String titulo;
+	
+	@NotBlank
+	@Size(min = 13, max = 20)
 	private String isbn;
+	
 	private Editorial editorial;
 	
 	

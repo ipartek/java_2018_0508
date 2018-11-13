@@ -43,7 +43,7 @@ public class ServiceLibro implements ICRUDService<Libro> {
 	public boolean crear(Libro pojo) throws Exception {
 	
 		boolean resul = false;			
-		resul = librosDAO.insert(pojo);
+		resul = librosDAO.loopInsertLibro(pojo, 1);
 		
 		return resul;
 	}
@@ -74,9 +74,6 @@ public class ServiceLibro implements ICRUDService<Libro> {
 		
 		return resul;
 	}
-	
-	
-
 	
 	
 }

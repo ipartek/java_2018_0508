@@ -87,11 +87,13 @@ public class LibroDAO implements CrudAble<Libro> {
 	}
 
 	public boolean loopInsertLibro(Libro pojo, int n_ejemplares) throws Exception {
+		
 		boolean resul = false;
+		
 		for (int i = 0; i < n_ejemplares; i++) {
 
 			try (Connection con = ConnectionManager.getConnection();
-					CallableStatement sp = con.prepareCall("{CALL libroInsert(?,?,?,?)}");) {
+					CallableStatement sp = con.prepareCall("{CALL libroInsert(?,?,?,?,?)}");) {
 
 				// se cargan los parametros de entrada
 				sp.setString("p_titulo", pojo.getTitulo());
@@ -99,12 +101,14 @@ public class LibroDAO implements CrudAble<Libro> {
 				sp.setLong("p_id_editorial", pojo.getEditorial().getId());
 
 				// parametros de salida
-				sp.registerOutParameter("o_id", Types.INTEGER);
+				sp.registerOutParameter("o_id_libro", Types.INTEGER);
+				sp.registerOutParameter("o_editorial_nombre", Types.VARCHAR);
 
 				// Se ejecuta el procedimiento almacenado
 				int resultado = sp.executeUpdate();
 
-				//int id = sp.getInt("o_id");
+				pojo.setId(sp.getInt("o_id_libro"));
+				pojo.getEditorial().setNombre(sp.getString("o_editorial_nombre"));
 
 				if (resultado == 1) {
 
@@ -120,16 +124,21 @@ public class LibroDAO implements CrudAble<Libro> {
 	public boolean update(Libro pojo) throws Exception {
 		boolean resul;
 		try (Connection con = ConnectionManager.getConnection();
-				CallableStatement sp = con.prepareCall("{CALL libroUpdate(?,?,?,?)}");) {
+				CallableStatement sp = con.prepareCall("{CALL libroUpdate(?,?,?,?, ?)}");) {
 
 			// se cargan los parametros de entrada
 			sp.setLong("p_id", pojo.getId());
 			sp.setString("p_titulo", pojo.getTitulo());
 			sp.setString("p_isbn", pojo.getIsbn());
 			sp.setLong("p_editorial", pojo.getEditorial().getId());
+			
+			// parametros de salida
+			sp.registerOutParameter("o_editorial_nombre", Types.VARCHAR);
 
 			// Se ejecuta el procedimiento almacenado
 			int resultado = sp.executeUpdate();
+			
+			pojo.getEditorial().setNombre(sp.getString("o_editorial_nombre"));
 			
 			if (resultado == 1) {
 				
