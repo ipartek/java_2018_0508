@@ -107,7 +107,7 @@ public class LibrosController {
 				if ( serviceLibro.crear(libro) ) {
 					response = new ResponseEntity<>(libro, HttpStatus.CREATED);
 				}else {
-					response = new ResponseEntity<>(HttpStatus.CONFLICT);
+					response = new ResponseEntity<>(new ResponseMensaje("libro creado"), HttpStatus.CREATED);
 				}
 				
 			}else {
@@ -121,7 +121,7 @@ public class LibrosController {
 		}catch ( SQLIntegrityConstraintViolationException e) {
 			
 			
-			ResponseMensaje msj = new ResponseMensaje("Ya existe el libro, por favor prueba con otro nombre");			
+			ResponseMensaje msj = new ResponseMensaje("Los datos no son correctos");			
 			response = new ResponseEntity<>(msj, HttpStatus.CONFLICT);
 			
 		}catch (Exception e) {
@@ -158,7 +158,7 @@ public class LibrosController {
 		}catch (SQLIntegrityConstraintViolationException e) {
 			e.printStackTrace();
 			
-			response = new ResponseEntity<>( new ResponseMensaje("Ya existe el Libro, por favor prueba con otro nombre")  ,HttpStatus.CONFLICT);
+			response = new ResponseEntity<>( new ResponseMensaje("los datos son incorrectos")  ,HttpStatus.CONFLICT);
 		}catch (Exception e) {
 			//TODO gestionar duplicate key entry
 			e.printStackTrace();
