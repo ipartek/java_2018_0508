@@ -6,7 +6,6 @@ public class Prestamo {
 
 	private static final long MILLSECS_PER_DAY = 24 * 60 * 60 * 1000;
 	
-	private long id ;
 	private Alumno alumno;
 	private Libro libro;
 	private Date fechaInicio;
@@ -15,7 +14,7 @@ public class Prestamo {
 
 	public Prestamo() {
 		super();
-		this.id = -1;
+		
 		this.alumno = new Alumno();
 		this.libro = new Libro();
 
@@ -30,23 +29,6 @@ public class Prestamo {
 
 	}
 	
-	public Prestamo(int id,Alumno alumno, Libro libro, Date fechaInicio, Date fechaFin, boolean estado) {
-		this();
-		this.id = id;
-		this.alumno = alumno;
-		this.libro = libro;
-		this.fechaInicio = fechaInicio;
-		this.fechaFin = fechaFin;
-
-	}
-	
-	public void setId(long l) {
-		this.id = l;
-	}
-	
-	public long getId() {
-		return id;
-	}
 
 	public Alumno getAlumno() {
 		return alumno;
@@ -100,7 +82,7 @@ public class Prestamo {
 
 	@Override
 	public String toString() {
-		return "Prestamo [id=" + id + ", alumno=" + alumno + ", libro=" + libro + ", fechaInicio=" + fechaInicio
+		return "Prestamo [ alumno=" + alumno + ", libro=" + libro + ", fechaInicio=" + fechaInicio
 				+ ", fechaFin=" + fechaFin + ", fechaRetorno=" + fechaRetorno + "]";
 	}
 	

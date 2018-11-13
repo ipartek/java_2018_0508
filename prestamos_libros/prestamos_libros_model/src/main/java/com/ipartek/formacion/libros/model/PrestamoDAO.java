@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.ipartek.formacion.libros.pojo.Alumno;
+import com.ipartek.formacion.libros.pojo.Editorial;
 import com.ipartek.formacion.libros.pojo.Libro;
 import com.ipartek.formacion.libros.pojo.Prestamo;
 
@@ -203,9 +204,17 @@ public class PrestamoDAO implements CrudAble<Prestamo> {
 		Libro l = new Libro();
 		l.setId(rs.getInt("id_libro"));
 		l.setTitulo(rs.getString("titulo"));
+		l.setIsbn(rs.getString("isbn"));
+		
+		Editorial e = new Editorial();
+		e.setId(rs.getInt("ideditorial"));
+		e.setNombre(rs.getString("nombre_editorial"));
+		
+		l.setEditorial(e);
 		
 		p.setAlumno(a);
 		p.setLibro(l);
+		
 
 		return p;
 	}

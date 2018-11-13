@@ -19,21 +19,21 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.ipartek.formacion.libros.pojo.Alumno;
-import com.ipartek.formacion.libros.service.ServiceAlumno;
+import com.ipartek.formacion.libros.pojo.Libro;
+import com.ipartek.formacion.libros.service.ServiceLibro;
 
 @CrossOrigin(origins = "*")
 @RestController
-@RequestMapping("/alumnos")
-public class AlumnosController {
+@RequestMapping("/libros")
+public class LibrosController {
 
-	ServiceAlumno serviceAlumno = null;
+	ServiceLibro serviceLibro = null;
 	ValidatorFactory factory = null;
 	Validator validator = null;
 
-	public AlumnosController() {
+	public LibrosController() {
 		super();
-		serviceAlumno = ServiceAlumno.getInstance();
+		serviceLibro = ServiceLibro.getInstance();
 		// Crear Factoria y Validador
 		factory = Validation.buildDefaultValidatorFactory();
 		validator = (Validator) factory.getValidator();
@@ -41,14 +41,14 @@ public class AlumnosController {
 	}
 
 	@RequestMapping(method = RequestMethod.GET)
-	public ResponseEntity<ArrayList<Alumno>> listado() {
+	public ResponseEntity<ArrayList<Libro>> listado() {
 
-		ArrayList<Alumno> list = new ArrayList<Alumno>();
-		ResponseEntity<ArrayList<Alumno>> response = new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+		ArrayList<Libro> list = new ArrayList<Libro>();
+		ResponseEntity<ArrayList<Libro>> response = new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 
 		try {
 
-			list = (ArrayList<Alumno>) serviceAlumno.listar();
+			list = (ArrayList<Libro>) serviceLibro.listar();
 			response = new ResponseEntity<>(list, HttpStatus.OK);
 
 		} catch (Exception e) {
@@ -67,11 +67,11 @@ public class AlumnosController {
 
 		try {
 
-			Alumno alumno = serviceAlumno.obtener(id);
+			Libro libro = serviceLibro.obtener(id);
 
-			if (alumno != null && alumno.getId() > 0) {
+			if (libro != null && libro.getId() > 0) {
 
-				response = new ResponseEntity<>(alumno, HttpStatus.OK);
+				response = new ResponseEntity<>(libro, HttpStatus.OK);
 
 			} else {
 				rm.setMensaje("Usuario no encontrado");
@@ -89,21 +89,26 @@ public class AlumnosController {
 	public ResponseEntity<Object> eliminar(@PathVariable long id) {
 
 		ResponseEntity<Object> response = new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+		ResponseMensaje rm = new ResponseMensaje();
 
 		try {
-			ResponseMensaje rm = new ResponseMensaje();
+			
 
-			if (serviceAlumno.eliminar(String.valueOf(id))) {
+			if (serviceLibro.eliminar(String.valueOf(id))) {
 
 				response = new ResponseEntity<>(HttpStatus.OK);
 
 			} else {
 
-				rm.setMensaje("Usuario no encontrado en la base de datos");
+				rm.setMensaje("Libro no encontrado en la base de datos");
 
 				response = new ResponseEntity<>(rm, HttpStatus.NOT_FOUND);
 			}
 
+		}catch (SQLIntegrityConstraintViolationException e) {
+			e.printStackTrace();
+			rm.setMensaje("Intenta eliminar un libro con relacion a otros registros");
+			response = new ResponseEntity<>(rm, HttpStatus.CONFLICT);
 		} catch (Exception e) {
 
 			e.printStackTrace();
@@ -112,14 +117,14 @@ public class AlumnosController {
 	}
 
 	@RequestMapping(method = RequestMethod.POST, consumes = "application/json")
-	public ResponseEntity<Object> crear(@RequestBody Alumno alumno) {
+	public ResponseEntity<Object> crear(@RequestBody Libro libro) {
 
 		ResponseEntity<Object> response = new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 		ResponseMensaje rm = new ResponseMensaje();
 
 		try {
 
-			Set<ConstraintViolation<Alumno>> violations = validator.validate(alumno);
+			Set<ConstraintViolation<Libro>> violations = validator.validate(libro);
 			String[] errores = new String[violations.size()];
 
 			if (violations.size() > 0) {
@@ -127,7 +132,7 @@ public class AlumnosController {
 				int contador = 0;
 
 				// No tenemos ningun fallo, la Validacion es correcta
-				for (ConstraintViolation<Alumno> violation : violations) {
+				for (ConstraintViolation<Libro> violation : violations) {
 
 					System.out.println(violation.getMessage());
 					System.out.println(violation.getPropertyPath());
@@ -141,9 +146,9 @@ public class AlumnosController {
 
 			} else {
 
-				if (serviceAlumno.crear(alumno)) {
+				if (serviceLibro.crearVarios(libro,1)) {
 
-					response = new ResponseEntity<>(alumno, HttpStatus.CREATED);
+					response = new ResponseEntity<>(libro, HttpStatus.CREATED);
 
 				} else {
 					rm.setMensaje("Error");
@@ -151,55 +156,44 @@ public class AlumnosController {
 				}
 			}
 		} catch (SQLIntegrityConstraintViolationException e) {
-			
 			e.printStackTrace();
-			if(e.getMessage().contains("Duplicate entry")) {
-				rm.setMensaje("Error usuario ya existente");
-				response = new ResponseEntity<>(rm, HttpStatus.CONFLICT);
-			}
-			
-			
+			rm.setMensaje("Esta intentando crear un registro con datos no existentes");
+			response = new ResponseEntity<>(rm, HttpStatus.CONFLICT);
 		} catch (SQLException e) {
-			
 			e.printStackTrace();
 			if (e.getMessage().contains("nombre")) {
-				
-				rm.setMensaje("El <b>nombre</b> debe ser inferior a 50 caracteres");				
+				rm.setMensaje("El <b>nombre</b> debe ser inferior a 50 caracteres");
 				response = new ResponseEntity<>(rm, HttpStatus.CONFLICT);
-				
 			} else {
-				
 				rm.setMensaje("La <b>contraseña</b> debe ser inferior a 20 caracteres");
 				response = new ResponseEntity<>(rm, HttpStatus.CONFLICT);
-				
 			}
 		} catch (Exception e) {
 			
-			e.printStackTrace();
 			rm.setMensaje("Hemos tenido un problema");
 			response = new ResponseEntity<>(rm, HttpStatus.CONFLICT);
-			
+			e.printStackTrace();
 		}
 
 		return response;
 	}
 
 	@RequestMapping(value = "/{id}", method = RequestMethod.PUT)
-	public ResponseEntity<Object> modificar(@PathVariable long id, @RequestBody Alumno alumno) {
+	public ResponseEntity<Object> modificar(@PathVariable long id, @RequestBody Libro libro) {
 
 		ResponseEntity<Object> response = new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 		ResponseMensaje rm = new ResponseMensaje();
 
 		try {
 
-			Set<ConstraintViolation<Alumno>> violations = validator.validate(alumno);
+			Set<ConstraintViolation<Libro>> violations = validator.validate(libro);
 			String[] errores = new String[violations.size()];
 
 			if (violations.size() > 0) {
 
 				int contador = 0;
 				// No ha pasado la valiadacion, iterar sobre los mensajes de validacion
-				for (ConstraintViolation<Alumno> violation : violations) {
+				for (ConstraintViolation<Libro> violation : violations) {
 
 					errores[contador] = violation.getPropertyPath() + " :" + violation.getMessage();
 					contador++;
@@ -212,25 +206,52 @@ public class AlumnosController {
 
 			} else {
 
-				alumno.setId(id);
+				libro.setId(id);
 
-				if (serviceAlumno.modificar(alumno)) {
+				if (serviceLibro.modificar(libro)) {
 
-					response = new ResponseEntity<>(alumno, HttpStatus.OK);
+					response = new ResponseEntity<>(libro, HttpStatus.OK);
 
 				} else {
+					rm.setMensaje("Registro no encontrado");
 
-					response = new ResponseEntity<>(HttpStatus.CONFLICT);
+					response = new ResponseEntity<>(rm,HttpStatus.CONFLICT);
 				}
 			}
 
-		} catch (SQLIntegrityConstraintViolationException x) {
-			rm.setMensaje("Nombre Duplicado");
-			x.printStackTrace();
-
-		} catch (Exception e) {
-
+		} catch (SQLIntegrityConstraintViolationException e) {
 			e.printStackTrace();
+			if(e.getMessage().contains("Cannot add or update a child row")) {
+				String[] errores = new String[1];
+				rm.setMensaje("Error");
+				errores[0] = "No puede modificar un elemento no existente";
+				rm.setErrores(errores);
+			}
+			
+			
+			
+
+			response = new ResponseEntity<>(rm, HttpStatus.CONFLICT);
+		} catch (SQLException e) {
+			e.printStackTrace();
+			if (e.getMessage().contains("No output parameters returned by procedure")) {
+				//System.out.println(e.getCause().toString());
+				String[] errores = new String[1];
+				errores[0] = "No se han encontrado libros coincidentes";
+				rm.setMensaje("Error de integridad");
+				rm.setErrores(errores);
+				response = new ResponseEntity<>(rm, HttpStatus.CONFLICT);
+			} 
+		} catch (Exception e) {
+			if (e.getMessage().contains("null")) {
+				String[] errores = new String[1];
+				errores[0] = "No se han encontrado libros coincidentes";
+				rm.setMensaje("No se han encontrado libros coincidentes");
+				rm.setErrores(errores);
+				response = new ResponseEntity<>(rm, HttpStatus.CONFLICT);
+				e.printStackTrace();
+			}
+			
 		}
 
 		return response;

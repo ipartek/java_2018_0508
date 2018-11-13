@@ -125,6 +125,10 @@ public class ServicePrestamo implements IPrestamoService {
 		return prestamosDAO.getAllActivos();
 	}
 	
+	public List<Prestamo> todosPrestamos() throws Exception{
+		return prestamosDAO.getAll();
+	}
+	
 	public boolean modificarPrestamoActivo(long idAlumno, long idlibro, Date fechaInicio, long nuevoAlumno, long nuevoLibro, Date nuevaFecha, Date fechaFin) throws Exception {
 		boolean resul;
 		
