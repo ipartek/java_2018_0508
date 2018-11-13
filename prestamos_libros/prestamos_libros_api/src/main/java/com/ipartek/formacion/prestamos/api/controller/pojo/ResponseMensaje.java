@@ -8,12 +8,15 @@ public class ResponseMensaje {
 
 	public ResponseMensaje() {
 		super();
-		this.mensaje = "Soy una tetera";
+		this.mensaje = "";
 		this.errores = new ArrayList<String>();
 
 	}
 
-	
+	public ResponseMensaje(String mensaje) {		
+		this();
+		this.mensaje = mensaje;
+	}
 
 	public ArrayList<String> getErrores() {
 		return errores;
@@ -27,10 +30,7 @@ public class ResponseMensaje {
 
 
 
-	public ResponseMensaje(String mensaje) {		
-		this();
-		this.mensaje = mensaje;
-	}
+	
 
 	public String getMensaje() {
 		return mensaje;

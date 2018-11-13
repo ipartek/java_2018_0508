@@ -1,23 +1,34 @@
 package com.ipartek.formacion.prestamolibros.pojo;
 
+import javax.validation.constraints.Size;
+
+import org.hibernate.validator.constraints.NotBlank;
+
 public class Libro {
 
 	private long id;
+	
+	@NotBlank(message = "No puede estar vacio")
+	@Size(min = 2, max = 50, message = "El tamaño tiene que estar entre 2 y 50")
 	private String titulo;
+	
+	@NotBlank(message = "No puede estar vacio")
+	@Size(min = 2, max = 50, message = "El tamaño tiene que estar entre 2 y 50")
 	private String isbn;
+	
 	private Editorial editorial;
 	private boolean prestado;
-	
+
 	public Libro() {
 		super();
-		this.id=-1;
-		this.titulo="";
-		this.isbn="";
-		this.editorial= new Editorial();
-		this.prestado=false;
+		this.id = -1;
+		this.titulo = "";
+		this.isbn = "";
+		this.editorial = new Editorial();
+		this.prestado = false;
 	}
 
-	public Libro(long id, String titulo, String isbn, Editorial editorial,boolean prestrado) {
+	public Libro(long id, String titulo, String isbn, Editorial editorial, boolean prestrado) {
 		super();
 		this.id = id;
 		this.titulo = titulo;
@@ -57,7 +68,6 @@ public class Libro {
 	public void setEditorial(Editorial editorial) {
 		this.editorial = editorial;
 	}
-	
 
 	public boolean isPrestado() {
 		return prestado;
@@ -73,6 +83,4 @@ public class Libro {
 				+ prestado + "]";
 	}
 
-	
-	
 }

@@ -37,7 +37,8 @@ public class LibroDAO implements CrudAble<Libro> {
 			cs.setLong(3, pojo.getEditorial().getId());
 			cs.registerOutParameter("o_id", Types.INTEGER);
 
-			if (cs.execute()) {
+			if (1==cs.executeUpdate()) {
+				pojo.setId(cs.getInt(4));
 				resul = true;
 			}
 			

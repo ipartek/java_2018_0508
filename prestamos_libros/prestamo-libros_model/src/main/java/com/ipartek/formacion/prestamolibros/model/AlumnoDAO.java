@@ -35,7 +35,8 @@ public class AlumnoDAO implements CrudAble<Alumno>{
 			cs.setString(2, alumno.getApellidos());
 			cs.registerOutParameter("o_id", Types.INTEGER);
 
-			if (cs.execute()) {
+			if (1==cs.executeUpdate()) {
+				alumno.setId(cs.getInt(3));
 				resul = true;
 			}
 			
