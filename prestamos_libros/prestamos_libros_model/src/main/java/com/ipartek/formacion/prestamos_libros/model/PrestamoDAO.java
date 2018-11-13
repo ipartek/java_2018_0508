@@ -5,10 +5,12 @@ import java.sql.Connection;
 import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Types;
 import java.util.ArrayList;
 import java.util.List;
 
 import com.ipartek.formacion.prestamos_libros.pojo.Alumno;
+import com.ipartek.formacion.prestamos_libros.pojo.Editorial;
 import com.ipartek.formacion.prestamos_libros.pojo.Libro;
 import com.ipartek.formacion.prestamos_libros.pojo.Prestamo;
 
@@ -32,20 +34,21 @@ public class PrestamoDAO implements Crudable<Prestamo> {
 
 		boolean resul = false;
 
-		String sql = "{call `prestamoInsert`(?,?,?)}";
+		String sql = "{call `prestamoInsert`(?,?,?,?)}";
 
 		try (Connection con = ConnectionManager.getConnection(); CallableStatement cs = con.prepareCall(sql);) {
 
 			cs.setLong(1, pojo.getAlumno().getId());
 			cs.setLong(2, pojo.getLibro().getId());
 			cs.setDate(3, (Date) pojo.getFecha_prestado());
+			cs.registerOutParameter(4, Types.DATE);
 
 			int affectedRows = cs.executeUpdate();
 
 			if (affectedRows == 1) {
-
+				Date date = cs.getDate(4);
+				pojo.setFecha_fin(date);
 				resul = true;
-
 			}
 		}
 		return resul;
@@ -100,9 +103,16 @@ public class PrestamoDAO implements Crudable<Prestamo> {
 
 				Libro l = new Libro();
 				l.setId(rs.getLong("id_libro"));
+				l.setIsbn(rs.getString("isbn"));
 				l.setTitulo(rs.getString("titulo"));
+				
+				Editorial e = new Editorial();
+				e.setId(rs.getLong("id_editorial"));
+				e.setNombre(rs.getString("nombre_editorial"));
+				l.setEditorial(e);
+				
 				p.setLibro(l);
-
+				
 				prestamos.add(p);
 			}
 		}
@@ -128,7 +138,14 @@ public class PrestamoDAO implements Crudable<Prestamo> {
 
 				Libro l = new Libro();
 				l.setId(rs.getLong("id_libro"));
+				l.setIsbn(rs.getString("isbn"));
 				l.setTitulo(rs.getString("titulo"));
+				
+				Editorial e = new Editorial();
+				e.setId(rs.getLong("id_editorial"));
+				e.setNombre(rs.getString("nombre_editorial"));
+				l.setEditorial(e);
+				
 				p.setLibro(l);
 
 				prestamos.add(p);

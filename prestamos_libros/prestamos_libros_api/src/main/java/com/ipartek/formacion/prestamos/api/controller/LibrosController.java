@@ -30,12 +30,14 @@ import org.springframework.web.bind.annotation.RequestMethod;
 public class LibrosController {
 	
 	ServiceLibro serviceLibro = null;
+	ServiceEditorial serviceEditorial = null;
 	ValidatorFactory factory = null;
 	Validator validator = null;
 	
 	public LibrosController() {
 		super();
 		serviceLibro = ServiceLibro.getInstance();
+		serviceEditorial = ServiceEditorial.getInstance();
 		//Crear Factoria y Validador
 		factory = Validation.buildDefaultValidatorFactory();
 		validator = factory.getValidator();
@@ -86,7 +88,6 @@ public class LibrosController {
 			if (violations.isEmpty()) {
 			    /* Ha pasado la validacion*/
 				if(serviceLibro.crear(libro)) {
-					ServiceEditorial serviceEditorial = ServiceEditorial.getInstance();
 					Editorial editorial = serviceEditorial.buscarPorId(libro.getEditorial().getId());
 					libro.getEditorial().setNombre(editorial.getNombre());
 					response = new ResponseEntity<>(libro, HttpStatus.CREATED);
@@ -129,7 +130,6 @@ public class LibrosController {
 			if (violations.isEmpty()) {
 			    /* Ha pasado la validacion*/
 				if(serviceLibro.modificar(libro)) {
-					ServiceEditorial serviceEditorial = ServiceEditorial.getInstance();
 					Editorial editorial = serviceEditorial.buscarPorId(libro.getEditorial().getId());
 					libro.getEditorial().setNombre(editorial.getNombre());
 					response = new ResponseEntity<>(libro, HttpStatus.OK);

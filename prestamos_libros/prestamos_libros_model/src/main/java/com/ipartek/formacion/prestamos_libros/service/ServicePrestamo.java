@@ -41,24 +41,46 @@ public class ServicePrestamo implements IServicePrestamo {
 	}
 
 	@Override
-	public boolean prestar(long idLibro, long idAlumno, Date fechaInicio) throws Exception {
+	public boolean prestar(/*long idLibro, long idAlumno, Date fechaInicio*/Prestamo prestamo) throws Exception {
 		boolean resul = false;
-
-		Prestamo p = new Prestamo();
-		p.setFecha_prestado(fechaInicio);
-
-		Alumno a = new Alumno();
-		a.setId(idAlumno);
-		p.setAlumno(a);
-
-		Libro l = new Libro();
-		l.setId(idLibro);
-		p.setLibro(l);
-
-		if (daoPrestamo.insert(p)) {
-			resul = true;
+		boolean alumnoEncontrado = false;
+		boolean libroEncontrado = false;
+		
+		ArrayList<Alumno> alumnosDisponibles = (ArrayList<Alumno>) this.alumnosDisponibles();
+		
+		for(int i=0; i<alumnosDisponibles.size();i++) {
+			if(alumnosDisponibles.get(i).getId() == prestamo.getAlumno().getId()) {
+				alumnoEncontrado = true;
+				break;
+			}
 		}
+		
+		ArrayList<Libro> librosDisponibles = (ArrayList<Libro>) this.librosDisponibles();
+		
+		for(int i=0; i<librosDisponibles.size();i++) {
+			if(librosDisponibles.get(i).getId() == prestamo.getLibro().getId()) {
+				libroEncontrado = true;
+				break;
+			}
+		}
+		
+		if(alumnoEncontrado && libroEncontrado) {
+//			Prestamo p = new Prestamo();
+//			p.setFecha_prestado(prestamo.getFecha_prestado());
+//
+//			Alumno a = new Alumno();
+//			a.setId(prestamo.getAlumno().getId());
+//			p.setAlumno(a);
+//
+//			Libro l = new Libro();
+//			l.setId(prestamo.getLibro().getId());
+//			p.setLibro(l);
 
+			if (daoPrestamo.insert(prestamo)) {
+				resul = true;
+			}
+		}
+		
 		return resul;
 	}
 
