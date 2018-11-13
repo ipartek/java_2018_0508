@@ -2,8 +2,10 @@ package com.ipartek.formacion.prestamos.api.controller;
 
 import org.springframework.web.bind.annotation.RestController;
 
-import com.ipartek.formacion.prestamos_libros.pojo.Alumno;
-import com.ipartek.formacion.prestamos_libros.service.ServiceAlumno;
+import com.ipartek.formacion.prestamos_libros.pojo.Editorial;
+import com.ipartek.formacion.prestamos_libros.pojo.Libro;
+import com.ipartek.formacion.prestamos_libros.service.ServiceEditorial;
+import com.ipartek.formacion.prestamos_libros.service.ServiceLibro;
 import com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationException;
 
 import java.util.ArrayList;
@@ -24,29 +26,29 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 @CrossOrigin(origins = "*")
 @RestController
-@RequestMapping("/alumnos")
-public class AlumnosController {
+@RequestMapping("/libros")
+public class LibrosController {
 	
-	ServiceAlumno serviceAlumno = null;
+	ServiceLibro serviceLibro = null;
 	ValidatorFactory factory = null;
 	Validator validator = null;
 	
-	public AlumnosController() {
+	public LibrosController() {
 		super();
-		serviceAlumno = ServiceAlumno.getInstance();
+		serviceLibro = ServiceLibro.getInstance();
 		//Crear Factoria y Validador
 		factory = Validation.buildDefaultValidatorFactory();
 		validator = factory.getValidator();
 	}
 
 	@RequestMapping( method = RequestMethod.GET)
-	public ResponseEntity<ArrayList<Alumno>> listado() {
-		ResponseEntity<ArrayList<Alumno>> response = new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-		ArrayList<Alumno> alumnos = new ArrayList<Alumno>();
+	public ResponseEntity<ArrayList<Libro>> listado() {
+		ResponseEntity<ArrayList<Libro>> response = new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+		ArrayList<Libro> libros = new ArrayList<Libro>();
 		
 		try {
-			alumnos = (ArrayList<Alumno>) serviceAlumno.listar();
-			response = new ResponseEntity<>(alumnos, HttpStatus.OK);
+			libros = (ArrayList<Libro>) serviceLibro.listar();
+			response = new ResponseEntity<>(libros, HttpStatus.OK);
 		}catch(Exception e) {
 			e.printStackTrace();
 		}
@@ -55,14 +57,14 @@ public class AlumnosController {
 	}
 
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
-	public ResponseEntity<Alumno> detalle(@PathVariable long id) {
+	public ResponseEntity<Libro> detalle(@PathVariable long id) {
 		
-		ResponseEntity<Alumno> response = new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+		ResponseEntity<Libro> response = new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 		
 		try {
-			Alumno alumno = serviceAlumno.buscarPorId(id);
-			if(alumno != null && alumno.getId() > 0) {
-				response = new ResponseEntity<>(alumno, HttpStatus.OK);
+			Libro libro = serviceLibro.buscarPorId(id);
+			if(libro != null && libro.getId() > 0) {
+				response = new ResponseEntity<>(libro, HttpStatus.OK);
 			}else {
 				response = new ResponseEntity<>(HttpStatus.NOT_FOUND);
 			}
@@ -74,17 +76,20 @@ public class AlumnosController {
 	}
 	
 	@RequestMapping(method = RequestMethod.POST)
-	public ResponseEntity<Object> crear(@RequestBody Alumno alumno) {
+	public ResponseEntity<Object> crear(@RequestBody Libro libro) {
 		
 		ResponseEntity<Object> response = new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 		
 		try {
 			
-			Set<ConstraintViolation<Alumno>> violations = validator.validate(alumno);
+			Set<ConstraintViolation<Libro>> violations = validator.validate(libro);
 			if (violations.isEmpty()) {
 			    /* Ha pasado la validacion*/
-				if(serviceAlumno.crear(alumno)) {
-					response = new ResponseEntity<>(alumno, HttpStatus.CREATED);
+				if(serviceLibro.crear(libro)) {
+					ServiceEditorial serviceEditorial = ServiceEditorial.getInstance();
+					Editorial editorial = serviceEditorial.buscarPorId(libro.getEditorial().getId());
+					libro.getEditorial().setNombre(editorial.getNombre());
+					response = new ResponseEntity<>(libro, HttpStatus.CREATED);
 				}else {
 					response = new ResponseEntity<>(HttpStatus.CONFLICT);
 				}
@@ -92,7 +97,7 @@ public class AlumnosController {
 			    /* Hay fallos, la Validacion no es correcta */
 				ResponseMensaje msj = new ResponseMensaje();
 				msj.setMensaje("Los datos no son válidos.");
-				 for (ConstraintViolation<Alumno> violation : violations) {
+				 for (ConstraintViolation<Libro> violation : violations) {
 					 msj.addError(violation.getPropertyPath()+": "+violation.getMessage());
 				 }
 				response = new ResponseEntity<>(msj, HttpStatus.CONFLICT);
@@ -101,32 +106,33 @@ public class AlumnosController {
 			
 		}catch(MySQLIntegrityConstraintViolationException e) {
 			e.printStackTrace();
-			ResponseMensaje msj = new ResponseMensaje("Ya existe el alumno, por favor prueba con otro nombre.");
+			ResponseMensaje msj = new ResponseMensaje("Debe seleccionar una editorial para el libro.");
 			response = new ResponseEntity<>(msj, HttpStatus.CONFLICT);
 		}
 		catch(Exception e) {
 			e.printStackTrace();
-			ResponseMensaje msj = new ResponseMensaje("No existe el alumno.");
-			response = new ResponseEntity<>(msj, HttpStatus.NOT_FOUND);
 		}
 		 
 		return response;
 	}
 	
 	@RequestMapping(value = "/{id}", method = RequestMethod.PUT)
-	public ResponseEntity<Object> modificar(@PathVariable long id, @RequestBody Alumno alumno) {
+	public ResponseEntity<Object> modificar(@PathVariable long id, @RequestBody Libro libro) {
 		
 		ResponseEntity<Object> response = new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 		
 		try {
-			Set<ConstraintViolation<Alumno>> violations = validator.validate(alumno);
+			Set<ConstraintViolation<Libro>> violations = validator.validate(libro);
 			
-			alumno.setId(id);
+			libro.setId(id);
 			
 			if (violations.isEmpty()) {
 			    /* Ha pasado la validacion*/
-				if(serviceAlumno.modificar(alumno)) {
-					response = new ResponseEntity<>(alumno, HttpStatus.OK);
+				if(serviceLibro.modificar(libro)) {
+					ServiceEditorial serviceEditorial = ServiceEditorial.getInstance();
+					Editorial editorial = serviceEditorial.buscarPorId(libro.getEditorial().getId());
+					libro.getEditorial().setNombre(editorial.getNombre());
+					response = new ResponseEntity<>(libro, HttpStatus.OK);
 				}else {
 					response = new ResponseEntity<>(HttpStatus.NOT_FOUND);
 				}
@@ -134,18 +140,18 @@ public class AlumnosController {
 			    /* Hay fallos, la Validacion no es correcta */
 				ResponseMensaje msj = new ResponseMensaje();
 				msj.setMensaje("Los datos no son válidos.");
-				 for (ConstraintViolation<Alumno> violation : violations) {
+				 for (ConstraintViolation<Libro> violation : violations) {
 					 msj.getErrores().add(violation.getPropertyPath()+": "+violation.getMessage());
 				 }
 				response = new ResponseEntity<>(msj, HttpStatus.CONFLICT);
 			}
 		}catch(MySQLIntegrityConstraintViolationException e) {
 			e.printStackTrace();
-			ResponseMensaje msj = new ResponseMensaje("Ya existe el alumno, por favor prueba con otro nombre.");
+			ResponseMensaje msj = new ResponseMensaje("Debes seleccionar una editorial para el libro.");
 			response = new ResponseEntity<>(msj, HttpStatus.CONFLICT);
 		}catch(Exception e) {
 			e.printStackTrace();
-			ResponseMensaje msj = new ResponseMensaje("No existe el alumno.");
+			ResponseMensaje msj = new ResponseMensaje("No existe el libro.");
 			response = new ResponseEntity<>(msj, HttpStatus.NOT_FOUND);
 		}
 		 
@@ -158,15 +164,14 @@ public class AlumnosController {
 		ResponseEntity<Object> response = new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 		
 		try {
-			if(serviceAlumno.eliminar(id)) {
+			if(serviceLibro.eliminar(id)) {
 				response = new ResponseEntity<>(HttpStatus.OK);
 			}else {
-//				response = new ResponseEntity<>(HttpStatus.NOT_FOUND);
 				ResponseMensaje msj = new ResponseMensaje("No se puede borrar un registro que no existe");
 				response = new ResponseEntity<>(msj, HttpStatus.NOT_FOUND);
 			}
 		}catch(MySQLIntegrityConstraintViolationException e) {
-			ResponseMensaje msj = new ResponseMensaje("No se puede borrar el alumno porque tiene libros asociados.");
+			ResponseMensaje msj = new ResponseMensaje("No se puede borrar el libro porque tiene préstamos asociados.");
 			response = new ResponseEntity<>(msj, HttpStatus.CONFLICT);
 		}catch(Exception e) {
 			e.printStackTrace();
