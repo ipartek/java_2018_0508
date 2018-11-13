@@ -4,6 +4,7 @@ import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.ResultSet;
+import java.sql.Types;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -39,11 +40,18 @@ public class PrestamoDAO {
 					Libro libro = new Libro();
 					libro.setId(rs.getLong("id_libro"));
 					libro.setTitulo(rs.getString("titulo"));
+					libro.setIsbn(rs.getString("isbn"));
 
 					Alumno alumno = new Alumno();
 					alumno.setId(rs.getLong("id_alumno"));
 					alumno.setNombre(rs.getString("nombre"));
 					alumno.setApellidos(rs.getString("apellidos"));
+
+					Editorial editorial = new Editorial();
+					editorial.setEditorial(rs.getString("editorial"));
+					editorial.setId(rs.getLong("id_editorial"));
+
+					libro.setEditorial(editorial);
 
 					prestamo.setAlumno(alumno);
 					prestamo.setLibro(libro);
@@ -82,6 +90,12 @@ public class PrestamoDAO {
 					alumno.setId(rs.getLong("id_alumno"));
 					alumno.setNombre(rs.getString("nombre"));
 					alumno.setApellidos(rs.getString("apellidos"));
+
+					Editorial editorial = new Editorial();
+					editorial.setEditorial(rs.getString("editorial"));
+					editorial.setId(rs.getLong("id_editorial"));
+
+					libro.setEditorial(editorial);
 
 					prestamo.setAlumno(alumno);
 					prestamo.setLibro(libro);
@@ -163,20 +177,19 @@ public class PrestamoDAO {
 	public boolean prestar(long idLibro, long idAlumno, Date fechaInicio) throws Exception {
 		boolean resul = false;
 
-		String sql = "{CALL `prestamoPrestar`(?,?,?)}";
+		String sql = "{CALL `prestamoPrestar`(?,?,?,?)}";
 
 		try (Connection con = ConnectionManager.getConnection(); CallableStatement cs = con.prepareCall(sql);) {
 			cs.setLong(1, idLibro);
 			cs.setLong(2, idAlumno);
 			cs.setDate(3, fechaInicio);
+			cs.registerOutParameter(4, Types.DATE);
 
-			cs.execute();
-			resul = true;
+			if (1 == cs.executeUpdate()) {
+				resul = true;
+			}
 
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-
+		} 
 		return resul;
 	}
 
@@ -201,8 +214,8 @@ public class PrestamoDAO {
 		return resul;
 	}
 
-	public boolean modificarPrestamo(long idLibro, long idAlumno, Date fechaInicio, Date fechaFin, long oldIdLibro, long oldIdAlumno,
-			Date oldFechaInicio) throws Exception {
+	public boolean modificarPrestamo(long idLibro, long idAlumno, Date fechaInicio, Date fechaFin, long oldIdLibro,
+			long oldIdAlumno, Date oldFechaInicio) throws Exception {
 
 		boolean resul = false;
 		String sql = "{CALL `prestamoUpdate` (?, ?, ?, ?, ?, ?, ?)}";
@@ -226,8 +239,8 @@ public class PrestamoDAO {
 
 	}
 
-	public boolean modificarHistorico(long idLibro, long idAlumno, Date fechaInicio, Date fechaFin, Date fechaDevolucion, long oldIdLibro, long oldIdAlumno,
-			Date oldFechaInicio) throws Exception {
+	public boolean modificarHistorico(long idLibro, long idAlumno, Date fechaInicio, Date fechaFin,
+			Date fechaDevolucion, long oldIdLibro, long oldIdAlumno, Date oldFechaInicio) throws Exception {
 
 		boolean resul = false;
 		String sql = "{CALL `prestamoModificarHistorico` (?, ?, ?, ?, ?, ?, ?, ?)}";
@@ -251,7 +264,5 @@ public class PrestamoDAO {
 		return resul;
 
 	}
-	
-	
 
 }

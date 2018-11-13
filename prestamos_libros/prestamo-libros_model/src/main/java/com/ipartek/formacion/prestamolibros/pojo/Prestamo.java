@@ -3,10 +3,22 @@ package com.ipartek.formacion.prestamolibros.pojo;
 import java.sql.Date;
 import java.util.Calendar;
 
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
+
+
+
 public class Prestamo {
+	
+	@Valid
 	private Alumno alumno;
+	
+	@Valid
 	private Libro libro;
+	
+	@NotNull
 	private Date fechaInicio;
+	
 	private Date fechaFin;
 	private Date devuelto;
 	private int diasRestantes;
@@ -34,12 +46,12 @@ public class Prestamo {
 		
 	}
 
-
+	
 	public Alumno getAlumno() {
 		return alumno;
 	}
 
-
+	
 	public void setAlumno(Alumno alumno) {
 		this.alumno = alumno;
 	}
