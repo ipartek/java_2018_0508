@@ -75,7 +75,7 @@ public class AlumnoDAO implements CrudAble<Alumno>{
 
 	@Override
 	public Alumno getById(long id) throws Exception {
-		Alumno alumno = null;
+		Alumno alumno = new Alumno();
 		String sql = "{CALL `alumnoGetById`(?)}";
 		try (Connection con = ConnectionManager.getConnection(); CallableStatement cs = con.prepareCall(sql);) {
 			cs.setLong(1, id);

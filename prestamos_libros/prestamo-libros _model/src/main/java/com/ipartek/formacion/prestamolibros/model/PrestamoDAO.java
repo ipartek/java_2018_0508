@@ -4,6 +4,7 @@ import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.ResultSet;
+import java.sql.Types;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -39,7 +40,13 @@ public class PrestamoDAO {
 					Libro libro = new Libro();
 					libro.setId(rs.getLong("id_libro"));
 					libro.setTitulo(rs.getString("titulo"));
-
+					libro.setIsbn(rs.getString("isbn"));
+					
+					Editorial editorial = new Editorial();
+					editorial.setId(rs.getLong("id"));
+					editorial.setEditorial(rs.getString("editorial"));
+					libro.setEditorial(editorial);
+					
 					Alumno alumno = new Alumno();
 					alumno.setId(rs.getLong("id_alumno"));
 					alumno.setNombre(rs.getString("nombre"));
@@ -77,6 +84,12 @@ public class PrestamoDAO {
 					Libro libro = new Libro();
 					libro.setId(rs.getLong("id_libro"));
 					libro.setTitulo(rs.getString("titulo"));
+					libro.setIsbn(rs.getString("isbn"));
+					
+					Editorial editorial = new Editorial();
+					editorial.setId(rs.getLong("id"));
+					editorial.setEditorial(rs.getString("editorial"));
+					libro.setEditorial(editorial);
 
 					Alumno alumno = new Alumno();
 					alumno.setId(rs.getLong("id_alumno"));
@@ -163,18 +176,21 @@ public class PrestamoDAO {
 	public boolean prestar(long idLibro, long idAlumno, Date fechaInicio) throws Exception {
 		boolean resul = false;
 
-		String sql = "{CALL `prestamoPrestar`(?,?,?)}";
+		String sql = "{CALL `prestamoPrestar`(?,?,?,?)}";
 
 		try (Connection con = ConnectionManager.getConnection(); CallableStatement cs = con.prepareCall(sql);) {
 			cs.setLong(1, idLibro);
 			cs.setLong(2, idAlumno);
 			cs.setDate(3, fechaInicio);
+			cs.registerOutParameter("o_fecha_final", Types.DATE);
 
-			cs.execute();
-			resul = true;
+			int affectedRows = cs.executeUpdate();
+			
+			if(affectedRows == 1) {
+				
+				resul = true;
+			}
 
-		} catch (Exception e) {
-			e.printStackTrace();
 		}
 
 		return resul;

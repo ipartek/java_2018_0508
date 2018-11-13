@@ -3,9 +3,16 @@ package com.ipartek.formacion.prestamolibros.pojo;
 import java.sql.Date;
 import java.util.Calendar;
 
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
+
 public class Prestamo {
+	
+	@Valid
 	private Alumno alumno;
+	@Valid
 	private Libro libro;
+	@NotNull
 	private Date fechaInicio;
 	private Date fechaFin;
 	private Date devuelto;
@@ -24,7 +31,7 @@ public class Prestamo {
 	}
 
 
-	public Prestamo(Alumno alumno, Libro libro, Date fechaInicio, Date fechaFin,Date fechaDevuelto) {
+	public Prestamo(Alumno alumno, Libro libro, Date fechaInicio, Date fechaFin) {
 		super();
 		this.alumno = alumno;
 		this.libro = libro;
