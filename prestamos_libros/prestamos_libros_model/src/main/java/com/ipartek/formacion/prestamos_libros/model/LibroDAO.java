@@ -40,7 +40,7 @@ public class LibroDAO implements Crudable<Libro>{
 					cs.setString(1, pojo.getTitulo().trim());
 					cs.setString(2, pojo.getIsbn().trim());
 					cs.setLong(3, pojo.getEditorial().getId());
-					cs.registerOutParameter("pid", Types.INTEGER);
+					cs.registerOutParameter(4, Types.INTEGER);
 
 					int affectedRows = cs.executeUpdate();
 					if (affectedRows == 1) {
@@ -48,6 +48,8 @@ public class LibroDAO implements Crudable<Libro>{
 						aux += 1;
 
 						if (aux == pojo.getCant()) {
+							int id = cs.getInt(4);
+							pojo.setId(id);
 							resul = true;
 						}
 					}
@@ -56,10 +58,12 @@ public class LibroDAO implements Crudable<Libro>{
 				cs.setString(1, pojo.getTitulo().trim());
 				cs.setString(2, pojo.getIsbn().trim());
 				cs.setLong(3, pojo.getEditorial().getId());
-				cs.registerOutParameter("pid", Types.INTEGER);
+				cs.registerOutParameter(4, Types.INTEGER);
 
 				int affectedRows = cs.executeUpdate();
 				if (affectedRows == 1) {
+					int id = cs.getInt(4);
+					pojo.setId(id);
 					resul = true;
 				}
 			}

@@ -32,11 +32,13 @@ public class AlumnoDAO implements Crudable<Alumno> {
 		try (Connection con = ConnectionManager.getConnection(); CallableStatement cs = con.prepareCall(sql);) {
 
 			cs.setString(1, pojo.getNombre().trim());
-			cs.registerOutParameter("pid", Types.INTEGER);
+			cs.registerOutParameter(2, Types.INTEGER);
 
 			int affectedRows = cs.executeUpdate();
 
 			if (affectedRows == 1) {
+				int id = cs.getInt(2);
+				pojo.setId(id);
 				resul = true;
 			}
 
