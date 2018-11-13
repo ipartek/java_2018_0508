@@ -57,6 +57,7 @@ public class LibroDAO implements CrudAble<Libro>{
 					l.setTitulo(rs.getString("titulo"));
 					l.setIsbn(rs.getString("isbn"));
 					Editorial e = new Editorial();
+					e.setId(rs.getLong("id_editorial"));
 					e.setNombre(rs.getString("nombre"));
 					l.setEditorial(e);
 					
@@ -113,7 +114,11 @@ public class LibroDAO implements CrudAble<Libro>{
 			cs.setString(2, pojo.getTitulo());
 			cs.setString(3, pojo.getIsbn());
 			cs.setLong(4, pojo.getEditorial().getId());
-			result = cs.execute();
+			
+			int affectedRows = cs.executeUpdate();
+			if ( affectedRows == 1 ) {
+				result = true;
+			}
 		}
 		return result;
 	}

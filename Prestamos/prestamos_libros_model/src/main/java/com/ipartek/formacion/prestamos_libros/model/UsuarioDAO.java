@@ -38,7 +38,7 @@ public class UsuarioDAO implements CrudAble<Usuario>{
 			int affectedRows = cs.executeUpdate(); 
 			if( affectedRows ==  1 ) {
 				
-				pojo.setId(cs.getLong(2));
+				pojo.setId(cs.getInt(2));
 				return true;
 			}
 			

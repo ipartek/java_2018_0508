@@ -1,7 +1,13 @@
 package com.ipartek.formacion.prestamos_libros.pojo;
 
+import javax.validation.constraints.Size;
+
+import org.hibernate.validator.constraints.NotBlank;
+
 public class Libro {
-	private Long id;
+	private long id;
+	@NotBlank
+	@Size(min=2, max=100)
 	private String titulo;
 	private String isbn;
 	private Editorial editorial;
@@ -10,7 +16,7 @@ public class Libro {
 		
 	}
 
-	public Libro(Long id, String titulo, String isbn, Editorial editorial) {
+	public Libro(long id, String titulo, String isbn, Editorial editorial) {
 		super();
 		this.id = id;
 		this.titulo = titulo;
@@ -22,7 +28,7 @@ public class Libro {
 		return id;
 	}
 
-	public void setId(Long id) {
+	public void setId(long id) {
 		this.id = id;
 	}
 
