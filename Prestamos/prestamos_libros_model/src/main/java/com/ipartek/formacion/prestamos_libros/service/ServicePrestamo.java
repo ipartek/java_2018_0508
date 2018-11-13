@@ -28,7 +28,8 @@ public class ServicePrestamo implements IServicePrestamo {
 	public boolean crear(Prestamo p) throws Exception {
 		boolean resul = false;
 
-		if (daoPrestamo.insert(p)) {
+		if(!daoPrestamo.tienePrestados(p.getUsuario().getId()) && !daoPrestamo.esLibroPrestado(p.getLibro().getId())){
+			daoPrestamo.insert(p);
 			resul = true;
 		}
 

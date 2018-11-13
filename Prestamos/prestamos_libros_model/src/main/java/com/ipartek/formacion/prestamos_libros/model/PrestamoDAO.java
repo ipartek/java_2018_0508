@@ -292,4 +292,40 @@ public class PrestamoDAO implements CrudAble<Prestamo> {
 
 		return librosDisponibles;
 	}
+	
+	public boolean tienePrestados(Long idUsuario) {
+		String sql = "{ CALL `prestamosTienePrestados` (?) }";
+		boolean result = false;
+		try (Connection con = ConnectionManager.getConnection(); CallableStatement cs = con.prepareCall(sql);) {
+			cs.setLong(1, idUsuario);
+			try (ResultSet rs = cs.executeQuery()) {
+				if(rs.next()) {
+					result = true;
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+
+		}
+		
+		return result;
+	}
+	
+	public boolean esLibroPrestado(Long idLibro) {
+		String sql = "{ CALL `prestamosEsLibroPrestado` (?) }";
+		boolean result = false;
+		try (Connection con = ConnectionManager.getConnection(); CallableStatement cs = con.prepareCall(sql);) {
+			cs.setLong(1, idLibro);
+			try (ResultSet rs = cs.executeQuery()) {
+				if(rs.next()) {
+					result = true;
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+
+		}
+		
+		return result;
+	}
 }
