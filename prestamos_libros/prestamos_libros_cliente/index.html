@@ -21,10 +21,6 @@
                     <li class="nav-item active">
                       <a class="nav-link" href="#">Inicio <span class="sr-only">(current)</span></a>
                     </li>
-                    <li class="nav-item">
-                      <a class="nav-link" href="#">Editoriales</a>
-                    </li>
-                    
                   </ul>
                   <form class="form-inline my-2 my-lg-0">
                     <input class="form-control mr-sm-2" type="search" placeholder="Busqueda" aria-label="Search">
@@ -32,47 +28,124 @@
                   </form>
                 </div>
               </nav>
-    <main class="container" >
-   
-    <div>
-            <button type="button" onclick="listar()" class="btn btn-info">listar</button>
-            <button type="button" onclick="crearEditorial()" class="btn btn-info">Crear Editorial</button>
+    <div class="row">
+        <div class="col-xl-2 col-lg-2 col-md-2  col-sm-2 col-2 bg-primary sidebar">
+            <div class="sidebar">
+                <div class="ml-2">
+                    <div class="card bg-info" style="width: 12rem; text-align: center; margin-top: 10px;">
+                        <i class="fas fa-user fa-6x"></i>
+                        <ul class="list-group list-group-flush">
+                            <!-- <li class="list-group-item"><ul id="ulErrores" class="text-danger"></ul></li> -->
+                        </ul>
+
+                    </div>
+                </div>
+                <div class="ml-4">
+                    
+                    <button type="button" onclick="prestamoGrupo()" class="btn btn-info">Prestamos</button>
+                    <div id="prestamoGrupo" class="editorialGrupo ml-4">
+                        <li>
+                            <button type="button" onclick="listar()" class="badge badge-pill badge-info">listar prestamos</button>
+                        </li>
+                        <li>
+                            <button type="button" onclick="CrearEditarEditorial('-1','')" class="badge badge-pill badge-info">Crear prestamos</button>
+                        </li>
+                    </div>
+                    
+                    <button type="button" onclick="editorialGrupo()" class="btn btn-info">Editoriales</button>
+                    <div id="editorialGrupo" class="editorialGrupo ml-4">
+                        <li>
+                            <button type="button" onclick="listarEditoriales()" class="badge badge-pill badge-info">listar editoriales</button>
+                        </li>
+                        <li>
+                            <button type="button" onclick="CrearEditarEditorial('-1','')" class="badge badge-pill badge-info">Crear Editorial</button>
+                        </li>
+                    </div>
+                    
+                    <button type="button" onclick="alumnoGrupo()" class="btn btn-info">Alumnoss</button>
+                    <div id="alumnoGrupo" class="editorialGrupo ml-4">
+                        <li>
+                            <button type="button" onclick="listarAlumnos()" class="badge badge-pill badge-info">listar Alumnos</button>
+                        </li>
+                        <li>
+                            <button type="button" onclick="CrearEditarAlumno('-1','')" class="badge badge-pill badge-info">Crear alumno</button>
+                        </li>
+                    </div>
+                    <button type="button" onclick="libroGrupo()" class="btn btn-info">Libros</button>
+                    <div id="libroGrupo" class="editorialGrupo ml-4">
+                        <li>
+                            <button type="button" onclick="listar()" class="badge badge-pill badge-info">listar libros</button>
+                        </li>
+                        <li>
+                            <button type="button" onclick="CrearEditarEditorial('-1','')" class="badge badge-pill badge-info">Crear libro</button>
+                        </li>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-10 col-lg-10 col-md-10 col-sm-10 col-10">
+                
+                <main class="container" >
+                        
+                        <ul id="ulErrores" class="text-danger"></ul>
+                        
+                    
+                        <table id="tableEditoriales" class="table">
+                                
+                            <thead class="thead-dark">
+                                <tr>
+                                <th scope="col">Id</th>
+                                <th scope="col">Nombre</th>                         
+                                </tr>
+                            </thead>
+                            <tbody id="tbodyEditoriales">
+                                <tr>
+                                <td>1</td>
+                                <td>@mdo</td>
+                                </tr>           
+                            </tbody>
+                        </table>
+
+                        <table id="tableAlumnos" class="table">
+                                
+                                <thead class="thead-dark">
+                                    <tr>
+                                    <th scope="col">Id</th>
+                                    <th scope="col">Nombre</th>                         
+                                    </tr>
+                                </thead>
+                                <tbody id="tbodyAlumnos">
+                                    <tr>
+                                    <td>1</td>
+                                    <td>@mdo</td>
+                                    </tr>           
+                                </tbody>
+                            </table>
+                    
+                    
+                        <div  class="form" id="formularioEditorial" style="border:1px solid black">
+                            <h5>Crear Editorial</h5>
+                            <ul id="ulErrores" class="text-danger"></ul>
+                            <form method="post">
+                                <label for="nombreEditorial">Nombre editorial</label>
+                                <div class="form-group">    
+                                    <input type="text" placeholder="minimo 2 caracteres maximo 50 caracteres" name="nombreEditorial" id="nombreEditorial" >
+                                </div>
+                                <div class="form-group"></div>
+                                    <input type="hidden" id="idEditorial" value="idEditorial">
+                                    <a onclick="GuardarEditorial();"  class="btn btn-success" >Guardar Editorial</a>
+                                </div>
+                            </form>
+                        </div>
+                        
+                       <ul id="ulEditoriales" class="list-group table">
+                           <li>Uno</li>
+                           <li>Uno</li>
+                       </ul>
+                    </main>
+        </div>
     </div>
-
-    <table id="tableEditoriales" class="table">
-        <thead class="thead-dark">
-            <tr>
-            <th scope="col">Id</th>
-            <th scope="col">Nombre</th>                         
-            </tr>
-        </thead>
-        <tbody id="tbodyEditoriales">
-            <tr>
-            <td>1</td>
-            <td>@mdo</td>
-            </tr>           
-        </tbody>
-    </table>
-
-    <div  class="form" id="formularioEditorial" >
-        <h5>Crear Editorial</h5>
-        <ul id=""></ul>
-        <form method="post">
-            <label>Nombre editorial</label>
-            <input type="text" placeholder="minimo 2 caracteres maximo 50 caracteres" id="nombreEditorial" >
-            <input type="hidden" id="idEditorial" value="idEditorial">
-            <a onclick="GuardarEditorial();"  class="btn btn-success" >Guardar Editorial</a>
-        </form>
-        
-       
-
-    </div>
-    
-   <ul id="ulEditoriales" class="list-group table">
-       <li>Uno</li>
-       <li>Uno</li>
-   </ul>
-</main>      
+          
          
 
    

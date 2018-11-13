@@ -1,5 +1,7 @@
 package com.ipartek.formacion.prestamos.api.controller;
 
+import java.sql.SQLException;
+import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.ArrayList;
 import java.util.Set;
 
@@ -86,6 +88,7 @@ public class EditorialesController {
 	public ResponseEntity<Editorial> eliminar(@PathVariable long id) {
 
 		ResponseEntity<Editorial> response = new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+		
 
 		try {
 
@@ -109,12 +112,13 @@ public class EditorialesController {
 	public ResponseEntity<Object> crear(@RequestBody Editorial editorial) {
 
 		ResponseEntity<Object> response = new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+		ResponseMensaje rm = new ResponseMensaje();
 
 		try {
 
 			Set<ConstraintViolation<Editorial>> violations = validator.validate(editorial);
 			String[] errores = new String[violations.size()];
-			ResponseMensaje rm = new ResponseMensaje();
+			
 
 			if (violations.size() > 0) {
 
@@ -145,8 +149,36 @@ public class EditorialesController {
 				}
 			}
 
-		} catch (Exception e) {
+		} catch (SQLIntegrityConstraintViolationException e) {
+			e.printStackTrace();
+			String[] errores = new String[1];
+			rm.setMensaje("Error");
+			errores[0] = "No puede borrar un elemento con otras relaciones";
+			rm.setErrores(errores);
+			
 
+			response = new ResponseEntity<>(rm, HttpStatus.CONFLICT);
+		} catch (SQLException e) {
+			e.printStackTrace();
+			if (e.getMessage().contains("nombre")) {
+				String[] errores = new String[1];
+				errores[0] = "El <b>nombre</b> debe ser inferior a 50 caracteres";
+				rm.setMensaje("El <b>nombre</b> debe ser inferior a 50 caracteres");
+				rm.setErrores(errores);
+				response = new ResponseEntity<>(rm, HttpStatus.CONFLICT);
+			} else {
+				String[] errores = new String[1];
+				errores[0] = "El <b>nombre</b> debe ser inferior a 50 caracteres";
+				rm.setMensaje("La <b>contraseña</b> debe ser inferior a 20 caracteres");
+				rm.setErrores(errores);
+				response = new ResponseEntity<>(rm, HttpStatus.CONFLICT);
+			}
+		} catch (Exception e) {
+			String[] errores = new String[1];
+			errores[0] = "Hemos tenido un problema";
+			rm.setMensaje("Hemos tenido un problema");
+			rm.setErrores(errores);
+			response = new ResponseEntity<>(rm, HttpStatus.CONFLICT);
 			e.printStackTrace();
 		}
 		

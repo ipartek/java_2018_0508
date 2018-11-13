@@ -1,5 +1,6 @@
 package com.ipartek.formacion.prestamos.api.controller;
 
+import java.sql.SQLException;
 import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.ArrayList;
 import java.util.Set;
@@ -19,9 +20,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ipartek.formacion.libros.pojo.Alumno;
-import com.ipartek.formacion.libros.pojo.Editorial;
 import com.ipartek.formacion.libros.service.ServiceAlumno;
-import com.ipartek.formacion.libros.service.ServiceEditorial;
 
 @CrossOrigin(origins = "*")
 @RestController
@@ -76,7 +75,6 @@ public class AlumnosController {
 			} else {
 
 				response = new ResponseEntity<>(HttpStatus.NOT_FOUND);
-				
 
 			}
 
@@ -100,20 +98,19 @@ public class AlumnosController {
 
 			} else {
 
-				
 				rm.setMensaje("Usuario no encontrado en la base de datos");
 
 				response = new ResponseEntity<>(rm, HttpStatus.NOT_FOUND);
 			}
 
 		} catch (Exception e) {
-			
+
 			e.printStackTrace();
 		}
 		return response;
 	}
 
-	@RequestMapping(method = RequestMethod.POST,consumes="application/json")
+	@RequestMapping(method = RequestMethod.POST, consumes = "application/json")
 	public ResponseEntity<Object> crear(@RequestBody Alumno alumno) {
 
 		ResponseEntity<Object> response = new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
@@ -123,13 +120,12 @@ public class AlumnosController {
 
 			Set<ConstraintViolation<Alumno>> violations = validator.validate(alumno);
 			String[] errores = new String[violations.size()];
-			
 
 			if (violations.size() > 0) {
 
 				int contador = 0;
 
-				// No tenemos ningun fallo, la Validacion es correcta 
+				// No tenemos ningun fallo, la Validacion es correcta
 				for (ConstraintViolation<Alumno> violation : violations) {
 
 					System.out.println(violation.getMessage());
@@ -150,18 +146,29 @@ public class AlumnosController {
 
 				} else {
 					rm.setMensaje("Error");
-					response = new ResponseEntity<>(rm,HttpStatus.CONFLICT);
+					response = new ResponseEntity<>(rm, HttpStatus.CONFLICT);
 				}
 			}
-		}catch(SQLIntegrityConstraintViolationException x) {
-			rm.setMensaje("Nombre Duplicado");
-			x.printStackTrace();
-		
+		} catch (SQLIntegrityConstraintViolationException e) {
+			e.printStackTrace();
+			rm.setMensaje("Error usuario duplicado");
+			response = new ResponseEntity<>(rm, HttpStatus.CONFLICT);
+		} catch (SQLException e) {
+			e.printStackTrace();
+			if (e.getMessage().contains("nombre")) {
+				rm.setMensaje("El <b>nombre</b> debe ser inferior a 50 caracteres");
+				response = new ResponseEntity<>(rm, HttpStatus.CONFLICT);
+			} else {
+				rm.setMensaje("La <b>contraseña</b> debe ser inferior a 20 caracteres");
+				response = new ResponseEntity<>(rm, HttpStatus.CONFLICT);
+			}
 		} catch (Exception e) {
-
+			
+			rm.setMensaje("Hemos tenido un problema");
+			response = new ResponseEntity<>(rm, HttpStatus.CONFLICT);
 			e.printStackTrace();
 		}
-		
+
 		return response;
 	}
 
@@ -175,12 +182,11 @@ public class AlumnosController {
 
 			Set<ConstraintViolation<Alumno>> violations = validator.validate(alumno);
 			String[] errores = new String[violations.size()];
-			
 
 			if (violations.size() > 0) {
 
 				int contador = 0;
-				 //No ha pasado la valiadacion, iterar sobre los mensajes de validacion 
+				// No ha pasado la valiadacion, iterar sobre los mensajes de validacion
 				for (ConstraintViolation<Alumno> violation : violations) {
 
 					errores[contador] = violation.getPropertyPath() + " :" + violation.getMessage();
@@ -206,12 +212,11 @@ public class AlumnosController {
 				}
 			}
 
-		}
-	catch(SQLIntegrityConstraintViolationException x) {
-		rm.setMensaje("Nombre Duplicado");
-		x.printStackTrace();
-	
-	} catch (Exception e) {
+		} catch (SQLIntegrityConstraintViolationException x) {
+			rm.setMensaje("Nombre Duplicado");
+			x.printStackTrace();
+
+		} catch (Exception e) {
 
 			e.printStackTrace();
 		}

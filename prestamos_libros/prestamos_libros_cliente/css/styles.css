@@ -2,11 +2,42 @@ h1 {
     text-align: center;
 }
 
+li {
+    list-style-type: none;
+}
+
 .table {
     text-align: center;
 }
 
+.sidebar{
+    min-height: 88vh;
+}
+
 #formularioEditorial {
     display: none;
+    margin:auto;
 }
+
+#tableEditoriales{
+    margin-top: 15px;
+}
+#tableAlumnos{
+    display: none;
+}
+
+#editorialGrupo{
+    display: none;
+
+}
+#alumnoGrupo{
+    display: none;
+}
+#libroGrupo{
+    display: none;
+}
+#prestamoGrupo{
+    display: none;
+}
+
 
