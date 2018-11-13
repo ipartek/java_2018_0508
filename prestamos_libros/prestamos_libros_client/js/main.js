@@ -2,8 +2,9 @@
     const ENDPOINT = "http://localhost:8080/PrestamosAPI/";
     var ulEditoriales = document.getElementById('ulEditoriales');
     var editoriales = [];
-    var editorial;
+    var editorial;  //Editorial seleccionada
     var mensaje = document.getElementById('mensaje');
+    var errores = document.getElementById('ulErrores');
 
 window.addEventListener("load", function(event){
 
@@ -12,7 +13,7 @@ window.addEventListener("load", function(event){
     
 });
 
-function cargarEditoriales(){
+function cargarEditoriales(textoMensaje){
     //Vaciar la lista
     ulEditoriales.innerHTML = "";
 
@@ -35,11 +36,17 @@ function cargarEditoriales(){
                     lis += `<li class='list-group-item' onclick='editorialClick(${index}, event)'> 
                                 ${editorial.id} ${editorial.editorial} 
                                 <i class='fas fa-trash-alt float-right text-danger' onclick='eliminar(${index}, event)'></i>
-                                <i class='fas fa-pencil-alt float-right text-warning mr-3' onclick='modificar(${index}, event)'></i>
+                                <i class='fas fa-pencil-alt float-right text-primary mr-3' onclick='modificar(${index}, event)'></i>
                             </li>`;
                 });
 
                 ulEditoriales.innerHTML = lis;
+
+                if(textoMensaje){
+                    mensaje.textContent = textoMensaje;
+                }else{
+                    mensaje.textContent = "";
+                }
 
             }
 
@@ -73,8 +80,6 @@ function crear(){
     var nombre = document.getElementById('idNombre').value;
     console.log(`click crear nombre => ${nombre}`);
 
-    var msgError = document.getElementById('ulErrores');
-
     // JSON a enviar
     var data = {"editorial" : nombre};
 
@@ -89,7 +94,7 @@ function crear(){
                 console.log('Response 201 ' + request.responseText);
                 editorial = JSON.parse(request.responseText);
                 cargarEditoriales();
-                msgError.innerHTML = "";
+                errores.innerHTML = "";
 
             }
             if(request.status === 409){
@@ -99,12 +104,15 @@ function crear(){
 
                 var lis = "";
 
+                errores.innerHTML = "";
+                errores.innerHTML = "<li>" + responseError.mensaje + "</li>";
+
                 responseError.errores.forEach(error => {
                     lis += `<li>${error}</li>`
                 });
 
-                msgError.innerHTML = lis;
-                msgError.style.color = '#f00';
+                errores.innerHTML += lis;
+                errores.style.color = '#f00';
             }
 
         }
@@ -143,7 +151,7 @@ function eliminar(posicion, event){
                 console.warn('409 Conflicto ' + request.responseText);
 
                 var responseError = JSON.parse(request.responseText);
-                mensaje.textContent = this.responseError.mensaje;
+                mensaje.textContent = responseError.mensaje;
             }
 
         }
@@ -165,26 +173,41 @@ function modificar(posicion, event){
     editorial = editoriales[posicion];
     console.log('Editorial a modificar %o', editorial);
 
-    var nombre = prompt(`Modificar editorial ${editorial.editorial}`, 'Nuevo nombre de la editorial');
+    var nuevoNombre = prompt(`Modificar editorial ${editorial.editorial}`, 'Nuevo nombre de la editorial');
 
     // JSON a enviar
-    var data = {"editorial" : nombre};
+    var data = {"editorial" : nuevoNombre};
     
-    if(nombre != null || nombre != ""){
+    if(nuevoNombre != null || nuevoNombre != ""){
     //Llamada a AJAX
     var request = new XMLHttpRequest();
     request.onreadystatechange = function() {
     
         if(request.readyState === 4){
     
-             if(request.status === 200){
+            if(request.status === 200){
     
                 console.log('Response 200 ' + request.responseText);
-                cargarEditoriales();
+                cargarEditoriales('Editorial modificada con éxito');
+                //TODO como es asíncrono cargarEditoriales() nos limpia el mensaje de abajo
+                //debemos usar PROMISES
+                mensaje.innerHTML = 'Editorial modificada';
     
             }
             if(request.status === 409){
                 console.warn('409 Conflicto ' + request.responseText);
+
+                var responseError = JSON.parse(request.responseText);
+
+                var errores = "";
+                mensaje.innerHTML = "";
+                mensaje.innerHTML = responseError.mensaje + "<br>";
+
+                responseError.errores.forEach(error => {
+                    errores += `${error}<br>`
+                });
+
+                mensaje.innerHTML += errores;
             }
     
         }

@@ -37,12 +37,13 @@ public class LibroDAO implements CrudAble<Libro> {
 			cs.setLong(3, pojo.getEditorial().getId());
 			cs.registerOutParameter("o_id", Types.INTEGER);
 
-			if (cs.execute()) {
+			int affectedRows = cs.executeUpdate();
+			
+			if(affectedRows == 1) {
+				pojo.setId(cs.getInt(4));
 				resul = true;
 			}
 			
-		} catch (Exception e) {
-			e.printStackTrace();
 		}
 
 		return resul;
@@ -85,7 +86,9 @@ public class LibroDAO implements CrudAble<Libro> {
 		Libro libro = new Libro();
 		String sql = "{CALL `libroGetById`(?)}";
 		try (Connection con = ConnectionManager.getConnection(); CallableStatement cs = con.prepareCall(sql);) {
+			
 			cs.setLong(1, id);
+			
 			try (ResultSet rs = cs.executeQuery()) {
 
 				while (rs.next()) {
