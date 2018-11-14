@@ -2,14 +2,21 @@ package com.ipartek.formacion.libros.pojo;
 
 import java.sql.Date;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
+
 public class Prestamo {
 
 	private static final long MILLSECS_PER_DAY = 24 * 60 * 60 * 1000;
 
 	private Alumno alumno;
 	private Libro libro;
+	
+	@DateTimeFormat(pattern="yyyy-MM-dd")
 	private Date fechaInicio;
+	@DateTimeFormat(pattern="yyyy-MM-dd")
 	private Date fechaFin;
+	@DateTimeFormat(pattern="yyyy-MM-dd")
 	private Date fechaRetorno;
 
 	public Prestamo() {

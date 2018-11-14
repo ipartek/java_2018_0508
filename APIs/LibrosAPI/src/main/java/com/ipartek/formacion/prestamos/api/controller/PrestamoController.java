@@ -4,7 +4,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.sql.Date;
 import java.sql.SQLIntegrityConstraintViolationException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Set;
 
 import javax.validation.ConstraintViolation;
@@ -13,6 +16,7 @@ import javax.validation.Validator;
 import javax.validation.ValidatorFactory;
 
 import org.apache.log4j.Logger;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -129,7 +133,18 @@ public class PrestamoController {
 
 		return response;
 	}
-
+	
+	@ApiOperation(
+			value = "Crea un préstamo con los valores introducidos (en formato JSON).",
+			notes = "Devuelve el objeto creado (en formato JSON), o en caso de error, el mensaje.",
+			response=Prestamo.class)
+	@ApiResponses (value = 
+	{
+			@ApiResponse(code=204, message="Préstamo correctamente devuelto."),
+			@ApiResponse(code=400, message="Error en la solicitud al devolver el préstamo. "
+					+ "Posiblemente, debido al formato del documento JSON."),
+			@ApiResponse(code=409, message="El libro o el alumno introducidos no existen en la base de datos.")
+	})
 	@RequestMapping(method = RequestMethod.POST)
 	public ResponseEntity<Object> crear(@RequestBody Prestamo prestamo) {
 
@@ -141,8 +156,7 @@ public class PrestamoController {
 
 			if (violations.size() == 0) {
 
-				if (servicio.prestar(prestamo.getAlumno().getId(), prestamo.getLibro().getId(),
-						prestamo.getFechaInicio())) {
+				if (servicio.prestar(prestamo)) {
 
 					response = new ResponseEntity<Object>(prestamo, HttpStatus.CREATED);
 
@@ -192,16 +206,42 @@ public class PrestamoController {
 		return response;
 
 	}
-
+	
+	@ApiOperation(
+			value = "Devuelve un préstamo con la fecha de devolución introducida (en formato JSON).",
+			notes = "Devuelve un cuerpo vacío, el código de respuesta o, en caso de error, el mensaje.",
+			response=Prestamo.class)
+	@ApiResponses (value = 
+	{
+			@ApiResponse(code=200, message="Préstamo correctamente devuelto."),
+			@ApiResponse(code=400, message="Error en la solicitud al devolver el préstamo. "
+					+ "Posiblemente, debido al formato del documento JSON."),
+			@ApiResponse(code=404, message="Préstamo no encontrado.")
+	})
 	@RequestMapping(value = "/{idLibro}/{idAlumno}/{fInicio}", method = RequestMethod.DELETE)
-	public ResponseEntity<Object> eliminar(@PathVariable long idLibro, @PathVariable long idAlumno,
-			@PathVariable Date fInicio) {
+	public ResponseEntity<Object> devolver(@PathVariable long idLibro, @PathVariable long idAlumno,
+			@PathVariable Date fInicio, 
+			@RequestBody String strFechaDevolucion) {
 
 		ResponseEntity<Object> response = new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
 
 		try {
-
-			if (servicio.devolver(idAlumno, idLibro, fInicio, null)) {
+			DateFormat fmt = new SimpleDateFormat("yyyy-MM-dd");
+			
+			java.sql.Date fechaInicio = new Date(fmt.parse(fInicio.toString()).getTime());
+			
+			java.sql.Date fechaDevolucion;
+			
+			if (strFechaDevolucion == null) {
+				
+				fechaDevolucion = new Date(new java.util.Date().getTime());
+			
+			} else {
+					
+				fechaDevolucion = new Date(fmt.parse(strFechaDevolucion).getTime());
+				
+			}
+			if (servicio.devolver(idAlumno, idLibro, fechaInicio, new Date(fechaDevolucion.getTime()))) {
 
 				response = new ResponseEntity<Object>(HttpStatus.NO_CONTENT);
 
@@ -210,14 +250,6 @@ public class PrestamoController {
 				response = NOT_FOUND_RESPONSE;
 
 			}
-
-		} catch (SQLIntegrityConstraintViolationException e) {
-
-			response = new ResponseEntity<>(
-					new ResponseMessage("El libro tiene préstamos asociados, no se puede eliminar."),
-					HttpStatus.NOT_IMPLEMENTED);
-			;
-			e.printStackTrace();
 
 		} catch (Exception e) {
 
@@ -230,7 +262,7 @@ public class PrestamoController {
 
 	@RequestMapping(value = "/{idLibro}/{idAlumno}/{fInicio}", method = RequestMethod.PUT)
 	public ResponseEntity<Object> modificar(@PathVariable long idLibro, @PathVariable long idAlumno,
-			@PathVariable Date fInicio, @PathVariable Date fFin) {
+			@PathVariable Date fInicio, @RequestBody Prestamo prestamo) {
 
 		ResponseEntity<Object> response = new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
 
@@ -240,7 +272,7 @@ public class PrestamoController {
 
 			if (violations.size() == 0) {
 
-				if (servicio.modificar(idAlumno, idLibro, fInicio, fFin)) {
+				if (servicio.modificarPrestamoAPI(idAlumno, idLibro, fInicio, prestamo)) {
 
 					response = new ResponseEntity<Object>(prestamo, HttpStatus.OK);
 

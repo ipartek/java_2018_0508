@@ -38,14 +38,12 @@ public class ServicePrestamo implements IPrestamoService {
 	@Override
 	public boolean devolver(long idAlumno, long idlibro, Date fechaInicio, Date fechaRetorno) throws Exception {
 		boolean resul = false;
-		
-		
+			
 		Alumno alumno = new Alumno();
 		alumno.setId(idAlumno);
 		
 		Libro libro = new Libro();
 		libro.setId(idlibro);
-		
 		
 		Prestamo prestamo = new Prestamo();
 		
@@ -63,13 +61,11 @@ public class ServicePrestamo implements IPrestamoService {
 	public boolean prestar(long idAlumno, long idlibro, Date fechaInicio) throws Exception {
 		boolean resul = false;
 		
-		
 		Alumno alumno = new Alumno();
 		alumno.setId(idAlumno);
 		
 		Libro libro = new Libro();
 		libro.setId(idlibro);
-		
 		
 		Prestamo prestamo = new Prestamo();
 		
@@ -79,6 +75,14 @@ public class ServicePrestamo implements IPrestamoService {
 
 		
 		resul = prestamosDAO.insert(prestamo);
+		
+		return resul;
+	}
+	
+	public boolean prestar(Prestamo pojo) throws Exception {
+		boolean resul = false;
+		
+		resul = prestamosDAO.insert(pojo);
 		
 		return resul;
 	}
@@ -164,6 +168,14 @@ public class ServicePrestamo implements IPrestamoService {
 		
 		return prestamo;
 		
+	}
+	
+	public boolean modificarPrestamoAPI(long idAlumno, long idLibro, Date fechaInicio, Prestamo pojo) throws Exception {
+		boolean resul = false;
+		
+		resul = prestamosDAO.update(idAlumno, idLibro, fechaInicio, pojo);
+		
+		return resul;
 	}
 
 	
