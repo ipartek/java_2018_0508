@@ -54,7 +54,6 @@ public class EditorialesController {
 							@ApiResponse(code = 200, message = "Listado de editoriales"),
 							@ApiResponse(code = 500, message = "Error fatal") }
 				)
-	@ApiParam(value="activo", required=false,  name="bla bla bla", defaultValue="1")
 	public ResponseEntity<ArrayList<Editorial>> listado() {
 		
 		ArrayList<Editorial> editoriales = new ArrayList<Editorial>();
@@ -113,7 +112,7 @@ public class EditorialesController {
 							@ApiResponse(code = 500, message = "Error fatal")  
 							}
 				)
-	@ApiParam(value="La id del libro a eliminar", name="id", required=true)
+	@ApiParam(value="id", name="id", required=true)
 	public ResponseEntity<Object> eliminar(@PathVariable("id") long id) {
 		
 		ResponseEntity<Object> response = new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
@@ -189,7 +188,7 @@ public class EditorialesController {
 	@ApiResponses(value = { 
 							@ApiResponse(code = 200, message = "Editorial modificada"),
 							@ApiResponse(code = 404, message = "La editorial no existe"),
-							@ApiResponse(code = 409, message = "Ya existe unaeditorial con ese nombre. / No puede estar vacía y debe contener entre 2 y 50 caracteres."),
+							@ApiResponse(code = 409, message = "Ya existe una editorial con ese nombre. / No puede estar vacía y debe contener entre 2 y 50 caracteres."),
 							@ApiResponse(code = 500, message = "Error fatal")  
 							}
 				)

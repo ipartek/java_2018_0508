@@ -30,6 +30,7 @@ import com.ipartek.formacion.prestamolibros.service.ServicioLibro;
 import com.ipartek.formacion.prestamolibros.service.ServicioPrestamo;
 
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import io.swagger.annotations.ApiResponses;
@@ -65,7 +66,7 @@ public class PrestamosController {
 							@ApiResponse(code = 200, message = "Listado préstamos"),
 							@ApiResponse(code = 400, message = "Listado préstamos") }
 				)
-	@ApiParam(value="activo", required=false, name="bla bla bla", defaultValue="1")
+	@ApiParam(value="true- Préstamos activos false- Histórico de préstamos", required=false, name="activo", defaultValue="1")
 	@RequestMapping( value="/prestamos", method = RequestMethod.GET)
 	public ResponseEntity<ArrayList<Prestamo>> listado(@RequestParam(name="activo", required=false, defaultValue="1") boolean activo) {
 		

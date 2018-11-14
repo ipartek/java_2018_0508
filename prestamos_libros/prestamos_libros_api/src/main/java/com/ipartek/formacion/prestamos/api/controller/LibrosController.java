@@ -25,6 +25,10 @@ import com.ipartek.formacion.prestamolibros.service.ServicioEditorial;
 import com.ipartek.formacion.prestamolibros.service.ServicioLibro;
 
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
 
 @CrossOrigin(origins = "*")
 @RestController
@@ -49,6 +53,11 @@ public class LibrosController {
 	}
 
 	@RequestMapping( method = RequestMethod.GET)
+	@ApiOperation(value = "Listado de libros")
+	@ApiResponses(value = { 
+							@ApiResponse(code = 200, message = "Listado de libros"),
+							@ApiResponse(code = 500, message = "Error fatal") }
+				)
 	public ResponseEntity<ArrayList<Libro>> listado() {
 		
 		ArrayList<Libro> libros = new ArrayList<Libro>();
@@ -66,6 +75,14 @@ public class LibrosController {
 	}
 
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
+	@ApiOperation(value = "Detalle de un libro")
+	@ApiResponses(value = { 
+							@ApiResponse(code = 200, message = "Detalle del libro"),
+							@ApiResponse(code = 404, message = "El libro no existe"),
+							@ApiResponse(code = 500, message = "Error fatal")  
+							}
+				)
+	@ApiParam(value="id", required=true)
 	public ResponseEntity<Libro> detalle(@PathVariable("id") long id) {
 		
 		ResponseEntity<Libro> response = new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
@@ -91,6 +108,15 @@ public class LibrosController {
 	}
 	
 	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
+	@ApiOperation(value = "Eliminar un libro")
+	@ApiResponses(value = { 
+							@ApiResponse(code = 200, message = "Libro eliminado"),
+							@ApiResponse(code = 404, message = "El libro no existe"),
+							@ApiResponse(code = 409, message = "No podemos eliminar el libro, ya que en estos momentos está prestado."),								
+							@ApiResponse(code = 500, message = "Error fatal")  
+							}
+				)
+	@ApiParam(value="id", name="id", required=true)
 	public ResponseEntity<Object> eliminar(@PathVariable("id") long id) {
 		
 		ResponseEntity<Object> response = new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
@@ -114,6 +140,16 @@ public class LibrosController {
 	}
 	
 	@RequestMapping(method = RequestMethod.POST)
+	@ApiOperation(value = "Crear un libro")
+	@ApiResponses(value = { 
+							@ApiResponse(code = 201, message = "Libro creado"),
+							@ApiResponse(code = 404, message = "El libro no existe"),
+							@ApiResponse(code = 409, message = "No se pudo crear el libro ya que no existe la editorial indicada. / "
+									+ "	El título no puede estar vacío y debe contener entre 2 y 150 caracteres / "
+									+ "El isbn no puede estar vacío y debe contener entre 5 y 20 caracteres."),
+							@ApiResponse(code = 500, message = "Error fatal")  
+							}
+				)
 	public ResponseEntity<Object> crear(@RequestBody Libro libro) {
 		
 		ResponseEntity<Object> response = new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
@@ -156,6 +192,17 @@ public class LibrosController {
 	}
 	
 	@RequestMapping(value = "/{id}", method = RequestMethod.PUT)
+	@ApiOperation(value = "Modificar un libro")
+	@ApiResponses(value = { 
+							@ApiResponse(code = 200, message = "Libro modificado"),
+							@ApiResponse(code = 404, message = "El libro no existe"),
+							@ApiResponse(code = 409, message = "No se pudo crear el libro ya que no existe la editorial indicada. / "
+									+ "	El título no puede estar vacío y debe contener entre 2 y 150 caracteres / "
+									+ "El isbn no puede estar vacío y debe contener entre 5 y 20 caracteres."),
+							@ApiResponse(code = 500, message = "Error fatal")  
+							}
+				)
+	@ApiParam(value="id", required=true)
 	public ResponseEntity<Object> modificar(@PathVariable("id") long id, @RequestBody Libro libro) {
 		
 		ResponseEntity<Object> response = new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
