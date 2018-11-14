@@ -9,6 +9,7 @@ import javax.validation.Validation;
 import javax.validation.Validator;
 import javax.validation.ValidatorFactory;
 
+import org.apache.log4j.Logger;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -24,14 +25,19 @@ import com.ipartek.formacion.prestamolibros.service.ServicioEditorial;
 import com.ipartek.formacion.prestamolibros.service.ServicioLibro;
 import com.ipartek.formacion.prestamos.api.controller.pojo.ResponseMensaje;
 
+import io.swagger.annotations.Api;
+
 @CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("/libros")
+@Api(tags="Libros")
 public class LibrosController {
 	ValidatorFactory factory = null;
 	Validator validator = null;
 	ServicioLibro servicioLibro = null;
 	ServicioEditorial servicioEditorial=null;
+	private final static Logger LOG = Logger.getLogger(LibrosController.class);
+
 
 	public LibrosController() {
 		super();
@@ -53,7 +59,7 @@ public class LibrosController {
 			libros = (ArrayList<Libro>) servicioLibro.listar();
 			response = new ResponseEntity<ArrayList<Libro>>(libros, HttpStatus.OK);
 		} catch (Exception e) {
-			e.printStackTrace();
+			LOG.error(e);
 		}
 
 		return response;
@@ -72,7 +78,7 @@ public class LibrosController {
 			}
 
 		} catch (Exception e) {
-			e.printStackTrace();
+			LOG.error(e);
 		}
 		return response;
 
@@ -90,13 +96,13 @@ public class LibrosController {
 						HttpStatus.NOT_FOUND);
 			}
 		} catch (SQLIntegrityConstraintViolationException e) {
-			e.printStackTrace();
+			LOG.error(e);
 			response = new ResponseEntity<>(
 					new ResponseMensaje("No se puede eliminar este Libro porque tiene un registro asociado"),
 					HttpStatus.CONFLICT);
 
 		} catch (Exception e) {
-			e.printStackTrace();
+			LOG.error(e);
 		}
 		return response;
 
@@ -129,12 +135,12 @@ public class LibrosController {
 			}
 
 		} catch (SQLIntegrityConstraintViolationException e) {
-			e.printStackTrace();
+			LOG.error(e);
 			response = new ResponseEntity<>(
 					new ResponseMensaje("Ya existe un libro con ese nombre, por favor cambialo"), HttpStatus.CONFLICT);
 		} catch (Exception e) {
 
-			e.printStackTrace();
+			LOG.error(e);
 		}
 
 		return response;
@@ -166,13 +172,13 @@ public class LibrosController {
 
 			}
 		} catch (SQLIntegrityConstraintViolationException e) {
-			e.printStackTrace();
+			LOG.error(e);
 			response = new ResponseEntity<>(
 					new ResponseMensaje("Ya existe un/@ alumn@ con ese nombre, por favor elige otro nombre o apellido"),
 					HttpStatus.CONFLICT);
 
 		} catch (Exception e) {
-			e.printStackTrace();
+			LOG.error(e);
 		}
 		return response;
 	}

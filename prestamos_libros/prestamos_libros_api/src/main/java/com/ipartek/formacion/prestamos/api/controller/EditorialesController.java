@@ -9,8 +9,10 @@ import javax.validation.Validation;
 import javax.validation.Validator;
 import javax.validation.ValidatorFactory;
 
+import org.apache.log4j.Logger;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -22,14 +24,22 @@ import com.ipartek.formacion.prestamolibros.pojo.Editorial;
 import com.ipartek.formacion.prestamolibros.service.ServicioEditorial;
 import com.ipartek.formacion.prestamos.api.controller.pojo.ResponseMensaje;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
+
 @CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("/editoriales")
+@Api(tags="Editoriales")
 public class EditorialesController {
 
 	ValidatorFactory factory = null;
 	Validator validator = null;
 	ServicioEditorial serviceEditorial = null;
+	private final static Logger LOG = Logger.getLogger(EditorialesController.class);
 
 	public EditorialesController() {
 		super();
@@ -38,7 +48,11 @@ public class EditorialesController {
 		validator = factory.getValidator();
 
 	}
-
+	@ApiOperation(value = "Listado de editoriales")
+	@ApiResponses(value =
+						{ 
+						  @ApiResponse(code = 200, message = "Editoriales encontradas"),
+						  @ApiResponse(code = 505, message = "Ha ocurrido un error") })
 	@RequestMapping(method = RequestMethod.GET)
 	public ResponseEntity<ArrayList<Editorial>> listar() {
 		ResponseEntity<ArrayList<Editorial>> response = new ResponseEntity<ArrayList<Editorial>>(
@@ -50,12 +64,21 @@ public class EditorialesController {
 			editoriales = (ArrayList<Editorial>) serviceEditorial.listar();
 			response = new ResponseEntity<ArrayList<Editorial>>(editoriales, HttpStatus.OK);
 		} catch (Exception e) {
-			e.printStackTrace();
+			LOG.error(e);
 		}
 
 		return response;
 	}
+	
+	@ApiOperation(value = "Detalle de una editorial")
+	@ApiResponses(value =
+						{ 
+						  @ApiResponse(code = 200, message = "Editoriales encontradas"),
+						  @ApiResponse(code = 505, message = "Ha ocurrido un error"),
+						  @ApiResponse(code = 404, message = "La editorial no existe")
+						  })
 
+	@ApiParam(value="id")
 	@RequestMapping(value = "{id}", method = RequestMethod.GET)
 	public ResponseEntity<Editorial> detalle(@PathVariable long id) {
 		ResponseEntity<Editorial> response = new ResponseEntity<Editorial>(HttpStatus.INTERNAL_SERVER_ERROR);
@@ -69,12 +92,20 @@ public class EditorialesController {
 			}
 
 		} catch (Exception e) {
-			e.printStackTrace();
-		}
+			LOG.error(e);		}
 		return response;
 
 	}
-
+	@ApiOperation(value = "Eliminar una editorial")
+	@ApiResponses(value =
+						{ 
+						  @ApiResponse(code = 200, message = "Editorial eliminada"),
+						  @ApiResponse(code = 505, message = "Ha ocurrido un error"),
+						  @ApiResponse(code = 404, message = "La editorial no existe"),
+						  @ApiResponse(code = 409, message = "No se puede borrar la editorial porque hay un registro asociado")
+						  
+						  })
+	@ApiParam(value="id")
 	@RequestMapping(value = "{id}", method = RequestMethod.DELETE)
 	public ResponseEntity<Object> eliminar(@PathVariable long id) {
 		ResponseEntity<Object> response = new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
@@ -86,18 +117,27 @@ public class EditorialesController {
 				response = new ResponseEntity<>(HttpStatus.NOT_FOUND);
 			}
 		} catch (SQLIntegrityConstraintViolationException e) {
-			e.printStackTrace();
+			LOG.error(e);
 			response = new ResponseEntity<>(
 					new ResponseMensaje("No se puede eliminar esta editorial porque tiene un registro asociado"),
 					HttpStatus.CONFLICT);
 
 		} catch (Exception e) {
-			e.printStackTrace();
+			LOG.error(e);
 		}
 		return response;
 
 	}
 
+	
+	@ApiOperation(value = "Crear una editorial")
+	@ApiResponses(value =
+						{ 
+						  @ApiResponse(code = 201, message = "Editorial creada"),
+						  @ApiResponse(code = 505, message = "Ha ocurrido un error"),
+						  @ApiResponse(code = 409, message = "La editorial que intenta crear ya existe")
+						  
+						  })
 	@RequestMapping(method = RequestMethod.POST)
 	public ResponseEntity<Object> crear(@RequestBody Editorial editorial) {
 
@@ -122,18 +162,29 @@ public class EditorialesController {
 			}
 
 		} catch (SQLIntegrityConstraintViolationException e) {
-			e.printStackTrace();
+			LOG.error(e);
 			response = new ResponseEntity<>(
 					new ResponseMensaje("Ya existe una editorial con ese nombre, por favor cambialo"),
 					HttpStatus.CONFLICT);
 		} catch (Exception e) {
 
-			e.printStackTrace();
+			LOG.error(e);
 		}
 
 		return response;
 	}
 
+	
+	@ApiOperation(value = "Modificar una editorial")
+	@ApiResponses(value =
+						{ 
+						  @ApiResponse(code = 200, message = "Editorial modificada con éxito"),
+						  @ApiResponse(code = 505, message = "Ha ocurrido un error"),
+						  @ApiResponse(code = 404, message = "La editorial no existe"),
+						  @ApiResponse(code = 409, message = "Ya existe una editorial con ese nombre, por favor elige otro nombre"),
+						  @ApiResponse(code = 409, message = "Los datos introducidos son incorrectos")
+						  })
+	@ApiParam(value="id")
 	@RequestMapping(value = "{id}", method = RequestMethod.PUT)
 	public ResponseEntity<Object> modificar(@PathVariable long id, @RequestBody Editorial editorial) {
 		ResponseMensaje msg = new ResponseMensaje();
@@ -143,6 +194,7 @@ public class EditorialesController {
 			Set<ConstraintViolation<Editorial>> violations = validator.validate(editorial);
 			if (violations.isEmpty()) {
 				editorial.setId(id);
+			
 				if (serviceEditorial.modificar(editorial)) {
 					response = new ResponseEntity<>(editorial, HttpStatus.OK);
 				} else {
@@ -157,13 +209,13 @@ public class EditorialesController {
 
 			}
 		} catch (SQLIntegrityConstraintViolationException e) {
-			e.printStackTrace();
+			LOG.error(e);
 			response = new ResponseEntity<>(
-					new ResponseMensaje("Ya existe una editorial con ese nombre, por favor elige otro nombre"),
+					new ResponseMensaje("Ya existe una editorial con ese nombre, por favor elige otro nombre o los datos introducidos son incorrectos"),
 					HttpStatus.CONFLICT);
 
 		} catch (Exception e) {
-			e.printStackTrace();
+			LOG.error(e);
 		}
 		return response;
 	}
