@@ -174,7 +174,7 @@ public class AlumnosController {
 	@ApiOperation(value = "Modificar alumno")
 	@ApiResponses (value= {
 			@ApiResponse(	code  =  200 , message  =  " alumno modificado correctamente"),
-			@ApiResponse(	code  =  404 , message  =  " No se encontró el alumno deseada"),	
+			@ApiResponse(	code  =  404 , message  =  " No se encontró el alumno"),	
 			@ApiResponse(	code  =  409 , message  =  " Puede que el nombre del alumno esté vacío o el nombre del alumno ya existe")
 	} )
 	@RequestMapping(value = "/{id}", method = RequestMethod.PUT)
