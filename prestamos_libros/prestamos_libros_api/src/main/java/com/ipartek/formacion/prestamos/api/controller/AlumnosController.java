@@ -14,6 +14,7 @@ import javax.validation.Validation;
 import javax.validation.Validator;
 import javax.validation.ValidatorFactory;
 
+import org.apache.log4j.Logger;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -31,9 +32,15 @@ public class AlumnosController {
 	ValidatorFactory factory = null;
 	Validator validator = null;
 	
+	//Logger
+	private final static Logger LOG = Logger.getLogger(PrestamosController.class);
+	
 	public AlumnosController() {
 		super();
+		LOG.trace("Constructor");
 		serviceAlumno = ServiceAlumno.getInstance();
+		LOG.trace("Servicio alumno instanciado");
+		
 		//Crear Factoria y Validador
 		factory = Validation.buildDefaultValidatorFactory();
 		validator = factory.getValidator();
@@ -47,8 +54,10 @@ public class AlumnosController {
 		try {
 			alumnos = (ArrayList<Alumno>) serviceAlumno.listar();
 			response = new ResponseEntity<>(alumnos, HttpStatus.OK);
+			LOG.debug("Listado de alumnos devuelto "+alumnos.size());
 		}catch(Exception e) {
-			e.printStackTrace();
+//			e.printStackTrace();
+			LOG.error(e);
 		}
 		
 		return response;
@@ -63,11 +72,14 @@ public class AlumnosController {
 			Alumno alumno = serviceAlumno.buscarPorId(id);
 			if(alumno != null && alumno.getId() > 0) {
 				response = new ResponseEntity<>(alumno, HttpStatus.OK);
+				LOG.debug("Detalle de alumno devuelto correctamente");
 			}else {
 				response = new ResponseEntity<>(HttpStatus.NOT_FOUND);
+				LOG.warn("No se ha encontrado el alumno a mostrar");
 			}
 		}catch(Exception e) {
-			e.printStackTrace();
+//			e.printStackTrace();
+			LOG.error(e);
 		}
 
 		return response;
@@ -85,8 +97,10 @@ public class AlumnosController {
 			    /* Ha pasado la validacion*/
 				if(serviceAlumno.crear(alumno)) {
 					response = new ResponseEntity<>(alumno, HttpStatus.CREATED);
+					LOG.debug("Alumno creado correctamente");
 				}else {
 					response = new ResponseEntity<>(HttpStatus.CONFLICT);
+					LOG.warn("No se ha podido crear el alumno");
 				}
 			}else{
 			    /* Hay fallos, la Validacion no es correcta */
@@ -94,18 +108,21 @@ public class AlumnosController {
 				msj.setMensaje("Los datos no son válidos.");
 				 for (ConstraintViolation<Alumno> violation : violations) {
 					 msj.addError(violation.getPropertyPath()+": "+violation.getMessage());
+					 LOG.warn("Errores de validacion al crear alumno: "+violation.getPropertyPath()+": "+violation.getMessage());
 				 }
 				response = new ResponseEntity<>(msj, HttpStatus.CONFLICT);
 			}
 			
 			
 		}catch(MySQLIntegrityConstraintViolationException e) {
-			e.printStackTrace();
+//			e.printStackTrace();
+			LOG.error(e);
 			ResponseMensaje msj = new ResponseMensaje("Ya existe el alumno, por favor prueba con otro nombre.");
 			response = new ResponseEntity<>(msj, HttpStatus.CONFLICT);
 		}
 		catch(Exception e) {
-			e.printStackTrace();
+//			e.printStackTrace();
+			LOG.error(e);
 			ResponseMensaje msj = new ResponseMensaje("No existe el alumno.");
 			response = new ResponseEntity<>(msj, HttpStatus.NOT_FOUND);
 		}
@@ -127,8 +144,10 @@ public class AlumnosController {
 			    /* Ha pasado la validacion*/
 				if(serviceAlumno.modificar(alumno)) {
 					response = new ResponseEntity<>(alumno, HttpStatus.OK);
+					LOG.debug("Alumno modificado correctamente");
 				}else {
 					response = new ResponseEntity<>(HttpStatus.NOT_FOUND);
+					LOG.warn("No se ha encontrado el alumno a modificar");
 				}
 			}else{
 			    /* Hay fallos, la Validacion no es correcta */
@@ -136,15 +155,18 @@ public class AlumnosController {
 				msj.setMensaje("Los datos no son válidos.");
 				 for (ConstraintViolation<Alumno> violation : violations) {
 					 msj.getErrores().add(violation.getPropertyPath()+": "+violation.getMessage());
+					 LOG.warn("Errores de validacion al modificar alumno: "+violation.getPropertyPath()+": "+violation.getMessage());
 				 }
 				response = new ResponseEntity<>(msj, HttpStatus.CONFLICT);
 			}
 		}catch(MySQLIntegrityConstraintViolationException e) {
-			e.printStackTrace();
+//			e.printStackTrace();
+			LOG.error(e);
 			ResponseMensaje msj = new ResponseMensaje("Ya existe el alumno, por favor prueba con otro nombre.");
 			response = new ResponseEntity<>(msj, HttpStatus.CONFLICT);
 		}catch(Exception e) {
-			e.printStackTrace();
+//			e.printStackTrace();
+			LOG.error(e);
 			ResponseMensaje msj = new ResponseMensaje("No existe el alumno.");
 			response = new ResponseEntity<>(msj, HttpStatus.NOT_FOUND);
 		}
@@ -160,16 +182,21 @@ public class AlumnosController {
 		try {
 			if(serviceAlumno.eliminar(id)) {
 				response = new ResponseEntity<>(HttpStatus.OK);
+				LOG.debug("Alumno eliminado correctamente");
 			}else {
 //				response = new ResponseEntity<>(HttpStatus.NOT_FOUND);
 				ResponseMensaje msj = new ResponseMensaje("No se puede borrar un registro que no existe");
 				response = new ResponseEntity<>(msj, HttpStatus.NOT_FOUND);
+				LOG.warn("No se ha encontrado el alumno a borrar");
 			}
 		}catch(MySQLIntegrityConstraintViolationException e) {
+//			e.printStackTrace();
+			LOG.error(e);
 			ResponseMensaje msj = new ResponseMensaje("No se puede borrar el alumno porque tiene libros asociados.");
 			response = new ResponseEntity<>(msj, HttpStatus.CONFLICT);
 		}catch(Exception e) {
-			e.printStackTrace();
+//			e.printStackTrace();
+			LOG.error(e);
 		}
 		
 		return response;

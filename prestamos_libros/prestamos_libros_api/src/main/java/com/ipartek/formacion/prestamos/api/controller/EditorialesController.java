@@ -14,6 +14,7 @@ import javax.validation.Validation;
 import javax.validation.Validator;
 import javax.validation.ValidatorFactory;
 
+import org.apache.log4j.Logger;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -31,9 +32,15 @@ public class EditorialesController {
 	ValidatorFactory factory = null;
 	Validator validator = null;
 	
+	//Logger
+	private final static Logger LOG = Logger.getLogger(EditorialesController.class);
+	
 	public EditorialesController() {
 		super();
+		LOG.trace("Constructor");
 		serviceEditorial = ServiceEditorial.getInstance();
+		LOG.trace("Servicio editorial instanciado");
+		
 		//Crear Factoria y Validador
 		factory = Validation.buildDefaultValidatorFactory();
 		validator = factory.getValidator();
@@ -47,8 +54,10 @@ public class EditorialesController {
 		try {
 			editoriales = (ArrayList<Editorial>) serviceEditorial.listar();
 			response = new ResponseEntity<>(editoriales, HttpStatus.OK);
+			LOG.debug("Editoriales devueltas correctamente" + editoriales.size());
 		}catch(Exception e) {
-			e.printStackTrace();
+//			e.printStackTrace();
+			LOG.error(e);
 		}
 		
 		return response;
@@ -63,11 +72,14 @@ public class EditorialesController {
 			Editorial editorial = serviceEditorial.buscarPorId(id);
 			if(editorial != null && editorial.getId() > 0) {
 				response = new ResponseEntity<>(editorial, HttpStatus.OK);
+				LOG.debug("Detalle editorial devuelta correctamente");
 			}else {
 				response = new ResponseEntity<>(HttpStatus.NOT_FOUND);
+				LOG.warn("No se ha encontrado la editorial a devolver");
 			}
 		}catch(Exception e) {
-			e.printStackTrace();
+//			e.printStackTrace();
+			LOG.error(e);
 		}
 
 		return response;
@@ -85,8 +97,10 @@ public class EditorialesController {
 			    /* Ha pasado la validacion*/
 				if(serviceEditorial.crear(editorial)) {
 					response = new ResponseEntity<>(editorial, HttpStatus.CREATED);
+					LOG.debug("Editorial creada correctamente");
 				}else {
 					response = new ResponseEntity<>(HttpStatus.CONFLICT);
+					LOG.warn("Conflicto a la hora de crear editorial");
 				}
 			}else{
 			    /* Hay fallos, la Validacion no es correcta */
@@ -94,17 +108,21 @@ public class EditorialesController {
 				msj.setMensaje("Los datos no son válidos.");
 				 for (ConstraintViolation<Editorial> violation : violations) {
 					 msj.addError(violation.getPropertyPath()+": "+violation.getMessage());
+					 LOG.warn("Error de validacion al crear editorial: "+ violation.getPropertyPath()+": "+violation.getMessage());
 				 }
 				response = new ResponseEntity<>(msj, HttpStatus.CONFLICT);
 			}
 			
 			
 		}catch(MySQLIntegrityConstraintViolationException e) {
+//			e.printStackTrace();
+			LOG.error(e);
 			ResponseMensaje msj = new ResponseMensaje("Ya existe la editorial, por favor prueba con otro nombre.");
 			response = new ResponseEntity<>(msj, HttpStatus.CONFLICT);
 		}
 		catch(Exception e) {
-			e.printStackTrace();
+//			e.printStackTrace();
+			LOG.error(e);
 		}
 		 
 		return response;
@@ -124,8 +142,10 @@ public class EditorialesController {
 			    /* Ha pasado la validacion*/
 				if(serviceEditorial.modificar(editorial)) {
 					response = new ResponseEntity<>(editorial, HttpStatus.OK);
+					LOG.debug("Editorial modificada correctamente");
 				}else {
 					response = new ResponseEntity<>(HttpStatus.CONFLICT);
+					LOG.warn("No se ha podido modificar la editorial por conflicto");
 				}
 			}else{
 			    /* Hay fallos, la Validacion no es correcta */
@@ -133,14 +153,18 @@ public class EditorialesController {
 				msj.setMensaje("Los datos no son válidos.");
 				 for (ConstraintViolation<Editorial> violation : violations) {
 					 msj.getErrores().add(violation.getPropertyPath()+": "+violation.getMessage());
+					 LOG.warn("Error de validacion al modificar editorial: "+violation.getPropertyPath()+": "+violation.getMessage());
 				 }
 				response = new ResponseEntity<>(msj, HttpStatus.CONFLICT);
 			}
 		}catch(MySQLIntegrityConstraintViolationException e) {
+//			e.printStackTrace();
+			LOG.error(e);
 			ResponseMensaje msj = new ResponseMensaje("Ya existe la editorial, por favor prueba con otro nombre.");
 			response = new ResponseEntity<>(msj, HttpStatus.CONFLICT);
 		}catch(Exception e) {
-			e.printStackTrace();
+//			e.printStackTrace();
+			LOG.error(e);
 		}
 		 
 		return response;
@@ -154,16 +178,21 @@ public class EditorialesController {
 		try {
 			if(serviceEditorial.eliminar(id)) {
 				response = new ResponseEntity<>(HttpStatus.OK);
+				LOG.debug("Editorial eliminada correctamente");
 			}else {
 //				response = new ResponseEntity<>(HttpStatus.NOT_FOUND);
 				ResponseMensaje msj = new ResponseMensaje("No se puede borrar un registro que no existe");
 				response = new ResponseEntity<>(msj, HttpStatus.NOT_FOUND);
+				LOG.warn("No se ha encontrado la editorial a eliminar");
 			}
 		}catch(MySQLIntegrityConstraintViolationException e) {
+//			e.printStackTrace();
+			LOG.error(e);
 			ResponseMensaje msj = new ResponseMensaje("No se puede borrar la editorial porque tiene libros asociados.");
 			response = new ResponseEntity<>(msj, HttpStatus.CONFLICT);
 		}catch(Exception e) {
-			e.printStackTrace();
+//			e.printStackTrace();
+			LOG.error(e);
 		}
 		
 		return response;
