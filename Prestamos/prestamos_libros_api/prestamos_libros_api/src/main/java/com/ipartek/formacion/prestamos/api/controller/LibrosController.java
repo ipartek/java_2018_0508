@@ -117,7 +117,7 @@ public class LibrosController {
 	
 	@ApiOperation(value = "Crear Libro")
 	@ApiResponses( value = {
-			@ApiResponse (code = 200, message = "Crear Libro"),
+			@ApiResponse (code = 201, message = "Crear Libro"),
 			@ApiResponse (code = 409, message = "Esta vacio Libro o el Nombre del libro ya existe o el editorial no exisiste")}
 	)
 
@@ -161,7 +161,7 @@ public class LibrosController {
 	
 	@ApiOperation(value = "Modificar Libro")
 	@ApiResponses( value = {
-			@ApiResponse (code = 201, message = "Modificar Libro"),
+			@ApiResponse (code = 200, message = "Modificar Libro"),
 			@ApiResponse (code = 404, message = "No se encontro Libro id libro incorrecto"),
 			@ApiResponse (code = 409, message = "No se puede modificar libro con el mismo nombre o que esta vacio")}
 	)

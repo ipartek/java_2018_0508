@@ -1,5 +1,6 @@
 package com.ipartek.formacion.prestamos.api.controller;
 
+import java.sql.Date;
 import java.util.ArrayList;
 
 import javax.validation.Validation;
@@ -10,13 +11,16 @@ import org.apache.log4j.Logger;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.ipartek.formacion.prestamos_libros.pojo.Libro;
 import com.ipartek.formacion.prestamos_libros.pojo.Prestamo;
+import com.ipartek.formacion.prestamos_libros.pojo.Usuario;
 import com.ipartek.formacion.prestamos_libros.service.ServicePrestamo;
 
 import io.swagger.annotations.ApiOperation;
@@ -51,7 +55,7 @@ public class PrestamosController {
 			@ApiResponse (code = 404, message = "No se encontro prestamo")}
 	)
 	
-	@ApiParam( value="activo", required = false, name="bla bla bla", defaultValue = "1")
+	@ApiParam( value="activo", required = false, defaultValue = "1")
 	@RequestMapping(method = RequestMethod.GET)
 	public ResponseEntity<ArrayList<Prestamo>> listado(@RequestParam(value = "activo", required = false) boolean estado) {
 
@@ -85,7 +89,7 @@ public class PrestamosController {
 				response = new ResponseEntity<>(msj, HttpStatus.OK);
 			}else {
 				ResponseMensaje msj = new ResponseMensaje("Un usuario no puede hacer dos prestamos a la vez o el libro ya esta prestado");
-				response = new ResponseEntity<>(msj, HttpStatus.OK);
+				response = new ResponseEntity<>(msj, HttpStatus.CONFLICT);
 			}
 			
 		} catch (Exception e) {
@@ -95,4 +99,68 @@ public class PrestamosController {
 		return response;
 	}
 	
+	@RequestMapping(value = "/{idUsuario}/{idLibro}/{finicio}/{fdevuelto}", method = RequestMethod.DELETE)
+	public ResponseEntity<ResponseMensaje> devolver(@PathVariable long idUsuario, @PathVariable long idLibro, @PathVariable Date finicio, @PathVariable Date fdevuelto){
+		ResponseEntity<ResponseMensaje> response = null;
+		
+		try {
+			Prestamo p = new Prestamo();
+			Libro l = new Libro();
+			Usuario u = new Usuario();
+			l.setId(idLibro);
+			p.setLibro(l);
+			u.setId(idUsuario);
+			p.setUsuario(u);
+			p.setFech_inicio(finicio);
+			p.setFecha_devuelto(fdevuelto);
+			
+			boolean devuelto = servicePrestamo.modificar(p);
+			if(devuelto) {
+				ResponseMensaje msj = new ResponseMensaje("Prestamo devuelto");
+				response = new ResponseEntity<>(msj, HttpStatus.OK);
+			}else {
+				ResponseMensaje msj = new ResponseMensaje("Prestamo no se ha podido devolver por que no exisiste");
+				response = new ResponseEntity<>(msj, HttpStatus.CONFLICT);
+			}
+
+		} catch (Exception e) {
+			ResponseMensaje msj = new ResponseMensaje("Error");
+			response = new ResponseEntity<>(msj, HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+		
+		
+		return response;
+	}
+
+	@RequestMapping(value = "/{idUsuario}/{idLibro}/{finicio}", method = RequestMethod.PUT)
+	public ResponseEntity<ResponseMensaje> modificar(@PathVariable long idUsuario, @PathVariable long idLibro, @PathVariable Date finicio, @RequestBody Prestamo prestamoNuevo){
+		ResponseEntity<ResponseMensaje> response = null;
+		
+		
+		
+		try {
+			Prestamo p = new Prestamo();
+			Libro l = new Libro();
+			Usuario u = new Usuario();
+			l.setId(idLibro);
+			p.setLibro(l);
+			u.setId(idUsuario);
+			p.setUsuario(u);
+			p.setFech_inicio(finicio);
+			
+			boolean modificado = servicePrestamo.modificarHistorico(prestamoNuevo, p);
+			if(modificado) {
+				ResponseMensaje msj = new ResponseMensaje("Prestamo modificado");
+				response = new ResponseEntity<>(msj, HttpStatus.OK);
+			}else {
+				ResponseMensaje msj = new ResponseMensaje("Prestamo no se ha podido moficar el prestamos por que los datos son incorrectos");
+				response = new ResponseEntity<>(msj, HttpStatus.CONFLICT);
+			}
+		} catch (Exception e) {
+			ResponseMensaje msj = new ResponseMensaje("Error");
+			response = new ResponseEntity<>(msj, HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+		
+		return response;
+	}
 }

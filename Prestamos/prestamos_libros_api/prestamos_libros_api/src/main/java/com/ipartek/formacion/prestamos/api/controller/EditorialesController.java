@@ -67,8 +67,7 @@ public class EditorialesController {
 	@ApiOperation(value = "Detalle Editorial")
 	@ApiResponses( value = {
 			@ApiResponse (code = 200, message = "Detalle Editorial"),
-			@ApiResponse (code = 404, message = "No se encontro Editorial valor incorrecto"),
-			@ApiResponse (code = 409, message = "Caracteres vacios")}
+			@ApiResponse (code = 404, message = "No se encontro Editorial valor incorrecto")}
 	)
 
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
@@ -118,7 +117,7 @@ public class EditorialesController {
 	
 	@ApiOperation(value = "Crear Editorial")
 	@ApiResponses( value = {
-			@ApiResponse (code = 200, message = "Crear Editorial"),
+			@ApiResponse (code = 201, message = "Crear Editorial"),
 			@ApiResponse (code = 409, message = "Esta vacio Editorial o el Nombre editorial ya existe")}
 	)
 
@@ -162,7 +161,7 @@ public class EditorialesController {
 	
 	@ApiOperation(value = "Modificar Editorial")
 	@ApiResponses( value = {
-			@ApiResponse (code = 201, message = "Modificar Editorial"),
+			@ApiResponse (code = 200, message = "Modificar Editorial"),
 			@ApiResponse (code = 404, message = "No se encontro Editorial"),
 			@ApiResponse (code = 409, message = "No se puede modificar editoria con el mismo nombre o que esta vacio")}
 	)

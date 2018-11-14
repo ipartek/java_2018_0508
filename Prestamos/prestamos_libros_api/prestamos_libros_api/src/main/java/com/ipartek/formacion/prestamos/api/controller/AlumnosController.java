@@ -120,7 +120,7 @@ public class AlumnosController {
 
 	@ApiOperation(value = "Crear Alumno")
 	@ApiResponses( value = {
-			@ApiResponse (code = 200, message = "Crear Alumno"),
+			@ApiResponse (code = 201, message = "Crear Alumno"),
 			@ApiResponse (code = 409, message = "Esta vacio Alumno o el Nombre alumno ya existe")}
 	)
 	@RequestMapping(method = RequestMethod.POST)

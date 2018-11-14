@@ -39,11 +39,11 @@ public class ServicePrestamo implements IServicePrestamo {
 	@Override
 	public boolean modificar(Prestamo p) throws Exception {
 		boolean resul = false;
-
-		if (daoPrestamo.update(p)) {
+		Prestamo prestamo = daoPrestamo.getByIds(p.getLibro().getId(), p.getUsuario().getId(), p.getFech_inicio());
+		if(prestamo.getLibro() != null) {
+			daoPrestamo.update(p);
 			resul = true;
 		}
-
 		return resul;
 	}
 
@@ -85,11 +85,11 @@ public class ServicePrestamo implements IServicePrestamo {
 	@Override
 	public boolean modificarHistorico(Prestamo p, Prestamo prestamoAntiguo) throws Exception {
 		boolean resul = false;
-
-		if (daoPrestamo.updateHistorico(p, prestamoAntiguo)) {
+		Prestamo prestamo = daoPrestamo.getByIds(prestamoAntiguo.getLibro().getId(), prestamoAntiguo.getUsuario().getId(), prestamoAntiguo.getFech_inicio());
+		if(prestamo.getLibro() != null) {
+			daoPrestamo.updateHistorico(p, prestamoAntiguo);
 			resul = true;
 		}
-
 		return resul;
 	}
 
