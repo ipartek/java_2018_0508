@@ -120,11 +120,11 @@ public class PrestamoDAO implements CrudAble<Prestamo> {
 
 			if (!sp.getBoolean("o_alumno_ok")) {
 				
-				throw new Exception("El alumno introducido no es válido.");
+				throw new Exception("El alumno introducido ya tiene un préstamo asociado.");
 			
 			} else if (!sp.getBoolean("o_libro_ok")) {
 
-				throw new Exception("El libro introducido no es válido.");
+				throw new Exception("El libro introducido ya tiene un préstamo asociado.");
 
 			} else {
 

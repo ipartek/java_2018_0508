@@ -20,11 +20,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.ipartek.formacion.libros.service.ServiceAlumno;
+
+import io.swagger.annotations.Api;
+
 import com.ipartek.formacion.libros.pojo.Alumno;
 
 @CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("/alumnos")
+@Api(tags= {"Servicio Alumnos"}, produces ="application/json")
 public class AlumnosController {
 
 	private static final String CONFLICT_MSG = "CONFLICTO: El registro ya existe en la base de datos (al crear) o tiene datos asociados (al eliminar).";

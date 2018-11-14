@@ -67,7 +67,7 @@ public class Prestamo {
 		this.fechaRetorno = fechaRetorno;
 	}
 
-	public int getDiasRestantes() {
+	public int diasRestantes() {
 
 		java.util.Date fechaInicial = new java.util.Date();
 		java.util.Date fechaFinal = new java.util.Date(fechaFin.getTime());

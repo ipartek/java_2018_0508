@@ -21,11 +21,20 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.ipartek.formacion.libros.service.ServiceEditorial;
+
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
+
 import com.ipartek.formacion.libros.pojo.Editorial;
+
 
 @CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("/editoriales")
+@Api(tags= {"Servicio Editoriales"}, produces="application/json")
 public class EditorialesController {
 	
 	private static final ResponseEntity<Object> BAD_REQUEST_RESPONSE = new ResponseEntity<Object>(new String("ERROR DE SYNTAXIS: Alguno de los campos no es el esperado."), HttpStatus.BAD_REQUEST);
@@ -49,6 +58,15 @@ public class EditorialesController {
 		 
 	}
 
+	@ApiOperation(
+			value = "Listado de editoriales.",
+			notes = "Devuelve las editoriales disponibles en la base de datos.",
+			response=Editorial.class)
+	@ApiResponses (value = 
+		{
+				@ApiResponse(code=200, message="Listado de editoriales devuelta correctamente."),
+				@ApiResponse(code=400, message="Error en la solicitud de listado de editoriales.")
+		})
 	@RequestMapping(value = { "", "/" }, method = RequestMethod.GET)
 	public ResponseEntity<ArrayList<Editorial>> listado() {
 
@@ -67,8 +85,18 @@ public class EditorialesController {
 		return response;
 	}
 
+	@ApiOperation(
+			value = "Vista detalle de una editorial en concreto.",
+			notes = "Devuelve la editorial con el ID (identificador) seleccionado.",
+			response=Editorial.class)
+	@ApiResponses (value = 
+		{
+				@ApiResponse(code=200, message="Editorial encontrada y devuelta."),
+				@ApiResponse(code=400, message="Error en la solicitud de listado de editoriales.")
+		})
+	
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
-	public ResponseEntity<Object> detalle(@PathVariable long id) {
+	public ResponseEntity<Object> detalle(@ApiParam(value = "Código indentificador de la editorial.") @PathVariable long id ) {
 
 		ResponseEntity<Object> response = new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
 		
@@ -91,11 +119,23 @@ public class EditorialesController {
 			e.printStackTrace();
 		}
 
+		
 		return response;
 	}
 	
+	@ApiOperation(
+			value = "Crea una editorial con los valores introducidos (en formato JSON).",
+			notes = "Devuelve la editorial creada (en formato JSON), o en caso de error, el mensaje.",
+			response=Editorial.class)
+	@ApiResponses (value = 
+		{
+				@ApiResponse(code=200, message="Editorial correctamente insertada en la base de datos."),
+				@ApiResponse(code=400, message="Error en la solicitud al crear la editorial. "
+						+ "Posiblemente, debido a la longitud de alguno de los campos."),
+				@ApiResponse(code=409, message="CONFLICTO: Ya existe una editorial con ese nombre.")
+		})
 	@RequestMapping(method = RequestMethod.POST)
-	public ResponseEntity<Object> crear(@RequestBody Editorial editorial) {
+	public ResponseEntity<Object> crear(@ApiParam(value = "Editorial a crear en formato JSON.") @RequestBody Editorial editorial) {
 
 		ResponseEntity<Object> response = new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
 		
@@ -146,8 +186,18 @@ public class EditorialesController {
 	}
 
 
+	@ApiOperation(
+			value = "Elimina la editorial con el ID (identificador) introducido.",
+			notes = "Devuelve un mensaje con cuerpo vacío o el mensaje de error. (en formato JSON).")
+	@ApiResponses (value = 
+		{
+				@ApiResponse(code=200, message="Editorial correctamente insertada en la base de datos."),
+				@ApiResponse(code=400, message="Error en la solicitud al crear la editorial. "
+						+ "Posiblemente, debido a la longitud de alguno de los campos."),
+				@ApiResponse(code=409, message="CONFLICTO: Ya existe una editorial con ese nombre.")
+		})
 	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
-	public ResponseEntity<Object> eliminar(@PathVariable long id) {
+	public ResponseEntity<Object> eliminar( @ApiParam(value = "Código indentificador de la editorial.") @PathVariable long id) {
 
 		ResponseEntity<Object> response = new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
 
@@ -183,8 +233,22 @@ public class EditorialesController {
 	}
 
 
+	@ApiOperation(
+			value = "Modifica la editorial con el ID (identificador) introducido.",
+			notes = "Devuelve la editorial creada (en formato JSON), o en caso de error, el mensaje.",
+			response=Editorial.class)
+	@ApiResponses (value = 
+		{
+				@ApiResponse(code=200, message="Editorial correctamente modificada en la base de datos."),
+				@ApiResponse(code=400, message="Error en la solicitud al crear la editorial. "
+						+ "Posiblemente, debido a la longitud de alguno de los campos."),
+				@ApiResponse(code=409, message="CONFLICTO: Ya existe una editorial con ese nombre.")
+		})
+
 	@RequestMapping(value = "/{id}", method = RequestMethod.PUT)
-	public ResponseEntity<Object> modificar(@PathVariable long id, @RequestBody Editorial editorial) {
+	public ResponseEntity<Object> modificar(
+			@ApiParam(value = "Código indentificador de la editorial a modificar.") @PathVariable long id, 
+			@ApiParam(value = "Editorial modificada en formato JSON.") @RequestBody Editorial editorial) {
 
 		ResponseEntity<Object> response = new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
 		editorial.setId(id);

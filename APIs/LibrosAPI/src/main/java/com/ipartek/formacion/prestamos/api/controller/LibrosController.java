@@ -20,11 +20,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.ipartek.formacion.libros.service.ServiceLibro;
+
+import io.swagger.annotations.Api;
+
 import com.ipartek.formacion.libros.pojo.Libro;
 
 @CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("/libros")
+@Api(tags= {"Servicio Libros"}, produces ="application/json")
 public class LibrosController {
 
 	private static final String NOT_FOUND_MSG = "NO ENCONTRADO: El recurso no existe en la base de datos.";
