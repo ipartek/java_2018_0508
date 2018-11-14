@@ -22,6 +22,10 @@ import com.ipartek.formacion.prestamos_libros.pojo.Editorial;
 import com.ipartek.formacion.prestamos_libros.pojo.Usuario;
 import com.ipartek.formacion.prestamos_libros.service.ServiceUsuario;
 
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
+
 @CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("/alumnos")
@@ -37,6 +41,12 @@ public class AlumnosController {
 		factory = Validation.buildDefaultValidatorFactory();
 		validator = factory.getValidator();
 	}
+	
+	@ApiOperation(value = "Listado Alumnos")
+	@ApiResponses( value = {
+			@ApiResponse (code = 200, message = "Listado Alumnos"),
+			@ApiResponse (code = 404, message = "No se encontro Alumno")}
+	)
 
 	@RequestMapping(method = RequestMethod.GET)
 	public ResponseEntity<ArrayList<Usuario>> listado() {
@@ -54,6 +64,13 @@ public class AlumnosController {
 
 		return response;
 	}
+	
+	@ApiOperation(value = "Detalle Alumno")
+	@ApiResponses( value = {
+			@ApiResponse (code = 200, message = "Detalle Alumno"),
+			@ApiResponse (code = 404, message = "No se encontro Alumno valor incorrecto"),
+			@ApiResponse (code = 409, message = "Caracteres vacios")}
+	)
 
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
 	public ResponseEntity<Usuario> detalle(@PathVariable long id) {
@@ -74,6 +91,13 @@ public class AlumnosController {
 		return response;
 	}
 	
+	
+	@ApiOperation(value = "Eliminar Alumno")
+	@ApiResponses( value = {
+			@ApiResponse (code = 200, message = "Eliminar Alumno"),
+			@ApiResponse (code = 404, message = "No se encontro Alumno"),
+			@ApiResponse (code = 409, message = "No se puede eliminar Alumno si esta asociado a un libro")}
+	)
 	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
 	public ResponseEntity<Object> eliminar(@PathVariable long id) {
 
@@ -94,6 +118,11 @@ public class AlumnosController {
 		return response;
 	}
 
+	@ApiOperation(value = "Crear Alumno")
+	@ApiResponses( value = {
+			@ApiResponse (code = 200, message = "Crear Alumno"),
+			@ApiResponse (code = 409, message = "Esta vacio Alumno o el Nombre alumno ya existe")}
+	)
 	@RequestMapping(method = RequestMethod.POST)
 	public ResponseEntity<Object> crear(@RequestBody Usuario usuario) {
 
@@ -130,6 +159,15 @@ public class AlumnosController {
 		}
 		return response;
 	}
+	
+	
+	
+	@ApiOperation(value = "Modificar Alumno")
+	@ApiResponses( value = {
+			@ApiResponse (code = 201, message = "Modificar Alumno"),
+			@ApiResponse (code = 404, message = "No se encontro Alumno"),
+			@ApiResponse (code = 409, message = "No se puede modificar alumno con el mismo nombre o que esta vacio")}
+	)
 	
 	@RequestMapping(value = "/{id}", method = RequestMethod.PUT)
 	public ResponseEntity<Object> modificar(@PathVariable long id, @RequestBody Usuario usuario) {

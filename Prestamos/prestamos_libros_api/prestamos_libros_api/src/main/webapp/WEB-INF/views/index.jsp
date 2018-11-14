@@ -1,1 +1,3 @@
-<h1>Documentacion de la Api Resg</h1>
+<%
+response.sendRedirect(request.getContextPath() + "/swagger-ui.html");
+%>

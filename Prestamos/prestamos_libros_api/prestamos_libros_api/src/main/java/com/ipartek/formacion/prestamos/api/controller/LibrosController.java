@@ -21,6 +21,10 @@ import org.springframework.web.bind.annotation.RestController;
 import com.ipartek.formacion.prestamos_libros.pojo.Libro;
 import com.ipartek.formacion.prestamos_libros.service.ServiceLibro;
 
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
+
 @CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("/libros")
@@ -36,6 +40,12 @@ public class LibrosController {
 		factory = Validation.buildDefaultValidatorFactory();
 		validator = factory.getValidator();
 	}
+	
+	@ApiOperation(value = "Listado Libros")
+	@ApiResponses( value = {
+			@ApiResponse (code = 200, message = "Listado Libros"),
+			@ApiResponse (code = 404, message = "No se encontro Libro")}
+	)
 
 	@RequestMapping(method = RequestMethod.GET)
 	public ResponseEntity<ArrayList<Libro>> listado() {
@@ -53,7 +63,13 @@ public class LibrosController {
 
 		return response;
 	}
-
+	
+	@ApiOperation(value = "Detalle Libro")
+	@ApiResponses( value = {
+			@ApiResponse (code = 200, message = "Detalle Libro"),
+			@ApiResponse (code = 404, message = "No se encontro Libro valor incorrecto"),
+			@ApiResponse (code = 409, message = "Caracteres vacios")}
+	)
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
 	public ResponseEntity<Libro> detalle(@PathVariable long id) {
 
@@ -72,7 +88,13 @@ public class LibrosController {
 		}
 		return response;
 	}
-
+	
+	@ApiOperation(value = "Eliminar Libro")
+	@ApiResponses( value = {
+			@ApiResponse (code = 200, message = "Eliminar Libro"),
+			@ApiResponse (code = 404, message = "No se encontro Libro id libro incorrecto"),
+			@ApiResponse (code = 409, message = "No se puede eliminar el libro por que esta asociado a un prestamo")}
+	)
 	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
 	public ResponseEntity<Object> eliminar(@PathVariable long id) {
 
@@ -92,6 +114,12 @@ public class LibrosController {
 		}
 		return response;
 	}
+	
+	@ApiOperation(value = "Crear Libro")
+	@ApiResponses( value = {
+			@ApiResponse (code = 200, message = "Crear Libro"),
+			@ApiResponse (code = 409, message = "Esta vacio Libro o el Nombre del libro ya existe o el editorial no exisiste")}
+	)
 
 	@RequestMapping(method = RequestMethod.POST)
 	public ResponseEntity<Object> crear(@RequestBody Libro libro) {
@@ -130,6 +158,13 @@ public class LibrosController {
 		}
 		return response;
 	}
+	
+	@ApiOperation(value = "Modificar Libro")
+	@ApiResponses( value = {
+			@ApiResponse (code = 201, message = "Modificar Libro"),
+			@ApiResponse (code = 404, message = "No se encontro Libro id libro incorrecto"),
+			@ApiResponse (code = 409, message = "No se puede modificar libro con el mismo nombre o que esta vacio")}
+	)
 
 	@RequestMapping(value = "/{id}", method = RequestMethod.PUT)
 	public ResponseEntity<Object> modificar(@PathVariable long id, @RequestBody Libro libro) {
