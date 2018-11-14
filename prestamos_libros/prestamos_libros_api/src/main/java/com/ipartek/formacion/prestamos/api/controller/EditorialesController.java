@@ -6,6 +6,12 @@ import com.ipartek.formacion.prestamos_libros.pojo.Editorial;
 import com.ipartek.formacion.prestamos_libros.service.ServiceEditorial;
 import com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationException;
 
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
+
 import java.util.ArrayList;
 import java.util.Set;
 
@@ -46,6 +52,9 @@ public class EditorialesController {
 		validator = factory.getValidator();
 	}
 
+	@ApiOperation(value = "Listado de editoriales", notes = "Muestra el listado de todas las editoriales"
+			+ " de todos los prestamos", produces="application/json")
+	@ApiResponses(value = { @ApiResponse(code = 200, message = "Mostrar lista editoriales correctamente", responseContainer="List")})
 	@RequestMapping( method = RequestMethod.GET)
 	public ResponseEntity<ArrayList<Editorial>> listado() {
 		ResponseEntity<ArrayList<Editorial>> response = new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
@@ -63,6 +72,12 @@ public class EditorialesController {
 		return response;
 	}
 
+	@ApiOperation(value = "Detalle editorial", notes = "Muestra el detalle de una editorial en concreto", produces="application/json")
+	@ApiResponses(value = { @ApiResponse(code = 200, message = "Mostrar detalle editorial correctamente", responseContainer="Editorial"),
+							@ApiResponse(code = 404, message = "No existe la editorial")})
+	@ApiImplicitParams({
+	    @ApiImplicitParam(name = "id", value = "Id editorial", required = true, dataType = "long", paramType = "Path")
+	  })
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
 	public ResponseEntity<Editorial> detalle(@PathVariable long id) {
 		
@@ -85,6 +100,9 @@ public class EditorialesController {
 		return response;
 	}
 	
+	@ApiOperation(value = "Crear editorial", notes = "Crea una nueva editorial", produces="application/json")
+	@ApiResponses(value = { @ApiResponse(code = 201, message = "Crear una editorial correctamente", responseContainer="Editorial"),
+			@ApiResponse(code = 409, message = "Conflicto por validaciones de editorial o porque ya existe una editorial con el mismo nombre")})
 	@RequestMapping(method = RequestMethod.POST)
 	public ResponseEntity<Object> crear(@RequestBody Editorial editorial) {
 		
@@ -128,6 +146,9 @@ public class EditorialesController {
 		return response;
 	}
 	
+	@ApiOperation(value = "Modificar editorial", notes = "Modifica los valores de una editorial", produces="application/json")
+	@ApiResponses(value = { @ApiResponse(code = 200, message = "Modificar una editorial correctamente"),
+			@ApiResponse(code = 409, message = "Conflicto por validaciones de editorial o porque ya existe una editorial con el mismo nombre")})
 	@RequestMapping(value = "/{id}", method = RequestMethod.PUT)
 	public ResponseEntity<Object> modificar(@PathVariable long id, @RequestBody Editorial editorial) {
 		
@@ -170,6 +191,10 @@ public class EditorialesController {
 		return response;
 	}
 	
+	@ApiOperation(value = "Eliminar editorial", notes = "Elimina una editorial existente", produces="application/json")
+	@ApiResponses(value = { @ApiResponse(code = 200, message = "Eliminar una editorial correctamente"),
+			@ApiResponse(code = 404, message = "No existe la editorial a borrar"),
+			@ApiResponse(code = 409, message = "Conflicto por intentar una editorial que tiene libros asociados")})
 	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
 	public ResponseEntity<Object> eliminar(@PathVariable long id) {
 		

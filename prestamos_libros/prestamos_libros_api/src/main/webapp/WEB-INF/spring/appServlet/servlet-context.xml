@@ -42,6 +42,5 @@
 	</beans:bean>	
 	
 	<context:component-scan base-package="com.ipartek.formacion.prestamos" />
-	<context:component-scan base-package="com.ipartek.formacion.config" />
 	
 </beans:beans>

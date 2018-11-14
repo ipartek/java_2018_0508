@@ -8,7 +8,12 @@ import com.ipartek.formacion.prestamos_libros.service.ServiceEditorial;
 import com.ipartek.formacion.prestamos_libros.service.ServiceLibro;
 import com.ipartek.formacion.prestamos_libros.service.ServicePrestamo;
 
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
 
 import java.util.ArrayList;
 
@@ -55,7 +60,11 @@ public class PrestamosController {
 		validator = factory.getValidator();
 	}
 
-	@ApiOperation(value = "Listado prestamos")
+	@ApiOperation(value = "Listado de prestamos activos o historico")
+	@ApiResponses(value = { @ApiResponse(code = 200, message = "Listado Prestamos")})
+	@ApiImplicitParams({
+	    @ApiImplicitParam(name = "activos", value = "0: Historico, 1: Activos", required = false, dataType = "int", paramType = "RequestParam")
+	  })
 	@RequestMapping(method = RequestMethod.GET)
 	public ResponseEntity<ArrayList<Prestamo>> listado(@RequestParam(value = "activos", required = false, defaultValue = "-1") int activos) {
 		ResponseEntity<ArrayList<Prestamo>> response = new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);

@@ -1,1 +1,1 @@
-<h1>Documentacion ViewResolver</h1>
+<%response.sendRedirect(request.getContextPath() + "/swagger-ui.html");%>
