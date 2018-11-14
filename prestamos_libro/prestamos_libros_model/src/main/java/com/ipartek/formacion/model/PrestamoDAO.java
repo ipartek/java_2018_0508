@@ -5,6 +5,7 @@ import java.sql.Connection;
 import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Types;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -33,17 +34,19 @@ public class PrestamoDAO implements Crudable<Prestamo> {
 
 		boolean resul = false;
 
-		String sql = "{call `prestamoInsert`(?,?,?)}";
+		String sql = "{call `prestamoInsert`(?,?,?,?)}";
 
 		try (Connection con = ConnectionManager.getConnection(); CallableStatement cs = con.prepareCall(sql);) {
 
 			cs.setLong(1, pojo.getAlumno().getId());
 			cs.setLong(2, pojo.getLibro().getId());
 			cs.setDate(3, (Date) pojo.getFecha_prestado());
-
+			cs.registerOutParameter("pfechafin", Types.DATE);
+			
 			int affectedRows = cs.executeUpdate();
 
 			if (affectedRows == 1) {
+				Date fecha=cs.getDate("pfechafin");
 
 				resul = true;
 

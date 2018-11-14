@@ -21,6 +21,10 @@ import com.ipartek.formacion.pojo.Alumno;
 import com.ipartek.formacion.service.ServiceAlumno;
 import com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationException;
 
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
+
 @CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("/alumnos")
@@ -38,6 +42,11 @@ public class AlumnosController {
 		validator = factory.getValidator();
 	}
 
+	@ApiOperation(value = "Listado de alumnos")
+	@ApiResponses (value= {
+			@ApiResponse(	code  =  200 , message  =  " Listado alumnos"),
+			@ApiResponse(	code  =  404 , message  =  " No se encontró alumnos")					
+	} )
 	@RequestMapping(method = RequestMethod.GET)
 	public ResponseEntity<ArrayList<Alumno>> listar() {
 
@@ -55,7 +64,13 @@ public class AlumnosController {
 
 		return response;
 	}
-
+	
+	
+	@ApiOperation(value = "Obtener alumno por su identificador")
+	@ApiResponses (value= {
+			@ApiResponse(	code  =  200 , message  =  " alumno encontrado"),
+			@ApiResponse(	code  =  404 , message  =  " No se encontró el alumno deseado")					
+	} )
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
 	public ResponseEntity<Object> detalle(@PathVariable long id) throws Exception {
 		ResponseEntity<Object> response = new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
@@ -74,6 +89,12 @@ public class AlumnosController {
 		return response;
 	}
 
+	@ApiOperation(value = "Eliminar alumno por su identificador")
+	@ApiResponses (value= {
+			@ApiResponse(	code  =  200 , message  =  " alumno eliminado correctamente"),
+			@ApiResponse(	code  =  404 , message  =  " No se encontró el alumno deseado"),	
+			@ApiResponse(	code  =  409 , message  =  " No se puede borrar el alumno si tiene un prestamo asociado")				
+	} )
 	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
 	public ResponseEntity<Object> eliminar(@PathVariable long id) throws Exception {
 
@@ -85,7 +106,7 @@ public class AlumnosController {
 				response = new ResponseEntity<>(HttpStatus.OK);
 			} else {
 				response = new ResponseEntity<>(
-						new ResponseMensaje("No se ha encotrado ningun registro, cambie de identificador"),
+						new ResponseMensaje("No se ha encontrado ningun registro, cambie de identificador"),
 						HttpStatus.NOT_FOUND);
 			}
 
@@ -102,7 +123,11 @@ public class AlumnosController {
 		return response;
 	}
 
-
+	@ApiOperation(value = "Crear alumno ")
+	@ApiResponses (value= {
+			@ApiResponse(	code  =  201 , message  =  " alumno creada correctamente"),			
+			@ApiResponse(	code  =  409 , message  =  " Puede que el nombre del alumno esté vacío o el nombre del alumno ya exista")				
+	} )
 	@RequestMapping(method = RequestMethod.POST)
 	public ResponseEntity<Object> crear(@RequestBody Alumno alumno) throws Exception {
 		ResponseEntity<Object> response = new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
@@ -146,6 +171,12 @@ public class AlumnosController {
 		return response;
 	}
 
+	@ApiOperation(value = "Modificar alumno")
+	@ApiResponses (value= {
+			@ApiResponse(	code  =  200 , message  =  " alumno modificado correctamente"),
+			@ApiResponse(	code  =  404 , message  =  " No se encontró el alumno deseada"),	
+			@ApiResponse(	code  =  409 , message  =  " Puede que el nombre del alumno esté vacío o el nombre del alumno ya existe")
+	} )
 	@RequestMapping(value = "/{id}", method = RequestMethod.PUT)
 	public ResponseEntity<Object> modificar(@PathVariable long id, @RequestBody Alumno alumno) throws Exception {
 

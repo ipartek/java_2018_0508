@@ -40,35 +40,36 @@ public class ServicePrestamo implements IServicePrestamo {
 	}
 
 	@Override
-	public boolean prestar(long idLibro, long idAlumno, Date fechaInicio) throws Exception {
+	public boolean prestar(Prestamo p) throws Exception {
 		boolean resul = false;
 		boolean alumnoLibre = false;
 		boolean libroLibre = false;
 
-		Prestamo p = new Prestamo();
-		p.setFecha_prestado(fechaInicio);
-
-		Alumno a = new Alumno();
-		a.setId(idAlumno);
-		p.setAlumno(a);
-
-		Libro l = new Libro();
-		l.setId(idLibro);
-		p.setLibro(l);
+//		p.setFecha_prestado(p.getFecha_prestado());
+//
+//		Alumno a = new Alumno();
+//		a.setId(idAlumno);
+//		p.setAlumno(a);
+//
+//		Libro l = new Libro();
+//		l.setId(idLibro);
+//		p.setLibro(l);
 
 		// Comprobar que el alumno y el libro esten disponibles
 		ArrayList<Alumno> alumnosDisponibles = (ArrayList<Alumno>) this.alumnosDisponibles();
 		for (Alumno alumno : alumnosDisponibles) {
 
-			if (alumno.getId() != idAlumno) {
+			if (alumno.getId() == p.getAlumno().getId()) {
 				alumnoLibre = true;
+				break;
 			}
 		}
 		ArrayList<Libro> libroDisponibles = (ArrayList<Libro>) this.librosDisponibles();
 		for (Libro libro : libroDisponibles) {
 
-			if (libro.getId() != idLibro) {
+			if (libro.getId() == p.getLibro().getId()) {
 				libroLibre = true;
+				break;
 			}
 		}
 		if (alumnoLibre && libroLibre) {

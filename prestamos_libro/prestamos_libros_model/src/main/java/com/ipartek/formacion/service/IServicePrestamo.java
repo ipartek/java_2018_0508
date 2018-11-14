@@ -17,7 +17,7 @@ public interface IServicePrestamo {
 	 * @return true si todo ha ido bien, false si no se ha podido prestar
 	 * @throws Exception
 	 */
-	boolean prestar(long idLibro, long idAlumno, Date fechaInicio) throws Exception;
+	boolean prestar(Prestamo pojo) throws Exception;
 	
 	/**
 	 * Metodo para devolver un libro prestado.
