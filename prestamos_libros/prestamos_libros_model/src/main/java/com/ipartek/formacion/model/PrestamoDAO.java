@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.ipartek.formacion.pojo.Alumno;
+import com.ipartek.formacion.pojo.Editorial;
 import com.ipartek.formacion.pojo.Libro;
 import com.ipartek.formacion.pojo.Prestamo;
 
@@ -174,7 +175,13 @@ public class PrestamoDAO implements CrudAble<Prestamo> {
 			try {
 				Libro l=new Libro();
 				l.setId(rs.getInt("id_libro"));
+				l.setIsbn(rs.getString("isbn"));
 				l.setTitulo(rs.getString("titulo"));
+				
+				Editorial e = new Editorial();
+				e.setId(rs.getInt("id_editorial"));
+				e.setNombre(rs.getString("e_nombre"));
+				l.setEditorial(e);
 
 				p.setLibro(l);
 			}catch (Exception e) {
@@ -218,16 +225,21 @@ public class PrestamoDAO implements CrudAble<Prestamo> {
 
 	public boolean insert(Prestamo pojo) throws SQLException {
 		boolean resul = false;
-		String sql = "{CALL prestamoInsert(?,?,?)}";
+		String sql = "{CALL prestamoInsert(?,?,?,?,?,?)}";
 		try (Connection con = ConnectionManager.getConnection(); CallableStatement cs = con.prepareCall(sql);) {
 			cs.setLong(1, pojo.getAlumno().getId());
 			cs.setLong(2, pojo.getLibro().getId());
 			cs.setDate(3, pojo.getFecha_inicio());
-
-			//cs.registerOutParameter(4, java.sql.Types.INTEGER);
+			
+			cs.registerOutParameter(4, java.sql.Types.INTEGER);
+			cs.registerOutParameter(5, java.sql.Types.DATE);
+			cs.registerOutParameter(6, java.sql.Types.DATE);
 
 			int affectedRows = cs.executeUpdate();
-			//pojo.setId(cs.getInt(4));
+			
+			pojo.setId(cs.getInt(4));
+			pojo.setFecha_fin(cs.getDate(5));
+			pojo.setFecha_devuelto(cs.getDate(6));
 			if (affectedRows == 1) {
 				resul = true;
 			}

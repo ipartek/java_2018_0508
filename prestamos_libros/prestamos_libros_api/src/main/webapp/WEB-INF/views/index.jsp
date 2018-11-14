@@ -1,1 +1,6 @@
-documentacion de la api rest
+<%
+
+	response.sendRedirect(request.getContextPath() + "/swagger-ui.html");
+
+
+%>

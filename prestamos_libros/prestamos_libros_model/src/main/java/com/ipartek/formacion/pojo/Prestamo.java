@@ -3,11 +3,18 @@ package com.ipartek.formacion.pojo;
 import java.sql.Date;
 import java.util.Calendar;
 
-public class Prestamo {
+import javax.validation.Valid;
+import javax.validation.constraints.Size;
 
+import org.hibernate.validator.constraints.NotBlank;
+
+public class Prestamo {
 	private long id;
+
 	private Libro libro;
+
 	private Alumno alumno;
+
 	private Date fecha_inicio;
 	private Date fecha_fin;
 	private Date fecha_devuelto;
