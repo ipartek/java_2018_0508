@@ -2,15 +2,21 @@ package com.ipartek.formacion.libros.pojo;
 
 import java.sql.Date;
 
+import org.hibernate.validator.constraints.NotBlank;
+
 public class Prestamo {
 
 	private static final long MILLSECS_PER_DAY = 24 * 60 * 60 * 1000;
 	
+	
 	private Alumno alumno;
+	
 	private Libro libro;
+	
 	private Date fechaInicio;
 	private Date fechaFin;
 	private Date fechaRetorno;
+	private int diasRestantes;
 
 	public Prestamo() {
 		super();
@@ -26,6 +32,7 @@ public class Prestamo {
 		this.libro = libro;
 		this.fechaInicio = fechaInicio;
 		this.fechaFin = fechaFin;
+		//this.diasRestantes = this.getDiasRestantes();
 
 	}
 	
@@ -82,8 +89,8 @@ public class Prestamo {
 
 	@Override
 	public String toString() {
-		return "Prestamo [ alumno=" + alumno + ", libro=" + libro + ", fechaInicio=" + fechaInicio
-				+ ", fechaFin=" + fechaFin + ", fechaRetorno=" + fechaRetorno + "]";
+		return "Prestamo [alumno=" + alumno + ", libro=" + libro + ", fechaInicio=" + fechaInicio + ", fechaFin="
+				+ fechaFin + ", fechaRetorno=" + fechaRetorno + ", getDiasRestantes()=" + getDiasRestantes() + "]";
 	}
 	
 
