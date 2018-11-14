@@ -37,6 +37,11 @@ public class ServiceAlumno implements ICRUDService<Alumno> {
 		
 		return alumnosDAO.getAll();
 	}
+	
+	public List<Alumno> listarDisponibles() throws Exception{
+		
+		return alumnosDAO.getAllDisponible();
+	}
 
 	@Override
 	public Alumno obtener(long id) throws Exception {

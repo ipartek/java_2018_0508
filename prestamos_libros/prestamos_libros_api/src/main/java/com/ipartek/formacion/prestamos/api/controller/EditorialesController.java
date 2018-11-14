@@ -18,9 +18,16 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.context.annotation.ApplicationScope;
 
 import com.ipartek.formacion.libros.pojo.Editorial;
 import com.ipartek.formacion.libros.service.ServiceEditorial;
+
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
 
 @CrossOrigin(origins = "*")
 @RestController
@@ -40,6 +47,12 @@ public class EditorialesController {
 
 	}
 
+	@ApiOperation(value = "Listado de editoriales")
+	@ApiResponses(value = { @ApiResponse(code = 200, message = "Listado de Editoriales"),
+			@ApiResponse(code = 400, message = "Error "), @ApiResponse(code = 401, message = "No autorizado "),
+			@ApiResponse(code = 404, message = "No encontrado ") })
+	@ApiParam(required = false, name = "Blabla ?", defaultValue = "1")
+
 	@RequestMapping(method = RequestMethod.GET)
 	public ResponseEntity<ArrayList<Editorial>> listado() {
 
@@ -52,29 +65,37 @@ public class EditorialesController {
 			response = new ResponseEntity<>(list, HttpStatus.OK);
 
 		} catch (Exception e) {
-			
+
 			e.printStackTrace();
 		}
 
 		return response;
 	}
 
+	@ApiOperation(value = "Detalle de editorial")
+	@ApiResponses(value = { @ApiResponse(code = 200, message = "Detalle de prestamo correcto"),
+			@ApiResponse(code = 400, message = "Error "), @ApiResponse(code = 401, message = "No autorizado "),
+			@ApiResponse(code = 404, message = "Editorial no encontrada ") })
+	@ApiParam(required = false, name = "Blabla ?", defaultValue = "1")
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
-	public ResponseEntity<Editorial> detalle(@PathVariable long id) {
+	public ResponseEntity<Object> detalle(@PathVariable long id) {
 
-		ResponseEntity<Editorial> response = new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-
+		ResponseEntity<Object> response = new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+		ResponseMensaje rm = new ResponseMensaje();
 		try {
 
 			Editorial editorial = serviceEditorial.obtener(id);
 
 			if (editorial != null && editorial.getId() > 0) {
 
-				response = new ResponseEntity<>(editorial, HttpStatus.OK);
+				response = new ResponseEntity<Object>(editorial, HttpStatus.OK);
 
 			} else {
-
-				response = new ResponseEntity<>(HttpStatus.NOT_FOUND);
+				String[] errores = new String[1];
+				rm.setMensaje("Error");
+				errores[0] = "Editorial no encontrada";
+				rm.setErrores(errores);
+				response = new ResponseEntity<>(rm, HttpStatus.NOT_FOUND);
 
 			}
 
@@ -84,11 +105,16 @@ public class EditorialesController {
 		return response;
 	}
 
+	@ApiOperation(value = "Eliminar editoriales")
+	@ApiResponses(value = { @ApiResponse(code = 204, message = "Editorial eliminada"),
+			@ApiResponse(code = 404, message = "Editorial no encontrada"),
+			@ApiResponse(code = 409, message = "No puedes borrar una editorial con libros asociados") })
+	@ApiParam(required = false, name = "Blabla ?", defaultValue = "1")
 	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
-	public ResponseEntity<Editorial> eliminar(@PathVariable long id) {
+	public ResponseEntity<Object> eliminar(@PathVariable long id) {
 
-		ResponseEntity<Editorial> response = new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-		
+		ResponseEntity<Object> response = new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+		ResponseMensaje rm = new ResponseMensaje();
 
 		try {
 
@@ -97,18 +123,37 @@ public class EditorialesController {
 				response = new ResponseEntity<>(HttpStatus.OK);
 
 			} else {
-
-				response = new ResponseEntity<>(HttpStatus.NOT_FOUND);
+				String[] errores = new String[1];
+				rm.setMensaje("Error");
+				errores[0] = "Editorial no encontrada";
+				rm.setErrores(errores);
+				response = new ResponseEntity<>(rm, HttpStatus.NOT_FOUND);
 			}
 
+		} catch (SQLIntegrityConstraintViolationException e) {
+			if (e.getMessage().contains("Cannot delete or update a parent row")) {
+				e.printStackTrace();
+				String[] errores = new String[1];
+				rm.setMensaje("Error");
+				errores[0] = "No puedes borrar una editorial con libros asociados";
+				rm.setErrores(errores);
+				response = new ResponseEntity<>(rm, HttpStatus.CONFLICT);
+
+			}
 		} catch (Exception e) {
-			
+
 			e.printStackTrace();
+			response = new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
 		return response;
 	}
 
-	@RequestMapping(method = RequestMethod.POST,consumes="application/json")
+	@ApiOperation(value = "Crear editoriales")
+	@ApiResponses(value = { @ApiResponse(code = 201, message = "Editorial Creada"),
+			@ApiResponse(code = 400, message = "No encontrado"),
+			@ApiResponse(code = 409, message = "Conflicto : Editorial existente") })
+	@ApiParam(required = false, name = "Blabla ?", defaultValue = "1")
+	@RequestMapping(method = RequestMethod.POST, consumes = "application/json")
 	public ResponseEntity<Object> crear(@RequestBody Editorial editorial) {
 
 		ResponseEntity<Object> response = new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
@@ -118,7 +163,6 @@ public class EditorialesController {
 
 			Set<ConstraintViolation<Editorial>> violations = validator.validate(editorial);
 			String[] errores = new String[violations.size()];
-			
 
 			if (violations.size() > 0) {
 
@@ -150,12 +194,13 @@ public class EditorialesController {
 			}
 
 		} catch (SQLIntegrityConstraintViolationException e) {
-			e.printStackTrace();
-			String[] errores = new String[1];
-			rm.setMensaje("Error");
-			errores[0] = "No puede borrar un elemento con otras relaciones";
-			rm.setErrores(errores);
-			
+			if (e.getMessage().contains("Duplicate entry")) {
+				e.printStackTrace();
+				String[] errores = new String[1];
+				rm.setMensaje("Error");
+				errores[0] = "Editorial existente";
+				rm.setErrores(errores);
+			}
 
 			response = new ResponseEntity<>(rm, HttpStatus.CONFLICT);
 		} catch (SQLException e) {
@@ -181,20 +226,26 @@ public class EditorialesController {
 			response = new ResponseEntity<>(rm, HttpStatus.CONFLICT);
 			e.printStackTrace();
 		}
-		
+
 		return response;
 	}
 
+	@ApiOperation(value = "Modificar editoriales")
+	@ApiResponses(value = {
+
+			@ApiResponse(code = 400, message = "No encontrado"), @ApiResponse(code = 409, message = "Modificacion del nombre de una editorial por uno ya existente") })
+	@ApiParam(value = "activos", required = false, name = "Blabla ?", defaultValue = "1")
+	
 	@RequestMapping(value = "/{id}", method = RequestMethod.PUT)
 	public ResponseEntity<Object> modificar(@PathVariable long id, @RequestBody Editorial editorial) {
 
 		ResponseEntity<Object> response = new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+		ResponseMensaje rm = new ResponseMensaje();
 
 		try {
 
 			Set<ConstraintViolation<Editorial>> violations = validator.validate(editorial);
 			String[] errores = new String[violations.size()];
-			ResponseMensaje rm = new ResponseMensaje();
 
 			if (violations.size() > 0) {
 
@@ -225,6 +276,15 @@ public class EditorialesController {
 				}
 			}
 
+		} catch (SQLIntegrityConstraintViolationException e) {
+			if (e.getMessage().contains("Duplicate entry")) {
+				e.printStackTrace();
+				String[] errores = new String[1];
+				rm.setMensaje("Error");
+				errores[0] = "Modificacion del nombre de una editorial por uno ya existente";
+				rm.setErrores(errores);
+				response = new ResponseEntity<>(rm,HttpStatus.CONFLICT);
+			}
 		} catch (Exception e) {
 
 			e.printStackTrace();

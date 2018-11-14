@@ -9,11 +9,15 @@
 
 	<!-- DispatcherServlet Context: defines this servlet's request-processing infrastructure -->
 	
+	
 	<!-- Enables the Spring MVC @Controller programming model -->
 	<annotation-driven />
 
 	<!-- Handles HTTP GET requests for /resources/** by efficiently serving up static resources in the ${webappRoot}/resources directory -->
 	<resources mapping="/resources/**" location="/resources/" />
+	<!-- the mvc resources tag does the magic SWAGGER -->
+    <resources mapping="/webjars/**" location="classpath:/META-INF/resources/webjars/"/>
+    <resources mapping="/swagger-ui.html" location="classpath:/META-INF/resources/swagger-ui.html"/>
 
 	<!-- Resolves views selected for rendering by @Controllers to .jsp resources in the /WEB-INF/views directory -->
 	<beans:bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
@@ -36,5 +40,6 @@
 	
 	<!-- Aqui es donde spring escucha -->
 	<context:component-scan base-package="com.ipartek.formacion.prestamos" />
+	<context:component-scan base-package="com.ipartek.formacion.config" />
 	
 </beans:beans>
