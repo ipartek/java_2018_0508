@@ -6,6 +6,12 @@ import com.ipartek.formacion.prestamos_libros.pojo.Alumno;
 import com.ipartek.formacion.prestamos_libros.service.ServiceAlumno;
 import com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationException;
 
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
+
 import java.util.ArrayList;
 import java.util.Set;
 
@@ -46,6 +52,8 @@ public class AlumnosController {
 		validator = factory.getValidator();
 	}
 
+	@ApiOperation(value = "Listado de alumnos", notes = "Muestra el listado de todos los alumnos", produces="application/json")
+	@ApiResponses(value = { @ApiResponse(code = 200, message = "Mostrar lista de alumnos correctamente", responseContainer="List")})
 	@RequestMapping( method = RequestMethod.GET)
 	public ResponseEntity<ArrayList<Alumno>> listado() {
 		ResponseEntity<ArrayList<Alumno>> response = new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
@@ -63,6 +71,12 @@ public class AlumnosController {
 		return response;
 	}
 
+	@ApiOperation(value = "Detalle alumno", notes = "Muestra el detalle de un alumno en concreto", produces="application/json")
+	@ApiResponses(value = { @ApiResponse(code = 200, message = "Mostrar detalle alumno correctamente", responseContainer="Alumno"),
+							@ApiResponse(code = 404, message = "No existe el alumno")})
+	@ApiImplicitParams({
+	    @ApiImplicitParam(name = "id", value = "Id alumno", required = true, dataType = "long", paramType = "Path")
+	  })
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
 	public ResponseEntity<Alumno> detalle(@PathVariable long id) {
 		
@@ -85,6 +99,9 @@ public class AlumnosController {
 		return response;
 	}
 	
+	@ApiOperation(value = "Crear alumno", notes = "Crea un nuevo alumno", produces="application/json")
+	@ApiResponses(value = { @ApiResponse(code = 201, message = "Crear un alumno correctamente", responseContainer="Editorial"),
+			@ApiResponse(code = 409, message = "Conflicto por validaciones de alumno o porque ya existe un alumno con el mismo nombre")})
 	@RequestMapping(method = RequestMethod.POST)
 	public ResponseEntity<Object> crear(@RequestBody Alumno alumno) {
 		
@@ -130,6 +147,9 @@ public class AlumnosController {
 		return response;
 	}
 	
+	@ApiOperation(value = "Modificar alumno", notes = "Modifica los valores de un alumno", produces="application/json")
+	@ApiResponses(value = { @ApiResponse(code = 200, message = "Modificar un alumno correctamente"),
+			@ApiResponse(code = 409, message = "Conflicto por validaciones de alumno o porque ya existe un alumno con el mismo nombre")})
 	@RequestMapping(value = "/{id}", method = RequestMethod.PUT)
 	public ResponseEntity<Object> modificar(@PathVariable long id, @RequestBody Alumno alumno) {
 		
@@ -174,6 +194,10 @@ public class AlumnosController {
 		return response;
 	}
 	
+	@ApiOperation(value = "Eliminar libro", notes = "Elimina un libro existente", produces="application/json")
+	@ApiResponses(value = { @ApiResponse(code = 200, message = "Eliminar un libro correctamente"),
+			@ApiResponse(code = 404, message = "No existe el alumno a borrar"),
+			@ApiResponse(code = 409, message = "Conflicto por intentar eliminar un alumno que tiene préstamos asociados")})
 	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
 	public ResponseEntity<Object> eliminar(@PathVariable long id) {
 		

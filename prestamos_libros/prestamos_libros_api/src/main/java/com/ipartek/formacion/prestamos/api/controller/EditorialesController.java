@@ -194,7 +194,7 @@ public class EditorialesController {
 	@ApiOperation(value = "Eliminar editorial", notes = "Elimina una editorial existente", produces="application/json")
 	@ApiResponses(value = { @ApiResponse(code = 200, message = "Eliminar una editorial correctamente"),
 			@ApiResponse(code = 404, message = "No existe la editorial a borrar"),
-			@ApiResponse(code = 409, message = "Conflicto por intentar una editorial que tiene libros asociados")})
+			@ApiResponse(code = 409, message = "Conflicto por intentar eliminar una editorial que tiene libros asociados")})
 	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
 	public ResponseEntity<Object> eliminar(@PathVariable long id) {
 		

@@ -12,6 +12,12 @@ import com.ipartek.formacion.prestamos_libros.service.ServiceLibro;
 import com.ipartek.formacion.prestamos_libros.service.ServicePrestamo;
 import com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationException;
 
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
+
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.Set;
@@ -63,6 +69,8 @@ public class LibrosController {
 		validator = factory.getValidator();
 	}
 
+	@ApiOperation(value = "Listado de libros", notes = "Muestra el listado de todos los libros", produces="application/json")
+	@ApiResponses(value = { @ApiResponse(code = 200, message = "Mostrar lista de libros correctamente", responseContainer="List")})
 	@RequestMapping( method = RequestMethod.GET)
 	public ResponseEntity<ArrayList<Libro>> listado() {
 		ResponseEntity<ArrayList<Libro>> response = new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
@@ -80,6 +88,12 @@ public class LibrosController {
 		return response;
 	}
 
+	@ApiOperation(value = "Detalle libro", notes = "Muestra el detalle de un libro en concreto", produces="application/json")
+	@ApiResponses(value = { @ApiResponse(code = 200, message = "Mostrar detalle libro correctamente", responseContainer="Libro"),
+							@ApiResponse(code = 404, message = "No existe el libro")})
+	@ApiImplicitParams({
+	    @ApiImplicitParam(name = "id", value = "Id libro", required = true, dataType = "long", paramType = "Path")
+	  })
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
 	public ResponseEntity<Libro> detalle(@PathVariable long id) {
 		
@@ -102,6 +116,9 @@ public class LibrosController {
 		return response;
 	}
 	
+	@ApiOperation(value = "Crear libro", notes = "Crea un nuevo libro", produces="application/json")
+	@ApiResponses(value = { @ApiResponse(code = 201, message = "Crear un libro correctamente", responseContainer="Editorial"),
+			@ApiResponse(code = 409, message = "Conflicto por crear un libro sin editorial asociada o con nombre vacío")})
 	@RequestMapping(method = RequestMethod.POST)
 	public ResponseEntity<Object> crear(@RequestBody Libro libro) {
 		
@@ -147,6 +164,9 @@ public class LibrosController {
 		return response;
 	}
 	
+	@ApiOperation(value = "Modificar libro", notes = "Modifica los valores de un libro", produces="application/json")
+	@ApiResponses(value = { @ApiResponse(code = 200, message = "Modificar un libro correctamente"),
+			@ApiResponse(code = 409, message = "Conflicto por crear un libro sin editorial asociada o con nombre vacío")})
 	@RequestMapping(value = "/{id}", method = RequestMethod.PUT)
 	public ResponseEntity<Object> modificar(@PathVariable long id, @RequestBody Libro libro) {
 		
@@ -193,6 +213,10 @@ public class LibrosController {
 		return response;
 	}
 	
+	@ApiOperation(value = "Eliminar libro", notes = "Elimina un libro existente", produces="application/json")
+	@ApiResponses(value = { @ApiResponse(code = 200, message = "Eliminar un libro correctamente"),
+			@ApiResponse(code = 404, message = "No existe el libro a borrar"),
+			@ApiResponse(code = 409, message = "Conflicto por intentar eliminar un libro que tiene préstamos asociados")})
 	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
 	public ResponseEntity<Object> eliminar(@PathVariable long id) {
 		
