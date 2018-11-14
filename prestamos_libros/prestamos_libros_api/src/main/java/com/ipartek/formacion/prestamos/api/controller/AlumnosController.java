@@ -9,6 +9,7 @@ import javax.validation.Validation;
 import javax.validation.Validator;
 import javax.validation.ValidatorFactory;
 
+import org.apache.log4j.Logger;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -21,11 +22,15 @@ import org.springframework.web.bind.annotation.RestController;
 import com.ipartek.formacion.prestamolibros.pojo.Alumno;
 import com.ipartek.formacion.prestamolibros.service.ServicioAlumno;
 
+import io.swagger.annotations.Api;
+
 @CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("/alumnos")
+@Api(value = "Alumnos", tags = { "Alumnos" })
 public class AlumnosController {
 	
+	private final static Logger LOG = Logger.getLogger(AlumnosController.class);
 	ServicioAlumno servicioAlumno = null;
 	ValidatorFactory factory = null;
 	Validator validator = null;
@@ -50,7 +55,7 @@ public class AlumnosController {
 			response = new ResponseEntity<>(alumnos, HttpStatus.OK);
 			
 		} catch (Exception e) {
-			e.printStackTrace();
+			LOG.error(e);
 		}
 
 		return response;
@@ -74,7 +79,7 @@ public class AlumnosController {
 			
 			
 		} catch (Exception e) {
-			e.printStackTrace();
+			LOG.error(e);
 		}	
 		
 		return response;
@@ -95,7 +100,7 @@ public class AlumnosController {
 			}
 			
 		}catch (Exception e) {
-			e.printStackTrace();
+			LOG.error(e);
 		}
 		
 		return response;	
@@ -135,7 +140,7 @@ public class AlumnosController {
 			response = new ResponseEntity<>(new ResponseMensaje("El alumno " + alumno.getNombre() + " " + alumno.getApellidos() + " ya existe."), HttpStatus.CONFLICT);
 			
 		} catch (Exception e) {
-			e.printStackTrace();
+			LOG.error(e);
 		}
 		
 		return response;	
@@ -177,7 +182,7 @@ public class AlumnosController {
 			response = new ResponseEntity<>(new ResponseMensaje("El alumno " + alumno.getNombre() + " " + alumno.getApellidos() + " ya existe."), HttpStatus.CONFLICT);
 			
 		} catch (Exception e) {
-			e.printStackTrace();
+			LOG.error(e);
 		}
 		
 		return response;	

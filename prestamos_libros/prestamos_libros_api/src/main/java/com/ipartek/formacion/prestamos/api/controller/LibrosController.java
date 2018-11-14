@@ -9,6 +9,7 @@ import javax.validation.Validation;
 import javax.validation.Validator;
 import javax.validation.ValidatorFactory;
 
+import org.apache.log4j.Logger;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -23,11 +24,15 @@ import com.ipartek.formacion.prestamolibros.pojo.Libro;
 import com.ipartek.formacion.prestamolibros.service.ServicioEditorial;
 import com.ipartek.formacion.prestamolibros.service.ServicioLibro;
 
+import io.swagger.annotations.Api;
+
 @CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("/libros")
+@Api(value = "Libros", tags = { "Libros" })
 public class LibrosController {
 	
+	private final static Logger LOG = Logger.getLogger(LibrosController.class);
 	ServicioLibro servicioLibro = null;
 	ServicioEditorial servicioEditorial = null;
 	ValidatorFactory factory = null;
@@ -54,7 +59,7 @@ public class LibrosController {
 			response = new ResponseEntity<>(libros, HttpStatus.OK);
 			
 		} catch (Exception e) {
-			e.printStackTrace();
+			LOG.error(e);
 		}
 
 		return response;
@@ -78,7 +83,7 @@ public class LibrosController {
 			
 			
 		} catch (Exception e) {
-			e.printStackTrace();
+			LOG.error(e);
 		}	
 		
 		return response;
@@ -101,7 +106,7 @@ public class LibrosController {
 		}catch(SQLIntegrityConstraintViolationException e){
 			response = new ResponseEntity<>(new ResponseMensaje("No podemos eliminar el libro, ya que en estos momentos está prestado."), HttpStatus.CONFLICT);
 		} catch (Exception e) {
-			e.printStackTrace();
+			LOG.error(e);
 		}
 		
 		return response;	
@@ -143,7 +148,7 @@ public class LibrosController {
 			response = new ResponseEntity<>(new ResponseMensaje("No se pudo crear el libro ya que no existe la editorial indicada."), HttpStatus.CONFLICT);
 					
 		}catch (Exception e) {
-			e.printStackTrace();
+			LOG.error(e);
 		}
 		
 		return response;	
@@ -187,7 +192,7 @@ public class LibrosController {
 			response = new ResponseEntity<>(new ResponseMensaje("No se pudo modificar el libro ya que no existe la editorial indicada."), HttpStatus.CONFLICT);
 			
 		} catch (Exception e) {
-			e.printStackTrace();
+			LOG.error(e);
 		}
 		
 		return response;	
