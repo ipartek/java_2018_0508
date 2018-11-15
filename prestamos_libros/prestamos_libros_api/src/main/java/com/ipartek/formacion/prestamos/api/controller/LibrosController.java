@@ -1,5 +1,4 @@
 package com.ipartek.formacion.prestamos.api.controller;
-
 import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.ArrayList;
 import java.util.Set;
@@ -18,42 +17,43 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.ipartek.formacion.prestamos_libros.pojo.Usuario;
-import com.ipartek.formacion.prestamos_libros.service.ServiceUsuario;
+import com.ipartek.formacion.prestamos_libros.pojo.Libro;
+import com.ipartek.formacion.prestamos_libros.service.ServiceLibro;
 
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
+
 @CrossOrigin(origins = "*")
 @RestController
-@RequestMapping("/alumnos")
-public class AlumnosController {
+@RequestMapping("/libros")
+public class LibrosController {
 
-	ServiceUsuario serviceUsuario = null;
+	ServiceLibro serviceLibro = null;
 	ValidatorFactory factory = null;
 	Validator validator = null;
 
-	public AlumnosController() {
+	public LibrosController() {
 		super();
-		serviceUsuario = ServiceUsuario.getInstance();
+		serviceLibro = ServiceLibro.getInstance();
 		factory = Validation.buildDefaultValidatorFactory();
 		validator = factory.getValidator();
 	}
 	
-	@ApiOperation(value = "Listado Alumnos")
+	@ApiOperation(value = "Listado Libros")
 	@ApiResponses( value = {
-			@ApiResponse (code = 200, message = "Listado Alumnos"),
-			@ApiResponse (code = 404, message = "No se encontro Alumno")}
+			@ApiResponse (code = 200, message = "Listado Libros"),
+			@ApiResponse (code = 404, message = "No se encontro Libro")}
 	)
 
 	@RequestMapping(method = RequestMethod.GET)
-	public ResponseEntity<ArrayList<Usuario>> listado() {
+	public ResponseEntity<ArrayList<Libro>> listado() {
 
-		ArrayList<Usuario> list = new ArrayList<Usuario>();
-		ResponseEntity<ArrayList<Usuario>> response = new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+		ArrayList<Libro> list = new ArrayList<Libro>();
+		ResponseEntity<ArrayList<Libro>> response = new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 		try {
 
-			list = (ArrayList<Usuario>) serviceUsuario.listar();
+			list = (ArrayList<Libro>) serviceLibro.listar();
 			response = new ResponseEntity<>(list, HttpStatus.OK);
 
 		} catch (Exception e) {
@@ -63,22 +63,21 @@ public class AlumnosController {
 		return response;
 	}
 	
-	@ApiOperation(value = "Detalle Alumno")
+	@ApiOperation(value = "Detalle Libro")
 	@ApiResponses( value = {
-			@ApiResponse (code = 200, message = "Detalle Alumno"),
-			@ApiResponse (code = 404, message = "No se encontro Alumno valor incorrecto"),
+			@ApiResponse (code = 200, message = "Detalle Libro"),
+			@ApiResponse (code = 404, message = "No se encontro Libro valor incorrecto"),
 			@ApiResponse (code = 409, message = "Caracteres vacios")}
 	)
-
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
-	public ResponseEntity<Usuario> detalle(@PathVariable long id) {
+	public ResponseEntity<Libro> detalle(@PathVariable long id) {
 
-		ResponseEntity<Usuario> response = new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+		ResponseEntity<Libro> response = new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 		try {
 			
-			Usuario usuario = serviceUsuario.buscarId(id);
-			if ( usuario != null && usuario.getId() > 0 ) {
-				response = new ResponseEntity<>(usuario, HttpStatus.OK);
+			Libro libro = serviceLibro.buscarId(id);
+			if ( libro != null && libro.getId() > 0 ) {
+				response = new ResponseEntity<>(libro, HttpStatus.OK);
 			}else {
 				response = new ResponseEntity<>(HttpStatus.NOT_FOUND);
 			}
@@ -89,12 +88,11 @@ public class AlumnosController {
 		return response;
 	}
 	
-	
-	@ApiOperation(value = "Eliminar Alumno")
+	@ApiOperation(value = "Eliminar Libro")
 	@ApiResponses( value = {
-			@ApiResponse (code = 200, message = "Eliminar Alumno"),
-			@ApiResponse (code = 404, message = "No se encontro Alumno"),
-			@ApiResponse (code = 409, message = "No se puede eliminar Alumno si esta asociado a un libro")}
+			@ApiResponse (code = 200, message = "Eliminar Libro"),
+			@ApiResponse (code = 404, message = "No se encontro Libro id libro incorrecto"),
+			@ApiResponse (code = 409, message = "No se puede eliminar el libro por que esta asociado a un prestamo")}
 	)
 	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
 	public ResponseEntity<Object> eliminar(@PathVariable long id) {
@@ -102,44 +100,46 @@ public class AlumnosController {
 		ResponseEntity<Object> response = new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 		try {
 						
-			if ( serviceUsuario.eliminar(id) ) {
+			if ( serviceLibro.eliminar(id) ) {
 				response = new ResponseEntity<>(HttpStatus.OK);
 			}else {
-				response = new ResponseEntity<>(new ResponseMensaje("Usuario Eliminado"), HttpStatus.NOT_FOUND);
+				response = new ResponseEntity<>(HttpStatus.NOT_FOUND);
 			}
 		
 		}catch( SQLIntegrityConstraintViolationException e ) {	
-			response = new ResponseEntity<>(new ResponseMensaje("No se puede eliminar si tiene Libors asociados"), HttpStatus.CONFLICT);
+			response = new ResponseEntity<>(new ResponseMensaje("No se puede eliminar si tiene Prestamo asociados"), HttpStatus.CONFLICT);
 		}catch (Exception e) {
 			e.printStackTrace();
 		}
 		return response;
 	}
-
-	@ApiOperation(value = "Crear Alumno")
+	
+	@ApiOperation(value = "Crear Libro")
 	@ApiResponses( value = {
-			@ApiResponse (code = 201, message = "Crear Alumno"),
-			@ApiResponse (code = 409, message = "Esta vacio Alumno o el Nombre alumno ya existe")}
+			@ApiResponse (code = 201, message = "Crear Libro"),
+			@ApiResponse (code = 409, message = "Esta vacio Libro o el Nombre del libro ya existe o el editorial no exisiste")}
 	)
+
 	@RequestMapping(method = RequestMethod.POST)
-	public ResponseEntity<Object> crear(@RequestBody Usuario usuario) {
+	public ResponseEntity<Object> crear(@RequestBody Libro libro) {
 
 		ResponseEntity<Object> response = new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 		try {
 			
-			Set<ConstraintViolation<Usuario>> violations = validator.validate(usuario);
+			
+			Set<ConstraintViolation<Libro>> violations =  validator.validate(libro);
 	
 			if ( violations.isEmpty() ) {
 			
-				if ( serviceUsuario.crear(usuario) ) {
-					response = new ResponseEntity<>(usuario, HttpStatus.CREATED);
+				if ( serviceLibro.crear(libro) ) {
+					response = new ResponseEntity<>(libro, HttpStatus.CREATED);
 				}else {
-					response = new ResponseEntity<>(HttpStatus.CONFLICT);
+					response = new ResponseEntity<>(new ResponseMensaje("libro creado"), HttpStatus.CREATED);
 				}
 				
 			}else {
 				ResponseMensaje mensaje = new ResponseMensaje("Los datos no son correctos");
-				for ( ConstraintViolation<Usuario> v : violations ) {
+				for ( ConstraintViolation<Libro> v : violations ) {
 					mensaje.addError( v.getPropertyPath() + ": " + v.getMessage() );
 				};
 				response = new ResponseEntity<>( mensaje ,  HttpStatus.CONFLICT);
@@ -148,7 +148,7 @@ public class AlumnosController {
 		}catch ( SQLIntegrityConstraintViolationException e) {
 			
 			
-			ResponseMensaje msj = new ResponseMensaje("Ya existe el Usuario, por favor prueba con otro nombre");			
+			ResponseMensaje msj = new ResponseMensaje("Los datos no son correctos");			
 			response = new ResponseEntity<>(msj, HttpStatus.CONFLICT);
 			
 		}catch (Exception e) {
@@ -158,48 +158,46 @@ public class AlumnosController {
 		return response;
 	}
 	
-	
-	
-	@ApiOperation(value = "Modificar Alumno")
+	@ApiOperation(value = "Modificar Libro")
 	@ApiResponses( value = {
-			@ApiResponse (code = 201, message = "Modificar Alumno"),
-			@ApiResponse (code = 404, message = "No se encontro Alumno"),
-			@ApiResponse (code = 409, message = "No se puede modificar alumno con el mismo nombre o que esta vacio")}
+			@ApiResponse (code = 200, message = "Modificar Libro"),
+			@ApiResponse (code = 404, message = "No se encontro Libro id libro incorrecto"),
+			@ApiResponse (code = 409, message = "No se puede modificar libro con el mismo nombre o que esta vacio")}
 	)
-	
+
 	@RequestMapping(value = "/{id}", method = RequestMethod.PUT)
-	public ResponseEntity<Object> modificar(@PathVariable long id, @RequestBody Usuario usuario) {
+	public ResponseEntity<Object> modificar(@PathVariable long id, @RequestBody Libro libro) {
 
 		ResponseEntity<Object> response = new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 		try {
 			
-			Set<ConstraintViolation<Usuario>> violations =  validator.validate(usuario);
+			Set<ConstraintViolation<Libro>> violations =  validator.validate(libro);
 			if ( violations.isEmpty() ) {
 			
-				usuario.setId(id);			
-				if ( serviceUsuario.modificar(usuario) ) {
-					response = new ResponseEntity<>(usuario, HttpStatus.OK);
+				libro.setId(id);			
+				if ( serviceLibro.modificar(libro) ) {
+					response = new ResponseEntity<>(libro, HttpStatus.OK);
 				}else {
 					response = new ResponseEntity<>(HttpStatus.CONFLICT);
 				}
 				
 			}else {
 				ResponseMensaje mensaje = new ResponseMensaje("Los datos no son correctos");
-				for ( ConstraintViolation<Usuario> v : violations ) {
+				for ( ConstraintViolation<Libro> v : violations ) {
 					mensaje.addError( v.getPropertyPath() + ": " + v.getMessage() );
 				};
-				response = new ResponseEntity<>( new ResponseMensaje("Ya existe la Usuario, por favor prueba con otro nombre"), HttpStatus.CONFLICT);
+				response = new ResponseEntity<>( mensaje ,  HttpStatus.CONFLICT);
 			}	
 		
 		}catch (SQLIntegrityConstraintViolationException e) {
+			e.printStackTrace();
 			
-			response = new ResponseEntity<>( new ResponseMensaje("Ya existe la Usuario, por favor prueba con otro nombre")  ,HttpStatus.CONFLICT);
+			response = new ResponseEntity<>( new ResponseMensaje("los datos son incorrectos")  ,HttpStatus.CONFLICT);
 		}catch (Exception e) {
 			//TODO gestionar duplicate key entry
 			e.printStackTrace();
 		}
 		return response;
 	}
-
 
 }

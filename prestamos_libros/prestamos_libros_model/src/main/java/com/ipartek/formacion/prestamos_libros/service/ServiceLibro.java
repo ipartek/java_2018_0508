@@ -8,9 +8,16 @@ import com.ipartek.formacion.prestamos_libros.pojo.Libro;
 public class ServiceLibro implements IServiceLibro{
 	
 	private LibroDAO daoLibro = LibroDAO.getInstance();
+	private static ServiceLibro INSTANCE = null;
 	
 	public ServiceLibro ()  {
 		// TODO Auto-generated constructor stub
+	}
+	public static synchronized ServiceLibro getInstance() {
+		if (INSTANCE == null) {
+			INSTANCE = new ServiceLibro();
+		}
+		return INSTANCE;
 	}
 
 	@Override

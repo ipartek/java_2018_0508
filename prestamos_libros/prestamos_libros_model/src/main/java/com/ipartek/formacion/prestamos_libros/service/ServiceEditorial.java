@@ -7,18 +7,20 @@ import com.ipartek.formacion.prestamos_libros.pojo.Editorial;
 
 public class ServiceEditorial implements IServiceEditorial{
 	
+
+	
+	private EditorialDAO daoEditorial = EditorialDAO.getInstance();
 	private static ServiceEditorial INSTANCE = null;
-	private static EditorialDAO daoEditorial = null;
+	
+	public ServiceEditorial ()  {
+		// TODO Auto-generated constructor stub
+	}
 	
 	public static synchronized ServiceEditorial getInstance() {
 		if (INSTANCE == null) {
 			INSTANCE = new ServiceEditorial();
 		}
 		return INSTANCE;
-	}
-	
-	private ServiceEditorial ()  {
-		daoEditorial = EditorialDAO.getInstance();
 	}
 
 	@Override

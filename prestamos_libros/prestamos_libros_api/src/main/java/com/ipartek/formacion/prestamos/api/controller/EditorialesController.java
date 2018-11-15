@@ -1,10 +1,5 @@
 package com.ipartek.formacion.prestamos.api.controller;
 
-import org.springframework.web.bind.annotation.RestController;
-
-import com.ipartek.formacion.prestamos_libros.pojo.Editorial;
-import com.ipartek.formacion.prestamos_libros.service.ServiceEditorial;
-
 import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.ArrayList;
 import java.util.Set;
@@ -21,6 +16,14 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.ipartek.formacion.prestamos_libros.pojo.Editorial;
+import com.ipartek.formacion.prestamos_libros.service.ServiceEditorial;
+
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
 
 @CrossOrigin(origins = "*")
 @RestController
@@ -37,6 +40,12 @@ public class EditorialesController {
 		factory = Validation.buildDefaultValidatorFactory();
 		validator = factory.getValidator();
 	}
+	
+	@ApiOperation(value = "Listado Editoriales")
+	@ApiResponses( value = {
+			@ApiResponse (code = 200, message = "Listado Editoriales"),
+			@ApiResponse (code = 404, message = "No se encontro Editorial")}
+	)
 
 	@RequestMapping(method = RequestMethod.GET)
 	public ResponseEntity<ArrayList<Editorial>> listado() {
@@ -54,6 +63,12 @@ public class EditorialesController {
 
 		return response;
 	}
+	
+	@ApiOperation(value = "Detalle Editorial")
+	@ApiResponses( value = {
+			@ApiResponse (code = 200, message = "Detalle Editorial"),
+			@ApiResponse (code = 404, message = "No se encontro Editorial valor incorrecto")}
+	)
 
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
 	public ResponseEntity<Editorial> detalle(@PathVariable long id) {
@@ -73,7 +88,13 @@ public class EditorialesController {
 		}
 		return response;
 	}
-
+	
+	@ApiOperation(value = "Eliminar Editorial")
+	@ApiResponses( value = {
+			@ApiResponse (code = 200, message = "Eliminar Editorial"),
+			@ApiResponse (code = 404, message = "No se encontro Editorial"),
+			@ApiResponse (code = 409, message = "No se puede eliminar el editorial por que esta asociado a un libro")}
+	)
 	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
 	public ResponseEntity<Object> eliminar(@PathVariable long id) {
 
@@ -93,6 +114,12 @@ public class EditorialesController {
 		}
 		return response;
 	}
+	
+	@ApiOperation(value = "Crear Editorial")
+	@ApiResponses( value = {
+			@ApiResponse (code = 201, message = "Crear Editorial"),
+			@ApiResponse (code = 409, message = "Esta vacio Editorial o el Nombre editorial ya existe")}
+	)
 
 	@RequestMapping(method = RequestMethod.POST)
 	public ResponseEntity<Object> crear(@RequestBody Editorial editorial) {
@@ -102,6 +129,7 @@ public class EditorialesController {
 			
 			
 			Set<ConstraintViolation<Editorial>> violations =  validator.validate(editorial);
+	
 			if ( violations.isEmpty() ) {
 			
 				if ( serviceEditorial.crear(editorial) ) {
@@ -130,6 +158,13 @@ public class EditorialesController {
 		}
 		return response;
 	}
+	
+	@ApiOperation(value = "Modificar Editorial")
+	@ApiResponses( value = {
+			@ApiResponse (code = 200, message = "Modificar Editorial"),
+			@ApiResponse (code = 404, message = "No se encontro Editorial"),
+			@ApiResponse (code = 409, message = "No se puede modificar editoria con el mismo nombre o que esta vacio")}
+	)
 
 	@RequestMapping(value = "/{id}", method = RequestMethod.PUT)
 	public ResponseEntity<Object> modificar(@PathVariable long id, @RequestBody Editorial editorial) {

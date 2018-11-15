@@ -11,30 +11,34 @@ import com.ipartek.formacion.prestamos_libros.pojo.Usuario;
 
 public class ServicePrestamo implements IServicePrestamo {
 	private PrestamoDAO daoPrestamo = PrestamoDAO.getInstance();
+	private static ServicePrestamo INSTANCE = null;
+	
 
 	public ServicePrestamo() {
 		// TODO Auto-generated constructor stub
 	}
+	public static synchronized ServicePrestamo getInstance() {
+		if (INSTANCE == null) {
+			INSTANCE = new ServicePrestamo();
+		}
+		return INSTANCE;
+	}
 
 	@Override
 	public boolean crear(Prestamo p) throws Exception {
-		boolean resul = false;
-
-		if (daoPrestamo.insert(p)) {
-			resul = true;
-		}
-
+		boolean resul = false;		
+		resul = daoPrestamo.insert(p);
 		return resul;
 	}
 
 	@Override
 	public boolean modificar(Prestamo p) throws Exception {
 		boolean resul = false;
-
-		if (daoPrestamo.update(p)) {
+		Prestamo prestamo = daoPrestamo.getByIds(p.getLibro().getId(), p.getUsuario().getId(), p.getFech_inicio());
+		if(prestamo.getLibro() != null) {
+			daoPrestamo.update(p);
 			resul = true;
 		}
-
 		return resul;
 	}
 
@@ -76,11 +80,11 @@ public class ServicePrestamo implements IServicePrestamo {
 	@Override
 	public boolean modificarHistorico(Prestamo p, Prestamo prestamoAntiguo) throws Exception {
 		boolean resul = false;
-
-		if (daoPrestamo.updateHistorico(p, prestamoAntiguo)) {
+		Prestamo prestamo = daoPrestamo.getByIds(prestamoAntiguo.getLibro().getId(), prestamoAntiguo.getUsuario().getId(), prestamoAntiguo.getFech_inicio());
+		if(prestamo.getLibro() != null) {
+			daoPrestamo.updateHistorico(p, prestamoAntiguo);
 			resul = true;
 		}
-
 		return resul;
 	}
 

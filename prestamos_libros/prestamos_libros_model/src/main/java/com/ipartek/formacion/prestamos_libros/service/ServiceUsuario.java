@@ -8,9 +8,16 @@ import com.ipartek.formacion.prestamos_libros.pojo.Usuario;
 public class ServiceUsuario implements IServiceUsuario{
 	
 	private UsuarioDAO daoUsuario = UsuarioDAO.getInstance();
+	private static ServiceUsuario INSTANCE = null;
 	
 	public ServiceUsuario ()  {
 		// TODO Auto-generated constructor stub
+	}
+	public static synchronized ServiceUsuario getInstance() {
+		if (INSTANCE == null) {
+			INSTANCE = new ServiceUsuario();
+		}
+		return INSTANCE;
 	}
 
 	@Override
