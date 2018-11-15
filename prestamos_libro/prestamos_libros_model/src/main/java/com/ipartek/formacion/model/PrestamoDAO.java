@@ -46,7 +46,7 @@ public class PrestamoDAO implements Crudable<Prestamo> {
 			int affectedRows = cs.executeUpdate();
 
 			if (affectedRows == 1) {
-				Date fecha=cs.getDate("pfechafin");
+				//Date fecha=cs.getDate("pfechafin");
 
 				resul = true;
 
@@ -198,14 +198,14 @@ public class PrestamoDAO implements Crudable<Prestamo> {
 		return null;
 	}
 
-	public Prestamo buscarPorId(long idLibro, long idAlumno, Date fecha_prestado) throws Exception {
+	public Prestamo buscarPorId(Prestamo pojo) throws Exception {
 		Prestamo prestamo = new Prestamo();
 		String sql = "{call `prestamoGetById` (?,?,?)}";
 		try (Connection con = ConnectionManager.getConnection(); CallableStatement cs = con.prepareCall(sql);) {
 
-			cs.setLong(1, idLibro);
-			cs.setLong(2, idAlumno);
-			cs.setDate(3, fecha_prestado);
+			cs.setLong(1, pojo.getLibro().getId());
+			cs.setLong(2, pojo.getAlumno().getId());
+			cs.setDate(3, pojo.getFecha_prestado());
 
 			try (ResultSet rs = cs.executeQuery();) {
 				while (rs.next()) {
@@ -216,13 +216,20 @@ public class PrestamoDAO implements Crudable<Prestamo> {
 
 					Alumno a = new Alumno();
 					a.setId(rs.getLong("id_alumno"));
-					a.setNombre(rs.getString("nombre_apellidos"));
+					a.setNombre(rs.getString("nombre_alumno"));
 
 					prestamo.setAlumno(a);
 
 					Libro l = new Libro();
 					l.setId(rs.getLong("id_libro"));
 					l.setTitulo(rs.getString("titulo"));
+					l.setIsbn(rs.getString("isbn"));
+					
+					Editorial e=new Editorial();
+					e.setId(rs.getLong("id_editorial"));
+					e.setNombre(rs.getString("editorial"));
+					
+					l.setEditorial(e);
 
 					prestamo.setLibro(l);
 

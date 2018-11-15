@@ -71,7 +71,7 @@ public class LibrosController {
 		return response;
 	}
 
-	@ApiOperation(value = "Obtener libro por su identificador")
+	@ApiOperation(value = "Obtener libro por su identificador",response = Libro.class)
 	@ApiResponses(value = { @ApiResponse(code = 200, message = " Libro encontrada"),
 			@ApiResponse(code = 404, message = " No se encontró el libro deseada") })
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)

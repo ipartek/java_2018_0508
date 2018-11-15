@@ -1,5 +1,6 @@
 package com.ipartek.formacion.prestamos.api.controller;
 
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.Set;
 
@@ -12,6 +13,7 @@ import org.apache.log4j.Logger;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -22,6 +24,7 @@ import com.ipartek.formacion.pojo.Alumno;
 import com.ipartek.formacion.pojo.Libro;
 import com.ipartek.formacion.pojo.Prestamo;
 import com.ipartek.formacion.service.ServiceAlumno;
+import com.ipartek.formacion.service.ServiceLibro;
 import com.ipartek.formacion.service.ServicePrestamo;
 import com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationException;
 
@@ -31,10 +34,10 @@ import io.swagger.annotations.ApiParam;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 
-@Api(tags="Prestamos",produces="aplication/json",description="Gestion de prestamos")
+@Api(tags = "Prestamos", produces = "aplication/json", description = "Gestion de prestamos")
 @CrossOrigin(origins = "*")
 @RestController
-@RequestMapping("/libros/prestamos")
+@RequestMapping("/prestamos")
 public class PrestamosController {
 
 	private static final int ACTIVOS = 1;
@@ -56,16 +59,13 @@ public class PrestamosController {
 		LOG.trace("servicio instanciado");
 	}
 
-	
 	@ApiOperation(value = "Listado de prestamos activos o historicos")
-	@ApiResponses (value= {
-			@ApiResponse(	code  =  200 , message  =  " Listado Prestamos")} )
-	
-	@ApiParam(value="activos",required=false,name="bla bla bla",defaultValue="1")
+	@ApiResponses(value = { @ApiResponse(code = 200, message = " Listado Prestamos") })
+
+	@ApiParam(value = "activos", required = false, name = "bla bla bla", defaultValue = "1")
 	@RequestMapping(method = RequestMethod.GET)
 	public ResponseEntity<ArrayList<Prestamo>> listar(
-			@ApiParam(value="No obligatorio.<ol><li><strong> 1</strong>: prestamos sin retornar</li><li> <strong>0</strong>: prestamos retornados</li></ol>")
-			@RequestParam(value = "activos", required = false, defaultValue = "1") int activos) {
+			@ApiParam(value = "No obligatorio.<ol><li><strong> 1</strong>: prestamos sin retornar</li><li> <strong>0</strong>: prestamos retornados</li></ol>") @RequestParam(value = "activos", required = false, defaultValue = "1") int activos) {
 
 		ArrayList<Prestamo> prestamos = new ArrayList<Prestamo>();
 		ResponseEntity<ArrayList<Prestamo>> response = new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
@@ -83,32 +83,56 @@ public class PrestamosController {
 			response = new ResponseEntity<>(prestamos, HttpStatus.OK);
 
 		} catch (Exception e) {
-			LOG.error(e);			
+			LOG.error(e);
 		}
 
 		return response;
 	}
 
-//	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
-//	public ResponseEntity<Object> detalle(@PathVariable long id) throws Exception {
-//		ResponseEntity<Object> response = new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
-//		Prestamo prestamo = new Prestamo();
-//		prestamo = servicePrestamo.buscarPorId(id);
+	@ApiOperation(value = "Crear prestamo", response = Prestamo.class, notes = "Campos obligatorios:<ol><li><b>identificador del libro</b></li><li><b>identificador del alumno</b></li><li><b>fecha que se realiza el prestamo</b></li></ol>")
+
+	@RequestMapping(value = "/{idLibro}/{idALumno}/{fecha_prestado}", method = RequestMethod.GET)
+	public ResponseEntity<Object> detalle(@PathVariable long idLibro,@PathVariable long idALumno, @PathVariable Date fecha_prestado)
+			throws Exception {
+
+		ResponseEntity<Object> response = new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
+
+		Libro l = new Libro();
+		l.setId(idLibro);
+
+		Alumno a = new Alumno();
+		a.setId(idALumno);
+
+		Prestamo prestamo = new Prestamo();
+
+		prestamo.setFecha_prestado(fecha_prestado);
+		prestamo.setAlumno(a);
+		prestamo.setLibro(l);
+		prestamo = servicePrestamo.buscarPorId(prestamo);
+
+		try {
+			if (prestamo != null) {
+
+				response = new ResponseEntity<>(prestamo, HttpStatus.OK);
+
+			} else {
+
+				response = new ResponseEntity<>(
+						new ResponseMensaje("No se ha encotrado ningun registro, cambie de identificador"),
+						HttpStatus.NOT_FOUND);
+				LOG.debug("No se ha encotrado ningun registro, cambie de identificador");
+			}
+
+		} catch (Exception e) {
+			LOG.error(e);
+		}
+
+		return response;
+	}
 //
-//		if (prestamo != null && prestamo.getId() > 0) {
-//
-//			response = new ResponseEntity<>(alumno, HttpStatus.OK);
-//		} else {
-//			response = new ResponseEntity<>(
-//					new ResponseMensaje("No se ha encotrado ningun registro, cambie de identificador"),
-//					HttpStatus.NOT_FOUND);
-//		}
-//
-//		return response;
-//	}
-//
-//	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
-//	public ResponseEntity<Object> eliminar(@PathVariable long id) throws Exception {
+//	@ApiOperation(value = "Devolver prestamo", response = Prestamo.class, notes = "Campos obligatorios:<ol><li><b>identificador del libro</b></li><li><b>identificador del alumno</b></li><li><b>fecha que se realiza el prestamo</b></li><li><b>fecha en la que se realiza la devolución</b></li></ol>")
+//	@RequestMapping(value = "/{idLibro}/{idALumno}/{fecha_prestado}/{fecha_devolucion}", method = RequestMethod.DELETE)
+//	public ResponseEntity<Object> devolver(@PathVariable long idLibro,@PathVariable long idALumno, @PathVariable Date fecha_prestado) throws Exception {
 //
 //		ResponseEntity<Object> response = new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
 //
@@ -134,10 +158,18 @@ public class PrestamosController {
 //		}
 //		return response;
 //	}
-//
-//
+
+
+
+	@ApiOperation(value = "Crear prestamo", response = Prestamo.class, notes = "Campos obligatorios:<ol><li><b>identificador del libro</b></li><li><b>identificador del alumno</b></li><li><b>fecha que se realiza el prestamo</b></li></ol>")
+	@ApiResponses(value = { @ApiResponse(code = 201, message = " Prestamo creado", response = Prestamo.class),
+			@ApiResponse(code = 400, message = " Faltan campos obligatorios", response = ResponseMensaje.class),
+			@ApiResponse(code = 409, message = " <ol>" + "<li>No existe el libro o el alumno</li>"
+					+ "<li>El libro o el alumno ya tienen un prestamo activo</li>"
+					+ "</ol>", response = ResponseMensaje.class) })
 	@RequestMapping(method = RequestMethod.POST)
 	public ResponseEntity<Object> prestar(@RequestBody Prestamo prestamo) throws Exception {
+
 		ResponseEntity<Object> response = new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 
 		ResponseMensaje responseMensaje = new ResponseMensaje();
@@ -159,28 +191,30 @@ public class PrestamosController {
 				response = new ResponseEntity<>(responseMensaje, HttpStatus.CONFLICT);
 				LOG.debug(response);
 			} else {
+
+				Alumno a = new Alumno();
+				a = ServiceAlumno.getInstance().buscarPorId(prestamo.getAlumno().getId());
+				prestamo.setAlumno(a);
+
+				Libro l = new Libro();
+				l = ServiceLibro.getInstance().buscarPorId(prestamo.getLibro().getId());
+				prestamo.setLibro(l);
+				prestamo.setFecha_prestado(prestamo.getFecha_prestado());
+
 				if (servicePrestamo.prestar(prestamo)) {
-					
-					Alumno a= new Alumno();
-					a=ServiceAlumno.getInstance().buscarPorId(prestamo.getAlumno().getId());
-					prestamo.setAlumno(a);
-					
-					Libro l=new Libro();
-					//l=ServiceLibro.getInstance().
-					
 					response = new ResponseEntity<>(prestamo, HttpStatus.CREATED);
 				} else {
-					
+
 					response = new ResponseEntity<>(new ResponseMensaje("Datos no validos"), HttpStatus.CONFLICT);
 					LOG.debug(response);
 				}
 			}
 
 		} catch (MySQLIntegrityConstraintViolationException e) {
-			
+
 			response = new ResponseEntity<>(new ResponseMensaje("Datos no validos"), HttpStatus.CONFLICT);
 			LOG.debug(response);
-			
+
 		} catch (Exception e) {
 
 			LOG.error(e);

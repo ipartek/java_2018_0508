@@ -66,7 +66,7 @@ public class EditorialesController {
 		return response;
 	}
 
-	@ApiOperation(value = "Obtener editorial por su identificador")
+	@ApiOperation(value = "Obtener editorial por su identificador",response = Editorial.class)
 	@ApiResponses(value = { @ApiResponse(code = 200, message = " editorial encontrada"),
 			@ApiResponse(code = 404, message = " No se encontró la editorial deseada") })
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)

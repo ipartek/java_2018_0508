@@ -13,6 +13,11 @@ public class ServicePrestamo implements IServicePrestamo {
 
 	private static ServicePrestamo INSTANCE = null;
 	private static PrestamoDAO daoPrestamo = PrestamoDAO.getInstance();
+	private static final String EXCEPCION_NO_VALIDOS="Necesitamos el id del libro, id alumno y la fecha prestamo";
+	private static final String EXCEPCION_NO_EXISTE="Alumno o libro no existen";
+	private static final String EXCEPCION_EXISTE="Alumno o libro ya tiene un prestamo pendiente";
+	
+	
 
 	private ServicePrestamo() {
 		super();
@@ -39,45 +44,49 @@ public class ServicePrestamo implements IServicePrestamo {
 		return prestamos;
 	}
 
+	
+	/*
+	 * Funcion para prestar un libro.
+	 * @param Prestamo p 
+	 * necesitamos:
+	 * 		 p.getAlumno().getId() para poder comprobar si el alumno existe en la bbdd y no tenga prestamo asociado
+	 * 		 p.getLibro().getId()  para poder comprobar si el libro existe en la bbdd y no tenga prestamo asociado.
+	 * 
+	 * */
 	@Override
 	public boolean prestar(Prestamo p) throws Exception {
+		
 		boolean resul = false;
 		boolean alumnoLibre = false;
 		boolean libroLibre = false;
 
-//		p.setFecha_prestado(p.getFecha_prestado());
-//
-//		Alumno a = new Alumno();
-//		a.setId(idAlumno);
-//		p.setAlumno(a);
-//
-//		Libro l = new Libro();
-//		l.setId(idLibro);
-//		p.setLibro(l);
+				
+			// Comprobar que el alumno y el libro esten disponibles
+			ArrayList<Alumno> alumnosDisponibles = (ArrayList<Alumno>) this.alumnosDisponibles();
+			for (Alumno alumno : alumnosDisponibles) {
 
-		// Comprobar que el alumno y el libro esten disponibles
-		ArrayList<Alumno> alumnosDisponibles = (ArrayList<Alumno>) this.alumnosDisponibles();
-		for (Alumno alumno : alumnosDisponibles) {
-
-			if (alumno.getId() == p.getAlumno().getId()) {
-				alumnoLibre = true;
-				break;
+				if (alumno.getId() == p.getAlumno().getId()) {
+					alumnoLibre = true;
+					break;
+				}
 			}
-		}
-		ArrayList<Libro> libroDisponibles = (ArrayList<Libro>) this.librosDisponibles();
-		for (Libro libro : libroDisponibles) {
+			
+			ArrayList<Libro> libroDisponibles = (ArrayList<Libro>) this.librosDisponibles();
+			for (Libro libro : libroDisponibles) {
 
-			if (libro.getId() == p.getLibro().getId()) {
-				libroLibre = true;
-				break;
+				if (libro.getId() == p.getLibro().getId()) {
+					libroLibre = true;
+					break;
+				}
 			}
-		}
-		if (alumnoLibre && libroLibre) {
-			if (daoPrestamo.insert(p)) {
-				resul = true;
+			
+			if (alumnoLibre && libroLibre) {
+				if (daoPrestamo.insert(p)) {
+					
+					resul = true;
+				}
 			}
-		}
-
+				
 		return resul;
 	}
 
@@ -96,9 +105,9 @@ public class ServicePrestamo implements IServicePrestamo {
 	}
 
 	@Override
-	public Prestamo buscarPorId(long idLibro, long idAlumno, Date fecha_prestado) throws Exception {
+	public Prestamo buscarPorId(Prestamo pojo) throws Exception {
 		Prestamo p = null;
-		p = daoPrestamo.buscarPorId(idLibro, idAlumno, fecha_prestado);
+		p = daoPrestamo.buscarPorId(pojo);
 		return p;
 	}
 

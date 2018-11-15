@@ -39,7 +39,7 @@ public interface IServicePrestamo {
 	 * @return Pojo Prestamo en caso de que lo encuentre, en caso contrario null
 	 * @throws Exception
 	 */
-	Prestamo buscarPorId(long idLibro, long idAlumno, Date fecha_prestado) throws Exception;
+	Prestamo buscarPorId(Prestamo pojo) throws Exception;
 	
 	/**
 	 *  Devuelve un listado de prestamos realizados y no activos, fechaRetorno != null
