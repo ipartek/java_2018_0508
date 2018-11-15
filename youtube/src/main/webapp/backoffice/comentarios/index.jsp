@@ -41,7 +41,7 @@
 					                <td>${c.fecha}</td>
 					                <td onclick="showModal('${c.texto}', 'Detalle Comentario');" class="hover-hand">${fn:substring(c.texto, 0, 100)}...</td>
 					                <td>${(not c.aprobado)?'Pendiente de moderación':'Aprobado'}</td>
-					                <td>${fn:substring(c.video.nombre, 0, 25)}...</td>
+					                <td title="${c.video.nombre}" data-toggle="tooltip" data-placement="right" class="hover-hand">${fn:substring(c.video.nombre, 0, 25)}...</td>
 					                <td>${c.usuario.nombre}</td>
 					            </tr>
 				            </c:forEach>

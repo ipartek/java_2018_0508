@@ -23,7 +23,7 @@ public class ComentarioDAO implements CrudAble<Comentario>{
 	private final String SQL_GET_ALL_BY_APROBADO = "SELECT v.id as 'id_video', v.nombre as 'nombre_video', c.id as 'id_comentario', u.id as 'id_usuario', fecha, texto, aprobado, u.nombre FROM comentario as c , usuario as u, video as v WHERE c.id_usuario = u.id AND c.id_video = v.id AND aprobado = ? ORDER BY c.id DESC LIMIT 500;";
 	private final String SQL_APROBAR = "UPDATE comentario SET aprobado = 1 WHERE id IN "; //IN(1, 3);
 	
-	private final String SQL_GET_ALL = "SELECT c.id as 'id_comentario', c.id_usuario as 'id_usuario', fecha, texto, aprobado, u.nombre FROM comentario as c, usuario as u WHERE c.id_usuario = u.id ORDER BY c.id DESC LIMIT 500;";
+	private final String SQL_GET_ALL = "SELECT c.id as 'id_comentario', c.id_usuario as 'id_usuario', fecha, texto, aprobado, u.nombre, v.id as 'id_video', v.nombre as 'nombre_video' FROM comentario as c, usuario as u, video as v WHERE c.id_usuario = u.id AND c.id_video = v.id ORDER BY c.id DESC LIMIT 500;";
 	private final String SQL_GET_BY_ID = "SELECT c.id as 'id_comentario', c.id_usuario as 'id_usuario', fecha, texto, aprobado, u.nombre FROM comentario as c, usuario as u WHERE c.id = ?;";
 	private final String SQL_UPDATE = "UPDATE comentario SET texto = ? WHERE id = ?;";
 	private final String SQL_DELETE = "DELETE FROM comentario WHERE id = ?;";
@@ -235,7 +235,7 @@ public class ComentarioDAO implements CrudAble<Comentario>{
 				v.setId(rs.getLong("id_video"));
 				v.setNombre(rs.getString("nombre_video"));
 			}catch (Exception e) {
-				
+				e.printStackTrace();
 			}
 			c.setVideo(v);
 			
