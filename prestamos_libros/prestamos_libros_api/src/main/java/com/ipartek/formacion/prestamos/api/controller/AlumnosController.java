@@ -55,7 +55,7 @@ public class AlumnosController {
 	}
 
 	@ApiOperation(value = "Listado de alumnos", notes = "Muestra el listado de todos los alumnos", produces = "application/json")
-	@ApiResponses(value = { @ApiResponse(code = 200, message = "Mostrar listado alumnos", responseContainer = "List") })
+	@ApiResponses(value = { @ApiResponse(code = 200, message = "Listado alumnos mostrado") })
 	@RequestMapping(method = RequestMethod.GET)
 	public ResponseEntity<ArrayList<Alumno>> listado() {
 		ResponseEntity<ArrayList<Alumno>> response = new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
@@ -144,8 +144,8 @@ public class AlumnosController {
 	}
 
 	@ApiOperation(value = "Modificar alumno", notes = "Modifica los valores de un alumno", produces = "application/json", response = Alumno.class)
-	@ApiResponses(value = { @ApiResponse(code = 200, message = "Modificar un alumno correctamente"),
-			@ApiResponse(code = 409, message = "Conflicto por validaciones de alumno o porque ya existe un alumno con el mismo nombre") })
+	@ApiResponses(value = { @ApiResponse(code = 200, message = "Alumno modificado"),
+			@ApiResponse(code = 409, message = "<ol><li>1) Nombre de alumno ya existe.</li><li> 2) No cumple las validaciones.</li></ol>") })
 	@RequestMapping(value = "/{id}", method = RequestMethod.PUT)
 	public ResponseEntity<Object> modificar(@PathVariable long id, @RequestBody Alumno alumno) {
 
@@ -189,10 +189,10 @@ public class AlumnosController {
 		return response;
 	}
 
-	@ApiOperation(value = "Eliminar libro", notes = "Elimina un libro existente", produces = "application/json")
-	@ApiResponses(value = { @ApiResponse(code = 200, message = "Eliminar un libro correctamente"),
-			@ApiResponse(code = 404, message = "No existe el alumno a borrar"),
-			@ApiResponse(code = 409, message = "Conflicto por intentar eliminar un alumno que tiene préstamos asociados") })
+	@ApiOperation(value = "Eliminar libro", notes = "Elimina un alumno existente", produces = "application/json")
+	@ApiResponses(value = { @ApiResponse(code = 200, message = "Alumno eliminado"),
+			@ApiResponse(code = 404, message = "Alumno no existe"),
+			@ApiResponse(code = 409, message = "<ol><li>1) Nombre de alumno ya existe.</li><li> 2) No cumple las validaciones.</li></ol>") })
 	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
 	public ResponseEntity<Object> eliminar(@PathVariable long id) {
 
