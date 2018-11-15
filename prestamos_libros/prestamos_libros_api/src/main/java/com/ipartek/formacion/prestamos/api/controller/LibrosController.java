@@ -32,8 +32,8 @@ import io.swagger.annotations.ApiResponses;
 
 @CrossOrigin(origins = "*")
 @RestController
-@RequestMapping("/libros")
-@Api(value = "Libros", tags = { "Libros" })
+@RequestMapping("/libros") 
+@Api(tags = { "Libros" }, produces = "application/json", description="Gestión de libros")
 public class LibrosController {
 	
 	private final static Logger LOG = Logger.getLogger(LibrosController.class);
@@ -83,7 +83,9 @@ public class LibrosController {
 							}
 				)
 	@ApiParam(value="id", required=true)
-	public ResponseEntity<Libro> detalle(@PathVariable("id") long id) {
+	public ResponseEntity<Libro> detalle(
+			@ApiParam(value="Id del libro", required=true)
+			@PathVariable("id") long id) {
 		
 		ResponseEntity<Libro> response = new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 		Libro libro = new Libro();
@@ -108,7 +110,7 @@ public class LibrosController {
 	}
 	
 	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
-	@ApiOperation(value = "Eliminar un libro")
+	@ApiOperation(value = "Eliminar un libro", response = Libro.class)
 	@ApiResponses(value = { 
 							@ApiResponse(code = 200, message = "Libro eliminado"),
 							@ApiResponse(code = 404, message = "El libro no existe"),
@@ -117,7 +119,9 @@ public class LibrosController {
 							}
 				)
 	@ApiParam(value="id", name="id", required=true)
-	public ResponseEntity<Object> eliminar(@PathVariable("id") long id) {
+	public ResponseEntity<Object> eliminar(
+			@ApiParam(value="Id del libro", required=true)
+			@PathVariable("id") long id) {
 		
 		ResponseEntity<Object> response = new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
 		
@@ -126,11 +130,13 @@ public class LibrosController {
 			if(servicioLibro.eliminar(id)) {
 				response = new ResponseEntity<>(HttpStatus.OK);
 			}else {
-				response = new ResponseEntity<>(HttpStatus.NOT_FOUND);
+				response = new ResponseEntity<>(new ResponseMensaje("El libro no existe."), HttpStatus.NOT_FOUND);
+				LOG.debug("El libro no existe.");
 			}
 			
 		}catch(SQLIntegrityConstraintViolationException e){
 			response = new ResponseEntity<>(new ResponseMensaje("No podemos eliminar el libro, ya que en estos momentos está prestado."), HttpStatus.CONFLICT);
+			LOG.debug("No podemos eliminar el libro, ya que en estos momentos está prestado.");
 		} catch (Exception e) {
 			LOG.error(e);
 		}
@@ -140,13 +146,17 @@ public class LibrosController {
 	}
 	
 	@RequestMapping(method = RequestMethod.POST)
-	@ApiOperation(value = "Crear un libro")
+	@ApiOperation(value = "Crear un libro", response = Libro.class)
 	@ApiResponses(value = { 
 							@ApiResponse(code = 201, message = "Libro creado"),
-							@ApiResponse(code = 404, message = "El libro no existe"),
-							@ApiResponse(code = 409, message = "No se pudo crear el libro ya que no existe la editorial indicada. / "
-									+ "	El título no puede estar vacío y debe contener entre 2 y 150 caracteres / "
-									+ "El isbn no puede estar vacío y debe contener entre 5 y 20 caracteres."),
+							@ApiResponse(code = 409, message = 
+									  "<ol>"
+									+ "<li>No se pudo crear el libro ya que no existe la editorial indicada.</li> "
+									+ "<li>El título no puede estar vacío.</li>"
+									+ "<li>El título debe contener entre 2 y 150 caracteres.</li>"
+									+ "<li>El isbn no puede estar vacío.</li>"
+									+ "<li>El isbn debe contener entre 5 y 20 caracteres.</li>"
+									+ "</ol>"),
 							@ApiResponse(code = 500, message = "Error fatal")  
 							}
 				)
@@ -182,7 +192,7 @@ public class LibrosController {
 			
 		} catch(SQLIntegrityConstraintViolationException e){
 			response = new ResponseEntity<>(new ResponseMensaje("No se pudo crear el libro ya que no existe la editorial indicada."), HttpStatus.CONFLICT);
-					
+			LOG.debug("No se pudo crear el libro ya que no existe la editorial indicada.");		
 		}catch (Exception e) {
 			LOG.error(e);
 		}
@@ -192,18 +202,25 @@ public class LibrosController {
 	}
 	
 	@RequestMapping(value = "/{id}", method = RequestMethod.PUT)
-	@ApiOperation(value = "Modificar un libro")
+	@ApiOperation(value = "Modificar un libro", response = Libro.class)
 	@ApiResponses(value = { 
 							@ApiResponse(code = 200, message = "Libro modificado"),
 							@ApiResponse(code = 404, message = "El libro no existe"),
-							@ApiResponse(code = 409, message = "No se pudo crear el libro ya que no existe la editorial indicada. / "
-									+ "	El título no puede estar vacío y debe contener entre 2 y 150 caracteres / "
-									+ "El isbn no puede estar vacío y debe contener entre 5 y 20 caracteres."),
+							@ApiResponse(code = 409, message = 
+									  "<ol>"
+									+ "<li>No se pudo crear el libro ya que no existe la editorial indicada.</li> "
+									+ "<li>El título no puede estar vacío.</li>"
+									+ "<li>El título debe contener entre 2 y 150 caracteres.</li>"
+									+ "<li>El isbn no puede estar vacío.</li>"
+									+ "<li>El isbn debe contener entre 5 y 20 caracteres.</li>"
+									+ "</ol>"),
 							@ApiResponse(code = 500, message = "Error fatal")  
 							}
 				)
 	@ApiParam(value="id", required=true)
-	public ResponseEntity<Object> modificar(@PathVariable("id") long id, @RequestBody Libro libro) {
+	public ResponseEntity<Object> modificar(
+			@ApiParam(value="Id del libro", required=true)
+			@PathVariable("id") long id, @RequestBody Libro libro) {
 		
 		ResponseEntity<Object> response = new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 		ResponseMensaje msg = new ResponseMensaje();
@@ -220,7 +237,8 @@ public class LibrosController {
 					libro.setEditorial(editorial);
 					response = new ResponseEntity<>(libro, HttpStatus.OK);
 				}else {
-					response = new ResponseEntity<>(HttpStatus.NOT_FOUND);
+					response = new ResponseEntity<>(new ResponseMensaje("El libro no existe."), HttpStatus.NOT_FOUND);
+					LOG.debug("El libro no existe.");
 				}
 				
 			}else {
@@ -237,7 +255,7 @@ public class LibrosController {
 			
 		}catch(SQLIntegrityConstraintViolationException e){
 			response = new ResponseEntity<>(new ResponseMensaje("No se pudo modificar el libro ya que no existe la editorial indicada."), HttpStatus.CONFLICT);
-			
+			LOG.debug("No se pudo modificar el libro ya que no existe la editorial indicada.");
 		} catch (Exception e) {
 			LOG.error(e);
 		}

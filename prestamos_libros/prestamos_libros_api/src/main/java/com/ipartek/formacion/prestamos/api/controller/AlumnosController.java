@@ -28,10 +28,10 @@ import io.swagger.annotations.ApiParam;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 
-@CrossOrigin(origins = "*")
+@CrossOrigin(origins = "*") 
 @RestController
 @RequestMapping("/alumnos")
-@Api(value = "Alumnos", tags = { "Alumnos" })
+@Api(tags = { "Alumnos" }, produces = "application/json", description="Gestión de alumnos")
 public class AlumnosController {
 	
 	private final static Logger LOG = Logger.getLogger(AlumnosController.class);
@@ -79,7 +79,9 @@ public class AlumnosController {
 							}
 				)
 	@ApiParam(value="id", required=true)
-	public ResponseEntity<Alumno> detalle(@PathVariable("id") long id) {
+	public ResponseEntity<Alumno> detalle(
+			@ApiParam(value="Id del alumno.", required=true)
+			@PathVariable("id") long id) {
 		
 		ResponseEntity<Alumno> response = new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 		Alumno alumno = new Alumno();
@@ -92,6 +94,7 @@ public class AlumnosController {
 				response = new ResponseEntity<Alumno>(alumno, HttpStatus.OK);
 			}else {
 				response = new ResponseEntity<Alumno>(alumno, HttpStatus.NOT_FOUND);
+				LOG.debug("El alumno no existe.");
 			}
 			
 			
@@ -104,7 +107,7 @@ public class AlumnosController {
 	}
 	
 	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
-	@ApiOperation(value = "Eliminar un alumno")
+	@ApiOperation(value = "Eliminar un alumno", response = Alumno.class)
 	@ApiResponses(value = { 
 							@ApiResponse(code = 200, message = "Alumno eliminado"),
 							@ApiResponse(code = 404, message = "El alumno no existe"),							
@@ -112,7 +115,9 @@ public class AlumnosController {
 							}
 				)
 	@ApiParam(value="id", name="id", required=true)
-	public ResponseEntity<Object> eliminar(@PathVariable("id") long id) {
+	public ResponseEntity<Object> eliminar(
+			@ApiParam(value="Id del alumno", required=true)
+			@PathVariable("id") long id) {
 		
 		ResponseEntity<Object> response = new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
 		
@@ -121,7 +126,8 @@ public class AlumnosController {
 			if(servicioAlumno.eliminar(id)) {
 				response = new ResponseEntity<>(HttpStatus.OK);
 			}else {
-				response = new ResponseEntity<>(HttpStatus.NOT_FOUND);
+				response = new ResponseEntity<>(new ResponseMensaje("El alumno no existe."), HttpStatus.NOT_FOUND);
+				LOG.debug("El alumno no existe.");
 			}
 			
 		}catch (Exception e) {
@@ -133,13 +139,15 @@ public class AlumnosController {
 	}
 	
 	@RequestMapping(method = RequestMethod.POST)
-	@ApiOperation(value = "Crear un alumno")
+	@ApiOperation(value = "Crear un alumno", response = Alumno.class)
 	@ApiResponses(value = { 
 							@ApiResponse(code = 201, message = "Alumno creado"),
-							@ApiResponse(code = 404, message = "El alumno no existe"),
-							@ApiResponse(code = 409, message = "El alumno ya existe / "
-									+ "	El nombre no puede estar vacío y debe contener entre 2 y 50 caracteres / "
-									+ "El campo apellidos no puede estar vacío y debe contener entre 2 y 150 caracteres."),
+							@ApiResponse(code = 409, message = 
+									  "<ol>"
+									+ "<li>El alumno ya existe.</li> "
+									+ "<li>El nombre no puede estar vacío y debe contener entre 2 y 50 caracteres.</li>"
+									+ "<li>El campo apellidos no puede estar vacío y debe contener entre 2 y 150 caracteres.</li>"
+									+ "</ol>"),
 							@ApiResponse(code = 500, message = "Error fatal")  
 							}
 				)
@@ -172,8 +180,8 @@ public class AlumnosController {
 			}
 			
 		}catch(SQLIntegrityConstraintViolationException e){
-			response = new ResponseEntity<>(new ResponseMensaje("El alumno " + alumno.getNombre() + " " + alumno.getApellidos() + " ya existe."), HttpStatus.CONFLICT);
-			
+			response = new ResponseEntity<>(new ResponseMensaje("El alumno ya existe."), HttpStatus.CONFLICT);
+			LOG.debug("El alumno ya existe.");
 		} catch (Exception e) {
 			LOG.error(e);
 		}
@@ -183,18 +191,24 @@ public class AlumnosController {
 	}
 	
 	@RequestMapping(value = "/{id}", method = RequestMethod.PUT)
-	@ApiOperation(value = "Modificar un alumno")
+	@ApiOperation(value = "Modificar un alumno", response = Alumno.class
+	)
 	@ApiResponses(value = { 
 							@ApiResponse(code = 200, message = "Alumno modificado"),
 							@ApiResponse(code = 404, message = "El alumno no existe"),
-							@ApiResponse(code = 409, message = "Ya existe un alumno con ese nombre y apellidos. / "
-									+ "	El nombre no puede estar vacío y debe contener entre 2 y 50 caracteres. / "
-									+ " El campo apellidos no puede estar vacío y debe contener entre 2 y 150 caracteres."),
+							@ApiResponse(code = 409, message = 
+									  "<ol>"
+									+ "<li>El alumno ya existe.</li> "
+									+ "<li>El nombre no puede estar vacío y debe contener entre 2 y 50 caracteres.</li>"
+									+ "<li>El campo apellidos no puede estar vacío y debe contener entre 2 y 150 caracteres.</li>"
+									+ "</ol>"),
 							@ApiResponse(code = 500, message = "Error fatal")  
 							}
 				)
 	@ApiParam(value="id", required=true)
-	public ResponseEntity<Object> modificar(@PathVariable("id") long id, @RequestBody Alumno alumno) {
+	public ResponseEntity<Object> modificar(
+			@ApiParam(value="Id del alumno", required=true)
+			@PathVariable("id") long id, @RequestBody Alumno alumno) {
 		
 		ResponseEntity<Object> response = new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 		ResponseMensaje msg = new ResponseMensaje();
@@ -209,7 +223,8 @@ public class AlumnosController {
 				if(servicioAlumno.modificar(alumno)) {
 					response = new ResponseEntity<>(alumno, HttpStatus.OK);
 				}else {
-					response = new ResponseEntity<>(alumno, HttpStatus.CONFLICT);
+					response = new ResponseEntity<>(new ResponseMensaje("El alumno no existe."), HttpStatus.NOT_FOUND);
+					LOG.debug("El alumno no existe.");
 				}
 				
 			}else {
@@ -225,8 +240,8 @@ public class AlumnosController {
 			}
 			
 		}catch(SQLIntegrityConstraintViolationException e){
-			response = new ResponseEntity<>(new ResponseMensaje("El alumno " + alumno.getNombre() + " " + alumno.getApellidos() + " ya existe."), HttpStatus.CONFLICT);
-			
+			response = new ResponseEntity<>(new ResponseMensaje("El alumno ya existe."), HttpStatus.CONFLICT);
+			LOG.debug("El alumno ya existe.");
 		} catch (Exception e) {
 			LOG.error(e);
 		}

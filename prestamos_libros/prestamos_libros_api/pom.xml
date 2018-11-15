@@ -104,10 +104,7 @@
 			<scope>test</scope> <!-- solo se usa para Test, cuando se crea el projecto no se incluye -->
 		</dependency>
 
-
-
 	</dependencies>
-	
 	
 	<build>
 

@@ -28,10 +28,10 @@ import io.swagger.annotations.ApiParam;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 
-@CrossOrigin(origins = "*")
+@CrossOrigin(origins = "*") 
 @RestController
 @RequestMapping("/editoriales")
-@Api(value = "Editoriales", tags = { "Editoriales" })
+@Api(tags = { "Editoriales" }, produces = "application/json", description="Gestión de editoriales")
 public class EditorialesController {
 	
 	private final static Logger LOG = Logger.getLogger(EditorialesController.class);
@@ -79,7 +79,9 @@ public class EditorialesController {
 							}
 				)
 	@ApiParam(value="id", required=true)
-	public ResponseEntity<Editorial> detalle(@PathVariable("id") long id) {
+	public ResponseEntity<Editorial> detalle(
+			@ApiParam(value="Id de la editorial", required=true)
+			@PathVariable("id") long id) {
 		
 		ResponseEntity<Editorial> response = new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 		Editorial editorial = new Editorial();
@@ -92,6 +94,7 @@ public class EditorialesController {
 				response = new ResponseEntity<Editorial>(editorial, HttpStatus.OK);
 			}else {
 				response = new ResponseEntity<Editorial>(editorial, HttpStatus.NOT_FOUND);
+				LOG.debug("La editorial no existe.");
 			}
 			
 			
@@ -104,7 +107,7 @@ public class EditorialesController {
 	}
 	
 	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
-	@ApiOperation(value = "Eliminar una editorial")
+	@ApiOperation(value = "Eliminar una editorial", response = Editorial.class)
 	@ApiResponses(value = { 
 							@ApiResponse(code = 200, message = "Editorial eliminada"),
 							@ApiResponse(code = 404, message = "La editorial no existe"),
@@ -113,7 +116,9 @@ public class EditorialesController {
 							}
 				)
 	@ApiParam(value="id", name="id", required=true)
-	public ResponseEntity<Object> eliminar(@PathVariable("id") long id) {
+	public ResponseEntity<Object> eliminar(
+			@ApiParam(value="Id de la editorial", required=true)
+			@PathVariable("id") long id) {
 		
 		ResponseEntity<Object> response = new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
 		
@@ -122,11 +127,13 @@ public class EditorialesController {
 			if(servicioEditorial.eliminar(id)) {
 				response = new ResponseEntity<>(HttpStatus.OK);
 			}else {
-				response = new ResponseEntity<>(HttpStatus.NOT_FOUND);
+				response = new ResponseEntity<>(new ResponseMensaje("La editorial no existe."), HttpStatus.NOT_FOUND);
+				LOG.debug("La editorial no existe.");
 			}
 			
 		}catch(SQLIntegrityConstraintViolationException e){
 			response = new ResponseEntity<>(new ResponseMensaje("No podemos eliminar la editorial, ya que tiene uno o más libros asociados."), HttpStatus.CONFLICT);
+			LOG.debug("No podemos eliminar la editorial, ya que tiene uno o más libros asociados.");
 		} catch (Exception e) {
 			LOG.error(e);
 		}
@@ -136,11 +143,15 @@ public class EditorialesController {
 	}
 	
 	@RequestMapping(method = RequestMethod.POST)
-	@ApiOperation(value = "Crear una editorial")
+	@ApiOperation(value = "Crear una editorial", response = Editorial.class)
 	@ApiResponses(value = { 
 							@ApiResponse(code = 201, message = "Editorial creada"),
-							@ApiResponse(code = 404, message = "La editorial no existe"),
-							@ApiResponse(code = 409, message = "La editorial ya existe / No puede estar vacía y debe contener entre 2 y 50 caracteres"),
+							@ApiResponse(code = 409, message = 
+									  "<ol>"
+									+ "<li>La editorial ya existe.</li> "
+									+ "<li>La editorial no puede estar vacía</li>"
+									+ "<li>La editorial debe contener entre 2 y 50 caracteres.</li>"
+									+ "</ol>"),
 							@ApiResponse(code = 500, message = "Error fatal")  
 							}
 				)
@@ -157,7 +168,7 @@ public class EditorialesController {
 				if(servicioEditorial.crear(editorial)) {
 					response = new ResponseEntity<>(editorial, HttpStatus.CREATED);
 				}else {
-					response = new ResponseEntity<>(editorial, HttpStatus.NOT_FOUND);
+					response = new ResponseEntity<>(editorial, HttpStatus.CONFLICT);
 				}
 				
 			}else {
@@ -173,8 +184,8 @@ public class EditorialesController {
 			}
 			
 		}catch(SQLIntegrityConstraintViolationException e){
-			response = new ResponseEntity<>(new ResponseMensaje("La editorial " + editorial.getEditorial() + " ya existe."), HttpStatus.CONFLICT);
-			
+			response = new ResponseEntity<>(new ResponseMensaje("La editorial ya existe."), HttpStatus.CONFLICT);
+			LOG.debug("La editorial ya existe.");
 		} catch (Exception e) {
 			LOG.error(e);
 		}
@@ -184,16 +195,23 @@ public class EditorialesController {
 	}
 	
 	@RequestMapping(value = "/{id}", method = RequestMethod.PUT)
-	@ApiOperation(value = "Modificar una editorial")
+	@ApiOperation(value = "Modificar una editorial", response = Editorial.class)
 	@ApiResponses(value = { 
 							@ApiResponse(code = 200, message = "Editorial modificada"),
 							@ApiResponse(code = 404, message = "La editorial no existe"),
-							@ApiResponse(code = 409, message = "Ya existe una editorial con ese nombre. / No puede estar vacía y debe contener entre 2 y 50 caracteres."),
+							@ApiResponse(code = 409, message = 
+									  "<ol>"
+									+ "<li>La editorial ya existe.</li> "
+									+ "<li>La editorial no puede estar vacía</li>"
+									+ "<li>La editorial debe contener entre 2 y 50 caracteres.</li>"
+									+ "</ol>"),
 							@ApiResponse(code = 500, message = "Error fatal")  
 							}
 				)
 	@ApiParam(value="id", required=true)
-	public ResponseEntity<Object> modificar(@PathVariable("id") long id, @RequestBody Editorial editorial) {
+	public ResponseEntity<Object> modificar(
+			@ApiParam(value="Id de la editorial", required=true)
+			@PathVariable("id") long id, @RequestBody Editorial editorial) {
 		
 		ResponseEntity<Object> response = new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 		ResponseMensaje msg = new ResponseMensaje();
@@ -208,7 +226,8 @@ public class EditorialesController {
 				if(servicioEditorial.modificar(editorial)) {
 					response = new ResponseEntity<>(editorial, HttpStatus.OK);
 				}else {
-					response = new ResponseEntity<>(editorial, HttpStatus.NOT_FOUND);
+					response = new ResponseEntity<>(new ResponseMensaje("La editorial no existe."), HttpStatus.NOT_FOUND);
+					LOG.debug("La editorial no existe.");
 				}
 				
 			}else {
@@ -224,8 +243,8 @@ public class EditorialesController {
 			}
 			
 		}catch(SQLIntegrityConstraintViolationException e){
-			response = new ResponseEntity<>(new ResponseMensaje("La editorial " + editorial.getEditorial() + " ya existe."), HttpStatus.CONFLICT);
-			
+			response = new ResponseEntity<>(new ResponseMensaje("La editorial ya existe."), HttpStatus.CONFLICT);
+			LOG.debug("La editorial ya existe.");
 		} catch (Exception e) {
 			LOG.error(e);
 		}
