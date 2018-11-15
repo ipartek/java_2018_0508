@@ -29,18 +29,17 @@ import io.swagger.annotations.ApiParam;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 
-@Api(tags= {"PRESTAMOS"}, produces="application/json", description="Gestión Prestamos de Libros por ALumno")
+@Api(tags = { "PRESTAMOS" }, produces = "application/json", description = "Gestión Prestamos de Libros por ALumno")
 @CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("/prestamos")
 public class PrestamosController {
-	
+
 	private final static Logger LOG = Logger.getLogger(PrestamosController.class);
 
-	ServicePrestamo servicePrestamo = null;	
+	ServicePrestamo servicePrestamo = null;
 	ValidatorFactory factory = null;
 	Validator validator = null;
-
 
 	public PrestamosController() {
 		super();
@@ -49,30 +48,28 @@ public class PrestamosController {
 		factory = Validation.buildDefaultValidatorFactory();
 		validator = factory.getValidator();
 		LOG.trace("Serivicios prestamos instanciados");
-		
+
 	}
+
 	@ApiOperation(value = "Listado Prestados Activos o historico")
-	@ApiResponses( value = {
-			@ApiResponse (code = 200, message = "Listado Prestamos"),
-			@ApiResponse (code = 404, message = "No se encontro prestamo")}
-	)
-	
-	@ApiParam( value="activo", required = false, defaultValue = "1")
+	@ApiResponses(value = { @ApiResponse(code = 200, message = "Listado Prestamos"),
+			@ApiResponse(code = 404, message = "No se encontro prestamo") })
+
+	@ApiParam(value = "activo", required = false, defaultValue = "1")
 	@RequestMapping(method = RequestMethod.GET)
 	public ResponseEntity<ArrayList<Prestamo>> listado(
-			@ApiParam(value="No obligatorio <ol><li>true: Prestamos sin retornar</li> <li>false: Prestamos retornados</li></ol>") 
-			@RequestParam(value = "activo", required = false, defaultValue="true") boolean estado) {
+			@ApiParam(value = "No obligatorio <ol><li>true: Prestamos sin retornar</li> <li>false: Prestamos retornados</li></ol>") @RequestParam(value = "activo", required = false, defaultValue = "true") boolean estado) {
 
 		ArrayList<Prestamo> list = new ArrayList<Prestamo>();
 		ResponseEntity<ArrayList<Prestamo>> response = new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 		try {
-			if(estado) {
+			if (estado) {
 				list = (ArrayList<Prestamo>) servicePrestamo.listar();
 				LOG.debug("prestamos recuperados" + list.size());
-			}else {
+			} else {
 				list = (ArrayList<Prestamo>) servicePrestamo.listardevueltos();
 			}
-			
+
 			response = new ResponseEntity<>(list, HttpStatus.OK);
 
 		} catch (Exception e) {
@@ -81,32 +78,51 @@ public class PrestamosController {
 
 		return response;
 	}
-	
+
+	@ApiOperation(value = "Prestar un Libro a un Usuario para una fecha concreta", response = Prestamo.class, notes = "Campos Obligatorios: <ol><li><b>fech_inicio</b> Fecha inicio</li><li><b>libro.id</b> Identificador del Libro </li><li><b>usuario.id</b> Identificador del Usuario </li></ol>")
+	@ApiResponses(value = { @ApiResponse(code = 201, message = "Prestamos creado", response = Prestamo.class),
+			@ApiResponse(code = 400, message = "Faltan campos obligatorios", response = ResponseMensaje.class),
+			@ApiResponse(code = 409, message = "<ol><li>No existe le Libro o Usuario</li><li>Libro o Usuario ya tienen un prestamo activo</li></ol>", response = ResponseMensaje.class), })
+
 	@RequestMapping(method = RequestMethod.POST)
-	public ResponseEntity<ResponseMensaje> crear(@RequestBody Prestamo prestamo){
-		ResponseEntity<ResponseMensaje> response = new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-		
+	public ResponseEntity<Object> crear(@RequestBody Prestamo prestamo) {
+		ResponseEntity<Object> response = new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+
 		try {
-			boolean creado = servicePrestamo.crear(prestamo);
-			if(creado) {
-				ResponseMensaje msj = new ResponseMensaje("Libro prestado");
-				response = new ResponseEntity<>(msj, HttpStatus.OK);
-			}else {
-				ResponseMensaje msj = new ResponseMensaje("Un usuario no puede hacer dos prestamos a la vez o el libro ya esta prestado");
-				response = new ResponseEntity<>(msj, HttpStatus.CONFLICT);
+
+			if (servicePrestamo.crear(prestamo)) {
+				response = new ResponseEntity<Object>(prestamo, HttpStatus.CREATED);
+			} else {
+				response = new ResponseEntity<Object>(prestamo, HttpStatus.INTERNAL_SERVER_ERROR);
 			}
-			
+
 		} catch (Exception e) {
-			LOG.error(e);
+
+			String message = e.getMessage();
+			ResponseMensaje responseMsg = null;
+			
+			if (message.equals(ServicePrestamo.EXCEPTION_LIBRO_PRESTADO)
+					|| message.equals(ServicePrestamo.EXCEPTION_USUARIO_PRESTADO)) {
+
+				responseMsg = new ResponseMensaje(message);
+				response = new ResponseEntity<Object>(responseMsg,HttpStatus.CONFLICT);
+
+			}else {
+				responseMsg = new ResponseMensaje(message);
+				response = new ResponseEntity<Object>(responseMsg,HttpStatus.BAD_REQUEST);
+			}
+
+			LOG.debug(e);
 		}
-		
+
 		return response;
 	}
-	
+
 	@RequestMapping(value = "/{idUsuario}/{idLibro}/{finicio}/{fdevuelto}", method = RequestMethod.DELETE)
-	public ResponseEntity<ResponseMensaje> devolver(@PathVariable long idUsuario, @PathVariable long idLibro, @PathVariable Date finicio, @PathVariable Date fdevuelto){
+	public ResponseEntity<ResponseMensaje> devolver(@PathVariable long idUsuario, @PathVariable long idLibro,
+			@PathVariable Date finicio, @PathVariable Date fdevuelto) {
 		ResponseEntity<ResponseMensaje> response = null;
-		
+
 		try {
 			Prestamo p = new Prestamo();
 			Libro l = new Libro();
@@ -117,12 +133,12 @@ public class PrestamosController {
 			p.setUsuario(u);
 			p.setFech_inicio(finicio);
 			p.setFecha_devuelto(fdevuelto);
-			
+
 			boolean devuelto = servicePrestamo.modificar(p);
-			if(devuelto) {
+			if (devuelto) {
 				ResponseMensaje msj = new ResponseMensaje("Prestamo devuelto");
 				response = new ResponseEntity<>(msj, HttpStatus.OK);
-			}else {
+			} else {
 				ResponseMensaje msj = new ResponseMensaje("Prestamo no se ha podido devolver por que no exisiste");
 				response = new ResponseEntity<>(msj, HttpStatus.CONFLICT);
 			}
@@ -132,17 +148,15 @@ public class PrestamosController {
 			ResponseMensaje msj = new ResponseMensaje("Error");
 			response = new ResponseEntity<>(msj, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
-		
-		
+
 		return response;
 	}
 
 	@RequestMapping(value = "/{idUsuario}/{idLibro}/{finicio}", method = RequestMethod.PUT)
-	public ResponseEntity<ResponseMensaje> modificar(@PathVariable long idUsuario, @PathVariable long idLibro, @PathVariable Date finicio, @RequestBody Prestamo prestamoNuevo){
+	public ResponseEntity<ResponseMensaje> modificar(@PathVariable long idUsuario, @PathVariable long idLibro,
+			@PathVariable Date finicio, @RequestBody Prestamo prestamoNuevo) {
 		ResponseEntity<ResponseMensaje> response = null;
-		
-		
-		
+
 		try {
 			Prestamo p = new Prestamo();
 			Libro l = new Libro();
@@ -152,13 +166,14 @@ public class PrestamosController {
 			u.setId(idUsuario);
 			p.setUsuario(u);
 			p.setFech_inicio(finicio);
-			
+
 			boolean modificado = servicePrestamo.modificarHistorico(prestamoNuevo, p);
-			if(modificado) {
+			if (modificado) {
 				ResponseMensaje msj = new ResponseMensaje("Prestamo modificado");
 				response = new ResponseEntity<>(msj, HttpStatus.OK);
-			}else {
-				ResponseMensaje msj = new ResponseMensaje("Prestamo no se ha podido moficar el prestamos por que los datos son incorrectos");
+			} else {
+				ResponseMensaje msj = new ResponseMensaje(
+						"Prestamo no se ha podido moficar el prestamos por que los datos son incorrectos");
 				response = new ResponseEntity<>(msj, HttpStatus.CONFLICT);
 			}
 		} catch (Exception e) {
@@ -166,7 +181,7 @@ public class PrestamosController {
 			ResponseMensaje msj = new ResponseMensaje("Error");
 			response = new ResponseEntity<>(msj, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
-		
+
 		return response;
 	}
 }

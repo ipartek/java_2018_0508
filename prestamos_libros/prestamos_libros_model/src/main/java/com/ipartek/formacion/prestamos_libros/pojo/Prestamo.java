@@ -3,6 +3,7 @@ package com.ipartek.formacion.prestamos_libros.pojo;
 import java.sql.Date;
 
 public class Prestamo {
+	
 	private Libro libro;
 	private Usuario usuario;
 	private Date fech_inicio;

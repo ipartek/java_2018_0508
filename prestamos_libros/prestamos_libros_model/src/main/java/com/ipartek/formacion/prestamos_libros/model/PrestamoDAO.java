@@ -38,7 +38,10 @@ public class PrestamoDAO implements CrudAble<Prestamo> {
 			cs.setLong(2, pojo.getUsuario().getId());
 			cs.setDate(3, pojo.getFech_inicio());
 
-			result = cs.execute();
+			int affectedRows =  cs.executeUpdate();
+			if ( affectedRows == 1 ) {
+				result = true;
+			}
 		}
 
 		return result;

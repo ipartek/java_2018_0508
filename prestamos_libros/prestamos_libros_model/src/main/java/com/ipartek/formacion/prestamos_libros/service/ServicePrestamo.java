@@ -4,19 +4,34 @@ import java.sql.Date;
 import java.text.SimpleDateFormat;
 import java.util.List;
 
+import com.ipartek.formacion.prestamos_libros.model.LibroDAO;
 import com.ipartek.formacion.prestamos_libros.model.PrestamoDAO;
+import com.ipartek.formacion.prestamos_libros.model.UsuarioDAO;
 import com.ipartek.formacion.prestamos_libros.pojo.Libro;
 import com.ipartek.formacion.prestamos_libros.pojo.Prestamo;
 import com.ipartek.formacion.prestamos_libros.pojo.Usuario;
 
 public class ServicePrestamo implements IServicePrestamo {
-	private PrestamoDAO daoPrestamo = PrestamoDAO.getInstance();
+	
+	
+	private PrestamoDAO daoPrestamo;
+	private LibroDAO daoLibro;
+	private UsuarioDAO daoUsuario;
+	
 	private static ServicePrestamo INSTANCE = null;
 	
+	public static final String EXCEPTION_PARAMETROS_INCORRECTOS = "Necesitamos idLibro, idUsuario y FechaInicio";
+	public static final String EXCEPTION_NO_EXISTE_USUARIO_LIBRO = "No podemos prestar si no existe el Usuario o Libro";
+	public static final String EXCEPTION_LIBRO_PRESTADO = "Libro ya tiene un prestamos activo";
+	public static final String EXCEPTION_USUARIO_PRESTADO = "Usuario ya tiene un prestamos activo";
+	
 
-	public ServicePrestamo() {
-		// TODO Auto-generated constructor stub
+	private ServicePrestamo() {	
+		daoPrestamo = PrestamoDAO.getInstance();
+		daoLibro = LibroDAO.getInstance();
+		daoUsuario = UsuarioDAO.getInstance();		
 	}
+	
 	public static synchronized ServicePrestamo getInstance() {
 		if (INSTANCE == null) {
 			INSTANCE = new ServicePrestamo();
@@ -26,8 +41,55 @@ public class ServicePrestamo implements IServicePrestamo {
 
 	@Override
 	public boolean crear(Prestamo p) throws Exception {
-		boolean resul = false;		
+		boolean resul = false;	
+		long idLibro = -1;
+		long idUsuario = -1;
+		Date fInicio = null;
+		
+		//comprobar parametros obligatorios correctos
+		try {
+			idLibro = p.getLibro().getId();
+			idUsuario = p.getUsuario().getId();
+			fInicio = p.getFech_inicio();
+			
+			if( idLibro < 1 || idUsuario < 1 || fInicio == null ) {
+				throw new Exception(EXCEPTION_PARAMETROS_INCORRECTOS);
+			}
+			
+		}catch (Exception e) {
+			
+			throw new Exception(EXCEPTION_PARAMETROS_INCORRECTOS);
+			
+		}	
+		
+		//comprobar Existe Libro y Usuario
+		Libro libro = daoLibro.getById( String.valueOf(idLibro) );
+		Usuario usuario = daoUsuario.getById(String.valueOf(idUsuario));
+		
+		if ( libro == null || usuario == null ) {
+			throw new Exception(EXCEPTION_NO_EXISTE_USUARIO_LIBRO);
+		}
+		
+		
+		
+		//comprobar Libro y Usuario no tengan prestamos		
+		List<Libro> librosDisponibles = daoPrestamo.getLibrosDisponibles();
+		if ( !librosDisponibles.contains(libro) ) {
+			throw new Exception(EXCEPTION_LIBRO_PRESTADO);
+		}
+		
+		List<Usuario> usuariosDisponible = daoPrestamo.getUsuariosDisponibles();
+		if ( !usuariosDisponible.contains(usuario)) {
+			throw new Exception(EXCEPTION_USUARIO_PRESTADO);
+		}
+		
+								
 		resul = daoPrestamo.insert(p);
+		if ( resul ) {
+			p.setLibro(libro);
+			p.setUsuario(usuario);
+		}
+		
 		return resul;
 	}
 
