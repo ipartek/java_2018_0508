@@ -43,4 +43,34 @@ public class Usuario {
 		return "Usuario [id=" + id + ", nombreApellido=" + nombreApellido + "]";
 	}
 
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + (int) (id ^ (id >>> 32));
+		result = prime * result + ((nombreApellido == null) ? 0 : nombreApellido.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Usuario other = (Usuario) obj;
+		if (id != other.id)
+			return false;
+		if (nombreApellido == null) {
+			if (other.nombreApellido != null)
+				return false;
+		} else if (!nombreApellido.equals(other.nombreApellido))
+			return false;
+		return true;
+	}
+	
+	
+
 }

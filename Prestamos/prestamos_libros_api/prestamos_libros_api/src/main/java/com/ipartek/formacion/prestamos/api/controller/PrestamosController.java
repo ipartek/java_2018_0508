@@ -80,34 +80,44 @@ public class PrestamosController {
 		return response;
 	}
 	
-	@ApiOperation(value = "Prestamo Creado", response = Prestamo.class)
-	@ApiResponses( value = {
-			@ApiResponse (code = 200, message = "Prestamo Creado"),
-			@ApiResponse (code = 409, message = "<o><li>No puede tener dos prestamos a la vez</li><li> Libro ya esta prestado</li><li> Caracteres Vacio</li></o>")}
-	)
-	
+	@ApiOperation(value = "Prestar un Libro a un Usuario para una fecha concreta", response = Prestamo.class, notes = "Campos Obligatorios: <ol><li><b>fech_inicio</b> Fecha inicio</li><li><b>libro.id</b> Identificador del Libro </li><li><b>usuario.id</b> Identificador del Usuario </li></ol>")
+	@ApiResponses(value = { @ApiResponse(code = 201, message = "Prestamos creado", response = Prestamo.class),
+			@ApiResponse(code = 400, message = "Faltan campos obligatorios", response = ResponseMensaje.class),
+			@ApiResponse(code = 409, message = "<ol><li>No existe le Libro o Usuario</li><li>Libro o Usuario ya tienen un prestamo activo</li></ol>", response = ResponseMensaje.class), })
+
 	@RequestMapping(method = RequestMethod.POST)
-	public ResponseEntity<ResponseMensaje> crear(@RequestBody Prestamo prestamo){
-		ResponseEntity<ResponseMensaje> response = new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-		
+	public ResponseEntity<Object> crear(@RequestBody Prestamo prestamo) {
+		ResponseEntity<Object> response = new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+
 		try {
-			boolean creado = servicePrestamo.crear(prestamo);
-			if(creado) {
-				ResponseMensaje msj = new ResponseMensaje("Libro prestado");
-				response = new ResponseEntity<>(msj, HttpStatus.OK);
-			}else {
-				ResponseMensaje msj = new ResponseMensaje("Un usuario no puede hacer dos prestamos a la vez o el libro ya esta prestado");
-				response = new ResponseEntity<>(msj, HttpStatus.CONFLICT);
-				LOG.debug("Un usuario no puede hacer dos prestamos a la vez o el libro ya esta prestado");
+
+			if (servicePrestamo.crear(prestamo)) {
+				response = new ResponseEntity<Object>(prestamo, HttpStatus.CREATED);
+			} else {
+				response = new ResponseEntity<Object>(prestamo, HttpStatus.INTERNAL_SERVER_ERROR);
 			}
-			
+
 		} catch (Exception e) {
-			LOG.error(e);
+
+			String message = e.getMessage();
+			ResponseMensaje responseMsg = null;
+			
+			if (message.equals(ServicePrestamo.EXCEPTION_LIBRO_PRESTADO)
+					|| message.equals(ServicePrestamo.EXCEPTION_USUARIO_PRESTADO)) {
+
+				responseMsg = new ResponseMensaje(message);
+				response = new ResponseEntity<Object>(responseMsg,HttpStatus.CONFLICT);
+
+			}else {
+				responseMsg = new ResponseMensaje(message);
+				response = new ResponseEntity<Object>(responseMsg,HttpStatus.BAD_REQUEST);
+			}
+
+			LOG.debug(e);
 		}
-		
+
 		return response;
 	}
-	
 	
 	@ApiOperation(value = "Prestamo Devuelto", response = Prestamo.class)
 	@ApiResponses( value = {
