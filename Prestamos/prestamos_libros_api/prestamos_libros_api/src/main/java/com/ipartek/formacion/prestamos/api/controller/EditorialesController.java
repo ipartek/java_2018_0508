@@ -1,7 +1,6 @@
 package com.ipartek.formacion.prestamos.api.controller;
 
 import java.sql.SQLIntegrityConstraintViolationException;
-
 import java.util.ArrayList;
 import java.util.Set;
 
@@ -10,6 +9,7 @@ import javax.validation.Validation;
 import javax.validation.Validator;
 import javax.validation.ValidatorFactory;
 
+import org.apache.log4j.Logger;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -20,7 +20,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ipartek.formacion.prestamos_libros.pojo.Editorial;
-import com.ipartek.formacion.prestamos_libros.pojo.Usuario;
 import com.ipartek.formacion.prestamos_libros.service.ServiceEditorial;
 
 import io.swagger.annotations.Api;
@@ -32,7 +31,8 @@ import io.swagger.annotations.ApiResponses;
 @RestController
 @RequestMapping("/editoriales")
 public class EditorialesController {
-
+	private final static Logger LOG = Logger.getLogger(EditorialesController.class);
+	
 	ServiceEditorial serviceEditorial = null;
 	ValidatorFactory factory = null;
 	Validator validator = null;
@@ -47,7 +47,7 @@ public class EditorialesController {
 	@ApiOperation(value = "Listado Editoriales")
 	@ApiResponses( value = {
 			@ApiResponse (code = 200, message = "Listado Editoriales"),
-			@ApiResponse (code = 404, message = "No se encontro Editorial")}
+			@ApiResponse (code = 404, message = "No se encontro Editoriales")}
 	)
 
 	@RequestMapping(method = RequestMethod.GET)
@@ -61,7 +61,7 @@ public class EditorialesController {
 			response = new ResponseEntity<>(list, HttpStatus.OK);
 
 		} catch (Exception e) {
-			e.printStackTrace();
+			LOG.error(e);
 		}
 
 		return response;
@@ -87,14 +87,14 @@ public class EditorialesController {
 			}
 			
 		}catch (Exception e) {
-			e.printStackTrace();
+			LOG.error(e);
 		}
 		return response;
 	}
 	
-	@ApiOperation(value = "Eliminar Editorial")
+	@ApiOperation(value = "Editorial Eliminado")
 	@ApiResponses( value = {
-			@ApiResponse (code = 200, message = "Eliminar Editorial"),
+			@ApiResponse (code = 200, message = "Editorial Eliminado"),
 			@ApiResponse (code = 404, message = "No se encontro Editorial"),
 			@ApiResponse (code = 409, message = "No se puede eliminar el editorial por que esta asociado a un libro")}
 	)
@@ -111,18 +111,20 @@ public class EditorialesController {
 			}
 		
 		}catch( SQLIntegrityConstraintViolationException e ) {	
+		
 			response = new ResponseEntity<>(new ResponseMensaje("No se puede eliminar si tiene Libors asociados"), HttpStatus.CONFLICT);
+			LOG.debug("No se puede eliminar si tiene Libors asociados");
 		}catch (Exception e) {
-			e.printStackTrace();
+			LOG.error(e);
 		}
 		return response;
 	}
 	
 
-	@ApiOperation(value = "Crear Editorial", response = Editorial.class)
+	@ApiOperation(value = "Editorial Creado", response = Editorial.class)
 	@ApiResponses( value = {
-			@ApiResponse (code = 201, message = "Crear Editorial"),
-			@ApiResponse (code = 409, message = "Esta vacio Editorial o el Nombre editorial ya existe")}
+			@ApiResponse (code = 201, message = "Editorial creado"),
+			@ApiResponse (code = 409, message = "<o><li>Esta vacio Editorial</li><li> Nombre editorial ya existe</li></o>")}
 	)
 
 	@RequestMapping(method = RequestMethod.POST)
@@ -151,23 +153,22 @@ public class EditorialesController {
 			}	
 		
 		}catch ( SQLIntegrityConstraintViolationException e) {
-			
+		
 			
 			ResponseMensaje msj = new ResponseMensaje("Ya existe la Editorial, por favor prueba con otro nombre");			
 			response = new ResponseEntity<>(msj, HttpStatus.CONFLICT);
-			
+			LOG.debug("Ya existe la Editorial, por favor prueba con otro nombre");
 		}catch (Exception e) {
-			//TODO gestionar duplicate key entry
-			e.printStackTrace();
+			LOG.error(e);
 		}
 		return response;
 	}
 	
-	@ApiOperation(value = "Modificar Editorial")
+	@ApiOperation(value = "Modificar Editorial", response = Editorial.class)
 	@ApiResponses( value = {
 			@ApiResponse (code = 200, message = "Modificar Editorial"),
 			@ApiResponse (code = 404, message = "No se encontro Editorial"),
-			@ApiResponse (code = 409, message = "No se puede modificar editoria con el mismo nombre o que esta vacio")}
+			@ApiResponse (code = 409, message = "<o><li>No se puede modificar editoria con el mismo nombre</li><li> Caracteres esta vacio</li></o>")}
 	)
 
 	@RequestMapping(value = "/{id}", method = RequestMethod.PUT)
@@ -195,11 +196,12 @@ public class EditorialesController {
 			}	
 		
 		}catch (SQLIntegrityConstraintViolationException e) {
-			
+		
 			response = new ResponseEntity<>( new ResponseMensaje("Ya existe la Editorial, por favor prueba con otro nombre")  ,HttpStatus.CONFLICT);
+			LOG.debug("Ya existe la Editorial, por favor prueba con otro nombre");
 		}catch (Exception e) {
 			//TODO gestionar duplicate key entry
-			e.printStackTrace();
+			LOG.error(e);
 		}
 		return response;
 	}

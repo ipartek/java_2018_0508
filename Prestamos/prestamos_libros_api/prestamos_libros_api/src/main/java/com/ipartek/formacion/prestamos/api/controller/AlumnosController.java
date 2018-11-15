@@ -1,7 +1,6 @@
 package com.ipartek.formacion.prestamos.api.controller;
 
 import java.sql.SQLIntegrityConstraintViolationException;
-
 import java.util.ArrayList;
 import java.util.Set;
 
@@ -10,6 +9,7 @@ import javax.validation.Validation;
 import javax.validation.Validator;
 import javax.validation.ValidatorFactory;
 
+import org.apache.log4j.Logger;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -32,7 +32,9 @@ import io.swagger.annotations.ApiResponses;
 @RestController
 @RequestMapping("/alumnos")
 public class AlumnosController {
-
+	
+	private final static Logger LOG = Logger.getLogger(AlumnosController.class);
+	
 	ServiceUsuario serviceUsuario = null;
 	ValidatorFactory factory = null;
 	Validator validator = null;
@@ -59,7 +61,7 @@ public class AlumnosController {
 			response = new ResponseEntity<>(list, HttpStatus.OK);
 
 		} catch (Exception e) {
-			e.printStackTrace();
+			LOG.error(e);
 		}
 
 		return response;
@@ -67,8 +69,7 @@ public class AlumnosController {
 
 	@ApiOperation(value = "Detalle Alumno")
 	@ApiResponses(value = { @ApiResponse(code = 200, message = "Detalle Alumno"),
-			@ApiResponse(code = 404, message = "No se encontro Alumno valor incorrecto"),
-			@ApiResponse(code = 409, message = "Caracteres vacios") })
+			@ApiResponse(code = 404, message = "No se encontro Alumno valor incorrecto") })
 
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
 	public ResponseEntity<Usuario> detalle(@PathVariable long id) {
@@ -84,15 +85,15 @@ public class AlumnosController {
 			}
 
 		} catch (Exception e) {
-			e.printStackTrace();
+			LOG.error(e);
 		}
 		return response;
 	}
 
-	@ApiOperation(value = "Eliminar Alumno")
-	@ApiResponses(value = { @ApiResponse(code = 200, message = "Eliminar Alumno"),
+	@ApiOperation(value = "Alumno Eliminado")
+	@ApiResponses(value = { @ApiResponse(code = 200, message = "Alumno Elimminado"),
 			@ApiResponse(code = 404, message = "No se encontro Alumno"),
-			@ApiResponse(code = 409, message = "No se puede eliminar Alumno si esta asociado a un libro") })
+			@ApiResponse(code = 409, message = "No se puede eliminar Alumno si esta asociado a un Prestamo\"") })
 	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
 	public ResponseEntity<Object> eliminar(@PathVariable long id) {
 
@@ -106,18 +107,20 @@ public class AlumnosController {
 			}
 
 		} catch (SQLIntegrityConstraintViolationException e) {
+		
 			response = new ResponseEntity<>(new ResponseMensaje("No se puede eliminar si tiene Libors asociados"),
 					HttpStatus.CONFLICT);
+			LOG.debug("No se puede eliminar si tiene Libors asociados");
 		} catch (Exception e) {
-			e.printStackTrace();
+			LOG.error(e);
 		}
 		return response;
 	}
 
 // sacar que produce model
-	@ApiOperation(value = "Crear Alumno", response = Usuario.class)
+	@ApiOperation(value = "Alumno Creado", response = Usuario.class)
 	@ApiResponses(value = { @ApiResponse(code = 201, message = "Alumno Creado"),
-			@ApiResponse(code = 409, message = " 1)No cumple validaciones<br> 2)Nombre alumno ya existe") })
+			@ApiResponse(code = 409, message = " <o><li>No cumple validaciones</li> <li>Nombre alumno ya existe</li></o>") })
 	@RequestMapping(method = RequestMethod.POST)
 	public ResponseEntity<Object> crear(@RequestBody Usuario usuario) {
 
@@ -144,21 +147,21 @@ public class AlumnosController {
 			}
 
 		} catch (SQLIntegrityConstraintViolationException e) {
+	
 
 			ResponseMensaje msj = new ResponseMensaje("Ya existe el Usuario, por favor prueba con otro nombre");
 			response = new ResponseEntity<>(msj, HttpStatus.CONFLICT);
-
+			LOG.debug("Ya existe el Usuario, por favor prueba con otro nombre");
 		} catch (Exception e) {
-			// TODO gestionar duplicate key entry
-			e.printStackTrace();
+			LOG.error(e);
 		}
 		return response;
 	}
 
-	@ApiOperation(value = "Modificar Alumno")
-	@ApiResponses(value = { @ApiResponse(code = 201, message = "Modificar Alumno"),
+	@ApiOperation(value = "Alumno Modificado", response = Usuario.class)
+	@ApiResponses(value = { @ApiResponse(code = 201, message = "Alumno Modificado"),
 			@ApiResponse(code = 404, message = "No se encontro Alumno"),
-			@ApiResponse(code = 409, message = "No se puede modificar alumno con el mismo nombre o que esta vacio") })
+			@ApiResponse(code = 409, message = "<o><li>No se puede modificar alumno con el mismo nombre</li> <li>Caracteres vacios") })
 
 	@RequestMapping(value = "/{id}", method = RequestMethod.PUT)
 	public ResponseEntity<Object> modificar(@PathVariable long id, @RequestBody Usuario usuario) {
@@ -188,12 +191,12 @@ public class AlumnosController {
 			}
 
 		} catch (SQLIntegrityConstraintViolationException e) {
-
 			response = new ResponseEntity<>(
 					new ResponseMensaje("Ya existe la Usuario, por favor prueba con otro nombre"), HttpStatus.CONFLICT);
+			LOG.debug("Ya existe la Usuario, por favor prueba con otro nombre");
 		} catch (Exception e) {
 			// TODO gestionar duplicate key entry
-			e.printStackTrace();
+			LOG.error(e);
 		}
 		return response;
 	}

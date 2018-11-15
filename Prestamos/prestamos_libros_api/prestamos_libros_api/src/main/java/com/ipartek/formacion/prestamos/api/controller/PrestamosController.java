@@ -26,8 +26,8 @@ import com.ipartek.formacion.prestamos_libros.service.ServicePrestamo;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
-import io.swagger.annotations.ApiResponses;
 import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
 @Api(tags= {"Prestamos"}, produces="application/json", description="Gestion Prestamos")
 @CrossOrigin(origins = "*")
 @RestController
@@ -58,7 +58,7 @@ public class PrestamosController {
 	@ApiParam( value="activo", required = false, defaultValue = "1")
 	@RequestMapping(method = RequestMethod.GET)
 	public ResponseEntity<ArrayList<Prestamo>> listado(
-			@ApiParam(value = "No obligatorio,1) true: Prestamos sin retornar <br> 2) false: Prestamos Retornados")
+			@ApiParam(value = "No obligatorio <br> 1) true: Prestamos sin retornar <br> 2) false: Prestamos Retornados")
 			@RequestParam(value = "activo", required = false, defaultValue = "true") boolean estado) {
 
 		ArrayList<Prestamo> list = new ArrayList<Prestamo>();
@@ -80,6 +80,12 @@ public class PrestamosController {
 		return response;
 	}
 	
+	@ApiOperation(value = "Prestamo Creado", response = Prestamo.class)
+	@ApiResponses( value = {
+			@ApiResponse (code = 200, message = "Prestamo Creado"),
+			@ApiResponse (code = 409, message = "<o><li>No puede tener dos prestamos a la vez</li><li> Libro ya esta prestado</li><li> Caracteres Vacio</li></o>")}
+	)
+	
 	@RequestMapping(method = RequestMethod.POST)
 	public ResponseEntity<ResponseMensaje> crear(@RequestBody Prestamo prestamo){
 		ResponseEntity<ResponseMensaje> response = new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
@@ -92,6 +98,7 @@ public class PrestamosController {
 			}else {
 				ResponseMensaje msj = new ResponseMensaje("Un usuario no puede hacer dos prestamos a la vez o el libro ya esta prestado");
 				response = new ResponseEntity<>(msj, HttpStatus.CONFLICT);
+				LOG.debug("Un usuario no puede hacer dos prestamos a la vez o el libro ya esta prestado");
 			}
 			
 		} catch (Exception e) {
@@ -100,6 +107,13 @@ public class PrestamosController {
 		
 		return response;
 	}
+	
+	
+	@ApiOperation(value = "Prestamo Devuelto", response = Prestamo.class)
+	@ApiResponses( value = {
+			@ApiResponse (code = 200, message = "Prestamo Devuelto"),
+			@ApiResponse (code = 409, message = "<o><li>No se puede devolver por que no exisiste datos incorrectos</li></o>")}
+	)
 	
 	@RequestMapping(value = "/{idUsuario}/{idLibro}/{finicio}/{fdevuelto}", method = RequestMethod.DELETE)
 	public ResponseEntity<ResponseMensaje> devolver(@PathVariable long idUsuario, @PathVariable long idLibro, @PathVariable Date finicio, @PathVariable Date fdevuelto){
@@ -123,10 +137,11 @@ public class PrestamosController {
 			}else {
 				ResponseMensaje msj = new ResponseMensaje("Prestamo no se ha podido devolver por que no exisiste");
 				response = new ResponseEntity<>(msj, HttpStatus.CONFLICT);
+				LOG.debug("Prestamo no se ha podido devolver por que no exisiste");
 			}
 
 		} catch (Exception e) {
-			LOG.error(e);
+			LOG.error("Error");
 			ResponseMensaje msj = new ResponseMensaje("Error");
 			response = new ResponseEntity<>(msj, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
@@ -135,6 +150,13 @@ public class PrestamosController {
 		return response;
 	}
 
+	
+	@ApiOperation(value = "Prestamo Modificado", response = Prestamo.class)
+	@ApiResponses( value = {
+			@ApiResponse (code = 200, message = "Prestamo Modificado"),
+			@ApiResponse (code = 409, message = "<o><li>Prestamo no se ha podido moficar el prestamos por que los datos son incorrectos</li></o>")}
+	)
+	
 	@RequestMapping(value = "/{idUsuario}/{idLibro}/{finicio}", method = RequestMethod.PUT)
 	public ResponseEntity<ResponseMensaje> modificar(@PathVariable long idUsuario, @PathVariable long idLibro, @PathVariable Date finicio, @RequestBody Prestamo prestamoNuevo){
 		ResponseEntity<ResponseMensaje> response = null;
@@ -158,6 +180,7 @@ public class PrestamosController {
 			}else {
 				ResponseMensaje msj = new ResponseMensaje("Prestamo no se ha podido moficar el prestamos por que los datos son incorrectos");
 				response = new ResponseEntity<>(msj, HttpStatus.CONFLICT);
+				LOG.debug("Prestamo no se ha podido moficar el prestamos por que los datos son incorrectos");
 			}
 		} catch (Exception e) {
 			LOG.error(e);

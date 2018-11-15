@@ -9,6 +9,7 @@ import javax.validation.Validation;
 import javax.validation.Validator;
 import javax.validation.ValidatorFactory;
 
+import org.apache.log4j.Logger;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -30,7 +31,9 @@ import io.swagger.annotations.ApiResponses;
 @RestController
 @RequestMapping("/libros")
 public class LibrosController {
-
+	
+	private final static Logger LOG = Logger.getLogger(LibrosController.class);
+	
 	ServiceLibro serviceLibro = null;
 	ValidatorFactory factory = null;
 	Validator validator = null;
@@ -45,7 +48,8 @@ public class LibrosController {
 	@ApiOperation(value = "Listado Libros")
 	@ApiResponses( value = {
 			@ApiResponse (code = 200, message = "Listado Libros"),
-			@ApiResponse (code = 404, message = "No se encontro Libro")}
+			
+			@ApiResponse (code = 404, message = "No se encontro los libros")}
 	)
 
 	@RequestMapping(method = RequestMethod.GET)
@@ -59,7 +63,7 @@ public class LibrosController {
 			response = new ResponseEntity<>(list, HttpStatus.OK);
 
 		} catch (Exception e) {
-			e.printStackTrace();
+			LOG.error(e);
 		}
 
 		return response;
@@ -68,8 +72,7 @@ public class LibrosController {
 	@ApiOperation(value = "Detalle Libro")
 	@ApiResponses( value = {
 			@ApiResponse (code = 200, message = "Detalle Libro"),
-			@ApiResponse (code = 404, message = "No se encontro Libro valor incorrecto"),
-			@ApiResponse (code = 409, message = "Caracteres vacios")}
+			@ApiResponse (code = 404, message = "No se encontro Libro")}
 	)
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
 	public ResponseEntity<Libro> detalle(@PathVariable long id) {
@@ -85,15 +88,15 @@ public class LibrosController {
 			}
 			
 		}catch (Exception e) {
-			e.printStackTrace();
+			LOG.error(e);
 		}
 		return response;
 	}
 	
-	@ApiOperation(value = "Eliminar Libro")
+	@ApiOperation(value = "Libro Eliminado")
 	@ApiResponses( value = {
-			@ApiResponse (code = 200, message = "Eliminar Libro"),
-			@ApiResponse (code = 404, message = "No se encontro Libro id libro incorrecto"),
+			@ApiResponse (code = 200, message = "Libro Eliminado"),
+			@ApiResponse (code = 404, message = "No se encontro Libro"),
 			@ApiResponse (code = 409, message = "No se puede eliminar el libro por que esta asociado a un prestamo")}
 	)
 	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
@@ -109,17 +112,19 @@ public class LibrosController {
 			}
 		
 		}catch( SQLIntegrityConstraintViolationException e ) {	
+			
 			response = new ResponseEntity<>(new ResponseMensaje("No se puede eliminar si tiene Prestamo asociados"), HttpStatus.CONFLICT);
+			LOG.debug("No se puede eliminar si tiene Prestamo asociados");
 		}catch (Exception e) {
-			e.printStackTrace();
+			LOG.error(e);
 		}
 		return response;
 	}
 	
-	@ApiOperation(value = "Crear Libro")
+	@ApiOperation(value = "Libro Creado" , response = Libro.class)
 	@ApiResponses( value = {
-			@ApiResponse (code = 201, message = "Crear Libro"),
-			@ApiResponse (code = 409, message = "Esta vacio Libro o el Nombre del libro ya existe o el editorial no exisiste")}
+			@ApiResponse (code = 201, message = "Libro Creado"),
+			@ApiResponse (code = 409, message = "<o><li>Editorial no encontrado</li><li>Esta vacio Libro</li><li>Nombre max 150 caracteres y minimo 2 caracteres </li></o>")}
 	)
 
 	@RequestMapping(method = RequestMethod.POST)
@@ -148,23 +153,21 @@ public class LibrosController {
 			}	
 		
 		}catch ( SQLIntegrityConstraintViolationException e) {
-			
-			
-			ResponseMensaje msj = new ResponseMensaje("Los datos no son correctos");			
+		
+			ResponseMensaje msj = new ResponseMensaje("Nombre del libro ya existe o Los datos no son correctos");			
 			response = new ResponseEntity<>(msj, HttpStatus.CONFLICT);
-			
+			LOG.debug("Nombre del libro ya existe o Los datos no son correctos");
 		}catch (Exception e) {
-			//TODO gestionar duplicate key entry
-			e.printStackTrace();
+			LOG.error(e);
 		}
 		return response;
 	}
 	
-	@ApiOperation(value = "Modificar Libro")
+	@ApiOperation(value = "Libro Modificado", response = Libro.class)
 	@ApiResponses( value = {
-			@ApiResponse (code = 200, message = "Modificar Libro"),
-			@ApiResponse (code = 404, message = "No se encontro Libro id libro incorrecto"),
-			@ApiResponse (code = 409, message = "No se puede modificar libro con el mismo nombre o que esta vacio")}
+			@ApiResponse (code = 200, message = "Libro Modificado"),
+			@ApiResponse (code = 404, message = "No se encontro Libro"),
+			@ApiResponse (code = 409, message = "<o><li>No se puede modificar libro con el mismo nombre</li><li> Caracteres vacios</li></o>")}
 	)
 
 	@RequestMapping(value = "/{id}", method = RequestMethod.PUT)
@@ -192,12 +195,11 @@ public class LibrosController {
 			}	
 		
 		}catch (SQLIntegrityConstraintViolationException e) {
-			e.printStackTrace();
-			
-			response = new ResponseEntity<>( new ResponseMensaje("los datos son incorrectos")  ,HttpStatus.CONFLICT);
+	
+			response = new ResponseEntity<>( new ResponseMensaje("No se puede modificar libro con el mismo nombre o caracteres vacios")  ,HttpStatus.CONFLICT);
+			LOG.debug("No se puede modificar libro con el mismo nombre o caracteres vacios");		
 		}catch (Exception e) {
-			//TODO gestionar duplicate key entry
-			e.printStackTrace();
+			LOG.error(e);
 		}
 		return response;
 	}
