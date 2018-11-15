@@ -22,7 +22,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import com.ipartek.formacion.libros.service.ServiceLibro;
 
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
 
+import com.ipartek.formacion.libros.pojo.Alumno;
 import com.ipartek.formacion.libros.pojo.Libro;
 
 @CrossOrigin(origins = "*")
@@ -56,7 +61,17 @@ public class LibrosController {
 
 	}
 
-	@RequestMapping(value = { "", "/" }, method = RequestMethod.GET)
+	@ApiOperation(
+			value = "Listado de libros.",
+			notes = "Devuelve los libros disponibles en la base de datos.",
+			response=Alumno.class)
+	
+	@ApiResponses (value = 
+		{
+				@ApiResponse (code=200, message="Listado de libros devuelto correctamente.", response = Alumno.class),
+				@ApiResponse(code=400, message="Formato incorrecto para la solicitud.", response = ResponseMessage.class)
+		})
+	@RequestMapping(value = "", method = RequestMethod.GET)
 	public ResponseEntity<ArrayList<Libro>> listado() {
 
 		ResponseEntity<ArrayList<Libro>> response = new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
@@ -74,8 +89,21 @@ public class LibrosController {
 		return response;
 	}
 
+	@ApiOperation(
+			value = "Vista detalle de un libro en concreto.",
+			notes = "Devuelve el libro con el ID (identificador) seleccionado.",
+			response=Alumno.class)
+	
+	@ApiResponses (value = 
+		{
+				@ApiResponse(code=200, message="Libro encontrado y devuelta.", response = Alumno.class),
+				@ApiResponse(code=400, message="URL no encontrada."),
+				@ApiResponse(code=404, message="Recurso no encontrado.", response = ResponseMessage.class)
+		})
+	
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
-	public ResponseEntity<Object> detalle(@PathVariable long id) {
+	public ResponseEntity<Object> detalle(
+			@ApiParam(value = "Código indentificador del libro a mostrar.") @PathVariable long id) {
 
 		ResponseEntity<Object> response = new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
 
@@ -101,8 +129,20 @@ public class LibrosController {
 		return response;
 	}
 
+	@ApiOperation(
+			value = "Modifica la editorial con el ID (identificador) introducido.",
+			notes = "Devuelve la editorial creada (en formato JSON), o en caso de error, el mensaje.",
+			response=Libro.class)
+	
+	@ApiResponses (value = 
+		{
+				@ApiResponse(code=201, message="Libro correctamente insertado en la base de datos."),
+				@ApiResponse(code=400, message="Formato JSON incorrecto para alguno de los campos.", response = ResponseMessage.class),
+		})
+	
 	@RequestMapping(method = RequestMethod.POST)
-	public ResponseEntity<Object> crear(@RequestBody Libro libro) {
+	public ResponseEntity<Object> crear(
+			@ApiParam(value = "Libro a crear en formato JSON.") @RequestBody Libro libro) {
 
 		ResponseEntity<Object> response = new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
 
@@ -146,9 +186,21 @@ public class LibrosController {
 		return response;
 
 	}
-
+	
+	@ApiOperation(
+			value = "Elimina el libro con el ID (identificador) introducido.",
+			notes = "Devuelve un mensaje con cuerpo vacío en caso de éxito o el mensaje de error. (en formato JSON).")
+	
+	@ApiResponses (value = 
+		{
+				@ApiResponse(code=204, message="Libro correctamente eliminada en la base de datos."),
+				@ApiResponse(code=400, message="URL no válida.", response = ResponseMessage.class),
+				@ApiResponse(code=409, message="CONFLICTO: El libro tiene algún préstamo activo.", response = ResponseMessage.class)
+		})
+		
 	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
-	public ResponseEntity<Object> eliminar(@PathVariable long id) {
+	public ResponseEntity<Object> eliminar(
+			@ApiParam(value = "Código indentificador del libro a eliminar.") @PathVariable long id) {
 
 		ResponseEntity<Object> response = new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
 
@@ -178,8 +230,23 @@ public class LibrosController {
 		return response;
 	}
 
+	@ApiOperation(
+			value = "Modifica el libro con el ID (identificador) introducido.",
+			notes = "Devuelve el libro modificado (en formato JSON), o en caso de error, el mensaje.",
+			response=Libro.class)
+	
+	@ApiResponses (value = 
+		{
+				@ApiResponse(code=200, message="Libro correctamente modificado en la base de datos."),
+				@ApiResponse(code=400, message="Formato JSON incorrecto para alguno de los campos.", response = ResponseMessage.class),
+				@ApiResponse(code=404, message="Recurso no encontrado.", response = ResponseMessage.class)
+		})
+		
+	
 	@RequestMapping(value = "/{id}", method = RequestMethod.PUT)
-	public ResponseEntity<Object> modificar(@PathVariable long id, @RequestBody Libro libro) {
+	public ResponseEntity<Object> modificar(
+			@ApiParam(value = "Código indentificador del libro a modificar.") @PathVariable long id,
+			@ApiParam(value = "Libro modificado en formato JSON.") @RequestBody Libro libro) {
 
 		ResponseEntity<Object> response = new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
 		libro.setId(id);

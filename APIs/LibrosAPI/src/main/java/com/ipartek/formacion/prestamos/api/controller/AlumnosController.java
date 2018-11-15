@@ -22,6 +22,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import com.ipartek.formacion.libros.service.ServiceAlumno;
 
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
+import io.swagger.annotations.ApiResponses;
+import io.swagger.annotations.ApiResponse;
 
 import com.ipartek.formacion.libros.pojo.Alumno;
 
@@ -60,7 +64,18 @@ public class AlumnosController {
 
 	}
 
-	@RequestMapping(value = { "", "/" }, method = RequestMethod.GET)
+	@ApiOperation(
+			value = "Listado de alumnos.",
+			notes = "Devuelve los alumnos disponibles en la base de datos.",
+			response=Alumno.class)
+	
+	@ApiResponses (value = 
+		{
+				@ApiResponse (code=200, message="Listado de alumnos devuelto correctamente.", response = Alumno.class),
+				@ApiResponse(code=400, message="URL no válida.", response = ResponseMessage.class)
+		})
+	
+	@RequestMapping(value = "", method = RequestMethod.GET)
 	public ResponseEntity<ArrayList<Alumno>> listado() {
 
 		ResponseEntity<ArrayList<Alumno>> response = new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
@@ -78,8 +93,21 @@ public class AlumnosController {
 		return response;
 	}
 
+	@ApiOperation(
+			value = "Vista detalle de un alumno en concreto.",
+			notes = "Devuelve el alumno con el ID (identificador) seleccionado.",
+			response=Alumno.class)
+	
+	@ApiResponses (value = 
+		{
+				@ApiResponse(code=200, message="Alumno encontrado y devuelta.", response = Alumno.class),
+				@ApiResponse(code=400, message="URL no válida.", response = ResponseMessage.class),
+				@ApiResponse(code=404, message="Recurso no encontrado.", response = ResponseMessage.class)
+		})
+	
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
-	public ResponseEntity<Object> detalle(@PathVariable long id) {
+	public ResponseEntity<Object> detalle(
+			@ApiParam(value = "Código indentificador del alumno a mostrar.") @PathVariable long id) {
 
 		ResponseEntity<Object> response = new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
 
@@ -105,8 +133,21 @@ public class AlumnosController {
 		return response;
 	}
 
+	@ApiOperation(
+			value = "Modifica el alumno con el ID (identificador) introducido.",
+			notes = "Devuelve el alumno creado (en formato JSON), o en caso de error, el mensaje.",
+			response=Alumno.class)
+	
+	@ApiResponses (value = 
+		{
+				@ApiResponse(code=201, message="Alumno correctamente creado en la base de datos.", response = Alumno.class),
+				@ApiResponse(code=400, message="Formato JSON incorrecto para alguno de los campos.", response = ResponseMessage.class),
+				@ApiResponse(code=409, message="CONFLICTO: Ya existe un alumno con ese nombre.", response = ResponseMessage.class)
+		})
+		
 	@RequestMapping(method = RequestMethod.POST)
-	public ResponseEntity<Object> crear(@RequestBody Alumno alumno) {
+	public ResponseEntity<Object> crear(
+			@ApiParam(value = "Alumno a crear en formato JSON.") @RequestBody Alumno alumno) {
 
 		ResponseEntity<Object> response = new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
 
@@ -151,8 +192,20 @@ public class AlumnosController {
 
 	}
 
+	@ApiOperation(
+			value = "Elimina el alumno con el ID (identificador) introducido.",
+			notes = "Devuelve un mensaje con cuerpo vacío o el mensaje de error. (en formato JSON).")
+	
+	@ApiResponses (value = 
+		{
+				@ApiResponse(code=204, message="Alumno correctamente eliminado de la base de datos."),
+				@ApiResponse(code=404, message="Recurso no encontrado.", response = ResponseMessage.class),
+				@ApiResponse(code=409, message="CONFLICTO: El alumno tiene algún préstamo activo.", response = ResponseMessage.class)
+		})
+	
 	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
-	public ResponseEntity<Object> eliminar(@PathVariable long id) {
+	public ResponseEntity<Object> eliminar(
+			@ApiParam(value = "Código indentificador del alumno a eliminar.") @PathVariable long id) {
 
 		ResponseEntity<Object> response = new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
 
@@ -182,8 +235,23 @@ public class AlumnosController {
 		return response;
 	}
 
+	@ApiOperation(
+			value = "Modifica el alumno con el ID (identificador) introducido.",
+			notes = "Devuelve el alumno creado (en formato JSON), o en caso de error, el mensaje.",
+			response=Alumno.class)
+	
+	@ApiResponses (value = 
+		{
+				@ApiResponse(code=200, message="Alumno correctamente modificado en la base de datos.", response = Alumno.class),
+				@ApiResponse(code=400, message="Formato JSON incorrecto para alguno de los campos.", response = ResponseMessage.class),
+				@ApiResponse(code=404, message="Recurso no encontrado.", response = ResponseMessage.class),
+				@ApiResponse(code=409, message="CONFLICTO: Ya existe un alumno con ese nombre.", response = ResponseMessage.class)
+		})
+	
 	@RequestMapping(value = "/{id}", method = RequestMethod.PUT)
-	public ResponseEntity<Object> modificar(@PathVariable long id, @RequestBody Alumno alumno) {
+	public ResponseEntity<Object> modificar(
+			@ApiParam(value = "Código indentificador del alumno a modificar.") @PathVariable long id, 
+			@ApiParam(value = "Alumno modificado en formato JSON.") @RequestBody Alumno alumno) {
 
 		ResponseEntity<Object> response = new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
 		alumno.setId(id);

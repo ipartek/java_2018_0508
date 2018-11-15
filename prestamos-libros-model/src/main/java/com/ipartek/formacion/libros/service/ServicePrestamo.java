@@ -82,7 +82,11 @@ public class ServicePrestamo implements IPrestamoService {
 	public boolean prestar(Prestamo pojo) throws Exception {
 		boolean resul = false;
 		
-		resul = prestamosDAO.insert(pojo);
+		if (pojo.getLibro().getId() > 0 && pojo.getAlumno().getId()  > 0 && pojo.getFechaInicio() != null) {
+			
+			resul = prestamosDAO.insert(pojo);
+		
+		}
 		
 		return resul;
 	}

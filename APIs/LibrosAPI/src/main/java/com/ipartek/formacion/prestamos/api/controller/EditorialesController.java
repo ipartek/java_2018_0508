@@ -28,6 +28,7 @@ import io.swagger.annotations.ApiParam;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 
+import com.ipartek.formacion.libros.pojo.Alumno;
 import com.ipartek.formacion.libros.pojo.Editorial;
 
 
@@ -62,12 +63,14 @@ public class EditorialesController {
 			value = "Listado de editoriales.",
 			notes = "Devuelve las editoriales disponibles en la base de datos.",
 			response=Editorial.class)
+	
 	@ApiResponses (value = 
 		{
-				@ApiResponse(code=200, message="Listado de editoriales devuelta correctamente."),
-				@ApiResponse(code=400, message="Error en la solicitud de listado de editoriales.")
+				@ApiResponse(code=200, message="Listado de editoriales devuelta correctamente.", response = Alumno.class),
+				@ApiResponse(code=400, message="URL no válida.", response = ResponseMessage.class)
 		})
-	@RequestMapping(value = { "", "/" }, method = RequestMethod.GET)
+	
+	@RequestMapping(value = "", method = RequestMethod.GET)
 	public ResponseEntity<ArrayList<Editorial>> listado() {
 
 		ResponseEntity<ArrayList<Editorial>> response = new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
@@ -89,14 +92,17 @@ public class EditorialesController {
 			value = "Vista detalle de una editorial en concreto.",
 			notes = "Devuelve la editorial con el ID (identificador) seleccionado.",
 			response=Editorial.class)
+	
 	@ApiResponses (value = 
 		{
-				@ApiResponse(code=200, message="Editorial encontrada y devuelta."),
-				@ApiResponse(code=400, message="Error en la solicitud de listado de editoriales.")
+				@ApiResponse(code=200, message="Editorial encontrada y devuelta.", response = Editorial.class),
+				@ApiResponse(code=400, message="URL no válida.", response = ResponseMessage.class),
+				@ApiResponse(code=404, message="Recurso no encontrado.", response = ResponseMessage.class)
 		})
-	
+
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
-	public ResponseEntity<Object> detalle(@ApiParam(value = "Código indentificador de la editorial.") @PathVariable long id ) {
+	public ResponseEntity<Object> detalle(
+			@ApiParam(value = "Código indentificador de la editorial.") @PathVariable long id ) {
 
 		ResponseEntity<Object> response = new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
 		
@@ -116,7 +122,7 @@ public class EditorialesController {
 		} catch (Exception e) {
 			
 			response = INTERNAL_SERVER_ERROR_RESPONSE;
-			e.printStackTrace();
+
 		}
 
 		
@@ -127,15 +133,19 @@ public class EditorialesController {
 			value = "Crea una editorial con los valores introducidos (en formato JSON).",
 			notes = "Devuelve la editorial creada (en formato JSON), o en caso de error, el mensaje.",
 			response=Editorial.class)
+	
 	@ApiResponses (value = 
 		{
-				@ApiResponse(code=200, message="Editorial correctamente insertada en la base de datos."),
-				@ApiResponse(code=400, message="Error en la solicitud al crear la editorial. "
-						+ "Posiblemente, debido a la longitud de alguno de los campos."),
-				@ApiResponse(code=409, message="CONFLICTO: Ya existe una editorial con ese nombre.")
+				@ApiResponse(code=200, message="Editorial correctamente insertada en la base de datos.", response = Editorial.class),
+				@ApiResponse(code=400, message="Formato JSON incorrecto para alguno de los campos.", response = ResponseMessage.class),
+				@ApiResponse(code=409, message="CONFLICTO: "
+						+ "<ol><li>Ya existe una editorial con ese nombre.</li>"
+						+ "<li>El campo no contiene entre 2 y 150 caracteres.</li></ol>")
 		})
+	
 	@RequestMapping(method = RequestMethod.POST)
-	public ResponseEntity<Object> crear(@ApiParam(value = "Editorial a crear en formato JSON.") @RequestBody Editorial editorial) {
+	public ResponseEntity<Object> crear(
+			@ApiParam(value = "Editorial a crear en formato JSON.") @RequestBody Editorial editorial) {
 
 		ResponseEntity<Object> response = new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
 		
@@ -189,15 +199,18 @@ public class EditorialesController {
 	@ApiOperation(
 			value = "Elimina la editorial con el ID (identificador) introducido.",
 			notes = "Devuelve un mensaje con cuerpo vacío o el mensaje de error. (en formato JSON).")
+	
 	@ApiResponses (value = 
 		{
 				@ApiResponse(code=200, message="Editorial correctamente insertada en la base de datos."),
-				@ApiResponse(code=400, message="Error en la solicitud al crear la editorial. "
-						+ "Posiblemente, debido a la longitud de alguno de los campos."),
-				@ApiResponse(code=409, message="CONFLICTO: Ya existe una editorial con ese nombre.")
+				@ApiResponse(code=400, message="Formato JSON incorrecto para alguno de los campos.", response = ResponseMessage.class),
+				@ApiResponse(code=404, message="URL no válida", response = ResponseMessage.class),
+				@ApiResponse(code=409, message="CONFLICTO: La editorial tiene libros asociados.", response = ResponseMessage.class)
 		})
+	
 	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
-	public ResponseEntity<Object> eliminar( @ApiParam(value = "Código indentificador de la editorial.") @PathVariable long id) {
+	public ResponseEntity<Object> eliminar(
+			@ApiParam(value = "Código indentificador de la editorial a eliminar.") @PathVariable long id) {
 
 		ResponseEntity<Object> response = new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
 
@@ -237,12 +250,13 @@ public class EditorialesController {
 			value = "Modifica la editorial con el ID (identificador) introducido.",
 			notes = "Devuelve la editorial creada (en formato JSON), o en caso de error, el mensaje.",
 			response=Editorial.class)
+	
 	@ApiResponses (value = 
 		{
 				@ApiResponse(code=200, message="Editorial correctamente modificada en la base de datos."),
-				@ApiResponse(code=400, message="Error en la solicitud al crear la editorial. "
-						+ "Posiblemente, debido a la longitud de alguno de los campos."),
-				@ApiResponse(code=409, message="CONFLICTO: Ya existe una editorial con ese nombre.")
+				@ApiResponse(code=400, message="Formato JSON incorrecto para alguno de los campos.", response = ResponseMessage.class),
+				@ApiResponse(code=404, message="Recurso no encontrado.", response = ResponseMessage.class),
+				@ApiResponse(code=409, message="CONFLICTO: Ya existe una editorial con ese nombre.", response = ResponseMessage.class)
 		})
 
 	@RequestMapping(value = "/{id}", method = RequestMethod.PUT)

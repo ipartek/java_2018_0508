@@ -7,16 +7,15 @@ import java.sql.SQLIntegrityConstraintViolationException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Set;
 
 import javax.validation.ConstraintViolation;
 import javax.validation.Validation;
 import javax.validation.Validator;
 import javax.validation.ValidatorFactory;
+import javax.validation.constraints.NotNull;
 
 import org.apache.log4j.Logger;
-import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -30,6 +29,7 @@ import com.ipartek.formacion.libros.service.ServicePrestamo;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 
@@ -38,7 +38,7 @@ import com.ipartek.formacion.libros.pojo.Prestamo;
 @CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("/prestamos")
-@Api(tags= {"Servicio Préstamos"}, produces ="application/json")
+@Api(tags = { "Servicio Préstamos" }, produces = "application/json", description = "Gestión de préstamos de libros.")
 public class PrestamoController {
 
 	private static final Logger LOG = Logger.getLogger(PrestamoController.class);
@@ -70,17 +70,14 @@ public class PrestamoController {
 
 	}
 
-	@ApiOperation(
-			value = "Listado de préstamos activos o histórico",
-			notes = "Devuelve los préstamos activos o devueltos en función del parámetro 'activos', de tipo true o false, que reciba en la URL.")
-	@ApiResponses (value = 
-			{
-					@ApiResponse(code=200, message="Listado de Préstamos devuelto correctamente."),
-					@ApiResponse(code=400, message="Error en la solicitud de listado de préstamos."),
-			})
+	@ApiOperation(value = "Listado de préstamos activos o histórico", notes = "Devuelve los préstamos activos o devueltos en función del parámetro 'activos', de tipo true o false, que reciba en la URL.")
+	@ApiResponses(value = { @ApiResponse(code = 200, message = "Listado de Préstamos devuelto correctamente."),
+			@ApiResponse(code = 400, message = "Error en la solicitud de listado de préstamos."), })
 	@RequestMapping(value = { "", "/" }, method = RequestMethod.GET)
 	public ResponseEntity<ArrayList<Prestamo>> listado(
-			@RequestParam(name="activos", required = true) boolean activos) {
+			@NotNull @ApiParam(value = "<ol><li>Si activos = true -> Préstamos sin devolver.</li>"
+					+ "<li>Si activos = false -> Préstamos ya devueltos.</li>"
+					+ "<li>Si no se indica nada -> Préstamos sin devolver</li>") @RequestParam(name = "activos", required = true) boolean activos) {
 
 		ResponseEntity<ArrayList<Prestamo>> response = new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
 
@@ -100,7 +97,7 @@ public class PrestamoController {
 		} catch (Exception e) {
 
 			response = new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-			e.printStackTrace();
+			LOG.error(e);
 		}
 
 		return response;
@@ -128,25 +125,30 @@ public class PrestamoController {
 		} catch (Exception e) {
 
 			response = INTERNAL_SERVER_ERROR_RESPONSE;
-			e.printStackTrace();
+			LOG.error(e);
 		}
 
 		return response;
 	}
-	
+
 	@ApiOperation(
-			value = "Crea un préstamo con los valores introducidos (en formato JSON).",
-			notes = "Devuelve el objeto creado (en formato JSON), o en caso de error, el mensaje.",
-			response=Prestamo.class)
-	@ApiResponses (value = 
-	{
-			@ApiResponse(code=204, message="Préstamo correctamente devuelto."),
-			@ApiResponse(code=400, message="Error en la solicitud al devolver el préstamo. "
-					+ "Posiblemente, debido al formato del documento JSON."),
-			@ApiResponse(code=409, message="El libro o el alumno introducidos no existen en la base de datos.")
+			value = "Crea un préstamo con los valores introducidos (en formato JSON).", 
+			notes = "Devuelve el objeto creado (en formato JSON), o en caso de error, el mensaje.<br>"
+					+ "Campos obligatorios:"
+					+ "<ol><li>ID Alumno</li> <li>ID Libro</li> <li>Fecha Inicio (por defecto, día actual)</li></ol>",
+					response = Prestamo.class)
+	
+	@ApiResponses(value = { 
+			@ApiResponse(code = 201, message = "Préstamo correctamente realizado.", response=Prestamo.class),
+			@ApiResponse(code = 400, message = "Formato JSON incorrecto", response = ResponseMessage.class),
+			@ApiResponse(code = 409, message = "CONFLICTOS: "
+					+ "<ol><li>El libro o el alumno introducidos no existen en la base de datos</li>"
+					+ "<li>La longitud de alguno de los campos es incorrecta.</li></ol>.", response = ResponseMessage.class) 
 	})
+	
 	@RequestMapping(method = RequestMethod.POST)
-	public ResponseEntity<Object> crear(@RequestBody Prestamo prestamo) {
+	public ResponseEntity<Object> crear(
+			@ApiParam (value = "Prestamo a realizar en formato JSON.") @RequestBody Prestamo prestamo) {
 
 		ResponseEntity<Object> response = new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
 
@@ -172,76 +174,74 @@ public class PrestamoController {
 
 				}
 
-				ResponseMessage msg = new ResponseMessage("Alguno de los campos no tiene una longitud adecuada..",
+				ResponseMessage msg = new ResponseMessage("Alguno de los campos no tiene una longitud adecuada.",
 						msgs);
 				response = new ResponseEntity<Object>(msg, HttpStatus.BAD_REQUEST);
+
 			}
 
 		} catch (SQLIntegrityConstraintViolationException e) {
 			String msg = "";
 
+			//	TODO: Hacerlo más elegante
+			//---------------------------------------------------------------------------------
 			if (e.getMessage().contains("id_libro") && e.getMessage().contains("id_alumno")) {
-				
+
 				msg = "El libro y el alumno introducidos no existen en la base de datos.";
-				
+
 			} else if (e.getMessage().contains("id_libro")) {
-				
-				msg = "El libro y el alumno introducido no existe en la base de datos.";
-			
-			} else if (e.getMessage().contains("id_alumno")){
-				
+
+				msg = "El libro introducido no existe en la base de datos.";
+
+			} else if (e.getMessage().contains("id_alumno")) {
+
 				msg += "El alumno introducido no existe en la base de datos.";
 			}
-	
-			response = new ResponseEntity<>(new ResponseMessage(msg),
-					HttpStatus.NOT_IMPLEMENTED);
-			e.printStackTrace();
+
+			LOG.debug(e.getCause() + "\t" + e.getMessage());
+			response = new ResponseEntity<>(new ResponseMessage(msg), HttpStatus.BAD_REQUEST);
 
 		} catch (Exception e) {
 
 			response = new ResponseEntity<>(new ResponseMessage(e.getMessage()), HttpStatus.NOT_IMPLEMENTED);
-			e.printStackTrace();
+			LOG.error(e);
 		}
 
 		return response;
 
 	}
-	
-	@ApiOperation(
-			value = "Devuelve un préstamo con la fecha de devolución introducida (en formato JSON).",
-			notes = "Devuelve un cuerpo vacío, el código de respuesta o, en caso de error, el mensaje.",
-			response=Prestamo.class)
-	@ApiResponses (value = 
-	{
-			@ApiResponse(code=200, message="Préstamo correctamente devuelto."),
-			@ApiResponse(code=400, message="Error en la solicitud al devolver el préstamo. "
-					+ "Posiblemente, debido al formato del documento JSON."),
-			@ApiResponse(code=404, message="Préstamo no encontrado.")
-	})
+
+	@ApiOperation(value = "Devuelve un préstamo con la fecha de devolución introducida (en formato JSON).", 
+				notes = "Devuelve un cuerpo vacío, el código de respuesta o, en caso de error, el mensaje.", 
+				response = Prestamo.class)
+
+	@ApiResponses(value = 
+			{ 
+			@ApiResponse(code = 200, message = "Préstamo correctamente devuelto."),
+			@ApiResponse(code = 400, message = "Formato JSON incorrecto para alguno de los campos."),
+			@ApiResponse(code = 404, message = "Préstamo no encontrado.") 
+			})
+
 	@RequestMapping(value = "/{idLibro}/{idAlumno}/{fInicio}", method = RequestMethod.DELETE)
+
 	public ResponseEntity<Object> devolver(@PathVariable long idLibro, @PathVariable long idAlumno,
-			@PathVariable Date fInicio, 
-			@RequestBody String strFechaDevolucion) {
+			@PathVariable Date fInicio, @RequestBody Prestamo prestamo) {
 
 		ResponseEntity<Object> response = new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
 
 		try {
+		
 			DateFormat fmt = new SimpleDateFormat("yyyy-MM-dd");
-			
+
 			java.sql.Date fechaInicio = new Date(fmt.parse(fInicio.toString()).getTime());
+
+			if (prestamo.getFechaRetorno() == null) {
+
+				prestamo.setFechaRetorno(new Date(new java.util.Date().getTime()));
+
+			} 
 			
-			java.sql.Date fechaDevolucion;
-			
-			if (strFechaDevolucion == null) {
-				
-				fechaDevolucion = new Date(new java.util.Date().getTime());
-			
-			} else {
-					
-				fechaDevolucion = new Date(fmt.parse(strFechaDevolucion).getTime());
-				
-			}
-			if (servicio.devolver(idAlumno, idLibro, fechaInicio, new Date(fechaDevolucion.getTime()))) {
+			if (servicio.devolver(idAlumno, idLibro, fechaInicio, prestamo.getFechaRetorno())) {
 
 				response = new ResponseEntity<Object>(HttpStatus.NO_CONTENT);
 
@@ -254,7 +254,7 @@ public class PrestamoController {
 		} catch (Exception e) {
 
 			response = INTERNAL_SERVER_ERROR_RESPONSE;
-			e.printStackTrace();
+			LOG.error(e);
 		}
 
 		return response;
@@ -301,12 +301,12 @@ public class PrestamoController {
 
 			response = new ResponseEntity<>(new ResponseMessage("La editorial para este libro no existe."),
 					HttpStatus.NOT_IMPLEMENTED);
-			e.printStackTrace();
+			LOG.warn(e);
 
 		} catch (Exception e) {
 
 			response = INTERNAL_SERVER_ERROR_RESPONSE;
-			e.printStackTrace();
+			LOG.error(e.getCause() + "\t" + e.getMessage());
 		}
 
 		return response;

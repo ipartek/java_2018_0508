@@ -36,19 +36,7 @@
 	<beans:bean id="jsonMessageConverter" class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
 
 	</beans:bean>	
-	
-     <beans:bean
-               class="org.springframework.http.converter.StringHttpMessageConverter" />
-           <beans:bean
-               class="org.springframework.http.converter.ResourceHttpMessageConverter" />
-           <beans:bean
-               class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
-               <beans:property name="objectMapper" ref="jacksonObjectMapper" />
-           </beans:bean>
-	
-	<beans:bean id="jacksonObjectMapper"
-        class="com.ipartek.formacion.prestamos.config.JSONMapper" />
-	
+
 	<context:component-scan base-package="com.ipartek.formacion.prestamos" />
   
 	

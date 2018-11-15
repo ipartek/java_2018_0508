@@ -14,8 +14,10 @@ public class Prestamo {
 	
 	@DateTimeFormat(pattern="yyyy-MM-dd")
 	private Date fechaInicio;
+	
 	@DateTimeFormat(pattern="yyyy-MM-dd")
 	private Date fechaFin;
+	
 	@DateTimeFormat(pattern="yyyy-MM-dd")
 	private Date fechaRetorno;
 
