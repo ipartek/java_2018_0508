@@ -48,8 +48,8 @@ public class EditorialesController {
 	
 	@ApiOperation(value = "Listado Editoriales")
 	@ApiResponses( value = {
-			@ApiResponse (code = 200, message = "Listado Editoriales"),
-			@ApiResponse (code = 404, message = "No se encontro Editorial")}
+			@ApiResponse (code = 200, message = "Listado Editoriales", response= Editorial.class),
+			@ApiResponse (code = 404, message = "No se encontro Editorial", response= ResponseMensaje.class)}
 	)
 
 	@RequestMapping(method = RequestMethod.GET)
@@ -71,8 +71,8 @@ public class EditorialesController {
 	
 	@ApiOperation(value = "Detalle Editorial")
 	@ApiResponses( value = {
-			@ApiResponse (code = 200, message = "Detalle Editorial"),
-			@ApiResponse (code = 404, message = "No se encontro Editorial valor incorrecto")}
+			@ApiResponse (code = 200, message = "Detalle Editorial", response= Editorial.class),
+			@ApiResponse (code = 404, message = "No se encontro Editorial valor incorrecto", response= ResponseMensaje.class)}
 	)
 
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
@@ -96,9 +96,9 @@ public class EditorialesController {
 	
 	@ApiOperation(value = "Eliminar Editorial")
 	@ApiResponses( value = {
-			@ApiResponse (code = 200, message = "Eliminar Editorial"),
-			@ApiResponse (code = 404, message = "No se encontro Editorial"),
-			@ApiResponse (code = 409, message = "No se puede eliminar el editorial por que esta asociado a un libro")}
+			@ApiResponse (code = 200, message = "Eliminar Editorial", response= Editorial.class),
+			@ApiResponse (code = 404, message = "No se encontro Editorial", response= ResponseMensaje.class),
+			@ApiResponse (code = 409, message = "No se puede eliminar el editorial por que esta asociado a un libro", response= ResponseMensaje.class)}
 	)
 	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
 	public ResponseEntity<Object> eliminar(@PathVariable long id) {
@@ -123,8 +123,8 @@ public class EditorialesController {
 	
 	@ApiOperation(value = "Crear Editorial")
 	@ApiResponses( value = {
-			@ApiResponse (code = 201, message = "Crear Editorial"),
-			@ApiResponse (code = 409, message = "Esta vacio Editorial o el Nombre editorial ya existe")}
+			@ApiResponse (code = 201, message = "Crear Editorial", response= Editorial.class),
+			@ApiResponse (code = 409, message = "Esta vacio Editorial o el Nombre editorial ya existe", response= ResponseMensaje.class)}
 	)
 
 	@RequestMapping(method = RequestMethod.POST)
@@ -166,9 +166,9 @@ public class EditorialesController {
 	
 	@ApiOperation(value = "Modificar Editorial")
 	@ApiResponses( value = {
-			@ApiResponse (code = 200, message = "Modificar Editorial"),
-			@ApiResponse (code = 404, message = "No se encontro Editorial"),
-			@ApiResponse (code = 409, message = "No se puede modificar editoria con el mismo nombre o que esta vacio")}
+			@ApiResponse (code = 200, message = "Modificar Editorial", response= Editorial.class),
+			@ApiResponse (code = 404, message = "No se encontro Editorial", response= ResponseMensaje.class),
+			@ApiResponse (code = 409, message = "No se puede modificar editoria con el mismo nombre o que esta vacio", response= ResponseMensaje.class)}
 	)
 
 	@RequestMapping(value = "/{id}", method = RequestMethod.PUT)

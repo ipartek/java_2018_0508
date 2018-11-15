@@ -68,9 +68,9 @@ public class AlumnosController {
 	}
 
 	@ApiOperation(value = "Detalle Alumno")
-	@ApiResponses(value = { @ApiResponse(code = 200, message = "Detalle Alumno"),
+	@ApiResponses(value = { @ApiResponse(code = 200, message = "Detalle Alumno", response= Usuario.class),
 			@ApiResponse(code = 404, message = "No se encontro Alumno valor incorrecto"),
-			@ApiResponse(code = 409, message = "Caracteres vacios") })
+			@ApiResponse(code = 409, message = "Caracteres vacios", response= ResponseMensaje.class) })
 
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
 	public ResponseEntity<Usuario> detalle(@PathVariable long id) {
@@ -94,7 +94,7 @@ public class AlumnosController {
 	@ApiOperation(value = "Eliminar Alumno")
 	@ApiResponses(value = { @ApiResponse(code = 200, message = "Eliminar Alumno"),
 			@ApiResponse(code = 404, message = "No se encontro Alumno"),
-			@ApiResponse(code = 409, message = "No se puede eliminar Alumno si esta asociado a un libro") })
+			@ApiResponse(code = 409, message = "No se puede eliminar Alumno si esta asociado a un libro", response= ResponseMensaje.class) })
 	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
 	public ResponseEntity<Object> eliminar(@PathVariable long id) {
 
@@ -119,9 +119,9 @@ public class AlumnosController {
 		return response;
 	}
 
-	@ApiOperation(value = "Crear Alumno", response = Usuario.class)
-	@ApiResponses(value = { @ApiResponse(code = 201, message = "Alumno Creado"),
-			@ApiResponse(code = 409, message = "<ol><li>El Nombre alumno ya existe</li><li> No cumple validaciones</li></ol>") })	
+	@ApiOperation(value = "Crear Alumno", response = Usuario.class, notes="parametros requeridos:<ol><li><b>nombre_apellidos</b> minimo 2 letras maximo 100</li></ol>")
+	@ApiResponses(value = { @ApiResponse(code = 201, message = "Alumno Creado", response= Usuario.class),
+			@ApiResponse(code = 409, message = "<ol><li>El Nombre alumno ya existe</li><li> No cumple validaciones</li></ol>", response= ResponseMensaje.class) })	
 	@RequestMapping(method = RequestMethod.POST)
 	public ResponseEntity<Object> crear(@RequestBody Usuario usuario) {
 
@@ -158,9 +158,9 @@ public class AlumnosController {
 	}
 
 	@ApiOperation(value = "Modificar Alumno")
-	@ApiResponses(value = { @ApiResponse(code = 201, message = "Modificar Alumno"),
+	@ApiResponses(value = { @ApiResponse(code = 200, message = "Alumno Modificado", response= Usuario.class),
 			@ApiResponse(code = 404, message = "No se encontro Alumno"),
-			@ApiResponse(code = 409, message = "No se puede modificar alumno con el mismo nombre o que esta vacio") })
+			@ApiResponse(code = 409, message = "No se puede modificar alumno con el mismo nombre o que esta vacio", response= ResponseMensaje.class) })
 
 	@RequestMapping(value = "/{id}", method = RequestMethod.PUT)
 	public ResponseEntity<Object> modificar(@PathVariable long id, @RequestBody Usuario usuario) {
