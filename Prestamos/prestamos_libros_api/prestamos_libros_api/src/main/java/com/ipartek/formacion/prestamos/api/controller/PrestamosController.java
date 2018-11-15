@@ -23,19 +23,19 @@ import com.ipartek.formacion.prestamos_libros.pojo.Prestamo;
 import com.ipartek.formacion.prestamos_libros.pojo.Usuario;
 import com.ipartek.formacion.prestamos_libros.service.ServicePrestamo;
 
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import io.swagger.annotations.ApiResponses;
 import io.swagger.annotations.ApiResponse;
-
+@Api(tags= {"Prestamos"}, produces="application/json", description="Gestion Prestamos")
 @CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("/prestamos")
 public class PrestamosController {
-	
+	private final static Logger LOG = Logger.getLogger(PrestamosController.class);
 
 	ServicePrestamo servicePrestamo = null;
-	private final static Logger LOG = Logger.getLogger(PrestamosController.class);
 	ValidatorFactory factory = null;
 	Validator validator = null;
 
@@ -57,7 +57,9 @@ public class PrestamosController {
 	
 	@ApiParam( value="activo", required = false, defaultValue = "1")
 	@RequestMapping(method = RequestMethod.GET)
-	public ResponseEntity<ArrayList<Prestamo>> listado(@RequestParam(value = "activo", required = false) boolean estado) {
+	public ResponseEntity<ArrayList<Prestamo>> listado(
+			@ApiParam(value = "No obligatorio,1) true: Prestamos sin retornar <br> 2) false: Prestamos Retornados")
+			@RequestParam(value = "activo", required = false, defaultValue = "true") boolean estado) {
 
 		ArrayList<Prestamo> list = new ArrayList<Prestamo>();
 		ResponseEntity<ArrayList<Prestamo>> response = new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
@@ -93,7 +95,7 @@ public class PrestamosController {
 			}
 			
 		} catch (Exception e) {
-			e.printStackTrace();
+			LOG.error(e);
 		}
 		
 		return response;
@@ -124,6 +126,7 @@ public class PrestamosController {
 			}
 
 		} catch (Exception e) {
+			LOG.error(e);
 			ResponseMensaje msj = new ResponseMensaje("Error");
 			response = new ResponseEntity<>(msj, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
@@ -157,6 +160,7 @@ public class PrestamosController {
 				response = new ResponseEntity<>(msj, HttpStatus.CONFLICT);
 			}
 		} catch (Exception e) {
+			LOG.error(e);
 			ResponseMensaje msj = new ResponseMensaje("Error");
 			response = new ResponseEntity<>(msj, HttpStatus.INTERNAL_SERVER_ERROR);
 		}

@@ -1,6 +1,7 @@
 package com.ipartek.formacion.prestamos.api.controller;
 
 import java.sql.SQLIntegrityConstraintViolationException;
+
 import java.util.ArrayList;
 import java.util.Set;
 
@@ -19,12 +20,14 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ipartek.formacion.prestamos_libros.pojo.Editorial;
+import com.ipartek.formacion.prestamos_libros.pojo.Usuario;
 import com.ipartek.formacion.prestamos_libros.service.ServiceEditorial;
 
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
-
+@Api(tags= {"Editoriales"}, produces="application/json", description="Gestion Editoriales")
 @CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("/editoriales")
@@ -115,7 +118,8 @@ public class EditorialesController {
 		return response;
 	}
 	
-	@ApiOperation(value = "Crear Editorial")
+
+	@ApiOperation(value = "Crear Editorial", response = Editorial.class)
 	@ApiResponses( value = {
 			@ApiResponse (code = 201, message = "Crear Editorial"),
 			@ApiResponse (code = 409, message = "Esta vacio Editorial o el Nombre editorial ya existe")}

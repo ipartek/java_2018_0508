@@ -21,10 +21,11 @@ import org.springframework.web.bind.annotation.RestController;
 import com.ipartek.formacion.prestamos_libros.pojo.Libro;
 import com.ipartek.formacion.prestamos_libros.service.ServiceLibro;
 
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
-
+@Api(tags= {"Libros"}, produces="application/json", description="Gestion Libros")
 @CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("/libros")
