@@ -9,6 +9,7 @@ import javax.validation.Validation;
 import javax.validation.Validator;
 import javax.validation.ValidatorFactory;
 
+import org.apache.log4j.Logger;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -32,9 +33,11 @@ import io.swagger.annotations.ApiResponses;
 @CrossOrigin(origins="*")
 @RestController
 @RequestMapping("/libros")
-@Api(tags = "Libros",  description = "Parte de la API que controla los libros")
+@Api(tags = "Libros",  description = "Parte de la API que gestiona los libros", produces="application/json")
 public class LibrosController {
 
+	private final static Logger LOG = Logger.getLogger(LibrosController.class);
+	
 	ServiceLibro serviceLibro = null;
 	ServiceEditorial serviceEditorial = null;
 	ValidatorFactory factory = null;
@@ -53,7 +56,7 @@ public class LibrosController {
 		    value = "Lista todos los libros que se encuentran en la BBDD", 
 		    notes = ""
 		)
-		@ApiResponses( {
+	@ApiResponses({@ApiResponse(code = 200, message = "Acción realizada con exito"),
 		    @ApiResponse( code = 404, message = "No existe la dirección a la que intenta acceder." )    
 		} )	
 	@RequestMapping(method = RequestMethod.GET)
@@ -66,7 +69,7 @@ public class LibrosController {
 			list = (ArrayList<Libro>) serviceLibro.listar();
 			response = new ResponseEntity<>(list, HttpStatus.OK);
 		} catch (Exception e) {
-			e.printStackTrace();
+			LOG.error(e);
 		}
 
 		return response;
@@ -74,9 +77,9 @@ public class LibrosController {
 
 	@ApiOperation( 
 		    value = "Lista un libro concreto que se encuentran en la BBDD", 
-		    notes = "Busqueda por ID de libro"
+		    notes = "Busqueda por <b>ID LIBRO</b>"
 		)
-		@ApiResponses( {
+	@ApiResponses({@ApiResponse(code = 200, message = "Acción realizada con exito"),
 		    @ApiResponse( code = 404, message = "Libro no existe" )    
 		} )	
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
@@ -92,7 +95,7 @@ public class LibrosController {
 	
 			}
 		} catch (Exception e) {
-			e.printStackTrace();
+			LOG.error(e);
 		}
 
 		return response;
@@ -100,11 +103,13 @@ public class LibrosController {
 	}
 	@ApiOperation( 
 		    value = "Elimina un libro concreto que se encuentran en la BBDD", 
-		    notes = "Se requiere un ID de libro para eliminar el registro."
+		    notes = "Se requiere un <b>ID LIBRO</b> para eliminar el registro.",
+    		response= Libro.class
 		)
-		@ApiResponses( {
-		    @ApiResponse( code = 409, message = "Libro esta en prestamo y no se puede eliminar." ),    
-		    @ApiResponse( code = 404, message = "El registro a eliminar no existe" )
+	@ApiResponses({@ApiResponse(code = 200, message = "Acción realizada con exito"),
+		    @ApiResponse( code = 404, message = "El registro a eliminar no existe" ),
+		    @ApiResponse( code = 409, message = "Libro esta en prestamo y no se puede eliminar." )    
+		   
 		} )	
 	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
 	public ResponseEntity<Object> eliminar(@PathVariable long id) {
@@ -120,20 +125,23 @@ public class LibrosController {
 		
 		}catch( SQLIntegrityConstraintViolationException e ) {	
 			response = new ResponseEntity<>(new ResponseMensaje("No se puede eliminar si tiene prestamos asociados"), HttpStatus.CONFLICT);
+			LOG.debug(response);
 		}catch (Exception e) {
-			e.printStackTrace();
+			LOG.error(e);
 		}
 		return response;
 	}
 
 	@ApiOperation( 
 		    value = "Crea un nuevo registro para libro", 
-		    notes = "Se requiere un isbn comprendido entre 8 y 13 caracteres."
-		             + "Se requiere un título comprendido entre 2 y 255 caracteres."
-		    		+ "Se requiere un id de editorial"
+		    notes = "Se requiere: <br>"
+		    		+ "<ol><li><b>ISBN</b>comprendido entre 8 y 13 caracteres.</li>"
+		    		+ "<li><b>TÍTULO</b>comprendido  entre 2 y 255 caracteres.</li>"
+		    		+ "<li><b>ID EDITORIAL</b>.</li></ol>",
+		    		response= Libro.class
 		)
-		@ApiResponses( {
-		    @ApiResponse( code = 409, message = "El error se produce porque los datos introducidos no cumple con los parametros establecidos." )    
+	@ApiResponses({@ApiResponse(code = 201, message = "Acción realizada con exito"),
+		    @ApiResponse( code = 409, message = "Los datos introducidos no cumple con los parametros establecidos." )    
 		} )
 	@RequestMapping(method = RequestMethod.POST)
 	public ResponseEntity<Object> crear(@RequestBody Libro libro) {
@@ -165,8 +173,9 @@ public class LibrosController {
 		} catch (SQLIntegrityConstraintViolationException e) {
 			ResponseMensaje msj = new ResponseMensaje("Editorial no existe");			
 			response = new ResponseEntity<>(msj, HttpStatus.CONFLICT);
+			LOG.debug(response);
 		} catch (Exception e) {
-			e.printStackTrace();
+			LOG.error(e);
 		}
 
 		return response;
@@ -174,11 +183,16 @@ public class LibrosController {
 	}
 
 	@ApiOperation( 
-		    value = "Modifica un libro", 
-		    notes = "Se requiere un ID."
+		    value = "Modifica un libro.", 
+		    notes = "Se requiere un <b>ID LIBRO</b>.<br>"
+		    		+ "Además los campos a modificar deben cumplir:<br>"
+		    		+ "<ol><li><b>ISBN</b>comprendido entre 8 y 13 caracteres.</li>"
+		    		+ "<li><b>TÍTULO</b>comprendido  entre 2 y 255 caracteres.</li>"
+		    		+ "<li><b>ID EDITORIAL</b>.</li></ol>",
+		    		response= Libro.class
 		)
-		@ApiResponses( {
-		    @ApiResponse( code = 409, message = "Error producido porque los datos introducidos no cumplen las condiciones especificadas." )    
+	@ApiResponses({@ApiResponse(code = 201, message = "Acción realizada con exito"),
+		    @ApiResponse( code = 409, message = "Los datos introducidos no cumplen las condiciones especificadas." )    
 		} )
 	@RequestMapping(value = "/{id}", method = RequestMethod.PUT)
 	public ResponseEntity<Object> modificar(@PathVariable long id, @RequestBody Libro libro) {
@@ -209,8 +223,9 @@ public class LibrosController {
 		}catch (SQLIntegrityConstraintViolationException e) {
 			
 			response = new ResponseEntity<>( new ResponseMensaje("La editorial no existe en la BBDD")  ,HttpStatus.CONFLICT);
+			LOG.debug(response);
 		}catch (Exception e) {
-			e.printStackTrace();
+			LOG.error(e);
 		}
 		return response;
 	}

@@ -9,6 +9,7 @@ import javax.validation.Validation;
 import javax.validation.Validator;
 import javax.validation.ValidatorFactory;
 
+import org.apache.log4j.Logger;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -27,12 +28,14 @@ import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 
-@CrossOrigin(origins="*")
+@CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("/alumnos")
 
-@Api(tags = "Alumnos",  description = "Parte de la API que controla las alumnos")
+@Api(tags = "Alumnos", description = "Parte de la API que gestiona las alumnos", produces="application/json")
 public class AlumnosController {
+	
+	private final static Logger LOG = Logger.getLogger(AlumnosController.class);
 
 	ServiceAlumno serviceAlumno = null;
 	ValidatorFactory factory = null;
@@ -46,13 +49,10 @@ public class AlumnosController {
 		validator = factory.getValidator();
 	}
 
-	@ApiOperation( 
-		    value = "Lista todas los alumnos que se encuentran en la BBDD", 
-		    notes = ""
-		)
-		@ApiResponses( {
-		    @ApiResponse( code = 404, message = "No existe la dirección a la que intenta acceder." )    
-		} )		
+	@ApiOperation(value = "Lista todas los alumnos que se encuentran en la BBDD", notes = "")
+	@ApiResponses({ @ApiResponse(code = 200, message = "Acción realizada con exito"),
+		@ApiResponse(code = 404, message = "No existe la dirección a la que intenta acceder.")
+		 })
 	@RequestMapping(method = RequestMethod.GET)
 	public @ResponseBody ResponseEntity<ArrayList<Alumno>> listar() {
 
@@ -63,19 +63,16 @@ public class AlumnosController {
 			list = (ArrayList<Alumno>) serviceAlumno.listar();
 			response = new ResponseEntity<>(list, HttpStatus.OK);
 		} catch (Exception e) {
-			e.printStackTrace();
+			LOG.error(e);
 		}
 
 		return response;
 	}
-	
-	@ApiOperation( 
-		    value = "Lista un alumno concreto que se encuentran en la BBDD", 
-		    notes = "Busqueda por ID de alumno"
-		)
-		@ApiResponses( {
-		    @ApiResponse( code = 404, message = "Alumno no existe" )    
-		} )		  
+
+	@ApiOperation(value = "Lista un alumno concreto que se encuentran en la BBDD", notes = "Busqueda por <b>ID ALUMNO</b>")
+	@ApiResponses({@ApiResponse(code = 200, message = "Acción realizada con exito"),
+		@ApiResponse(code = 404, message = "Alumno no existe"),
+		})
 
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
 	public ResponseEntity<Alumno> detalle(@PathVariable long id) {
@@ -89,51 +86,48 @@ public class AlumnosController {
 				response = new ResponseEntity<>(HttpStatus.NOT_FOUND);
 			}
 		} catch (Exception e) {
-			e.printStackTrace();
+			LOG.error(e);
 		}
 
 		return response;
 
 	}
-	
-	@ApiOperation( 
-		    value = "Elimina un alumno concreto que se encuentran en la BBDD", 
-		    notes = "Se requiere un ID de alumno para eliminar el registro."
-		)
-		@ApiResponses( {
-		    @ApiResponse( code = 409, message = "Alumno tiene un prestamo y no se puede eliminar." ),    
-		    @ApiResponse( code = 404, message = "El registro a eliminar no existe" )
-		} )	
+
+	@ApiOperation(value = "Elimina un alumno concreto que se encuentran en la BBDD", 
+			notes = "Se requiere un <b>ID ALUMNO</b>  para eliminar el registro.",
+			response = Alumno.class)
+	@ApiResponses({@ApiResponse(code = 200, message = "Acción realizada con exito"),
+		@ApiResponse(code = 404, message = "El registro a eliminar no existe"),
+		@ApiResponse(code = 409, message = "Alumno tiene un prestamo y no se puede eliminar.")
+	})
 
 	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
 	public ResponseEntity<Object> eliminar(@PathVariable long id) {
 
 		ResponseEntity<Object> response = new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 		try {
-						
-			if ( serviceAlumno.eliminar(id) ) {
+
+			if (serviceAlumno.eliminar(id)) {
 				response = new ResponseEntity<>(HttpStatus.OK);
-			}else {
+			} else {
 				response = new ResponseEntity<>(HttpStatus.NOT_FOUND);
 			}
-		
-		}catch( SQLIntegrityConstraintViolationException e ) {	
-			response = new ResponseEntity<>(new ResponseMensaje("No se puede eliminar si tiene Libros asociados"), HttpStatus.CONFLICT);
-		}catch (Exception e) {
-			e.printStackTrace();
+
+		} catch (SQLIntegrityConstraintViolationException e) {
+			response = new ResponseEntity<>(new ResponseMensaje("No se puede eliminar si tiene Libros asociados"),
+					HttpStatus.CONFLICT);
+			LOG.debug(response);
+		} catch (Exception e) {
+			LOG.error(e);
 		}
 		return response;
 	}
-	
-	@ApiOperation( 
-		    value = "Crea un nuevo registro para alumno", 
-		    notes = "Se requiere un nombre de alumno comprendido entre 2 y 100 caracteres."
-		    		+ "Se requiere un apellido de alumno comprendido entre 2 y 100 caracteres."
-		)
-		@ApiResponses( {
-		    @ApiResponse( code = 409, message = "El error se pproduce por dos opciones. Nombre y apellido coinciden con un registro de la BBDD o los datos introducidos no cumple con los parametros establecidos." )    
-		} )
 
+	@ApiOperation(value = "Crea un nuevo registro para alumno", 
+			notes = "Se requiere: <br> <ol><li><b>NOMBRE:</b> comprendido entre 2 y 100 caracteres. </li><li><b>APELLIDOS:</b> comprendido entre 2 y 100 caracteres.</li></ol> ",
+			response= Alumno.class)
+	@ApiResponses({@ApiResponse(code = 201, message = "Acción realizada con exito"),
+			@ApiResponse(code = 409, message = "<ol><li> Nombre y apellido coinciden con un registro de la BBDD.</li><li>Los datos introducidos no cumple con los parametros establecidos.</li></ol>") })
 	@RequestMapping(method = RequestMethod.POST)
 	public ResponseEntity<Object> crear(@RequestBody Alumno alumno) {
 
@@ -141,71 +135,73 @@ public class AlumnosController {
 		try {
 
 			Set<ConstraintViolation<Alumno>> violations = validator.validate(alumno);
-			if(violations.isEmpty()) {
-				 
+			if (violations.isEmpty()) {
+
 				if (serviceAlumno.crear(alumno)) {
 					response = new ResponseEntity<>(alumno, HttpStatus.CREATED);
 				} else {
 					response = new ResponseEntity<>(HttpStatus.CONFLICT);
 				}
-			}else {
+			} else {
 				ResponseMensaje mensaje = new ResponseMensaje("Los datos no son correctos");
 				for (ConstraintViolation<Alumno> violation : violations) {
-					mensaje.addError( violation.getPropertyPath() + ": " + violation.getMessage() );
-					
-					
+					mensaje.addError(violation.getPropertyPath() + ": " + violation.getMessage());
+
 				}
-				response = new ResponseEntity<>( mensaje ,  HttpStatus.CONFLICT);
+				response = new ResponseEntity<>(mensaje, HttpStatus.CONFLICT);
 			}
 
-			
 		} catch (SQLIntegrityConstraintViolationException e) {
-			ResponseMensaje msj = new ResponseMensaje("Ya existe el Alumno, por favor prueba con otro nombre");			
+			ResponseMensaje msj = new ResponseMensaje("Ya existe el Alumno, por favor prueba con otro nombre");
 			response = new ResponseEntity<>(msj, HttpStatus.CONFLICT);
+			LOG.debug(e);
 		} catch (Exception e) {
-			e.printStackTrace();
+			LOG.error(e);
 		}
 
 		return response;
 
 	}
-	
-	@ApiOperation( 
-		    value = "Modifica un alumno", 
-		    notes = "Se requiere un ID."
-		)
-		@ApiResponses( {
-		    @ApiResponse( code = 409, message = "Error producido por varios motivos. El alumno ya existe. Los datos introducidos no cumplen las condiciones especificadas." )    
-		} )
+
+	@ApiOperation(value = "Modifica un alumno.", 
+			notes = "Se requiere un <b>ID ALUMNO</b>.<br> Además los campos a modificar han de cumplir estos parametros: <br>"
+					+ " <ol><li><b>NOMBRE:</b> comprendido entre 2 y 100 caracteres. </li><li><b>APELLIDOS:</b> comprendido entre 2 y 100 caracteres.</li></ol> ",
+			response= Alumno.class) 
+	@ApiResponses({
+		    @ApiResponse(code = 200, message = "Acción realizada con exito"),
+			@ApiResponse(code = 409, message = "<ol><li> Nombre y apellido coinciden con un registro de la BBDD.</li><li>Los datos introducidos no cumple con los parametros establecidos.</li></ol>") })
 	@RequestMapping(value = "/{id}", method = RequestMethod.PUT)
 	public ResponseEntity<Object> modificar(@PathVariable long id, @RequestBody Alumno alumno) {
 
 		ResponseEntity<Object> response = new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 		try {
-			
-			Set<ConstraintViolation<Alumno>> violations =  validator.validate(alumno);
-			if ( violations.isEmpty() ) {
-			
-				alumno.setId(id);			
-				if ( serviceAlumno.modificar(alumno) ) {
+
+			Set<ConstraintViolation<Alumno>> violations = validator.validate(alumno);
+			if (violations.isEmpty()) {
+
+				alumno.setId(id);
+				if (serviceAlumno.modificar(alumno)) {
 					response = new ResponseEntity<>(alumno, HttpStatus.OK);
-				}else {
+				} else {
 					response = new ResponseEntity<>(HttpStatus.CONFLICT);
 				}
-				
-			}else {
+
+			} else {
 				ResponseMensaje mensaje = new ResponseMensaje("Los datos no son correctos");
-				for ( ConstraintViolation<Alumno> v : violations ) {
-					mensaje.addError( v.getPropertyPath() + ": " + v.getMessage() );
-				};
-				response = new ResponseEntity<>( mensaje ,  HttpStatus.CONFLICT);
-			}	
-		
-		}catch (SQLIntegrityConstraintViolationException e) {
-			
-			response = new ResponseEntity<>( new ResponseMensaje("Ya existe la Alumno, por favor prueba con otro nombre")  ,HttpStatus.CONFLICT);
-		}catch (Exception e) {
-			e.printStackTrace();
+				for (ConstraintViolation<Alumno> v : violations) {
+					mensaje.addError(v.getPropertyPath() + ": " + v.getMessage());
+				}
+				;
+				response = new ResponseEntity<>(mensaje, HttpStatus.CONFLICT);
+			}
+
+		} catch (SQLIntegrityConstraintViolationException e) {
+
+			response = new ResponseEntity<>(
+					new ResponseMensaje("Ya existe la Alumno, por favor prueba con otro nombre"), HttpStatus.CONFLICT);
+			LOG.debug(e);
+		} catch (Exception e) {
+			LOG.error(e);
 		}
 		return response;
 	}

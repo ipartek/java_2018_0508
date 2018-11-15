@@ -31,13 +31,16 @@ import com.ipartek.formacion.service.ServicePrestamo;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiResponses;
+import io.swagger.annotations.ApiParam;
 import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
 
 @CrossOrigin(origins = "*")
 @RestController
-@Api(tags = "Prestamos",  description = "Parte de la API que controla los prestamos")
+@Api(tags = "Prestamos", description = "Parte de la API que gestiona los prestamos", produces = "application/json")
 public class PrestamosController {
+
+	private final static Logger LOG = Logger.getLogger(PrestamosController.class);
 
 	ServicePrestamo servicePrestamo = null;
 	ServiceAlumno serviceAlumno = null;
@@ -45,8 +48,6 @@ public class PrestamosController {
 	ServiceEditorial serviceEditorial = null;
 	ValidatorFactory factory = null;
 	Validator validator = null;
-
-	private final static Logger LOG = Logger.getLogger(PrestamosController.class);
 
 	public PrestamosController() {
 		super();
@@ -61,18 +62,15 @@ public class PrestamosController {
 		validator = factory.getValidator();
 	}
 
-
-
-	@ApiOperation( 
-		    value = "Lista los prestamos en activo y el historico que se encuentran en la BBDD", 
-		    notes = "ss requiere el campo activos.El campo activos=1 u otro valor devolvera los prestamos en activo. El campo activos=0 devolvera el historico de prestamos"
-		)
-		@ApiResponses( {
-		    @ApiResponse( code = 404, message = "No existe la dirección a la que intenta acceder." )    
-		} )	
+	@ApiOperation(value = "Lista los prestamos en activo y el historico que se encuentran en la BBDD", notes = "Se requiere el campo activos.<br>"
+			+ " <ol><li><b> activos=1</b> u otro valor devolvera los prestamos en activo. </li>"
+			+ "<li><b>activos=0</b> devolvera el listado de prestamos devueltos.</li></ol>", 
+			response = Prestamo.class)
+	@ApiResponses({@ApiResponse(code = 201, message = "Acción realizada con exito"),
+		@ApiResponse(code = 404, message = "No existe la dirección a la que intenta acceder.") })
 	@RequestMapping(value = "/prestamos", method = RequestMethod.GET)
 	public ResponseEntity<ArrayList<Prestamo>> listar(
-			@RequestParam(name = "activos", required = false, defaultValue = "-1") int activos) {
+			@ApiParam(value = "<ol><li><b>TRUE:</b> Prestamos sin devolver.</li><li> <b>FALSE:</b> Prestamos con fecha devuelto</li></ol>") @RequestParam(name = "activos", required = false, defaultValue = "-1") int activos) {
 
 		ArrayList<Prestamo> list = new ArrayList<Prestamo>();
 		ResponseEntity<ArrayList<Prestamo>> response = new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
@@ -96,13 +94,11 @@ public class PrestamosController {
 		return response;
 	}
 
-	@ApiOperation( 
-		    value = "Lista un prestamo concreto que se encuentran en la BBDD ya este en historico o en prestamo activo.", 
-		    notes = "Busqueda por ID de prestamo"
-		)
-		@ApiResponses( {
-		    @ApiResponse( code = 404, message = "Prestamo no existe" )    
-		} )	
+	@ApiOperation(value = "Lista un prestamo concreto que se encuentran en la BBDD ya este en historico o en prestamo activo.", 
+			notes = "Busqueda por <b>ID</b> de prestamo", 
+			response = Prestamo.class)
+	@ApiResponses({@ApiResponse(code = 201, message = "Acción realizada con exito"),
+		@ApiResponse(code = 404, message = "Prestamo no existe") })
 	@RequestMapping(value = "/libros/prestamos/{id}", method = RequestMethod.GET)
 	public ResponseEntity<Prestamo> detalle(@PathVariable long id) {
 		ResponseEntity<Prestamo> response = new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
@@ -123,15 +119,13 @@ public class PrestamosController {
 
 	}
 
-	@ApiOperation( 
-		    value = "Crea un nuevo registro para prestamo", 
-		    notes = "Se requiere un id de libro, un id de alumno y una fecha de inicio de prestamo."
-		             + "La fecha de fin de prestamo es de 15 días y se rellena automaticamente."
-		    		+ "La fecha devuelto por defecto es null"
-		)
-		@ApiResponses( {
-		    @ApiResponse( code = 409, message = "El error se produce porque los datos introducidos no cumple con los parametros establecidos." )    
-		} )
+	@ApiOperation(value = "Crea un nuevo registro para prestamo", notes = "Se requiere: <br>"
+			+ "<ol><li><b>ID LIBRO</b></li><li><b>ID ALUMNO</b></li><li><b>FECHA DE INICIO</b> de prestamo con formato <b>'YYYY-MM-DD'</b>.</li>"
+			+ "<br><ol><li>La <b>FECHA FIN</B> de prestamo es de 15 días y se rellena automaticamente.</li>"
+			+ "<li>La <b>FECHA DEVUELTO</B> por defecto no se rellena el campo</li>", 
+			response = Prestamo.class)
+	@ApiResponses({@ApiResponse(code = 201, message = "Acción realizada con exito"),
+			@ApiResponse(code = 409, message = "Los datos introducidos no cumple con los parametros establecidos.") })
 	@RequestMapping(value = "/libros/prestamos", method = RequestMethod.POST)
 	public ResponseEntity<Object> crear(@RequestBody Prestamo prestamo) {
 
@@ -141,7 +135,7 @@ public class PrestamosController {
 			Set<ConstraintViolation<Prestamo>> violations = validator.validate(prestamo);
 			if (violations.isEmpty()) {
 				// TODO mirar lo repetido y la fecha fin
-				ArrayList<Alumno> libres = servicePrestamo.AlumnosDisponibles();
+				//ArrayList<Alumno> libres = servicePrestamo.AlumnosDisponibles();
 				if (servicePrestamo.prestar(prestamo)) {
 					Alumno a = serviceAlumno.buscar(prestamo.getAlumno().getId());
 					prestamo.setAlumno(a);
@@ -164,6 +158,7 @@ public class PrestamosController {
 		} catch (SQLIntegrityConstraintViolationException e) {
 			ResponseMensaje msj = new ResponseMensaje("prestamo no existe");
 			response = new ResponseEntity<>(msj, HttpStatus.CONFLICT);
+			LOG.debug(response);
 		} catch (Exception e) {
 			LOG.error(e);
 		}
@@ -172,13 +167,13 @@ public class PrestamosController {
 
 	}
 
-	@ApiOperation( 
-		    value = "Modifica un prestamo que se encuentre en historico o en activo", 
-		    notes = "Se requiere un ID."
-		)
-		@ApiResponses( {
-		    @ApiResponse( code = 409, message = "Error producido porque los datos introducidos no cumplen las condiciones especificadas." )    
-		} )
+	@ApiOperation(value = "Modifica un prestamo que se encuentre tanto en listado devuelto o en activo", notes = "Se requiere: <br><ol><li>ID.</li></ol><br>"
+			+ "Además los valores a introducir deben cumplir estas condiciones:<br>"
+			+ "<ol><li><b>ID LIBRO</b></li><li><b>ID ALUMNO</b></li><li><b>FECHA DE INICIO</b> de prestamo con formato <b>'YYYY-MM-DD'</b></li>"
+			+ "<br><ol><li>La <b>FECHA FIN</B> de prestamo con formato <b>'YYYY-MM-DD'</b>.</li>"
+			+ "<li>La <b>FECHA DEVUELTO</B> con formato <b>'YYYY-MM-DD'</b></li>", response = Prestamo.class)
+	@ApiResponses({@ApiResponse(code = 201, message = "Acción realizada con exito"),
+			@ApiResponse(code = 409, message = "Los datos introducidos no cumplen las condiciones especificadas.") })
 	@RequestMapping(value = "/libros/prestamos/{id}", method = RequestMethod.PUT)
 	public ResponseEntity<Object> modificar(@PathVariable long id, @RequestBody Prestamo prestamo) {
 
@@ -209,7 +204,6 @@ public class PrestamosController {
 				for (ConstraintViolation<Prestamo> v : violations) {
 					mensaje.addError(v.getPropertyPath() + ": " + v.getMessage());
 				}
-				;
 				response = new ResponseEntity<>(mensaje, HttpStatus.CONFLICT);
 			}
 
@@ -217,6 +211,7 @@ public class PrestamosController {
 
 			response = new ResponseEntity<>(new ResponseMensaje("Registro inexistente en la BBDD. Revise los datos."),
 					HttpStatus.CONFLICT);
+			LOG.debug(response);
 		} catch (Exception e) {
 			LOG.error(e);
 		}
