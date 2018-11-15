@@ -195,7 +195,7 @@ public class PrestamoDAO implements CrudAble<Prestamo> {
 		//p.setId(rs.getInt("idprestamo"));
 		p.setFechaInicio(rs.getDate("fecha_inicio"));
 		p.setFechaFin(rs.getDate("fecha_fin"));
-		//p.setFechaRetorno(rs.getDate("fecha_retorno"));
+		p.setFechaRetorno(rs.getDate("fecha_retorno"));
 		
 		Alumno a = new Alumno();
 		a.setId(rs.getInt("id_alumno"));

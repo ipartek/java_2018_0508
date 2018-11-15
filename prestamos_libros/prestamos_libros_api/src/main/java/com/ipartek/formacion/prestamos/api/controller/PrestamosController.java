@@ -1,12 +1,10 @@
 package com.ipartek.formacion.prestamos.api.controller;
 
 import java.sql.Date;
-import java.sql.SQLException;
 import java.sql.SQLIntegrityConstraintViolationException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Map;
 import java.util.Set;
 
 import javax.validation.ConstraintViolation;
@@ -17,7 +15,6 @@ import javax.validation.ValidatorFactory;
 import org.apache.log4j.Logger;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.util.SocketUtils;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -37,7 +34,6 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiParam;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 
@@ -48,7 +44,7 @@ import io.swagger.annotations.ApiResponses;
 @RequestMapping("/prestamos")
 public class PrestamosController {
 
-	private final static Logger LOG = Logger.getLogger(PrestamosController2.class);
+	private final static Logger LOG = Logger.getLogger(PrestamosController.class);
 
 	ServicePrestamo servicePrestamo = null;
 	ServiceAlumno serviceAlumno = null;
@@ -108,18 +104,18 @@ public class PrestamosController {
 
 		} catch (Exception e) {
 
-			LOG.trace(e);
+			LOG.error(e.getMessage());
 		}
 
 		return response;
 	}
 
 	@ApiOperation(value = "Detalle por id del prestamo", notes = "Obtener los prestamos relacionados por libro<br>"
-			+ "<h2>Requisitos</h2><br>" + "<ul>" + "<li>Formato de la fecha 2018-01-01</li>" + "</ul>")
+			+ "<h2>Requisitos</h2><br>" + "<ul>" + "<li>Formato de la fecha 2018-01-01</li>" + "</ul>",response= Prestamo.class)
 	@ApiResponses(value = { @ApiResponse(code = 200, message = "Detalle del prestamo correcto"),
-			@ApiResponse(code = 400, message = "El requerimiento enviado por el cliente era sintácticamente incorrecto "),
+			@ApiResponse(code = 400, message = "El requerimiento enviado por el cliente era sintácticamente incorrecto ",response=ResponseMensaje.class),
 			@ApiResponse(code = 401, message = "No autorizado "),
-			@ApiResponse(code = 404, message = "prestamo no encontrado no encontrada ") })
+			@ApiResponse(code = 404, message = "prestamo no encontrado no encontrada ",response=ResponseMensaje.class) })
 	@ApiImplicitParams({
 			@ApiImplicitParam(name = "fechaInicio", value = "Formato de la fecha<br> 2018-01-01", required = true, dataType = "date", paramType = "Path") })
 
@@ -148,7 +144,8 @@ public class PrestamosController {
 			}
 
 		} catch (Exception e) {
-			e.printStackTrace();
+			LOG.error(e.getMessage());
+			
 		}
 		return response;
 
@@ -179,7 +176,7 @@ public class PrestamosController {
 						"        \"diasRestantes\": 0\n" + 
 						"    }"
 						+ "<pre>") })
-	@ApiOperation(value = "Crear editoriales",notes = "Para la creacion de un prestamo se espera un objeto json<br>se pueden crear prestamos activos comofinalizados"
+	@ApiOperation(value = "Crear editoriales",notes = "Para la creacion de un prestamo se espera un objeto json<br>se pueden crear prestamos activos como finalizados<br> <h2>los campos olbigatorios</h2><ol><li> idUsuario</li>, <li>idAlumno</li> <li> fecha_inicio</li>"
 			+ "<h2>formato esperado</h2>"
 			+ "<pre>"			
 			+ "    {\n" + 
@@ -201,13 +198,10 @@ public class PrestamosController {
 			"        \"fechaRetorno\": null,\n " + 
 			"        \"diasRestantes\": 0\n" + 
 			"    }"+
-			"</pre>"
-			
-			
-				)
-	@ApiResponses(value = { @ApiResponse(code = 201, message = "Prestamo Creado", responseContainer="nose"),
-			@ApiResponse(code = 400, message = "No encontrado"),
-			@ApiResponse(code = 409, message = "Conflictos :<br> 1 <br>2<br>3") })
+			"</pre>",response= Prestamo.class)
+	@ApiResponses(value = { @ApiResponse(code = 200, message = "Prestamo Creado", response=Prestamo.class),
+			@ApiResponse(code = 400, message = "Faltan campos obligatorias y no tienen el formato correcto",response=ResponseMensaje.class),
+			@ApiResponse(code = 409, message = "Conflictos :<br> idLibro, idAlumno,fecha con mal formato o inextitente <br>Que ya exista<br> El usuario o el libro estan ya ocupados",response= ResponseMensaje.class) })
 	@RequestMapping(method = RequestMethod.POST, consumes = "application/json")
 	public ResponseEntity<Object> crear(@RequestBody Prestamo prestamo) {
 
@@ -272,17 +266,19 @@ public class PrestamosController {
 				if (servicePrestamo.prestar(prestamo.getAlumno().getId(), prestamo.getLibro().getId(),
 						prestamo.getFechaInicio())) {
 
-					response = new ResponseEntity<>(prestamo, HttpStatus.CREATED);
+					response = new ResponseEntity<>(prestamo, HttpStatus.OK);
 
 				} else {
 
-					response = new ResponseEntity<>(HttpStatus.CONFLICT);
+					response = new ResponseEntity<>(prestamo,HttpStatus.INTERNAL_SERVER_ERROR);
 				}
 			}
 
 		} catch (SQLIntegrityConstraintViolationException e) {
 			if (e.getMessage().contains("Duplicate entry")) {
-				e.printStackTrace();
+				LOG.debug(e.getMessage());
+				
+				
 				String[] errores = new String[1];
 				rm.setMensaje("Error de integridad");
 				errores[0] = "Ya disponemos de un prestamo con la relacion propuesta.";
@@ -290,6 +286,7 @@ public class PrestamosController {
 				response = new ResponseEntity<>(rm, HttpStatus.CONFLICT);
 			}
 			if(e.getMessage().contains("Cannot add or update a child row")) {
+				LOG.debug(e.getMessage());
 				String[] errores = new String[1];
 				rm.setMensaje("Error");
 				errores[0] = "No puede eliminar un registro que tengan relacion con otros registros";
@@ -297,13 +294,15 @@ public class PrestamosController {
 			}
 
 		} catch (Exception e) {
-
+			LOG.error(e.getMessage());
+			e.printStackTrace();
 			String[] errores = new String[1];
 			errores[0] = "Asegurese de completar todos los campos, y de que tengan sentido";
 			rm.setMensaje("Error al crear el prestamo");
 			rm.setErrores(errores);
 			response = new ResponseEntity<>(rm, HttpStatus.CONFLICT);
 			e.printStackTrace();
+			
 		}
 
 		return response;
@@ -312,7 +311,7 @@ public class PrestamosController {
 	@ApiOperation(value = "Devolver prestamo", notes = "Devolver libros prestados<br>" + "<h2>Requisitos</h2><br>"
 			+ "<ul>" + "<li>Formato de la fecha  2018-01-01</li>" + "</ul>")
 	@ApiResponses(value = { @ApiResponse(code = 200, message = "Detalle del prestamo correcto"),
-			@ApiResponse(code = 400, message = "El requerimiento enviado por el cliente era sintácticamente incorrecto "),
+			@ApiResponse(code = 400, message = "El requerimiento enviado por el cliente era sintácticamente incorrecto ",response=ResponseMensaje.class),
 			@ApiResponse(code = 401, message = "No autorizado "),
 			@ApiResponse(code = 404, message = "prestamo no encontrado no encontrada ") })
 	@ApiImplicitParams({
@@ -339,8 +338,8 @@ public class PrestamosController {
 			}
 
 		} catch (Exception e) {
-
-			e.printStackTrace();
+			LOG.error(e.getMessage());
+			
 		}
 		return response;
 	}
@@ -399,17 +398,27 @@ public class PrestamosController {
 	@ApiResponses(value = { @ApiResponse(code = 201, message = "Prestamo Creado", responseContainer="nose"),
 			@ApiResponse(code = 400, message = "No encontrado"),
 			@ApiResponse(code = 409, message = "Conflictos :<br> 1 <br>2<br>3") })
-	@RequestMapping(value = "/{id}",method = RequestMethod.PUT, consumes = "application/json")
-	public ResponseEntity<Object> modificar(@RequestBody Prestamo prestamo) {
+	@RequestMapping(value = "/{idAlumno}/{idLibro}/{fechaInicio}",method = RequestMethod.PUT, consumes = "application/json")
+	public ResponseEntity<Object> modificar(@PathVariable int idAlumno,@PathVariable int idLibro,@PathVariable Date fechaInicio, @RequestBody Prestamo prestamo) {
 
 		ResponseEntity<Object> response = new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 
 		try {
-
+			//Con prestamoActual es el aun registro sin modificar
+			Alumno a = new Alumno();
+			Libro l = new Libro();
+			a.setId(idAlumno);
+			l.setId(idAlumno);
+			Prestamo prestamoActual = new Prestamo();
+			prestamoActual.setAlumno(a);
+			prestamoActual.setLibro(l);
+			prestamoActual.setFechaInicio(fechaInicio);
+			
+			
 			java.sql.Date fechaInicioDate = new java.sql.Date(prestamo.getFechaInicio().getTime());
 			java.sql.Date fechaRetornoDate = new java.sql.Date(prestamo.getFechaRetorno().getTime());
-			Alumno a = serviceAlumno.obtener(prestamo.getAlumno().getId());
-			Libro l = serviceLibro.obtener(prestamo.getLibro().getId());
+			/*Alumno a = serviceAlumno.obtener(prestamo.getAlumno().getId());
+			Libro l = serviceLibro.obtener(prestamo.getLibro().getId());*/
 			prestamo.setAlumno(a);
 			prestamo.setLibro(l);
 
@@ -452,7 +461,7 @@ public class PrestamosController {
 
 		} catch (Exception e) {
 
-			e.printStackTrace();
+			LOG.error(e.getMessage());
 		}
 
 		return response;

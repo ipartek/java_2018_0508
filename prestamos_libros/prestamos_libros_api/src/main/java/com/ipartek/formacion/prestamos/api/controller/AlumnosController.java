@@ -10,6 +10,7 @@ import javax.validation.Validation;
 import javax.validation.Validator;
 import javax.validation.ValidatorFactory;
 
+import org.apache.log4j.Logger;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -30,7 +31,7 @@ import io.swagger.annotations.ApiParam;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 
-@Api( tags = {"AlumnosController"},description = "Alumnos")
+@Api( tags = {"AlumnosController"},description = "Alumnos",consumes = "application/json")
 @CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("/alumnos")
@@ -39,6 +40,8 @@ public class AlumnosController {
 	ServiceAlumno serviceAlumno = null;
 	ValidatorFactory factory = null;
 	Validator validator = null;
+	
+	private final static Logger LOG = Logger.getLogger(Alumno.class);
 
 	public AlumnosController() {
 		super();
@@ -66,8 +69,8 @@ public class AlumnosController {
 			response = new ResponseEntity<>(list, HttpStatus.OK);
 
 		} catch (Exception e) {
-
-			e.printStackTrace();
+			LOG.error(e.getMessage());
+			
 		}
 
 		return response;
@@ -101,7 +104,8 @@ public class AlumnosController {
 			}
 
 		} catch (Exception e) {
-			e.printStackTrace();
+			LOG.error(e.getMessage());
+			
 		}
 		return response;
 	}
@@ -139,13 +143,14 @@ public class AlumnosController {
 				errores[0] = "El alumno que intenta borrar tiene registros asociados.";
 				rm.setErrores(errores);
 				response = new ResponseEntity<>(rm, HttpStatus.CONFLICT);
+				LOG.debug(x.getMessage());
 			}
 			
-			x.printStackTrace();
+			
 
 		} catch (Exception e) {
 
-			e.printStackTrace();
+			LOG.error(e.getMessage());
 		}
 		return response;
 	}
@@ -159,7 +164,7 @@ public class AlumnosController {
 			+ "<li>Debe ser mayor de 2 y menor de 50 caracteres</li>"
 			+ "<li>No puede estar vacio</li>"
 			+ "<li>No se permiten alumnos duplicadas</li>"
-			+ "</ul>"
+			+ "</ul>", response = Alumno.class
 				)
 	@ApiResponses(value = { @ApiResponse(code = 201, message = "Alumno Creada", responseContainer="nose"),
 			@ApiResponse(code = 400, message = "No encontrado"),
@@ -204,7 +209,7 @@ public class AlumnosController {
 			}
 		} catch (SQLIntegrityConstraintViolationException e) {
 			
-			e.printStackTrace();
+			LOG.debug(e.getMessage());
 			if(e.getMessage().contains("Duplicate entry")) {
 				String[] errores = new String[1];
 				rm.setMensaje("Error de integridad");
@@ -216,7 +221,7 @@ public class AlumnosController {
 			
 		} catch (SQLException e) {
 			
-			e.printStackTrace();
+			LOG.debug(e.getMessage());
 			if (e.getMessage().contains("nombre")) {
 				
 				rm.setMensaje("El <b>nombre</b> debe ser inferior a 50 caracteres");				
@@ -224,7 +229,7 @@ public class AlumnosController {
 				
 			} 
 		} catch (Exception e) {
-			
+			LOG.error(e.getMessage());
 			e.printStackTrace();
 			rm.setMensaje("Hemos tenido un problema");
 			response = new ResponseEntity<>(rm, HttpStatus.CONFLICT);
@@ -296,6 +301,7 @@ public class AlumnosController {
 			}
 
 		} catch (SQLIntegrityConstraintViolationException x) {
+			LOG.debug(x.getMessage());
 			if(x.getMessage().contains("Duplicate entry")) {
 				String[] errores = new String[1];
 				rm.setMensaje("Error");
@@ -303,10 +309,10 @@ public class AlumnosController {
 				rm.setErrores(errores);
 			}
 			
-			x.printStackTrace();
+			
 
 		} catch (Exception e) {
-
+			LOG.error(e.getMessage());
 			e.printStackTrace();
 		}
 

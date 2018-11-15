@@ -10,6 +10,7 @@ import javax.validation.Validation;
 import javax.validation.Validator;
 import javax.validation.ValidatorFactory;
 
+import org.apache.log4j.Logger;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -19,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.ipartek.formacion.libros.pojo.Alumno;
 import com.ipartek.formacion.libros.pojo.Editorial;
 import com.ipartek.formacion.libros.pojo.Libro;
 import com.ipartek.formacion.libros.service.ServiceEditorial;
@@ -32,7 +34,7 @@ import io.swagger.annotations.ApiParam;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 
-@Api(tags = {"LibrosController"}, description = "Libros")
+@Api(tags = {"LibrosController"}, description = "Libros",consumes = "application/json")
 @CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("/libros")
@@ -42,6 +44,8 @@ public class LibrosController {
 	ServiceEditorial serviceEditoriales= null;
 	ValidatorFactory factory = null;
 	Validator validator = null;
+	
+	private final static Logger LOG = Logger.getLogger(Libro.class);
 
 	public LibrosController() {
 		super();
@@ -71,7 +75,7 @@ public class LibrosController {
 
 		} catch (Exception e) {
 
-			e.printStackTrace();
+			LOG.error(e.getMessage());
 		}
 
 		return response;
@@ -105,7 +109,7 @@ public class LibrosController {
 			}
 
 		} catch (Exception e) {
-			e.printStackTrace();
+			LOG.error(e.getMessage());
 		}
 		return response;
 	}
@@ -137,12 +141,12 @@ public class LibrosController {
 			}
 
 		}catch (SQLIntegrityConstraintViolationException e) {
-			e.printStackTrace();
+			LOG.debug(e.getMessage());
 			rm.setMensaje("Intenta eliminar un libro con relacion a otros registros");
 			response = new ResponseEntity<>(rm, HttpStatus.CONFLICT);
 		} catch (Exception e) {
-
-			e.printStackTrace();
+			LOG.error(e.getMessage());
+			
 		}
 		return response;
 	}
@@ -210,11 +214,12 @@ public class LibrosController {
 				}
 			}
 		} catch (SQLIntegrityConstraintViolationException e) {
-			e.printStackTrace();
+			
+			LOG.debug(e.getMessage());
 			rm.setMensaje("Esta intentando crear un registro con datos no existentes");
 			response = new ResponseEntity<>(rm, HttpStatus.CONFLICT);
 		} catch (SQLException e) {
-			e.printStackTrace();
+			LOG.debug(e.getMessage());
 			if (e.getMessage().contains("nombre")) {
 				rm.setMensaje("El <b>nombre</b> debe ser inferior a 50 caracteres");
 				response = new ResponseEntity<>(rm, HttpStatus.CONFLICT);
@@ -226,7 +231,7 @@ public class LibrosController {
 			
 			rm.setMensaje("Hemos tenido un problema");
 			response = new ResponseEntity<>(rm, HttpStatus.CONFLICT);
-			e.printStackTrace();
+			LOG.error(e.getMessage());
 		}
 
 		return response;
@@ -301,7 +306,7 @@ public class LibrosController {
 			}
 
 		} catch (SQLIntegrityConstraintViolationException e) {
-			e.printStackTrace();
+			LOG.debug(e.getMessage());
 			if(e.getMessage().contains("Cannot add or update a child row")) {
 				String[] errores = new String[1];
 				rm.setMensaje("Error");
@@ -314,7 +319,7 @@ public class LibrosController {
 
 			response = new ResponseEntity<>(rm, HttpStatus.CONFLICT);
 		} catch (SQLException e) {
-			e.printStackTrace();
+			LOG.debug(e.getMessage());
 			if (e.getMessage().contains("No output parameters returned by procedure")) {
 				//System.out.println(e.getCause().toString());
 				String[] errores = new String[1];
@@ -330,7 +335,7 @@ public class LibrosController {
 				rm.setMensaje("No se han encontrado libros coincidentes");
 				rm.setErrores(errores);
 				response = new ResponseEntity<>(rm, HttpStatus.CONFLICT);
-				e.printStackTrace();
+				
 			}
 			
 		}

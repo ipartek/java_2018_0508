@@ -16,7 +16,7 @@ public class Prestamo {
 	private Date fechaInicio;
 	private Date fechaFin;
 	private Date fechaRetorno;
-	private int diasRestantes;
+	//private int diasRestantes;
 
 	public Prestamo() {
 		super();
@@ -77,7 +77,13 @@ public class Prestamo {
 		this.fechaRetorno = fechaRetorno;
 	}
 
-	public int getDiasRestantes() {
+	@Override
+	public String toString() {
+		return "Prestamo [alumno=" + alumno + ", libro=" + libro + ", fechaInicio=" + fechaInicio + ", fechaFin="
+				+ fechaFin + ", fechaRetorno=" + fechaRetorno + "]";
+	}
+
+	/*public int getDiasRestantes() {
 		 
 		java.util.Date fechaInicial= new java.util.Date();
 		java.util.Date fechaFinal= new java.util.Date(fechaFin.getTime());
@@ -86,12 +92,14 @@ public class Prestamo {
 		
 		return dias;
 	}
+	
+	
 
-	@Override
-	public String toString() {
-		return "Prestamo [alumno=" + alumno + ", libro=" + libro + ", fechaInicio=" + fechaInicio + ", fechaFin="
-				+ fechaFin + ", fechaRetorno=" + fechaRetorno + ", getDiasRestantes()=" + getDiasRestantes() + "]";
-	}
+	public void setDiasRestantes(int diasRestantes) {
+		this.diasRestantes = diasRestantes;
+	}*/
+
+	
 	
 
 }
