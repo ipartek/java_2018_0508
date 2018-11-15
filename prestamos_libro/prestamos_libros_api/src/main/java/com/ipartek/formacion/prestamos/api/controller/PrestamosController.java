@@ -22,15 +22,16 @@ import com.ipartek.formacion.pojo.Alumno;
 import com.ipartek.formacion.pojo.Libro;
 import com.ipartek.formacion.pojo.Prestamo;
 import com.ipartek.formacion.service.ServiceAlumno;
-import com.ipartek.formacion.service.ServiceLibro;
 import com.ipartek.formacion.service.ServicePrestamo;
 import com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationException;
 
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 
+@Api(tags="Prestamos",produces="aplication/json",description="Gestion de prestamos")
 @CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("/libros/prestamos")
@@ -58,14 +59,13 @@ public class PrestamosController {
 	
 	@ApiOperation(value = "Listado de prestamos activos o historicos")
 	@ApiResponses (value= {
-			@ApiResponse(	code  =  200 , message  =  " Listado Prestamos"),
-			@ApiResponse(	code  =  404 , message  =  " No se encontró prestamo ")					
-	} )
+			@ApiResponse(	code  =  200 , message  =  " Listado Prestamos")} )
 	
 	@ApiParam(value="activos",required=false,name="bla bla bla",defaultValue="1")
 	@RequestMapping(method = RequestMethod.GET)
 	public ResponseEntity<ArrayList<Prestamo>> listar(
-			@RequestParam(value = "activos", required = false, defaultValue = "-1") int activos) {
+			@ApiParam(value="No obligatorio.<ol><li><strong> 1</strong>: prestamos sin retornar</li><li> <strong>0</strong>: prestamos retornados</li></ol>")
+			@RequestParam(value = "activos", required = false, defaultValue = "1") int activos) {
 
 		ArrayList<Prestamo> prestamos = new ArrayList<Prestamo>();
 		ResponseEntity<ArrayList<Prestamo>> response = new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
@@ -83,8 +83,7 @@ public class PrestamosController {
 			response = new ResponseEntity<>(prestamos, HttpStatus.OK);
 
 		} catch (Exception e) {
-			LOG.error(e);
-			// e.printStackTrace();
+			LOG.error(e);			
 		}
 
 		return response;
@@ -131,7 +130,7 @@ public class PrestamosController {
 //					HttpStatus.CONFLICT);
 //
 //		} catch (Exception e) {
-//			e.printStackTrace();
+//			LOG.error(e);
 //		}
 //		return response;
 //	}
@@ -158,6 +157,7 @@ public class PrestamosController {
 				responseMensaje.setMensaje("Datos no validos");
 
 				response = new ResponseEntity<>(responseMensaje, HttpStatus.CONFLICT);
+				LOG.debug(response);
 			} else {
 				if (servicePrestamo.prestar(prestamo)) {
 					
@@ -170,18 +170,20 @@ public class PrestamosController {
 					
 					response = new ResponseEntity<>(prestamo, HttpStatus.CREATED);
 				} else {
+					
 					response = new ResponseEntity<>(new ResponseMensaje("Datos no validos"), HttpStatus.CONFLICT);
-
+					LOG.debug(response);
 				}
 			}
 
 		} catch (MySQLIntegrityConstraintViolationException e) {
-
+			
 			response = new ResponseEntity<>(new ResponseMensaje("Datos no validos"), HttpStatus.CONFLICT);
-
+			LOG.debug(response);
+			
 		} catch (Exception e) {
 
-			e.printStackTrace();
+			LOG.error(e);
 		}
 		return response;
 	}
@@ -226,7 +228,7 @@ public class PrestamosController {
 //					HttpStatus.CONFLICT);
 //
 //		} catch (Exception e) {
-//			e.printStackTrace();
+//			LOG.error(e);
 //		}
 //		return response;
 //	}

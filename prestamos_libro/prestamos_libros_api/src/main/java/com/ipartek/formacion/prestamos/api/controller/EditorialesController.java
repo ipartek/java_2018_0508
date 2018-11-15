@@ -8,6 +8,7 @@ import javax.validation.Validation;
 import javax.validation.Validator;
 import javax.validation.ValidatorFactory;
 
+import org.apache.log4j.Logger;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -21,15 +22,18 @@ import com.ipartek.formacion.pojo.Editorial;
 import com.ipartek.formacion.service.ServiceEditorial;
 import com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationException;
 
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 
+@Api(tags = "Editoriales", produces = "aplication/json", description = "Gestion de editoriales")
 @CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("/editoriales")
 public class EditorialesController {
 
+	private final static Logger LOG = Logger.getLogger(EditorialesController.class);
 	ServiceEditorial serviceEditorial = null;
 	ValidatorFactory factory = null;
 	Validator validator = null;
@@ -43,10 +47,7 @@ public class EditorialesController {
 	}
 
 	@ApiOperation(value = "Listado de editoriales")
-	@ApiResponses (value= {
-			@ApiResponse(	code  =  200 , message  =  " Listado editoriales"),
-			@ApiResponse(	code  =  404 , message  =  " No se encontró editoriales")					
-	} )
+	@ApiResponses(value = { @ApiResponse(code = 200, message = " Listado editoriales") })
 	@RequestMapping(method = RequestMethod.GET)
 	public ResponseEntity<ArrayList<Editorial>> listar() {
 
@@ -59,17 +60,15 @@ public class EditorialesController {
 			response = new ResponseEntity<>(editoriales, HttpStatus.OK);
 
 		} catch (Exception e) {
-			e.printStackTrace();
+			LOG.error(e);
 		}
 
 		return response;
 	}
 
 	@ApiOperation(value = "Obtener editorial por su identificador")
-	@ApiResponses (value= {
-			@ApiResponse(	code  =  200 , message  =  " editorial encontrada"),
-			@ApiResponse(	code  =  404 , message  =  " No se encontró la editorial deseada")					
-	} )
+	@ApiResponses(value = { @ApiResponse(code = 200, message = " editorial encontrada"),
+			@ApiResponse(code = 404, message = " No se encontró la editorial deseada") })
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
 	public ResponseEntity<Object> detalle(@PathVariable long id) throws Exception {
 		ResponseEntity<Object> response = new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
@@ -83,17 +82,16 @@ public class EditorialesController {
 			response = new ResponseEntity<>(
 					new ResponseMensaje("No se ha encotrado ningun registro, cambie de identificador"),
 					HttpStatus.NOT_FOUND);
+			LOG.debug("No se ha encotrado ningun registro, cambie de identificador");
 		}
 
 		return response;
 	}
 
 	@ApiOperation(value = "Eliminar editorial")
-	@ApiResponses (value= {
-			@ApiResponse(	code  =  200 , message  =  " editorial eliminada correctamente"),
-			@ApiResponse(	code  =  404 , message  =  " No se encontró la editorial deseada"),	
-			@ApiResponse(	code  =  409 , message  =  " No se puede borrar la aditorial porque está asociada a un libro")
-	} )
+	@ApiResponses(value = { @ApiResponse(code = 200, message = " editorial eliminada correctamente"),
+			@ApiResponse(code = 404, message = " No se encontró la editorial deseada"),
+			@ApiResponse(code = 409, message = " No se puede borrar la aditorial porque está asociada a un libro") })
 	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
 	public ResponseEntity<Object> eliminar(@PathVariable long id) throws Exception {
 
@@ -107,6 +105,7 @@ public class EditorialesController {
 				response = new ResponseEntity<>(
 						new ResponseMensaje("No se ha encotrado ningun registro, cambie de identificador"),
 						HttpStatus.NOT_FOUND);
+				LOG.debug("No se ha encotrado ningun registro, cambie de identificador");
 			}
 
 		} catch (MySQLIntegrityConstraintViolationException e) {
@@ -115,21 +114,21 @@ public class EditorialesController {
 					new ResponseMensaje("No es posible eliminar la editorial deseada porque está asociada a un libro."),
 					HttpStatus.CONFLICT);
 
+			LOG.debug("No es posible eliminar la editorial deseada porque está asociada a un libro.");
+
 		} catch (Exception e) {
-			e.printStackTrace();
+			LOG.error(e);
 		}
 		return response;
 	}
 
 	@ApiOperation(value = "Crear editorial")
-	@ApiResponses (value= {
-			@ApiResponse(	code  =  201 , message  =  " editorial creada correctamente"),			
-			@ApiResponse(	code  =  409 , message  =  " Puede que el nombre de la editorial esté vacío o el nombre de la editorial ya existe")
-	} )
+	@ApiResponses(value = { @ApiResponse(code = 201, message = " editorial creada correctamente"),
+			@ApiResponse(code = 409, message = "<ol><li>El nombre de la editorial está vacío</li><li> o el nombre de la editorial ya existe</li></ol>") })
 	@RequestMapping(method = RequestMethod.POST)
 	public ResponseEntity<Object> crear(@RequestBody Editorial editorial) throws Exception {
 		ResponseEntity<Object> response = new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-		
+
 		ResponseMensaje responseMensaje = new ResponseMensaje();
 
 		try {
@@ -145,6 +144,7 @@ public class EditorialesController {
 				}
 				responseMensaje.setErrores(errores);
 				responseMensaje.setMensaje("Datos no validos");
+				LOG.debug("Datos no validos");
 
 				response = new ResponseEntity<>(responseMensaje, HttpStatus.CONFLICT);
 			} else {
@@ -152,7 +152,7 @@ public class EditorialesController {
 					response = new ResponseEntity<>(editorial, HttpStatus.CREATED);
 				} else {
 					response = new ResponseEntity<>(HttpStatus.CONFLICT);
-
+					LOG.debug("no se pudo crear la editorial");
 				}
 			}
 
@@ -164,23 +164,21 @@ public class EditorialesController {
 
 		} catch (Exception e) {
 
-			e.printStackTrace();
+			LOG.error(e);
 		}
 		return response;
 	}
 
 	@ApiOperation(value = "Modificar editorial")
-	@ApiResponses (value= {
-			@ApiResponse(	code  =  200 , message  =  " editorial modificada correctamente"),
-			@ApiResponse(	code  =  404 , message  =  " No se encontró la editorial deseada"),	
-			@ApiResponse(	code  =  409 , message  =  " Puede que el nombre de la editorial esté vacío o el nombre de la editorial ya existe")
-	} )
+	@ApiResponses(value = { @ApiResponse(code = 200, message = " editorial modificada correctamente"),
+			@ApiResponse(code = 404, message = " No se encontró la editorial deseada"),
+			@ApiResponse(code = 409, message = "<ol><li>El nombre de la editorial está vacío</li><li>El nombre de la editorial ya existe</li></ol>") })
 	@RequestMapping(value = "/{id}", method = RequestMethod.PUT)
 	public ResponseEntity<Object> modificar(@PathVariable long id, @RequestBody Editorial editorial) throws Exception {
-		
+
 		ResponseEntity<Object> response = new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
 		ResponseMensaje responseMensaje = new ResponseMensaje();
-		
+
 		try {
 			editorial.setId(id);
 			Set<ConstraintViolation<Editorial>> violations = validator.validate(editorial);
@@ -194,6 +192,7 @@ public class EditorialesController {
 				}
 				responseMensaje.setErrores(errores);
 				responseMensaje.setMensaje("Datos no validos");
+				LOG.debug("Datos no validos");
 
 				response = new ResponseEntity<>(responseMensaje, HttpStatus.CONFLICT);
 			} else {
@@ -203,6 +202,7 @@ public class EditorialesController {
 					response = new ResponseEntity<>(
 							new ResponseMensaje("No se ha encotrado ningun registro, cambie de identificador"),
 							HttpStatus.NOT_FOUND);
+					LOG.debug("No se ha encotrado ningun registro, cambie de identificador");
 				}
 			}
 
@@ -211,9 +211,10 @@ public class EditorialesController {
 			response = new ResponseEntity<>(
 					new ResponseMensaje("Ya existe la editorial,Por favor prueba con otro nombre."),
 					HttpStatus.CONFLICT);
+			LOG.debug("Ya existe la editorial,Por favor prueba con otro nombre.");
 
 		} catch (Exception e) {
-			e.printStackTrace();
+			LOG.error(e);
 		}
 		return response;
 	}

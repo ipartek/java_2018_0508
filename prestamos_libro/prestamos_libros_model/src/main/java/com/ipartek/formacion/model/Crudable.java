@@ -2,8 +2,6 @@ package com.ipartek.formacion.model;
 
 import java.util.List;
 
-import com.ipartek.formacion.pojo.Editorial;
-
 /**
  * Interfaz para especificar los metodos de <b>CRUD</b>:
  * 
