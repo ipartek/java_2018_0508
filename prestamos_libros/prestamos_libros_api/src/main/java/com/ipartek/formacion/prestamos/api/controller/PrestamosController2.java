@@ -37,7 +37,7 @@ import io.swagger.annotations.ApiResponses;
 
 @CrossOrigin(origins = "*")
 @RestController
-@RequestMapping("/prestamos")
+@RequestMapping("/prestamos_old")
 public class PrestamosController2 {
 
 	private final static Logger LOG = Logger.getLogger(PrestamosController2.class);

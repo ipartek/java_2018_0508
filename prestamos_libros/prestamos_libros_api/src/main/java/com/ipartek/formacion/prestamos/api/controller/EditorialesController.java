@@ -18,17 +18,21 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.context.annotation.ApplicationScope;
 
 import com.ipartek.formacion.libros.pojo.Editorial;
 import com.ipartek.formacion.libros.service.ServiceEditorial;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 
+
+@Api(tags = {"EditorialesController"},description = "Editoriales", consumes = "application/json")
 @CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("/editoriales")
@@ -47,7 +51,8 @@ public class EditorialesController {
 
 	}
 
-	@ApiOperation(value = "Listado de editoriales")
+	
+	@ApiOperation(value = "Listado de editoriales", notes = "Obtener todas las editoriales como objeto json", nickname = "listado", responseContainer = "List")
 	@ApiResponses(value = { @ApiResponse(code = 200, message = "Listado de Editoriales"),
 			@ApiResponse(code = 400, message = "Error "), @ApiResponse(code = 401, message = "No autorizado "),
 			@ApiResponse(code = 404, message = "No encontrado ") })
@@ -71,12 +76,14 @@ public class EditorialesController {
 
 		return response;
 	}
-
-	@ApiOperation(value = "Detalle de editorial")
-	@ApiResponses(value = { @ApiResponse(code = 200, message = "Detalle de prestamo correcto"),
-			@ApiResponse(code = 400, message = "Error "), @ApiResponse(code = 401, message = "No autorizado "),
+	
+	
+	@ApiOperation(value = "Detalle de editorial",notes = "Obtener el detalle de una editorial")
+	@ApiResponses(value = { @ApiResponse(code = 200, message = "Detalle de la editorial correcto"),
+			@ApiResponse(code = 400, message = "El requerimiento enviado por el cliente era sintácticamente incorrecto "), @ApiResponse(code = 401, message = "No autorizado "),
 			@ApiResponse(code = 404, message = "Editorial no encontrada ") })
-	@ApiParam(required = false, name = "Blabla ?", defaultValue = "1")
+	@ApiImplicitParams({
+			@ApiImplicitParam(name = "id", value = "Id editorial", required = true, dataType = "long", paramType = "Path") })
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
 	public ResponseEntity<Object> detalle(@PathVariable long id) {
 
@@ -105,9 +112,10 @@ public class EditorialesController {
 		return response;
 	}
 
-	@ApiOperation(value = "Eliminar editoriales")
+	@ApiOperation(value = "Eliminar editoriales",notes = "Eliminar editorial por id. Si la editorial esta asociada con algun libro no podra ser borrada")
 	@ApiResponses(value = { @ApiResponse(code = 204, message = "Editorial eliminada"),
-			@ApiResponse(code = 404, message = "Editorial no encontrada"),
+			@ApiResponse(code=400, message = "El requerimiento enviado por el cliente era sintácticamente incorrecto, se espera un campo numerico"),
+			@ApiResponse(code = 404, message = "Error intentando una editorial que no encontramos"),
 			@ApiResponse(code = 409, message = "No puedes borrar una editorial con libros asociados") })
 	@ApiParam(required = false, name = "Blabla ?", defaultValue = "1")
 	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
@@ -147,11 +155,22 @@ public class EditorialesController {
 		}
 		return response;
 	}
-
-	@ApiOperation(value = "Crear editoriales")
-	@ApiResponses(value = { @ApiResponse(code = 201, message = "Editorial Creada"),
+	
+	
+	
+	@ApiImplicitParams({
+		@ApiImplicitParam(name = "editorial", value = "formato esperado:<br> {<br>\"nombre\" : \"editorialN\"<br>}") })
+	@ApiOperation(value = "Crear editoriales",notes = "Para la creacion de una editorial se espera un objeto json con un unico campo llamado nombre.<br>"
+			+ "<h2>Requisitos para la creacion de una editorial</h2>"
+			+ "<ul>"
+			+ "<li>Debe ser mayor de 2 y menor de 50 caracteres</li>"
+			+ "<li>No puede estar vacio</li>"
+			+ "<li>No se permiten editoriales duplicadas</li>"
+			+ "</ul>"
+				)
+	@ApiResponses(value = { @ApiResponse(code = 201, message = "Editorial Creada", responseContainer="nose"),
 			@ApiResponse(code = 400, message = "No encontrado"),
-			@ApiResponse(code = 409, message = "Conflicto : Editorial existente") })
+			@ApiResponse(code = 409, message = "Conflictos :<br> Editorial existente.<br>Nombre editorial menor 2 caracteres<br>Nombre editorial mayor 50") })
 	@ApiParam(required = false, name = "Blabla ?", defaultValue = "1")
 	@RequestMapping(method = RequestMethod.POST, consumes = "application/json")
 	public ResponseEntity<Object> crear(@RequestBody Editorial editorial) {
@@ -207,17 +226,11 @@ public class EditorialesController {
 			e.printStackTrace();
 			if (e.getMessage().contains("nombre")) {
 				String[] errores = new String[1];
-				errores[0] = "El <b>nombre</b> debe ser inferior a 50 caracteres";
-				rm.setMensaje("El <b>nombre</b> debe ser inferior a 50 caracteres");
+				errores[0] = "El <b>nombre</b> debe ser mayor de 2 e inferior a 50 caracteres";
+				rm.setMensaje("Error de validacion");
 				rm.setErrores(errores);
 				response = new ResponseEntity<>(rm, HttpStatus.CONFLICT);
-			} else {
-				String[] errores = new String[1];
-				errores[0] = "El <b>nombre</b> debe ser inferior a 50 caracteres";
-				rm.setMensaje("La <b>contraseña</b> debe ser inferior a 20 caracteres");
-				rm.setErrores(errores);
-				response = new ResponseEntity<>(rm, HttpStatus.CONFLICT);
-			}
+			} 
 		} catch (Exception e) {
 			String[] errores = new String[1];
 			errores[0] = "Hemos tenido un problema";
@@ -229,13 +242,28 @@ public class EditorialesController {
 
 		return response;
 	}
-
-	@ApiOperation(value = "Modificar editoriales")
+	
+	@ApiImplicitParams({
+		
+		@ApiImplicitParam(name = "id", value = "El id de la editorial que se va a modificar, en la practica es un @pathvariable", dataType="long", paramType="path"), 
+		@ApiImplicitParam(name = "editorial", value = "formato esperado:<br> {<br>\"nombre\" : \"editorialN\"<br>}", required=true)
+		})
+		
+	@ApiOperation(value = "Modificar editoriales",notes = "Para la modificacion de una editorial se espera un objeto json con un unico campo llamado nombre.<br>"
+			+ "El id de la editorial se la pasamos en campo id como @pathvariable"
+			+ "<h2>Requisitos para la modificacion de una editorial</h2>"
+			+ "<ul>"
+			+ "<li>Debe ser mayor de 2 y menor de 50 caracteres</li>"
+			+ "<li>No puede estar vacio</li>"
+			+ "<li>No se permiten editoriales duplicadas</li>"
+			+ "</ul>"
+				)
 	@ApiResponses(value = {
 
-			@ApiResponse(code = 400, message = "No encontrado"), @ApiResponse(code = 409, message = "Modificacion del nombre de una editorial por uno ya existente") })
+			@ApiResponse(code = 400, message = "No encontrado"),
+			@ApiResponse(code = 409, message = "Modificacion del nombre de una editorial por uno ya existente, por uno con menos de 2 o mas de 50 caracteres") })
 	@ApiParam(value = "activos", required = false, name = "Blabla ?", defaultValue = "1")
-	
+
 	@RequestMapping(value = "/{id}", method = RequestMethod.PUT)
 	public ResponseEntity<Object> modificar(@PathVariable long id, @RequestBody Editorial editorial) {
 
@@ -268,7 +296,7 @@ public class EditorialesController {
 
 				if (serviceEditorial.modificar(editorial)) {
 
-					response = new ResponseEntity<>(editorial, HttpStatus.OK);
+					response = new ResponseEntity<>(editorial, HttpStatus.CREATED);
 
 				} else {
 
@@ -283,7 +311,7 @@ public class EditorialesController {
 				rm.setMensaje("Error");
 				errores[0] = "Modificacion del nombre de una editorial por uno ya existente";
 				rm.setErrores(errores);
-				response = new ResponseEntity<>(rm,HttpStatus.CONFLICT);
+				response = new ResponseEntity<>(rm, HttpStatus.CONFLICT);
 			}
 		} catch (Exception e) {
 

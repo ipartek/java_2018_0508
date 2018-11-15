@@ -37,6 +37,12 @@ public class ServiceLibro implements ICRUDService<Libro> {
 		
 		return librosDAO.getAll();
 	}
+	
+	
+	public List<Libro> listarDisponibles() throws Exception {
+		
+		return librosDAO.getAllDisponibles();
+	}
 
 	@Override
 	public Libro obtener(long id) throws Exception {

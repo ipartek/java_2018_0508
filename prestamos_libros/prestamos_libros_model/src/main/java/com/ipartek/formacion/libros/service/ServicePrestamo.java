@@ -87,6 +87,15 @@ public class ServicePrestamo implements IPrestamoService {
 		
 		return prestamosDAO.getById(alumno, libro, fecha);
 	}
+	
+	
+	public boolean modificarActivo(long idAlumno, long idlibro, Date fechaInicio) throws Exception {
+		boolean resul = false;
+
+		resul = prestamosDAO.update(crearPrestamo(idAlumno, idlibro, fechaInicio, null, null));
+		
+		return resul;
+	}
 
 	@Override
 	public boolean modificar(long idAlumno, long idlibro, Date fechaInicio, Date fechaFin) throws Exception {
