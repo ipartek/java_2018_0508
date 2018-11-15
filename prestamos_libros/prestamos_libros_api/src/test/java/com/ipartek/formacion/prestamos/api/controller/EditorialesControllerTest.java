@@ -1,6 +1,7 @@
 package com.ipartek.formacion.prestamos.api.controller;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
 import java.io.File;
@@ -9,8 +10,10 @@ import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 
 import com.ipartek.formacion.prestamos_libros.pojo.Editorial;
 
@@ -46,21 +49,41 @@ public class EditorialesControllerTest {
 	@Before
 	public void setUp() throws Exception {
 		eMock = new Editorial(-1, "Editorial Mock");
+		ResponseEntity<Object> response = controller.crear(eMock);		
+		assertEquals( 201 , response.getStatusCode().value() );
 	}
 
 	@After
-	public void tearDown() throws Exception {
+	public void tearDown() throws Exception {		
+		ResponseEntity<Object> response = controller.eliminar(eMock.getId());
+		assertEquals( 200, response.getStatusCode().value());		
 		eMock = null;
 	}
 
-	@Test
-	public void test() {
+	@Test	
+	public void testListar() {
 		
-		ResponseEntity<Object> response = controller.crear(eMock);
+		//assertTrue(true);
+		fail("Sin implemtar");
 		
-		assertEquals( 201 , response.getStatusCode().value() );
+		 
 		
 		
 	}
+	
+	@Test
+	public void testEliminar() {
+	
+		ResponseEntity<Object> response = controller.eliminar(-1);
+		assertEquals( 404 , response.getStatusCode().value());
+		
+		//suponemos que siempre existe un libro asociado a la editorial_id = 1
+		response = controller.eliminar(36);
+		assertEquals( 409 , response.getStatusCode().value());
+		
+		
+		
+	}
+	
 
 }
