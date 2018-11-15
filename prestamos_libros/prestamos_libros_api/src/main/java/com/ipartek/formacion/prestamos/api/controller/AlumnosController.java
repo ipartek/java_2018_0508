@@ -41,6 +41,7 @@ public class AlumnosController {
 	ValidatorFactory factory = null;
 	Validator validator = null;
 
+	@SuppressWarnings("static-access")
 	public AlumnosController() {
 		super();
 		serviceAlumno = serviceAlumno.getInstance();

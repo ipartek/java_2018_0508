@@ -49,6 +49,7 @@ public class PrestamosController {
 	ValidatorFactory factory = null;
 	Validator validator = null;
 
+	@SuppressWarnings("static-access")
 	public PrestamosController() {
 		super();
 		LOG.trace("Construtor");

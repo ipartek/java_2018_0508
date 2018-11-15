@@ -43,6 +43,7 @@ public class LibrosController {
 	ValidatorFactory factory = null;
 	Validator validator = null;
 
+	@SuppressWarnings("static-access")
 	public LibrosController() {
 		super();
 		serviceLibro = serviceLibro.getInstance();
