@@ -9,6 +9,7 @@ import javax.validation.Validation;
 import javax.validation.Validator;
 import javax.validation.ValidatorFactory;
 
+import org.apache.log4j.Logger;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -21,14 +22,18 @@ import org.springframework.web.bind.annotation.RestController;
 import com.ipartek.formacion.prestamos_libros.pojo.Editorial;
 import com.ipartek.formacion.prestamos_libros.service.ServiceEditorial;
 
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 
+@Api(tags= {"EDITORIALES"}, produces="application/json", description="Gestión Editoriales de Libros")
 @CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("/editoriales")
 public class EditorialesController {
+	
+	private final static Logger LOG = Logger.getLogger(EditorialesController.class);
 
 	ServiceEditorial serviceEditorial = null;
 	ValidatorFactory factory = null;
@@ -58,7 +63,7 @@ public class EditorialesController {
 			response = new ResponseEntity<>(list, HttpStatus.OK);
 
 		} catch (Exception e) {
-			e.printStackTrace();
+			LOG.error(e);
 		}
 
 		return response;
@@ -84,7 +89,7 @@ public class EditorialesController {
 			}
 			
 		}catch (Exception e) {
-			e.printStackTrace();
+			LOG.error(e);
 		}
 		return response;
 	}
@@ -109,8 +114,9 @@ public class EditorialesController {
 		
 		}catch( SQLIntegrityConstraintViolationException e ) {	
 			response = new ResponseEntity<>(new ResponseMensaje("No se puede eliminar si tiene Libors asociados"), HttpStatus.CONFLICT);
+			LOG.debug(response);
 		}catch (Exception e) {
-			e.printStackTrace();
+			LOG.error(e);
 		}
 		return response;
 	}
@@ -153,8 +159,7 @@ public class EditorialesController {
 			response = new ResponseEntity<>(msj, HttpStatus.CONFLICT);
 			
 		}catch (Exception e) {
-			//TODO gestionar duplicate key entry
-			e.printStackTrace();
+			LOG.error(e);
 		}
 		return response;
 	}
@@ -190,12 +195,11 @@ public class EditorialesController {
 				response = new ResponseEntity<>( mensaje ,  HttpStatus.CONFLICT);
 			}	
 		
-		}catch (SQLIntegrityConstraintViolationException e) {
-			
+		}catch (SQLIntegrityConstraintViolationException e) {			
 			response = new ResponseEntity<>( new ResponseMensaje("Ya existe la Editorial, por favor prueba con otro nombre")  ,HttpStatus.CONFLICT);
+			LOG.debug(response);
 		}catch (Exception e) {
-			//TODO gestionar duplicate key entry
-			e.printStackTrace();
+			LOG.error(e);
 		}
 		return response;
 	}

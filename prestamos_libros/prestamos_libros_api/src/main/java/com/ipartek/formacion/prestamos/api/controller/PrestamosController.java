@@ -23,11 +23,13 @@ import com.ipartek.formacion.prestamos_libros.pojo.Prestamo;
 import com.ipartek.formacion.prestamos_libros.pojo.Usuario;
 import com.ipartek.formacion.prestamos_libros.service.ServicePrestamo;
 
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 
+@Api(tags= {"PRESTAMOS"}, produces="application/json", description="Gestión Prestamos de Libros por ALumno")
 @CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("/prestamos")

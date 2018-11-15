@@ -9,6 +9,7 @@ import javax.validation.Validation;
 import javax.validation.Validator;
 import javax.validation.ValidatorFactory;
 
+import org.apache.log4j.Logger;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -26,11 +27,13 @@ import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 
-@Api(tags= {"Alumnos"}, produces="application/json", description="Gestión Alumnos")
+@Api(tags= {"ALUMNOS"}, produces="application/json", description="Gestión Alumnos")
 @CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("/alumnos")
 public class AlumnosController {
+	
+	private final static Logger LOG = Logger.getLogger(AlumnosController.class);
 
 	ServiceUsuario serviceUsuario = null;
 	ValidatorFactory factory = null;
@@ -58,7 +61,7 @@ public class AlumnosController {
 			response = new ResponseEntity<>(list, HttpStatus.OK);
 
 		} catch (Exception e) {
-			e.printStackTrace();
+			LOG.error(e);
 		}
 
 		return response;
@@ -83,7 +86,7 @@ public class AlumnosController {
 			}
 
 		} catch (Exception e) {
-			e.printStackTrace();
+			LOG.error(e);
 		}
 		return response;
 	}
@@ -105,10 +108,13 @@ public class AlumnosController {
 			}
 
 		} catch (SQLIntegrityConstraintViolationException e) {
+			
 			response = new ResponseEntity<>(new ResponseMensaje("No se puede eliminar si tiene Libors asociados"),
 					HttpStatus.CONFLICT);
+			LOG.debug(response);
+			
 		} catch (Exception e) {
-			e.printStackTrace();
+			LOG.error(e);
 		}
 		return response;
 	}
@@ -136,8 +142,7 @@ public class AlumnosController {
 				ResponseMensaje mensaje = new ResponseMensaje("Los datos no son correctos");
 				for (ConstraintViolation<Usuario> v : violations) {
 					mensaje.addError(v.getPropertyPath() + ": " + v.getMessage());
-				}
-				;
+				}				
 				response = new ResponseEntity<>(mensaje, HttpStatus.CONFLICT);
 			}
 
@@ -145,10 +150,9 @@ public class AlumnosController {
 
 			ResponseMensaje msj = new ResponseMensaje("Ya existe el Usuario, por favor prueba con otro nombre");
 			response = new ResponseEntity<>(msj, HttpStatus.CONFLICT);
-
+			LOG.debug(response);
 		} catch (Exception e) {
-			// TODO gestionar duplicate key entry
-			e.printStackTrace();
+			LOG.error(e);
 		}
 		return response;
 	}
@@ -188,9 +192,9 @@ public class AlumnosController {
 
 			response = new ResponseEntity<>(
 					new ResponseMensaje("Ya existe la Usuario, por favor prueba con otro nombre"), HttpStatus.CONFLICT);
+			LOG.debug(response);
 		} catch (Exception e) {
-			// TODO gestionar duplicate key entry
-			e.printStackTrace();
+			LOG.error(e);
 		}
 		return response;
 	}

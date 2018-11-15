@@ -9,6 +9,7 @@ import javax.validation.Validation;
 import javax.validation.Validator;
 import javax.validation.ValidatorFactory;
 
+import org.apache.log4j.Logger;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -21,14 +22,18 @@ import org.springframework.web.bind.annotation.RestController;
 import com.ipartek.formacion.prestamos_libros.pojo.Libro;
 import com.ipartek.formacion.prestamos_libros.service.ServiceLibro;
 
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 
+@Api(tags= {"LIBROS"}, produces="application/json", description="Gestión de Libros")
 @CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("/libros")
 public class LibrosController {
+	
+	private final static Logger LOG = Logger.getLogger(LibrosController.class);
 
 	ServiceLibro serviceLibro = null;
 	ValidatorFactory factory = null;
@@ -56,7 +61,7 @@ public class LibrosController {
 			response = new ResponseEntity<>(list, HttpStatus.OK);
 
 		} catch (Exception e) {
-			e.printStackTrace();
+			LOG.error(e);
 		}
 
 		return response;
@@ -80,7 +85,7 @@ public class LibrosController {
 			}
 
 		} catch (Exception e) {
-			e.printStackTrace();
+			LOG.error(e);
 		}
 		return response;
 	}
@@ -104,8 +109,9 @@ public class LibrosController {
 		} catch (SQLIntegrityConstraintViolationException e) {
 			response = new ResponseEntity<>(new ResponseMensaje("No se puede eliminar si tiene Prestamo asociados"),
 					HttpStatus.CONFLICT);
+			LOG.warn(response);
 		} catch (Exception e) {
-			e.printStackTrace();
+			LOG.error(e);
 		}
 		return response;
 	}
@@ -134,8 +140,7 @@ public class LibrosController {
 				ResponseMensaje mensaje = new ResponseMensaje("Los datos no son correctos");
 				for (ConstraintViolation<Libro> v : violations) {
 					mensaje.addError(v.getPropertyPath() + ": " + v.getMessage());
-				}
-				;
+				}				
 				response = new ResponseEntity<>(mensaje, HttpStatus.CONFLICT);
 			}
 
@@ -143,10 +148,9 @@ public class LibrosController {
 
 			ResponseMensaje msj = new ResponseMensaje("Los datos no son correctos");
 			response = new ResponseEntity<>(msj, HttpStatus.CONFLICT);
-
+			LOG.debug(response);
 		} catch (Exception e) {
-			// TODO gestionar duplicate key entry
-			e.printStackTrace();
+			LOG.error(e);
 		}
 		return response;
 	}
@@ -182,12 +186,10 @@ public class LibrosController {
 			}
 
 		} catch (SQLIntegrityConstraintViolationException e) {
-			e.printStackTrace();
-
 			response = new ResponseEntity<>(new ResponseMensaje("los datos son incorrectos"), HttpStatus.CONFLICT);
+			LOG.debug(response);
 		} catch (Exception e) {
-			// TODO gestionar duplicate key entry
-			e.printStackTrace();
+			LOG.error(e);
 		}
 		return response;
 	}
