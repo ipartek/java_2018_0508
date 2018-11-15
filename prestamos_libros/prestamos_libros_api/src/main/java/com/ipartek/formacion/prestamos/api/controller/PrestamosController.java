@@ -14,11 +14,16 @@ import org.springframework.web.bind.annotation.RestController;
 import com.ipartek.formacion.prestamos_libros.pojo.Prestamo;
 import com.ipartek.formacion.prestamos_libros.service.ServicePrestamo;
 
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
+
 
 @CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("/prestamos")
+@Api(value = "PRESTAMOS", description = "prestamos de libros", tags = { "PRESTAMOS" })
 public class PrestamosController {
 
 	ServicePrestamo servicePrestamo = null;
@@ -33,7 +38,8 @@ public class PrestamosController {
 	
 	}
 
-	@ApiOperation(value = "Listado Prestamos")
+	@ApiOperation( value = "Listado Prestamos Activos o Historico")
+	@ApiResponses( value = {@ApiResponse(code=200, message="Listado Prestamos")})
 	@RequestMapping(method = RequestMethod.GET)
 	public ResponseEntity<ArrayList<Prestamo>> listado( @RequestParam(name="activos", required=false, defaultValue="-1" ) int activos) {
 
