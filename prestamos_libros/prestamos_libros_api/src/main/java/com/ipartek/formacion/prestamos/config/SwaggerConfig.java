@@ -20,13 +20,20 @@ public class SwaggerConfig {
 
 	@Bean
 	public Docket api() {
-		return new Docket(DocumentationType.SWAGGER_2).select().apis(RequestHandlerSelectors.any())
-				.paths(PathSelectors.any()).build().apiInfo(apiInfo());
+		return new Docket(DocumentationType.SWAGGER_2).select()
+				.apis(RequestHandlerSelectors.any())
+				.paths(PathSelectors.any())
+				.build()
+				.apiInfo(apiInfo())
+				.useDefaultResponseMessages(false);
 	}
 
-
 	private ApiInfo apiInfo() {
-		ApiInfo apiInfo = new ApiInfo("Prestamos - Rest API", "", "1.o", "",
+		ApiInfo apiInfo = new ApiInfo(
+				"Prestamos - Rest API", 
+				"", 
+				"1.o",
+				"",
 				new Contact("Ander Uraga", "https://github.com/anderuraga", "auraga@ipartek.com"), "Apache License",
 				"");
 		return apiInfo;

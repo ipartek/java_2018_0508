@@ -1,4 +1,5 @@
 package com.ipartek.formacion.prestamos.api.controller;
+
 import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.ArrayList;
 import java.util.Set;
@@ -39,12 +40,10 @@ public class LibrosController {
 		factory = Validation.buildDefaultValidatorFactory();
 		validator = factory.getValidator();
 	}
-	
+
 	@ApiOperation(value = "Listado Libros")
-	@ApiResponses( value = {
-			@ApiResponse (code = 200, message = "Listado Libros"),
-			@ApiResponse (code = 404, message = "No se encontro Libro")}
-	)
+	@ApiResponses(value = { @ApiResponse(code = 200, message = "Listado Libros"),
+			@ApiResponse(code = 404, message = "No se encontro Libro") })
 
 	@RequestMapping(method = RequestMethod.GET)
 	public ResponseEntity<ArrayList<Libro>> listado() {
@@ -62,139 +61,132 @@ public class LibrosController {
 
 		return response;
 	}
-	
+
 	@ApiOperation(value = "Detalle Libro")
-	@ApiResponses( value = {
-			@ApiResponse (code = 200, message = "Detalle Libro"),
-			@ApiResponse (code = 404, message = "No se encontro Libro valor incorrecto"),
-			@ApiResponse (code = 409, message = "Caracteres vacios")}
-	)
+	@ApiResponses(value = { @ApiResponse(code = 200, message = "Detalle Libro"),
+			@ApiResponse(code = 404, message = "No se encontro Libro valor incorrecto"),
+			@ApiResponse(code = 409, message = "Caracteres vacios") })
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
 	public ResponseEntity<Libro> detalle(@PathVariable long id) {
 
 		ResponseEntity<Libro> response = new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 		try {
-			
+
 			Libro libro = serviceLibro.buscarId(id);
-			if ( libro != null && libro.getId() > 0 ) {
+			if (libro != null && libro.getId() > 0) {
 				response = new ResponseEntity<>(libro, HttpStatus.OK);
-			}else {
+			} else {
 				response = new ResponseEntity<>(HttpStatus.NOT_FOUND);
 			}
-			
-		}catch (Exception e) {
+
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return response;
 	}
-	
+
 	@ApiOperation(value = "Eliminar Libro")
-	@ApiResponses( value = {
-			@ApiResponse (code = 200, message = "Eliminar Libro"),
-			@ApiResponse (code = 404, message = "No se encontro Libro id libro incorrecto"),
-			@ApiResponse (code = 409, message = "No se puede eliminar el libro por que esta asociado a un prestamo")}
-	)
+	@ApiResponses(value = { @ApiResponse(code = 200, message = "Eliminar Libro"),
+			@ApiResponse(code = 404, message = "No se encontro Libro id libro incorrecto"),
+			@ApiResponse(code = 409, message = "No se puede eliminar el libro por que esta asociado a un prestamo") })
 	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
 	public ResponseEntity<Object> eliminar(@PathVariable long id) {
 
 		ResponseEntity<Object> response = new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 		try {
-						
-			if ( serviceLibro.eliminar(id) ) {
+
+			if (serviceLibro.eliminar(id)) {
 				response = new ResponseEntity<>(HttpStatus.OK);
-			}else {
+			} else {
 				response = new ResponseEntity<>(HttpStatus.NOT_FOUND);
 			}
-		
-		}catch( SQLIntegrityConstraintViolationException e ) {	
-			response = new ResponseEntity<>(new ResponseMensaje("No se puede eliminar si tiene Prestamo asociados"), HttpStatus.CONFLICT);
-		}catch (Exception e) {
+
+		} catch (SQLIntegrityConstraintViolationException e) {
+			response = new ResponseEntity<>(new ResponseMensaje("No se puede eliminar si tiene Prestamo asociados"),
+					HttpStatus.CONFLICT);
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return response;
 	}
-	
+
 	@ApiOperation(value = "Crear Libro")
-	@ApiResponses( value = {
-			@ApiResponse (code = 201, message = "Crear Libro"),
-			@ApiResponse (code = 409, message = "Esta vacio Libro o el Nombre del libro ya existe o el editorial no exisiste")}
-	)
+	@ApiResponses(value = { @ApiResponse(code = 201, message = "Crear Libro"),
+			@ApiResponse(code = 409, message = "Esta vacio Libro o el Nombre del libro ya existe o el editorial no exisiste") })
 
 	@RequestMapping(method = RequestMethod.POST)
 	public ResponseEntity<Object> crear(@RequestBody Libro libro) {
 
 		ResponseEntity<Object> response = new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 		try {
-			
-			
-			Set<ConstraintViolation<Libro>> violations =  validator.validate(libro);
-	
-			if ( violations.isEmpty() ) {
-			
-				if ( serviceLibro.crear(libro) ) {
+
+			Set<ConstraintViolation<Libro>> violations = validator.validate(libro);
+
+			if (violations.isEmpty()) {
+
+				if (serviceLibro.crear(libro)) {
 					response = new ResponseEntity<>(libro, HttpStatus.CREATED);
-				}else {
+				} else {
 					response = new ResponseEntity<>(new ResponseMensaje("libro creado"), HttpStatus.CREATED);
 				}
-				
-			}else {
+
+			} else {
 				ResponseMensaje mensaje = new ResponseMensaje("Los datos no son correctos");
-				for ( ConstraintViolation<Libro> v : violations ) {
-					mensaje.addError( v.getPropertyPath() + ": " + v.getMessage() );
-				};
-				response = new ResponseEntity<>( mensaje ,  HttpStatus.CONFLICT);
-			}	
-		
-		}catch ( SQLIntegrityConstraintViolationException e) {
-			
-			
-			ResponseMensaje msj = new ResponseMensaje("Los datos no son correctos");			
+				for (ConstraintViolation<Libro> v : violations) {
+					mensaje.addError(v.getPropertyPath() + ": " + v.getMessage());
+				}
+				;
+				response = new ResponseEntity<>(mensaje, HttpStatus.CONFLICT);
+			}
+
+		} catch (SQLIntegrityConstraintViolationException e) {
+
+			ResponseMensaje msj = new ResponseMensaje("Los datos no son correctos");
 			response = new ResponseEntity<>(msj, HttpStatus.CONFLICT);
-			
-		}catch (Exception e) {
-			//TODO gestionar duplicate key entry
+
+		} catch (Exception e) {
+			// TODO gestionar duplicate key entry
 			e.printStackTrace();
 		}
 		return response;
 	}
-	
+
 	@ApiOperation(value = "Modificar Libro")
-	@ApiResponses( value = {
-			@ApiResponse (code = 200, message = "Modificar Libro"),
-			@ApiResponse (code = 404, message = "No se encontro Libro id libro incorrecto"),
-			@ApiResponse (code = 409, message = "No se puede modificar libro con el mismo nombre o que esta vacio")}
-	)
+	@ApiResponses(value = { @ApiResponse(code = 200, message = "Modificar Libro"),
+			@ApiResponse(code = 404, message = "No se encontro Libro id libro incorrecto"),
+			@ApiResponse(code = 409, message = "No se puede modificar libro con el mismo nombre o que esta vacio") })
 
 	@RequestMapping(value = "/{id}", method = RequestMethod.PUT)
 	public ResponseEntity<Object> modificar(@PathVariable long id, @RequestBody Libro libro) {
 
 		ResponseEntity<Object> response = new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 		try {
-			
-			Set<ConstraintViolation<Libro>> violations =  validator.validate(libro);
-			if ( violations.isEmpty() ) {
-			
-				libro.setId(id);			
-				if ( serviceLibro.modificar(libro) ) {
+
+			Set<ConstraintViolation<Libro>> violations = validator.validate(libro);
+			if (violations.isEmpty()) {
+
+				libro.setId(id);
+				if (serviceLibro.modificar(libro)) {
 					response = new ResponseEntity<>(libro, HttpStatus.OK);
-				}else {
+				} else {
 					response = new ResponseEntity<>(HttpStatus.CONFLICT);
 				}
-				
-			}else {
+
+			} else {
 				ResponseMensaje mensaje = new ResponseMensaje("Los datos no son correctos");
-				for ( ConstraintViolation<Libro> v : violations ) {
-					mensaje.addError( v.getPropertyPath() + ": " + v.getMessage() );
-				};
-				response = new ResponseEntity<>( mensaje ,  HttpStatus.CONFLICT);
-			}	
-		
-		}catch (SQLIntegrityConstraintViolationException e) {
+				for (ConstraintViolation<Libro> v : violations) {
+					mensaje.addError(v.getPropertyPath() + ": " + v.getMessage());
+				}
+				;
+				response = new ResponseEntity<>(mensaje, HttpStatus.CONFLICT);
+			}
+
+		} catch (SQLIntegrityConstraintViolationException e) {
 			e.printStackTrace();
-			
-			response = new ResponseEntity<>( new ResponseMensaje("los datos son incorrectos")  ,HttpStatus.CONFLICT);
-		}catch (Exception e) {
-			//TODO gestionar duplicate key entry
+
+			response = new ResponseEntity<>(new ResponseMensaje("los datos son incorrectos"), HttpStatus.CONFLICT);
+		} catch (Exception e) {
+			// TODO gestionar duplicate key entry
 			e.printStackTrace();
 		}
 		return response;
