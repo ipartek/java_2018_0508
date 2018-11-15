@@ -217,8 +217,8 @@ public class PrestamoController {
 
 	@ApiResponses(value = 
 			{ 
-			@ApiResponse(code = 200, message = "Préstamo correctamente devuelto."),
-			@ApiResponse(code = 400, message = "Formato JSON incorrecto para alguno de los campos."),
+			@ApiResponse(code = 200, message = "Préstamo correctamente devuelto.", response=Prestamo.class),
+			@ApiResponse(code = 400, message = "Formato JSON incorrecto para alguno de los campos.", response=ResponseMessage.class),
 			@ApiResponse(code = 404, message = "Préstamo no encontrado.") 
 			})
 
@@ -243,7 +243,7 @@ public class PrestamoController {
 			
 			if (servicio.devolver(idAlumno, idLibro, fechaInicio, prestamo.getFechaRetorno())) {
 
-				response = new ResponseEntity<Object>(HttpStatus.NO_CONTENT);
+				response = new ResponseEntity<Object>(prestamo, HttpStatus.OK);
 
 			} else {
 
@@ -260,6 +260,21 @@ public class PrestamoController {
 		return response;
 	}
 
+	@ApiOperation(
+			value = "Modifica un préstamo con los valores introducidos (en formato JSON).", 
+			notes = "Devuelve el objeto creado (en formato JSON), o en caso de error, el mensaje.<br>"
+					+ "Valores por defecto:"
+					+ "<ol><li>Para cualquier fecha erróneamente introducida, se cogerá la fecha actual del sistema.</li></ol>",
+					response = Prestamo.class)
+	
+	@ApiResponses(value = { 
+			@ApiResponse(code = 201, message = "Préstamo correctamente realizado.", response=Prestamo.class),
+			@ApiResponse(code = 400, message = "Formato JSON incorrecto", response = ResponseMessage.class),
+			@ApiResponse(code = 409, message = "CONFLICTOS: "
+					+ "<ol><li>El libro o el alumno introducidos no existen en la base de datos</li>"
+					+ "<li>La longitud de alguno de los campos es incorrecta.</li></ol>.", response = ResponseMessage.class) 
+	})
+	
 	@RequestMapping(value = "/{idLibro}/{idAlumno}/{fInicio}", method = RequestMethod.PUT)
 	public ResponseEntity<Object> modificar(@PathVariable long idLibro, @PathVariable long idAlumno,
 			@PathVariable Date fInicio, @RequestBody Prestamo prestamo) {

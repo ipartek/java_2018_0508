@@ -177,6 +177,24 @@ public class ServicePrestamo implements IPrestamoService {
 	public boolean modificarPrestamoAPI(long idAlumno, long idLibro, Date fechaInicio, Prestamo pojo) throws Exception {
 		boolean resul = false;
 		
+		if (pojo.getFechaInicio().getTime() <= 0) {
+			
+			pojo.setFechaInicio(new Date(new java.util.Date().getTime()));
+			
+		}
+		
+		if (pojo.getFechaFin().getTime() <= 0) {
+			
+			pojo.setFechaInicio(new Date(new java.util.Date().getTime()));
+			
+		}
+		
+		if (pojo.getFechaRetorno().getTime() <= 0) {
+			
+			pojo.setFechaRetorno(new Date(new java.util.Date().getTime()));
+			
+		}
+		
 		resul = prestamosDAO.update(idAlumno, idLibro, fechaInicio, pojo);
 		
 		return resul;
