@@ -68,6 +68,10 @@ public class LibrosController {
 		validator = factory.getValidator();
 	}
 
+	/**
+	 * Metodo que devuelve al cliente una lista de los libros
+	 * @return ResponseEntity<ArrayList<Libro>>
+	 */
 	@ApiOperation(value = "Listado de libros", notes = "Muestra el listado de todos los libros", produces = "application/json")
 	@ApiResponses(value = {
 			@ApiResponse(code = 200, message = "Listado libros mostrado", responseContainer = "List") })
@@ -87,6 +91,11 @@ public class LibrosController {
 		return response;
 	}
 
+	/**
+	 * Devuelve el detalle de un libro concreto a partir de un identificador
+	 * @param id long Identificador del libro
+	 * @return ResponseEntity<Libro>
+	 */
 	@ApiOperation(value = "Detalle libro", notes = "Muestra el detalle de un libro en concreto", produces = "application/json")
 	@ApiResponses(value = {
 			@ApiResponse(code = 200, message = "Detalle libro mostrado", responseContainer = "Libro"),
@@ -114,6 +123,11 @@ public class LibrosController {
 		return response;
 	}
 
+	/**
+	 * Crea un nuevo libro a partir de los datos recibidos en el @RequestBody
+	 * @param libro Libro
+	 * @return ResponseEntity<Object> Libro si se ha creado correctamente, ResponseMensaje con los errores ocurridos
+	 */
 	@ApiOperation(value = "Crear libro", notes = "Crea un nuevo libro", produces = "application/json")
 	@ApiResponses(value = {
 			@ApiResponse(code = 201, message = "Libro creado", responseContainer = "Editorial"),
@@ -160,6 +174,12 @@ public class LibrosController {
 		return response;
 	}
 
+	/**
+	 * Modifica un libro a partir de un identificador
+	 * @param id long identificador del libro a modificar
+	 * @param ResponseEntity<Object> Libro si se ha modificado correctamente, sino un ResponseMensaje con los errores ocurridos 
+	 * @return
+	 */
 	@ApiOperation(value = "Modificar libro", notes = "Modifica los valores de un libro", produces = "application/json", response = Libro.class)
 	@ApiResponses(value = { @ApiResponse(code = 200, message = "Libro modificado"),
 			@ApiResponse(code = 409, message = "<ol><li>1) Editorial no asociada.</li><li> 2) No cumple las validaciones.</li></ol>") })
@@ -208,6 +228,11 @@ public class LibrosController {
 		return response;
 	}
 
+	/**
+	 * 
+	 * @param id long identificador del Libro a eliminar
+	 * @return ResponseEntity<Object> Solo con HttpStatus si se ha borrado correctamente, ResponseMensaje con errores en caso de fallo
+	 */
 	@ApiOperation(value = "Eliminar libro", notes = "Elimina un libro existente", produces = "application/json")
 	@ApiResponses(value = { @ApiResponse(code = 200, message = "Libro eliminado"),
 			@ApiResponse(code = 404, message = "Libro no existe"),

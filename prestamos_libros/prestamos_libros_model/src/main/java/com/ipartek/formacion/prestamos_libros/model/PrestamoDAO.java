@@ -29,6 +29,7 @@ public class PrestamoDAO implements Crudable<Prestamo> {
 		return INSTANCE;
 	}
 
+	
 	@Override
 	public boolean insert(Prestamo pojo) throws Exception {
 
@@ -83,6 +84,11 @@ public class PrestamoDAO implements Crudable<Prestamo> {
 		return prestamos;
 	}
 
+	/**
+	 * Retorna una lista de todos los prestamos ya finalizados
+	 * @return List<Prestamo> de prestamos finalizados
+	 * @throws Exception
+	 */
 	public List<Prestamo> getHistorico() throws Exception {
 		ArrayList<Prestamo> prestamos = new ArrayList<Prestamo>();
 		String sql = "{call `prestamogetAllHistorico` ()}";
@@ -119,6 +125,11 @@ public class PrestamoDAO implements Crudable<Prestamo> {
 		return prestamos;
 	}
 
+	/**
+	 * Retorna una lista de todos los prestamos actualmente activos
+	 * @return List<Prestamo> de activos
+	 * @throws Exception
+	 */
 	public List<Prestamo> getAllPrestados() throws Exception {
 		ArrayList<Prestamo> prestamos = new ArrayList<Prestamo>();
 		String sql = "{call `prestamoGetALLPrestado` ()}";
@@ -154,6 +165,11 @@ public class PrestamoDAO implements Crudable<Prestamo> {
 		return prestamos;
 	}
 
+	/**
+	 * Retorna una lista de los libros que no estan actualmente prestados
+	 * @return List<Prestamo> disponibles
+	 * @throws Exception
+	 */
 	public List<Libro> librosDisponibles() throws Exception {
 		ArrayList<Libro> libros = new ArrayList<Libro>();
 		String sql = "{call `prestamoLibrosDisponibles` ()}";
@@ -172,6 +188,11 @@ public class PrestamoDAO implements Crudable<Prestamo> {
 		return libros;
 	}
 
+	/**
+	 * Retorna una lista de los alumnos que no tienen prestamos activos
+	 * @return List<Alumno> sin prestamos activos
+	 * @throws Exception
+	 */
 	public List<Alumno> alumnosDisponibles() throws Exception {
 		ArrayList<Alumno> alumnos = new ArrayList<Alumno>();
 		String sql = "{call `prestamoAlumnoDisponibles` ()}";
@@ -196,6 +217,14 @@ public class PrestamoDAO implements Crudable<Prestamo> {
 		return null;
 	}
 
+	/**
+	 * Busca un prestamo por su clave primaria
+	 * @param idLibro Identificador del libro
+	 * @param idAlumno Identificador del alumno
+	 * @param fecha_prestado Fecha inicial del prestamo
+	 * @return pojo Prestamo. Si lo ha encontrado tendra valores, sino sera un objeto Prestamo vacio
+	 * @throws Exception
+	 */
 	public Prestamo buscarPorId(long idLibro, long idAlumno, Date fecha_prestado) throws Exception {
 		Prestamo prestamo = new Prestamo();
 		String sql = "{call `prestamoGetById` (?,?,?)}";
@@ -231,7 +260,20 @@ public class PrestamoDAO implements Crudable<Prestamo> {
 		return prestamo;
 	}
 	
-	public boolean modifyAll(long idAlumno, long idLibro, Date fechaPrestado, long idAlumnoNEW, long idLibroNEW, Date fechaPrestadoNEW, Date fechaFinal, Date fechaRetorno) throws SQLException {
+	/**
+	 * Modifica cualquier valor de un prestamo
+	 * @param idAlumno Identificador del alumno
+	 * @param idLibro Identificador del libro
+	 * @param fechaPrestado Fecha inicial original
+	 * @param idAlumnoNEW Nuevo identificador del alumno
+	 * @param idLibroNEW Nuevo identificador del libro
+	 * @param fechaPrestadoNEW Nueva fecha de inicio de prestamo
+	 * @param fechaFinal Nueva fecha final de prestamo
+	 * @param fechaRetorno Fecha de retorno del libro
+	 * @return true si se ha podido modificar, false si ha ocurrido algun error
+	 * @throws SQLException
+	 */
+	public boolean updateAll(long idAlumno, long idLibro, Date fechaPrestado, long idAlumnoNEW, long idLibroNEW, Date fechaPrestadoNEW, Date fechaFinal, Date fechaRetorno) throws SQLException {
 		boolean resul = false;
 
 		String sql = "{call prestamoUpdate(?,?,?,?,?,?,?,?)}";
@@ -258,12 +300,17 @@ public class PrestamoDAO implements Crudable<Prestamo> {
 		}
 		return resul;
 	}
-
-	@Override
-	public boolean update(Prestamo pojo) throws Exception {
+	
+	/**
+	 * Devuelve un libro e introduce la fecha de retorno en la bbdd
+	 * @param Prestamo pojo
+	 * @return true si se ha podido devolver, false si algo ha fallado
+	 * @throws SQLException
+	 */
+	public boolean devolver(Prestamo pojo) throws SQLException {
 		boolean resul = false;
 
-		String sql = "{call prestamoDevolver(?,?,?,?)}";
+		String sql = "{call prestamoDevolver(?,?,?,?,?)}";
 		
 		try (Connection con = ConnectionManager.getConnection(); CallableStatement cs = con.prepareCall(sql);) {
 
@@ -271,15 +318,23 @@ public class PrestamoDAO implements Crudable<Prestamo> {
 			cs.setLong(2, pojo.getLibro().getId());
 			cs.setDate(3, pojo.getFecha_prestado());
 			cs.setDate(4, pojo.getFecha_retorno());
+			cs.registerOutParameter(5, Types.DATE);
 
 			int affectedRows = cs.executeUpdate();
 
 			if (affectedRows == 1) {
+				Date date = cs.getDate(5);
+				pojo.setFecha_fin(date);
 				resul = true;
 			}
 
 		}
 		return resul;
+	}
+
+	@Override
+	public boolean update(Prestamo pojo) throws Exception {
+		return false;
 	}
 
 	@Override

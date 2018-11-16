@@ -50,7 +50,7 @@ public class ServicePrestamo implements IServicePrestamo {
 	}
 
 	@Override
-	public boolean prestar(/*long idLibro, long idAlumno, Date fechaInicio*/Prestamo prestamo) throws Exception {
+	public boolean prestar(Prestamo prestamo) throws Exception {
 		boolean resul = false;
 		boolean alumnoEncontrado = false;
 		boolean libroEncontrado = false;
@@ -76,16 +76,6 @@ public class ServicePrestamo implements IServicePrestamo {
 		}
 		
 		if(alumnoEncontrado && libroEncontrado) {
-//			Prestamo p = new Prestamo();
-//			p.setFecha_prestado(prestamo.getFecha_prestado());
-//
-//			Alumno a = new Alumno();
-//			a.setId(prestamo.getAlumno().getId());
-//			p.setAlumno(a);
-//
-//			Libro l = new Libro();
-//			l.setId(prestamo.getLibro().getId());
-//			p.setLibro(l);
 
 			if (daoPrestamo.insert(prestamo)) {
 				resul = true;
@@ -121,68 +111,26 @@ public class ServicePrestamo implements IServicePrestamo {
 	}
 
 	@Override
-	public boolean devolver(long idLibro, long idAlumno, Date fechaPrestado, Date fechaRetorno) throws Exception {
+	public boolean devolver(Prestamo p) throws Exception {
 		boolean resul = false;
-		Prestamo p = new Prestamo();
 		
-		boolean alumnoEncontrado = false;
-		boolean libroEncontrado = false;
+		comprobaciones(p);
 		
-		ArrayList<Alumno> alumnosDisponibles = (ArrayList<Alumno>) this.alumnosDisponibles();
+		Alumno a = new Alumno();
+		a.setId(p.getAlumno().getId());
+		p.setAlumno(a);
+
+		Libro l = new Libro();
+		l.setId(p.getLibro().getId());
+
+		p.setLibro(l);
 		
-		for(int i=0; i<alumnosDisponibles.size();i++) {
-			if(alumnosDisponibles.get(i).getId() == idAlumno) {
-				alumnoEncontrado = true;
-				break;
-			}
+		p.setFecha_prestado(p.getFecha_prestado());
+		p.setFecha_retorno(p.getFecha_retorno());		
+
+		if (daoPrestamo.devolver(p)) {
+			resul=true;
 		}
-		
-		ArrayList<Libro> librosDisponibles = (ArrayList<Libro>) this.librosDisponibles();
-		
-		for(int i=0; i<librosDisponibles.size();i++) {
-			if(librosDisponibles.get(i).getId() == idLibro) {
-				libroEncontrado = true;
-				break;
-			}
-		}
-		
-		if(alumnoEncontrado && libroEncontrado) {
-			Alumno a = new Alumno();
-			a.setId(idAlumno);
-			p.setAlumno(a);
-
-			Libro l = new Libro();
-			l.setId(idLibro);
-
-			p.setLibro(l);
-			
-			p.setFecha_prestado(fechaPrestado);
-			p.setFecha_retorno(fechaRetorno);		
-
-			if (daoPrestamo.update(p)) {
-				resul=true;
-			}
-		}else if(!alumnoEncontrado) {
-			throw new Exception(EXCEPTION_USUARIO_PRESTADO);
-		}else if(!libroEncontrado) {
-			throw new Exception(EXCEPTION_LIBRO_PRESTADO);
-		}
-
-//		Alumno a = new Alumno();
-//		a.setId(idAlumno);
-//		p.setAlumno(a);
-//
-//		Libro l = new Libro();
-//		l.setId(idLibro);
-//
-//		p.setLibro(l);
-//		
-//		p.setFecha_prestado(fechaPrestado);
-//		p.setFecha_retorno(fechaRetorno);		
-//
-//		if (daoPrestamo.update(p)) {
-//			resul=true;
-//		}
 		
 		return resul;
 	}
@@ -191,13 +139,50 @@ public class ServicePrestamo implements IServicePrestamo {
 	public boolean update(long idLibroOld, long idAlumnoOld, Date fechaPrestadoOld, long idLibroNew, long idAlumnoNew,
 			Date fechaPrestadoNew, Date fechaFinal, Date fechaRetorno) throws Exception {
 		boolean resul = false;
-
-		if (daoPrestamo.modifyAll(idAlumnoOld, idLibroOld, fechaPrestadoOld, idAlumnoNew, idLibroNew, fechaPrestadoNew, fechaFinal, fechaRetorno)) {
-			resul=true;
+		boolean alumnoEncontrado = false;
+		boolean libroEncontrado = false;
+		
+		Prestamo p = new Prestamo(fechaPrestadoNew, new Alumno(idAlumnoNew, ""), new Libro(idLibroNew, "", "", 1, null));
+		comprobaciones(p);
+		
+		if(idAlumnoOld != idAlumnoNew) {
+			ArrayList<Alumno> alumnosDisponibles = (ArrayList<Alumno>) this.alumnosDisponibles();
+			for(int i=0; i<alumnosDisponibles.size();i++) {
+				if(alumnosDisponibles.get(i).getId() == idAlumnoNew) {
+					alumnoEncontrado = true;
+					break;
+				}
+			}
+		}else {
+			alumnoEncontrado = true;
 		}
+		
+		if(idLibroOld != idLibroNew) {
+			ArrayList<Libro> librosDisponibles = (ArrayList<Libro>) this.librosDisponibles();
+			for(int i=0; i<librosDisponibles.size();i++) {
+				if(librosDisponibles.get(i).getId() == idLibroNew) {
+					libroEncontrado = true;
+					break;
+				}
+			}
+		}else {
+			libroEncontrado = true;
+		}
+		
+		if(alumnoEncontrado && libroEncontrado) {
+			if (daoPrestamo.updateAll(idAlumnoOld, idLibroOld, fechaPrestadoOld, idAlumnoNew, idLibroNew, fechaPrestadoNew, fechaFinal, fechaRetorno)) {
+				resul=true;
+			}
+		}
+		
 		return resul;
 	}
 	
+	/**
+	 * Metodo que comprueba si existen el Libro y el Alumno en la bbdd
+	 * @param prestamo Objeto Prestamo a comprobar si existen su Alumno y su Libro
+	 * @throws Exception
+	 */
 	public void comprobaciones(Prestamo prestamo) throws Exception {
 
 		long idLibro = -1;
@@ -217,7 +202,6 @@ public class ServicePrestamo implements IServicePrestamo {
 		}catch (Exception e) {
 			
 			throw new Exception(EXCEPTION_PARAMETROS_INCORRECTOS);
-			
 		}	
 		
 		//comprobar Existe Libro y Usuario

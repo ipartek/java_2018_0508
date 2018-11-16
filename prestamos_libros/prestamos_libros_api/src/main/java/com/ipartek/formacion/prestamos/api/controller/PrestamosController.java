@@ -70,6 +70,11 @@ public class PrestamosController {
 		validator = factory.getValidator();
 	}
 
+	/**
+	 * Retorna un listado u otro dependiendo del valor del parametro activo
+	 * @param activos int 0 si se quiere el listado de los prestamos finalizados, 1 si se quiere el listado de los prestamos activos
+	 * @return ResponseEntity<ArrayList<Prestamo>> con la lista solicitada de Prestamos
+	 */
 	@ApiOperation(value = "Listado de prestamos activos o historico")
 	@ApiResponses(value = { @ApiResponse(code = 200, message = "Listado Prestamos") })
 	@RequestMapping(method = RequestMethod.GET)
@@ -95,7 +100,13 @@ public class PrestamosController {
 		return response;
 	}
 
-	// Detalle Prestamo de un libro
+	/**
+	 * Metodo que devuelve el detalle completo de un prestamo en concreto
+	 * @param idLibro long identificador del libro
+	 * @param idAlumno long identificador del alumno
+	 * @param fechaInicio Date fecha de inicio del prestamo
+	 * @return ResponseEntity<Prestamo> con todos sus datos
+	 */
 	@ApiOperation(value = "Detalle Préstamo", notes = "Muestra el detalle de un préstamo en concreto. <br> Campos obligatorios:" + 
 					"<ol><li>1) Fecha de inicio</li><li>2) Id del Libro</li><li>3) Id del Alumno</li></ol>", produces = "application/json", response = Prestamo.class)
 	@ApiResponses(value = { @ApiResponse(code = 200, message = "Detalle préstamo mostrado", response = Prestamo.class),
@@ -126,7 +137,11 @@ public class PrestamosController {
 		return response;
 	}
 
-	// Crear un nuevo prestamo
+	/**
+	 * Metodo para prestar un nuevo libro a un alumno que no tenga prestamos activos y libros que no esten aun prestados
+	 * @param prestamo Objeto Prestamo recogido del @RequestBody con todos los datos necesarios para crear un nuevo Prestamo
+	 * @return ResponseEntity<Object> Prestamo si se ha prestado correctamente el libro, ResponseMensaje con errores en caso de fallos
+	 */
 	@ApiOperation(value = "Prestar un libro", notes = "Prestar un libro a un alumno para una fecha concreta. <br> Campos obligatorios: "
 			+ "<ol><li>1) Fecha de inicio</li><li>2) Id del Libro</li><li>3) Id del Alumno</li></ol>", produces = "application/json", response = Prestamo.class)
 	@ApiResponses(value = { @ApiResponse(code = 201, message = "Préstamo creado", response = Prestamo.class),
@@ -184,12 +199,19 @@ public class PrestamosController {
 		return response;
 	}
 
-	// Modificar un prestamo existente
+	/**
+	 * Metodo que modifica cualquier dato de un prestamo, tanto activo como finalizado
+	 * @param idLibro long identificador del libro antes de modificar el prestamo
+	 * @param idAlumno long identificador del alumno antes de modificar el prestamo
+	 * @param fechaInicio Date fecha inicio del prestamo antes de haber modificado sus datos
+	 * @param prestamo objeto Prestamo del @RequestBody con los valores modificados, pudiendo incluir el idLibro, idAlumno o fechaInicio modificados
+	 * @return ResponseEntity<Object> Prestamo si se ha modificado correctamente, ResponseMensaje con errores en caso de fallo
+	 */
 	@ApiOperation(value = "Modificar préstamo", notes = "Modifica los datos de un préstamo. <br> Campos obligatorios:" + 
 				"<ol><li>1) Fecha de inicio</li><li>2) Id del Libro</li><li>3) Id del Alumno</li></ol>", produces = "application/json", response = Libro.class)
 	@ApiResponses(value = { @ApiResponse(code = 200, message = "Préstamo modificado"),
 			@ApiResponse(code = 409, message = "<ol><li>1) Libro ya prestado.</li><li>2) Alumno con préstamo activo.</li><li> 3) No cumple las validaciones.</li></ol>") })
-	@RequestMapping(value = "/{idLibro}{idAlumno}/{fechaInicio}", method = RequestMethod.PUT)
+	@RequestMapping(value = "/{idLibro}/{idAlumno}/{fechaInicio}", method = RequestMethod.PUT)
 	public ResponseEntity<Object> modificar(@PathVariable long idLibro, @PathVariable long idAlumno,
 			@PathVariable Date fechaInicio, @RequestBody Prestamo prestamo) {
 
@@ -244,7 +266,14 @@ public class PrestamosController {
 		return response;
 	}
 
-	// Devolver un libro (finalizar un prestamo)
+	/**
+	 * Metodo que devuelve un libro y finaliza un prestamo activo
+	 * @param idLibro long identificador del libro
+	 * @param idAlumno long identificador del alumno
+	 * @param fechaInicio Date fecha inicio del prestamo
+	 * @param prestamo Objeto prestamo en el @RequestBody con la fecha de retorno a incluir en el registro
+	 * @return ResponseEntity<Object> Prestamo si se ha devuelto correctamente, ResponseMensaje con errores si ha fallado
+	 */
 	@ApiOperation(value = "Devolver libro", notes = "Devuelve un libro y finaliza un préstamo. <br> Campos obligatorios:" + 
 					"<ol><li>1) Fecha de inicio</li><li>2) Id del Libro</li><li>3) Id del Alumno</li></ol>", produces = "application/json")
 	@ApiResponses(value = { @ApiResponse(code = 200, message = "Libro devuelto") })
@@ -255,8 +284,20 @@ public class PrestamosController {
 		ResponseEntity<Object> response = new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 
 		try {
-			if (servicePrestamo.devolver(idLibro, idAlumno, fechaInicio, prestamo.getFecha_retorno())) {
-				response = new ResponseEntity<>(HttpStatus.OK);
+			prestamo.setAlumno(new Alumno(idAlumno, ""));
+			prestamo.setLibro(new Libro(idLibro, "", "", 1, new Editorial()));
+			prestamo.setFecha_prestado(fechaInicio);
+			if (servicePrestamo.devolver(prestamo)) {
+				Libro l = serviceLibro.buscarPorId(prestamo.getLibro().getId());
+
+				Editorial e = serviceEditorial.buscarPorId(l.getEditorial().getId());
+				l.setEditorial(e);
+
+				prestamo.setLibro(l);
+
+				Alumno a = serviceAlumno.buscarPorId(prestamo.getAlumno().getId());
+				prestamo.setAlumno(a);
+				response = new ResponseEntity<>(prestamo, HttpStatus.OK);
 				LOG.debug("Libro devuelto correctamente");
 			} else {
 				ResponseMensaje msj = new ResponseMensaje("No se puede devolver el libro");
