@@ -111,7 +111,7 @@ public class ServicePrestamo implements IServicePrestamo {
 	@Override
 	public boolean devolver(Prestamo p) throws Exception {
 		boolean resul = false;
-		
+
 		Alumno a = new Alumno();
 		a.setId(p.getAlumno().getId());
 		p.setAlumno(a);
@@ -133,17 +133,18 @@ public class ServicePrestamo implements IServicePrestamo {
 	@Override
 	public boolean update(long idLibroOld, long idAlumnoOld, Date fechaPrestadoOld, long idLibroNew, long idAlumnoNew,
 			Date fechaPrestadoNew, Date fechaFinal, Date fechaRetorno) throws Exception {
+		
 		boolean resul = false;
-
-		if (daoPrestamo.modifyAll(idAlumnoOld, idLibroOld, fechaPrestadoOld, idAlumnoNew, idLibroNew, fechaPrestadoNew,
-				fechaFinal, fechaRetorno)) {
-			resul = true;
-		}
+//
+//		if (daoPrestamo.modifyAll(idAlumnoOld, idLibroOld, fechaPrestadoOld, idAlumnoNew, idLibroNew, fechaPrestadoNew,
+//				fechaFinal, fechaRetorno)) {
+//			resul = true;
+//		}
 		return resul;
 	}
-	
-	public boolean modificar(long idLibroOld, long idAlumnoOld, Date fechaPrestadoOld, long idLibroNew, long idAlumnoNew,
-			Date fechaPrestadoNew, Date fechaFinal, Date fechaRetorno) throws Exception {
+
+	public boolean modificar(long idLibroOld, long idAlumnoOld, Date fechaPrestadoOld, long idLibroNew,
+			long idAlumnoNew, Date fechaPrestadoNew, Date fechaFinal, Date fechaRetorno) throws Exception {
 		boolean resul = false;
 
 		if (daoPrestamo.modifyAll(idAlumnoOld, idLibroOld, fechaPrestadoOld, idAlumnoNew, idLibroNew, fechaPrestadoNew,
