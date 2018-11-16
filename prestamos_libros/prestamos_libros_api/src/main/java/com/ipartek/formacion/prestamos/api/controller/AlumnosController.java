@@ -25,11 +25,15 @@ import com.ipartek.formacion.prestamolibros.service.ServicioEditorial;
 import com.ipartek.formacion.prestamos.api.controller.pojo.ResponseMensaje;
 
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
+
 
 @CrossOrigin(origins = "*")
 @RestController
-@RequestMapping("/alumnos")
-@Api(tags="Alumnos")
+@RequestMapping("/alumnos") 
+@Api(tags="Alumnos",produces="application/json",description="Gestión de Alumn@s")
 public class AlumnosController {
 	ValidatorFactory factory = null;
 	Validator validator = null;
@@ -44,7 +48,11 @@ public class AlumnosController {
 		validator = factory.getValidator();
 
 	}
-
+	@ApiOperation(value = "Listado de alumnos")
+	@ApiResponses(value =
+						{ 
+						  @ApiResponse(code = 200, message = "Alumnos encontrados"),
+						  @ApiResponse(code = 500, message = "Ha ocurrido un error") })
 	@RequestMapping(method = RequestMethod.GET)
 	public ResponseEntity<ArrayList<Alumno>> listar() {
 		ResponseEntity<ArrayList<Alumno>> response = new ResponseEntity<ArrayList<Alumno>>(
@@ -61,7 +69,16 @@ public class AlumnosController {
 
 		return response;
 	}
-
+	
+	
+	
+	
+	@ApiOperation(value = "Detalle de un/a alumn@",response=Alumno.class)
+	@ApiResponses(value =
+						{ 
+						  @ApiResponse(code = 200, message = "Alumno/a encontrad@"),
+						  @ApiResponse(code = 500, message = "Ha ocurrido un error"),
+						  @ApiResponse(code = 404, message = "El/La alumn@  no existe")				  })
 	@RequestMapping(value = "{id}", method = RequestMethod.GET)
 	public ResponseEntity<Alumno> detalle(@PathVariable long id) {
 		ResponseEntity<Alumno> response = new ResponseEntity<Alumno>(HttpStatus.INTERNAL_SERVER_ERROR);
@@ -81,32 +98,17 @@ public class AlumnosController {
 		return response;
 
 	}
-
-	@RequestMapping(value = "{id}", method = RequestMethod.DELETE)
-	public ResponseEntity<Object> eliminar(@PathVariable long id) {
-		ResponseEntity<Object> response = new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-		try {
-
-			if (servicioAlumno.eliminar(id)) {
-				response = new ResponseEntity<>(HttpStatus.OK);
-			} else {
-				response = new ResponseEntity<>(HttpStatus.NOT_FOUND);
-			}
-		} catch (SQLIntegrityConstraintViolationException e) {
-			LOG.error(e);
-
-			response = new ResponseEntity<>(
-					new ResponseMensaje("No se puede eliminar este Alumno porque tiene un registro asociado"),
-					HttpStatus.CONFLICT);
-
-		} catch (Exception e) {
-			LOG.error(e);
-
-		}
-		return response;
-
-	}
-
+	
+	
+	
+	
+	@ApiOperation(value = "Crear un/a Alumn@",response=Alumno.class,notes="<ol><li>NOMBRE: minimo 2 caracteres, máximo 50</li><li>APELLIDOS: minimo 2 caracteres, máximo 150</li></ol>")
+	@ApiResponses(value =
+						{ 
+							@ApiResponse(code = 201, message = "Alumn@ cread@"),
+							@ApiResponse(code = 409, message = "El/La alumn@ que intenta crear ya existe"),
+							@ApiResponse(code = 500, message = "Ha ocurrido un error")
+						  })
 	@RequestMapping(method = RequestMethod.POST)
 	public ResponseEntity<Object> crear(@RequestBody Alumno alumno) {
 
@@ -132,10 +134,10 @@ public class AlumnosController {
 			}
 
 		} catch (SQLIntegrityConstraintViolationException e) {
-			LOG.error(e);
-
+		
 			response = new ResponseEntity<>(
 					new ResponseMensaje("Ya existe un alumno con ese nombre, por favor cambialo"), HttpStatus.CONFLICT);
+			LOG.debug(response);
 		} catch (Exception e) {
 
 			LOG.error(e);
@@ -144,7 +146,19 @@ public class AlumnosController {
 
 		return response;
 	}
-
+	
+	
+	
+	
+	
+	@ApiOperation(value = "Modificar un/a Alumn@",response=Alumno.class,notes="<ol><li>NOMBRE: minimo 2 caracteres, máximo 50</li><li>APELLIDOS: minimo 2 caracteres, máximo 150</li></ol>")
+	@ApiResponses(value =
+						{ 
+						  @ApiResponse(code = 200, message = "Alumn@ modificad@ con éxito"),
+						  @ApiResponse(code = 404, message = "El/La alumn@ no existe"),
+						  @ApiResponse(code = 409, message = "<ol><li>Ya existe un/a alumn@ con ese nombre, por favor elige otro nombre</li> <li>Los datos introducidos son incorrectos</li></ol>"),
+						  @ApiResponse(code = 500, message = "Ha ocurrido un error")
+						  })
 	@RequestMapping(value = "{id}", method = RequestMethod.PUT)
 	public ResponseEntity<Object> modificar(@PathVariable long id, @RequestBody Alumno alumno) {
 		ResponseMensaje msg = new ResponseMensaje();
@@ -168,12 +182,12 @@ public class AlumnosController {
 
 			}
 		} catch (SQLIntegrityConstraintViolationException e) {
-			LOG.error(e);
+			
 
 			response = new ResponseEntity<>(
 					new ResponseMensaje("Ya existe un/@ alumn@ con ese nombre, por favor elige otro nombre o apellido"),
 					HttpStatus.CONFLICT);
-
+			LOG.debug(response);
 		} catch (Exception e) {
 			LOG.error(e);
 
@@ -181,4 +195,39 @@ public class AlumnosController {
 		return response;
 	}
 
+	
+	
+	@ApiOperation(value = "Eliminar un/a alumn@")
+	@ApiResponses(value =
+						{ 
+						  @ApiResponse(code = 200, message = "Alumn@ eliminad@"),
+						  @ApiResponse(code = 404, message = "El/La alumn@ no existe"),
+						  @ApiResponse(code = 409, message = "No se puede borrar el/la Alumn@ porque hay un registro asociado"),
+						  @ApiResponse(code = 500, message = "Ha ocurrido un error")
+						  
+						  })
+	@RequestMapping(value = "{id}", method = RequestMethod.DELETE)
+	public ResponseEntity<Object> eliminar(@PathVariable long id) {
+		ResponseEntity<Object> response = new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+		try {
+
+			if (servicioAlumno.eliminar(id)) {
+				response = new ResponseEntity<>(HttpStatus.OK);
+			} else {
+				response = new ResponseEntity<>(HttpStatus.NOT_FOUND);
+			}
+		} catch (SQLIntegrityConstraintViolationException e) {
+		
+			response = new ResponseEntity<>(
+					new ResponseMensaje("No se puede eliminar este Alumno porque tiene un registro asociado"),
+					HttpStatus.CONFLICT);
+			LOG.debug(response);
+
+		} catch (Exception e) {
+			LOG.error(e);
+
+		}
+		return response;
+
+	}
 }

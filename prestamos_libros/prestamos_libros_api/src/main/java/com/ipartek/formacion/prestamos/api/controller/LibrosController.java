@@ -26,18 +26,21 @@ import com.ipartek.formacion.prestamolibros.service.ServicioLibro;
 import com.ipartek.formacion.prestamos.api.controller.pojo.ResponseMensaje;
 
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
 
 @CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("/libros")
-@Api(tags="Libros")
+@Api(tags="Libros",description="Gestión de Libros",produces="application/json")
 public class LibrosController {
 	ValidatorFactory factory = null;
 	Validator validator = null;
 	ServicioLibro servicioLibro = null;
 	ServicioEditorial servicioEditorial=null;
 	private final static Logger LOG = Logger.getLogger(LibrosController.class);
-
+  
 
 	public LibrosController() {
 		super();
@@ -47,7 +50,14 @@ public class LibrosController {
 		servicioEditorial= ServicioEditorial.getInstance();
 
 	}
-
+	
+	
+	
+	@ApiOperation(value = "Listado de Libros")
+	@ApiResponses(value =
+						{ 
+						  @ApiResponse(code = 200, message = "Libros encontradas"),
+						  @ApiResponse(code = 500, message = "Ha ocurrido un error") })
 	@RequestMapping(method = RequestMethod.GET)
 	public ResponseEntity<ArrayList<Libro>> listar() {
 		ResponseEntity<ArrayList<Libro>> response = new ResponseEntity<ArrayList<Libro>>(
@@ -64,7 +74,17 @@ public class LibrosController {
 
 		return response;
 	}
-
+	
+	
+	
+	@ApiOperation(value = "Detalle de un libro",response=Libro.class)
+	@ApiResponses(value =
+						{ 
+						  @ApiResponse(code = 200, message = "Libro encontrado"),
+						  @ApiResponse(code = 404, message = "El libro no existe"),
+						  @ApiResponse(code = 500, message = "Ha ocurrido un error")
+						  
+						  })
 	@RequestMapping(value = "{id}", method = RequestMethod.GET)
 	public ResponseEntity<Libro> detalle(@PathVariable long id) {
 		ResponseEntity<Libro> response = new ResponseEntity<Libro>(HttpStatus.INTERNAL_SERVER_ERROR);
@@ -83,31 +103,20 @@ public class LibrosController {
 		return response;
 
 	}
+	
+	
+	
+	
 
-	@RequestMapping(value = "{id}", method = RequestMethod.DELETE)
-	public ResponseEntity<Object> eliminar(@PathVariable long id) {
-		ResponseEntity<Object> response = new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-		try {
-
-			if (servicioLibro.eliminar(id)) {
-				response = new ResponseEntity<>(HttpStatus.OK);
-			} else {
-				response = new ResponseEntity<>(new ResponseMensaje("No se puede eliminar este Libro porque no existe"),
-						HttpStatus.NOT_FOUND);
-			}
-		} catch (SQLIntegrityConstraintViolationException e) {
-			LOG.error(e);
-			response = new ResponseEntity<>(
-					new ResponseMensaje("No se puede eliminar este Libro porque tiene un registro asociado"),
-					HttpStatus.CONFLICT);
-
-		} catch (Exception e) {
-			LOG.error(e);
-		}
-		return response;
-
-	}
-
+	
+	@ApiOperation(value = "Crear un libro",response=Libro.class,notes="<ol><li>TÍTULO: minimo 2 caracteres, máximo 150</li><li>ISBN: minimo 2 caracteres, máximo 20</li></ol>")
+	@ApiResponses(value =
+						{ 
+						  @ApiResponse(code = 201, message = "Libro creado"),
+						  @ApiResponse(code = 409, message = "<ol><li>El libro intenta crear ya existe</li><li>Los datos introducidos o su formato no son correctos</li></ol>"),
+						  @ApiResponse(code = 500, message = "Ha ocurrido un error")
+						  
+						  })
 	@RequestMapping(method = RequestMethod.POST)
 	public ResponseEntity<Object> crear(@RequestBody Libro libro) {
 
@@ -135,9 +144,11 @@ public class LibrosController {
 			}
 
 		} catch (SQLIntegrityConstraintViolationException e) {
-			LOG.error(e);
+			
 			response = new ResponseEntity<>(
 					new ResponseMensaje("Ya existe un libro con ese nombre, por favor cambialo"), HttpStatus.CONFLICT);
+			LOG.debug(response);
+
 		} catch (Exception e) {
 
 			LOG.error(e);
@@ -145,7 +156,21 @@ public class LibrosController {
 
 		return response;
 	}
-
+	
+	
+	
+	
+	
+	
+	@ApiOperation(value = "Modificar un libro",response=Libro.class,notes="<ol><li>TÍTULO: minimo 2 caracteres, máximo 150</li><li>ISBN: minimo 2 caracteres, máximo 20</li></ol>")
+	@ApiResponses(value =
+						{ 
+					
+						  @ApiResponse(code = 200, message = "Libro modificado con éxito"),
+						  @ApiResponse(code = 404, message = "El libro no existe"),
+						  @ApiResponse(code = 409, message = "Los datos introducidos o su formato son incorrectos"),
+						  @ApiResponse(code = 500, message = "Ha ocurrido un error")
+						  })
 	@RequestMapping(value = "{id}", method = RequestMethod.PUT)
 	public ResponseEntity<Object> modificar(@PathVariable long id, @RequestBody Libro libro) {
 		ResponseMensaje msg = new ResponseMensaje();
@@ -171,16 +196,48 @@ public class LibrosController {
 				response = new ResponseEntity<>(msg, HttpStatus.CONFLICT);
 
 			}
-		} catch (SQLIntegrityConstraintViolationException e) {
-			LOG.error(e);
-			response = new ResponseEntity<>(
-					new ResponseMensaje("Ya existe un/@ alumn@ con ese nombre, por favor elige otro nombre o apellido"),
-					HttpStatus.CONFLICT);
+		
 
 		} catch (Exception e) {
 			LOG.error(e);
 		}
 		return response;
+	}
+	
+	
+	
+	
+	@ApiOperation(value = "Eliminar un libro")
+	@ApiResponses(value =
+						{ 
+						  @ApiResponse(code = 200, message = "Libro eliminado"),
+						  @ApiResponse(code = 404, message = "El libro no existe"),
+						  @ApiResponse(code = 409, message = "No se puede borrar el libro porque hay un registro asociado"),
+						  @ApiResponse(code = 500, message = "Ha ocurrido un error")
+
+						  })
+	@RequestMapping(value = "{id}", method = RequestMethod.DELETE)
+	public ResponseEntity<Object> eliminar(@PathVariable long id) {
+		ResponseEntity<Object> response = new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+		try {
+
+			if (servicioLibro.eliminar(id)) {
+				response = new ResponseEntity<>(HttpStatus.OK);
+			} else {
+				response = new ResponseEntity<>(new ResponseMensaje("No se puede eliminar este Libro porque no existe"),
+						HttpStatus.NOT_FOUND);
+			}
+		} catch (SQLIntegrityConstraintViolationException e) {
+			
+			response = new ResponseEntity<>(
+					new ResponseMensaje("No se puede eliminar este Libro porque tiene un registro asociado"),
+					HttpStatus.CONFLICT);
+			LOG.debug(response);
+		} catch (Exception e) {
+			LOG.error(e);
+		}
+		return response;
+
 	}
 
 }

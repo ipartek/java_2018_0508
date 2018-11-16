@@ -176,6 +176,7 @@ public class PrestamoDAO {
 
 	public boolean prestar(long idLibro, long idAlumno, Date fechaInicio) throws Exception {
 		boolean resul = false;
+		
 
 		String sql = "{CALL `prestamoPrestar`(?,?,?,?)}";
 
