@@ -180,8 +180,8 @@ public class PrestamosController {
 					Prestamo pr = conseguirFechaFin(p);
 					response = new ResponseEntity<>(pr, HttpStatus.OK);
 				}else {
-					msg.setMensaje(ServicioPrestamo.EXCEPTION_PARAMETROS_INCORRECTOS_DEVOLUCION);
-					response = new ResponseEntity<>(msg, HttpStatus.NOT_MODIFIED);
+					msg.setMensaje(ServicioPrestamo.EXCEPTION_PARAMETROS_INCORRECTOS_PRESTAMO);
+					response = new ResponseEntity<>(msg, HttpStatus.BAD_REQUEST);
 				}
 				
 			}else {
@@ -192,13 +192,29 @@ public class PrestamosController {
 					response = new ResponseEntity<>(pr, HttpStatus.OK);
 				}else {
 					msg.setMensaje(ServicioPrestamo.EXCEPTION_PARAMETROS_INCORRECTOS_DEVOLUCION);
-					response = new ResponseEntity<>(msg, HttpStatus.NOT_MODIFIED);
+					response = new ResponseEntity<>(msg, HttpStatus.BAD_REQUEST);
 				}
 			}
 			
 			
 		} catch (Exception e) {
-			LOG.error(e);
+			String message = e.getMessage();
+			ResponseMensaje responseMsg = null;
+			
+			if (message.equals(ServicioPrestamo.EXCEPTION_LIBRO_SIN_PRESTAMO)
+					|| message.equals(ServicioPrestamo.EXCEPTION_ALUMNO_SIN_PRESTAMO)
+					|| message.equals(ServicioPrestamo.EXCEPTION_ALUMNO_PRESTADO)
+					|| message.equals(ServicioPrestamo.EXCEPTION_LIBRO_PRESTADO)) {
+
+				responseMsg = new ResponseMensaje(message);
+				response = new ResponseEntity<Object>(responseMsg,HttpStatus.CONFLICT);
+
+			}else {
+				responseMsg = new ResponseMensaje(message);
+				response = new ResponseEntity<Object>(responseMsg,HttpStatus.BAD_REQUEST);
+			}
+
+			LOG.debug(e);
 		}
 		
 		return response;	

@@ -15,7 +15,7 @@ public class ServicioPrestamo implements IServicePrestamo{
 	
 private static ServicioPrestamo INSTANCE = null;
 
-public static final String EXCEPTION_PARAMETROS_INCORRECTOS_PRESTAMO = "Necesitamos idLibro, idAlumno y FechaInicio";
+public static final String EXCEPTION_PARAMETROS_INCORRECTOS_PRESTAMO = "Necesitamos que idLibro, idAlumno y FechaInicio sean correctos";
 public static final String EXCEPTION_PARAMETROS_INCORRECTOS_DEVOLUCION = "Necesitamos que idLibro, idAlumno, FechaInicio y 'devuelto' sean correctos";
 public static final String EXCEPTION_NO_EXISTE_ALUMNO_LIBRO = "No podemos prestar si no existe el Alumno o Libro";
 public static final String EXCEPTION_LIBRO_PRESTADO = "Libro ya tiene un prestamos activo";
@@ -94,8 +94,9 @@ public static final String EXCEPTION_ALUMNO_SIN_PRESTAMO = "El alumno indicado n
 			Date oldFechaInicio) throws Exception {
 		
 		boolean resul = false;
+		boolean historico = false;
 		
-		if(comprobarDatosModificacion(idLibro, idAlumno, fechaInicio, oldIdLibro, oldIdAlumno, oldFechaInicio)) {
+		if(comprobarDatosModificacion(idLibro, idAlumno, fechaInicio, oldIdLibro, oldIdAlumno, oldFechaInicio, historico)) {
 			resul = daoPrestamo.modificarPrestamo(idLibro, idAlumno, fechaInicio, fechaFin, oldIdLibro, oldIdAlumno, oldFechaInicio);
 		}
 		
@@ -106,7 +107,15 @@ public static final String EXCEPTION_ALUMNO_SIN_PRESTAMO = "El alumno indicado n
 	public boolean modificarHistorico(long idLibro, long idAlumno, Date fechaInicio, Date fechaFin, Date fechaDevolucion, long oldIdLibro,
 			 long oldIdAlumno, Date oldFechaInicio) throws Exception {
 		
-		return daoPrestamo.modificarHistorico(idLibro, idAlumno, fechaInicio, fechaFin, fechaDevolucion, oldIdLibro, oldIdAlumno, oldFechaInicio);
+		boolean resul = false;
+		boolean historico = true;
+		
+		if(comprobarDatosModificacion(idLibro, idAlumno, fechaInicio, oldIdLibro, oldIdAlumno, oldFechaInicio, historico)) {
+			resul = daoPrestamo.modificarHistorico(idLibro, idAlumno, fechaInicio, fechaFin, fechaDevolucion, oldIdLibro, oldIdAlumno, oldFechaInicio);
+		}
+		
+		return resul;
+		
 	}
 	
 	private boolean comprobarDatosPrestamo(long idLibro, long idAlumno, Date fechaInicio) throws Exception {
@@ -169,13 +178,17 @@ public static final String EXCEPTION_ALUMNO_SIN_PRESTAMO = "El alumno indicado n
 
 	}
 
-	private boolean comprobarDatosModificacion(long idLibro, long idAlumno, Date fechaInicio, long oldIdLibro, long oldIdAlumno, Date oldFechaInicio) throws Exception {
+	private boolean comprobarDatosModificacion(long idLibro, long idAlumno, Date fechaInicio, long oldIdLibro, long oldIdAlumno, Date oldFechaInicio, boolean historico) throws Exception {
+		
 		boolean result = false;
+		
 		ArrayList<Libro> librosDisponibles = (ArrayList<Libro>) daoPrestamo.getLibrosDisponibles();
 		ArrayList<Alumno> alumnosDisponibles = (ArrayList<Alumno>) daoPrestamo.getAlumnosDisponibles();
+		
 		Alumno alumno = daoAlumno.getById(oldIdAlumno);
-		Libro libro = daoLibro.getById(oldIdLibro);
 		Alumno alumnoNuevo = daoAlumno.getById(idAlumno);
+		
+		Libro libro = daoLibro.getById(oldIdLibro);
 		Libro libroNuevo = daoLibro.getById(idLibro);
 
 		if (idLibro < 1 || idAlumno < 1 || fechaInicio == null || oldIdLibro < 1 || oldIdAlumno < 1 || oldFechaInicio == null ) {
@@ -185,24 +198,27 @@ public static final String EXCEPTION_ALUMNO_SIN_PRESTAMO = "El alumno indicado n
 		if (libro.getId() == -1 || alumno.getId() == -1 || libroNuevo.getId() == -1 || alumnoNuevo.getId() == -1) {
 			throw new Exception(EXCEPTION_NO_EXISTE_ALUMNO_LIBRO);
 		}
-
-		if (librosDisponibles.contains(libro)) {
-			throw new Exception(EXCEPTION_LIBRO_SIN_PRESTAMO);
-		}
-
-		if (alumnosDisponibles.contains(alumno)) {
-			throw new Exception(EXCEPTION_ALUMNO_SIN_PRESTAMO);
-		}
 		
-		if(libro.getId() != libroNuevo.getId()) {
-			if (!librosDisponibles.contains(libroNuevo)) {
-				throw new Exception(EXCEPTION_LIBRO_PRESTADO);
+		if(!historico) {
+
+			if (librosDisponibles.contains(libro)) {
+				throw new Exception(EXCEPTION_LIBRO_SIN_PRESTAMO);
 			}
-		}
-		
-		if(alumno.getId() != alumnoNuevo.getId()) {
-			if (!alumnosDisponibles.contains(alumnoNuevo)) {
-				throw new Exception(EXCEPTION_ALUMNO_PRESTADO);
+	
+			if (alumnosDisponibles.contains(alumno)) {
+				throw new Exception(EXCEPTION_ALUMNO_SIN_PRESTAMO);
+			}
+			
+			if(libro.getId() != libroNuevo.getId()) {
+				if (!librosDisponibles.contains(libroNuevo)) {
+					throw new Exception(EXCEPTION_LIBRO_PRESTADO);
+				}
+			}
+			
+			if(alumno.getId() != alumnoNuevo.getId()) {
+				if (!alumnosDisponibles.contains(alumnoNuevo)) {
+					throw new Exception(EXCEPTION_ALUMNO_PRESTADO);
+				}
 			}
 		}
 		
