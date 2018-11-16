@@ -119,47 +119,53 @@ public class PrestamosController {
 		return response;
 	}
 	
-	@ApiOperation(value = "Prestamo Devuelto", response = Prestamo.class)
+	@ApiOperation(value = "Prestamo Devuelto", response = Prestamo.class, notes = "Campos Obligatorios: <ol><li><b>fech_inicio</b> Fecha inicio</li><li><b>libro.id</b> Identificador del Libro </li><li><b>usuario.id</b> Identificador del Usuario </li><li><b>fecha_devolucion</b> Fecha Devolucion </li><li</ol>" )
 	@ApiResponses( value = {
-			@ApiResponse (code = 200, message = "Prestamo Devuelto"),
-			@ApiResponse (code = 409, message = "<o><li>No se puede devolver por que no exisiste datos incorrectos</li></o>")}
+			@ApiResponse (code = 200, message = "Prestamo Devuelto", response = Prestamo.class),
+			@ApiResponse(code = 400, message = "Faltan campos obligatorios", response = ResponseMensaje.class),
+			@ApiResponse (code = 409, message = "<o><li>No existe le Libro o Usuario</li><li>Usuario no tiene prestamo activo</li></o>", response = ResponseMensaje.class)}
 	)
 	
-	@RequestMapping(value = "/{idUsuario}/{idLibro}/{finicio}/{fdevuelto}", method = RequestMethod.DELETE)
-	public ResponseEntity<ResponseMensaje> devolver(@PathVariable long idUsuario, @PathVariable long idLibro, @PathVariable Date finicio, @PathVariable Date fdevuelto){
-		ResponseEntity<ResponseMensaje> response = null;
+	@RequestMapping(value = "/{idUsuario}/{idLibro}/{finicio}", method = RequestMethod.DELETE)
+	public ResponseEntity<Object> devolver(@PathVariable long idUsuario, @PathVariable long idLibro, @PathVariable Date finicio, @RequestBody Prestamo prestamo){
+		ResponseEntity<Object> response = new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 		
 		try {
-			Prestamo p = new Prestamo();
-			Libro l = new Libro();
-			Usuario u = new Usuario();
-			l.setId(idLibro);
-			p.setLibro(l);
-			u.setId(idUsuario);
-			p.setUsuario(u);
-			p.setFech_inicio(finicio);
-			p.setFecha_devuelto(fdevuelto);
 			
-			boolean devuelto = servicePrestamo.modificar(p);
+			prestamo.setUsuario(new Usuario(idUsuario,""));
+			prestamo.setLibro(new Libro(idLibro, "", "",null));
+			prestamo.setFech_inicio(finicio);
+			
+			
+			boolean devuelto = servicePrestamo.devolver(prestamo);
 			if(devuelto) {
-				ResponseMensaje msj = new ResponseMensaje("Prestamo devuelto");
-				response = new ResponseEntity<>(msj, HttpStatus.OK);
+				response = new ResponseEntity<Object>(prestamo, HttpStatus.OK);
+
 			}else {
-				ResponseMensaje msj = new ResponseMensaje("Prestamo no se ha podido devolver por que no exisiste");
-				response = new ResponseEntity<>(msj, HttpStatus.CONFLICT);
-				LOG.debug("Prestamo no se ha podido devolver por que no exisiste");
+				response = new ResponseEntity<Object>(prestamo, HttpStatus.INTERNAL_SERVER_ERROR);
 			}
 
 		} catch (Exception e) {
-			LOG.error("Error");
-			ResponseMensaje msj = new ResponseMensaje("Error");
-			response = new ResponseEntity<>(msj, HttpStatus.INTERNAL_SERVER_ERROR);
+			
+			String message = e.getMessage();
+			ResponseMensaje responseMsg = null;
+			
+			if (message.equals(ServicePrestamo. EXCEPTION_LIBRO_DEVUELTO )
+					|| message.equals(ServicePrestamo.EXCEPTION_USUARIO_DEVUELTO)) {
+
+				responseMsg = new ResponseMensaje(message);
+				response = new ResponseEntity<Object>(responseMsg,HttpStatus.CONFLICT);
+
+			}else {
+				responseMsg = new ResponseMensaje(message);
+				response = new ResponseEntity<Object>(responseMsg,HttpStatus.BAD_REQUEST);
+			}
+
+			LOG.debug(e);
 		}
-		
-		
+
 		return response;
 	}
-
 	
 	@ApiOperation(value = "Prestamo Modificado", response = Prestamo.class)
 	@ApiResponses( value = {
@@ -168,29 +174,22 @@ public class PrestamosController {
 	)
 	
 	@RequestMapping(value = "/{idUsuario}/{idLibro}/{finicio}", method = RequestMethod.PUT)
-	public ResponseEntity<ResponseMensaje> modificar(@PathVariable long idUsuario, @PathVariable long idLibro, @PathVariable Date finicio, @RequestBody Prestamo prestamoNuevo){
-		ResponseEntity<ResponseMensaje> response = null;
+	public ResponseEntity<Object> modificar(@PathVariable long idUsuario, @PathVariable long idLibro, @PathVariable Date finicio, @RequestBody Prestamo prestamoNuevo){
+		ResponseEntity<Object> response = new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 		
 		
 		
 		try {
-			Prestamo p = new Prestamo();
-			Libro l = new Libro();
-			Usuario u = new Usuario();
-			l.setId(idLibro);
-			p.setLibro(l);
-			u.setId(idUsuario);
-			p.setUsuario(u);
-			p.setFech_inicio(finicio);
 			
-			boolean modificado = servicePrestamo.modificarHistorico(prestamoNuevo, p);
+			prestamoNuevo.setUsuario(new Usuario(idUsuario,""));
+			prestamoNuevo.setLibro(new Libro(idLibro, "", "",null));
+			prestamoNuevo.setFech_inicio(finicio);
+			
+			boolean modificado = servicePrestamo.modificarHistorico(prestamoNuevo, prestamoNuevo);
 			if(modificado) {
-				ResponseMensaje msj = new ResponseMensaje("Prestamo modificado");
-				response = new ResponseEntity<>(msj, HttpStatus.OK);
+				response = new ResponseEntity<Object>(prestamoNuevo, HttpStatus.OK);
 			}else {
-				ResponseMensaje msj = new ResponseMensaje("Prestamo no se ha podido moficar el prestamos por que los datos son incorrectos");
-				response = new ResponseEntity<>(msj, HttpStatus.CONFLICT);
-				LOG.debug("Prestamo no se ha podido moficar el prestamos por que los datos son incorrectos");
+				response = new ResponseEntity<Object>(prestamoNuevo, HttpStatus.INTERNAL_SERVER_ERROR);
 			}
 		} catch (Exception e) {
 			LOG.error(e);

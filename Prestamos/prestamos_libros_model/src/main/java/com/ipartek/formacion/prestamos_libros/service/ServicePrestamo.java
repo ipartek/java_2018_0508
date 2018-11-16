@@ -24,7 +24,11 @@ public class ServicePrestamo implements IServicePrestamo {
 	public static final String EXCEPTION_LIBRO_PRESTADO = "Libro ya tiene un prestamos activo";
 	public static final String EXCEPTION_USUARIO_PRESTADO = "Usuario ya tiene un prestamos activo";
 	
-
+	public static final String EXCEPTION_PARAMETROS_INCORRECTOS_DEVUELTO = "Necesitamos idLibro, idUsuario, FechaInicio, FechaDevolucion";
+	public static final String EXCEPTION_NO_EXISTE_USUARIO_LIBRO_DEVUELTO = "No podemos devolver el libro si no existe el Usuario o Libro";
+	public static final String EXCEPTION_LIBRO_DEVUELTO = "Libro no tiene un prestamos activo";
+	public static final String EXCEPTION_USUARIO_DEVUELTO = "Usuario no tiene un prestamos activo";
+	
 	private ServicePrestamo() {	
 		daoPrestamo = PrestamoDAO.getInstance();
 		daoLibro = LibroDAO.getInstance();
@@ -91,14 +95,46 @@ public class ServicePrestamo implements IServicePrestamo {
 	}
 
 	@Override
-	public boolean modificar(Prestamo p) throws Exception {
-		boolean resul = false;
-		Prestamo prestamo = daoPrestamo.getByIds(p.getLibro().getId(), p.getUsuario().getId(), p.getFech_inicio());
-		if(prestamo.getLibro() != null) {
-			daoPrestamo.update(p);
-			resul = true;
+	public boolean devolver(Prestamo p) throws Exception {
+		
+		
+		boolean resul = false;	
+		long idLibro = -1;
+		long idUsuario = -1;
+		Date fInicio = null;
+		Date fDevuelto = null;
+		
+		//comprobar parametros obligatorios correctos
+		try {
+			idLibro = p.getLibro().getId();
+			idUsuario = p.getUsuario().getId();
+			fInicio = p.getFech_inicio();
+			fDevuelto = p.getFecha_devuelto();
+			
+			
+			if( idLibro < 1 || idUsuario < 1 || fInicio == null || fDevuelto == null) {
+				throw new Exception( EXCEPTION_PARAMETROS_INCORRECTOS_DEVUELTO);
+			}
+			
+		}catch (Exception e) {
+			
+			throw new Exception( EXCEPTION_PARAMETROS_INCORRECTOS_DEVUELTO);
+			
+		}	
+		//comprobar Existe Libro y Usuario
+		Libro libro = daoLibro.getById( String.valueOf(idLibro) );
+		Usuario usuario = daoUsuario.getById(String.valueOf(idUsuario));
+				
+		if ( libro.getId() == -1 || usuario.getId() == -1 ) {
+		throw new Exception( EXCEPTION_NO_EXISTE_USUARIO_LIBRO_DEVUELTO);
+				}
+		//comprobar Libro y Usuario tengan prestamos activos 		
+		
+		if ( daoPrestamo.update(p) ) {
+					return true;
+		}else {
+			throw new Exception( EXCEPTION_USUARIO_DEVUELTO);
 		}
-		return resul;
 	}
 
 	@Override
@@ -139,6 +175,8 @@ public class ServicePrestamo implements IServicePrestamo {
 	@Override
 	public boolean modificarHistorico(Prestamo p, Prestamo prestamoAntiguo) throws Exception {
 		boolean resul = false;
+		
+		
 		Prestamo prestamo = daoPrestamo.getByIds(prestamoAntiguo.getLibro().getId(), prestamoAntiguo.getUsuario().getId(), prestamoAntiguo.getFech_inicio());
 		if(prestamo.getLibro() != null) {
 			daoPrestamo.updateHistorico(p, prestamoAntiguo);

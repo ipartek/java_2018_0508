@@ -26,7 +26,7 @@ public interface IServicePrestamo {
 	// boolean devolver(long idLibro, long IdAlumno, DATE fechaRetorno ) throws
 	// Exception
 
-	boolean modificar(Prestamo p) throws Exception;
+	boolean devolver(Prestamo p) throws Exception;
 
 	boolean modificarPrestamo(Prestamo p, Prestamo prestamoAntiguo) throws Exception;
 	
