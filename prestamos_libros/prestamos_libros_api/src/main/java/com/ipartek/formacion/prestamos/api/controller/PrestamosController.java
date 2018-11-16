@@ -126,12 +126,11 @@ public class PrestamosController {
 		ResponseEntity<Object> response = new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 		ResponseMensaje rm = new ResponseMensaje();
 		System.out.println(fechaInicio);
-		SimpleDateFormat sdf1 = new SimpleDateFormat("yyyy-MM-dd");
 		java.sql.Date fechaInicioSql = new java.sql.Date(fechaInicio.getTime());
 
 		try {
 
-			Prestamo prestamo = servicePrestamo.obtenerPorId(idLibro, idAlumno, fechaInicioSql);
+			Prestamo prestamo = servicePrestamo.obtenerPorId( idAlumno, idLibro,fechaInicioSql);
 
 			if (prestamo != null) {
 
@@ -151,6 +150,30 @@ public class PrestamosController {
 
 	}
 	
+	
+	@ApiOperation(value = "Crear editoriales",notes = "Para la creacion de un prestamo se espera un objeto json<br>se pueden crear prestamos activos como finalizados<br> <h2>Campos olbigatorios</h2><ol><li> idUsuario</li> <li>idAlumno</li> <li> fechaInicio</li>"
+			+ "<h2>formato esperado</h2>"
+			+ "<pre>"			
+			+ "    {\n" + 
+			"        \"alumno\": {\n" + 
+			"            \"id\": 1,\n" + 
+			"            \"nombre\": \"\"\n" + 
+			"        },\n" + 
+			"        \"libro\": {\n" + 
+			"            \"id\": 6,\n" + 
+			"            \"titulo\": \"\",\n" + 
+			"            \"isbn\": \"\",\n" + 
+			"            \"editorial\": {\n" + 
+			"                \"id\": \"\",\n" + 
+			"                \"nombre\": \"\"\n" + 
+			"            }\n" + 
+			"        },\n" + 
+			"        \"fechaInicio\": \"2018-10-29\",\n" + 
+			"        \"fechaFin\": null,\n" + 
+			"        \"fechaRetorno\": null,\n " + 
+			"        \"diasRestantes\": 0\n" + 
+			"    }"+
+			"</pre>",response= Prestamo.class)
 	
 	@ApiImplicitParams({
 		@ApiImplicitParam(name = "prestamo",
@@ -176,29 +199,7 @@ public class PrestamosController {
 						"        \"diasRestantes\": 0\n" + 
 						"    }"
 						+ "<pre>") })
-	@ApiOperation(value = "Crear editoriales",notes = "Para la creacion de un prestamo se espera un objeto json<br>se pueden crear prestamos activos como finalizados<br> <h2>los campos olbigatorios</h2><ol><li> idUsuario</li>, <li>idAlumno</li> <li> fecha_inicio</li>"
-			+ "<h2>formato esperado</h2>"
-			+ "<pre>"			
-			+ "    {\n" + 
-			"        \"alumno\": {\n" + 
-			"            \"id\": 1,\n" + 
-			"            \"nombre\": \"\"\n" + 
-			"        },\n" + 
-			"        \"libro\": {\n" + 
-			"            \"id\": 6,\n" + 
-			"            \"titulo\": \"\",\n" + 
-			"            \"isbn\": \"\",\n" + 
-			"            \"editorial\": {\n" + 
-			"                \"id\": \"\",\n" + 
-			"                \"nombre\": \"\"\n" + 
-			"            }\n" + 
-			"        },\n" + 
-			"        \"fechaInicio\": \"2018-10-29\",\n" + 
-			"        \"fechaFin\": null,\n" + 
-			"        \"fechaRetorno\": null,\n " + 
-			"        \"diasRestantes\": 0\n" + 
-			"    }"+
-			"</pre>",response= Prestamo.class)
+	
 	@ApiResponses(value = { @ApiResponse(code = 200, message = "Prestamo Creado", response=Prestamo.class),
 			@ApiResponse(code = 400, message = "Faltan campos obligatorias y no tienen el formato correcto",response=ResponseMensaje.class),
 			@ApiResponse(code = 409, message = "Conflictos :<br> idLibro, idAlumno,fecha con mal formato o inextitente <br>Que ya exista<br> El usuario o el libro estan ya ocupados",response= ResponseMensaje.class) })
@@ -208,71 +209,18 @@ public class PrestamosController {
 		ResponseEntity<Object> response = new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 		ResponseMensaje rm = new ResponseMensaje();
 
-		boolean alumnoResul = false;
-		boolean libroResul = false;
-
 		try {
-			ArrayList<Alumno> alumnosDisponibles = new ArrayList<Alumno>();
-			ArrayList<Libro> librosDisponibles = new ArrayList<Libro>();
-			Alumno a = serviceAlumno.obtener(prestamo.getAlumno().getId());
-			Libro l = serviceLibro.obtener(prestamo.getLibro().getId());
-			alumnosDisponibles = (ArrayList<Alumno>) serviceAlumno.listarDisponibles();
-			librosDisponibles = (ArrayList<Libro>) serviceLibro.listarDisponibles();
-
-			for (Alumno al : alumnosDisponibles) {
-				if (al.getId() == a.getId()) {
-					alumnoResul = true;
-
-				}
-			}
-			for (Libro ld : librosDisponibles) {
-				if (l.getId() == ld.getId()) {
-					libroResul = true;
-				}
-			}
 			
-			if(alumnoResul == false || libroResul == false) {
-				if(alumnoResul == false) {
-					ErrorMsg +="Alumno no encontrado,";
-				}
-				if(libroResul == false) {
-					ErrorMsg +="Libro no encontrado,";
-				}
-			}
-			//TODO agregar los mensajes al response
+			if (servicePrestamo.prestar(prestamo.getAlumno().getId(), prestamo.getLibro().getId(),
+					prestamo.getFechaInicio())) {
 
-			prestamo.setAlumno(a);
-			prestamo.setLibro(l);
-			Set<ConstraintViolation<Prestamo>> violations = validator.validate(prestamo);
-			String[] errores = new String[violations.size()];
-
-			if (violations.size() > 0) {
-
-				int contador = 0;
-
-				// No tenemos ningun fallo, la Validacion es correcta
-				for (ConstraintViolation<Prestamo> violation : violations) {
-					
-					errores[contador] = violation.getPropertyPath() + ":" + violation.getMessage();
-					contador++;
-				}
-
-				rm.setErrores(errores);
-				rm.setMensaje("error de validación");
-				response = new ResponseEntity<>(rm, HttpStatus.CONFLICT);
+				response = new ResponseEntity<>(prestamo, HttpStatus.OK);
 
 			} else {
 
-				if (servicePrestamo.prestar(prestamo.getAlumno().getId(), prestamo.getLibro().getId(),
-						prestamo.getFechaInicio())) {
-
-					response = new ResponseEntity<>(prestamo, HttpStatus.OK);
-
-				} else {
-
-					response = new ResponseEntity<>(prestamo,HttpStatus.INTERNAL_SERVER_ERROR);
-				}
+				response = new ResponseEntity<>(prestamo,HttpStatus.INTERNAL_SERVER_ERROR);
 			}
+			
 
 		} catch (SQLIntegrityConstraintViolationException e) {
 			if (e.getMessage().contains("Duplicate entry")) {
@@ -297,7 +245,7 @@ public class PrestamosController {
 			LOG.error(e.getMessage());
 			e.printStackTrace();
 			String[] errores = new String[1];
-			errores[0] = "Asegurese de completar todos los campos, y de que tengan sentido";
+			errores[0] = e.getMessage();
 			rm.setMensaje("Error al crear el prestamo");
 			rm.setErrores(errores);
 			response = new ResponseEntity<>(rm, HttpStatus.CONFLICT);
@@ -329,8 +277,9 @@ public class PrestamosController {
 		try {
 
 			if (servicePrestamo.devolver(idAlumno, idLibro, fechaInicioSql, fechaRetornoSql)) {
-
-				response = new ResponseEntity<>(HttpStatus.OK);
+				Prestamo p = servicePrestamo.obtenerPorId(idAlumno, idLibro, fechaInicioSql);
+				
+				response = new ResponseEntity<>(p,HttpStatus.OK);
 
 			} else {
 
@@ -391,9 +340,7 @@ public class PrestamosController {
 			"        \"fechaRetorno\": null,\n " + 
 			"        \"diasRestantes\": 0\n" + 
 			"    }"+
-			"</pre>"
-			
-			
+			"</pre>"		
 				)
 	@ApiResponses(value = { @ApiResponse(code = 201, message = "Prestamo Creado", responseContainer="nose"),
 			@ApiResponse(code = 400, message = "No encontrado"),
@@ -402,65 +349,37 @@ public class PrestamosController {
 	public ResponseEntity<Object> modificar(@PathVariable int idAlumno,@PathVariable int idLibro,@PathVariable Date fechaInicio, @RequestBody Prestamo prestamo) {
 
 		ResponseEntity<Object> response = new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+		boolean resul = false;
 
 		try {
-			//Con prestamoActual es el aun registro sin modificar
-			Alumno a = new Alumno();
-			Libro l = new Libro();
-			a.setId(idAlumno);
-			l.setId(idAlumno);
+			//comprobamos que exista el registro a modificar
 			Prestamo prestamoActual = new Prestamo();
-			prestamoActual.setAlumno(a);
-			prestamoActual.setLibro(l);
-			prestamoActual.setFechaInicio(fechaInicio);
-			
-			
-			java.sql.Date fechaInicioDate = new java.sql.Date(prestamo.getFechaInicio().getTime());
-			java.sql.Date fechaRetornoDate = new java.sql.Date(prestamo.getFechaRetorno().getTime());
-			/*Alumno a = serviceAlumno.obtener(prestamo.getAlumno().getId());
-			Libro l = serviceLibro.obtener(prestamo.getLibro().getId());*/
-			prestamo.setAlumno(a);
-			prestamo.setLibro(l);
-
-			// comprobamos que el libro elegido y el alumno seleccionado esten libres
-
-			Set<ConstraintViolation<Prestamo>> violations = validator.validate(prestamo);
-			String[] errores = new String[violations.size()];
-			ResponseMensaje rm = new ResponseMensaje();
-
-			if (violations.size() > 0) {
-
-				int contador = 0;
-				// No ha pasado la valiadacion, iterar sobre los mensajes de validacion
-				for (ConstraintViolation<Prestamo> violation : violations) {
-
-					errores[contador] = violation.getPropertyPath() + " :" + violation.getMessage();
-					contador++;
-
-				}
-				rm.setErrores(errores);
-				rm.setMensaje("Error de validación");
-
-				response = new ResponseEntity<>(rm, HttpStatus.CONFLICT);
-
-			} else {
-
-				// prestamo.setId(id);
-
-				/*
-				 * if (servicePrestamo.modificar(prestamo.getAlumno().getId(),
-				 * prestamo.getLibro().getId(), fechaInicioDate, fechaRetornoDate)) {
-				 * 
-				 * response = new ResponseEntity<>(prestamo, HttpStatus.OK);
-				 * 
-				 * } else {
-				 * 
-				 * response = new ResponseEntity<>(HttpStatus.CONFLICT); }
-				 */
+			prestamoActual = servicePrestamo.obtenerPorId(idAlumno, idLibro, fechaInicio);
+			if (prestamoActual == null) {
+				
 			}
+			
+			//comprobamos los datos a modificar
+			if(prestamo.getAlumno().getId()<=0) {
+				
+			}
+			if(prestamo.getLibro().getId()<=0) {
+				
+			}
+			resul = servicePrestamo.modificar(idAlumno,idLibro,fechaInicio,prestamo.getAlumno().getId(),prestamo.getLibro().getId(),prestamo.getFechaInicio(),prestamo.getFechaFin(),prestamo.getFechaRetorno());
+			//long idAlumno, long idlibro, Date fechaInicio, long nuevoAlumno, long nuevoLibro, Date nuevaFecha, Date fechaFin, Date fechaRetorno
+			if (resul) {
+			  
+			  response = new ResponseEntity<>(prestamo, HttpStatus.OK);
+			  
+			} else {
+			  
+			  response = new ResponseEntity<>(HttpStatus.CONFLICT); }
+				 
+			
 
 		} catch (Exception e) {
-
+			e.printStackTrace();
 			LOG.error(e.getMessage());
 		}
 

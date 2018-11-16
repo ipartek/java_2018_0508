@@ -15,6 +15,7 @@ public class Libro {
 	@NotBlank
 	@Size(min = 13, max = 19)
 	private String isbn;
+	
 	private Editorial editorial;
 	
 	
@@ -84,6 +85,22 @@ public class Libro {
 
 
 
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Libro other = (Libro) obj;
+		if (id != other.id)
+			return false;
+		return true;
+	}
+
+
+	
 	
 	
 

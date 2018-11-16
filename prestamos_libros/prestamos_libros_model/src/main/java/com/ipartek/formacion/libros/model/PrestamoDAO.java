@@ -129,7 +129,7 @@ public class PrestamoDAO implements CrudAble<Prestamo> {
 
 	public boolean update(long idAlumno, long idlibro, Date fechaInicio, long nuevoAlumno, long nuevoLibro, Date nuevaFecha, Date fechaFin, Date fechaRetorno) throws Exception {
 		
-		boolean resul;
+		boolean resul = false;
 		
 		try (Connection con = ConnectionManager.getConnection();
 				CallableStatement sp = con.prepareCall("{CALL prestamoUpdate(?, ?, ?, ?, ?, ?, ?, ?)}");) {
@@ -155,6 +155,9 @@ public class PrestamoDAO implements CrudAble<Prestamo> {
 
 				resul = false;
 			}
+			
+		}catch (Exception e) {
+			e.printStackTrace();
 		}
 		return resul;
 	}

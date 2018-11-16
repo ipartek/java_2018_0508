@@ -44,6 +44,21 @@ public class Alumno {
 	public String toString() {
 		return "Alumno [id=" + id + ", nombre=" + nombre + "]";
 	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Alumno other = (Alumno) obj;
+		if (id != other.id)
+			return false;
+		return true;
+	}
+	
 	
 	
 	

@@ -2,8 +2,6 @@ package com.ipartek.formacion.libros.pojo;
 
 import java.sql.Date;
 
-import org.hibernate.validator.constraints.NotBlank;
-
 public class Prestamo {
 
 	private static final long MILLSECS_PER_DAY = 24 * 60 * 60 * 1000;
@@ -82,6 +80,8 @@ public class Prestamo {
 		return "Prestamo [alumno=" + alumno + ", libro=" + libro + ", fechaInicio=" + fechaInicio + ", fechaFin="
 				+ fechaFin + ", fechaRetorno=" + fechaRetorno + "]";
 	}
+	
+	
 
 	/*public int getDiasRestantes() {
 		 
