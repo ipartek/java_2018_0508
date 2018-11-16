@@ -20,8 +20,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.ipartek.formacion.prestamolibros.pojo.Alumno;
-import com.ipartek.formacion.prestamolibros.pojo.Libro;
 import com.ipartek.formacion.prestamolibros.pojo.Prestamo;
 import com.ipartek.formacion.prestamolibros.service.ServicioAlumno;
 import com.ipartek.formacion.prestamolibros.service.ServicioLibro;
@@ -165,7 +163,7 @@ public class PrestamosController {
 		
 	}
 	
-	@RequestMapping(value = "/libros/{idLibro}/prestamos/{idAlumno}/{fechaInicio}", method = RequestMethod.PUT)
+	@RequestMapping(value = "/prestamos/{idLibro}/{idAlumno}/{fechaInicio}", method = RequestMethod.PUT)
 	@ApiOperation(value = "Modificar un préstamo, esté activo o no.", response = Prestamo.class)
 	public ResponseEntity<Object> modificar(@PathVariable("idLibro") long idLibro, @PathVariable("idAlumno") long idAlumno, 
 			@PathVariable("fechaInicio") Date fechaInicio, @RequestBody Prestamo p) {
@@ -175,52 +173,29 @@ public class PrestamosController {
 		
 		try {
 			
-			Libro libro = servicioLibro.buscar(p.getLibro().getId());
-			p.setLibro(libro);
-			
-			Alumno alumno = servicioAlumno.buscar(p.getAlumno().getId());
-			p.setAlumno(alumno);
-			
-			Set<ConstraintViolation<Prestamo>> violations = validator.validate(p);
-			if(violations.isEmpty()) {
-				
-				if(p.getDevuelto() == null) {
+			if(p.getDevuelto() == null) {
 					
-					if(servicioPrestamo.modificarPrestamo(p.getLibro().getId(), p.getAlumno().getId(), p.getFechaInicio(), 
-							p.getFechaFin(), idLibro, idAlumno, fechaInicio)) {
-						Prestamo pr = conseguirFechaFin(p);
-						response = new ResponseEntity<>(pr, HttpStatus.OK);
-					}else {
-						response = new ResponseEntity<>(HttpStatus.NOT_MODIFIED);
-					}
-				
+				if(servicioPrestamo.modificarPrestamo(p.getLibro().getId(), p.getAlumno().getId(), p.getFechaInicio(), 
+						p.getFechaFin(), idLibro, idAlumno, fechaInicio)) {
+					Prestamo pr = conseguirFechaFin(p);
+					response = new ResponseEntity<>(pr, HttpStatus.OK);
 				}else {
-															
-					if(servicioPrestamo.modificarHistorico(p.getLibro().getId(), p.getAlumno().getId(), p.getFechaInicio(), p.getFechaFin(), 
-							p.getDevuelto(), idLibro, idAlumno, fechaInicio)) {
-						Prestamo pr = conseguirFechaFin(p);
-						response = new ResponseEntity<>(pr, HttpStatus.OK);
-					}else {
-						response = new ResponseEntity<>(HttpStatus.NOT_MODIFIED);
-					}
+					msg.setMensaje(ServicioPrestamo.EXCEPTION_PARAMETROS_INCORRECTOS_DEVOLUCION);
+					response = new ResponseEntity<>(msg, HttpStatus.NOT_MODIFIED);
 				}
-				
 				
 			}else {
-				
-				msg.setMensaje("No se pudo modificar el préstamo");
-				
-				for (ConstraintViolation<Prestamo> violation : violations) {
-					
-					msg.addError(violation.getPropertyPath() + ": " + violation.getMessage());
+															
+				if(servicioPrestamo.modificarHistorico(p.getLibro().getId(), p.getAlumno().getId(), p.getFechaInicio(), p.getFechaFin(), 
+						p.getDevuelto(), idLibro, idAlumno, fechaInicio)) {
+					Prestamo pr = conseguirFechaFin(p);
+					response = new ResponseEntity<>(pr, HttpStatus.OK);
+				}else {
+					msg.setMensaje(ServicioPrestamo.EXCEPTION_PARAMETROS_INCORRECTOS_DEVOLUCION);
+					response = new ResponseEntity<>(msg, HttpStatus.NOT_MODIFIED);
 				}
-				
-				response = new ResponseEntity<>(msg, HttpStatus.CONFLICT);
-				
 			}
 			
-		//}catch(SQLIntegrityConstraintViolationException e){
-			//response = new ResponseEntity<>(new ResponseMensaje("No se pudo modificar el libro ya que no existe la editorial indicada."), HttpStatus.CONFLICT);
 			
 		} catch (Exception e) {
 			LOG.error(e);
@@ -230,35 +205,37 @@ public class PrestamosController {
 		
 	}
 	
-	@RequestMapping(value = "/libros/{idLibro}/prestamos/{idAlumno}/{fechaInicio}", method = RequestMethod.DELETE)
-	@ApiOperation(value = "Devolver un libro", response = Prestamo.class)
+	@RequestMapping(value = "/prestamos/{idLibro}/{idAlumno}/{fechaInicio}", method = RequestMethod.DELETE)
+	@ApiOperation(value = "Devolver un libro", response = Prestamo.class,
+				  notes="Campos obligatorios:"
+				  	  + "<ol>"
+				  	  + "<li><b>libro.id</b> Identificador del libro</li>"
+				  	  + "<li><b>alumno.id</b> Identificador del alumno</li>"
+				  	  + "<li><b>fecha_inicio</b> Fecha inicio del préstamo</li>"
+				  	  + "<li><b>devuelto</b> Fecha de devolución del préstamo</li>"
+				  	  + "<li>El formato de fecha es: <b>yyyy-MM-dd</b></li>"
+				  	  + "</ol>")
 	public ResponseEntity<Object> devolver(@PathVariable("idLibro") long idLibro, @PathVariable("idAlumno") long idAlumno, 
-			@PathVariable("fechaInicio") Date fechaInicio, @RequestBody Prestamo p) {
+			@PathVariable("fechaInicio") Date fechaInicio, @RequestBody Prestamo prestamo) {
 		
 		ResponseEntity<Object> response = new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 		ResponseMensaje msg = new ResponseMensaje();
 		
 		try {
 			
-			Libro libro = servicioLibro.buscar(idLibro);
-			p.setLibro(libro);
-			
-			Alumno alumno = servicioAlumno.buscar(idAlumno);
-			p.setAlumno(alumno);
-			
-			Set<ConstraintViolation<Prestamo>> violations = validator.validate(p);
-			if(violations.isEmpty()) {
+			//Set<ConstraintViolation<Prestamo>> violations = validator.validate(prestamo);
+			//if(violations.isEmpty()) {
 				
-				if(servicioPrestamo.devolver(idAlumno, idLibro, fechaInicio, p.getDevuelto())) {
-					response = new ResponseEntity<>(p, HttpStatus.OK);
-				
-				}else {
-					msg.setMensaje("Debe introducir fecha de devolución");
-					response = new ResponseEntity<>(msg, HttpStatus.CONFLICT);
-				}
-				
+			if(servicioPrestamo.devolver(idAlumno, idLibro, fechaInicio, prestamo.getDevuelto())) {
+				response = new ResponseEntity<>(prestamo, HttpStatus.OK);
 				
 			}else {
+				msg.setMensaje(ServicioPrestamo.EXCEPTION_PARAMETROS_INCORRECTOS_DEVOLUCION);
+				response = new ResponseEntity<>(msg, HttpStatus.BAD_REQUEST);
+				//}
+				
+				
+			/*}else {
 				
 				msg.setMensaje("No se pudo devolver el libro");
 				
@@ -268,14 +245,28 @@ public class PrestamosController {
 				}
 				
 				response = new ResponseEntity<>(msg, HttpStatus.CONFLICT);
-				
+				*/
 			}
 			
 		//}catch(SQLIntegrityConstraintViolationException e){
 			//response = new ResponseEntity<>(new ResponseMensaje("No se pudo modificar el libro ya que no existe la editorial indicada."), HttpStatus.CONFLICT);
 			
-		} catch (Exception e) {
-			LOG.error(e);
+		}catch (Exception e) {
+			String message = e.getMessage();
+			ResponseMensaje responseMsg = null;
+			
+			if (message.equals(ServicioPrestamo.EXCEPTION_LIBRO_SIN_PRESTAMO)
+					|| message.equals(ServicioPrestamo.EXCEPTION_ALUMNO_SIN_PRESTAMO)) {
+
+				responseMsg = new ResponseMensaje(message);
+				response = new ResponseEntity<Object>(responseMsg,HttpStatus.CONFLICT);
+
+			}else {
+				responseMsg = new ResponseMensaje(message);
+				response = new ResponseEntity<Object>(responseMsg,HttpStatus.BAD_REQUEST);
+			}
+
+			LOG.debug(e);
 		}
 		
 		return response;	
