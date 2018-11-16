@@ -4,8 +4,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.sql.Date;
 import java.sql.SQLIntegrityConstraintViolationException;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Set;
 
@@ -131,24 +129,20 @@ public class PrestamoController {
 		return response;
 	}
 
-	@ApiOperation(
-			value = "Crea un préstamo con los valores introducidos (en formato JSON).", 
-			notes = "Devuelve el objeto creado (en formato JSON), o en caso de error, el mensaje.<br>"
-					+ "Campos obligatorios:"
-					+ "<ol><li>ID Alumno</li> <li>ID Libro</li> <li>Fecha Inicio (por defecto, día actual)</li></ol>",
-					response = Prestamo.class)
-	
-	@ApiResponses(value = { 
-			@ApiResponse(code = 201, message = "Préstamo correctamente realizado.", response=Prestamo.class),
+	@ApiOperation(value = "Crea un préstamo con los valores introducidos (en formato JSON).", notes = "Devuelve el objeto creado (en formato JSON), o en caso de error, el mensaje.<br>"
+			+ "Campos obligatorios:"
+			+ "<ol><li>ID Alumno</li> <li>ID Libro</li> <li>Fecha Inicio (por defecto, día actual)</li></ol>", response = Prestamo.class)
+
+	@ApiResponses(value = {
+			@ApiResponse(code = 201, message = "Préstamo correctamente realizado.", response = Prestamo.class),
 			@ApiResponse(code = 400, message = "Formato JSON incorrecto", response = ResponseMessage.class),
 			@ApiResponse(code = 409, message = "CONFLICTOS: "
 					+ "<ol><li>El libro o el alumno introducidos no existen en la base de datos</li>"
-					+ "<li>La longitud de alguno de los campos es incorrecta.</li></ol>.", response = ResponseMessage.class) 
-	})
-	
+					+ "<li>La longitud de alguno de los campos es incorrecta.</li></ol>.", response = ResponseMessage.class) })
+
 	@RequestMapping(method = RequestMethod.POST)
 	public ResponseEntity<Object> crear(
-			@ApiParam (value = "Prestamo a realizar en formato JSON.") @RequestBody Prestamo prestamo) {
+			@ApiParam(value = "Prestamo a realizar en formato JSON.") @RequestBody Prestamo prestamo) {
 
 		ResponseEntity<Object> response = new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
 
@@ -174,8 +168,7 @@ public class PrestamoController {
 
 				}
 
-				ResponseMessage msg = new ResponseMessage("Alguno de los campos no tiene una longitud adecuada.",
-						msgs);
+				ResponseMessage msg = new ResponseMessage("Alguno de los campos no tiene una longitud adecuada.", msgs);
 				response = new ResponseEntity<Object>(msg, HttpStatus.BAD_REQUEST);
 
 			}
@@ -183,8 +176,8 @@ public class PrestamoController {
 		} catch (SQLIntegrityConstraintViolationException e) {
 			String msg = "";
 
-			//	TODO: Hacerlo más elegante
-			//---------------------------------------------------------------------------------
+			// TODO: Hacerlo más elegante
+			// ---------------------------------------------------------------------------------
 			if (e.getMessage().contains("id_libro") && e.getMessage().contains("id_alumno")) {
 
 				msg = "El libro y el alumno introducidos no existen en la base de datos.";
@@ -211,16 +204,12 @@ public class PrestamoController {
 
 	}
 
-	@ApiOperation(value = "Devuelve un préstamo con la fecha de devolución introducida (en formato JSON).", 
-				notes = "Devuelve un cuerpo vacío, el código de respuesta o, en caso de error, el mensaje.", 
-				response = Prestamo.class)
+	@ApiOperation(value = "Devuelve un préstamo con la fecha de devolución introducida (en formato JSON).", notes = "Devuelve un cuerpo vacío, el código de respuesta o, en caso de error, el mensaje.", response = Prestamo.class)
 
-	@ApiResponses(value = 
-			{ 
-			@ApiResponse(code = 200, message = "Préstamo correctamente devuelto.", response=Prestamo.class),
-			@ApiResponse(code = 400, message = "Formato JSON incorrecto para alguno de los campos.", response=ResponseMessage.class),
-			@ApiResponse(code = 404, message = "Préstamo no encontrado.") 
-			})
+	@ApiResponses(value = {
+			@ApiResponse(code = 200, message = "Préstamo correctamente devuelto.", response = Prestamo.class),
+			@ApiResponse(code = 400, message = "Formato JSON incorrecto para alguno de los campos.", response = ResponseMessage.class),
+			@ApiResponse(code = 404, message = "Préstamo no encontrado.") })
 
 	@RequestMapping(value = "/{idLibro}/{idAlumno}/{fInicio}", method = RequestMethod.DELETE)
 
@@ -230,18 +219,8 @@ public class PrestamoController {
 		ResponseEntity<Object> response = new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
 
 		try {
-		
-			DateFormat fmt = new SimpleDateFormat("yyyy-MM-dd");
 
-			java.sql.Date fechaInicio = new Date(fmt.parse(fInicio.toString()).getTime());
-
-			if (prestamo.getFechaRetorno() == null) {
-
-				prestamo.setFechaRetorno(new Date(new java.util.Date().getTime()));
-
-			} 
-			
-			if (servicio.devolver(idAlumno, idLibro, fechaInicio, prestamo.getFechaRetorno())) {
+			if (servicio.devolver(idAlumno, idLibro, fInicio, prestamo.getFechaRetorno())) {
 
 				response = new ResponseEntity<Object>(prestamo, HttpStatus.OK);
 
@@ -260,27 +239,25 @@ public class PrestamoController {
 		return response;
 	}
 
-	@ApiOperation(
-			value = "Modifica un préstamo con los valores introducidos (en formato JSON).", 
-			notes = "Devuelve el objeto creado (en formato JSON), o en caso de error, el mensaje.<br>"
-					+ "Valores por defecto:"
-					+ "<ol><li>Para cualquier fecha erróneamente introducida, se cogerá la fecha actual del sistema.</li></ol>",
-					response = Prestamo.class)
-	
-	@ApiResponses(value = { 
-			@ApiResponse(code = 201, message = "Préstamo correctamente realizado.", response=Prestamo.class),
+	@ApiOperation(value = "Modifica un préstamo con los valores introducidos (en formato JSON).", notes = "Devuelve el objeto creado (en formato JSON), o en caso de error, el mensaje.<br>"
+			+ "Valores por defecto:"
+			+ "<ol><li>Para cualquier fecha erróneamente introducida, se cogerá la fecha actual del sistema.</li></ol>", response = Prestamo.class)
+
+	@ApiResponses(value = {
+			@ApiResponse(code = 201, message = "Préstamo correctamente realizado.", response = Prestamo.class),
 			@ApiResponse(code = 400, message = "Formato JSON incorrecto", response = ResponseMessage.class),
 			@ApiResponse(code = 409, message = "CONFLICTOS: "
 					+ "<ol><li>El libro o el alumno introducidos no existen en la base de datos</li>"
-					+ "<li>La longitud de alguno de los campos es incorrecta.</li></ol>.", response = ResponseMessage.class) 
-	})
-	
+					+ "<li>La longitud de alguno de los campos es incorrecta.</li></ol>.", response = ResponseMessage.class) })
+
 	@RequestMapping(value = "/{idLibro}/{idAlumno}/{fInicio}", method = RequestMethod.PUT)
 	public ResponseEntity<Object> modificar(@PathVariable long idLibro, @PathVariable long idAlumno,
 			@PathVariable Date fInicio, @RequestBody Prestamo prestamo) {
 
 		ResponseEntity<Object> response = new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
-
+		
+		ResponseMessage msg;
+		
 		try {
 
 			Set<ConstraintViolation<Prestamo>> violations = validator.validate(prestamo);
@@ -307,21 +284,41 @@ public class PrestamoController {
 
 				}
 
-				ResponseMessage msg = new ResponseMessage("Alguno de los campos no tiene una longitud adecuada..",
-						msgs);
+				msg = new ResponseMessage("Alguno de los campos no tiene una longitud adecuada..", msgs);
 				response = new ResponseEntity<Object>(msg, HttpStatus.BAD_REQUEST);
 			}
 
 		} catch (SQLIntegrityConstraintViolationException e) {
+			
 
-			response = new ResponseEntity<>(new ResponseMessage("La editorial para este libro no existe."),
-					HttpStatus.NOT_IMPLEMENTED);
-			LOG.warn(e);
+			String responseMessage = null;
+
+			//			TODO: Hacerlo más elegante
+			// ---------------------------------------------------------------------------------
+			if (e.getMessage().contains("libro") && e.getMessage().contains("alumno")) {
+
+				responseMessage = "El libro y el alumno introducidos tienen préstamos asociados.";
+
+			} else if (e.getMessage().contains("id_libro")) {
+
+				responseMessage = "El libro introducido ya tiene un préstamo asociado.";
+
+			} else if (e.getMessage().contains("id_alumno")) {
+
+				responseMessage = "El alumno introducido ya tiene un préstamo asociado.";
+
+			}
+			
+			msg = new ResponseMessage(responseMessage);
+			response = new ResponseEntity<Object>(msg, HttpStatus.CONFLICT);
+			LOG.debug(e);
 
 		} catch (Exception e) {
 
 			response = INTERNAL_SERVER_ERROR_RESPONSE;
-			LOG.error(e.getCause() + "\t" + e.getMessage());
+			LOG.debug(e.getCause() + "\t" + e.getMessage());
+
+			e.printStackTrace();
 		}
 
 		return response;

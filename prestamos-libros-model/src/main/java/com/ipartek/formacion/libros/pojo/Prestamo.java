@@ -7,6 +7,12 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 public class Prestamo {
 
+	@Override
+	public Prestamo clone() throws CloneNotSupportedException {
+		
+		return (Prestamo) this.clone();
+	}
+
 	private static final long MILLSECS_PER_DAY = 24 * 60 * 60 * 1000;
 
 	private Alumno alumno;

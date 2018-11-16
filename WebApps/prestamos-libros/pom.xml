@@ -98,6 +98,7 @@
 			<version>2.2.4</version>
 			<scope>test</scope>
 		</dependency>
+		
 		<dependency>
 			<groupId>org.glassfish.web</groupId>
 			<artifactId>javax.el</artifactId>
