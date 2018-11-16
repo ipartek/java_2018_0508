@@ -21,9 +21,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ipartek.formacion.pojo.Alumno;
+import com.ipartek.formacion.pojo.Editorial;
 import com.ipartek.formacion.pojo.Libro;
 import com.ipartek.formacion.pojo.Prestamo;
 import com.ipartek.formacion.service.ServiceAlumno;
+import com.ipartek.formacion.service.ServiceEditorial;
 import com.ipartek.formacion.service.ServiceLibro;
 import com.ipartek.formacion.service.ServicePrestamo;
 import com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationException;
@@ -129,35 +131,57 @@ public class PrestamosController {
 
 		return response;
 	}
-//
-//	@ApiOperation(value = "Devolver prestamo", response = Prestamo.class, notes = "Campos obligatorios:<ol><li><b>identificador del libro</b></li><li><b>identificador del alumno</b></li><li><b>fecha que se realiza el prestamo</b></li><li><b>fecha en la que se realiza la devolución</b></li></ol>")
-//	@RequestMapping(value = "/{idLibro}/{idALumno}/{fecha_prestado}/{fecha_devolucion}", method = RequestMethod.DELETE)
-//	public ResponseEntity<Object> devolver(@PathVariable long idLibro,@PathVariable long idALumno, @PathVariable Date fecha_prestado) throws Exception {
-//
-//		ResponseEntity<Object> response = new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
-//
-//		try {
-//
-//			if (serviceAlumno.eliminar(id)) {
-//				response = new ResponseEntity<>(HttpStatus.OK);
-//			} else {
-//				response = new ResponseEntity<>(
-//						new ResponseMensaje("No se ha encotrado ningun registro, cambie de identificador"),
-//						HttpStatus.NOT_FOUND);
-//			}
-//
-//		} catch (MySQLIntegrityConstraintViolationException e) {
-//
-//			response = new ResponseEntity<>(
-//					new ResponseMensaje(
-//							"No es posible eliminar el registro deseado porque tiene algun prestamo pendiente."),
-//					HttpStatus.CONFLICT);
-//
-//		} catch (Exception e) {
-//			LOG.error(e);
-//		}
-//		return response;
-//	}
+
+	@ApiOperation(value = "Devolver prestamo", response = Prestamo.class, notes = "Campos obligatorios:<ol><li><b>identificador del libro</b></li><li><b>identificador del alumno</b></li><li><b>fecha que se realiza el prestamo</b></li><li><b>Fecha de devolución del libro</b></li></ol>")
+	@RequestMapping(value = "/{idLibro}/{idALumno}/{fecha_prestado}", method = RequestMethod.DELETE)
+	public ResponseEntity<Object> devolver(@PathVariable long idLibro,@PathVariable long idALumno, @PathVariable Date fecha_prestado,@RequestBody Prestamo prestamo) throws Exception {
+
+		ResponseEntity<Object> response = new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
+
+		try {
+
+			prestamo.setAlumno(new Alumno(idALumno,""));
+			prestamo.setLibro(new Libro(idLibro, null, null, 0, null));
+			prestamo.setFecha_prestado(fecha_prestado);
+			
+			if (servicePrestamo.devolver(prestamo)) {
+				
+				Alumno a = new Alumno();
+				a = ServiceAlumno.getInstance().buscarPorId(prestamo.getAlumno().getId());
+				prestamo.setAlumno(a);
+
+				Libro l = new Libro();
+				l = ServiceLibro.getInstance().buscarPorId(prestamo.getLibro().getId());
+				
+				Editorial e =new Editorial();
+				e=ServiceEditorial.getInstance().buscarPorId(l.getEditorial().getId());
+				l.setEditorial(e);
+				
+				prestamo.setLibro(l);
+				prestamo.setFecha_prestado(prestamo.getFecha_prestado());				
+				
+				
+				response = new ResponseEntity<>(prestamo,HttpStatus.OK);
+			} else {
+				response = new ResponseEntity<>(
+						new ResponseMensaje("No se ha encontrado ningun registro, cambie de identificador"),
+						HttpStatus.NOT_FOUND);
+				LOG.debug("No se ha encotrado ningun registro, cambie de identificador");
+			}
+
+		} catch (MySQLIntegrityConstraintViolationException e) {
+
+			response = new ResponseEntity<>(
+					new ResponseMensaje(
+							"No es posible eliminar el registro deseado porque tiene algun prestamo pendiente."),
+					HttpStatus.CONFLICT);
+			LOG.debug("No es posible eliminar el registro deseado porque tiene algun prestamo pendiente.");
+
+		} catch (Exception e) {
+			LOG.error(e);
+		}
+		return response;
+	}
 
 
 
@@ -198,6 +222,11 @@ public class PrestamosController {
 
 				Libro l = new Libro();
 				l = ServiceLibro.getInstance().buscarPorId(prestamo.getLibro().getId());
+				
+				Editorial e =new Editorial();
+				e=ServiceEditorial.getInstance().buscarPorId(l.getEditorial().getId());
+				l.setEditorial(e);
+				
 				prestamo.setLibro(l);
 				prestamo.setFecha_prestado(prestamo.getFecha_prestado());
 
@@ -221,50 +250,62 @@ public class PrestamosController {
 		}
 		return response;
 	}
+	
+	@ApiOperation(value = "Modificar prestamo", response = Prestamo.class, notes = "Campos obligatorios:<ol><li><b>identificador del libro</b></li><li><b>identificador del alumno</b></li><li><b>fecha que se realiza el prestamo</b></li></ol>")
+	@ApiResponses(value = { @ApiResponse(code = 200, message = " Prestamo modificado", response = Prestamo.class),
+							@ApiResponse(code = 400, message = " Faltan campos obligatorios", response = ResponseMensaje.class),
+							@ApiResponse(code = 409, message = " <ol><li>No existe el libro o el alumno o la fecha no es correcta</li>", response = ResponseMensaje.class)})
+	@RequestMapping(value = "/{idLibro}/{idAlumno}/{fechaPrestado}", method = RequestMethod.PUT)
+	public ResponseEntity<Object> modificar(
+			@PathVariable long idLibro,
+			@PathVariable long idAlumno,
+			@PathVariable Date fechaPrestado, 
+			@RequestBody Prestamo prestamo) throws Exception {
 
-	// put endPoint/libros/{id_libro}/prestamos/{id_alumno}/{fecha_inicio}
+		ResponseEntity<Object> response = new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
+		ResponseMensaje responseMensaje = new ResponseMensaje();
 
-//	@RequestMapping(value = "/{id}", method = RequestMethod.PUT)
-//	public ResponseEntity<Object> modificar(@PathVariable long id, @RequestBody Alumno alumno) throws Exception {
-//
-//		ResponseEntity<Object> response = new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
-//		ResponseMensaje responseMensaje = new ResponseMensaje();
-//
-//		try {
-//			alumno.setId(id);
-//			Set<ConstraintViolation<Alumno>> violations = validator.validate(alumno);
-//			if (violations.size() > 0) {
-//				/* No ha pasado la valiadacion, iterar sobre los mensajes de validacion */
-//
-//				ArrayList<String> errores = new ArrayList<>();
-//				for (ConstraintViolation<Alumno> violation : violations) {
-//					errores.add(violation.getPropertyPath() + ": " + violation.getMessage());
-//
-//				}
-//				responseMensaje.setErrores(errores);
-//				responseMensaje.setMensaje("Datos no validos");
-//
-//				response = new ResponseEntity<>(responseMensaje, HttpStatus.CONFLICT);
-//			} else {
-//				if (serviceAlumno.modificar(alumno)) {
-//					response = new ResponseEntity<>(alumno, HttpStatus.OK);
-//				} else {
-//					response = new ResponseEntity<>(
-//							new ResponseMensaje("No se ha encotrado ningun registro, cambie de identificador"),
-//							HttpStatus.NOT_FOUND);
-//				}
-//			}
-//
-//		} catch (MySQLIntegrityConstraintViolationException e) {
-//
-//			response = new ResponseEntity<>(
-//					new ResponseMensaje("Ya existe el alumno,Por favor prueba con otro nombre."),
-//					HttpStatus.CONFLICT);
-//
-//		} catch (Exception e) {
-//			LOG.error(e);
-//		}
-//		return response;
-//	}
+		try {			
+			
+			Set<ConstraintViolation<Prestamo>> violations = validator.validate(prestamo);
+			if (violations.size() > 0) {
+				/* No ha pasado la valiadacion, iterar sobre los mensajes de validacion */
+
+				ArrayList<String> errores = new ArrayList<>();
+				for (ConstraintViolation<Prestamo> violation : violations) {
+					errores.add(violation.getPropertyPath() + ": " + violation.getMessage());
+
+				}
+				responseMensaje.setErrores(errores);
+				responseMensaje.setMensaje("Datos no validos");
+
+				response = new ResponseEntity<>(responseMensaje, HttpStatus.CONFLICT);
+				LOG.debug("Datos no validos");
+		
+			} else {	
+				
+				if (servicePrestamo.modificar(idLibro, idAlumno, fechaPrestado, prestamo.getLibro().getId(), prestamo.getAlumno().getId(), prestamo.getFecha_prestado(), prestamo.getFecha_fin(), prestamo.getFecha_retorno())) {
+					response = new ResponseEntity<>(prestamo, HttpStatus.OK);
+				} else {
+					response = new ResponseEntity<>(
+							new ResponseMensaje("No se ha encotrado ningun registro, cambie de identificador"),
+							HttpStatus.NOT_FOUND);
+					LOG.debug("No se ha encontrado ningun registro, cambie de identificador");
+				}
+			}
+
+		} catch (MySQLIntegrityConstraintViolationException e) {
+
+			response = new ResponseEntity<>(
+					new ResponseMensaje(""
+							+ ""),
+					HttpStatus.CONFLICT);
+			LOG.debug("Error en restricciones ");
+
+		} catch (Exception e) {
+			LOG.error(e);
+		}
+		return response;
+	}
 
 }

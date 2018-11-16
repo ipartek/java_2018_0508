@@ -13,6 +13,9 @@ import com.ipartek.formacion.pojo.Alumno;
 import com.ipartek.formacion.pojo.Editorial;
 import com.ipartek.formacion.pojo.Libro;
 import com.ipartek.formacion.pojo.Prestamo;
+import com.ipartek.formacion.service.ServiceAlumno;
+import com.ipartek.formacion.service.ServiceEditorial;
+import com.ipartek.formacion.service.ServiceLibro;
 
 public class PrestamoDAO implements Crudable<Prestamo> {
 
@@ -42,11 +45,12 @@ public class PrestamoDAO implements Crudable<Prestamo> {
 			cs.setLong(2, pojo.getLibro().getId());
 			cs.setDate(3, (Date) pojo.getFecha_prestado());
 			cs.registerOutParameter("pfechafin", Types.DATE);
-			
+
 			int affectedRows = cs.executeUpdate();
 
 			if (affectedRows == 1) {
-				//Date fecha=cs.getDate("pfechafin");
+				 Date fecha=cs.getDate("pfechafin");
+				 pojo.setFecha_fin(fecha);
 
 				resul = true;
 
@@ -75,9 +79,8 @@ public class PrestamoDAO implements Crudable<Prestamo> {
 
 				Libro l = new Libro();
 				l.setId(rs.getLong("id_libro"));
-				l.setTitulo(rs.getString("titulo"));	
+				l.setTitulo(rs.getString("titulo"));
 				p.setLibro(l);
-				
 
 				prestamos.add(p);
 			}
@@ -107,12 +110,12 @@ public class PrestamoDAO implements Crudable<Prestamo> {
 				l.setId(rs.getLong("id_libro"));
 				l.setTitulo(rs.getString("titulo"));
 				l.setIsbn(rs.getString("isbn"));
-				
-				Editorial e =new Editorial();
+
+				Editorial e = new Editorial();
 				e.setId(rs.getLong("id_editorial"));
 				e.setNombre(rs.getString("nombre_editorial"));
-				
-				l.setEditorial(e);	
+
+				l.setEditorial(e);
 				p.setLibro(l);
 
 				prestamos.add(p);
@@ -142,11 +145,11 @@ public class PrestamoDAO implements Crudable<Prestamo> {
 				l.setId(rs.getLong("id_libro"));
 				l.setTitulo(rs.getString("titulo"));
 				l.setIsbn(rs.getString("isbn"));
-				
-				Editorial e =new Editorial();
+
+				Editorial e = new Editorial();
 				e.setId(rs.getLong("id_editorial"));
 				e.setNombre(rs.getString("nombre_editorial"));
-				
+
 				l.setEditorial(e);
 				p.setLibro(l);
 
@@ -224,11 +227,11 @@ public class PrestamoDAO implements Crudable<Prestamo> {
 					l.setId(rs.getLong("id_libro"));
 					l.setTitulo(rs.getString("titulo"));
 					l.setIsbn(rs.getString("isbn"));
-					
-					Editorial e=new Editorial();
+
+					Editorial e = new Editorial();
 					e.setId(rs.getLong("id_editorial"));
 					e.setNombre(rs.getString("editorial"));
-					
+
 					l.setEditorial(e);
 
 					prestamo.setLibro(l);
@@ -239,22 +242,23 @@ public class PrestamoDAO implements Crudable<Prestamo> {
 		}
 		return prestamo;
 	}
-	
-	public boolean modifyAll(long idAlumno, long idLibro, Date fechaPrestado, long idAlumnoNEW, long idLibroNEW, Date fechaPrestadoNEW, Date fechaFinal, Date fechaRetorno) throws SQLException {
+
+	public boolean modifyAll(long idAlumno, long idLibro, Date fechaPrestado, long idAlumnoNEW, long idLibroNEW,
+			Date fechaPrestadoNEW, Date fechaFinal, Date fechaRetorno) throws SQLException {
 		boolean resul = false;
 
 		String sql = "{call prestamoUpdate(?,?,?,?,?,?,?,?)}";
-		
+
 		try (Connection con = ConnectionManager.getConnection(); CallableStatement cs = con.prepareCall(sql);) {
 
 			cs.setLong(1, idAlumno);
 			cs.setLong(2, idLibro);
 			cs.setDate(3, fechaPrestado);
-			
+
 			cs.setLong(4, idAlumnoNEW);
 			cs.setLong(5, idLibroNEW);
 			cs.setDate(6, fechaPrestadoNEW);
-			
+
 			cs.setDate(7, fechaFinal);
 			cs.setDate(8, fechaRetorno);
 
@@ -268,22 +272,25 @@ public class PrestamoDAO implements Crudable<Prestamo> {
 		return resul;
 	}
 
-	@Override
-	public boolean update(Prestamo pojo) throws Exception {
+	public boolean devolver(Prestamo pojo) throws Exception {
 		boolean resul = false;
 
-		String sql = "{call prestamoDevolver(?,?,?,?)}";
-		
+		String sql = "{call prestamoDevolver(?,?,?,?,?)}";
+
 		try (Connection con = ConnectionManager.getConnection(); CallableStatement cs = con.prepareCall(sql);) {
 
 			cs.setLong(1, pojo.getAlumno().getId());
 			cs.setLong(2, pojo.getLibro().getId());
 			cs.setDate(3, pojo.getFecha_prestado());
 			cs.setDate(4, pojo.getFecha_retorno());
+			cs.registerOutParameter("pfechafin", Types.DATE);
 
 			int affectedRows = cs.executeUpdate();
 
 			if (affectedRows == 1) {
+
+				 Date fecha=cs.getDate("pfechafin");
+				 pojo.setFecha_fin(fecha);
 				resul = true;
 			}
 
@@ -293,6 +300,12 @@ public class PrestamoDAO implements Crudable<Prestamo> {
 
 	@Override
 	public boolean delete(String id) throws Exception {
+		return false;
+	}
+
+	@Override
+	public boolean update(Prestamo pojo) throws Exception {
+
 		return false;
 	}
 

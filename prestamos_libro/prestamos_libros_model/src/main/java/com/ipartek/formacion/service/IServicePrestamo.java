@@ -29,7 +29,7 @@ public interface IServicePrestamo {
 	 * @return true si se realiza correctamente la modificacion, false si ocurre algun fallo
 	 * @throws Exception
 	 */
-	boolean devolver(long idLibro, long idAlumno, Date fechaPrestado, Date fechaRetorno) throws Exception;
+	boolean devolver(Prestamo prestamo) throws Exception;
 	
 	/**
 	 * 
