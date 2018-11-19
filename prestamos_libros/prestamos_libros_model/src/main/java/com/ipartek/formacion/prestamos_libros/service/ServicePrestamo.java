@@ -20,9 +20,11 @@ public class ServicePrestamo implements IServicePrestamo {
 	private static AlumnoDAO daoAlumno = AlumnoDAO.getInstance();
 	
 	public static final String EXCEPTION_PARAMETROS_INCORRECTOS = "Necesitamos idLibro, idUsuario y FechaInicio";
-	public static final String EXCEPTION_NO_EXISTE_USUARIO_LIBRO = "No podemos prestar si no existe el Usuario o Libro";
+	public static final String EXCEPTION_NO_EXISTE_ALUMNO_LIBRO = "No podemos prestar si no existe el Alumno o el Libro";
 	public static final String EXCEPTION_LIBRO_PRESTADO = "Libro ya tiene un prestamos activo";
-	public static final String EXCEPTION_USUARIO_PRESTADO = "Usuario ya tiene un prestamos activo";
+	public static final String EXCEPTION_ALUMNO_PRESTADO = "Alumno ya tiene un prestamos activo";
+	public static final String EXCEPTION_PRESTAMO_YA_FINALIZADO = "No se puede finalizar un préstamo ya finalizado.";
+	public static final String EXCEPTION_FECHA_RETORNO_VACIA = "Es obligatorio introducir la fecha de retorno";
 
 	private ServicePrestamo() {
 		super();
@@ -81,7 +83,7 @@ public class ServicePrestamo implements IServicePrestamo {
 				resul = true;
 			}
 		}else if(!alumnoEncontrado) {
-			throw new Exception(EXCEPTION_USUARIO_PRESTADO);
+			throw new Exception(EXCEPTION_ALUMNO_PRESTADO);
 		}else if(!libroEncontrado) {
 			throw new Exception(EXCEPTION_LIBRO_PRESTADO);
 		}
@@ -116,20 +118,31 @@ public class ServicePrestamo implements IServicePrestamo {
 		
 		comprobaciones(p);
 		
-		Alumno a = new Alumno();
-		a.setId(p.getAlumno().getId());
-		p.setAlumno(a);
-
-		Libro l = new Libro();
-		l.setId(p.getLibro().getId());
-
-		p.setLibro(l);
+		Prestamo prestamo = buscarPorId(p.getLibro().getId(), p.getAlumno().getId(), p.getFecha_prestado());
 		
-		p.setFecha_prestado(p.getFecha_prestado());
-		p.setFecha_retorno(p.getFecha_retorno());		
+		if(prestamo != null && prestamo.getFecha_retorno() == null) {
+			Alumno a = new Alumno();
+			a.setId(p.getAlumno().getId());
+			p.setAlumno(a);
 
-		if (daoPrestamo.devolver(p)) {
-			resul=true;
+			Libro l = new Libro();
+			l.setId(p.getLibro().getId());
+
+			p.setLibro(l);
+			
+			p.setFecha_prestado(p.getFecha_prestado());
+			
+			if(p.getFecha_retorno() != null) {
+				p.setFecha_retorno(p.getFecha_retorno());
+				if (daoPrestamo.devolver(p)) {
+					resul=true;
+				}
+			}else {
+				throw new Exception(EXCEPTION_FECHA_RETORNO_VACIA);
+			}
+			
+		}else {
+			throw new Exception(EXCEPTION_PRESTAMO_YA_FINALIZADO);
 		}
 		
 		return resul;
@@ -173,6 +186,10 @@ public class ServicePrestamo implements IServicePrestamo {
 			if (daoPrestamo.updateAll(idAlumnoOld, idLibroOld, fechaPrestadoOld, idAlumnoNew, idLibroNew, fechaPrestadoNew, fechaFinal, fechaRetorno)) {
 				resul=true;
 			}
+		}else if(!alumnoEncontrado){
+			throw new Exception(EXCEPTION_ALUMNO_PRESTADO);
+		}else if(!libroEncontrado) {
+			throw new Exception(EXCEPTION_LIBRO_PRESTADO);
 		}
 		
 		return resul;
@@ -208,8 +225,8 @@ public class ServicePrestamo implements IServicePrestamo {
 		Libro libro = daoLibro.getById( String.valueOf(idLibro) );
 		Alumno alumno = daoAlumno.getById(String.valueOf(idAlumno));
 		
-		if ( libro == null || alumno == null ) {
-			throw new Exception(EXCEPTION_NO_EXISTE_USUARIO_LIBRO);
+		if ( libro.getId() < 0 || alumno.getId() < 0 ) {
+			throw new Exception(EXCEPTION_NO_EXISTE_ALUMNO_LIBRO);
 		}
 	}
 }

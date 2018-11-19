@@ -194,6 +194,8 @@ public class PrestamosController {
 			response = new ResponseEntity<>(msj, HttpStatus.CONFLICT);
 		} catch (Exception e) {
 			LOG.error(e);
+			ResponseMensaje msj = new ResponseMensaje(e.getMessage());
+			response = new ResponseEntity<>(msj, HttpStatus.NOT_FOUND);
 		}
 
 		return response;
@@ -310,6 +312,8 @@ public class PrestamosController {
 			response = new ResponseEntity<>(msj, HttpStatus.CONFLICT);
 		} catch (Exception e) {
 			LOG.error(e);
+			ResponseMensaje msj = new ResponseMensaje(e.getMessage());
+			response = new ResponseEntity<>(msj, HttpStatus.CONFLICT);
 		}
 
 		return response;
