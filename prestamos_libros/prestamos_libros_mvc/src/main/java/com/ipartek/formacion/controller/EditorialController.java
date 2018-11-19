@@ -12,6 +12,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.log4j.Logger;
+
 import com.ipartek.formacion.pojo.Alert;
 import com.ipartek.formacion.pojo.Editorial;
 import com.ipartek.formacion.service.ServiceEditorial;
@@ -22,6 +24,9 @@ import com.ipartek.formacion.service.ServiceEditorial;
 @WebServlet("/editoriales")
 public class EditorialController extends HttpServlet implements CrudControllable {
 	private static final long serialVersionUID = 1L;
+	
+	private final static Logger LOG = Logger.getLogger(EditorialController.class);
+	
 	private static ServiceEditorial srvcEditorial;
 
 	private static final String VIEW_LISTADO = "/editorial/editoriales.jsp";
@@ -91,7 +96,7 @@ public class EditorialController extends HttpServlet implements CrudControllable
 			}
 
 		} catch (Exception e) {
-			e.printStackTrace();
+			LOG.debug(e);
 			alerta = new Alert();
 			view = VIEW_LISTADO;
 		} finally {
@@ -117,7 +122,7 @@ public class EditorialController extends HttpServlet implements CrudControllable
 			session.setAttribute("n_editoriales", editorial.size());
 
 		} catch (Exception e) {
-			e.printStackTrace();
+			LOG.debug(e);
 		}
 	}
 
@@ -152,11 +157,12 @@ public class EditorialController extends HttpServlet implements CrudControllable
 			}
 
 		} catch (SQLIntegrityConstraintViolationException e) {
-			e.printStackTrace();
+			
 			alerta = new Alert("El registro ya existe", Alert.WARNING);
+			LOG.debug(e);
 
 		} catch (Exception e) {
-			e.printStackTrace();
+			LOG.debug(e);
 		}
 
 		view = VIEW_LISTADO;
@@ -173,11 +179,11 @@ public class EditorialController extends HttpServlet implements CrudControllable
 			alerta = new Alert("El registro se ha eliminado con exito.", Alert.SUCCESS);
 
 		} catch (SQLIntegrityConstraintViolationException e) {
-			e.printStackTrace();
+			LOG.debug(e);
 			alerta = new Alert("El registro a eliminar tiene libros asociados", Alert.DANGER);
 
 		} catch (Exception e) {
-			e.printStackTrace();
+			LOG.debug(e);
 		}
 		view = VIEW_LISTADO;
 

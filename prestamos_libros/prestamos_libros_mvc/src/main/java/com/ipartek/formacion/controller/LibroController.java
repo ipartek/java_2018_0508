@@ -12,6 +12,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.log4j.Logger;
+
 import com.ipartek.formacion.pojo.Alert;
 import com.ipartek.formacion.pojo.Libro;
 import com.ipartek.formacion.service.ServiceEditorial;
@@ -23,6 +25,8 @@ import com.ipartek.formacion.service.ServiceLibro;
 @WebServlet("/libros")
 public class LibroController extends HttpServlet implements CrudControllable {
 	private static final long serialVersionUID = 1L;
+	
+	private final static Logger LOG = Logger.getLogger(LibroController.class);
 
 	private static ServiceLibro srvcLibro = null;
 	private static ServiceEditorial srvcEditorial = null;
@@ -97,7 +101,7 @@ public class LibroController extends HttpServlet implements CrudControllable {
 			}
 
 		} catch (Exception e) {
-			e.printStackTrace();
+			LOG.debug(e);
 			view = VIEW_LISTADO;
 		} finally {
 			session.setAttribute("alerta", alerta);
@@ -127,7 +131,7 @@ public class LibroController extends HttpServlet implements CrudControllable {
 			session.setAttribute("n_libros", libro.size());
 
 		} catch (Exception e) {
-			e.printStackTrace();
+			LOG.debug(e);
 		}
 	}
 
@@ -172,11 +176,11 @@ public class LibroController extends HttpServlet implements CrudControllable {
 			}
 
 		} catch (SQLIntegrityConstraintViolationException e) {
-			e.printStackTrace();
+			LOG.debug(e);
 			alerta = new Alert("El registro ya existe", Alert.WARNING);
 
 		} catch (Exception e) {
-			e.printStackTrace();
+			LOG.debug(e);
 		}
 
 		view = VIEW_LISTADO;
@@ -193,7 +197,7 @@ public class LibroController extends HttpServlet implements CrudControllable {
 			alerta = new Alert("El registro se ha eliminado con exito.", Alert.SUCCESS);
 
 		} catch (Exception e) {
-			e.printStackTrace();
+			LOG.debug(e);
 		}
 		view = VIEW_LISTADO;
 

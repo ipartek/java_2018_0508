@@ -12,6 +12,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.log4j.Logger;
+
 import com.ipartek.formacion.pojo.Alert;
 import com.ipartek.formacion.pojo.Prestamo;
 import com.ipartek.formacion.service.ServiceAlumno;
@@ -24,6 +26,8 @@ import com.ipartek.formacion.service.ServicePrestamo;
 @WebServlet("/prestamos")
 public class PrestamoController extends HttpServlet implements CrudControllable {
 	private static final long serialVersionUID = 1L;
+	
+	private final static Logger LOG = Logger.getLogger(PrestamoController.class);
 
 	private static ServicePrestamo srvcPrestamo = null;
 	private static ServiceAlumno srvcAlumno = null;
@@ -108,7 +112,7 @@ public class PrestamoController extends HttpServlet implements CrudControllable 
 			}
 
 		} catch (Exception e) {
-			e.printStackTrace();
+			LOG.debug(e);
 			view = VIEW_LISTADO;
 		} finally {
 			session.setAttribute("alerta", alerta);
@@ -139,7 +143,7 @@ public class PrestamoController extends HttpServlet implements CrudControllable 
 			session.setAttribute("n_prestamos", prestamos.size());
 
 		} catch (Exception e) {
-			e.printStackTrace();
+			LOG.debug(e);
 		}
 	}
 
@@ -172,7 +176,7 @@ public class PrestamoController extends HttpServlet implements CrudControllable 
 
 					p.setFecha_inicio(sqlDate);
 				} catch (Exception e) {
-					e.printStackTrace();
+					LOG.debug(e);
 				}
 				alerta = new Alert();
 
@@ -228,13 +232,13 @@ public class PrestamoController extends HttpServlet implements CrudControllable 
 					}
 
 				} catch (Exception e) {
-					e.printStackTrace();
+					LOG.debug(e);
 				}
 
 			}
 
 		} catch (Exception e) {
-			e.printStackTrace();
+			LOG.debug(e);
 		}
 
 	}
@@ -249,7 +253,7 @@ public class PrestamoController extends HttpServlet implements CrudControllable 
 			session.setAttribute("n_prestamos", prestamos.size());
 
 		} catch (Exception e) {
-			e.printStackTrace();
+			LOG.debug(e);
 		}
 	}
 
@@ -274,7 +278,7 @@ public class PrestamoController extends HttpServlet implements CrudControllable 
 				p.setFecha_inicio(sqlDateDevolucionFI);
 				p.setFecha_devuelto(sqlDateDevolucionFD);
 			} catch (Exception e) {
-				e.printStackTrace();
+				LOG.debug(e);
 			}
 
 			alerta = new Alert();
@@ -285,7 +289,7 @@ public class PrestamoController extends HttpServlet implements CrudControllable 
 			session.setAttribute("prestamos", srvcPrestamo.prestados());
 
 		} catch (Exception e) {
-			e.printStackTrace();
+			LOG.debug(e);
 		}
 
 	}

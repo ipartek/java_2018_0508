@@ -12,6 +12,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.log4j.Logger;
+
 import com.ipartek.formacion.pojo.Alert;
 import com.ipartek.formacion.pojo.Alumno;
 import com.ipartek.formacion.service.ServiceAlumno;
@@ -22,6 +24,9 @@ import com.ipartek.formacion.service.ServiceAlumno;
 @WebServlet("/alumnos")
 public class AlumnoController extends HttpServlet implements CrudControllable {
 	private static final long serialVersionUID = 1L;
+	
+	private final static Logger LOG = Logger.getLogger(AlumnoController.class);
+	
 	private static ServiceAlumno srvcAlumno = null;
 
 	private static final String VIEW_LISTADO = "alumno/alumnos.jsp";
@@ -91,7 +96,7 @@ public class AlumnoController extends HttpServlet implements CrudControllable {
 			}
 
 		} catch (Exception e) {
-			e.printStackTrace();
+			LOG.debug(e);
 			view = VIEW_LISTADO;
 		} finally {
 			session.setAttribute("alerta", alerta);
@@ -118,7 +123,8 @@ public class AlumnoController extends HttpServlet implements CrudControllable {
 			request.setAttribute("n_alumnos", alumno.size());
 
 		} catch (Exception e) {
-			e.printStackTrace();
+			LOG.debug(e);
+			
 		}
 	}
 
@@ -152,11 +158,12 @@ public class AlumnoController extends HttpServlet implements CrudControllable {
 			}
 
 		} catch (SQLIntegrityConstraintViolationException e) {
-			e.printStackTrace();
+			
 			alerta = new Alert("El registro ya existe en la base de datos", Alert.WARNING);
+			LOG.debug(e);
 
 		} catch (Exception e) {
-			e.printStackTrace();
+			LOG.debug(e);
 		}
 
 		view = VIEW_LISTADO;
@@ -171,11 +178,11 @@ public class AlumnoController extends HttpServlet implements CrudControllable {
 			srvcAlumno.eliminar(Long.parseLong(id));
 			alerta = new Alert("Registro eliminado correctamente", Alert.SUCCESS);
 		} catch (SQLIntegrityConstraintViolationException e) {
-			e.printStackTrace();
+			LOG.debug(e);
 			alerta = new Alert("El registro a eliminar tiene libros asociados", Alert.DANGER);
 
 		} catch (Exception e) {
-			e.printStackTrace();
+			LOG.debug(e);
 		}
 		view = VIEW_LISTADO;
 
