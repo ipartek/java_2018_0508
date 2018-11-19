@@ -19,6 +19,7 @@ public class ServicePrestamo implements IServicePrestamo {
 
 	private static ServicePrestamo INSTANCE = null;
 
+	public static final String EXCEPTION_PARAMETROS_PRESTAMO_INCORRECTO = "Prestamo no existe";
 	public static final String EXCEPTION_PARAMETROS_INCORRECTOS = "Necesitamos idLibro, idAlumno y FechaInicio";
 	public static final String EXCEPTION_NO_EXISTE_USUARIO_LIBRO = "No podemos prestar si no existe el Alumno o Libro";
 	public static final String EXCEPTION_LIBRO_PRESTADO = "Libro ya tiene un prestamos activo";
@@ -74,6 +75,7 @@ public class ServicePrestamo implements IServicePrestamo {
 		long idLibro = -1;
 		long idAlumno = -1;
 		Date fInicio = null;
+		Date fDevuelto = null;
 
 		// comprobar parametros obligatorios correctos
 		try {
@@ -101,14 +103,17 @@ public class ServicePrestamo implements IServicePrestamo {
 
 		// comprobar Libro y Usuario no tengan prestamos
 		List<Libro> librosDisponibles = daoPrestamo.getByLibrosLibres();
-		if (!librosDisponibles.contains(libro)) {
-			throw new Exception(EXCEPTION_LIBRO_PRESTADO);
-		}
+			if (!librosDisponibles.contains(libro)) {
+				throw new Exception(EXCEPTION_LIBRO_PRESTADO);
+			}
+			List<Alumno> alumnosDisponible = daoPrestamo.getByAlmunosLibres();
+			if (!alumnosDisponible.contains(alumno)) {
+				throw new Exception(EXCEPTION_ALUMNO_PRESTADO);
 
-		List<Alumno> alumnosDisponible = daoPrestamo.getByAlmunosLibres();
-		if (!alumnosDisponible.contains(alumno)) {
-			throw new Exception(EXCEPTION_ALUMNO_PRESTADO);
 		}
+		
+
+		
 
 		resul = daoPrestamo.modificar(p);
 		if (resul) {
