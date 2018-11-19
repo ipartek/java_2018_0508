@@ -66,7 +66,7 @@ public class ServicePrestamo implements IServicePrestamo {
 		Libro libro = daoLibro.getById( String.valueOf(idLibro) );
 		Usuario usuario = daoUsuario.getById(String.valueOf(idUsuario));
 		
-		if ( libro == null || usuario == null ) {
+		if ( libro.getId() == -1 || usuario.getId() == -1 ) {
 			throw new Exception(EXCEPTION_NO_EXISTE_USUARIO_LIBRO);
 		}
 		

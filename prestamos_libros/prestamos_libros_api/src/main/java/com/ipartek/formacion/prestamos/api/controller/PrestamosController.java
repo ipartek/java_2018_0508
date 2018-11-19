@@ -118,23 +118,17 @@ public class PrestamosController {
 		return response;
 	}
 
-	@RequestMapping(value = "/{idUsuario}/{idLibro}/{finicio}/{fdevuelto}", method = RequestMethod.DELETE)
+	@RequestMapping(value = "/{idUsuario}/{idLibro}/{finicio}", method = RequestMethod.DELETE)
 	public ResponseEntity<ResponseMensaje> devolver(@PathVariable long idUsuario, @PathVariable long idLibro,
-			@PathVariable Date finicio, @PathVariable Date fdevuelto) {
+			@PathVariable Date finicio, @RequestBody Prestamo prestamo) {
 		ResponseEntity<ResponseMensaje> response = null;
 
 		try {
-			Prestamo p = new Prestamo();
-			Libro l = new Libro();
-			Usuario u = new Usuario();
-			l.setId(idLibro);
-			p.setLibro(l);
-			u.setId(idUsuario);
-			p.setUsuario(u);
-			p.setFech_inicio(finicio);
-			p.setFecha_devuelto(fdevuelto);
-
-			boolean devuelto = servicePrestamo.modificar(p);
+			prestamo.setUsuario( new Usuario(idUsuario, ""));
+			prestamo.setLibro( new Libro(idLibro, "", "", null) );
+			prestamo.setFech_inicio(finicio);
+			
+			boolean devuelto = servicePrestamo.modificar(prestamo);
 			if (devuelto) {
 				ResponseMensaje msj = new ResponseMensaje("Prestamo devuelto");
 				response = new ResponseEntity<>(msj, HttpStatus.OK);
