@@ -134,7 +134,7 @@ public class PrestamosController {
 			
 			prestamo.setUsuario(new Usuario(idUsuario,""));
 			prestamo.setLibro(new Libro(idLibro, "", "",null));
-			prestamo.setFech_inicio(finicio);
+			prestamo.setFecha_inicio(finicio);
 			
 			
 			boolean devuelto = servicePrestamo.devolver(prestamo);
@@ -188,7 +188,7 @@ public class PrestamosController {
 			p.setLibro(l);
 			u.setId(idUsuario);
 			p.setUsuario(u);
-			p.setFech_inicio(finicio);
+			p.setFecha_inicio(finicio);
 
 			boolean modificado = servicePrestamo.modificarHistorico(prestamoNuevo, p);
 			if (modificado) {

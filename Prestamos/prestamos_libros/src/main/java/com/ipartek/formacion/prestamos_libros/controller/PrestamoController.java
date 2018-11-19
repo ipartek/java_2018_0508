@@ -137,7 +137,7 @@ public class PrestamoController extends HttpServlet {
 					p.setLibro(l);
 					u.setId(Long.parseLong(usuario));
 					p.setUsuario(u);
-					p.setFech_inicio(new java.sql.Date(sdf.parse(fecha_inicio).getTime()));
+					p.setFecha_inicio(new java.sql.Date(sdf.parse(fecha_inicio).getTime()));
 					
 					if(prestamoService.crear(p)) {
 						alert = new Alert(Alert.SUCCESS, "El prestamo se dio de alta correctamente.");
@@ -164,7 +164,7 @@ public class PrestamoController extends HttpServlet {
 					p.setLibro(l);
 					u.setId(Long.parseLong(usuario));
 					p.setUsuario(u);
-					p.setFech_inicio( new java.sql.Date(sdf.parse(fecha_inicio).getTime()));
+					p.setFecha_inicio( new java.sql.Date(sdf.parse(fecha_inicio).getTime()));
 					p.setFecha_devuelto(new java.sql.Date(sdf.parse(fecha_devolucion).getTime()));
 					
 					if(prestamoService.devolver(p)) {
@@ -199,7 +199,7 @@ public class PrestamoController extends HttpServlet {
 				try {
 					
 					Prestamo prestamoAntiguo = new Prestamo();
-					prestamoAntiguo.setFech_inicio(new java.sql.Date(sdf.parse(fecha_inicioAntiguo).getTime()));
+					prestamoAntiguo.setFecha_inicio(new java.sql.Date(sdf.parse(fecha_inicioAntiguo).getTime()));
 					Libro libAntiguo = new Libro();
 					libAntiguo.setId(Long.parseLong(libroAntiguo));
 					prestamoAntiguo.setLibro(libAntiguo);
@@ -207,8 +207,8 @@ public class PrestamoController extends HttpServlet {
 					usuAntiguo.setId(Long.parseLong(usuarioAntiguo));
 					prestamoAntiguo.setUsuario(usuAntiguo);				
 					
-					p.setFech_inicio(new java.sql.Date(sdf.parse(fecha_inicio).getTime()));
-					p.setFech_fin(new java.sql.Date(sdf.parse(fecha_fin).getTime()));
+					p.setFecha_inicio(new java.sql.Date(sdf.parse(fecha_inicio).getTime()));
+					p.setFecha_fin(new java.sql.Date(sdf.parse(fecha_fin).getTime()));
 					l.setId(Long.parseLong(libro));
 					p.setLibro(l);
 					u.setId(Long.parseLong(usuario));
@@ -249,7 +249,7 @@ public class PrestamoController extends HttpServlet {
 				try {
 					
 					Prestamo prestamoAntiguo = new Prestamo();
-					prestamoAntiguo.setFech_inicio(new java.sql.Date(sdf.parse(fecha_inicioAntiguo).getTime()));
+					prestamoAntiguo.setFecha_inicio(new java.sql.Date(sdf.parse(fecha_inicioAntiguo).getTime()));
 					Libro libAntiguo = new Libro();
 					libAntiguo.setId(Long.parseLong(libroAntiguo));
 					prestamoAntiguo.setLibro(libAntiguo);
@@ -257,7 +257,7 @@ public class PrestamoController extends HttpServlet {
 					usuAntiguo.setId(Long.parseLong(usuarioAntiguo));
 					prestamoAntiguo.setUsuario(usuAntiguo);				
 					
-					p.setFech_inicio(new java.sql.Date(sdf.parse(fecha_inicio).getTime()));
+					p.setFecha_inicio(new java.sql.Date(sdf.parse(fecha_inicio).getTime()));
 					p.setFecha_devuelto(new java.sql.Date(sdf.parse(fecha_devolucion).getTime()));
 					l.setId(Long.parseLong(libro));
 					p.setLibro(l);

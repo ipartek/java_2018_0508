@@ -53,7 +53,7 @@ public class ServicePrestamo implements IServicePrestamo {
 		try {
 			idLibro = p.getLibro().getId();
 			idUsuario = p.getUsuario().getId();
-			fInicio = p.getFech_inicio();
+			fInicio = p.getFecha_inicio();
 			
 			if( idLibro < 1 || idUsuario < 1 || fInicio == null ) {
 				throw new Exception(EXCEPTION_PARAMETROS_INCORRECTOS);
@@ -108,7 +108,7 @@ public class ServicePrestamo implements IServicePrestamo {
 		try {
 			idLibro = p.getLibro().getId();
 			idUsuario = p.getUsuario().getId();
-			fInicio = p.getFech_inicio();
+			fInicio = p.getFecha_inicio();
 			fDevuelto = p.getFecha_devuelto();
 			
 			
@@ -177,7 +177,7 @@ public class ServicePrestamo implements IServicePrestamo {
 		
 		boolean resul = false;
 		
-		Prestamo prestamo = daoPrestamo.getByIds(prestamoAntiguo.getLibro().getId(), prestamoAntiguo.getUsuario().getId(), prestamoAntiguo.getFech_inicio());
+		Prestamo prestamo = daoPrestamo.getByIds(prestamoAntiguo.getLibro().getId(), prestamoAntiguo.getUsuario().getId(), prestamoAntiguo.getFecha_inicio());
 		if(prestamo.getLibro() != null) {
 			daoPrestamo.updateHistorico(p, prestamoAntiguo);
 			resul = true;

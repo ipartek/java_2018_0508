@@ -1,6 +1,5 @@
 package com.ipartek.formacion.prestamos_libros.service;
 
-import java.sql.Date;
 import java.util.List;
 
 import com.ipartek.formacion.prestamos_libros.pojo.Libro;

@@ -38,10 +38,10 @@
 								<td>${d.libro.titulo}</td>
 								<td>${d.usuario.nombreApellido}</td>
 								
-								<td><fmt:formatDate pattern = "MM/dd/yyyy" value = "${d.fech_inicio}" /></td>
+								<td><fmt:formatDate pattern = "MM/dd/yyyy" value = "${d.fecha_inicio}" /></td>
 								<td><fmt:formatDate pattern = "MM/dd/yyyy" value = "${d.fecha_devuelto}" /></td>
 								
-								<td><a href="prestamo?op=8&libro=${d.libro.id}&usuario=${d.usuario.id}&fechaInicio=<fmt:formatDate pattern = "dd-MM-yyyy" value = "${d.fech_inicio}" />" class="btn btn-primary"> Editar</a></td>
+								<td><a href="prestamo?op=8&libro=${d.libro.id}&usuario=${d.usuario.id}&fechaInicio=<fmt:formatDate pattern = "dd-MM-yyyy" value = "${d.fecha_inicio}" />" class="btn btn-primary"> Editar</a></td>
 							</tr>
 						</c:forEach>
                         </tbody>

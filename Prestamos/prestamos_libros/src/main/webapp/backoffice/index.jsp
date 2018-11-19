@@ -39,11 +39,11 @@
 									<td>${p.libro.titulo}</td>
 									<td>${p.usuario.nombreApellido}</td>
 									<td>${p.diasRestantes}</td>
-									<td><fmt:formatDate pattern = "MM/dd/yyyy" value = "${p.fech_inicio}" /></td>
-									<td><fmt:formatDate pattern = "MM/dd/yyyy" value = "${p.fech_fin}" /></td>
+									<td><fmt:formatDate pattern = "MM/dd/yyyy" value = "${p.fecha_inicio}" /></td>
+									<td><fmt:formatDate pattern = "MM/dd/yyyy" value = "${p.fecha_fin}" /></td>
 									
-										<td><button type="button" class="btn btn-primary btn-sm" onclick="showModalDevolucion('${p.libro.id}','${p.usuario.id}','<fmt:formatDate pattern = "MM/dd/yyyy" value = "${p.fech_inicio}" />')"> Devolver</button></td>
-										<td><a href="prestamo?op=6&libro=${p.libro.id}&usuario=${p.usuario.id}&fechaInicio=<fmt:formatDate pattern = "dd-MM-yyyy" value = "${p.fech_inicio}" />" class="btn btn-primary btn-sm"> Editar</a></td>
+										<td><button type="button" class="btn btn-primary btn-sm" onclick="showModalDevolucion('${p.libro.id}','${p.usuario.id}','<fmt:formatDate pattern = "MM/dd/yyyy" value = "${p.fecha_inicio}" />')"> Devolver</button></td>
+										<td><a href="prestamo?op=6&libro=${p.libro.id}&usuario=${p.usuario.id}&fechaInicio=<fmt:formatDate pattern = "dd-MM-yyyy" value = "${p.fecha_inicio}" />" class="btn btn-primary btn-sm"> Editar</a></td>
 										
 								</tr>
                       		</c:forEach>

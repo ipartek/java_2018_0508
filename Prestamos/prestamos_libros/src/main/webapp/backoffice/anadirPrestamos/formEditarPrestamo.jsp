@@ -26,7 +26,7 @@
 										<input type="hidden" name="op" value="7" />
 										<input type="hidden" name="idlibroAntiguo" value="${prestamo.libro.id}" />
 										<input type="hidden" name="idUsuarioAntiguo" value="${prestamo.usuario.id}" />
-										<input type="hidden" name="fechaInicioAntiguo" value="<fmt:formatDate pattern = "MM/dd/yyyy" value = "${prestamo.fech_inicio }" />" />
+										<input type="hidden" name="fechaInicioAntiguo" value="<fmt:formatDate pattern = "MM/dd/yyyy" value = "${prestamo.fecha_inicio }" />" />
 										<div class="row">
 											<div class="form-group col-6">
 												<label>TITULO LIBRO - <a href="libro?op=4">Nuevo Libro</a></label> 
@@ -55,11 +55,11 @@
 										<div class="row">
 											<div class="form-group col">
 												<label for="last_name">FECHA PRESTAMO</label> 
-												 <input name="fechaInicio" id="datepicker" width="276" value="<fmt:formatDate pattern = "MM/dd/yyyy" value = "${prestamo.fech_inicio }" />" required/>
+												 <input name="fechaInicio" id="datepicker" width="276" value="<fmt:formatDate pattern = "MM/dd/yyyy" value = "${prestamo.fecha_inicio }" />" required/>
 											</div>
 											<div class="form-group col">
 												<label for="last_name">FECHA FIN</label> 
-												 <input name="fechaFin" id="fechaFinDatepicker" width="276" value="<fmt:formatDate pattern = "MM/dd/yyyy" value = "${prestamo.fech_fin }" />" required/>
+												 <input name="fechaFin" id="fechaFinDatepicker" width="276" value="<fmt:formatDate pattern = "MM/dd/yyyy" value = "${prestamo.fecha_fin }" />" required/>
 											</div>
 										</div>
 

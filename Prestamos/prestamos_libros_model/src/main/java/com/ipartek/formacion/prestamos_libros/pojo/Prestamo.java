@@ -5,8 +5,8 @@ import java.sql.Date;
 public class Prestamo {
 	private Libro libro;
 	private Usuario usuario;
-	private Date fech_inicio;
-	private Date fech_fin;
+	private Date fecha_inicio;
+	private Date fecha_fin;
 	private Date fecha_devuelto;
 	private long diasRestantes;
 	
@@ -16,12 +16,12 @@ public class Prestamo {
 		super();
 	}
 
-	public Prestamo(Libro libro, Usuario usuario, Date fech_inicio, Date fech_fin, Date fecha_devuelto) {
+	public Prestamo(Libro libro, Usuario usuario, Date fecha_inicio, Date fecha_fin, Date fecha_devuelto) {
 		super();
 		this.libro = libro;
 		this.usuario = usuario;
-		this.fech_inicio = fech_inicio;
-		this.fech_fin = fech_fin;
+		this.fecha_inicio = fecha_inicio;
+		this.fecha_fin = fecha_fin;
 		this.fecha_devuelto = fecha_devuelto;
 	}
 
@@ -41,20 +41,20 @@ public class Prestamo {
 		this.usuario = usuario;
 	}
 
-	public Date getFech_inicio() {
-		return fech_inicio;
+	public Date getFecha_inicio() {
+		return fecha_inicio;
 	}
 
-	public void setFech_inicio(Date fech_inicio) {
-		this.fech_inicio = fech_inicio;
+	public void setFecha_inicio(Date fecha_inicio) {
+		this.fecha_inicio = fecha_inicio;
 	}
 
-	public Date getFech_fin() {
-		return fech_fin;
+	public Date getFecha_fin() {
+		return fecha_fin;
 	}
 
-	public void setFech_fin(Date fech_fin) {
-		this.fech_fin = fech_fin;
+	public void setFecha_fin(Date fech_fin) {
+		this.fecha_fin = fech_fin;
 	}
 
 	public Date getFecha_devuelto() {
@@ -67,8 +67,8 @@ public class Prestamo {
 
 	@Override
 	public String toString() {
-		return "Prestamo [libro=" + libro + ", usuario=" + usuario + ", fech_inicio=" + fech_inicio + ", fech_fin="
-				+ fech_fin + ", fecha_devuelto=" + fecha_devuelto + "]";
+		return "Prestamo [libro=" + libro + ", usuario=" + usuario + ", fecha_inicio=" + fecha_inicio + ", fecha_fin="
+				+ fecha_fin + ", fecha_devuelto=" + fecha_devuelto + "]";
 	}
 
 	public long getDiasRestantes() {
@@ -83,8 +83,8 @@ public class Prestamo {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((fech_fin == null) ? 0 : fech_fin.hashCode());
-		result = prime * result + ((fech_inicio == null) ? 0 : fech_inicio.hashCode());
+		result = prime * result + ((fecha_fin == null) ? 0 : fecha_fin.hashCode());
+		result = prime * result + ((fecha_inicio == null) ? 0 : fecha_inicio.hashCode());
 		result = prime * result + ((fecha_devuelto == null) ? 0 : fecha_devuelto.hashCode());
 		result = prime * result + ((libro == null) ? 0 : libro.hashCode());
 		result = prime * result + ((usuario == null) ? 0 : usuario.hashCode());
@@ -100,15 +100,15 @@ public class Prestamo {
 		if (getClass() != obj.getClass())
 			return false;
 		Prestamo other = (Prestamo) obj;
-		if (fech_fin == null) {
-			if (other.fech_fin != null)
+		if (fecha_fin == null) {
+			if (other.fecha_fin != null)
 				return false;
-		} else if (!fech_fin.equals(other.fech_fin))
+		} else if (!fecha_fin.equals(other.fecha_fin))
 			return false;
-		if (fech_inicio == null) {
-			if (other.fech_inicio != null)
+		if (fecha_inicio == null) {
+			if (other.fecha_inicio != null)
 				return false;
-		} else if (!fech_inicio.equals(other.fech_inicio))
+		} else if (!fecha_inicio.equals(other.fecha_inicio))
 			return false;
 		if (fecha_devuelto == null) {
 			if (other.fecha_devuelto != null)

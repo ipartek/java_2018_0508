@@ -36,7 +36,7 @@ public class PrestamoDAO implements CrudAble<Prestamo> {
 		try (Connection con = ConnectionManager.getConnection(); CallableStatement cs = con.prepareCall(sql);) {
 			cs.setLong(1, pojo.getLibro().getId());
 			cs.setLong(2, pojo.getUsuario().getId());
-			cs.setDate(3, pojo.getFech_inicio());
+			cs.setDate(3, pojo.getFecha_inicio());
 
 			int affectedRows =  cs.executeUpdate();
 			if ( affectedRows == 1 ) {
@@ -57,8 +57,8 @@ public class PrestamoDAO implements CrudAble<Prestamo> {
 
 				while (rs.next()) {
 					Prestamo p = new Prestamo();
-					p.setFech_inicio(rs.getDate("fecha_inicio"));
-					p.setFech_fin(rs.getDate("fecha_fin"));
+					p.setFecha_inicio(rs.getDate("fecha_inicio"));
+					p.setFecha_fin(rs.getDate("fecha_fin"));
 					Libro l = new Libro();
 					l.setId(rs.getLong("id_libro"));
 					l.setTitulo(rs.getString("titulo"));
@@ -68,7 +68,7 @@ public class PrestamoDAO implements CrudAble<Prestamo> {
 					u.setNombreApellido(rs.getString("nombre_apellidos"));
 					p.setUsuario(u);
 
-					long diffInMillies = Math.abs(p.getFech_fin().getTime() - Calendar.getInstance().getTimeInMillis());
+					long diffInMillies = Math.abs(p.getFecha_fin().getTime() - Calendar.getInstance().getTimeInMillis());
 					long diff = TimeUnit.DAYS.convert(diffInMillies, TimeUnit.MILLISECONDS);
 
 					p.setDiasRestantes(diff);
@@ -97,7 +97,7 @@ public class PrestamoDAO implements CrudAble<Prestamo> {
 
 				while (rs.next()) {
 					Prestamo p = new Prestamo();
-					p.setFech_inicio(rs.getDate("fecha_inicio"));
+					p.setFecha_inicio(rs.getDate("fecha_inicio"));
 					p.setFecha_devuelto(rs.getDate("fecha_devuelto"));
 					Libro l = new Libro();
 					l.setId(rs.getLong("id_libro"));
@@ -139,8 +139,8 @@ public class PrestamoDAO implements CrudAble<Prestamo> {
 			cs.setDate(3, fInicio);
 			try ( ResultSet rs = cs.executeQuery()){
 				if(rs.next()) {
-					p.setFech_inicio(rs.getDate("fecha_inicio"));
-					p.setFech_fin(rs.getDate("fecha_fin"));
+					p.setFecha_inicio(rs.getDate("fecha_inicio"));
+					p.setFecha_fin(rs.getDate("fecha_fin"));
 					Libro l = new Libro();
 					l.setId(rs.getLong("id_libro"));
 					l.setTitulo(rs.getString("titulo"));
@@ -167,7 +167,7 @@ public class PrestamoDAO implements CrudAble<Prestamo> {
 
 			cs.setLong(1, pojo.getLibro().getId());
 			cs.setLong(2, pojo.getUsuario().getId());
-			cs.setDate(3, pojo.getFech_inicio());
+			cs.setDate(3, pojo.getFecha_inicio());
 			cs.setDate(4, pojo.getFecha_devuelto());
 			int affectedRows =  cs.executeUpdate();
 			if ( affectedRows == 1 ) {
@@ -186,11 +186,11 @@ public class PrestamoDAO implements CrudAble<Prestamo> {
 
 			cs.setLong(1, pojo.getLibro().getId());
 			cs.setLong(2, pojo.getUsuario().getId());
-			cs.setDate(3, pojo.getFech_inicio());
-			cs.setDate(4, pojo.getFech_fin());
+			cs.setDate(3, pojo.getFecha_inicio());
+			cs.setDate(4, pojo.getFecha_fin());
 			cs.setLong(5, prestamoAntiguo.getLibro().getId());
 			cs.setLong(6, prestamoAntiguo.getUsuario().getId());
-			cs.setDate(7, prestamoAntiguo.getFech_inicio());
+			cs.setDate(7, prestamoAntiguo.getFecha_inicio());
 			int affectedRows =  cs.executeUpdate();
 			if ( affectedRows == 1 ) {
 				result = true;
@@ -212,7 +212,7 @@ public class PrestamoDAO implements CrudAble<Prestamo> {
 			cs.setDate(3, fInicio);
 			try ( ResultSet rs = cs.executeQuery()){
 				if(rs.next()) {
-					p.setFech_inicio(rs.getDate("fecha_inicio"));
+					p.setFecha_inicio(rs.getDate("fecha_inicio"));
 					p.setFecha_devuelto(rs.getDate("fecha_devuelto"));
 					Libro l = new Libro();
 					l.setId(rs.getLong("id_libro"));
@@ -239,11 +239,11 @@ public class PrestamoDAO implements CrudAble<Prestamo> {
 
 			cs.setLong(1, pojo.getLibro().getId());
 			cs.setLong(2, pojo.getUsuario().getId());
-			cs.setDate(3, pojo.getFech_inicio());
+			cs.setDate(3, pojo.getFecha_inicio());
 			cs.setDate(4, pojo.getFecha_devuelto());
 			cs.setLong(5, prestamoAntiguo.getLibro().getId());
 			cs.setLong(6, prestamoAntiguo.getUsuario().getId());
-			cs.setDate(7, prestamoAntiguo.getFech_inicio());
+			cs.setDate(7, prestamoAntiguo.getFecha_inicio());
 			int affectedRows =  cs.executeUpdate();
 			if ( affectedRows == 1 ) {
 				result = true;
