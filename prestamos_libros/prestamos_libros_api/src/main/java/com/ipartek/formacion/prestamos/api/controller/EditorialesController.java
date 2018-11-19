@@ -30,7 +30,7 @@ import io.swagger.annotations.ApiParam;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 
-@Api(tags = { "EditorialesController" }, description = "Editoriales", consumes = "application/json")
+@Api(tags = { "Servicio /editoriales" }, description = "Clase EditorialesController", consumes = "application/json")
 @CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("/editoriales")

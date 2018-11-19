@@ -32,7 +32,7 @@ import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 
-@Api(description = "Prestamos", consumes = "application/json")
+@Api(tags = { "Servicio /prestamos" },description = "Clase : PrestamosController", consumes = "application/json")
 
 @CrossOrigin(origins = "*")
 @RestController
@@ -62,7 +62,7 @@ public class PrestamosController {
 	}
 
 	@ApiOperation(value = "Listado de prestamos", notes = "Obtenemos un objeto json con los prestamos existente<br>"
-			+ "<h2>3 opciones de consultas</h2>" + "<ul>" + "<li>0 -> Listar el historico de prestamos</li>"
+			+ "<h2>3 opciones de consultas para el parametro accion</h2>" + "<ul>" + "<li>0 -> Listar el historico de prestamos</li>"
 			+ "<li>1 -> Listar prestamos activos</li>"
 			+ "<li>vacio -> Listar todos los prestamos , activos e historicos	</li>"
 			+ "</ul>", nickname = "listado", responseContainer = "List")
