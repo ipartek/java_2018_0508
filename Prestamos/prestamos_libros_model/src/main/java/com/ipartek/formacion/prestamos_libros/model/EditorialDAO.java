@@ -39,7 +39,7 @@ public class EditorialDAO implements CrudAble<Editorial> {
 			if( affectedRows ==  1 ) {
 				
 				pojo.setId(cs.getInt(2));
-				return true;
+				result= true;
 			}
 			
 		}

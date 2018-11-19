@@ -25,7 +25,6 @@ public class UsuarioController extends HttpServlet {
 	private final static Logger LOG = Logger.getLogger(UsuarioController.class);
 	private static final long serialVersionUID = 1L;
 	private ServiceUsuario usuarioService;
-	
 
 	public static final String OP_LISTAR = "1";
 	public static final String OP_GUARDAR = "2"; // insert id == null o update id != null
@@ -54,7 +53,7 @@ public class UsuarioController extends HttpServlet {
 
 	public void destroy() {
 		usuarioService = null;
-		
+
 	}
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -116,31 +115,31 @@ public class UsuarioController extends HttpServlet {
 		u.setNombreApellido(nombreApellido);
 
 		try {
-		
-			if(!"".equals(id)) {
-				//modificar
+
+			if (!"".equals(id)) {
+				// modificar
 				u.setId(new Long(id));
-				if(!usuarioService.modificar(u)){
+				if (usuarioService.modificar(u)) {
 					alert = new Alert(Alert.SUCCESS, "Usuario modificado correctamente.");
-				}else{
+				} else {
 					alert = new Alert(Alert.DANGER, "El usuario no se ha podido modificar.");
 				}
-			}else {
-				//añadir
-				if(!usuarioService.crear(u)){
+			} else {
+				// añadir
+				if (usuarioService.crear(u)) {
 					alert = new Alert(Alert.SUCCESS, "Usuario creado correctamente.");
-				}else{
+				} else {
 					alert = new Alert(Alert.DANGER, "El usuario no se ha podido crear.");
 				}
 			}
-		
-		}catch(SQLIntegrityConstraintViolationException x) {
+
+		} catch (SQLIntegrityConstraintViolationException x) {
 			x.printStackTrace();
 			alert = new Alert(Alert.DANGER, "El nombre del usuario no puede estar repetido.");
-		}catch(Exception e) {
+		} catch (Exception e) {
 			LOG.error(e);
 		}
-		
+
 		List<Usuario> usuarios = usuarioService.listar();
 		request.setAttribute("usuarios", usuarios);
 		view = VIEW_LISTADO;
@@ -148,12 +147,12 @@ public class UsuarioController extends HttpServlet {
 	}
 
 	private void irFormulario(HttpServletRequest request) throws Exception {
-		if(id!=null) {
-			//modificar
+		if (id != null) {
+			// modificar
 			Usuario usuario = usuarioService.buscarId(Long.parseLong(id));
-			
+
 			request.setAttribute("usuario", usuario);
-			
+
 		}
 
 		view = VIEW_FORMULARIO_USUARIO;
@@ -161,20 +160,20 @@ public class UsuarioController extends HttpServlet {
 
 	private void eliminar(HttpServletRequest request) throws Exception {
 		try {
-			
-			if(!usuarioService.eliminar(Long.parseLong(id))){
+
+			if (!usuarioService.eliminar(Long.parseLong(id))) {
 				alert = new Alert(Alert.SUCCESS, "Usuario eliminado correctamente.");
-			}else{
+			} else {
 				alert = new Alert(Alert.DANGER, "El usuario no se ha podido eliminar.");
 			}
-			
-		}catch(SQLIntegrityConstraintViolationException w) {
+
+		} catch (SQLIntegrityConstraintViolationException w) {
 			w.printStackTrace();
 			alert = new Alert(Alert.DANGER, "No se puede eliminar un usuario que tenga un libro prestado.");
-		}catch(Exception e) {
+		} catch (Exception e) {
 			LOG.error(e);
 		}
-	
+
 		List<Usuario> usuarios = usuarioService.listar();
 		request.setAttribute("usuarios", usuarios);
 		view = VIEW_LISTADO;
@@ -183,7 +182,7 @@ public class UsuarioController extends HttpServlet {
 	private void getParameters(HttpServletRequest request) {
 
 		op = request.getParameter("op");
-		if(op == null) {
+		if (op == null) {
 			op = OP_LISTAR;
 		}
 		id = request.getParameter("id");

@@ -139,7 +139,7 @@ public class PrestamoController extends HttpServlet {
 					p.setUsuario(u);
 					p.setFech_inicio(new java.sql.Date(sdf.parse(fecha_inicio).getTime()));
 					
-					if(!prestamoService.crear(p)) {
+					if(prestamoService.crear(p)) {
 						alert = new Alert(Alert.SUCCESS, "El prestamo se dio de alta correctamente.");
 					}else {
 						alert = new Alert(Alert.DANGER, "No se pudo dar de alta el prestamo.");
@@ -167,7 +167,7 @@ public class PrestamoController extends HttpServlet {
 					p.setFech_inicio( new java.sql.Date(sdf.parse(fecha_inicio).getTime()));
 					p.setFecha_devuelto(new java.sql.Date(sdf.parse(fecha_devolucion).getTime()));
 					
-					if(!prestamoService.devolver(p)) {
+					if(prestamoService.devolver(p)) {
 						alert = new Alert(Alert.SUCCESS, "Se realizo la devolución con exito.");
 					}else {
 						alert = new Alert(Alert.DANGER, "No se pudo realizar la devolución.");
@@ -214,7 +214,7 @@ public class PrestamoController extends HttpServlet {
 					u.setId(Long.parseLong(usuario));
 					p.setUsuario(u);
 					
-					if(!prestamoService.modificarPrestamo(p, prestamoAntiguo)) {
+					if(prestamoService.modificarPrestamo(p, prestamoAntiguo)) {
 						alert = new Alert(Alert.SUCCESS, "El prestamo se ha modificado correctamente.");
 					}else {
 						alert = new Alert(Alert.DANGER, "No se pudo modificar el prestamo.");
@@ -264,7 +264,7 @@ public class PrestamoController extends HttpServlet {
 					u.setId(Long.parseLong(usuario));
 					p.setUsuario(u);
 					
-					if(!prestamoService.modificarHistorico(p, prestamoAntiguo)) {
+					if(prestamoService.modificarHistorico(p, prestamoAntiguo)) {
 						alert = new Alert(Alert.SUCCESS, "El prestamo del historico se ha modificado correctamente.");
 					}else {
 						alert = new Alert(Alert.DANGER, "No se pudo modificar el prestamo del historico.");

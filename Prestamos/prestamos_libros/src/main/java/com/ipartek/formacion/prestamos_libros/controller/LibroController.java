@@ -130,7 +130,7 @@ public class LibroController extends HttpServlet {
 			if (!"".equals(id)) {
 				// modificar
 				l.setId(new Long(id));
-				if (!libroService.modificar(l)) {
+				if (libroService.modificar(l)) {
 					alert = new Alert(Alert.SUCCESS, "Libro modificado con exito.");
 				} else {
 					alert = new Alert(Alert.DANGER, "El libro no se ha podido modificar.");
@@ -139,7 +139,7 @@ public class LibroController extends HttpServlet {
 				// añadir
 				int numeroLibrosAnadir = Integer.parseInt(cantidad);
 				for (int i = 0; i < numeroLibrosAnadir; i++) {
-					if (!libroService.crear(l)) {
+					if (libroService.crear(l)) {
 						alert = new Alert(Alert.SUCCESS, "El libro se ha insertado con exito.");
 					} else {
 						alert = new Alert(Alert.DANGER, "El libro no se ha podido insertar.");
@@ -176,7 +176,7 @@ public class LibroController extends HttpServlet {
 
 		try {
 
-			if (!libroService.eliminar(Long.parseLong(id))) {
+			if (libroService.eliminar(Long.parseLong(id))) {
 				alert = new Alert(Alert.SUCCESS, "Libro elinimado correctamente.");
 			} else {
 				alert = new Alert(Alert.DANGER, "No se ha podido eliminar el libro.");

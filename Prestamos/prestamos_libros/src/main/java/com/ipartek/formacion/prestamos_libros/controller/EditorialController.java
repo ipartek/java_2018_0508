@@ -38,6 +38,7 @@ public class EditorialController extends HttpServlet {
 
 	private String view;
 	private Alert alert;
+	// private Alert alert;
 
 	private String op; // operacion a realizar
 	private String id;
@@ -136,7 +137,7 @@ public class EditorialController extends HttpServlet {
 			if (!"".equals(id)) {
 				// modificar
 				e.setId(new Long(id));
-				if (!editorialService.modificar(e)) {
+				if (editorialService.modificar(e)) {
 					alert = new Alert(Alert.SUCCESS, "editorial modificado correctamente.");
 				} else {
 					alert = new Alert(Alert.DANGER, "Editorial no se ha podido modificar.");
@@ -144,7 +145,7 @@ public class EditorialController extends HttpServlet {
 				}
 			} else {
 				// añadir
-				if (!editorialService.crear(e)) {
+				if (editorialService.crear(e)) {
 					alert = new Alert(Alert.SUCCESS, "Editorail creado correctamente.");
 				} else {
 					alert = new Alert(Alert.DANGER, "Editorial no se ha podido crear.");
@@ -179,7 +180,7 @@ public class EditorialController extends HttpServlet {
 	private void eliminar(HttpServletRequest request) throws Exception {
 		try {
 
-			if (!editorialService.eliminar(Long.parseLong(id))) {
+			if (editorialService.eliminar(Long.parseLong(id))) {
 				alert = new Alert(Alert.SUCCESS, "Editorial eliminado correctamente.");
 			} else {
 				alert = new Alert(Alert.DANGER, "Editorial no se ha podido eliminar.");
