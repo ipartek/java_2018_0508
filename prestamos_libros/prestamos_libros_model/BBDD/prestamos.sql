@@ -30,7 +30,7 @@ CREATE TABLE `alumno` (
   `apellidos` varchar(100) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `nombre_apellidos_unicos` (`nombre`,`apellidos`)
-) ENGINE=InnoDB AUTO_INCREMENT=28 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=37 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -39,7 +39,7 @@ CREATE TABLE `alumno` (
 
 LOCK TABLES `alumno` WRITE;
 /*!40000 ALTER TABLE `alumno` DISABLE KEYS */;
-INSERT INTO `alumno` VALUES (3,'Adrian','Garcia'),(2,'Adrian','Perozzo'),(4,'Adriana','Prado'),(1,'Ainara','Goitia'),(6,'Alain','Muñoz'),(17,'Ander','Uraga'),(10,'Andrea','Perez'),(7,'Asier','Cornejo'),(25,'fegtg','yrtjyutr'),(8,'Luis','Galdos'),(5,'Raúl','Abejón'),(9,'Valeria','Valencia');
+INSERT INTO `alumno` VALUES (3,'Adrian','Garcia'),(2,'Adrian','Perozzo'),(4,'Adriana','Prado'),(1,'Ainara','Goitia'),(6,'Alain','Muñoz'),(28,'Aleluya','pepe bueno'),(32,'Aleluya99','pepe bueno'),(17,'Ander','Uraga'),(10,'Andrea','Perez'),(7,'Asier','Cornejo'),(25,'fegtg','yrtjyutr'),(8,'Luis','Galdos'),(5,'Raúl','Abejón'),(9,'Valeria','Valencia');
 /*!40000 ALTER TABLE `alumno` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -52,10 +52,10 @@ DROP TABLE IF EXISTS `editorial`;
  SET character_set_client = utf8mb4 ;
 CREATE TABLE `editorial` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `nombre` varchar(45) NOT NULL,
+  `nombre` varchar(50) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `nombre_UNIQUE` (`nombre`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=26 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -64,7 +64,7 @@ CREATE TABLE `editorial` (
 
 LOCK TABLES `editorial` WRITE;
 /*!40000 ALTER TABLE `editorial` DISABLE KEYS */;
-INSERT INTO `editorial` VALUES (1,'Anaya'),(4,'Editatum'),(2,'Eni'),(3,'Ra-Ma');
+INSERT INTO `editorial` VALUES (1,'anaya'),(7,'ddddd'),(19,'ddddddddddddddd'),(2,'eni'),(3,'ra-ma'),(4,'suma');
 /*!40000 ALTER TABLE `editorial` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -83,7 +83,7 @@ CREATE TABLE `libro` (
   PRIMARY KEY (`id`),
   KEY `fk_libro_editorial_idx` (`id_editorial`),
   CONSTRAINT `fk_libro_editorial` FOREIGN KEY (`id_editorial`) REFERENCES `editorial` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=35 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -92,7 +92,7 @@ CREATE TABLE `libro` (
 
 LOCK TABLES `libro` WRITE;
 /*!40000 ALTER TABLE `libro` DISABLE KEYS */;
-INSERT INTO `libro` VALUES (1,'9788441535275','HTML5, CSS3 Y JavaScript',1),(2,'9788441535275','HTML5, CSS3 Y JavaScript',1),(3,'9788441523487','Java SE 6',1),(4,'9782746093478','Java 8. Los fundamentos del lenguaje Java',2),(5,'9782746096691','Aprende los lenguajes html5, css3 y javascript para crear su primer sitio web',2),(6,'9788441525238','MySQL 5.1',1),(7,'9788441525238','MySQL 5.1',1),(8,'9788441525238','MySQL 5.1',1),(9,'9788441529885','Java 7',1),(10,'9782409007026','HTML5 y CSS3. Domine los estándares de la creación de sitios Web',2),(13,'4564423','mas curro',3);
+INSERT INTO `libro` VALUES (1,'9788441535275','HTML5, CSS3 Y JavaScript',1),(2,'9788441535275','HTML5, CSS3 Y JavaScript',1),(3,'9788441523487','Java SE 6',1),(4,'9782746093478','Java 8. Los fundamentos del lenguaje Java',2),(5,'9782746096691','Aprende los lenguajes html5, css3 y javascript para crear su primer sitio web',2),(6,'9788441525238','MySQL 5.1',1),(7,'9788441525238','MySQL 5.1',1),(8,'9788441525238','MySQL 5.1',1),(9,'9788441529885','Java 7',1),(10,'9782409007026','HTML5 y CSS3. Domine los estándares de la creación de sitios Web',2),(13,'4564423','mas curro',3),(15,'123456789','oju',3),(16,'123456789','oju',3),(24,'123456789','oju',3),(25,'123456789','oju',3),(27,'123456789','oju',3),(28,'fsdsfsfsfsfs','fsfsfsfsfsfs',3),(29,'fsdsfsfsfsfs','fsfsfsfsfsfs',3),(30,'fsdsfsfsfsfs','fsfsfsfsfsfs',3),(31,'fsdsfsfsfsfs','fsfsfsfsfsfs',3);
 /*!40000 ALTER TABLE `libro` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -155,7 +155,7 @@ CREATE TABLE `prestamo` (
   KEY `fk_alumno_has_libro_alumno1_idx` (`id_alumno`),
   CONSTRAINT `fk_alumno_has_libro_alumno1` FOREIGN KEY (`id_alumno`) REFERENCES `alumno` (`id`),
   CONSTRAINT `fk_alumno_has_libro_libro1` FOREIGN KEY (`id_libro`) REFERENCES `libro` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=44 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -164,7 +164,7 @@ CREATE TABLE `prestamo` (
 
 LOCK TABLES `prestamo` WRITE;
 /*!40000 ALTER TABLE `prestamo` DISABLE KEYS */;
-INSERT INTO `prestamo` VALUES (23,1,1,'2018-10-31','2018-11-15','2018-11-04'),(24,3,3,'2018-10-31','2018-11-15','2018-11-04'),(25,10,4,'2018-10-31','2018-11-15','2018-11-04'),(26,1,1,'2018-10-31','2018-11-15','2018-11-04'),(27,7,3,'2018-10-31','2018-10-31','2018-10-31'),(28,6,7,'2018-10-31','2018-11-15','2018-11-04'),(29,8,9,'2018-10-31','2018-11-15','2018-10-28'),(30,8,9,'2018-10-31','2018-11-15','2018-11-04'),(31,8,8,'2018-10-31','2018-11-15','2018-10-31'),(32,17,7,'2018-10-31','2018-10-31','2018-10-31'),(33,7,9,'2018-10-31','2018-10-31','2018-10-31'),(34,8,6,'2018-10-31','2018-11-15','2018-11-04'),(35,8,3,'2018-10-31','2018-10-31','2018-10-18'),(36,10,9,'2018-10-14','2018-10-31','2018-11-04'),(37,3,3,'2018-10-31','2018-10-31','2018-10-31'),(38,17,9,'2018-10-31','2018-10-31','2018-10-31'),(39,5,9,'2018-10-31','2018-10-31','2018-10-31'),(40,17,2,'2018-10-31','2018-10-31','2018-11-04'),(41,3,1,'2018-10-01','2018-10-16',NULL),(42,1,3,'2018-10-31','2018-10-31','2018-11-07'),(43,4,6,'2018-10-30','2018-11-14',NULL);
+INSERT INTO `prestamo` VALUES (1,1,1,'2018-11-19','2018-12-04','2018-11-25'),(2,2,2,'2018-11-19','2018-12-04','2018-11-25'),(3,10,29,'2018-11-19','2018-12-04',NULL);
 /*!40000 ALTER TABLE `prestamo` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
@@ -550,9 +550,9 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `prestamoByhistorico`(
 
 )
 BEGIN
-SELECT p.id, a.id AS id_alumno, a.nombre, a.apellidos, l.id AS id_libro, l.titulo, p.fecha_inicio, p.fecha_fin, p.fecha_devuelto
-FROM prestamo AS p, alumno AS a, libro AS l
-WHERE p.id_alumno=a.id AND p.id_libro= l.id AND fecha_devuelto IS NOT NULL
+SELECT p.id, a.id AS id_alumno, a.nombre, a.apellidos, l.id AS id_libro, l.isbn, l.titulo, p.fecha_inicio, p.fecha_fin, p.fecha_devuelto, e.id AS id_editorial, e.nombre AS e_nombre
+FROM prestamo AS p, alumno AS a, libro AS l, editorial AS e
+WHERE p.id_alumno=a.id AND p.id_libro= l.id AND  e.id=l.id_editorial AND fecha_devuelto IS NOT NULL
 ORDER BY fecha_devuelto DESC
 LIMIT 500;
 END ;;
@@ -596,9 +596,9 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `prestamoByprestados`(
 
 )
 BEGIN
-SELECT p.id, a.id AS id_alumno, a.nombre, a.apellidos, l.id AS id_libro, l.titulo, p.fecha_inicio, p.fecha_fin, p.fecha_devuelto
-FROM prestamo AS p, alumno AS a, libro AS l
-WHERE p.id_alumno=a.id AND p.id_libro= l.id AND fecha_devuelto IS NULL
+SELECT p.id, a.id AS id_alumno, a.nombre, a.apellidos, l.id AS id_libro, l.isbn, l.titulo, p.fecha_inicio, p.fecha_fin, p.fecha_devuelto, e.id AS id_editorial, e.nombre AS e_nombre
+FROM prestamo AS p, alumno AS a, libro AS l, editorial AS e
+WHERE p.id_alumno=a.id AND p.id_libro= l.id AND e.id=l.id_editorial AND fecha_devuelto IS NULL
 ORDER BY fecha_inicio DESC
 LIMIT 500;
 END ;;
@@ -644,9 +644,9 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `prestamoGetById`(
 IN `pid` INT
 )
 BEGIN
-SELECT p.id, a.id AS id_alumno, a.nombre, a.apellidos, l.id AS id_libro, l.titulo, p.fecha_inicio, p.fecha_fin, p.fecha_devuelto 
-FROM prestamo AS p, alumno AS a, libro AS l
-WHERE p.id_alumno=a.id AND p.id_libro=l.id AND p.id=pid;
+SELECT p.id, a.id AS id_alumno, a.nombre, a.apellidos, l.id AS id_libro, l.isbn, l.titulo, p.fecha_inicio, p.fecha_fin, p.fecha_devuelto, e.id AS id_editorial, e.nombre AS e_nombre
+FROM prestamo AS p, alumno AS a, libro AS l, editorial AS e
+WHERE p.id_alumno=a.id AND p.id_libro= l.id AND e.id=l.id_editorial AND p.id=pid;
 END ;;
 DELIMITER ;
 /*!50003 SET sql_mode              = @saved_sql_mode */ ;
@@ -664,12 +664,16 @@ DELIMITER ;
 /*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
 CREATE DEFINER=`root`@`localhost` PROCEDURE `prestamoInsert`(
-IN `pid_alumno`	INT,
+IN `pid_alumno` INT,
 IN `pid_libro` INT,
-IN `pfecha_inicio` DATE)
+IN `pfecha_inicio` DATE,
+OUT `oid` INT, OUT `ofecha_fin` DATE,  OUT `ofecha_devuelto` DATE)
 BEGIN
 INSERT INTO prestamo (id_alumno, id_libro, fecha_inicio)
 VALUES (pid_alumno, pid_libro, pfecha_inicio);
+SET oid := LAST_INSERT_ID();
+SET ofecha_fin := (SELECT fecha_fin FROM prestamo WHERE id=oid);
+SET ofecha_devuelto := (SELECT fecha_devuelto FROM prestamo WHERE id=oid);
 END ;;
 DELIMITER ;
 /*!50003 SET sql_mode              = @saved_sql_mode */ ;
@@ -713,4 +717,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-10-31 13:28:54
+-- Dump completed on 2018-11-19 13:02:34
