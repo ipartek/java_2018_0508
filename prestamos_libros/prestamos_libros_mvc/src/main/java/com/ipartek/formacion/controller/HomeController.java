@@ -239,8 +239,9 @@ public class HomeController extends HttpServlet implements CrudControllable {
 					LOG.warn("Alumno o Libro no seleccionado");
 				} else {
 					// Crear Prestamo nuevo
-					Prestamo p = new Prestamo(Date.valueOf(fechaInicioUpdate), new Alumno(Long.parseLong(idAlumnoUpdate),""), new Libro(Long.parseLong(idLibroUpdate), "", "", 1, null));
-					if (servicePrestamo.prestar(p)) {
+					prestamo = new Prestamo(Date.valueOf(fechaInicioUpdate), new Alumno(Long.parseLong(idAlumnoUpdate),""), new Libro(Long.parseLong(idLibroUpdate), "", "", 1, null));
+					if (servicePrestamo.prestar(prestamo)) {
+						view = VIEW_HOME_PRESTAMO;
 						alert = new Alert(Alert.ALERT_SUCCESS, "Préstamo creado con éxito.");
 						LOG.debug("Prestamo creado");
 					}
@@ -277,8 +278,7 @@ public class HomeController extends HttpServlet implements CrudControllable {
 			view = VIEW_FORM_PRESTAMO;
 		}
 		request.setAttribute("prestamo", prestamo);
-		request.setAttribute("libros", servicePrestamo.librosDisponibles());
-		request.setAttribute("alumnos", servicePrestamo.alumnosDisponibles());
+		request.setAttribute("prestamos", servicePrestamo.listarPrestados());
 	}
 
 	@Override
