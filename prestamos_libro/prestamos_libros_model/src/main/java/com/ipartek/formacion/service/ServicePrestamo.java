@@ -13,9 +13,9 @@ public class ServicePrestamo implements IServicePrestamo {
 
 	private static ServicePrestamo INSTANCE = null;
 	private static PrestamoDAO daoPrestamo = PrestamoDAO.getInstance();
-	private static final String EXCEPCION_NO_VALIDOS = "Necesitamos el id del libro, id alumno y la fecha prestamo";
-	private static final String EXCEPCION_NO_EXISTE = "Alumno o libro no existen";
-	private static final String EXCEPCION_EXISTE = "Alumno o libro ya tiene un prestamo pendiente";
+//	private static final String EXCEPCION_NO_VALIDOS = "Necesitamos el id del libro, id alumno y la fecha prestamo";
+//	private static final String EXCEPCION_NO_EXISTE = "Alumno o libro no existen";
+//	private static final String EXCEPCION_EXISTE = "Alumno o libro ya tiene un prestamo pendiente";
 
 	private ServicePrestamo() {
 		super();
@@ -133,7 +133,7 @@ public class ServicePrestamo implements IServicePrestamo {
 	@Override
 	public boolean update(long idLibroOld, long idAlumnoOld, Date fechaPrestadoOld, long idLibroNew, long idAlumnoNew,
 			Date fechaPrestadoNew, Date fechaFinal, Date fechaRetorno) throws Exception {
-		
+
 		boolean resul = false;
 //
 //		if (daoPrestamo.modifyAll(idAlumnoOld, idLibroOld, fechaPrestadoOld, idAlumnoNew, idLibroNew, fechaPrestadoNew,
@@ -145,7 +145,17 @@ public class ServicePrestamo implements IServicePrestamo {
 
 	public boolean modificar(long idLibroOld, long idAlumnoOld, Date fechaPrestadoOld, long idLibroNew,
 			long idAlumnoNew, Date fechaPrestadoNew, Date fechaFinal, Date fechaRetorno) throws Exception {
+		
 		boolean resul = false;
+		//Comprobacion de que los pojos tenga un id valido
+		if (idAlumnoNew <= 0) {
+			idAlumnoNew = idAlumnoOld;
+			
+		}
+
+		if (idLibroNew <= 0) {
+			idLibroNew = idLibroOld;
+		}
 
 		if (daoPrestamo.modifyAll(idAlumnoOld, idLibroOld, fechaPrestadoOld, idAlumnoNew, idLibroNew, fechaPrestadoNew,
 				fechaFinal, fechaRetorno)) {
