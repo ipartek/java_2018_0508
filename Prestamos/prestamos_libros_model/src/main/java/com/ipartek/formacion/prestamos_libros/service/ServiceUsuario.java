@@ -10,7 +10,7 @@ public class ServiceUsuario implements IServiceUsuario{
 	private UsuarioDAO daoUsuario = UsuarioDAO.getInstance();
 	private static ServiceUsuario INSTANCE = null;
 	
-	private ServiceUsuario ()  {
+	public ServiceUsuario ()  {
 		// TODO Auto-generated constructor stub
 	}
 	public static synchronized ServiceUsuario getInstance() {

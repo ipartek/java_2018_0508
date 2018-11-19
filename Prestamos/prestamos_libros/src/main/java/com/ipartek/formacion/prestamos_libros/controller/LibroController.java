@@ -48,7 +48,7 @@ public class LibroController extends HttpServlet {
 	private String cantidad;
 
 	public LibroController() {
-		super();
+
 		// TODO Auto-generated constructor stub
 	}
 

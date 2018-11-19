@@ -12,7 +12,7 @@ public class ServiceEditorial implements IServiceEditorial{
 	private EditorialDAO daoEditorial = EditorialDAO.getInstance();
 	private static ServiceEditorial INSTANCE = null;
 	
-	private ServiceEditorial ()  {
+	public ServiceEditorial ()  {
 		// TODO Auto-generated constructor stub
 	}
 	

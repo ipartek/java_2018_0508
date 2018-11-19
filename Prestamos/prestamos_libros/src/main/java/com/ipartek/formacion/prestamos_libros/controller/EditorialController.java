@@ -48,7 +48,7 @@ public class EditorialController extends HttpServlet {
 	 * @see HttpServlet#HttpServlet()
 	 */
 	public EditorialController() {
-		super();
+
 		// TODO Auto-generated constructor stub
 	}
 

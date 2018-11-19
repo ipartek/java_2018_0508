@@ -31,7 +31,7 @@ public class ServicePrestamo implements IServicePrestamo {
 	
 	public static final String EXCEPTION_NO_EXISTE_PRESTAMO = "El prestamo no existe";
 	
-	private ServicePrestamo() {	
+	public ServicePrestamo() {	
 		daoPrestamo = PrestamoDAO.getInstance();
 		daoLibro = LibroDAO.getInstance();
 		daoUsuario = UsuarioDAO.getInstance();		
