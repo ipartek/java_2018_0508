@@ -133,6 +133,7 @@ public class HomeController extends HttpServlet implements CrudControllable {
 				Prestamo p = new Prestamo(Date.valueOf(fechaInicio), new Alumno(Long.parseLong(idAlumno),""), new Libro(Long.parseLong(idLibro), "", "", 1, null));
 				p.setFecha_retorno(Date.valueOf(fechaRetorno));
 				servicePrestamo.devolver(p);
+				alert = new Alert(Alert.ALERT_SUCCESS, "Préstamo devuelto.");
 				LOG.debug("Libro devuelto. Prestamo finalizado");
 			}
 		}catch(Exception e) {
@@ -231,14 +232,14 @@ public class HomeController extends HttpServlet implements CrudControllable {
 			a = new Alumno();
 
 			//CREAR PRESTAMO NUEVO
-			if (fechaInicioUpdate != null && fechaInicioUpdate.length() > 0 && idAlumno == null && idLibro == null) {
+			if (fechaInicioUpdate != null && idAlumno == null && idLibro == null) {
 				
 				if (idLibroUpdate.equals("-1") || idAlumnoUpdate.equals("-1")) {
 					alert = new Alert(Alert.ALERT_WARNING, "Debes seleccionar un alumno y un libro obligatoriamente.");
 					LOG.warn("Alumno o Libro no seleccionado");
 				} else {
 					// Crear Prestamo nuevo
-					Prestamo p = new Prestamo(Date.valueOf(fechaInicio), new Alumno(Long.parseLong(idAlumno),""), new Libro(Long.parseLong(idLibro), "", "", 1, null));
+					Prestamo p = new Prestamo(Date.valueOf(fechaInicioUpdate), new Alumno(Long.parseLong(idAlumnoUpdate),""), new Libro(Long.parseLong(idLibroUpdate), "", "", 1, null));
 					if (servicePrestamo.prestar(p)) {
 						alert = new Alert(Alert.ALERT_SUCCESS, "Préstamo creado con éxito.");
 						LOG.debug("Prestamo creado");
