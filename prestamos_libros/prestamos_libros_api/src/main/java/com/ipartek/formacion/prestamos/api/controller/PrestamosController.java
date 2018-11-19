@@ -275,22 +275,19 @@ public class PrestamosController {
 				response = new ResponseEntity<>(HttpStatus.CONFLICT);
 			}
 
-		} catch (Exception e) {
+		}catch (SQLIntegrityConstraintViolationException e) {
 			e.printStackTrace();
-			if(e.getMessage().contains("Prestamos")) {
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+			
 				rm.setMensaje("Error");
 				String[] errores = new String[1];
 				errores[0]= e.getMessage();
 				rm.setErrores(errores);
-				response = new ResponseEntity<>(rm,HttpStatus.CONFLICT);
-			}
-			if(e.getMessage().contains("No encontramos el prestamos que nos propones")) {
-				rm.setMensaje("Error");
-				String[] errores = new String[1];
-				errores[0]= e.getMessage();
-				rm.setErrores(errores);
-				response = new ResponseEntity<>(rm,HttpStatus.CONFLICT);
-			}
+				response = new ResponseEntity<>(rm,HttpStatus.BAD_REQUEST);
+			
+			
 			LOG.error(e.getMessage());
 		}
 

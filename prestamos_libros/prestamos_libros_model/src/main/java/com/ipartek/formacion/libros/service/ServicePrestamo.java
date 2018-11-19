@@ -61,7 +61,7 @@ public class ServicePrestamo implements IPrestamoService {
 	}
 
 	@Override
-	public boolean prestar(long idAlumno, long idlibro, Date fechaInicio) throws Exception {
+	public boolean prestar(long idAlumno, long idLibro, Date fechaInicio) throws Exception {
 		boolean resul = false;
 
 		ArrayList<Alumno> alumnosDisponibles = new ArrayList<Alumno>();
@@ -69,7 +69,7 @@ public class ServicePrestamo implements IPrestamoService {
 		ArrayList<Prestamo> prestamosTotales = new ArrayList<Prestamo>();
 
 		try {
-			if (idAlumno < 0 || idlibro < 0 || fechaInicio == null) {
+			if (idAlumno < 0 || idLibro < 0 || fechaInicio == null) {
 
 				throw new Exception("Algun parametro no contiene el formato esperado");
 			}
@@ -85,7 +85,7 @@ public class ServicePrestamo implements IPrestamoService {
 			throw new Exception("El Alumno propuesto no existe");
 		}
 
-		Libro l = librosDAO.getById(idlibro);
+		Libro l = librosDAO.getById(idLibro);
 		if (l == null) {
 			throw new Exception("Libro propuesto no existe");
 		}
@@ -116,7 +116,7 @@ public class ServicePrestamo implements IPrestamoService {
 		prestamo.setFechaInicio(fechaInicio);
 
 		for (Prestamo p : prestamosTotales) {
-			if (p.getAlumno().getId() == idAlumno && p.getLibro().getId() == idlibro
+			if (p.getAlumno().getId() == idAlumno && p.getLibro().getId() == idLibro
 					&& p.getFechaInicio() == fechaInicio) {
 				throw new Exception("El prestamo que esta dando de alta ya existe");
 			}
@@ -161,34 +161,12 @@ public class ServicePrestamo implements IPrestamoService {
 
 		Libro lSugerido = librosDAO.getById(nuevoLibro);
 		Alumno aSugerido = alumnosDAO.getById(nuevoAlumno);
-		if (lSugerido != null) {
+		if (lSugerido == null) {
 			throw new Exception("El libro que nos sugieres no esta dado de alta");
 		}
-		if (aSugerido != null) {
+		if (aSugerido == null) {
 			throw new Exception("El alumno que nos sugieres no esta dado de alta");
 		}
-
-		// comprobamos que esten disponibles los datos
-
-		alumnosDisponibles = (ArrayList<Alumno>) alumnosDAO.getAllDisponible();
-		if (!alumnosDisponibles.contains(aSugerido)) {
-
-			throw new Exception("El alumno contiene algun prestamo pendiente");
-
-		}
-
-		librosDisponibles = (ArrayList<Libro>) librosDAO.getAllDisponibles();
-		if (!librosDisponibles.contains(lSugerido)) {
-
-			throw new Exception("El libro ya esta prestado");
-
-		}
-
-		// comprobamos que los nuevos datos que corresponden a la actualizacion son
-		// coherentes(LIBRO Y ALUMNno QUE EXISTAN Y ESTEN LIBRES)
-
-		Libro l = librosDAO.getById(idLibro);
-		Alumno a = alumnosDAO.getById(idAlumno);
 
 		// comprobamos los datos a modificar
 		if (nuevoAlumno <= 0) {
@@ -203,6 +181,32 @@ public class ServicePrestamo implements IPrestamoService {
 		if (nuevaFecha == null) {
 			nuevaFecha = fechaInicio;
 		}
+
+		// comprobamos que esten disponibles los datos
+		if(nuevoAlumno != idAlumno) {
+			alumnosDisponibles = (ArrayList<Alumno>) alumnosDAO.getAllDisponible();
+			if (!alumnosDisponibles.contains(aSugerido)) {
+
+				throw new Exception("El alumno contiene algun prestamo pendiente");
+
+			}
+		}
+		
+		if(nuevoLibro != idLibro) {
+			librosDisponibles = (ArrayList<Libro>) librosDAO.getAllDisponibles();
+			if (!librosDisponibles.contains(lSugerido)) {
+
+				throw new Exception("El libro ya esta prestado");
+
+			}
+		}
+		
+
+		// comprobamos que los nuevos datos que corresponden a la actualizacion son
+		// coherentes(LIBRO Y ALUMNno QUE EXISTAN Y ESTEN LIBRES)
+
+		Libro l = librosDAO.getById(idLibro);
+		Alumno a = alumnosDAO.getById(idAlumno);
 
 		resul = prestamosDAO.update(idAlumno, idLibro, fechaInicio, nuevoAlumno, nuevoLibro, nuevaFecha, fechaFin,
 				fechaRetorno);

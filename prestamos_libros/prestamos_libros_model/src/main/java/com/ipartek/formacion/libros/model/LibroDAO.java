@@ -93,7 +93,7 @@ public class LibroDAO implements CrudAble<Libro> {
 		for (int i = 0; i < n_ejemplares; i++) {
 
 			try (Connection con = ConnectionManager.getConnection();
-					CallableStatement sp = con.prepareCall("{CALL libroInsert(?,?,?,?)}");) {
+					CallableStatement sp = con.prepareCall("{CALL libroInsert(?,?,?,?,?)}");) {
 
 				
 
@@ -104,13 +104,13 @@ public class LibroDAO implements CrudAble<Libro> {
 
 				// parametros de salida
 				sp.registerOutParameter("o_id", Types.INTEGER);
-				//sp.registerOutParameter("o_nombreEditorial", Types.VARCHAR);
+				sp.registerOutParameter("o_nombreEditorial", Types.VARCHAR);
 
 				// Se ejecuta el procedimiento almacenado
 				int resultado = sp.executeUpdate();
 
 				pojo.setId(sp.getInt("o_id"));
-				//pojo.getEditorial().setNombre(sp.getString("o_nombreEditorial"));
+				pojo.getEditorial().setNombre(sp.getString("o_nombreEditorial"));
 				
 				
 				if (resultado == 1) {
