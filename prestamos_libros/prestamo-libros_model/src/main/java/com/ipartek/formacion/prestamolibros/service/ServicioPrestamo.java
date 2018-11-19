@@ -57,7 +57,7 @@ public class ServicioPrestamo implements IServicePrestamo {
 		boolean result = false;
 
 		if (comprobarDatosDevolucion(idLibro, idAlumno, fechaInicio,fechaDevolucion)) {
-			result = daoPrestamo.devolver(idLibro, idAlumno, fechaInicio, fechaDevolucion);
+			result = daoPrestamo.devolver(idAlumno, idLibro, fechaInicio, fechaDevolucion);
 		}
 		return result;
 	}
