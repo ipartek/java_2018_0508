@@ -31,7 +31,7 @@ CREATE TABLE `alumno` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `nombre_UNIQUE` (`nombre`),
   UNIQUE KEY `apellidos_UNIQUE` (`apellidos`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -40,7 +40,7 @@ CREATE TABLE `alumno` (
 
 LOCK TABLES `alumno` WRITE;
 /*!40000 ALTER TABLE `alumno` DISABLE KEYS */;
-INSERT INTO `alumno` VALUES (1,'Asier','Cornejo Panduro'),(2,'Adrian','Garcia Santos'),(3,'Ainara','Goitia Arenaza'),(4,'Alain','Muñoz Arrizabalaga'),(5,'Raul','Abejon Delgado'),(6,'Andrea Mª','Perez Millan'),(7,'Adriana','Prado Alonso'),(8,'Valeria','Valencia Bautista'),(9,'Luis','Galdos García');
+INSERT INTO `alumno` VALUES (1,'Asier','Cornejo Panduro'),(2,'Adrian','Garcia Santos'),(3,'Ainara','Goitia Arenaza'),(4,'Alain','Muñoz Arrizabalaga'),(5,'Raul','Abejon Delgado'),(6,'Andrea Mª','Perez Millan'),(7,'Adriana','Prado Alonso'),(12,'Luis Miguel','Galdos García'),(16,'Pedro','Paco');
 /*!40000 ALTER TABLE `alumno` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -59,7 +59,7 @@ CREATE TABLE `libro` (
   PRIMARY KEY (`id`),
   KEY `fk_libro_tipo_editorial_idx` (`id_tipo_editorial`),
   CONSTRAINT `fk_libro_tipo_editorial` FOREIGN KEY (`id_tipo_editorial`) REFERENCES `tipo_editorial` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -68,7 +68,7 @@ CREATE TABLE `libro` (
 
 LOCK TABLES `libro` WRITE;
 /*!40000 ALTER TABLE `libro` DISABLE KEYS */;
-INSERT INTO `libro` VALUES (1,'HTML5,CSS3 y JavaScript','978-84-415-2348-5',1),(2,'HTML5,CSS3 y JavaScript','978-84-415-2348-5',1),(3,'Java SE 6','978-84-415-2348-7',1),(4,'Java 8','978-2-7460-9347-8',2),(5,'HTML5,CSS3 y JavaScript','978-2-7460-9669-1',2),(6,'MySQL 5.1','978-84-415-2523-8',1),(7,'MySQL 5.1','978-84-415-2523-8',1),(8,'MySQL 5.1','978-84-415-2523-8',1),(9,'Java 7','978-84-415-2988-5',1),(10,'HTML5 y CSS3','978-2-409-00702-6',2);
+INSERT INTO `libro` VALUES (1,'HTML5,CSS3 y JavaScript','978-84-415-2348-5',1),(2,'HTML5,CSS3 y JavaScript','978-84-415-2348-5',1),(3,'Java SE 6','978-84-415-2348-7',1),(4,'Java 8','978-2-7460-9347-8',2),(5,'HTML5,CSS3 y JavaScript','978-2-7460-9669-1',2),(6,'MySQL 5.1','978-84-415-2523-8',1),(7,'MySQL 5.1','978-84-415-2523-8',1),(8,'MySQL 5.1','978-84-415-2523-8',1),(9,'Java 7','978-84-415-2988-5',1),(11,'Modificado3333','11111113333',3),(17,'Modificado','222222222',2);
 /*!40000 ALTER TABLE `libro` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -99,6 +99,7 @@ CREATE TABLE `prestado` (
 
 LOCK TABLES `prestado` WRITE;
 /*!40000 ALTER TABLE `prestado` DISABLE KEYS */;
+INSERT INTO `prestado` VALUES (1,1,'2018-11-19','2018-11-29',NULL),(2,2,'2018-11-15','2018-11-30',NULL),(3,3,'2018-11-19','2018-12-04','2018-12-02'),(4,4,'2018-11-12','2018-11-27','2018-11-28'),(5,5,'2018-11-19','2018-12-04',NULL);
 /*!40000 ALTER TABLE `prestado` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
@@ -131,7 +132,7 @@ CREATE TABLE `tipo_editorial` (
   `editorial` varchar(50) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `editorial_UNIQUE` (`editorial`)
-) ENGINE=InnoDB AUTO_INCREMENT=61 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -140,7 +141,7 @@ CREATE TABLE `tipo_editorial` (
 
 LOCK TABLES `tipo_editorial` WRITE;
 /*!40000 ALTER TABLE `tipo_editorial` DISABLE KEYS */;
-INSERT INTO `tipo_editorial` VALUES (1,'Anaya'),(2,'Eni');
+INSERT INTO `tipo_editorial` VALUES (1,'Anaya'),(2,'Eni'),(3,'Santillana');
 /*!40000 ALTER TABLE `tipo_editorial` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -585,14 +586,15 @@ DELIMITER ;
 /*!50003 SET character_set_results = utf8mb4 */ ;
 /*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
-/*!50003 SET sql_mode              = 'NO_AUTO_VALUE_ON_ZERO' */ ;
+/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
 CREATE DEFINER=`root`@`localhost` PROCEDURE `prestamoGetHistorico`()
 BEGIN
-SELECT p.id_libro,p.id_alumno,p.fecha_inicio,p.fecha_final,p.fecha_devuelto,l.titulo,a.nombre,a.apellidos
+SELECT p.id_libro,p.id_alumno,p.fecha_inicio,p.fecha_final,p.fecha_devuelto,l.titulo,l.isbn,a.nombre,a.apellidos,e.id,e.editorial
 FROM prestado as p
 INNER JOIN libro AS l ON l.id=p.id_libro
 INNER JOIN alumno AS a ON a.id=p.id_alumno
+INNER JOIN tipo_editorial AS e ON e.id=l.id_tipo_editorial
 WHERE fecha_devuelto IS NOT NULL
 ORDER BY p.fecha_devuelto DESC;
 END ;;
@@ -629,14 +631,15 @@ DELIMITER ;
 /*!50003 SET character_set_results = utf8mb4 */ ;
 /*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
-/*!50003 SET sql_mode              = 'NO_AUTO_VALUE_ON_ZERO' */ ;
+/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
 CREATE DEFINER=`root`@`localhost` PROCEDURE `prestamoGetPrestados`()
 BEGIN
-SELECT p.id_libro,p.id_alumno,p.fecha_inicio,p.fecha_final,l.titulo,a.nombre, a.apellidos,p.fecha_devuelto
+SELECT p.id_libro,p.id_alumno,p.fecha_inicio,p.fecha_final,l.titulo,l.isbn,e.id,e.editorial,a.nombre, a.apellidos,p.fecha_devuelto
 FROM prestado as p
 INNER JOIN libro AS l ON l.id=p.id_libro
 INNER JOIN alumno AS a ON a.id=p.id_alumno
+INNER JOIN tipo_editorial AS e ON e.id=l.id_tipo_editorial
 WHERE fecha_devuelto IS NULL
 order by p.fecha_devuelto desc;
 END ;;
@@ -682,15 +685,17 @@ DELIMITER ;
 /*!50003 SET character_set_results = utf8mb4 */ ;
 /*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
-/*!50003 SET sql_mode              = 'NO_AUTO_VALUE_ON_ZERO' */ ;
+/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
 CREATE DEFINER=`root`@`localhost` PROCEDURE `prestamoPrestar`(
 	IN `p_id_libro` INT,
 	IN `p_id_alumno` INT,
-	IN `p_fecha_inicio` DATE
+	IN `p_fecha_inicio` DATE,
+    OUT `o_fecha_final` DATE
 )
 BEGIN
 INSERT INTO prestado (id_libro, id_alumno, fecha_inicio) VALUES (p_id_libro, p_id_alumno, p_fecha_inicio);
+SET o_fecha_final:=(SELECT fecha_final FROM prestado WHERE p_id_libro=id_libro AND p_id_alumno=id_alumno AND p_fecha_inicio=fecha_inicio);
 END ;;
 DELIMITER ;
 /*!50003 SET sql_mode              = @saved_sql_mode */ ;
@@ -737,4 +742,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-11-07  9:12:07
+-- Dump completed on 2018-11-19  9:17:03
