@@ -38,7 +38,7 @@
 												<select name="usuario" class="form-control" required>
 													<option>Seleccione un usuario</option>
 													<c:forEach items="${usuarios}" var="u">
-														<option value="${u.id}">${u.id} - ${u.nombreApellido}</option>
+														<option value="${u.id}">${u.id} - ${u.nombreApellidos}</option>
 													</c:forEach>
 												</select>
 											</div>

@@ -12,6 +12,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.log4j.Logger;
+
 import com.ipartek.formacion.prestamos_libros.controller.pojo.Alert;
 import com.ipartek.formacion.prestamos_libros.pojo.Editorial;
 import com.ipartek.formacion.prestamos_libros.service.ServiceEditorial;
@@ -22,6 +24,7 @@ import com.ipartek.formacion.prestamos_libros.service.ServiceEditorial;
 @WebServlet("/backoffice/editorial")
 public class EditorialController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	private final static Logger LOG = Logger.getLogger(EditorialController.class);
 	private ServiceEditorial editorialService;
 	
 	public static final String OP_LISTAR = "1";
@@ -45,7 +48,8 @@ public class EditorialController extends HttpServlet {
      */
     public EditorialController() {
         super();
-        // TODO Auto-generated constructor stub
+        LOG.trace("constructor");
+        LOG.trace("Servicios editoriales instanciadas");
     }
 
 	/**
@@ -101,7 +105,7 @@ public class EditorialController extends HttpServlet {
 			}
 
 		} catch (Exception e) {
-			e.printStackTrace();
+			LOG.error(e);
 			view = VIEW_LISTADO;
 			alert = new Alert();
 		} finally {
@@ -129,22 +133,22 @@ public class EditorialController extends HttpServlet {
 				//modificar
 				e.setId(new Long(id));
 				if(!editorialService.modificar(e)){
-					alert = new Alert(alert.SUCCESS, "editorial modificado correctamente.");
+					alert = new Alert(Alert.SUCCESS, "editorial modificado correctamente.");
 				}else{
-					alert = new Alert(alert.DANGER, "Editorial no se ha podido modificar.");
+					alert = new Alert(Alert.DANGER, "Editorial no se ha podido modificar.");
 				}
 			}else {
 				//añadir
 				if(!editorialService.crear(e)){
-					alert = new Alert(alert.SUCCESS, "Editorail creado correctamente.");
+					alert = new Alert(Alert.SUCCESS, "Editorail creado correctamente.");
 				}else{
-					alert = new Alert(alert.DANGER, "Editorial no se ha podido crear.");
+					alert = new Alert(Alert.DANGER, "Editorial no se ha podido crear.");
 				}
 			}
 			
 		}catch(SQLIntegrityConstraintViolationException t) {
 			t.printStackTrace();
-			alert = new Alert(alert.DANGER, "No puede haber dos editoriales con el mismo nombre.");
+			alert = new Alert(Alert.DANGER, "No puede haber dos editoriales con el mismo nombre.");
 		}catch(Exception q) {
 			q.printStackTrace();
 		}
@@ -173,16 +177,16 @@ public class EditorialController extends HttpServlet {
 		try {
 			
 			if(!editorialService.eliminar(Long.parseLong(id))){
-				alert = new Alert(alert.SUCCESS, "Editorial eliminado correctamente.");
+				alert = new Alert(Alert.SUCCESS, "Editorial eliminado correctamente.");
 			}else{
-				alert = new Alert(alert.DANGER, "Editorial no se ha podido eliminar.");
+				alert = new Alert(Alert.DANGER, "Editorial no se ha podido eliminar.");
 			}
 			
 		}catch(SQLIntegrityConstraintViolationException x) {
-			x.printStackTrace();
-			alert = new Alert(alert.DANGER, "No se puede eliminar un editorial que contenga libros.");
+			LOG.error(x);
+			alert = new Alert(Alert.DANGER, "No se puede eliminar un editorial que contenga libros.");
 		} catch (Exception e1) {
-			e1.printStackTrace();
+			LOG.error(e1);
 		}
 		
 		List<Editorial> editoriales = editorialService.listar();

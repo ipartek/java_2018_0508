@@ -25,7 +25,7 @@
                   <div class="row">
                     <div class="form-group col-6">
                       <label for="frist_name">Nombre y Apellidos</label>
-                      <input id="frist_name" type="text" class="form-control" name="nombreApellido" value="${usuario.nombreApellido}"  required autofocus>
+                      <input id="frist_name" type="text" class="form-control" name="nombreApellido" value="${usuario.nombreApellidos}"  required autofocus>
                     </div>
                   </div>
                   <div class="form-group">

@@ -36,7 +36,7 @@
                   		     <c:forEach items="${devueltos}" var="d">
 							<tr>
 								<td>${d.libro.titulo}</td>
-								<td>${d.usuario.nombreApellido}</td>
+								<td>${d.usuario.nombreApellidos}</td>
 								
 								<td><fmt:formatDate pattern = "MM/dd/yyyy" value = "${d.fech_inicio}" /></td>
 								<td><fmt:formatDate pattern = "MM/dd/yyyy" value = "${d.fecha_devuelto}" /></td>

@@ -11,7 +11,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.ipartek.formacion.prestamos_libros.model.UsuarioDAO;
+import org.apache.log4j.Logger;
+
 import com.ipartek.formacion.prestamos_libros.controller.pojo.Alert;
 import com.ipartek.formacion.prestamos_libros.pojo.Usuario;
 import com.ipartek.formacion.prestamos_libros.service.ServiceUsuario;
@@ -22,6 +23,7 @@ import com.ipartek.formacion.prestamos_libros.service.ServiceUsuario;
 @WebServlet("/backoffice/usuario")
 public class UsuarioController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	private final static Logger LOG = Logger.getLogger(UsuarioController.class);
 	private ServiceUsuario usuarioService;
 	
 
@@ -42,7 +44,8 @@ public class UsuarioController extends HttpServlet {
 
 	public UsuarioController() {
 		super();
-		// TODO Auto-generated constructor stub
+		LOG.trace("constructor");
+		LOG.trace("Servicios alumnos instanciados");
 	}
 
 	public void init(ServletConfig config) throws ServletException {
@@ -91,7 +94,7 @@ public class UsuarioController extends HttpServlet {
 			}
 
 		} catch (Exception e) {
-			e.printStackTrace();
+			LOG.error(e);
 			view = VIEW_LISTADO;
 			alert = new Alert();
 		} finally {
@@ -111,7 +114,7 @@ public class UsuarioController extends HttpServlet {
 
 	private void guardar(HttpServletRequest request) throws Exception {
 		Usuario u = new Usuario();
-		u.setNombreApellido(nombre_apellidos);
+		u.setNombreApellidos(nombre_apellidos);
 
 		try {
 		
@@ -119,24 +122,24 @@ public class UsuarioController extends HttpServlet {
 				//modificar
 				u.setId(new Long(id));
 				if(!usuarioService.modificar(u)){
-					alert = new Alert(alert.SUCCESS, "Usuario modificado correctamente.");
+					alert = new Alert(Alert.SUCCESS, "Usuario modificado correctamente.");
 				}else{
-					alert = new Alert(alert.DANGER, "El usuario no se ha podido modificar.");
+					alert = new Alert(Alert.DANGER, "El usuario no se ha podido modificar.");
 				}
 			}else {
 				//añadir
 				if(!usuarioService.crear(u)){
-					alert = new Alert(alert.SUCCESS, "Usuario creado correctamente.");
+					alert = new Alert(Alert.SUCCESS, "Usuario creado correctamente.");
 				}else{
-					alert = new Alert(alert.DANGER, "El usuario no se ha podido crear.");
+					alert = new Alert(Alert.DANGER, "El usuario no se ha podido crear.");
 				}
 			}
 		
 		}catch(SQLIntegrityConstraintViolationException x) {
-			x.printStackTrace();
-			alert = new Alert(alert.DANGER, "El nombre del usuario no puede estar repetido.");
+			LOG.error(x);
+			alert = new Alert(Alert.DANGER, "El nombre del usuario no puede estar repetido.");
 		}catch(Exception f) {
-			f.printStackTrace();
+			LOG.error(f);
 			alert = new Alert();
 		}
 		
@@ -162,16 +165,16 @@ public class UsuarioController extends HttpServlet {
 		try {
 			
 			if(!usuarioService.eliminar(Long.parseLong(id))){
-				alert = new Alert(alert.SUCCESS, "Usuario eliminado correctamente.");
+				alert = new Alert(Alert.SUCCESS, "Usuario eliminado correctamente.");
 			}else{
-				alert = new Alert(alert.DANGER, "El usuario no se ha podido eliminar.");
+				alert = new Alert(Alert.DANGER, "El usuario no se ha podido eliminar.");
 			}
 			
 		}catch(SQLIntegrityConstraintViolationException w) {
-			w.printStackTrace();
-			alert = new Alert(alert.DANGER, "No se puede eliminar un usuario que tenga un libro prestado.");
+			LOG.error(w);
+			alert = new Alert(Alert.DANGER, "No se puede eliminar un usuario que tenga un libro prestado.");
 		}catch(Exception c) {
-			c.printStackTrace();
+			LOG.error(c);
 		}
 	
 		List<Usuario> usuarios = usuarioService.listar();

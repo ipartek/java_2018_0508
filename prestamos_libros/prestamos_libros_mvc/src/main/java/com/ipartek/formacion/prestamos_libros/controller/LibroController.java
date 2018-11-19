@@ -11,8 +11,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.ipartek.formacion.prestamos_libros.model.EditorialDAO;
-import com.ipartek.formacion.prestamos_libros.model.LibroDAO;
+import org.apache.log4j.Logger;
+
 import com.ipartek.formacion.prestamos_libros.controller.pojo.Alert;
 import com.ipartek.formacion.prestamos_libros.pojo.Editorial;
 import com.ipartek.formacion.prestamos_libros.pojo.Libro;
@@ -25,6 +25,7 @@ import com.ipartek.formacion.prestamos_libros.service.ServiceLibro;
 @WebServlet("/backoffice/libro")
 public class LibroController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	private final static Logger LOG = Logger.getLogger(LibroController.class);
 	private ServiceEditorial editorialService;
 	private ServiceLibro libroService;
 
@@ -48,7 +49,8 @@ public class LibroController extends HttpServlet {
 
 	public LibroController() {
 		super();
-		// TODO Auto-generated constructor stub
+		LOG.trace("constructor");
+		LOG.trace("Servicios libros instanciados");
 	}
 
 	public void init(ServletConfig config) throws ServletException {
@@ -98,7 +100,7 @@ public class LibroController extends HttpServlet {
 			}
 
 		} catch (Exception e) {
-			e.printStackTrace();
+			LOG.error(e);
 			view = VIEW_LISTADO;
 			alert = new Alert();
 		} finally {
@@ -130,23 +132,23 @@ public class LibroController extends HttpServlet {
 				//modificar
 				l.setId(new Long(id));
 				if(!libroService.modificar(l)) {
-					alert = new Alert(alert.SUCCESS, "Libro modificado con exito.");
+					alert = new Alert(Alert.SUCCESS, "Libro modificado con exito.");
 				}else {
-					alert = new Alert(alert.DANGER, "El libro no se ha podido modificar.");
+					alert = new Alert(Alert.DANGER, "El libro no se ha podido modificar.");
 				}
 			}else {
 				//añadir
 				int numeroLibrosAnadir = Integer.parseInt(cantidad);
 				for(int i=0; i < numeroLibrosAnadir; i++) {
 					if(!libroService.crear(l)) {
-						alert = new Alert(alert.SUCCESS, "El libro se ha insertado con exito.");
+						alert = new Alert(Alert.SUCCESS, "El libro se ha insertado con exito.");
 					}else {
-						alert = new Alert(alert.DANGER, "El libro no se ha podido insertar.");
+						alert = new Alert(Alert.DANGER, "El libro no se ha podido insertar.");
 					}
 				}
 			}
 		}catch(Exception f) {
-			f.printStackTrace();
+			LOG.error(f);
 			alert = new Alert();
 		}
 
@@ -176,16 +178,16 @@ public class LibroController extends HttpServlet {
 		try {
 			
 			if(!libroService.eliminar(Long.parseLong(id))) {
-				alert = new Alert(alert.SUCCESS, "Libro elinimado correctamente.");
+				alert = new Alert(Alert.SUCCESS, "Libro elinimado correctamente.");
 			}else {
-				alert = new Alert(alert.DANGER, "No se ha podido eliminar el libro.");
+				alert = new Alert(Alert.DANGER, "No se ha podido eliminar el libro.");
 			}
 			
 		}catch(SQLIntegrityConstraintViolationException g) {
-			g.printStackTrace();
-			alert = new Alert(alert.DANGER, "No se puede eliminar un libro que este prestado.");
+			LOG.error(g);
+			alert = new Alert(Alert.DANGER, "No se puede eliminar un libro que este prestado.");
 		}catch(Exception s) {
-			s.printStackTrace();
+			LOG.error(s);
 		}
 		
 		List<Libro> libros = libroService.listar();
