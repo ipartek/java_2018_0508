@@ -283,14 +283,27 @@ public class PrestamosController {
 				response = new ResponseEntity<>(responseMensaje, HttpStatus.CONFLICT);
 				LOG.debug("Datos no validos");
 
-			} else {				
+			} else {	
+				
+				
 				
 
 				if (servicePrestamo.modificar(idLibro, idAlumno, fechaPrestado, prestamo.getLibro().getId(),
 						prestamo.getAlumno().getId(), prestamo.getFecha_prestado(), prestamo.getFecha_fin(),
 						prestamo.getFecha_retorno())) {
 					
-					
+					Alumno a = new Alumno();
+					a = ServiceAlumno.getInstance().buscarPorId(prestamo.getAlumno().getId());
+					prestamo.setAlumno(a);
+
+					Libro l = new Libro();
+					l = ServiceLibro.getInstance().buscarPorId(prestamo.getLibro().getId());
+
+					Editorial e = new Editorial();
+					e = ServiceEditorial.getInstance().buscarPorId(l.getEditorial().getId());
+					l.setEditorial(e);
+
+					prestamo.setLibro(l);
 					
 					response = new ResponseEntity<>(prestamo, HttpStatus.OK);
 				} else {

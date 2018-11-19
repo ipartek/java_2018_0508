@@ -4,6 +4,8 @@ import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.ipartek.formacion.model.AlumnoDAO;
+import com.ipartek.formacion.model.LibroDAO;
 import com.ipartek.formacion.model.PrestamoDAO;
 import com.ipartek.formacion.pojo.Alumno;
 import com.ipartek.formacion.pojo.Libro;
@@ -13,9 +15,11 @@ public class ServicePrestamo implements IServicePrestamo {
 
 	private static ServicePrestamo INSTANCE = null;
 	private static PrestamoDAO daoPrestamo = PrestamoDAO.getInstance();
-//	private static final String EXCEPCION_NO_VALIDOS = "Necesitamos el id del libro, id alumno y la fecha prestamo";
-//	private static final String EXCEPCION_NO_EXISTE = "Alumno o libro no existen";
-//	private static final String EXCEPCION_EXISTE = "Alumno o libro ya tiene un prestamo pendiente";
+
+	public static final String EXCEPTION_PARAMETROS_INCORRECTOS = "Necesitamos idLibro, idUsuario y FechaInicio";
+	public static final String EXCEPTION_NO_EXISTE_ALUMNO_LIBRO = "No podemos prestar si no existe el Usuario o Libro";
+	public static final String EXCEPTION_LIBRO_PRESTADO = "Libro ya tiene un prestamos activo";
+	public static final String EXCEPTION_ALUMNO_PRESTADO = "Usuario ya tiene un prestamos activo";
 
 	private ServicePrestamo() {
 		super();
@@ -130,38 +134,97 @@ public class ServicePrestamo implements IServicePrestamo {
 		return resul;
 	}
 
+	/*
+	 * No se usa en prestamo.
+	 */
 	@Override
 	public boolean update(long idLibroOld, long idAlumnoOld, Date fechaPrestadoOld, long idLibroNew, long idAlumnoNew,
 			Date fechaPrestadoNew, Date fechaFinal, Date fechaRetorno) throws Exception {
 
-		boolean resul = false;
-//
-//		if (daoPrestamo.modifyAll(idAlumnoOld, idLibroOld, fechaPrestadoOld, idAlumnoNew, idLibroNew, fechaPrestadoNew,
-//				fechaFinal, fechaRetorno)) {
-//			resul = true;
-//		}
-		return resul;
+		return false;
 	}
 
 	public boolean modificar(long idLibroOld, long idAlumnoOld, Date fechaPrestadoOld, long idLibroNew,
 			long idAlumnoNew, Date fechaPrestadoNew, Date fechaFinal, Date fechaRetorno) throws Exception {
-		
+
 		boolean resul = false;
-		//Comprobacion de que los pojos tenga un id valido
-		if (idAlumnoNew <= 0) {
-			idAlumnoNew = idAlumnoOld;
-			
+		boolean alumnoEncontrado = false;
+		boolean libroEncontrado = false;
+		
+		Prestamo p = new Prestamo(fechaPrestadoNew, new Alumno(idAlumnoNew, ""), new Libro(idLibroNew, "", "", 1, null));
+		comprobaciones(p);
+		
+		if(idAlumnoOld != idAlumnoNew) {
+			ArrayList<Alumno> alumnosDisponibles = (ArrayList<Alumno>) this.alumnosDisponibles();
+			for(int i=0; i<alumnosDisponibles.size();i++) {
+				if(alumnosDisponibles.get(i).getId() == idAlumnoNew) {
+					alumnoEncontrado = true;
+					break;
+				}
+			}
+		}else {
+			alumnoEncontrado = true;
 		}
-
-		if (idLibroNew <= 0) {
-			idLibroNew = idLibroOld;
+		
+		if(idLibroOld != idLibroNew) {
+			ArrayList<Libro> librosDisponibles = (ArrayList<Libro>) this.librosDisponibles();
+			for(int i=0; i<librosDisponibles.size();i++) {
+				if(librosDisponibles.get(i).getId() == idLibroNew) {
+					libroEncontrado = true;
+					break;
+				}
+			}
+		}else {
+			libroEncontrado = true;
 		}
-
-		if (daoPrestamo.modifyAll(idAlumnoOld, idLibroOld, fechaPrestadoOld, idAlumnoNew, idLibroNew, fechaPrestadoNew,
-				fechaFinal, fechaRetorno)) {
-			resul = true;
+		
+		if(alumnoEncontrado && libroEncontrado) {
+			if (daoPrestamo.modifyAll(idAlumnoOld, idLibroOld, fechaPrestadoOld, idAlumnoNew, idLibroNew, fechaPrestadoNew, fechaFinal, fechaRetorno)) {
+				resul=true;
+			}
+		}else if(!alumnoEncontrado){
+			throw new Exception(EXCEPTION_ALUMNO_PRESTADO);
+		}else if(!libroEncontrado) {
+			throw new Exception(EXCEPTION_LIBRO_PRESTADO);
 		}
+		
 		return resul;
+	}
+
+	/**
+	 * Metodo que comprueba si existen el Libro y el Alumno en la bbdd
+	 * 
+	 * @param prestamo Objeto Prestamo a comprobar si existen su Alumno y su Libro
+	 * @throws Exception
+	 */
+	public void comprobaciones(Prestamo prestamo) throws Exception {
+
+		long idLibro = -1;
+		long idAlumno = -1;
+		Date fInicio = null;
+
+		// comprobar parametros obligatorios correctos
+		try {
+			idLibro = prestamo.getLibro().getId();
+			idAlumno = prestamo.getAlumno().getId();
+			fInicio = prestamo.getFecha_prestado();
+
+			if (idLibro < 1 || idAlumno < 1 || fInicio == null) {
+				throw new Exception(EXCEPTION_PARAMETROS_INCORRECTOS);
+			}
+
+		} catch (Exception e) {
+
+			throw new Exception(EXCEPTION_PARAMETROS_INCORRECTOS);
+		}
+
+		// comprobar Existe Libro y Usuario
+		Libro libro = LibroDAO.getInstance().getById(String.valueOf(idLibro));
+		Alumno alumno = AlumnoDAO.getInstance().getById(String.valueOf(idAlumno));
+
+		if (libro.getId() < 0 || alumno.getId() < 0) {
+			throw new Exception(EXCEPTION_NO_EXISTE_ALUMNO_LIBRO);
+		}
 	}
 
 }
