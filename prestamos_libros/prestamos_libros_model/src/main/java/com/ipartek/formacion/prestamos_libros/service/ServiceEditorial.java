@@ -17,7 +17,7 @@ public class ServiceEditorial implements IServiceEditorial{
 		return INSTANCE;
 	}
 	
-	private ServiceEditorial ()  {
+	public ServiceEditorial ()  {
 		daoEditorial = EditorialDAO.getInstance();
 	}
 

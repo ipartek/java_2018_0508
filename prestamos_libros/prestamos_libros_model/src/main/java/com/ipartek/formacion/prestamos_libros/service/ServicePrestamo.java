@@ -33,7 +33,7 @@ public class ServicePrestamo implements IServicePrestamo {
 		return INSTANCE;
 	}
 
-	private ServicePrestamo() {
+	public ServicePrestamo() {
 		daoPrestamo = PrestamoDAO.getInstance();
 		daoLibro = LibroDAO.getInstance();
 		daoUsuario = UsuarioDAO.getInstance();
