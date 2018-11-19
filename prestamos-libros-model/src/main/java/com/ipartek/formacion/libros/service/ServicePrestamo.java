@@ -229,7 +229,6 @@ public class ServicePrestamo implements IPrestamoService {
 			throw new Exception("Préstamo no encontrado.");
 			
 		}
-
 		
 
 		return resul;

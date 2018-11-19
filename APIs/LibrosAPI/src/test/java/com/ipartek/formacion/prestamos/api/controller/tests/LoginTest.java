@@ -1,8 +1,8 @@
 package com.ipartek.formacion.prestamos.api.controller.tests;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
-import org.jsoup.Connection;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -55,6 +55,10 @@ public class LoginTest {
 		System.out.println(document.title());
 		
 		String url = null;
+		
+		Element ulPags = document.getElementById("paging");
+		
+		Elements pags = ulPags.getElementsByTag("li");
 
 		Elements newsHeadlines = document.select("a");
 
@@ -88,10 +92,21 @@ public class LoginTest {
 			//System.out.printf("%s\n\t%s", headline.attr("title"), headline.absUrl("href"));
 		}
 
-        document = Jsoup.connect("https://www.desco.org.bd/ebill/login.php")
+        document = Jsoup.connect(ENDPOINT)
                 .data("s", "economia")
                 .post();
         System.out.println(document);
+		
+	}
+	
+	
+	private ArrayList<String> mapper(Elements el) {
+		
+		ArrayList<String> libros = new ArrayList<String>();
+		
+		
+		
+		return libros;
 		
 	}
 

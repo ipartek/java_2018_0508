@@ -5,8 +5,14 @@ import javax.validation.constraints.Size;
 
 import org.hibernate.validator.constraints.NotBlank;
 
-public class Alumno {
+public class Alumno implements Cloneable {
 	
+	@Override
+	protected Object clone() throws CloneNotSupportedException {
+		// TODO Auto-generated method stub
+		return super.clone();
+	}
+
 	@NotNull
 	private long id;
 	

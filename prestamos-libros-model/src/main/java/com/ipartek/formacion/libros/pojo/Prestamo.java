@@ -4,27 +4,38 @@ import java.sql.Date;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
-
-public class Prestamo {
+public class Prestamo implements Cloneable {
 
 	@Override
 	public Prestamo clone() throws CloneNotSupportedException {
+		Prestamo obj = null;
+		try {
+			
+			obj = (Prestamo) super.clone();
 		
-		return (Prestamo) this.clone();
+		} catch (CloneNotSupportedException ex) {
+			
+			System.out.println(" no se puede duplicar");
+		}
+		
+		obj.setLibro((Libro) obj.getLibro().clone());
+		obj.setAlumno((Alumno) obj.getAlumno().clone());
+		
+		return obj;
 	}
 
 	private static final long MILLSECS_PER_DAY = 24 * 60 * 60 * 1000;
 
 	private Alumno alumno;
 	private Libro libro;
-	
-	@DateTimeFormat(pattern="yyyy-MM-dd")
+
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date fechaInicio;
-	
-	@DateTimeFormat(pattern="yyyy-MM-dd")
+
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date fechaFin;
-	
-	@DateTimeFormat(pattern="yyyy-MM-dd")
+
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date fechaRetorno;
 
 	public Prestamo() {
@@ -40,7 +51,6 @@ public class Prestamo {
 		this.fechaInicio = fechaInicio;
 		this.fechaFin = fechaFin;
 	}
-
 
 	public Alumno getAlumno() {
 		return alumno;
@@ -94,8 +104,8 @@ public class Prestamo {
 
 	@Override
 	public String toString() {
-		return "Prestamo [alumno=" + alumno + ", libro=" + libro + ", fechaInicio=" + fechaInicio
-				+ ", fechaFin=" + fechaFin + ", fechaRetorno=" + fechaRetorno + "]";
+		return "Prestamo [alumno=" + alumno + ", libro=" + libro + ", fechaInicio=" + fechaInicio + ", fechaFin="
+				+ fechaFin + ", fechaRetorno=" + fechaRetorno + "]";
 	}
 
 }
