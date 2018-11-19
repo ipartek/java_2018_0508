@@ -133,6 +133,10 @@ public class LibroDAO implements CrudAble<Libro>{
 			//parseInt para convertir de String a INT
 			cs.setInt(1, Integer.parseInt(id));
 			result = cs.execute();
+			int affectedRows = cs.executeUpdate();
+			if ( affectedRows == 1 ) {
+				result = true;
+			}
 		}
 		return result;
 	}
