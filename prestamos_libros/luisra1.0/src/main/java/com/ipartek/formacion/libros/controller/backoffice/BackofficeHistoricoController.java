@@ -13,6 +13,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.log4j.Logger;
+
 import com.ipartek.formacion.libros.pojo.Alert;
 import com.ipartek.formacion.libros.pojo.Alumno;
 import com.ipartek.formacion.libros.pojo.Libro;
@@ -27,6 +29,7 @@ public class BackofficeHistoricoController extends HttpServlet implements ICRUDC
 
 	private static final long serialVersionUID = 1L;
 	private static ServicePrestamo servicio;
+	private final static Logger LOG = Logger.getLogger(BackofficeHistoricoController.class);
 
 	private static final String VIEW_LISTADO = "historico/index.jsp";
 	private static final String VIEW_FORMULARIO = "historico/form.jsp";
@@ -104,18 +107,18 @@ public class BackofficeHistoricoController extends HttpServlet implements ICRUDC
 			}
 
 		} catch (SQLIntegrityConstraintViolationException e) { // Error entrada duplicada
-
+			LOG.debug(e.getMessage());
 			alert = new Alert(Alert.WARNING, "El préstamo ya existe.");
 
 		} catch (SQLException e) { // Longitud de campos incorrecta
-
+			LOG.debug(e.getMessage());
 			alert = new Alert(Alert.WARNING, "Alguno de los campos tiene una longitud incorrecta.");
-			e.printStackTrace();
+			
 
 		} catch (Exception e) { // Errores que no son de SQL
-
+			LOG.debug(e.getMessage());
 			alert = new Alert();
-			e.printStackTrace();
+			
 
 		} finally {
 

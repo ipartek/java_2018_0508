@@ -13,6 +13,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.log4j.Logger;
+
 import com.ipartek.formacion.libros.pojo.Alert;
 import com.ipartek.formacion.libros.pojo.Prestamo;
 import com.ipartek.formacion.libros.service.ServicePrestamo;
@@ -30,6 +32,7 @@ public class BackofficePrestamoController extends HttpServlet implements ICRUDCo
 
 	private static final String VIEW_LISTADO = "prestamos/index.jsp";
 	private static final String VIEW_FORMULARIO = "prestamos/form.jsp";
+	private final static Logger LOG = Logger.getLogger(BackofficePrestamoController.class);
 
 	private String view;
 	private Alert alert;
@@ -106,19 +109,19 @@ public class BackofficePrestamoController extends HttpServlet implements ICRUDCo
 			}
 
 		} catch (SQLIntegrityConstraintViolationException e) { // Error entrada duplicada
-			
+			LOG.debug(e.getMessage());
 			alert = new Alert(Alert.WARNING, "El préstamo ya existe.");
 			e.printStackTrace();
 
 		} catch (SQLException e) { // Longitud de campos incorrecta
-			
+			LOG.debug(e.getMessage());
 			alert = new Alert(Alert.WARNING, "Alguno de los campos tiene una longitud incorrecta.");
-			e.printStackTrace();
+			
 
 		} catch (Exception e) { // Errores que no son de SQL
-
+			LOG.debug(e.getMessage());
 			alert = new Alert();
-			e.printStackTrace();
+			
 		
 		} finally {
 
@@ -155,9 +158,10 @@ public class BackofficePrestamoController extends HttpServlet implements ICRUDCo
 	@Override
 	public void guardar(HttpServletRequest request) throws Exception {
 		
-		if (id_libro == null) {
+		if ("-1".equals(id_libro)) {
 			
-			servicio.prestar(Long.parseLong(id_alumno), Long.parseLong(id_libro), parseDate(fechaInicio));
+			servicio.prestar(Long.parseLong(nuevoAlumno), Long.parseLong(nuevoLibro), parseDate(nuevaFecha));
+			alert = new Alert(Alert.SUCCESS, "Préstamo correctamente creado.");
 			
 		} else {
 		

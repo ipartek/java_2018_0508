@@ -11,6 +11,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.log4j.Logger;
+
 import com.ipartek.formacion.libros.pojo.Alert;
 import com.ipartek.formacion.libros.pojo.Alumno;
 import com.ipartek.formacion.libros.service.ServiceAlumno;
@@ -23,6 +25,7 @@ public class BackofficeAlumnoController extends HttpServlet implements ICRUDCont
 
 	private static final long serialVersionUID = 1L;
 	private static ServiceAlumno alumnoService = null;
+	private final static Logger LOG = Logger.getLogger(BackofficeAlumnoController.class);
 
 	private static final String VIEW_LISTADO = "alumnos/index.jsp";
 	private static final String VIEW_FORMULARIO = "alumnos/form.jsp";
@@ -96,9 +99,10 @@ public class BackofficeAlumnoController extends HttpServlet implements ICRUDCont
 			}
 
 		} catch (Exception e) {
-
-			e.printStackTrace();
+			LOG.debug(e.getMessage());
 			view = VIEW_LISTADO;
+			
+			
 
 		} finally {
 
@@ -149,18 +153,19 @@ public class BackofficeAlumnoController extends HttpServlet implements ICRUDCont
 			}
 
 		} catch (SQLIntegrityConstraintViolationException e) { // Error entrada duplicada
-
+			
+			LOG.debug(e.getMessage());
 			alert = new Alert(Alert.WARNING, "el alumno ya existe.");
 			view = VIEW_FORMULARIO;
 
 		} catch (SQLException e) { // Longitud de campos incorrecta
-
+			LOG.debug(e.getMessage());
 			alert = new Alert(Alert.WARNING, "Alguno de los campos tiene una longitud incorrecta.");
 			view = VIEW_FORMULARIO;
-			e.printStackTrace();
+			
 
 		} catch (Exception e) { // Errores que no son de SQL
-
+			LOG.debug(e.getMessage());
 			alert = new Alert();
 			view = VIEW_FORMULARIO;
 			e.printStackTrace();
@@ -201,7 +206,7 @@ public class BackofficeAlumnoController extends HttpServlet implements ICRUDCont
 			}
 
 		} catch (SQLException e) {
-
+			LOG.debug(e.getMessage());
 			alert = new Alert(Alert.WARNING, "No podemos eliminar la editorial porque tiene libros asociados.");
 			view = VIEW_LISTADO;
 		}

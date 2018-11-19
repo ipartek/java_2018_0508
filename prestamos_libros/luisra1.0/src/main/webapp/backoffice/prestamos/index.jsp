@@ -46,8 +46,8 @@
 			                <td>${ p.fechaInicio }</td>
 			                <td>${ p.fechaFin }</td>
 			                <td>
-			                	<a onclick="showInputDialogDevolver(<%= ICRUDController.OP_ELIMINAR %>, ${ p.alumno.id },  ${ p.libro.id },  '${ p.fechaInicio }' );">Devolver</a>
-			                	<a href="prestamos?op=<%= ICRUDController.OP_IR_FORMULARIO %>&alumno=${ p.alumno.id }&libro=${ p.libro.id }&fechaInicio=${ p.fechaInicio }&fechaFin=${ p.fechaFin }">Editar</a>
+			                	<a class="badge badge-primary" onclick="showInputDialogDevolver(<%= ICRUDController.OP_ELIMINAR %>, ${ p.alumno.id }, ${ p.libro.id },  '${ p.fechaInicio }' );">Devolver</a>
+			                	<a class="badge badge-danger" href="prestamos?op=<%= ICRUDController.OP_IR_FORMULARIO %>&alumno=${ p.alumno.id }&libro=${ p.libro.id }&fechaInicio=${ p.fechaInicio }&fechaFin=${ p.fechaFin }">Editar</a>
 			                </td>	                
 			            </tr>
 		            </c:forEach>

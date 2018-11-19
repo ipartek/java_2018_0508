@@ -16,6 +16,7 @@ import com.ipartek.formacion.libros.pojo.Alert;
 @WebServlet("/login")
 public class LoginController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	
 
 	public static final String VISTA_PRINCIPAL = "backoffice/prestamos";
 	public static final String VISTA_FALLIDA = "login.jsp";

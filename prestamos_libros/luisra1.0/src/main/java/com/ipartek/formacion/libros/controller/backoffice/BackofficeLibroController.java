@@ -11,6 +11,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.log4j.Logger;
+
 import com.ipartek.formacion.libros.pojo.Alert;
 import com.ipartek.formacion.libros.pojo.Editorial;
 import com.ipartek.formacion.libros.pojo.Libro;
@@ -26,6 +28,7 @@ public class BackofficeLibroController extends HttpServlet implements ICRUDContr
 	private static final long serialVersionUID = 1L;
 	private static ServiceLibro libroService = null;
 	private static ServiceEditorial editorialService = null;
+	private final static Logger LOG = Logger.getLogger(BackofficeLibroController.class);
 	
 
 	private static final String VIEW_LISTADO = "libros/index.jsp";
@@ -107,7 +110,7 @@ public class BackofficeLibroController extends HttpServlet implements ICRUDContr
 			alert.setTipo(Alert.DANGER);
 			alert.setTexto("La editorial con la que intenta dar de alta o actulizar el nuevo libro ya existe\n"
 					+ "Intentelo con una de las existentes y introduzca una nueva");
-			e.printStackTrace();
+			LOG.debug(e.getMessage());
 			view = VIEW_FORMULARIO;
 			
 
@@ -177,21 +180,21 @@ public class BackofficeLibroController extends HttpServlet implements ICRUDContr
 			}
 
 		} catch (SQLIntegrityConstraintViolationException e) { // Error entrada duplicada
-
+			LOG.debug(e.getMessage());
 			alert = new Alert(Alert.WARNING, "el libro ya existe.");
 			view = VIEW_FORMULARIO;
 
 		} catch (SQLException e) { // Longitud de campos incorrecta
-
+			LOG.debug(e.getMessage());
 			alert = new Alert(Alert.WARNING, "Alguno de los campos tiene una longitud incorrecta.");
 			view = VIEW_FORMULARIO;
-			e.printStackTrace();
+			
 
 		} catch (Exception e) { // Errores que no son de SQL
-
+			LOG.debug(e.getMessage());
 			alert = new Alert();
 			view = VIEW_FORMULARIO;
-			e.printStackTrace();
+			
 		}
 
 		request.setAttribute("libro", libro);
@@ -228,7 +231,7 @@ public class BackofficeLibroController extends HttpServlet implements ICRUDContr
 			listar(request);
 
 		} catch (SQLException e) {
-
+			LOG.debug(e.getMessage());
 			alert = new Alert(Alert.WARNING, "No podemos eliminar la editorial porque tiene libros asociados.");
 			view = VIEW_LISTADO;
 		}

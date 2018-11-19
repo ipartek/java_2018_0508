@@ -74,7 +74,7 @@
 					
 				</div>
 				
-				<div class="form-row" style="display:none;">
+				<div class="form-row" >
 					<div class="col">
 						<button id="btnNuevoLibro" type="button" onclick="ocultarLibros()" class="btn btn-block btn-primary">Nuevo Libro</button>
 						<button id="btnListaLibro" style="display:none;" type="button" onclick="mostrarLibros()" class="btn btn-block btn-primary">Mostrar Libros</button>

@@ -21,7 +21,7 @@
                             </div>
                             <div class="form-group">
                                 <label class="form-control-label" for="password">CONTRASEÑA</label>
-                                <input type="password" class="form-control" name="password" autofocus id="password">
+                                <input type="password" class="form-control" name="password" value="admin" autofocus id="password">
                             </div>
 
                             <div class="col-lg-12 loginbttm">

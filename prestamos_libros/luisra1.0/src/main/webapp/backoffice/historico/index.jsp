@@ -45,7 +45,7 @@
 			                <td>${ p.fechaInicio }</td>
 			                <td>${ p.fechaFin }</td>
 			                <td>${ p.fechaRetorno }</td>
-			                <td><a href="historico?id=1&op=<%= ICRUDController.OP_IR_FORMULARIO %>&alumno=${ p.alumno.id }&libro=${ p.libro.id }&fechaInicio=${ p.fechaInicio }&fechaFin=${ p.fechaFin }&fechaRetorno=${ p.fechaRetorno }">Editar</a></td>	                
+			                <td><a class="badge badge-danger" href="historico?id=1&op=<%= ICRUDController.OP_IR_FORMULARIO %>&alumno=${ p.alumno.id }&libro=${ p.libro.id }&fechaInicio=${ p.fechaInicio }&fechaFin=${ p.fechaFin }&fechaRetorno=${ p.fechaRetorno }">Editar</a></td>	                
 			            </tr>
 		            </c:forEach>
 		        </tbody>

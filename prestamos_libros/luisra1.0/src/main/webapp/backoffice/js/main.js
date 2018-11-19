@@ -341,6 +341,73 @@ function cargarEditoriales(dropdown,idEditorial) {
 
 }
 
+function showInputDialogDevolver(codOp, alumno, libro, fechaInicio) {
+
+	var modalForm = $('#modalModificar');
+
+	var updateForm = document.getElementById("updateForm");
+
+	limpiarFormulario();
+
+	updateForm.title="Devolución de Préstamo de Libro";
+	var divGroup = document.createElement("div");
+	divGroup.classList.add("form-group");
+
+	var input = document.createElement("input");
+	var label = document.createElement("label");
+
+	label.htmlFor = "fechaRetorno";
+	label.innerHTML = "Fecha de Devolución";
+
+	input.type = "date";
+	input.name = "fechaRetorno";
+	input.id = "fechaRetorno";
+	input.classList.add("form-control");
+	input.attributes.required = "";
+
+	document.getElementById("updateForm").appendChild(divGroup);
+	divGroup.appendChild(label);
+	divGroup.appendChild(input);
+
+	addInputHidden("op", codOp);
+	addInputHidden("alumno", alumno);
+	addInputHidden("libro", libro);
+	addInputHidden("fechaInicio", fechaInicio);
+
+	addInputSubmit();
+
+	updateForm.action = "prestamos";
+
+	$('#fechaRetorno').val(new Date().toDateInputValue());
+
+	modalForm.modal();
+
+}
+
+// Fecha por defecto
+Date.prototype.toDateInputValue = (function() {
+	var local = new Date(this);
+	local.setMinutes(this.getMinutes() - this.getTimezoneOffset());
+	return local.toJSON().slice(0, 10);
+});
+
+function addInputHidden(name, value) {
+
+	var divGroup = document.createElement("div");
+	divGroup.classList.add("form-group");
+
+	var input = document.createElement("input");
+
+	input.type = "hidden";
+	input.name = name;
+	input.value = value;
+	input.classList.add("form-control");
+
+	document.getElementById("updateForm").appendChild(divGroup);
+	divGroup.appendChild(input);
+
+}
+
 
 
 $(document).ready(function() {

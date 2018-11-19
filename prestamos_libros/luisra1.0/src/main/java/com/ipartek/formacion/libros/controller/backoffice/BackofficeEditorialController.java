@@ -11,6 +11,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.log4j.Logger;
+
 import com.ipartek.formacion.libros.pojo.Alert;
 import com.ipartek.formacion.libros.pojo.Editorial;
 import com.ipartek.formacion.libros.service.ServiceEditorial;
@@ -24,6 +26,7 @@ public class BackofficeEditorialController extends HttpServlet implements ICRUDC
 
 	private static final long serialVersionUID = 1L;
 	private static ServiceEditorial editorialService = null;
+	private final static Logger LOG = Logger.getLogger(BackofficeEditorialController.class);
 
 	private static final String VIEW_LISTADO = "editoriales/index.jsp";
 	private static final String VIEW_FORMULARIO = "editoriales/form.jsp";
@@ -93,19 +96,20 @@ public class BackofficeEditorialController extends HttpServlet implements ICRUDC
 			}
 
 		} catch (SQLIntegrityConstraintViolationException e) { // Error entrada duplicada
-			
+			LOG.debug(e.getMessage());
 			alert = new Alert(Alert.WARNING, "Esta intentando alterar un registro que tiene relacion con otros");
 
 		} catch (SQLException e) { // Longitud de campos incorrecta
-			
+			LOG.debug(e.getMessage());
 			alert = new Alert(Alert.WARNING, "Alguno de los campos tiene una longitud incorrecta.");
-			e.printStackTrace();
+			
 
 		} catch (Exception e) { // Errores que no son de SQL
-
+			LOG.debug(e.getMessage());
 			alert = new Alert();
-			e.printStackTrace();
 			view = VIEW_LISTADO;
+			
+			
 		} finally {
 
 			request.getSession().setAttribute("alert", alert);
@@ -151,21 +155,22 @@ public class BackofficeEditorialController extends HttpServlet implements ICRUDC
 			}
 
 		} catch (SQLIntegrityConstraintViolationException e) { // Error entrada duplicada
-			
+			LOG.debug(e.getMessage());
+			view = VIEW_LISTADO;
 			alert = new Alert(Alert.WARNING, "La editorial ya existe.");
 			view = VIEW_FORMULARIO;
 
 		} catch (SQLException e) { // Longitud de campos incorrecta
-			
+			LOG.debug(e.getMessage());
 			alert = new Alert(Alert.WARNING, "Alguno de los campos tiene una longitud incorrecta.");
 			view = VIEW_FORMULARIO;
-			e.printStackTrace();
+			
 
 		} catch (Exception e) { // Errores que no son de SQL
-
+			LOG.debug(e.getMessage());
 			alert = new Alert();
 			view = VIEW_FORMULARIO;
-			e.printStackTrace();
+			
 		}
 
 		
