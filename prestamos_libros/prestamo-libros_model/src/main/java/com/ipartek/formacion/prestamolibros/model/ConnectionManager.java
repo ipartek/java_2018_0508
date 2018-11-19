@@ -16,12 +16,13 @@ public class ConnectionManager {
 		try {
 			InitialContext ctx = new InitialContext();
 			DataSource ds = (DataSource) ctx.lookup("java:comp/env/jdbc/mydb");
-
+			
 			if (ds == null) {
 				throw new Exception("Data source no encontrado!");
 			}
 
 			conn = ds.getConnection();
+			
 
 		} catch (Exception e) {
 
