@@ -29,17 +29,16 @@ CREATE TABLE `alumno` (
   `nombre` varchar(120) NOT NULL,
   PRIMARY KEY (`idalumno`),
   UNIQUE KEY `nombre_UNIQUE` (`nombre`)
-) ENGINE=InnoDB AUTO_INCREMENT=28 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=29 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
 -- Dumping data for table `alumno`
 --
--- ORDER BY:  `idalumno`
 
 LOCK TABLES `alumno` WRITE;
 /*!40000 ALTER TABLE `alumno` DISABLE KEYS */;
-INSERT INTO `alumno` VALUES (1,'Lince'),(2,'Alain Muñoz Arrizabalaga'),(3,'Raul Abejon Delgado'),(4,'Ainara Goitia Arenaza'),(5,'Asier Cornejo Panduro'),(7,'Carlos Léon Montero'),(8,'Raquel Pastor Villarroel'),(9,'Andrea Maria Perez Millan'),(10,'Adriana Prado Alonso'),(11,'Joseba Ramirez Freire'),(12,'Eneko Sanchez Retolaza'),(13,'Valeria Valencia García'),(14,'Guillermo Sánchez Zabala'),(15,'drohne'),(21,'drohne1');
+INSERT INTO `alumno` VALUES (10,'Adriana Prado Alonso'),(4,'Ainara Goitia Arenaza'),(2,'Alain Muñoz Arrizabalaga'),(9,'Andrea Maria Perez Millan'),(5,'Asier Cornejo Panduro'),(7,'Carlos Léon Montero'),(15,'drohne'),(21,'drohne1'),(12,'Eneko Sanchez Retolaza'),(14,'Guillermo Sánchez Zabala'),(11,'Joseba Ramirez Freire'),(1,'Lince'),(8,'Raquel Pastor Villarroel'),(3,'Raul Abejon Delgado'),(13,'Valeria Valencia García');
 /*!40000 ALTER TABLE `alumno` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -55,17 +54,16 @@ CREATE TABLE `editorial` (
   `nombre` varchar(50) NOT NULL,
   PRIMARY KEY (`ideditorial`),
   UNIQUE KEY `nombre_UNIQUE` (`nombre`)
-) ENGINE=InnoDB AUTO_INCREMENT=66 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=68 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
 -- Dumping data for table `editorial`
 --
--- ORDER BY:  `ideditorial`
 
 LOCK TABLES `editorial` WRITE;
 /*!40000 ALTER TABLE `editorial` DISABLE KEYS */;
-INSERT INTO `editorial` VALUES (1,'canaya'),(2,'Eni'),(54,'edicion'),(59,'edicion2'),(62,'swager');
+INSERT INTO `editorial` VALUES (1,'canaya'),(54,'edicion'),(59,'edicion2'),(2,'Eni'),(67,'NuevaEditDesdeLibro'),(62,'swager');
 /*!40000 ALTER TABLE `editorial` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -84,17 +82,16 @@ CREATE TABLE `libro` (
   PRIMARY KEY (`idlibro`),
   KEY `fk_libro_editorial_idx` (`id_editorial`),
   CONSTRAINT `fk_libro_editorial` FOREIGN KEY (`id_editorial`) REFERENCES `editorial` (`ideditorial`)
-) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=27 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
 -- Dumping data for table `libro`
 --
--- ORDER BY:  `idlibro`
 
 LOCK TABLES `libro` WRITE;
 /*!40000 ALTER TABLE `libro` DISABLE KEYS */;
-INSERT INTO `libro` VALUES (1,'asdasdsadasdsadsa','978-84-415-2348-7',2),(2,'Java SEaaaaaa','978-84-415-2348-7',1),(3,'MySql 5.1','978-84-415-2523-8',1),(5,'MySql 5.1','978-84-415-2523-8',1),(6,'HTML5, CSS3 y JavaScript','978-84-415-3527-3',1),(7,'HTML5, CSS3 y JavaScript','978-84-415-3527-3',2),(8,'HTML 5 y CSS 3 Domine los estándares de la creación de sitios web','978-2-409-00702-6',2),(9,'Aprenda los lenguajes HTML5, CSS3 y JavaScript para crear su primer sitio web','978-2-7460-9669-1',2),(10,'JAVA 8 Los fundamentos del lenguaje java (Con ejericios prácticos corregidos)','978-2-7460-9347-8',2),(11,'Libro desde  postmant','978-84-415-2348-7',1),(12,'Libro desde  postmant','978-84-415-2348-7',1),(13,'Libro desde  postmant','978-84-415-2348-7',1),(14,'Libro desde  postmantxdddddd','978-84-415-2348-7',1),(15,'Libro desde  postmantxdddddd','978-84-415-2348-7',1),(16,'Libro desde  postmantxdddddd','978-84-415-2348-7',1),(17,'Libro desde  postmantxdddddd','978-84-415-2348-7',1),(20,'pepe','978-84-415-2348-7',1),(22,'pruebaaaaaa','978-84-415-2348-7',1);
+INSERT INTO `libro` VALUES (1,'asdasdsadasdsadsa','978-84-415-2348-7',2),(2,'Java SEaaaaaa','978-84-415-2348-7',1),(3,'MySql 5.1','978-84-415-2523-8',1),(5,'MySql 5.1','978-84-415-2523-8',1),(6,'HTML5, CSS3 y JavaScript','978-84-415-3527-3',1),(7,'HTML5, CSS3 y JavaScript','978-84-415-3527-3',2),(8,'HTML 5 y CSS 3 Domine los estándares de la creación de sitios web','978-2-409-00702-6',2),(9,'Aprenda los lenguajes HTML5, CSS3 y JavaScript para crear su primer sitio web','978-2-7460-9669-1',2),(10,'JAVA 8 Los fundamentos del lenguaje java (Con ejericios prácticos corregidos)','978-2-7460-9347-8',2),(11,'Libro desde  postmant','978-84-415-2348-7',1),(12,'Libro desde  postmant','978-84-415-2348-7',1),(13,'Libro desde  postmant','978-84-415-2348-7',1),(14,'Libro desde  postmantxdddddd','978-84-415-2348-7',1),(15,'Libro desde  postmantxdddddd','978-84-415-2348-7',1),(16,'Libro desde  postmantxdddddd','978-84-415-2348-7',1),(17,'Libro desde  postmantxdddddd','978-84-415-2348-7',1),(20,'pepe','978-84-415-2348-7',1),(22,'pruebaaaaaa','978-84-415-2348-7',1),(23,'prueba lunes','12345678901234',59),(24,'prueba lunes','12345678901234',59),(25,'Libro Prueba ','12345678901234',67),(26,'Libro Prueba ','12345678901234',67);
 /*!40000 ALTER TABLE `libro` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -115,7 +112,6 @@ CREATE TABLE `people` (
 --
 -- Dumping data for table `people`
 --
--- ORDER BY:  `age`
 
 LOCK TABLES `people` WRITE;
 /*!40000 ALTER TABLE `people` DISABLE KEYS */;
@@ -133,9 +129,9 @@ DROP TABLE IF EXISTS `prestamo`;
 CREATE TABLE `prestamo` (
   `id_libro` int(11) NOT NULL,
   `id_alumno` int(11) NOT NULL,
-  `fecha_inicio` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `fecha_fin` datetime DEFAULT NULL,
-  `fecha_retorno` datetime DEFAULT NULL,
+  `fecha_inicio` date NOT NULL,
+  `fecha_fin` date DEFAULT NULL,
+  `fecha_retorno` date DEFAULT NULL,
   PRIMARY KEY (`id_libro`,`id_alumno`,`fecha_inicio`),
   KEY `prestamo_has_alumno_idx` (`id_alumno`),
   CONSTRAINT `prestamo_has_alumno` FOREIGN KEY (`id_alumno`) REFERENCES `alumno` (`idalumno`),
@@ -146,11 +142,10 @@ CREATE TABLE `prestamo` (
 --
 -- Dumping data for table `prestamo`
 --
--- ORDER BY:  `id_libro`,`id_alumno`,`fecha_inicio`
 
 LOCK TABLES `prestamo` WRITE;
 /*!40000 ALTER TABLE `prestamo` DISABLE KEYS */;
-INSERT INTO `prestamo` VALUES (1,1,'2018-01-01 00:00:00','2018-01-16 00:00:00','2018-03-02 00:00:00'),(2,1,'2018-10-29 00:00:00','2018-11-13 00:00:00',NULL),(2,2,'2018-01-01 00:00:00','2018-01-16 00:00:00','2018-01-16 00:00:00'),(3,1,'2018-10-29 00:00:00','2018-11-13 00:00:00',NULL),(5,1,'2018-10-29 00:00:00','2018-11-13 00:00:00',NULL),(6,10,'2018-01-01 00:00:00','2018-01-16 00:00:00',NULL),(6,21,'2018-01-01 00:00:00','2018-01-16 00:00:00',NULL),(8,1,'2018-10-29 00:00:00','2018-11-13 00:00:00',NULL),(11,1,'2018-10-29 00:00:00','2018-11-13 00:00:00',NULL),(12,1,'2018-10-29 00:00:00','2018-11-13 00:00:00',NULL),(13,1,'2018-10-29 00:00:00','2018-11-13 00:00:00',NULL),(14,1,'2018-10-29 00:00:00','2018-11-13 00:00:00',NULL),(15,1,'2018-10-29 00:00:00','2018-11-13 00:00:00',NULL);
+INSERT INTO `prestamo` VALUES (2,4,'2018-11-19','2018-12-04',NULL),(2,7,'2018-11-19','2018-12-04','2018-12-27'),(3,2,'2018-11-30','2018-12-12',NULL),(5,5,'2018-11-22','2018-12-07','2018-12-21'),(6,10,'2018-01-01','2018-01-16',NULL),(7,21,'2018-11-23','2018-12-08',NULL),(11,3,'2018-11-19','2018-11-19','2018-11-19'),(11,11,'2018-11-20','2018-12-05',NULL),(13,13,'2018-11-20','2018-12-05',NULL);
 /*!40000 ALTER TABLE `prestamo` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
@@ -739,20 +734,22 @@ DELIMITER ;
 /*!50003 SET @saved_col_connection = @@collation_connection */ ;
 /*!50003 SET character_set_client  = utf8mb4 */ ;
 /*!50003 SET character_set_results = utf8mb4 */ ;
-/*!50003 SET collation_connection  = utf8mb4_unicode_ci */ ;
+/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
-/*!50003 SET sql_mode              = 'NO_AUTO_VALUE_ON_ZERO' */ ;
+/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
 CREATE DEFINER=`root`@`localhost` PROCEDURE `prestamoGetById`(
-	IN `p_alumno` INT,
-	IN `p_libro` INT,
-	IN `p_fecha` DATE
+    IN `p_alumno` INT,
+    IN `p_libro` INT,
+    IN `p_fecha` DATE
 )
 BEGIN
 
-SELECT a.nombre, l.titulo, p.fecha_inicio, p.fecha_fin 
-FROM alumno as a INNER JOIN prestamo as p ON p.id_alumno = a.idalumno
-INNER JOIN libro as l ON p.id_libro = l.idlibro 
+SELECT p.id_alumno, p.id_libro, a.nombre, l.titulo, l.isbn, p.fecha_inicio, p.fecha_fin, p.fecha_retorno, e.ideditorial,e.nombre as nombre_editorial
+FROM alumno as a
+INNER JOIN prestamo as p ON p.id_alumno = a.idalumno
+INNER JOIN libro as l ON p.id_libro = l.idlibro
+INNER JOIN editorial as e ON e.ideditorial = l.id_editorial
 WHERE p.id_alumno = p_alumno AND p.id_libro = p_libro AND p.fecha_inicio = p_fecha;
 
 END ;;
@@ -827,4 +824,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-11-15 14:00:10
+-- Dump completed on 2018-11-19 13:05:32
