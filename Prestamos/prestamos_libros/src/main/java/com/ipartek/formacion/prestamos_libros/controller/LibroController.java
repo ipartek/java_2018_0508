@@ -49,13 +49,12 @@ public class LibroController extends HttpServlet {
 
 	public LibroController() {
 
-		// TODO Auto-generated constructor stub
 	}
 
 	public void init(ServletConfig config) throws ServletException {
 		// daoLibro = LibroDAO.getInstance();
-		libroService = new ServiceLibro();
-		editorialService = new ServiceEditorial();
+		libroService = ServiceLibro.getInstance();
+		editorialService = ServiceEditorial.getInstance();
 	}
 
 	public void destroy() {
