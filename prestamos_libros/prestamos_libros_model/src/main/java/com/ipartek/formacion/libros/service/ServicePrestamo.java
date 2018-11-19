@@ -144,8 +144,7 @@ public class ServicePrestamo implements IPrestamoService {
 	public Prestamo modificar(long idAlumno, long idLibro, Date fechaInicio, long nuevoAlumno, long nuevoLibro,
 			Date nuevaFecha, Date fechaFin, Date fechaRetorno) throws Exception {
 		boolean resul = false;
-		
-		
+
 		ArrayList<Alumno> alumnosDisponibles = new ArrayList<Alumno>();
 		ArrayList<Libro> librosDisponibles = new ArrayList<Libro>();
 		// comprobamos que exista el registro a modificar
@@ -157,20 +156,20 @@ public class ServicePrestamo implements IPrestamoService {
 
 			throw new Exception("No encontramos el prestamos que nos propones");
 		}
-		
-		//comprobamos que los datos sugeridos existen en la db
-		
+
+		// comprobamos que los datos sugeridos existen en la db
+
 		Libro lSugerido = librosDAO.getById(nuevoLibro);
 		Alumno aSugerido = alumnosDAO.getById(nuevoAlumno);
-		if(lSugerido != null) {
+		if (lSugerido != null) {
 			throw new Exception("El libro que nos sugieres no esta dado de alta");
 		}
-		if(aSugerido != null) {
+		if (aSugerido != null) {
 			throw new Exception("El alumno que nos sugieres no esta dado de alta");
 		}
-		
-		//comprobamos que esten disponibles los datos
-		
+
+		// comprobamos que esten disponibles los datos
+
 		alumnosDisponibles = (ArrayList<Alumno>) alumnosDAO.getAllDisponible();
 		if (!alumnosDisponibles.contains(aSugerido)) {
 
@@ -184,10 +183,10 @@ public class ServicePrestamo implements IPrestamoService {
 			throw new Exception("El libro ya esta prestado");
 
 		}
-		
-		
-		//comprobamos que los nuevos datos que corresponden a la actualizacion son coherentes(LIBRO Y ALUMNno QUE EXISTAN Y ESTEN LIBRES)
-		
+
+		// comprobamos que los nuevos datos que corresponden a la actualizacion son
+		// coherentes(LIBRO Y ALUMNno QUE EXISTAN Y ESTEN LIBRES)
+
 		Libro l = librosDAO.getById(idLibro);
 		Alumno a = alumnosDAO.getById(idAlumno);
 
@@ -246,16 +245,15 @@ public class ServicePrestamo implements IPrestamoService {
 		return prestamosDAO.getAll();
 	}
 
-	/*
-	 * public boolean modificarPrestamoActivo(long idAlumno, long idlibro, Date
-	 * fechaInicio, long nuevoAlumno, long nuevoLibro, Date nuevaFecha, Date
-	 * fechaFin) throws Exception { boolean resul;
-	 * 
-	 * resul = prestamosDAO.update(idAlumno, idlibro, fechaInicio, nuevoAlumno,
-	 * nuevoLibro, nuevaFecha, fechaFin, null);
-	 * 
-	 * return resul; }
-	 */
+	public boolean modificarPrestamoActivo(long idAlumno, long idlibro, Date fechaInicio, long nuevoAlumno,
+			long nuevoLibro, Date nuevaFecha, Date fechaFin) throws Exception {
+		boolean resul;
+
+		resul = prestamosDAO.update(idAlumno, idlibro, fechaInicio, nuevoAlumno, nuevoLibro, nuevaFecha, fechaFin,
+				null);
+
+		return resul;
+	}
 
 	@Override
 	public List<Prestamo> historico() throws Exception {
@@ -263,16 +261,15 @@ public class ServicePrestamo implements IPrestamoService {
 		return prestamosDAO.getAllHistorico();
 	}
 
-	/*
-	 * public boolean modificarHistorico(long idAlumno, long idlibro, Date
-	 * fechaInicio, long nuevoAlumno, long nuevoLibro, Date nuevaFecha, Date
-	 * fechaFin, Date fechaRetorno) throws Exception { boolean resul;
-	 * 
-	 * resul = prestamosDAO.update(idAlumno, idlibro, fechaInicio, nuevoAlumno,
-	 * nuevoLibro, nuevaFecha, fechaFin, fechaRetorno);
-	 * 
-	 * return resul; }
-	 */
+	public boolean modificarHistorico(long idAlumno, long idlibro, Date fechaInicio, long nuevoAlumno, long nuevoLibro,
+			Date nuevaFecha, Date fechaFin, Date fechaRetorno) throws Exception {
+		boolean resul;
+
+		resul = prestamosDAO.update(idAlumno, idlibro, fechaInicio, nuevoAlumno, nuevoLibro, nuevaFecha, fechaFin,
+				fechaRetorno);
+
+		return resul;
+	}
 
 	private Prestamo crearPrestamo(long idAlumno, long idlibro, Date fechaInicio, Date fechaFin, Date fechaRetorno) {
 
