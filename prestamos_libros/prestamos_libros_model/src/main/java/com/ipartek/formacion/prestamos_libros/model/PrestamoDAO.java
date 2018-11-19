@@ -38,7 +38,10 @@ public class PrestamoDAO implements CrudAble<Prestamo> {
 			cs.setLong(2, pojo.getUsuario().getId());
 			cs.setDate(3, pojo.getFech_inicio());
 
-			result = cs.execute();
+			int affectedRows = cs.executeUpdate();
+			if(affectedRows == 1) {
+				result = true;
+			}
 		}
 
 		return result;
@@ -167,7 +170,11 @@ public class PrestamoDAO implements CrudAble<Prestamo> {
 			cs.setLong(2, pojo.getUsuario().getId());
 			cs.setDate(3, pojo.getFech_inicio());
 			cs.setDate(4, pojo.getFecha_devuelto());
-			result = cs.execute();
+		
+			int affectedRows = cs.executeUpdate();
+			if(affectedRows == 1) {
+				result = true;
+			}
 		}
 		return result;
 	}
@@ -185,7 +192,11 @@ public class PrestamoDAO implements CrudAble<Prestamo> {
 			cs.setLong(5, prestamoAntiguo.getLibro().getId());
 			cs.setLong(6, prestamoAntiguo.getUsuario().getId());
 			cs.setDate(7, prestamoAntiguo.getFech_inicio());
-			result = cs.execute();
+			
+			int affectedRows = cs.executeUpdate();
+			if(affectedRows == 1) {
+				result = true;
+			}
 		}
 		return result;
 	}
@@ -234,7 +245,11 @@ public class PrestamoDAO implements CrudAble<Prestamo> {
 			cs.setLong(5, prestamoAntiguo.getLibro().getId());
 			cs.setLong(6, prestamoAntiguo.getUsuario().getId());
 			cs.setDate(7, prestamoAntiguo.getFech_inicio());
-			result = cs.execute();
+			
+			int affectedRows = cs.executeUpdate();
+			if(affectedRows == 1) {
+				result = true;
+			}
 		}
 		return result;
 	}

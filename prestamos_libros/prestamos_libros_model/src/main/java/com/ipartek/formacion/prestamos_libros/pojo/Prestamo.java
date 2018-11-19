@@ -79,4 +79,43 @@ public class Prestamo {
 		this.diasRestantes = diasRestantes;
 	}
 
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((fech_inicio == null) ? 0 : fech_inicio.hashCode());
+		result = prime * result + ((libro == null) ? 0 : libro.hashCode());
+		result = prime * result + ((usuario == null) ? 0 : usuario.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Prestamo other = (Prestamo) obj;
+		if (fech_inicio == null) {
+			if (other.fech_inicio != null)
+				return false;
+		} else if (!fech_inicio.equals(other.fech_inicio))
+			return false;
+		if (libro == null) {
+			if (other.libro != null)
+				return false;
+		} else if (!libro.equals(other.libro))
+			return false;
+		if (usuario == null) {
+			if (other.usuario != null)
+				return false;
+		} else if (!usuario.equals(other.usuario))
+			return false;
+		return true;
+	}
+
+	
+	
 }
