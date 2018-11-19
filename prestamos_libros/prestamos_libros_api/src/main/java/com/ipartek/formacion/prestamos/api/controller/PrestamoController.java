@@ -75,7 +75,7 @@ public class PrestamoController {
 	public ResponseEntity<ArrayList<Prestamo>> listado(
 			@NotNull @ApiParam(value = "<ol><li>Si activos = true -> Préstamos sin devolver.</li>"
 					+ "<li>Si activos = false -> Préstamos ya devueltos.</li>"
-					+ "<li>Si no se indica nada -> Préstamos sin devolver</li>") @RequestParam(name = "activos", required = true) boolean activos) {
+					+ "<li>Si no se indica nada -> Préstamos sin devolver.</li>") @RequestParam(name = "activos", required = false) boolean activos) {
 
 		ResponseEntity<ArrayList<Prestamo>> response = new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
 
@@ -204,7 +204,8 @@ public class PrestamoController {
 
 	}
 
-	@ApiOperation(value = "Devuelve un préstamo con la fecha de devolución introducida (en formato JSON).", notes = "Devuelve un cuerpo vacío, el código de respuesta o, en caso de error, el mensaje.", response = Prestamo.class)
+	@ApiOperation(value = "Devuelve un préstamo con la fecha de devolución introducida (en formato JSON). Es necesario:"
+			+ "<ul><li>Fecha devolucion</li></ol>", notes = "Devuelve un cuerpo vacío, el código de respuesta o, en caso de error, el mensaje.", response = Prestamo.class)
 
 	@ApiResponses(value = {
 			@ApiResponse(code = 200, message = "Préstamo correctamente devuelto.", response = Prestamo.class),
