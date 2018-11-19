@@ -120,7 +120,6 @@ public class PrestamosController {
 			@PathVariable Date fechaInicio) {
 
 		ResponseEntity<Object> response = new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-		ResponseMensaje rm = new ResponseMensaje();
 		System.out.println(fechaInicio);
 		java.sql.Date fechaInicioSql = new java.sql.Date(fechaInicio.getTime());
 
@@ -254,14 +253,10 @@ public class PrestamosController {
 
 		ResponseEntity<Object> response = new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 		ResponseMensaje rm = new ResponseMensaje();
-		boolean resul = false;
 		Prestamo prestamoModificado = new Prestamo();
 
 		try {
-			
-			
 
-			
 			prestamoModificado = servicePrestamo.modificar(idAlumno, idLibro, fechaInicio, prestamo.getAlumno().getId(),
 					prestamo.getLibro().getId(), prestamo.getFechaInicio(), prestamo.getFechaFin(),
 					prestamo.getFechaRetorno());
@@ -275,19 +270,14 @@ public class PrestamosController {
 				response = new ResponseEntity<>(HttpStatus.CONFLICT);
 			}
 
-		}catch (SQLIntegrityConstraintViolationException e) {
-			e.printStackTrace();
-		}
-		catch (Exception e) {
-			e.printStackTrace();
-			
-				rm.setMensaje("Error");
-				String[] errores = new String[1];
-				errores[0]= e.getMessage();
-				rm.setErrores(errores);
-				response = new ResponseEntity<>(rm,HttpStatus.BAD_REQUEST);
-			
-			
+		} catch (Exception e) {
+
+			rm.setMensaje("Error");
+			String[] errores = new String[1];
+			errores[0] = e.getMessage();
+			rm.setErrores(errores);
+			response = new ResponseEntity<>(rm, HttpStatus.BAD_REQUEST);
+
 			LOG.error(e.getMessage());
 		}
 
