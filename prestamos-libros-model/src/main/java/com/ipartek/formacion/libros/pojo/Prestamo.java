@@ -18,8 +18,8 @@ public class Prestamo implements Cloneable {
 			System.out.println(" no se puede duplicar");
 		}
 		
-		obj.setLibro((Libro) obj.getLibro().clone());
-		obj.setAlumno((Alumno) obj.getAlumno().clone());
+		obj.libro = (Libro) obj.getLibro().clone();
+		obj.alumno = (Alumno) obj.getAlumno().clone();
 		
 		return obj;
 	}

@@ -1,8 +1,6 @@
 package com.ipartek.formacion.prestamos.api.controller.tests;
 
 import java.io.IOException;
-import java.util.ArrayList;
-
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -99,15 +97,6 @@ public class LoginTest {
 		
 	}
 	
-	
-	private ArrayList<String> mapper(Elements el) {
-		
-		ArrayList<String> libros = new ArrayList<String>();
-		
-		
-		
-		return libros;
-		
-	}
+
 
 }

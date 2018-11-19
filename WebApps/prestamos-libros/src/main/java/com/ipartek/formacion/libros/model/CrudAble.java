@@ -1,6 +1,5 @@
 package com.ipartek.formacion.libros.model;
 
-import java.sql.SQLException;
 import java.util.List;
 
 /**

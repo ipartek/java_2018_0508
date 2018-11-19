@@ -32,13 +32,9 @@ public class BackofficeLibroController extends HttpServlet implements ICRUDContr
 
 	private String view;
 	private Alert alert;
-
-
-	private String nombre;
 	
 	private String op;
 	private String id;
-	private String vista;
 	private String n_ejemplares;
 	
 	private String titulo;

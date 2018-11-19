@@ -166,36 +166,12 @@ public class PrestamoDAO implements CrudAble<Prestamo> {
 			sp.setLong("p_alumno", idAlumno);
 			sp.setLong("p_libro", idlibro);
 			sp.setDate("p_inicio", fechaInicio);
-
-			sp.setLong("p_nuevoAlumno", nuevoAlumno);
-			sp.setLong("p_nuevoLibro", nuevoLibro);
-			sp.setDate("p_nuevaFecha", nuevaFecha);
-			sp.setDate("p_fin", fechaFin);
-			sp.setDate("p_retorno", fechaRetorno);
-
-			// Se ejecuta el procedimiento almacenado
-			int affectedRows = sp.executeUpdate();
-
-			if (affectedRows == 1) {
-
-				resul = true;
-
-			}
-		}
-		return resul;
-	}
-
-	public boolean delete(Prestamo pojo) throws Exception {
-		boolean resul = false;
-
-		try (Connection con = ConnectionManager.getConnection();
-				CallableStatement sp = con.prepareCall("{CALL prestamoDevolver(?, ?, ?, ?)}");) {
-
-			// Se cargan los parametros de entrada
-			sp.setLong("p_id_alumno", pojo.getAlumno().getId());
-			sp.setLong("p_id_libro", pojo.getLibro().getId());
-			sp.setDate("p_fecha_inicio", pojo.getFechaInicio());
-			sp.setDate("p_fecha_retorno", pojo.getFechaRetorno());
+			
+			sp.setLong("p_nuevoAlumno", idAlumno);
+			sp.setLong("p_nuevoLibro", idlibro);
+			sp.setDate("p_nuevaFecha", fechaInicio);
+			sp.setLong("p_fin", idlibro);
+			sp.setDate("p_retorno", fechaInicio);
 
 			sp.registerOutParameter("o_alumno_ok", Types.BOOLEAN);
 			sp.registerOutParameter("o_libro_ok", Types.BOOLEAN);
@@ -223,18 +199,50 @@ public class PrestamoDAO implements CrudAble<Prestamo> {
 
 					resul = true;
 
-					pojo.setFechaFin(sp.getDate("o_fecha_fin"));
-
-					pojo.getLibro().setTitulo(sp.getString("o_libro_titulo"));
-					pojo.getLibro().setIsbn(sp.getString("o_libro_isbn"));
-					pojo.getLibro().getEditorial().setId(sp.getInt("o_editorial_id"));
-					pojo.getLibro().getEditorial().setNombre(sp.getString("o_editorial_nombre"));
-
-					pojo.getAlumno().setNombre(sp.getString("o_alumno_nombre"));
-
 				}
 
 			}
+		}
+		return resul;
+	}
+
+	public boolean delete(Prestamo pojo) throws Exception {
+		boolean resul = false;
+
+		try (Connection con = ConnectionManager.getConnection();
+				CallableStatement sp = con.prepareCall("{CALL prestamoDevolver(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)}");) {
+
+			// Se cargan los parametros de entrada
+			sp.setLong("p_id_alumno", pojo.getAlumno().getId());
+			sp.setLong("p_id_libro", pojo.getLibro().getId());
+			sp.setDate("p_fecha_inicio", pojo.getFechaInicio());
+			sp.setDate("p_fecha_retorno", pojo.getFechaRetorno());
+
+			sp.registerOutParameter("o_fecha_fin", Types.DATE);
+			sp.registerOutParameter("o_editorial_id", Types.INTEGER);
+			sp.registerOutParameter("o_editorial_nombre", Types.VARCHAR);
+			sp.registerOutParameter("o_libro_titulo", Types.VARCHAR);
+			sp.registerOutParameter("o_libro_isbn", Types.VARCHAR);
+			sp.registerOutParameter("o_alumno_nombre", Types.VARCHAR);
+
+			// Se ejecuta el procedimiento almacenado
+			int affectedRows = sp.executeUpdate();
+
+			if (affectedRows == 1) {
+
+				resul = true;
+
+				pojo.setFechaFin(sp.getDate("o_fecha_fin"));
+
+				pojo.getLibro().setTitulo(sp.getString("o_libro_titulo"));
+				pojo.getLibro().setIsbn(sp.getString("o_libro_isbn"));
+				pojo.getLibro().getEditorial().setId(sp.getInt("o_editorial_id"));
+				pojo.getLibro().getEditorial().setNombre(sp.getString("o_editorial_nombre"));
+
+				pojo.getAlumno().setNombre(sp.getString("o_alumno_nombre"));
+
+			}
+
 		}
 		return resul;
 

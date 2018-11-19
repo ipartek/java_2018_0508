@@ -3,7 +3,6 @@ package com.ipartek.formacion.prestamos.json;
 import java.io.IOException;
 import java.text.DateFormat;
 import java.util.Date;
-import java.util.TimeZone;
 
 import com.fasterxml.jackson.core.JsonGenerationException;
 import com.fasterxml.jackson.core.JsonGenerator;
@@ -28,7 +27,7 @@ public class DateSerializer extends StdSerializer<Date> {
             JsonGenerationException {
 
         // The client side will handle presentation, we just want it accurate
-        DateFormat df = StdDateFormat.getISO8601Format(TimeZone.getDefault());
+        DateFormat df = StdDateFormat.getDateTimeInstance();
         String out = df.format(date);
         json.writeString(out);
     }

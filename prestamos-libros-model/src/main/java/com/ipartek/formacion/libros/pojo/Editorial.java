@@ -3,7 +3,6 @@ package com.ipartek.formacion.libros.pojo;
 import javax.validation.constraints.Size;
 
 import org.hibernate.validator.constraints.NotBlank;
-import org.springframework.beans.factory.annotation.Required;
 
 public class Editorial {
 	

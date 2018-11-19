@@ -185,7 +185,7 @@ public class LibroDAO implements CrudAble<Libro> {
 
 		Editorial e = new Editorial();
 		e.setId(rs.getInt("id_editorial"));
-		e.setNombre("nombre");
+		e.setNombre(rs.getString("nombre"));
 		
 		l.setEditorial(e);
 
