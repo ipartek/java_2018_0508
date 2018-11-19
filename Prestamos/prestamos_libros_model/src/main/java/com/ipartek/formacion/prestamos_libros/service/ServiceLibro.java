@@ -10,7 +10,7 @@ public class ServiceLibro implements IServiceLibro{
 	private LibroDAO daoLibro = LibroDAO.getInstance();
 	private static ServiceLibro INSTANCE = null;
 	
-	public ServiceLibro ()  {
+	private ServiceLibro ()  {
 		// TODO Auto-generated constructor stub
 	}
 	public static synchronized ServiceLibro getInstance() {

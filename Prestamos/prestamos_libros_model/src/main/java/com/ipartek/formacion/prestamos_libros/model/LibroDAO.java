@@ -12,7 +12,7 @@ import com.ipartek.formacion.prestamos_libros.pojo.Libro;
 public class LibroDAO implements CrudAble<Libro>{
 	private static LibroDAO INSTANCE = null;
 	
-	public LibroDAO() {
+	private LibroDAO() {
 		// TODO Auto-generated constructor stub
 	}
 

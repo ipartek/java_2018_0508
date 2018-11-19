@@ -13,7 +13,7 @@ public class UsuarioDAO implements CrudAble<Usuario>{
 
 	private static UsuarioDAO INSTANCE = null;
 	
-	public UsuarioDAO() {
+	private UsuarioDAO() {
 		
 	}
 	

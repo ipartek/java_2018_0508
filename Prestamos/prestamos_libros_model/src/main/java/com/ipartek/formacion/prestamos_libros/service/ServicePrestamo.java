@@ -29,7 +29,9 @@ public class ServicePrestamo implements IServicePrestamo {
 	public static final String EXCEPTION_LIBRO_DEVUELTO = "Libro no tiene un prestamos activo";
 	public static final String EXCEPTION_USUARIO_DEVUELTO = "Usuario no tiene un prestamos activo";
 	
-	public ServicePrestamo() {	
+	public static final String EXCEPTION_NO_EXISTE_PRESTAMO = "El prestamo no existe";
+	
+	private ServicePrestamo() {	
 		daoPrestamo = PrestamoDAO.getInstance();
 		daoLibro = LibroDAO.getInstance();
 		daoUsuario = UsuarioDAO.getInstance();		
@@ -177,14 +179,45 @@ public class ServicePrestamo implements IServicePrestamo {
 		
 		boolean resul = false;
 		
-		Prestamo prestamo = daoPrestamo.getByIds(prestamoAntiguo.getLibro().getId(), prestamoAntiguo.getUsuario().getId(), prestamoAntiguo.getFecha_inicio());
-		if(prestamo.getLibro() != null) {
-			daoPrestamo.updateHistorico(p, prestamoAntiguo);
-			resul = true;
-		}
-		return resul;
-	}
+		long idLibro = -1;
+		long idUsuario = -1;
+		Date fInicio = null;
+		
+		
+		//Comprobar parametros obligatorios correctos
+				try {
+					idLibro = p.getLibro().getId();
+					idUsuario = p.getUsuario().getId();
+					fInicio = p.getFecha_inicio();
+					
+					if(idLibro < 1 || idUsuario < 1 || fInicio == null) {
+						throw new Exception(EXCEPTION_PARAMETROS_INCORRECTOS);
+					}
+					
+				}catch(Exception e) {
+					throw new Exception(EXCEPTION_PARAMETROS_INCORRECTOS);
+				}
+				
+				//Comprobar si existe el libro y usuario
+				Libro libro = daoLibro.getById( String.valueOf(idLibro) );
+				Usuario usuario = daoUsuario.getById(String.valueOf(idUsuario));
+				
+				if ( libro.getId() == -1 || usuario.getId() == -1 ) {
+					throw new Exception(EXCEPTION_NO_EXISTE_USUARIO_LIBRO);
+				}
 
+				if (daoPrestamo.updateHistorico(p, prestamoAntiguo)) {
+					resul = true;
+				}else {
+					//Comprobar que el libro y usuario tengan prestamos activos
+					throw new Exception(EXCEPTION_NO_EXISTE_PRESTAMO);
+				}
+
+				return resul;
+			}
+
+	
+	
 	@Override
 	public Prestamo getByIds(String idLibro, String idUsuario, String fInicio) throws Exception {
 

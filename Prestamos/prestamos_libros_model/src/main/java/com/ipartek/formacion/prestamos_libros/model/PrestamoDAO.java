@@ -17,7 +17,7 @@ public class PrestamoDAO implements CrudAble<Prestamo> {
 
 	private static PrestamoDAO INSTANCE = null;
 
-	public PrestamoDAO() {
+	private PrestamoDAO() {
 		// TODO Auto-generated constructor stub
 	}
 

@@ -167,7 +167,7 @@ public class PrestamosController {
 		return response;
 	}
 	
-	@ApiOperation(value = "Prestamo Modificado", response = Prestamo.class, notes = "Campos Obligatorios: <ol><li><b>fech_inicio</b> Fecha inicio</li><li><b>libro.id</b> Identificador del Libro </li><li><b>usuario.id</b> Identificador del Usuario </li></ol>")
+	@ApiOperation(value = "Prestamo Modificado", response = Prestamo.class, notes = "Campos Obligatorios - Prestamo antiguo: <ol><li><b>fech_inicio</b> Fecha inicio</li><li><b>libro.id</b> Identificador del Libro </li><li><b>usuario.id</b> Identificador del Usuario </li></ol>" )
 	@ApiResponses( value = {
 			@ApiResponse (code = 201, message = "Prestamo Modificado", response = Prestamo.class),
 			@ApiResponse(code = 400, message = "Faltan campos obligatorios", response = ResponseMensaje.class),
@@ -192,17 +192,27 @@ public class PrestamosController {
 
 			boolean modificado = servicePrestamo.modificarHistorico(prestamoNuevo, p);
 			if (modificado) {
-				response = new ResponseEntity<Object>(prestamoNuevo, HttpStatus.OK);
+				response = new ResponseEntity<Object>(prestamoNuevo, HttpStatus.CREATED);
 		
 			} else {
 				response = new ResponseEntity<Object>(prestamoNuevo, HttpStatus.INTERNAL_SERVER_ERROR);
 			}
 		} catch (Exception e) {
+			String message = e.getMessage();
+			ResponseMensaje responseMsg = null;
+			
+			if (message.equals(ServicePrestamo.EXCEPTION_LIBRO_DEVUELTO)
+					|| message.equals(ServicePrestamo.EXCEPTION_USUARIO_DEVUELTO)) {
+ 				responseMsg = new ResponseMensaje(message);
+				response = new ResponseEntity<Object>(responseMsg,HttpStatus.CONFLICT);
+ 			}else {
+				responseMsg = new ResponseMensaje(message);
+				response = new ResponseEntity<Object>(responseMsg,HttpStatus.BAD_REQUEST);
+			}
+			
 			LOG.error(e);
-			ResponseMensaje msj = new ResponseMensaje("Error");
-			response = new ResponseEntity<>(msj, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
-
+		
 		return response;
 	}
 }

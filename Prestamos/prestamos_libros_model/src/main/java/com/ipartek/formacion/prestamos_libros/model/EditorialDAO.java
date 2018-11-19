@@ -13,7 +13,7 @@ public class EditorialDAO implements CrudAble<Editorial> {
 	
 	private static EditorialDAO INSTANCE = null;
 
-	public EditorialDAO() {
+	private EditorialDAO() {
 		// TODO Auto-generated constructor stub
 	}
 
