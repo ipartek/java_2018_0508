@@ -19,13 +19,13 @@
   
   <link rel="shortcut icon" type="image/png" href="images/favicon.png">
 
-  <link rel="stylesheet" href="dist/modules/bootstrap/css/bootstrap.min.css">
-  <link rel="stylesheet" href="dist/modules/ionicons/css/ionicons.min.css">
+  <link rel="stylesheet" href="css/bootstrap.min.css">
+  <link rel="stylesheet" href="css/ionicons.min.css">
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.2/css/all.css" integrity="sha384-/rXc/GQVaYpyDdyxK+ecHPVYJSN9bmVFBvjA/9eOB+pb3F2w2N6fc5qB9Ew5yIns" crossorigin="anonymous">
 
   
-  <link rel="stylesheet" href="dist/css/style.css">
-  <link rel="stylesheet" href="dist/css/skins/blue.css" id="skin-css">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/blue.css" id="skin-css">
   
   <!-- Datatables -->
   <link href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css" rel="stylesheet" type="text/css">	

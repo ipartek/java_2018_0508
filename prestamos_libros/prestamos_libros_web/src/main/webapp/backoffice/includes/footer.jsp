@@ -27,7 +27,7 @@
 						<div class="row">
 							<div class="form-group col">
 								<label for="last_name">FECHA DEVOLUCION</label> 
-								<input name="datedevolucion" id="datepicker" width="276" required/>
+								<input name="datedevolucion" id="datepicker" width="276" />
 							</div>
 						</div>
 					</div>
@@ -45,17 +45,10 @@
 </div>
 </div>
 
-<script src="dist/modules/jquery.min.js"></script>
-<script src="dist/modules/popper.js"></script>
-<script src="dist/modules/tooltip.js"></script>
-<script src="dist/modules/bootstrap/js/bootstrap.min.js"></script>
-<script src="dist/modules/nicescroll/jquery.nicescroll.min.js"></script>
-<script src="dist/modules/scroll-up-bar/dist/scroll-up-bar.min.js"></script>
-<script src="dist/js/sa-functions.js"></script>
-<script src="dist/modules/chart.min.js"></script>
-<script src="dist/modules/summernote/summernote-lite.js"></script>
-<script src="dist/js/scripts.js"></script>
-<script src="dist/js/custom.js"></script>
+<script src="js/jquery.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script src="js/jquery.nicescroll.min.js"></script>
+<script src="js/scripts.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/gijgo@1.9.10/js/gijgo.min.js" type="text/javascript"></script>
 
 <!-- datatables.net -->
