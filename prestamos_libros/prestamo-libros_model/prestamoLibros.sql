@@ -24,13 +24,12 @@ CREATE TABLE IF NOT EXISTS `alumno` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `nombre_UNIQUE` (`nombre`),
   UNIQUE KEY `apellidos_UNIQUE` (`apellidos`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8;
 
--- Volcando datos para la tabla prestamo_libros.alumno: ~7 rows (aproximadamente)
-DELETE FROM `alumno`;
+-- Volcando datos para la tabla prestamo_libros.alumno: ~9 rows (aproximadamente)
 /*!40000 ALTER TABLE `alumno` DISABLE KEYS */;
-INSERT INTO `alumno` (`id`, `nombre`, `apellidos`) VALUES
-	(1, 'Asier', 'Cornejo Panduro'),
+REPLACE INTO `alumno` (`id`, `nombre`, `apellidos`) VALUES
+	(1, 'Asier', 'Cornejo'),
 	(2, 'Adrian', 'Garcia Santos'),
 	(3, 'Ainara', 'Goitia Arenaza'),
 	(4, 'Alain', 'Muñoz Arrizabalaga'),
@@ -50,13 +49,12 @@ CREATE TABLE IF NOT EXISTS `libro` (
   PRIMARY KEY (`id`),
   KEY `fk_libro_tipo_editorial_idx` (`id_tipo_editorial`),
   CONSTRAINT `fk_libro_tipo_editorial` FOREIGN KEY (`id_tipo_editorial`) REFERENCES `tipo_editorial` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8;
 
--- Volcando datos para la tabla prestamo_libros.libro: ~10 rows (aproximadamente)
-DELETE FROM `libro`;
+-- Volcando datos para la tabla prestamo_libros.libro: ~12 rows (aproximadamente)
 /*!40000 ALTER TABLE `libro` DISABLE KEYS */;
-INSERT INTO `libro` (`id`, `titulo`, `isbn`, `id_tipo_editorial`) VALUES
-	(1, 'HTML5,CSS3 y JavaScript', '978-84-415-2348-5', 1),
+REPLACE INTO `libro` (`id`, `titulo`, `isbn`, `id_tipo_editorial`) VALUES
+	(1, 'HTML5,CSS3 y JavaScript', '879-84-345-2348-5', 1),
 	(2, 'HTML5,CSS3 y JavaScript', '978-84-415-2348-5', 1),
 	(3, 'Java SE 6', '978-84-415-2348-7', 1),
 	(4, 'Java 8', '978-2-7460-9347-8', 2),
@@ -65,7 +63,8 @@ INSERT INTO `libro` (`id`, `titulo`, `isbn`, `id_tipo_editorial`) VALUES
 	(7, 'MySQL 5.1', '978-84-415-2523-8', 1),
 	(8, 'MySQL 5.1', '978-84-415-2523-8', 1),
 	(9, 'Java 7', '978-84-415-2988-5', 1),
-	(10, 'HTML5 y CSS3', '978-2-409-00702-6', 2);
+	(10, 'HTML5 y CSS3', '978-2-409-00702-6', 2),
+	(11, 'HTML5 y CSS3', '978-2-409-00702-6', 2);
 /*!40000 ALTER TABLE `libro` ENABLE KEYS */;
 
 -- Volcando estructura para tabla prestamo_libros.prestado
@@ -82,9 +81,11 @@ CREATE TABLE IF NOT EXISTS `prestado` (
   CONSTRAINT `fk_libro_has_alumno_libro1` FOREIGN KEY (`id_libro`) REFERENCES `libro` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
--- Volcando datos para la tabla prestamo_libros.prestado: ~10 rows (aproximadamente)
-DELETE FROM `prestado`;
+-- Volcando datos para la tabla prestamo_libros.prestado: ~2 rows (aproximadamente)
 /*!40000 ALTER TABLE `prestado` DISABLE KEYS */;
+REPLACE INTO `prestado` (`id_libro`, `id_alumno`, `fecha_inicio`, `fecha_final`, `fecha_devuelto`) VALUES
+	(7, 7, '2018-11-15', '2018-11-30', '2018-11-19'),
+	(8, 8, '2018-11-15', '2018-11-30', NULL);
 /*!40000 ALTER TABLE `prestado` ENABLE KEYS */;
 
 -- Volcando estructura para tabla prestamo_libros.tipo_editorial
@@ -93,14 +94,15 @@ CREATE TABLE IF NOT EXISTS `tipo_editorial` (
   `editorial` varchar(50) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `editorial_UNIQUE` (`editorial`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 
--- Volcando datos para la tabla prestamo_libros.tipo_editorial: ~7 rows (aproximadamente)
-DELETE FROM `tipo_editorial`;
+-- Volcando datos para la tabla prestamo_libros.tipo_editorial: ~4 rows (aproximadamente)
 /*!40000 ALTER TABLE `tipo_editorial` DISABLE KEYS */;
-INSERT INTO `tipo_editorial` (`id`, `editorial`) VALUES
+REPLACE INTO `tipo_editorial` (`id`, `editorial`) VALUES
+	(3, 'Alfaguara'),
 	(1, 'Anaya'),
-	(2, 'Eni');
+	(2, 'Eni'),
+	(4, 'S&M');
 /*!40000 ALTER TABLE `tipo_editorial` ENABLE KEYS */;
 
 -- Volcando estructura para procedimiento prestamo_libros.alumnoDelete
@@ -350,10 +352,11 @@ DELIMITER ;
 DELIMITER //
 CREATE DEFINER=`root`@`localhost` PROCEDURE `prestamoGetHistorico`()
 BEGIN
-SELECT p.id_libro,p.id_alumno,p.fecha_inicio,p.fecha_final,p.fecha_devuelto,l.titulo,a.nombre,a.apellidos
+SELECT p.id_libro,p.id_alumno,p.fecha_inicio,p.fecha_final,e.editorial,e.id as id_editorial,p.fecha_devuelto,l.titulo,a.nombre,a.apellidos
 FROM prestado as p
 INNER JOIN libro AS l ON l.id=p.id_libro
 INNER JOIN alumno AS a ON a.id=p.id_alumno
+INNER JOIN tipo_editorial AS e ON e.id=l.id_tipo_editorial
 WHERE fecha_devuelto IS NOT NULL
 ORDER BY p.fecha_devuelto DESC;
 END//
@@ -372,10 +375,11 @@ DELIMITER ;
 DELIMITER //
 CREATE DEFINER=`root`@`localhost` PROCEDURE `prestamoGetPrestados`()
 BEGIN
-SELECT p.id_libro,p.id_alumno,p.fecha_inicio,p.fecha_final,l.titulo,a.nombre, a.apellidos,p.fecha_devuelto
+SELECT p.id_libro,p.id_alumno,p.fecha_inicio,p.fecha_final,l.titulo,l.isbn,e.editorial,e.id as id_editorial,a.nombre, a.apellidos,p.fecha_devuelto
 FROM prestado as p
 INNER JOIN libro AS l ON l.id=p.id_libro
 INNER JOIN alumno AS a ON a.id=p.id_alumno
+INNER JOIN tipo_editorial AS e ON e.id=l.id_tipo_editorial
 WHERE fecha_devuelto IS NULL
 order by p.fecha_devuelto desc;
 END//
@@ -405,9 +409,12 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `prestamoPrestar`(
 	IN `p_id_libro` INT,
 	IN `p_id_alumno` INT,
 	IN `p_fecha_inicio` DATE
+,
+	OUT `o_fecha_final` DATE
 )
 BEGIN
 INSERT INTO prestado (id_libro, id_alumno, fecha_inicio) VALUES (p_id_libro, p_id_alumno, p_fecha_inicio);
+SET o_fecha_final:=(Select fecha_final from prestado where p_id_libro=id_libro and id_alumno=p_id_alumno and fecha_inicio=p_fecha_inicio);
 END//
 DELIMITER ;
 
