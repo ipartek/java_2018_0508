@@ -41,7 +41,7 @@ public class AlumnosController {
 	Validator validator = null;
 
 	// Logger
-	private final static Logger LOG = Logger.getLogger(PrestamosController.class);
+	private final static Logger LOG = Logger.getLogger(AlumnosController.class);
 
 	public AlumnosController() {
 		super();

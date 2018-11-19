@@ -10,6 +10,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.log4j.Logger;
+
 import com.ipartek.formacion.controller.pojo.Alert;
 import com.ipartek.formacion.prestamos_libros.model.CrudControllable;
 import com.ipartek.formacion.prestamos_libros.pojo.Editorial;
@@ -21,10 +23,11 @@ import com.ipartek.formacion.prestamos_libros.service.ServiceEditorial;
 @WebServlet("/prestamo/editorial")
 public class EditorialController extends HttpServlet implements CrudControllable{
 	private static final long serialVersionUID = 1L;
-
-//	private static EditorialDAO daoEditorial;
 	
 	private static ServiceEditorial serviceEditorial;
+	
+	// Logger
+	private final static Logger LOG = Logger.getLogger(EditorialController.class);
 
 	private static final String OP_LISTAR = "1";
 	private static final String OP_GUARDAR = "2"; // Insert o update en funcion del id (-1 o >0)
@@ -45,15 +48,15 @@ public class EditorialController extends HttpServlet implements CrudControllable
 	@Override
 	public void init(ServletConfig config) throws ServletException {
 		super.init(config);
-//		daoEditorial = EditorialDAO.getInstance();
 		serviceEditorial = ServiceEditorial.getInstance();
+		LOG.trace("Servicio editorial instanciado");
 	}
 
 	@Override
 	public void destroy() {
 		super.destroy();
-//		daoEditorial = null;
 		serviceEditorial = null;
+		LOG.trace("Servicio editorial destruido");
 	}
 
 	/**
@@ -105,7 +108,7 @@ public class EditorialController extends HttpServlet implements CrudControllable
 				break;
 			}
 		} catch (Exception e) {
-			e.printStackTrace();
+			LOG.error(e);
 			view = VIEW_INDEX_EDITORIAL;
 			alert = new Alert(Alert.ALERT_DANGER, "Ha ocurrido un error no controlado.");
 		} finally {
@@ -117,10 +120,10 @@ public class EditorialController extends HttpServlet implements CrudControllable
 	@Override
 	public void listar(HttpServletRequest request) {
 		try {
-//			request.setAttribute("editoriales", daoEditorial.getAll());
 			request.setAttribute("editoriales", serviceEditorial.listar());
-		} catch (Exception exception) {
-			exception.printStackTrace();
+			LOG.debug("Listado editoriales devuelto");
+		} catch (Exception e) {
+			LOG.error(e);
 			alert = new Alert(Alert.ALERT_DANGER, "Ha ocurrido un error no controlado.");
 		}
 	}
@@ -137,10 +140,12 @@ public class EditorialController extends HttpServlet implements CrudControllable
 			if (id != null && id.equals("")){
 
 				if (("").equals(nombre)) {
+					LOG.warn("No se ha podido crear la editorial");
 					alert = new Alert(Alert.ALERT_WARNING, "El campo nombre no puede estar vacio.");
 				} else {
 					// Crear Editorial nueva
 					if (serviceEditorial.crear(e)) {
+						LOG.debug("Editorial creada");
 						alert = new Alert(Alert.ALERT_SUCCESS, "Editorial guardada con éxito.");
 					}
 				}
@@ -150,24 +155,25 @@ public class EditorialController extends HttpServlet implements CrudControllable
 				e.setId(Long.parseLong(id));
 
 				if (("").equals(nombre.trim())) {
+					LOG.warn("No se ha podido modificar la editorial");
 					alert = new Alert(Alert.ALERT_WARNING, "El campo nombre no puede estar vacio.");
 				} else {
 					if (serviceEditorial.modificar(e)) {
+						LOG.debug("Editorial modificada");
 						alert = new Alert(Alert.ALERT_SUCCESS, "Editorial modificada con éxito.");
 					}
 				}
 
 			}
 
-		} catch (SQLIntegrityConstraintViolationException slqIntegrity) {
-			slqIntegrity.printStackTrace();
+		} catch (SQLIntegrityConstraintViolationException sqlIntegrity) {
+			LOG.error(sqlIntegrity);
 			alert = new Alert(Alert.ALERT_WARNING,
 					"El registro <b>" + e.getNombre() + "</b> no se puede registrar porque ya existe!!");
 
 		} catch (Exception exception) {
-			exception.printStackTrace();
+			LOG.error(exception);
 		}
-//		request.setAttribute("editoriales", daoEditorial.getAll());
 		request.setAttribute("editorial", e);
 	}
 
@@ -178,21 +184,20 @@ public class EditorialController extends HttpServlet implements CrudControllable
 			try {
 				if (serviceEditorial.eliminar(Long.parseLong(id))) {
 					alert = new Alert(Alert.ALERT_SUCCESS, "Se ha eliminado el registro");
+					LOG.debug("Editorial eliminada");
 				}
 
-			}catch (SQLIntegrityConstraintViolationException slqIntegrity) {
-				slqIntegrity.printStackTrace();
+			}catch (SQLIntegrityConstraintViolationException sqlIntegrity) {
+				LOG.error(sqlIntegrity);
 				alert = new Alert(Alert.ALERT_WARNING,
 						" no se puede eliminar porque tiene libros asociados");
 			}
 			catch (Exception e) {
-
-				e.printStackTrace();
+				LOG.error(e);
 				alert = new Alert();
 
 			}
 			view = VIEW_INDEX_EDITORIAL;
-//			request.setAttribute("editoriales", daoEditorial.getAll());
 			request.setAttribute("editoriales", serviceEditorial.listar());
 		}
 
@@ -203,16 +208,18 @@ public class EditorialController extends HttpServlet implements CrudControllable
 		op = (request.getParameter("op") != null) ? request.getParameter("op") : OP_LISTAR;
 		id = request.getParameter("id"); // 0 = crear, 1 = modificar
 		nombre = request.getParameter("nombre");
+		LOG.debug("Parametros recogidos");
 	}
 
 	@Override
 	public void irFormulario(HttpServletRequest request) throws Exception {
 		Editorial editorial = null;
 		if(Integer.parseInt(id)>0) {
-//			editorial = daoEditorial.getById(id);
 			editorial = serviceEditorial.buscarPorId(Long.parseLong(id));
+			LOG.debug("Editorial encontrada");
 		}else {
 			editorial = new Editorial();
+			LOG.debug("Nueva editorial");
 		}
 		request.setAttribute("editorial", editorial);
 		view = VIEW_FORM_EDITORIAL;

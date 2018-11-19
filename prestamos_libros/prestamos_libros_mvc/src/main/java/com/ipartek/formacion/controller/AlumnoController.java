@@ -10,6 +10,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.log4j.Logger;
+
 import com.ipartek.formacion.controller.pojo.Alert;
 import com.ipartek.formacion.prestamos_libros.model.CrudControllable;
 import com.ipartek.formacion.prestamos_libros.pojo.Alumno;
@@ -26,8 +28,10 @@ public class AlumnoController extends HttpServlet implements CrudControllable{
 
 	private static final String VIEW_FORM_ALUMNO = "alumno/formAlumno.jsp";
 	private static final String VIEW_INDEX_ALUMNO = "alumno/index.jsp";
+	
+	// Logger
+	private final static Logger LOG = Logger.getLogger(AlumnoController.class);
 
-//	private static AlumnoDAO daoAlumno;
 	private static ServiceAlumno serviceAlumno;
 
 	private String view = "";
@@ -41,15 +45,15 @@ public class AlumnoController extends HttpServlet implements CrudControllable{
 	@Override
 	public void init(ServletConfig config) throws ServletException {
 		super.init(config);
-//		daoAlumno = AlumnoDAO.getInstance();
 		serviceAlumno = ServiceAlumno.getInstance();
+		LOG.trace("Servicio alumno instanciado");
 	}
 
 	@Override
 	public void destroy() {
 		super.destroy();
-//		daoAlumno = null;
 		serviceAlumno = null;
+		LOG.trace("Servicio alumno destruido");
 	}
 
 	/**
@@ -101,7 +105,7 @@ public class AlumnoController extends HttpServlet implements CrudControllable{
 				break;
 			}
 		} catch (Exception e) {
-			e.printStackTrace();
+			LOG.error(e);
 			view = VIEW_INDEX_ALUMNO;
 			alert = new Alert(Alert.ALERT_DANGER, "Ha ocurrido un error no controlado.");
 		} finally {
@@ -113,11 +117,10 @@ public class AlumnoController extends HttpServlet implements CrudControllable{
 	@Override
 	public void listar(HttpServletRequest request) {
 		try {
-//			request.setAttribute("alumnos", daoAlumno.getAll());
 			request.setAttribute("alumnos", serviceAlumno.listar());
-
-		} catch (Exception exception) {
-			exception.printStackTrace();
+			LOG.debug("Listado de alumnos devuelto");
+		} catch (Exception e) {
+			LOG.error(e);
 			alert = new Alert(Alert.ALERT_DANGER, "Ha ocurrido un error no controlado.");
 		}
 	}
@@ -134,6 +137,7 @@ public class AlumnoController extends HttpServlet implements CrudControllable{
 
 				if (("").equals(nombre)) {
 					alert = new Alert(Alert.ALERT_WARNING, "Todos los campo deben ser completados para poder insertar un nuevo registro.");
+					LOG.warn("No se ha podido crear el alumno");
 				} else {
 					// Crear Alumno nuevo
 					nombre_apellidos=nombre;
@@ -141,6 +145,7 @@ public class AlumnoController extends HttpServlet implements CrudControllable{
 
 					if (serviceAlumno.crear(a)) {
 						alert = new Alert(Alert.ALERT_SUCCESS, "Alumno guardada con éxito.");
+						LOG.debug("Alumno creado con exito");
 					}
 				}
 
@@ -151,8 +156,10 @@ public class AlumnoController extends HttpServlet implements CrudControllable{
 
 				if (("").equals(nombre.trim())) {
 					alert = new Alert(Alert.ALERT_WARNING, "El campo nombre no puede estar vacio.");
+					LOG.warn("No se ha podido modificar el alumno");
 				} else {
 					if (serviceAlumno.modificar(a)) {
+						LOG.debug("Alumno modificado");
 						alert = new Alert(Alert.ALERT_SUCCESS,
 								"Alumno <b> " + a.getNombre() + " </b> modificada con éxito.");
 					}
@@ -161,14 +168,13 @@ public class AlumnoController extends HttpServlet implements CrudControllable{
 			}
 
 		} catch (SQLIntegrityConstraintViolationException slqIntegrity) {
-			slqIntegrity.printStackTrace();
+			LOG.error(slqIntegrity);
 			alert = new Alert(Alert.ALERT_WARNING,
 					"El registro <b>" + a.getNombre() + "</b> no se puede registrar porque ya existe!!");
 
-		} catch (Exception exception) {
-			exception.printStackTrace();
+		} catch (Exception e) {
+			LOG.error(e);
 		}
-//		request.setAttribute("alumnos", daoAlumno.getAll());
 		request.setAttribute("alumno", a);
 
 	}
@@ -180,20 +186,20 @@ public class AlumnoController extends HttpServlet implements CrudControllable{
 			try {
 				if (serviceAlumno.eliminar(Long.parseLong(id))) {
 					alert = new Alert(Alert.ALERT_SUCCESS, "Se ha eliminado el registro");
+					LOG.debug("Alumno eliminado con exito");
 				}
 
 			} catch (SQLIntegrityConstraintViolationException slqIntegrity) {
+				LOG.error(slqIntegrity);
 				slqIntegrity.printStackTrace();
 				alert = new Alert(Alert.ALERT_WARNING,
 						" El alumno no se puede eliminar porque tiene algun prestamo asociado");
 			} catch (Exception e) {
-
-				e.printStackTrace();
+				LOG.error(e);
 				alert = new Alert();
 
 			}
 			view = VIEW_INDEX_ALUMNO;
-//			request.setAttribute("alumnos", daoAlumno.getAll());
 			request.setAttribute("alumnos", serviceAlumno.listar());
 		}
 
@@ -204,16 +210,18 @@ public class AlumnoController extends HttpServlet implements CrudControllable{
 		op = (request.getParameter("op") != null) ? request.getParameter("op") : OP_LISTAR;
 		id = request.getParameter("id"); // 0 = crear, 1 = modificar
 		nombre = request.getParameter("nombre");
+		LOG.debug("Parametros recogidos");
 	}
 
 	@Override
 	public void irFormulario(HttpServletRequest request) throws Exception {
 		Alumno alumno = null;
 		if(Integer.parseInt(id)>0) {
-//			alumno = daoAlumno.getById(id);
 			alumno = serviceAlumno.buscarPorId(Long.parseLong(id));
+			LOG.debug("Alumno encontrado");
 		}else {
 			alumno = new Alumno();
+			LOG.debug("Nuevo Alumno");
 		}
 		request.setAttribute("alumno", alumno);
 		view = VIEW_FORM_ALUMNO;

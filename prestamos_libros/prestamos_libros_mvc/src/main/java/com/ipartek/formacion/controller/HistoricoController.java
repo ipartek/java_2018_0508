@@ -10,6 +10,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.log4j.Logger;
+
 import com.ipartek.formacion.controller.pojo.Alert;
 import com.ipartek.formacion.prestamos_libros.pojo.Prestamo;
 import com.ipartek.formacion.prestamos_libros.service.ServiceAlumno;
@@ -26,6 +28,9 @@ public class HistoricoController extends HttpServlet {
 	private static ServicePrestamo servicePrestamo;
 	private static ServiceAlumno serviceAlumno;
 	private static ServiceLibro serviceLibro;
+	
+	// Logger
+	private final static Logger LOG = Logger.getLogger(HistoricoController.class);
 	
 	private static final String VIEW_HISTORY_PRESTAMO = "historico/listaHistorico.jsp";
 	private static final String VIEW_FORM_MODIFICAR = "historico/formPrestamoModificar.jsp";
@@ -55,16 +60,22 @@ public class HistoricoController extends HttpServlet {
 	public void init(ServletConfig config) throws ServletException {
 		super.init(config);
 		servicePrestamo = ServicePrestamo.getInstance();
+		LOG.trace("Servicio prestamo instanciado");
 		serviceAlumno = ServiceAlumno.getInstance();
+		LOG.trace("Servicio alumno instanciado");
 		serviceLibro = ServiceLibro.getInstance();
+		LOG.trace("Servicio libro instanciado");
 	}
 
 	@Override
 	public void destroy() {
 		super.destroy();
 		servicePrestamo = null;
+		LOG.trace("Servicio prestamo destruido");
 		serviceAlumno = null;
+		LOG.trace("Servicio alumno destruido");
 		serviceLibro = null;
+		LOG.trace("Servicio libro destruido");
 	}
 	
 	/**
@@ -105,7 +116,7 @@ public class HistoricoController extends HttpServlet {
 				break;
 			}
 		} catch (Exception e) {
-			e.printStackTrace();
+			LOG.error(e);
 			view = VIEW_HISTORY_PRESTAMO;
 			alert = new Alert(Alert.ALERT_DANGER, "Ha ocurrido un error no controlado.");
 		} finally {
@@ -130,24 +141,25 @@ public class HistoricoController extends HttpServlet {
 		try {
 			if(servicePrestamo.update(Long.parseLong(idLibro), Long.parseLong(idAlumno), Date.valueOf(fechaInicio), Long.parseLong(idLibroUpdate), Long.parseLong(idAlumnoUpdate), Date.valueOf(fechaInicioUpdate), Date.valueOf(fechaFin), Date.valueOf(fechaRetorno))) {
 				alert = new Alert(Alert.ALERT_SUCCESS, "Préstamo modificado con éxito.");
+				LOG.debug("prestamo modificado");
 			}else {
-				alert = new Alert(Alert.ALERT_DANGER, "Ha ocurrido un error no controlado.");
+				alert = new Alert(Alert.ALERT_DANGER, "No se ha podido modificar el préstamo.");
+				LOG.warn("No se ha podido modificar el prestamo");
 			}
-		} catch (Exception exception) {
-			exception.printStackTrace();
+		} catch (Exception e) {
+			LOG.error(e);
 			view = VIEW_FORM_MODIFICAR;
 		}
 		request.setAttribute("prestamos", servicePrestamo.listarHistorico());
-//		request.setAttribute("libros", servicePrestamo.librosDisponibles());
-//		request.setAttribute("alumnos", servicePrestamo.alumnosDisponibles());
 	}
 
 	private void listar(HttpServletRequest request) {
 		try {
 			view = VIEW_HISTORY_PRESTAMO;
 			request.setAttribute("prestamos", servicePrestamo.listarHistorico());
-		} catch (Exception exception) {
-			exception.printStackTrace();
+			LOG.debug("Listado prestamos devuelto");
+		} catch (Exception e) {
+			LOG.error(e);
 			alert = new Alert(Alert.ALERT_DANGER, "Ha ocurrido un error no controlado.");
 		}
 	}
@@ -164,6 +176,8 @@ public class HistoricoController extends HttpServlet {
 		
 		fechaRetorno = request.getParameter("fechaRetorno");
 		fechaFin = request.getParameter("fechaFin");
+		
+		LOG.debug("Parametros recogidos");
 	}
 
 }

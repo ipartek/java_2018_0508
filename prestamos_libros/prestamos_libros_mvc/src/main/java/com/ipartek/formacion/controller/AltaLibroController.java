@@ -10,6 +10,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.log4j.Logger;
+
 import com.ipartek.formacion.controller.pojo.Alert;
 import com.ipartek.formacion.prestamos_libros.model.CrudControllable;
 import com.ipartek.formacion.prestamos_libros.pojo.Editorial;
@@ -26,6 +28,9 @@ public class AltaLibroController extends HttpServlet implements CrudControllable
 	
 	private static ServiceLibro serviceLibro = null;
 	private static ServiceEditorial serviceEditorial = null;
+	
+	// Logger
+	private final static Logger LOG = Logger.getLogger(AltaLibroController.class);
 
 	private static final String OP_LISTAR = "1";
 	private static final String OP_GUARDAR = "2"; // Insert o update en funcion del id (-1 o >0)
@@ -49,13 +54,18 @@ public class AltaLibroController extends HttpServlet implements CrudControllable
 	public void init(ServletConfig config) throws ServletException {
 		super.init(config);
 		serviceLibro = ServiceLibro.getInstance();
+		LOG.trace("Servicio libro instanciado");
 		serviceEditorial = ServiceEditorial.getInstance();
+		LOG.trace("Servicio editorial instanciado");
 	}
 
 	@Override
 	public void destroy() {
 		super.destroy();
 		serviceLibro = null;
+		LOG.trace("Servicio libro destruido");
+		serviceEditorial = null;
+		LOG.trace("Servicio editorial destruido");
 	}
 
 	/**
@@ -105,7 +115,7 @@ public class AltaLibroController extends HttpServlet implements CrudControllable
 				break;
 			}
 		} catch (Exception e) {
-			e.printStackTrace();
+			LOG.error(e);
 			view = VIEW_INDEX_LIBRO;
 			alert = new Alert(Alert.ALERT_DANGER, "Ha ocurrido un error no controlado.");
 		} finally {
@@ -122,6 +132,7 @@ public class AltaLibroController extends HttpServlet implements CrudControllable
 		isbn = request.getParameter("isbn");
 		cant = request.getParameter("cant");
 		idEditorial = request.getParameter("editorial");
+		LOG.debug("Parametros recogidos");
 	}
 
 	@Override
@@ -137,9 +148,11 @@ public class AltaLibroController extends HttpServlet implements CrudControllable
 			request.setAttribute("libros", serviceLibro.listar());
 			request.setAttribute("libro", l);
 			request.setAttribute("cant", l.getCant());
+			
+			LOG.debug("Listado libros devuelto");
 
-		} catch (Exception exception) {
-			exception.printStackTrace();
+		} catch (Exception e) {
+			LOG.error(e);
 			alert = new Alert(Alert.ALERT_DANGER, "Ha ocurrido un error no controlado.");
 		}
 	}
@@ -159,9 +172,11 @@ public class AltaLibroController extends HttpServlet implements CrudControllable
 
 				if (("").equals(titulo.trim())) {
 					alert = new Alert(Alert.ALERT_WARNING, "El campo título no puede estar vacío.");
+					LOG.warn("Campo titulo vacio");
 				} else {
 					if(idEditorial.equals("-1")) {
 						alert = new Alert(Alert.ALERT_WARNING, "Debes seleccionar una editorial.");
+						LOG.warn("Campo editorial vacio");
 					}else {
 						e = new Editorial();
 						e.setId(Long.parseLong(idEditorial));
@@ -178,6 +193,7 @@ public class AltaLibroController extends HttpServlet implements CrudControllable
 							} else {
 								alert = new Alert(Alert.ALERT_SUCCESS, "Libro guardado con éxito.");
 							}
+							LOG.debug("Libro creado");
 						}
 					}
 				}
@@ -192,21 +208,23 @@ public class AltaLibroController extends HttpServlet implements CrudControllable
 
 				if (("").equals(titulo.trim())) {
 					alert = new Alert(Alert.ALERT_WARNING, "El campo título no puede estar vacío.");
+					LOG.warn("Campo titulo vacio");
 				} else {
 					if (serviceLibro.modificar(l)) {
 						alert = new Alert(Alert.ALERT_SUCCESS, "Libro modificado con éxito.");
+						LOG.debug("Libro modificado con exito");
 					}
 				}
 
 			}
 
 		} catch (SQLIntegrityConstraintViolationException slqIntegrity) {
-			slqIntegrity.printStackTrace();
+			LOG.error(slqIntegrity);
 			alert = new Alert(Alert.ALERT_WARNING,
 					"El registro <b>" + l.getTitulo() + "</b> no se puede registrar porque ya existe!!");
 			view = VIEW_FORM_LIBRO;
 		} catch (Exception exception) {
-			exception.printStackTrace();
+			LOG.error(exception);
 			view = VIEW_FORM_LIBRO;
 		}
 		request.setAttribute("libro", l);
@@ -220,15 +238,14 @@ public class AltaLibroController extends HttpServlet implements CrudControllable
 			try {
 				if (serviceLibro.eliminar(Long.parseLong(id))) {
 					alert = new Alert(Alert.ALERT_SUCCESS, "Se ha eliminado el registro");
+					LOG.debug("Libro eliminado");
 				}
 
 			} catch (SQLIntegrityConstraintViolationException slqIntegrity) {
-				
-				slqIntegrity.printStackTrace();
+				LOG.error(slqIntegrity);
 				alert = new Alert(Alert.ALERT_WARNING, "No se puede eliminar porque tiene préstamos asociados");
 			} catch (Exception e) {
-				
-				e.printStackTrace();
+				LOG.error(e);
 				alert = new Alert();
 
 			}
@@ -241,10 +258,11 @@ public class AltaLibroController extends HttpServlet implements CrudControllable
 	public void irFormulario(HttpServletRequest request) throws Exception {
 		Libro libro = null;
 		if(Integer.parseInt(id)>0) {
-//			editorial = daoEditorial.getById(id);
 			libro = serviceLibro.buscarPorId(Long.parseLong(id));
+			LOG.debug("Libro encontrado");
 		}else {
 			libro = new Libro();
+			LOG.debug("Libro nuevo");
 		}
 		request.setAttribute("editoriales", serviceEditorial.listar());
 		request.setAttribute("libro", libro);

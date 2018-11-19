@@ -13,6 +13,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.log4j.Logger;
+
 import com.ipartek.formacion.controller.pojo.Alert;
 import com.ipartek.formacion.prestamos_libros.model.CrudControllable;
 import com.ipartek.formacion.prestamos_libros.pojo.Alumno;
@@ -28,6 +30,9 @@ public class HomeController extends HttpServlet implements CrudControllable {
 	private static final long serialVersionUID = 1L;
 
 	private static ServicePrestamo servicePrestamo;
+	
+	// Logger
+	private final static Logger LOG = Logger.getLogger(HomeController.class);
 
 	public static final String OP_DEVOLVER = "6";
 	
@@ -54,12 +59,14 @@ public class HomeController extends HttpServlet implements CrudControllable {
 	public void init(ServletConfig config) throws ServletException {
 		super.init(config);
 		servicePrestamo = ServicePrestamo.getInstance();
+		LOG.trace("Servicio prestamos instanciado");
 	}
 
 	@Override
 	public void destroy() {
 		super.destroy();
 		servicePrestamo = null;
+		LOG.trace("Servicio prestamos destruido");
 	}
 
 	/**
@@ -111,7 +118,7 @@ public class HomeController extends HttpServlet implements CrudControllable {
 				break;
 			}
 		} catch (Exception e) {
-			e.printStackTrace();
+			LOG.error(e);
 			view = VIEW_HOME_PRESTAMO;
 			alert = new Alert(Alert.ALERT_DANGER, "Ha ocurrido un error no controlado.");
 		} finally {
@@ -126,9 +133,10 @@ public class HomeController extends HttpServlet implements CrudControllable {
 				Prestamo p = new Prestamo(Date.valueOf(fechaInicio), new Alumno(Long.parseLong(idAlumno),""), new Libro(Long.parseLong(idLibro), "", "", 1, null));
 				p.setFecha_retorno(Date.valueOf(fechaRetorno));
 				servicePrestamo.devolver(p);
+				LOG.debug("Libro devuelto. Prestamo finalizado");
 			}
 		}catch(Exception e) {
-			e.printStackTrace();
+			LOG.error(e);
 		}
 
 	}
@@ -146,6 +154,7 @@ public class HomeController extends HttpServlet implements CrudControllable {
 		idLibroUpdate = request.getParameter("libroUpdate");
 		fechaInicioUpdate = request.getParameter("fechaInicioUpdate");
 
+		LOG.debug("Parametros recogidos");
 	}
 
 	@Override
@@ -153,8 +162,9 @@ public class HomeController extends HttpServlet implements CrudControllable {
 		try {
 			view = VIEW_HOME_PRESTAMO;
 			request.setAttribute("prestamos", servicePrestamo.listarPrestados());
-		} catch (Exception exception) {
-			exception.printStackTrace();
+			LOG.debug("Lista prestamos activos devuelta");
+		} catch (Exception e) {
+			LOG.error(e);
 			view = VIEW_HOME_PRESTAMO;
 			alert = new Alert(Alert.ALERT_DANGER, "Ha ocurrido un error no controlado.");
 		}
@@ -169,8 +179,6 @@ public class HomeController extends HttpServlet implements CrudControllable {
 		double diasExactos = (double) (fecha_fin.getTime() - fechaActualSql.getTime()) / (1000 * 60 * 60 * 24);
 		//Redondear los dias
 		int diasRedondeados = (int) Math.round(diasExactos);
-		
-//		System.out.println("Fecha fin: "+fecha_fin+", Fecha actual: "+fechaActualSql+", Dias restantes: "+diasRedondeados);
 
 		return diasRedondeados;
 	}
@@ -191,6 +199,8 @@ public class HomeController extends HttpServlet implements CrudControllable {
 
 			request.setAttribute("libros", librosDis);
 			request.setAttribute("alumnos", alumnosDis);
+			
+			LOG.debug("Prestamo encontrado");
 
 		} else {
 			java.util.Date fechaActual= new java.util.Date();
@@ -200,6 +210,7 @@ public class HomeController extends HttpServlet implements CrudControllable {
 			request.setAttribute("libros", servicePrestamo.librosDisponibles());
 			request.setAttribute("alumnos", servicePrestamo.alumnosDisponibles());
 
+			LOG.debug("Prestamo nuevo");
 		}
 		request.setAttribute("prestamo", prestamo);
 		view = VIEW_FORM_PRESTAMO;
@@ -224,11 +235,13 @@ public class HomeController extends HttpServlet implements CrudControllable {
 				
 				if (idLibroUpdate.equals("-1") || idAlumnoUpdate.equals("-1")) {
 					alert = new Alert(Alert.ALERT_WARNING, "Debes seleccionar un alumno y un libro obligatoriamente.");
+					LOG.warn("Alumno o Libro no seleccionado");
 				} else {
 					// Crear Prestamo nuevo
 					Prestamo p = new Prestamo(Date.valueOf(fechaInicio), new Alumno(Long.parseLong(idAlumno),""), new Libro(Long.parseLong(idLibro), "", "", 1, null));
 					if (servicePrestamo.prestar(p)) {
 						alert = new Alert(Alert.ALERT_SUCCESS, "Préstamo creado con éxito.");
+						LOG.debug("Prestamo creado");
 					}
 				}
 
@@ -245,38 +258,21 @@ public class HomeController extends HttpServlet implements CrudControllable {
 							Date.valueOf(fechaInicio), Long.parseLong(idLibroUpdate), Long.parseLong(idAlumnoUpdate),
 							Date.valueOf(fechaInicioUpdate), Date.valueOf(fechafin), null)) {
 						alert = new Alert(Alert.ALERT_SUCCESS, "Préstamo modificado con éxito.");
+						LOG.debug("Prestamo modificado");
 					} else {
 						alert = new Alert(Alert.ALERT_DANGER, "Ha ocurrido un error no controlado.");
+						LOG.warn("No se ha podido modificar el prestamo");
 					}
-				} catch (Exception exception) {
-					exception.printStackTrace();
+				} catch (Exception e) {
+					LOG.error(e);
 					view = VIEW_FORM_PRESTAMO;
 				}
 				request.setAttribute("prestamos", servicePrestamo.listarPrestados());
 			} else {
 				alert = new Alert(Alert.ALERT_WARNING, "Debes seleccionar una fecha obligatoriamente.");
 			}
-//			 else if (id != null && id == "0") {
-//				// Modificar Prestamo existente
-//				l.setId(Long.parseLong(id));
-//
-//				if (("").equals(titulo)) {
-//					alert = new Alert(Alert.ALERT_WARNING, "El campo ´título no puede estar vacío.");
-//				} else {
-//					if (servicePrestamo.modificar(prestamo)) {
-//						alert = new Alert(Alert.ALERT_SUCCESS, "Libro modificado con éxito.");
-//					}
-//				}
-//
-//			}
-
-//		} catch (SQLIntegrityConstraintViolationException slqIntegrity) {
-//			slqIntegrity.printStackTrace();
-//			view = VIEW_FORM_PRESTAMO;
-		} catch (
-
-		Exception exception) {
-			exception.printStackTrace();
+		} catch (Exception e) {
+			LOG.error(e);
 			view = VIEW_FORM_PRESTAMO;
 		}
 		request.setAttribute("prestamo", prestamo);
