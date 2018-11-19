@@ -20,7 +20,7 @@ public static final String EXCEPTION_PARAMETROS_INCORRECTOS_DEVOLUCION = "Necesi
 public static final String EXCEPTION_NO_EXISTE_ALUMNO_LIBRO = "No podemos prestar si no existe el Alumno o Libro";
 public static final String EXCEPTION_LIBRO_PRESTADO = "Libro ya tiene un prestamos activo";
 public static final String EXCEPTION_ALUMNO_PRESTADO = "Alumno ya tiene un prestamos activo";
-public static final String EXCEPTION_LIBRO_SIN_PRESTAMO = "El libro indicado no está prestado actualmente, por lo que no puede devolverlo";
+public static final String EXCEPTION_LIBRO_SIN_PRESTAMO = "El libro indicado no está prestado actualmente.";
 public static final String EXCEPTION_ALUMNO_SIN_PRESTAMO = "El alumno indicado no tiene un préstamo actualmente.";
 
 	

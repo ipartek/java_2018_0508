@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 	<footer class="footer">
 	
-		<p>&copy; Adrian Garcia & Asier Cornejo</p>
+		<p>&copy; Adrian Garcia &amp; Asier Cornejo</p>
 	
 	</footer>
 

@@ -186,7 +186,7 @@ public class PrestamosController {
 				  	  + "<li><b>alumno.id</b> Identificador del alumno</li>"
 				  	  + "<li><b>fecha_inicio</b> Fecha inicio del préstamo</li>"
 				  	  + "<li><b>fecha_final</b> Fecha final del préstamo</li>"
-				  	  + "<li><b>devuelto</b> Fecha de devolución del préstamo (déjese en blanco si se desea modificar un préstamo y rellenelo si quiere modificar el histórico de préstamos.)</li>"
+				  	  + "<li><b>devuelto</b> Fecha de devolución del préstamo (déjese en blanco si se desea modificar un préstamo activo y rellenelo si quiere modificar el histórico de préstamos.)</li>"
 				  	  + "<li>El formato de fecha es: <b>yyyy-MM-dd</b></li>"
 				  	  + "</ol>")
 	public ResponseEntity<Object> modificar(@PathVariable("idLibro") long idLibro, @PathVariable("idAlumno") long idAlumno, 
