@@ -40,6 +40,7 @@ public class LibroController extends HttpServlet implements CrudControllable {
 	private String n_libros;
 	HttpSession session;
 
+	@SuppressWarnings("static-access")
 	public void init(ServletConfig config) throws ServletException {
 		super.init(config);
 		srvcLibro = srvcLibro.getInstance();
@@ -111,19 +112,19 @@ public class LibroController extends HttpServlet implements CrudControllable {
 		id = request.getParameter("id");
 		isbn = request.getParameter("isbn");
 		titulo = request.getParameter("titulo");
-		editorial=request.getParameter("editorial");
-		n_libros=request.getParameter("n_libros");
+		editorial = request.getParameter("editorial");
+		n_libros = request.getParameter("n_libros");
 	}
 
 	public void listar(HttpServletRequest request) throws Exception {
 		try {
-			alerta=null;
+			alerta = null;
 			view = VIEW_LISTADO;
 			view = VIEW_LISTADO;
 
-			ArrayList<Libro> libro= srvcLibro.listar();
-			session.setAttribute("libros",libro);
-			session.setAttribute("n_libros",libro.size());
+			ArrayList<Libro> libro = srvcLibro.listar();
+			session.setAttribute("libros", libro);
+			session.setAttribute("n_libros", libro.size());
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -131,7 +132,7 @@ public class LibroController extends HttpServlet implements CrudControllable {
 	}
 
 	public void irFormulario(HttpServletRequest request) throws Exception {
-		alerta=null;
+		alerta = null;
 		view = VIEW_FORMULARIO;
 
 		if ("-1".equalsIgnoreCase(id)) {
@@ -143,7 +144,7 @@ public class LibroController extends HttpServlet implements CrudControllable {
 	}
 
 	public void guardar(HttpServletRequest request) throws Exception {
-		alerta=null;
+		alerta = null;
 		Libro l = new Libro();
 
 		try {
@@ -151,9 +152,9 @@ public class LibroController extends HttpServlet implements CrudControllable {
 			l.setIsbn(isbn);
 			l.setTitulo(titulo);
 			l.setEditorial(srvcEditorial.buscar(Long.parseLong(editorial)));
-			
+
 			alerta = new Alert();
-			
+
 			if (l.getId() > 0) {
 				srvcLibro.modificar(l);
 				alerta = new Alert("El registro se ha modificado con exito.", Alert.SUCCESS);
@@ -164,10 +165,10 @@ public class LibroController extends HttpServlet implements CrudControllable {
 				}
 				if (n == 1) {
 					alerta = new Alert("El registro se ha guardado con exito.", Alert.SUCCESS);
-				}else {
-					alerta = new Alert(n + " registro se han guardado con exito.", Alert.SUCCESS);					
+				} else {
+					alerta = new Alert(n + " registro se han guardado con exito.", Alert.SUCCESS);
 				}
-				
+
 			}
 
 		} catch (SQLIntegrityConstraintViolationException e) {
@@ -178,16 +179,15 @@ public class LibroController extends HttpServlet implements CrudControllable {
 			e.printStackTrace();
 		}
 
-		
 		view = VIEW_LISTADO;
 
-		ArrayList<Libro> libro= srvcLibro.listar();
-		session.setAttribute("libros",libro);
-		session.setAttribute("n_libros",libro.size());
+		ArrayList<Libro> libro = srvcLibro.listar();
+		session.setAttribute("libros", libro);
+		session.setAttribute("n_libros", libro.size());
 	}
 
 	public void eliminar(HttpServletRequest request) throws Exception {
-		alerta=null;
+		alerta = null;
 		try {
 			srvcLibro.eliminar(Long.parseLong(id));
 			alerta = new Alert("El registro se ha eliminado con exito.", Alert.SUCCESS);
@@ -197,10 +197,10 @@ public class LibroController extends HttpServlet implements CrudControllable {
 		}
 		view = VIEW_LISTADO;
 
-		ArrayList<Libro> libro= srvcLibro.listar();
-		session.setAttribute("libros",libro);
-		session.setAttribute("n_libros",libro.size());
-		
+		ArrayList<Libro> libro = srvcLibro.listar();
+		session.setAttribute("libros", libro);
+		session.setAttribute("n_libros", libro.size());
+
 	}
 
 }

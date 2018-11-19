@@ -42,9 +42,9 @@ public class PrestamoController extends HttpServlet implements CrudControllable 
 	private String fecha_inicio;
 	private String fecha_fin;
 	private String fecha_devolucion;
-	private String n_prestamos;
 	HttpSession session;
 
+	@SuppressWarnings("static-access")
 	public void init(ServletConfig config) throws ServletException {
 		super.init(config);
 		srvcPrestamo = srvcPrestamo.getInstance();
@@ -126,30 +126,17 @@ public class PrestamoController extends HttpServlet implements CrudControllable 
 		fecha_fin = request.getParameter("fecha_fin");
 
 		fecha_devolucion = request.getParameter("fecha_devolucion");
-		n_prestamos = request.getParameter("n_prestamos");
 	}
 
 	public void listar(HttpServletRequest request) throws Exception {
 		try {
-			
-			/*
-			SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-			java.util.Date parsefi = format.parse(fecha_inicio);
-			java.util.Date parseff = format.parse(fecha_fin);
-			java.sql.Date sqlDatefi = new java.sql.Date(parsefi.getTime());
-			java.sql.Date sqlDateff = new java.sql.Date(parseff.getTime());
-			
-		    dias= (( sqlDateff.getTime() - sqlDatefi.getTime() )  / 86400000  );
 
-		   */
-		    
 			alerta = null;
 			view = VIEW_LISTADO;
-			
-			ArrayList<Prestamo> prestamos= srvcPrestamo.prestados();
+
+			ArrayList<Prestamo> prestamos = srvcPrestamo.prestados();
 			session.setAttribute("prestamos", prestamos);
 			session.setAttribute("n_prestamos", prestamos.size());
-			//session.setAttribute("dias", dias);
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -166,7 +153,7 @@ public class PrestamoController extends HttpServlet implements CrudControllable 
 			session.setAttribute("prestamo", srvcPrestamo.buscar(Long.parseLong(id)));
 		}
 		session.setAttribute("alumnos", srvcPrestamo.AlumnosDisponibles());
-		session.setAttribute("libros",  srvcPrestamo.LibrosDisponibles());
+		session.setAttribute("libros", srvcPrestamo.LibrosDisponibles());
 	}
 
 	public void guardar(HttpServletRequest request) throws Exception {
@@ -193,58 +180,57 @@ public class PrestamoController extends HttpServlet implements CrudControllable 
 				alerta = new Alert("El registro se ha creado con exito.", Alert.SUCCESS);
 				view = VIEW_LISTADO;
 				session.setAttribute("prestamos", srvcPrestamo.prestados());
-				
-			}else {
+
+			} else {
 				p.setId(Long.parseLong(id));
 				p.setAlumno(srvcAlumno.buscar(Long.parseLong(id_alumno)));
 				p.setLibro(srvcLibro.buscar(Long.parseLong(id_libro)));
 				try {
-						
-						if (fecha_devolucion==null) {
-							SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-							java.util.Date parsefi = format.parse(fecha_inicio);
-							java.util.Date parseff = format.parse(fecha_fin);
-							java.sql.Date sqlDateDevolucionfi = new java.sql.Date(parsefi.getTime());
-							java.sql.Date sqlDateDevolucionff = new java.sql.Date(parseff.getTime());
-							
-							p.setFecha_inicio(sqlDateDevolucionfi);
-							p.setFecha_fin(sqlDateDevolucionff);
-							p.setFecha_devuelto(null);
-							alerta = new Alert();
-							
-							srvcPrestamo.modificar(p);
-							alerta = new Alert("El registro se ha modificado con exito.", Alert.SUCCESS);
-							view = VIEW_LISTADO;
-							ArrayList<Prestamo> prestamos= srvcPrestamo.prestados();
-							session.setAttribute("prestamos", prestamos);
-							session.setAttribute("n_prestamos", prestamos.size());
-						}else {
-							SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-							java.util.Date parsefi = format.parse(fecha_inicio);
-							java.util.Date parseff = format.parse(fecha_fin);
-							java.util.Date parsefd = format.parse(fecha_devolucion);
-							java.sql.Date sqlDateDevolucionfi = new java.sql.Date(parsefi.getTime());
-							java.sql.Date sqlDateDevolucionff = new java.sql.Date(parsefi.getTime());
-							java.sql.Date sqlDateDevolucionfd = new java.sql.Date(parsefd.getTime());
-							
-							p.setFecha_inicio(sqlDateDevolucionfi);
-							p.setFecha_inicio(sqlDateDevolucionff);
-							p.setFecha_devuelto(sqlDateDevolucionfd);
-							
-							alerta = new Alert();
-							
-							srvcPrestamo.modificar(p);
-							alerta = new Alert("El registro se ha modificado con exito.", Alert.SUCCESS);
-							view = VIEW_HISTORICO;
-							ArrayList<Prestamo> prestamos= srvcPrestamo.historico();
-							session.setAttribute("prestamos", prestamos);
-							session.setAttribute("n_prestamos", prestamos.size());
-						}
-						
-					} catch (Exception e) {
-						e.printStackTrace();
+
+					if (fecha_devolucion == null) {
+						SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+						java.util.Date parsefi = format.parse(fecha_inicio);
+						java.util.Date parseff = format.parse(fecha_fin);
+						java.sql.Date sqlDateDevolucionfi = new java.sql.Date(parsefi.getTime());
+						java.sql.Date sqlDateDevolucionff = new java.sql.Date(parseff.getTime());
+
+						p.setFecha_inicio(sqlDateDevolucionfi);
+						p.setFecha_fin(sqlDateDevolucionff);
+						p.setFecha_devuelto(null);
+						alerta = new Alert();
+
+						srvcPrestamo.modificar(p);
+						alerta = new Alert("El registro se ha modificado con exito.", Alert.SUCCESS);
+						view = VIEW_LISTADO;
+						ArrayList<Prestamo> prestamos = srvcPrestamo.prestados();
+						session.setAttribute("prestamos", prestamos);
+						session.setAttribute("n_prestamos", prestamos.size());
+					} else {
+						SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+						java.util.Date parsefi = format.parse(fecha_inicio);
+						java.util.Date parsefd = format.parse(fecha_devolucion);
+						java.sql.Date sqlDateDevolucionfi = new java.sql.Date(parsefi.getTime());
+						java.sql.Date sqlDateDevolucionff = new java.sql.Date(parsefi.getTime());
+						java.sql.Date sqlDateDevolucionfd = new java.sql.Date(parsefd.getTime());
+
+						p.setFecha_inicio(sqlDateDevolucionfi);
+						p.setFecha_inicio(sqlDateDevolucionff);
+						p.setFecha_devuelto(sqlDateDevolucionfd);
+
+						alerta = new Alert();
+
+						srvcPrestamo.modificar(p);
+						alerta = new Alert("El registro se ha modificado con exito.", Alert.SUCCESS);
+						view = VIEW_HISTORICO;
+						ArrayList<Prestamo> prestamos = srvcPrestamo.historico();
+						session.setAttribute("prestamos", prestamos);
+						session.setAttribute("n_prestamos", prestamos.size());
 					}
-	
+
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+
 			}
 
 		} catch (Exception e) {
@@ -252,13 +238,13 @@ public class PrestamoController extends HttpServlet implements CrudControllable 
 		}
 
 	}
-	
+
 	private void listarhistorico(HttpServletRequest request) throws Exception {
 		try {
 			alerta = null;
 			view = VIEW_HISTORICO;
 
-			ArrayList<Prestamo> prestamos= srvcPrestamo.historico();
+			ArrayList<Prestamo> prestamos = srvcPrestamo.historico();
 			session.setAttribute("prestamos", prestamos);
 			session.setAttribute("n_prestamos", prestamos.size());
 
@@ -273,38 +259,34 @@ public class PrestamoController extends HttpServlet implements CrudControllable 
 
 		try {
 
-				p.setId(Long.parseLong(id));
-				try {
-					SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-					java.util.Date parsed = format.parse(fecha_devolucion);
-					java.sql.Date sqlDateDevolucion = new java.sql.Date(parsed.getTime());
+			p.setId(Long.parseLong(id));
+			try {
+				SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+				java.util.Date parsed = format.parse(fecha_devolucion);
+				java.sql.Date sqlDateDevolucion = new java.sql.Date(parsed.getTime());
 
-					p.setFecha_devuelto(sqlDateDevolucion);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-				
-		
-				alerta = new Alert();
+				p.setFecha_devuelto(sqlDateDevolucion);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 
-				srvcPrestamo.devolver(p);
-				alerta = new Alert("El registro se ha devuelto con exito.", Alert.SUCCESS);
-				view = VIEW_LISTADO;
-				session.setAttribute("prestamos", srvcPrestamo.prestados());
+			alerta = new Alert();
+
+			srvcPrestamo.devolver(p);
+			alerta = new Alert("El registro se ha devuelto con exito.", Alert.SUCCESS);
+			view = VIEW_LISTADO;
+			session.setAttribute("prestamos", srvcPrestamo.prestados());
 
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-
-		
-		
 
 	}
 
 	@Override
 	public void eliminar(HttpServletRequest request) throws Exception {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 }

@@ -15,14 +15,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-
 /**
  * Servlet Filter implementation class UTF8Filter
  */
-@WebFilter(dispatcherTypes = {DispatcherType.REQUEST }
-					, urlPatterns = { "/editorial/*", "/libro/*", "/prestamo/*", "/alumno/*" })
+@WebFilter(dispatcherTypes = { DispatcherType.REQUEST }, urlPatterns = { "/editorial/*", "/libro/*", "/prestamo/*",
+		"/alumno/*" })
 public class usuarioFilter implements Filter {
-	
+
 	/**
 	 * @see Filter#destroy()
 	 */
@@ -38,22 +37,21 @@ public class usuarioFilter implements Filter {
 
 		HttpServletRequest req = (HttpServletRequest) request;
 		HttpServletResponse res = (HttpServletResponse) response;
-		
+
 		try {
 			HttpSession session = req.getSession();
 			String usuario = (String) session.getAttribute("usuario");
 			String pass = (String) session.getAttribute("pass");
 
-			if (usuario!=null && "admin".equals(usuario) && "admin".equals(pass)) {
+			if (usuario != null && "admin".equals(usuario) && "admin".equals(pass)) {
 				chain.doFilter(request, response);
 			} else {
 
-				//TODO comprobar ROL del usuario
+				// TODO comprobar ROL del usuario
 
 				informacionCliente(req);
-				
 
-				//usuario no logeado
+				// usuario no logeado
 				res.sendRedirect(req.getContextPath() + "/login");
 			}
 		} catch (Exception e) {

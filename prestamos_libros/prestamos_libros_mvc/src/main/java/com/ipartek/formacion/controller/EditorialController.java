@@ -34,7 +34,7 @@ public class EditorialController extends HttpServlet implements CrudControllable
 	private String id;
 	private String nombre;
 
-
+	@SuppressWarnings("static-access")
 	public void init(ServletConfig config) throws ServletException {
 		super.init(config);
 		srvcEditorial = srvcEditorial.getInstance();
@@ -66,10 +66,10 @@ public class EditorialController extends HttpServlet implements CrudControllable
 
 	public void doProcess(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		
+
 		session = request.getSession();
 		alerta = null;
-		
+
 		try {
 
 			getParameters(request);
@@ -111,8 +111,8 @@ public class EditorialController extends HttpServlet implements CrudControllable
 		try {
 
 			view = VIEW_LISTADO;
-			
-			ArrayList<Editorial> editorial= srvcEditorial.listar();
+
+			ArrayList<Editorial> editorial = srvcEditorial.listar();
 			session.setAttribute("editoriales", editorial);
 			session.setAttribute("n_editoriales", editorial.size());
 
@@ -122,7 +122,7 @@ public class EditorialController extends HttpServlet implements CrudControllable
 	}
 
 	public void irFormulario(HttpServletRequest request) throws Exception {
-		
+
 		view = VIEW_FORMULARIO;
 		if ("-1".equalsIgnoreCase(id)) {
 			session.setAttribute("editorial", new Editorial());
@@ -144,7 +144,7 @@ public class EditorialController extends HttpServlet implements CrudControllable
 
 				srvcEditorial.modificar(ed);
 				alerta = new Alert("El registro se ha modificado con exito.", Alert.SUCCESS);
-				
+
 			} else {
 
 				srvcEditorial.crear(ed);
@@ -160,18 +160,18 @@ public class EditorialController extends HttpServlet implements CrudControllable
 		}
 
 		view = VIEW_LISTADO;
-		
-		ArrayList<Editorial> editorial= srvcEditorial.listar();
+
+		ArrayList<Editorial> editorial = srvcEditorial.listar();
 		session.setAttribute("editoriales", editorial);
 		session.setAttribute("n_editoriales", editorial.size());
 	}
 
 	public void eliminar(HttpServletRequest request) throws Exception {
 		try {
-			
+
 			srvcEditorial.eliminar(Long.parseLong(id));
 			alerta = new Alert("El registro se ha eliminado con exito.", Alert.SUCCESS);
-			
+
 		} catch (SQLIntegrityConstraintViolationException e) {
 			e.printStackTrace();
 			alerta = new Alert("El registro a eliminar tiene libros asociados", Alert.DANGER);
@@ -180,8 +180,8 @@ public class EditorialController extends HttpServlet implements CrudControllable
 			e.printStackTrace();
 		}
 		view = VIEW_LISTADO;
-		
-		ArrayList<Editorial> editorial= srvcEditorial.listar();
+
+		ArrayList<Editorial> editorial = srvcEditorial.listar();
 		session.setAttribute("editoriales", editorial);
 		session.setAttribute("n_editoriales", editorial.size());
 	}

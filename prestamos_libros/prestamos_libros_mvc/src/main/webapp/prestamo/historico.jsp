@@ -76,27 +76,28 @@
 			<h1 class="titulo_tablas">Historico<span class="badge medallon">${n_prestamos}</span></h1>
 			<div class="table-responsive">
 	           <table id="data-table-basic" class="table table-sc-ex table-striped">
-				<thead>
-					<tr>
-						<th>Alumno</th>
-						<th>Libro</th>
-						<th>Fecha Incio</th>
-						<th>Fecha Fin</th>
-						<th>Devuelto</th>
-					</tr>
-				</thead>
-				<tbody>
-					<c:forEach items="${prestamos}" var="p">
+					<thead>
 						<tr>
-							<td><a href="prestamos?op=<%=CrudControllable.OP_IR_FORMULARIO %>&id=${p.id}">${p.alumno.nombre}  ${p.alumno.apellidos}</a></td>
-							<td><a href="prestamos?op=<%=CrudControllable.OP_IR_FORMULARIO %>&id=${p.id}">${p.libro.titulo}</a></td>
-							<td><a href="prestamos?op=<%=CrudControllable.OP_IR_FORMULARIO %>&id=${p.id}">${p.fecha_inicio}</a></td>
-							<td>${p.fecha_fin}</td>
-							<td><a href="prestamos?op=<%=CrudControllable.OP_IR_FORMULARIO %>&id=${p.id}">${p.fecha_devuelto}</a></td>
+							<th>Alumno</th>
+							<th>Libro</th>
+							<th>Fecha Incio</th>
+							<th>Fecha Fin</th>
+							<th>Devuelto</th>
 						</tr>
-					</c:forEach>
-				</tbody>
-			</table>
+					</thead>
+					<tbody>
+						<c:forEach items="${prestamos}" var="p">
+							<tr>
+								<td><a href="prestamos?op=<%=CrudControllable.OP_IR_FORMULARIO %>&id=${p.id}">${p.alumno.nombre}  ${p.alumno.apellidos}</a></td>
+								<td><a href="prestamos?op=<%=CrudControllable.OP_IR_FORMULARIO %>&id=${p.id}">${p.libro.titulo}</a></td>
+								<td><a href="prestamos?op=<%=CrudControllable.OP_IR_FORMULARIO %>&id=${p.id}">${p.fecha_inicio}</a></td>
+								<td>${p.fecha_fin}</td>
+								<td><a href="prestamos?op=<%=CrudControllable.OP_IR_FORMULARIO %>&id=${p.id}">${p.fecha_devuelto}</a></td>
+							</tr>
+						</c:forEach>
+					</tbody>
+				</table>
+			</div>
 		</div>
 	</div>
 </div>

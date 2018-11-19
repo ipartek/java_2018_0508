@@ -8,32 +8,33 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-
 /**
  * Servlet implementation class LogoutController
  */
 @WebServlet("/logout")
 public class LogoutController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	 
+
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+	 *      response)
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+
 		try {
-			//Invalidar la sesion del usuario
+			// Invalidar la sesion del usuario
 			HttpSession session = request.getSession();
-			
-			if ( session != null ) {
+
+			if (session != null) {
 				session.removeAttribute("usuario");
 				session.invalidate();
 				session = null;
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
-		}finally {
-			response.sendRedirect(request.getContextPath()+"/login.jsp");
+		} finally {
+			response.sendRedirect(request.getContextPath() + "/login.jsp");
 		}
 	}
 

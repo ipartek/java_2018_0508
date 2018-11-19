@@ -1,16 +1,16 @@
 package com.ipartek.formacion.pojo;
 
 public class Alert {
-	
+
 	public static final String PRIMARY = "primary";
 	public static final String SECONDARY = "secondary";
 	public static final String SUCCESS = "success";
 	public static final String DANGER = "danger";
 	public static final String WARNING = "warning";
-	
+
 	private String texto;
 	private String tipo;
-	
+
 	public Alert() {
 		super();
 		this.texto = "Sentimos las molestias, hemos tenido un problema.";
@@ -43,5 +43,5 @@ public class Alert {
 	public String toString() {
 		return "Alert [texto=" + texto + ", tipo=" + tipo + "]";
 	}
-	
+
 }

@@ -3,11 +3,6 @@ package com.ipartek.formacion.pojo;
 import java.sql.Date;
 import java.util.Calendar;
 
-import javax.validation.Valid;
-import javax.validation.constraints.Size;
-
-import org.hibernate.validator.constraints.NotBlank;
-
 public class Prestamo {
 	private long id;
 

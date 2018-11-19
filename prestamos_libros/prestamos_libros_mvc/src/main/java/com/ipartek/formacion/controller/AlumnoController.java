@@ -35,6 +35,7 @@ public class AlumnoController extends HttpServlet implements CrudControllable {
 	private String nombre;
 	private String apellidos;
 
+	@SuppressWarnings("static-access")
 	public void init(ServletConfig config) throws ServletException {
 		super.init(config);
 		srvcAlumno = srvcAlumno.getInstance();
@@ -112,7 +113,7 @@ public class AlumnoController extends HttpServlet implements CrudControllable {
 
 			view = VIEW_LISTADO;
 
-			ArrayList<Alumno> alumno= srvcAlumno.listar();
+			ArrayList<Alumno> alumno = srvcAlumno.listar();
 			request.setAttribute("alumnos", alumno);
 			request.setAttribute("n_alumnos", alumno.size());
 
@@ -130,7 +131,7 @@ public class AlumnoController extends HttpServlet implements CrudControllable {
 			request.setAttribute("alumno", srvcAlumno.buscar(Long.parseLong(id)));
 		}
 
-		session.setAttribute("alumnos", srvcAlumno.listar() );
+		session.setAttribute("alumnos", srvcAlumno.listar());
 	}
 
 	public void guardar(HttpServletRequest request) throws Exception {
@@ -160,7 +161,7 @@ public class AlumnoController extends HttpServlet implements CrudControllable {
 
 		view = VIEW_LISTADO;
 
-		ArrayList<Alumno> alumno= srvcAlumno.listar();
+		ArrayList<Alumno> alumno = srvcAlumno.listar();
 		request.setAttribute("alumnos", alumno);
 		request.setAttribute("n_alumnos", alumno.size());
 	}
@@ -178,7 +179,7 @@ public class AlumnoController extends HttpServlet implements CrudControllable {
 		}
 		view = VIEW_LISTADO;
 
-		ArrayList<Alumno> alumno= srvcAlumno.listar();
+		ArrayList<Alumno> alumno = srvcAlumno.listar();
 		request.setAttribute("alumnos", alumno);
 		request.setAttribute("n_alumnos", alumno.size());
 
