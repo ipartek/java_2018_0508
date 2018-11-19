@@ -3,10 +3,10 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.ipartek.formacion</groupId>
-	<artifactId>prestamo-libros</artifactId>
+	<artifactId>prestamo-libros_web</artifactId>
 	<packaging>war</packaging>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>prestamo-libros</name>
+	<name>prestamo-libros_web</name>
 	<url>http://localhost:8080/prestamo-libros</url>
 
 	<!-- variables comunes para todo el POM -->
@@ -162,6 +162,6 @@
 		</plugins>
 
 
-		<finalName>prestamo-libros</finalName>
+		<finalName>prestamo-libros_web</finalName>
 	</build>
 </project>
