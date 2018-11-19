@@ -2,7 +2,7 @@ CREATE DATABASE  IF NOT EXISTS `prestamo_libros` /*!40100 DEFAULT CHARACTER SET 
 USE `prestamo_libros`;
 -- MySQL dump 10.13  Distrib 8.0.12, for Win64 (x86_64)
 --
--- Host: localhost    Database: prestamo_libros
+-- Host: localhost    Database: prestamo_libros 
 -- ------------------------------------------------------
 -- Server version	8.0.12
 
