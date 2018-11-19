@@ -40,7 +40,7 @@ public class UsuarioController extends HttpServlet {
 
 	private String op; // operacion a realizar
 	private String id;
-	private String nombre_apellidos;
+	private String nombreApellidos;
 
 	public UsuarioController() {
 		super();
@@ -114,21 +114,21 @@ public class UsuarioController extends HttpServlet {
 
 	private void guardar(HttpServletRequest request) throws Exception {
 		Usuario u = new Usuario();
-		u.setNombreApellidos(nombre_apellidos);
+		u.setNombreApellidos(nombreApellidos);
 
 		try {
 		
 			if(!"".equals(id)) {
 				//modificar
 				u.setId(new Long(id));
-				if(!usuarioService.modificar(u)){
+				if(usuarioService.modificar(u)){
 					alert = new Alert(Alert.SUCCESS, "Usuario modificado correctamente.");
 				}else{
 					alert = new Alert(Alert.DANGER, "El usuario no se ha podido modificar.");
 				}
 			}else {
 				//añadir
-				if(!usuarioService.crear(u)){
+				if(usuarioService.crear(u)){
 					alert = new Alert(Alert.SUCCESS, "Usuario creado correctamente.");
 				}else{
 					alert = new Alert(Alert.DANGER, "El usuario no se ha podido crear.");
@@ -164,7 +164,7 @@ public class UsuarioController extends HttpServlet {
 	private void eliminar(HttpServletRequest request) throws Exception {
 		try {
 			
-			if(!usuarioService.eliminar(Long.parseLong(id))){
+			if(usuarioService.eliminar(Long.parseLong(id))){
 				alert = new Alert(Alert.SUCCESS, "Usuario eliminado correctamente.");
 			}else{
 				alert = new Alert(Alert.DANGER, "El usuario no se ha podido eliminar.");
@@ -189,7 +189,7 @@ public class UsuarioController extends HttpServlet {
 			op = OP_LISTAR;
 		}
 		id = request.getParameter("id");
-		nombre_apellidos = request.getParameter("nombre_apellidos");
+		nombreApellidos = request.getParameter("nombreApellidos");
 
 	}
 

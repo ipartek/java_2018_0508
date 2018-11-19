@@ -1,16 +1,12 @@
 package com.ipartek.formacion.prestamos_libros;
 
-import static org.junit.Assert.assertEquals;
 
 import java.io.IOException;
 
-import org.apache.xalan.xsltc.compiler.sym;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
-import org.jsoup.select.Elements;
 import org.junit.Test;
 
-import com.gargoylesoftware.htmlunit.javascript.host.Element;
 
 public class LoginTest {
 	final static private String USER_AGENT = "Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/70.0.3538.102 Safari/537.36";
