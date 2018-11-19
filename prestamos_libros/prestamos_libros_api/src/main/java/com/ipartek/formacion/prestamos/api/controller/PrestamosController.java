@@ -107,6 +107,7 @@ public class PrestamosController {
 				  	  + "<li><b>libro.id</b> Identificador del libro</li>"
 				  	  + "<li><b>alumno.id</b> Identificador del alumno</li>"
 				  	  + "<li><b>fecha_inicio</b> Fecha inicio del préstamo</li>"
+				  	  + "<li>El formato dela fecha es: <b>yyyy-MM-dd</b></li>"
 				  	  + "</ol>")
 	public ResponseEntity<Object> crear(@RequestBody Prestamo prestamo) {
 		
@@ -164,7 +165,30 @@ public class PrestamosController {
 	}
 	
 	@RequestMapping(value = "/prestamos/{idLibro}/{idAlumno}/{fechaInicio}", method = RequestMethod.PUT)
-	@ApiOperation(value = "Modificar un préstamo, esté activo o no.", response = Prestamo.class)
+	@ApiResponses(value = { 
+			@ApiResponse(code = 200, message = "Préstamo modificado con éxito.", response = Prestamo.class),
+			@ApiResponse(code = 400, message = "<ol>"
+					 						 + "<li>No existe el libro o alumno indicado.</li>"
+					 						 + "<li>Faltan campos obligatorios.</li>"
+					 						 + "</ol>"
+					 						 , response = ResponseMensaje.class),
+			@ApiResponse(code = 409, message = "<ol>"
+											 + "<li>El libro o alumno indicados no han tenido nunca un préstamo, por lo que no podemos modificarlo.</li>"
+											 + "<li>Libro o alumno ya tiene un préstamo activo.</li>"
+											 + "</ol>"
+											 , response = ResponseMensaje.class),
+			@ApiResponse(code = 500, message = "Error fatal")}
+			)
+	@ApiOperation(value = "Modificar un préstamo, esté activo o no.", response = Prestamo.class,
+				  notes="Campos obligatorios:"
+				  	  + "<ol>"
+				  	  + "<li><b>libro.id</b> Identificador del libro</li>"
+				  	  + "<li><b>alumno.id</b> Identificador del alumno</li>"
+				  	  + "<li><b>fecha_inicio</b> Fecha inicio del préstamo</li>"
+				  	  + "<li><b>fecha_final</b> Fecha final del préstamo</li>"
+				  	  + "<li><b>devuelto</b> Fecha de devolución del préstamo (déjese en blanco si se desea modificar un préstamo y rellenelo si quiere modificar el histórico de préstamos.)</li>"
+				  	  + "<li>El formato de fecha es: <b>yyyy-MM-dd</b></li>"
+				  	  + "</ol>")
 	public ResponseEntity<Object> modificar(@PathVariable("idLibro") long idLibro, @PathVariable("idAlumno") long idAlumno, 
 			@PathVariable("fechaInicio") Date fechaInicio, @RequestBody Prestamo p) {
 		
