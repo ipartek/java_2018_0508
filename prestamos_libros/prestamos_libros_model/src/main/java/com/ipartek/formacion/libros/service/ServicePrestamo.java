@@ -82,12 +82,12 @@ public class ServicePrestamo implements IPrestamoService {
 		Alumno a = alumnosDAO.getById(idAlumno);
 
 		if (a == null) {
-			throw new Exception("Alumno no disponible");
+			throw new Exception("El Alumno propuesto no existe");
 		}
 
 		Libro l = librosDAO.getById(idlibro);
 		if (l == null) {
-			throw new Exception("Libro no disponible");
+			throw new Exception("Libro propuesto no existe");
 		}
 
 		// si existen comprobamos que esten disponibles
@@ -102,7 +102,7 @@ public class ServicePrestamo implements IPrestamoService {
 		librosDisponibles = (ArrayList<Libro>) librosDAO.getAllDisponibles();
 		if (!librosDisponibles.contains(l)) {
 
-			throw new Exception("El libro no esta disponible");
+			throw new Exception("El libro ya esta prestado");
 
 		}
 
@@ -144,7 +144,10 @@ public class ServicePrestamo implements IPrestamoService {
 	public Prestamo modificar(long idAlumno, long idLibro, Date fechaInicio, long nuevoAlumno, long nuevoLibro,
 			Date nuevaFecha, Date fechaFin, Date fechaRetorno) throws Exception {
 		boolean resul = false;
-
+		
+		
+		ArrayList<Alumno> alumnosDisponibles = new ArrayList<Alumno>();
+		ArrayList<Libro> librosDisponibles = new ArrayList<Libro>();
 		// comprobamos que exista el registro a modificar
 		Prestamo prestamoActual = new Prestamo();
 		java.sql.Date fechaInicioSql = new java.sql.Date(fechaInicio.getTime());
@@ -154,6 +157,34 @@ public class ServicePrestamo implements IPrestamoService {
 
 			throw new Exception("No encontramos el prestamos que nos propones");
 		}
+		
+		//comprobamos que los datos sugeridos existen en la db
+		
+		Libro lSugerido = librosDAO.getById(nuevoLibro);
+		Alumno aSugerido = alumnosDAO.getById(nuevoAlumno);
+		if(lSugerido != null) {
+			throw new Exception("El libro que nos sugieres no esta dado de alta");
+		}
+		if(aSugerido != null) {
+			throw new Exception("El alumno que nos sugieres no esta dado de alta");
+		}
+		
+		//comprobamos que esten disponibles los datos
+		
+		alumnosDisponibles = (ArrayList<Alumno>) alumnosDAO.getAllDisponible();
+		if (!alumnosDisponibles.contains(aSugerido)) {
+
+			throw new Exception("El alumno contiene algun prestamo pendiente");
+
+		}
+
+		librosDisponibles = (ArrayList<Libro>) librosDAO.getAllDisponibles();
+		if (!librosDisponibles.contains(lSugerido)) {
+
+			throw new Exception("El libro ya esta prestado");
+
+		}
+		
 		
 		//comprobamos que los nuevos datos que corresponden a la actualizacion son coherentes(LIBRO Y ALUMNno QUE EXISTAN Y ESTEN LIBRES)
 		

@@ -284,7 +284,7 @@ public class PrestamosController {
 				rm.setErrores(errores);
 				response = new ResponseEntity<>(rm,HttpStatus.CONFLICT);
 			}
-			if(e.getMessage().contains("Prestamos")) {
+			if(e.getMessage().contains("No encontramos el prestamos que nos propones")) {
 				rm.setMensaje("Error");
 				String[] errores = new String[1];
 				errores[0]= e.getMessage();
