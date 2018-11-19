@@ -10,7 +10,11 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.ipartek.formacion.pojo.Alert;
+import org.apache.log4j.Logger;
+
+import com.ipartek.formacion.controller.pojo.Alert;
+import com.ipartek.formacion.pojo.Alumno;
+import com.ipartek.formacion.pojo.Libro;
 import com.ipartek.formacion.pojo.Prestamo;
 import com.ipartek.formacion.service.ServiceAlumno;
 import com.ipartek.formacion.service.ServiceLibro;
@@ -22,11 +26,12 @@ import com.ipartek.formacion.service.ServicePrestamo;
 @WebServlet("/prestamo/historico")
 public class HistoricoController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	
+	private final static Logger LOG = Logger.getLogger(HistoricoController.class);
+
 	private static ServicePrestamo servicePrestamo;
 	private static ServiceAlumno serviceAlumno;
 	private static ServiceLibro serviceLibro;
-	
+
 	private static final String VIEW_HISTORY_PRESTAMO = "historico/listaHistorico.jsp";
 	private static final String VIEW_FORM_MODIFICAR = "historico/formPrestamoModificar.jsp";
 
@@ -34,7 +39,7 @@ public class HistoricoController extends HttpServlet {
 	private static final String OP_LISTAR = "1";
 
 	private static final String OP_IR_FORMULARIO = "4";
-	
+
 	private String view = "";
 	private Alert alert = null;
 
@@ -43,14 +48,14 @@ public class HistoricoController extends HttpServlet {
 	private String idAlumno;
 	private String idLibro;
 	private String fechaInicio;
-	
+
 	private String idAlumnoUpdate;
 	private String idLibroUpdate;
 	private String fechaInicioUpdate;
-	
+
 	private String fechaFin;
 	private String fechaRetorno;
-	
+
 	@Override
 	public void init(ServletConfig config) throws ServletException {
 		super.init(config);
@@ -66,21 +71,25 @@ public class HistoricoController extends HttpServlet {
 		serviceAlumno = null;
 		serviceLibro = null;
 	}
-	
+
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+	 *      response)
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		doProcess(request, response);
 	}
 
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+	 *      response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		doProcess(request, response);
 	}
-	
+
 	public void doProcess(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		try {
@@ -95,7 +104,7 @@ public class HistoricoController extends HttpServlet {
 			case OP_GUARDAR:
 				guardar(request); // Crea o modifica un usuario en la bbdd
 				break;
-				
+
 			case OP_IR_FORMULARIO:
 				irFormulario(request); // Cambia a la vista del formulario de gestion de usuario
 				break;
@@ -108,6 +117,7 @@ public class HistoricoController extends HttpServlet {
 			e.printStackTrace();
 			view = VIEW_HISTORY_PRESTAMO;
 			alert = new Alert(Alert.ALERT_DANGER, "Ha ocurrido un error no controlado.");
+			LOG.error("Ha ocurrido un error no controlado.");
 		} finally {
 			request.setAttribute("alert", alert);
 			request.getRequestDispatcher(view).forward(request, response);
@@ -115,11 +125,22 @@ public class HistoricoController extends HttpServlet {
 	}
 
 	private void irFormulario(HttpServletRequest request) throws Exception {
-		Prestamo prestamo = new Prestamo();
-		
-		prestamo = servicePrestamo.buscarPorId(Long.parseLong(idLibro), Long.parseLong(idAlumno), Date.valueOf(fechaInicio));
-		
-		request.setAttribute("prestamo", prestamo);
+
+		Prestamo p = new Prestamo();
+
+		Libro l = new Libro();
+		l.setId(Long.parseLong(idLibro));
+		p.setLibro(l);
+
+		Alumno a = new Alumno();
+		a.setId(Long.parseLong(idAlumno));
+		p.setAlumno(a);
+
+		p.setFecha_prestado(Date.valueOf(fechaInicio));
+
+		p = servicePrestamo.buscarPorId(p);
+
+		request.setAttribute("prestamo", p);
 		request.setAttribute("libros", serviceLibro.listar());
 		request.setAttribute("alumnos", serviceAlumno.listar());
 		view = VIEW_FORM_MODIFICAR;
@@ -128,18 +149,22 @@ public class HistoricoController extends HttpServlet {
 	private void guardar(HttpServletRequest request) throws Exception {
 		view = VIEW_HISTORY_PRESTAMO;
 		try {
-			if(servicePrestamo.update(Long.parseLong(idLibro), Long.parseLong(idAlumno), Date.valueOf(fechaInicio), Long.parseLong(idLibroUpdate), Long.parseLong(idAlumnoUpdate), Date.valueOf(fechaInicioUpdate), Date.valueOf(fechaFin), Date.valueOf(fechaRetorno))) {
+			if (servicePrestamo.modificar(Long.parseLong(idLibro), Long.parseLong(idAlumno), Date.valueOf(fechaInicio),
+					Long.parseLong(idLibroUpdate), Long.parseLong(idAlumnoUpdate), Date.valueOf(fechaInicioUpdate),
+					Date.valueOf(fechaFin), Date.valueOf(fechaRetorno))) {
 				alert = new Alert(Alert.ALERT_SUCCESS, "Préstamo modificado con éxito.");
-			}else {
+				LOG.debug("Préstamo modificado con éxito.");
+			} else {
 				alert = new Alert(Alert.ALERT_DANGER, "Ha ocurrido un error no controlado.");
+				LOG.error("Ha ocurrido un error no controlado.");
+				
 			}
-		} catch (Exception exception) {
-			exception.printStackTrace();
+		} catch (Exception e) {
+			
 			view = VIEW_FORM_MODIFICAR;
+			LOG.error(e);
 		}
 		request.setAttribute("prestamos", servicePrestamo.listarHistorico());
-//		request.setAttribute("libros", servicePrestamo.librosDisponibles());
-//		request.setAttribute("alumnos", servicePrestamo.alumnosDisponibles());
 	}
 
 	private void listar(HttpServletRequest request) {
@@ -149,6 +174,7 @@ public class HistoricoController extends HttpServlet {
 		} catch (Exception exception) {
 			exception.printStackTrace();
 			alert = new Alert(Alert.ALERT_DANGER, "Ha ocurrido un error no controlado.");
+			LOG.error("Ha ocurrido un error no controlado.");
 		}
 	}
 
@@ -157,11 +183,11 @@ public class HistoricoController extends HttpServlet {
 		idAlumno = request.getParameter("alumno");
 		idLibro = request.getParameter("libro");
 		fechaInicio = request.getParameter("fechaInicio");
-		
+
 		idAlumnoUpdate = request.getParameter("alumnoUpdate");
 		idLibroUpdate = request.getParameter("libroUpdate");
 		fechaInicioUpdate = request.getParameter("fechaInicioUpdate");
-		
+
 		fechaRetorno = request.getParameter("fechaRetorno");
 		fechaFin = request.getParameter("fechaFin");
 	}

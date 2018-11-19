@@ -10,14 +10,18 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.log4j.Logger;
+
+import com.ipartek.formacion.controller.pojo.Alert;
 import com.ipartek.formacion.model.CrudControllable;
-import com.ipartek.formacion.pojo.Alert;
 import com.ipartek.formacion.pojo.Alumno;
 import com.ipartek.formacion.service.ServiceAlumno;
 
 @WebServlet("/prestamo/alumno")
 public class AlumnoController extends HttpServlet implements CrudControllable{
 	private static final long serialVersionUID = 1L;
+	
+	private final static Logger LOG = Logger.getLogger(AlumnoController.class);
 
 	private static final String OP_LISTAR = "1";
 	private static final String OP_GUARDAR = "2"; // Insert o update en funcion del id (-1 o >0)
@@ -104,6 +108,7 @@ public class AlumnoController extends HttpServlet implements CrudControllable{
 			e.printStackTrace();
 			view = VIEW_INDEX_ALUMNO;
 			alert = new Alert(Alert.ALERT_DANGER, "Ha ocurrido un error no controlado.");
+			LOG.error("Ha ocurrido un error no controlado.");
 		} finally {
 			request.setAttribute("alert", alert);
 			request.getRequestDispatcher(view).forward(request, response);
@@ -116,9 +121,10 @@ public class AlumnoController extends HttpServlet implements CrudControllable{
 //			request.setAttribute("alumnos", daoAlumno.getAll());
 			request.setAttribute("alumnos", serviceAlumno.listar());
 
-		} catch (Exception exception) {
-			exception.printStackTrace();
+		} catch (Exception e) {
+			
 			alert = new Alert(Alert.ALERT_DANGER, "Ha ocurrido un error no controlado.");
+			LOG.error(e);
 		}
 	}
 
@@ -134,6 +140,7 @@ public class AlumnoController extends HttpServlet implements CrudControllable{
 
 				if (("").equals(nombre)) {
 					alert = new Alert(Alert.ALERT_WARNING, "Todos los campo deben ser completados para poder insertar un nuevo registro.");
+					LOG.debug("Todos los campo deben ser completados para poder insertar un nuevo registro.");
 				} else {
 					// Crear Alumno nuevo
 					nombre_apellidos=nombre;
@@ -141,6 +148,8 @@ public class AlumnoController extends HttpServlet implements CrudControllable{
 
 					if (serviceAlumno.crear(a)) {
 						alert = new Alert(Alert.ALERT_SUCCESS, "Alumno guardada con éxito.");
+						LOG.debug("Alumno guardada con éxito.");
+						
 					}
 				}
 
@@ -151,10 +160,12 @@ public class AlumnoController extends HttpServlet implements CrudControllable{
 
 				if (("").equals(nombre.trim())) {
 					alert = new Alert(Alert.ALERT_WARNING, "El campo nombre no puede estar vacio.");
+					LOG.debug("El campo nombre no puede estar vacio.");
 				} else {
 					if (serviceAlumno.modificar(a)) {
 						alert = new Alert(Alert.ALERT_SUCCESS,
 								"Alumno <b> " + a.getNombre() + " </b> modificada con éxito.");
+						LOG.debug("Alumno <b> " + a.getNombre() + " </b> modificada con éxito.");
 					}
 				}
 
@@ -164,9 +175,10 @@ public class AlumnoController extends HttpServlet implements CrudControllable{
 			slqIntegrity.printStackTrace();
 			alert = new Alert(Alert.ALERT_WARNING,
 					"El registro <b>" + a.getNombre() + "</b> no se puede registrar porque ya existe!!");
-
-		} catch (Exception exception) {
-			exception.printStackTrace();
+			LOG.debug("El registro <b> " + a.getNombre() +" </b> no se puede registrar porque ya existe!!");
+		} catch (Exception e) {
+			
+			LOG.error(e);
 		}
 //		request.setAttribute("alumnos", daoAlumno.getAll());
 		request.setAttribute("alumno", a);
@@ -180,16 +192,18 @@ public class AlumnoController extends HttpServlet implements CrudControllable{
 			try {
 				if (serviceAlumno.eliminar(Long.parseLong(id))) {
 					alert = new Alert(Alert.ALERT_SUCCESS, "Se ha eliminado el registro");
+					LOG.debug("Se ha eliminado el registro");
 				}
 
 			} catch (SQLIntegrityConstraintViolationException slqIntegrity) {
 				slqIntegrity.printStackTrace();
 				alert = new Alert(Alert.ALERT_WARNING,
 						" El alumno no se puede eliminar porque tiene algun prestamo asociado");
+				LOG.debug("El alumno no se puede eliminar porque tiene algun prestamo asociado");
 			} catch (Exception e) {
-
-				e.printStackTrace();
+				
 				alert = new Alert();
+				LOG.error(e);
 
 			}
 			view = VIEW_INDEX_ALUMNO;

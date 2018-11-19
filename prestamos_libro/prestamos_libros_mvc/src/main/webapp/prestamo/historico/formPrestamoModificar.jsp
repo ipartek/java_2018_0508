@@ -37,7 +37,7 @@
 					<label class="" for="libroUpdate">Libro: </label>									
 					<select class="form-control" required name="libroUpdate" id="libroUpdate">
 						<c:forEach items="${libros}" var="l">
-							<option value="${l.id}" ${(prestamo.libro.id==l.id)?'selected':''}>${l.titulo}</option>
+							<option value="${l.id}" ${(prestamo.libro.id==l.id)?'selected':''}>${l.id} - ${l.titulo}</option>
 						</c:forEach>
 					</select>
 				</div>

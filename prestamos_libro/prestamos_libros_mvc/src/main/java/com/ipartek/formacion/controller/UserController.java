@@ -9,7 +9,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import com.ipartek.formacion.pojo.Alert;
+import org.apache.log4j.Logger;
+
+import com.ipartek.formacion.controller.pojo.Alert;
 
 /**
  * Servlet implementation class UserController
@@ -17,6 +19,8 @@ import com.ipartek.formacion.pojo.Alert;
 @WebServlet("/login")
 public class UserController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	
+	private final static Logger LOG = Logger.getLogger(UserController.class);
 
 	// Parametros
 	private static final String USER = "ander";
@@ -61,12 +65,14 @@ public class UserController extends HttpServlet {
 				
 			}else {
 				alert = new Alert(Alert.ALERT_DANGER, "Credenciales incorrectas");
+				LOG.debug("Credenciales incorrectas");
 			}
 			
 		} catch (Exception e) {
 			e.printStackTrace();
 			view= VIEW_LOGIN;
 			alert = new Alert(Alert.ALERT_DANGER, "Ha ocurrido un error no controlado.");
+			LOG.error(e);
 		}finally {
 //			request.getRequestDispatcher(view).forward(request, response);
 			session.setAttribute("alert", alert);

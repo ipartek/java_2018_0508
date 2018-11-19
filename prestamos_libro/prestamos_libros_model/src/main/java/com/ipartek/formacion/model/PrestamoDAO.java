@@ -13,9 +13,6 @@ import com.ipartek.formacion.pojo.Alumno;
 import com.ipartek.formacion.pojo.Editorial;
 import com.ipartek.formacion.pojo.Libro;
 import com.ipartek.formacion.pojo.Prestamo;
-import com.ipartek.formacion.service.ServiceAlumno;
-import com.ipartek.formacion.service.ServiceEditorial;
-import com.ipartek.formacion.service.ServiceLibro;
 
 public class PrestamoDAO implements Crudable<Prestamo> {
 

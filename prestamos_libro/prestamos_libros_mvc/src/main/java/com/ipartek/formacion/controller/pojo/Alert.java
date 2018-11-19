@@ -1,4 +1,4 @@
-package com.ipartek.formacion.pojo;
+package com.ipartek.formacion.controller.pojo;
 
 public class Alert {
 	

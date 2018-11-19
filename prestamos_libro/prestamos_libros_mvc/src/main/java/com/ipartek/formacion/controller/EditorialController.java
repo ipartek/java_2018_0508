@@ -10,8 +10,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.log4j.Logger;
+
+import com.ipartek.formacion.controller.pojo.Alert;
 import com.ipartek.formacion.model.CrudControllable;
-import com.ipartek.formacion.pojo.Alert;
 import com.ipartek.formacion.pojo.Editorial;
 import com.ipartek.formacion.service.ServiceEditorial;
 
@@ -21,8 +23,8 @@ import com.ipartek.formacion.service.ServiceEditorial;
 @WebServlet("/prestamo/editorial")
 public class EditorialController extends HttpServlet implements CrudControllable{
 	private static final long serialVersionUID = 1L;
-
-//	private static EditorialDAO daoEditorial;
+	
+	private final static Logger LOG = Logger.getLogger(EditorialController.class);
 	
 	private static ServiceEditorial serviceEditorial;
 
@@ -45,14 +47,12 @@ public class EditorialController extends HttpServlet implements CrudControllable
 	@Override
 	public void init(ServletConfig config) throws ServletException {
 		super.init(config);
-//		daoEditorial = EditorialDAO.getInstance();
 		serviceEditorial = ServiceEditorial.getInstance();
 	}
 
 	@Override
 	public void destroy() {
 		super.destroy();
-//		daoEditorial = null;
 		serviceEditorial = null;
 	}
 
@@ -108,6 +108,7 @@ public class EditorialController extends HttpServlet implements CrudControllable
 			e.printStackTrace();
 			view = VIEW_INDEX_EDITORIAL;
 			alert = new Alert(Alert.ALERT_DANGER, "Ha ocurrido un error no controlado.");
+			LOG.error(e);
 		} finally {
 			request.setAttribute("alert", alert);
 			request.getRequestDispatcher(view).forward(request, response);
@@ -119,9 +120,10 @@ public class EditorialController extends HttpServlet implements CrudControllable
 		try {
 //			request.setAttribute("editoriales", daoEditorial.getAll());
 			request.setAttribute("editoriales", serviceEditorial.listar());
-		} catch (Exception exception) {
-			exception.printStackTrace();
+		} catch (Exception e) {
+			e.printStackTrace();
 			alert = new Alert(Alert.ALERT_DANGER, "Ha ocurrido un error no controlado.");
+			LOG.error(e);
 		}
 	}
 
@@ -138,10 +140,12 @@ public class EditorialController extends HttpServlet implements CrudControllable
 
 				if (("").equals(nombre)) {
 					alert = new Alert(Alert.ALERT_WARNING, "El campo nombre no puede estar vacio.");
+					LOG.debug("El campo nombre no puede estar vacio.");
 				} else {
 					// Crear Editorial nueva
 					if (serviceEditorial.crear(e)) {
 						alert = new Alert(Alert.ALERT_SUCCESS, "Editorial guardada con éxito.");
+						LOG.debug("Editorial guardada con éxito.");
 					}
 				}
 
@@ -151,9 +155,11 @@ public class EditorialController extends HttpServlet implements CrudControllable
 
 				if (("").equals(nombre.trim())) {
 					alert = new Alert(Alert.ALERT_WARNING, "El campo nombre no puede estar vacio.");
+					LOG.debug("El campo nombre no puede estar vacio.");
 				} else {
 					if (serviceEditorial.modificar(e)) {
 						alert = new Alert(Alert.ALERT_SUCCESS, "Editorial modificada con éxito.");
+						LOG.debug("Editorial modificada con éxito.");
 					}
 				}
 
@@ -163,9 +169,9 @@ public class EditorialController extends HttpServlet implements CrudControllable
 			slqIntegrity.printStackTrace();
 			alert = new Alert(Alert.ALERT_WARNING,
 					"El registro <b>" + e.getNombre() + "</b> no se puede registrar porque ya existe!!");
-
-		} catch (Exception exception) {
-			exception.printStackTrace();
+			LOG.debug("El registro <b>" + e.getNombre() + "</b> no se puede registrar porque ya existe!!");
+		} catch (Exception ex) {
+			LOG.error(ex);
 		}
 //		request.setAttribute("editoriales", daoEditorial.getAll());
 		request.setAttribute("editorial", e);
@@ -178,17 +184,20 @@ public class EditorialController extends HttpServlet implements CrudControllable
 			try {
 				if (serviceEditorial.eliminar(Long.parseLong(id))) {
 					alert = new Alert(Alert.ALERT_SUCCESS, "Se ha eliminado el registro");
+					LOG.debug("Se ha eliminado el registro");
 				}
 
 			}catch (SQLIntegrityConstraintViolationException slqIntegrity) {
 				slqIntegrity.printStackTrace();
 				alert = new Alert(Alert.ALERT_WARNING,
 						" no se puede eliminar porque tiene libros asociados");
+				LOG.debug("no se puede eliminar porque tiene libros asociados");
 			}
 			catch (Exception e) {
 
 				e.printStackTrace();
 				alert = new Alert();
+				LOG.error(e);
 
 			}
 			view = VIEW_INDEX_EDITORIAL;
@@ -209,7 +218,6 @@ public class EditorialController extends HttpServlet implements CrudControllable
 	public void irFormulario(HttpServletRequest request) throws Exception {
 		Editorial editorial = null;
 		if(Integer.parseInt(id)>0) {
-//			editorial = daoEditorial.getById(id);
 			editorial = serviceEditorial.buscarPorId(Long.parseLong(id));
 		}else {
 			editorial = new Editorial();
