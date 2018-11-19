@@ -71,6 +71,7 @@ public class ServicePrestamo implements IServicePrestamo {
 
 	@Override
 	public boolean modificar(Prestamo p) throws Exception {
+		//TODO modificar solo la fecha de un prestamo en activo.
 		boolean resul = false;
 		long idLibro = -1;
 		long idAlumno = -1;
@@ -82,6 +83,7 @@ public class ServicePrestamo implements IServicePrestamo {
 			idLibro = p.getLibro().getId();
 			idAlumno = p.getAlumno().getId();
 			fInicio = p.getFecha_inicio();
+			fDevuelto = p.getFecha_devuelto();
 
 			if (idLibro < 1 || idAlumno < 1 || fInicio == null) {
 				throw new Exception(EXCEPTION_PARAMETROS_INCORRECTOS);
@@ -101,25 +103,31 @@ public class ServicePrestamo implements IServicePrestamo {
 			throw new Exception(EXCEPTION_NO_EXISTE_USUARIO_LIBRO);
 		}
 
-		// comprobar Libro y Usuario no tengan prestamos
-		List<Libro> librosDisponibles = daoPrestamo.getByLibrosLibres();
-			if (!librosDisponibles.contains(libro)) {
-				throw new Exception(EXCEPTION_LIBRO_PRESTADO);
+		if(fDevuelto==null) {
+			resul = daoPrestamo.modificar(p);
+			if (resul) {
+				p.setLibro(libro);
+				p.setAlumno(alumno);
 			}
-			List<Alumno> alumnosDisponible = daoPrestamo.getByAlmunosLibres();
-			if (!alumnosDisponible.contains(alumno)) {
-				throw new Exception(EXCEPTION_ALUMNO_PRESTADO);
+		}else {
+			// comprobar Libro y Usuario no tengan prestamos
+			List<Libro> librosDisponibles = daoPrestamo.getByLibrosLibres();
+				if (!librosDisponibles.contains(libro)) {
+					throw new Exception(EXCEPTION_LIBRO_PRESTADO);
+				}
+				List<Alumno> alumnosDisponible = daoPrestamo.getByAlmunosLibres();
+				if (!alumnosDisponible.contains(alumno)) {
+					throw new Exception(EXCEPTION_ALUMNO_PRESTADO);
 
+			}
+
+			resul = daoPrestamo.modificar(p);
+			if (resul) {
+				p.setLibro(libro);
+				p.setAlumno(alumno);
+			}
 		}
 		
-
-		
-
-		resul = daoPrestamo.modificar(p);
-		if (resul) {
-			p.setLibro(libro);
-			p.setAlumno(alumno);
-		}
 
 		return resul;
 	}
