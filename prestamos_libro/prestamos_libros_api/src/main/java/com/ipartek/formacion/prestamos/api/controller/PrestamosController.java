@@ -60,10 +60,14 @@ public class PrestamosController {
 
 		LOG.trace("servicio instanciado");
 	}
-
+	
+/**
+ * Metodo que lista los prestamos activos "activos = 1" o lista el historico(prestamos ya devueltos) "activos=0".
+ * @param activos Int 1 o 0
+ * @return ArrayList de prestamos
+ */
 	@ApiOperation(value = "Listado de prestamos activos o historicos")
 	@ApiResponses(value = { @ApiResponse(code = 200, message = " Listado Prestamos") })
-
 	@ApiParam(value = "activos", required = false, name = "bla bla bla", defaultValue = "1")
 	@RequestMapping(method = RequestMethod.GET)
 	public ResponseEntity<ArrayList<Prestamo>> listar(
@@ -91,8 +95,15 @@ public class PrestamosController {
 		return response;
 	}
 
+	/**
+	 * Metodo que devuelve el detalle 
+	 * @param idLibro
+	 * @param idALumno
+	 * @param fecha_prestado
+	 * @return
+	 * @throws Exception
+	 */
 	@ApiOperation(value = "Crear prestamo", response = Prestamo.class, notes = "Campos obligatorios:<ol><li><b>identificador del libro</b></li><li><b>identificador del alumno</b></li><li><b>fecha que se realiza el prestamo</b></li></ol>")
-
 	@RequestMapping(value = "/{idLibro}/{idALumno}/{fecha_prestado}", method = RequestMethod.GET)
 	public ResponseEntity<Object> detalle(@PathVariable long idLibro, @PathVariable long idALumno,
 			@PathVariable Date fecha_prestado) throws Exception {
