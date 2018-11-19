@@ -40,9 +40,9 @@
 											<div class="form-group col-6">
 												<label>USUARIO - <a href="usuario?op=4">Nuevo Usuario</a></label> 
 												<select name="usuario" class="form-control" required>
-													<option value="${prestamo.usuario.id}">${prestamo.usuario.id} - ${prestamo.usuario.nombre_apellidos}</option>
+													<option value="${prestamo.usuario.id}">${prestamo.usuario.id} - ${prestamo.usuario.nombreApellido}</option>
 													<c:forEach items="${usuarios}" var="u">
-														<option value="${u.id}">${u.id} - ${u.nombre_apellidos}</option>
+														<option value="${u.id}">${u.id} - ${u.nombreApellido}</option>
 													</c:forEach>
 												</select>
 											</div>

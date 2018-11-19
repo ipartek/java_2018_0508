@@ -12,6 +12,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.log4j.Logger;
+
 import com.ipartek.formacion.prestamos_libros.controller.pojo.Alert;
 import com.ipartek.formacion.prestamos_libros.pojo.Editorial;
 import com.ipartek.formacion.prestamos_libros.service.ServiceEditorial;
@@ -21,9 +23,11 @@ import com.ipartek.formacion.prestamos_libros.service.ServiceEditorial;
  */
 @WebServlet("/backoffice/editorial")
 public class EditorialController extends HttpServlet {
+	private final static Logger LOG = Logger.getLogger(EditorialController.class);
+
 	private static final long serialVersionUID = 1L;
 	private ServiceEditorial editorialService;
-	
+
 	public static final String OP_LISTAR = "1";
 	public static final String OP_GUARDAR = "2"; // insert id == null o update id != null
 	public static final String OP_ELIMINAR = "3";
@@ -39,14 +43,13 @@ public class EditorialController extends HttpServlet {
 	private String id;
 	private String nombre;
 
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public EditorialController() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
+	/**
+	 * @see HttpServlet#HttpServlet()
+	 */
+	public EditorialController() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
 
 	/**
 	 * @see Servlet#init(ServletConfig)
@@ -59,25 +62,30 @@ public class EditorialController extends HttpServlet {
 	 * @see Servlet#destroy()
 	 */
 	public void destroy() {
-	editorialService = null;
+		editorialService = null;
 	}
 
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+	 *      response)
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		doProcess(request, response);
 	}
 
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+	 *      response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		doProcess(request, response);
 	}
 
-	private void doProcess(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
+	private void doProcess(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+
 		try {
 
 			alert = null;
@@ -116,75 +124,75 @@ public class EditorialController extends HttpServlet {
 		List<Editorial> editoriales = editorialService.listar();
 		request.setAttribute("editoriales", editoriales);
 		view = VIEW_LISTADO;
-		
+
 	}
 
 	private void guardar(HttpServletRequest request) throws Exception {
 		Editorial e = new Editorial();
 		e.setNombre(nombre);
-		
+
 		try {
-			
-			if(!"".equals(id)) {
-				//modificar
+
+			if (!"".equals(id)) {
+				// modificar
 				e.setId(new Long(id));
-				if(!editorialService.modificar(e)){
-					alert = new Alert(alert.SUCCESS, "editorial modificado correctamente.");
-				}else{
-					alert = new Alert(alert.DANGER, "Editorial no se ha podido modificar.");
+				if (!editorialService.modificar(e)) {
+					alert = new Alert(Alert.SUCCESS, "editorial modificado correctamente.");
+				} else {
+					alert = new Alert(Alert.DANGER, "Editorial no se ha podido modificar.");
+
 				}
-			}else {
-				//añadir
-				if(!editorialService.crear(e)){
-					alert = new Alert(alert.SUCCESS, "Editorail creado correctamente.");
-				}else{
-					alert = new Alert(alert.DANGER, "Editorial no se ha podido crear.");
+			} else {
+				// añadir
+				if (!editorialService.crear(e)) {
+					alert = new Alert(Alert.SUCCESS, "Editorail creado correctamente.");
+				} else {
+					alert = new Alert(Alert.DANGER, "Editorial no se ha podido crear.");
 				}
 			}
-			
-		}catch(SQLIntegrityConstraintViolationException t) {
+
+		} catch (SQLIntegrityConstraintViolationException t) {
 			t.printStackTrace();
-			alert = new Alert(alert.DANGER, "No puede haber dos editoriales con el mismo nombre.");
-		}catch(Exception q) {
-			q.printStackTrace();
+			alert = new Alert(Alert.DANGER, "No puede haber dos editoriales con el mismo nombre.");
+		} catch (Exception q) {
+			LOG.error(q);
 		}
-		
+
 		List<Editorial> editoriales = editorialService.listar();
 		request.setAttribute("editoriales", editoriales);
 		view = VIEW_LISTADO;
 
 	}
 
-
 	private void irFormulario(HttpServletRequest request) throws Exception {
-		if(id!=null) {
-			//modificar
+		if (id != null) {
+			// modificar
 			Editorial editorial = editorialService.buscarId(Long.parseLong(id));
-			
+
 			request.setAttribute("editorial", editorial);
-			
+
 		}
 
 		view = VIEW_FORMULARIO_EDITORIAL;
 	}
 
-
-	private void eliminar(HttpServletRequest request) throws  Exception {
+	private void eliminar(HttpServletRequest request) throws Exception {
 		try {
-			
-			if(!editorialService.eliminar(Long.parseLong(id))){
-				alert = new Alert(alert.SUCCESS, "Editorial eliminado correctamente.");
-			}else{
-				alert = new Alert(alert.DANGER, "Editorial no se ha podido eliminar.");
+
+			if (!editorialService.eliminar(Long.parseLong(id))) {
+				alert = new Alert(Alert.SUCCESS, "Editorial eliminado correctamente.");
+			} else {
+				alert = new Alert(Alert.DANGER, "Editorial no se ha podido eliminar.");
 			}
-			
-		}catch(SQLIntegrityConstraintViolationException x) {
+
+		} catch (SQLIntegrityConstraintViolationException x) {
 			x.printStackTrace();
-			alert = new Alert(alert.DANGER, "No se puede eliminar un editorial que contenga libros.");
+			alert = new Alert(Alert.DANGER, "No se puede eliminar un editorial que contenga libros.");
 		} catch (Exception e1) {
-			e1.printStackTrace();
+			LOG.error(e1);
+
 		}
-		
+
 		List<Editorial> editoriales = editorialService.listar();
 		request.setAttribute("editoriales", editoriales);
 		view = VIEW_LISTADO;
@@ -193,7 +201,7 @@ public class EditorialController extends HttpServlet {
 	private void getParameters(HttpServletRequest request) {
 		// TODO Auto-generated method stub
 		op = request.getParameter("op");
-		if(op == null) {
+		if (op == null) {
 			op = OP_LISTAR;
 		}
 		id = request.getParameter("id");
@@ -202,4 +210,3 @@ public class EditorialController extends HttpServlet {
 	}
 
 }
-

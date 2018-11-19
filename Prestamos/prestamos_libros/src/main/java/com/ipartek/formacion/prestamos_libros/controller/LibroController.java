@@ -11,8 +11,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.ipartek.formacion.prestamos_libros.model.EditorialDAO;
-import com.ipartek.formacion.prestamos_libros.model.LibroDAO;
+import org.apache.log4j.Logger;
+
 import com.ipartek.formacion.prestamos_libros.controller.pojo.Alert;
 import com.ipartek.formacion.prestamos_libros.pojo.Editorial;
 import com.ipartek.formacion.prestamos_libros.pojo.Libro;
@@ -24,6 +24,7 @@ import com.ipartek.formacion.prestamos_libros.service.ServiceLibro;
  */
 @WebServlet("/backoffice/libro")
 public class LibroController extends HttpServlet {
+	private final static Logger LOG = Logger.getLogger(LibroController.class);
 	private static final long serialVersionUID = 1L;
 	private ServiceEditorial editorialService;
 	private ServiceLibro libroService;
@@ -52,7 +53,7 @@ public class LibroController extends HttpServlet {
 	}
 
 	public void init(ServletConfig config) throws ServletException {
-		//daoLibro = LibroDAO.getInstance();
+		// daoLibro = LibroDAO.getInstance();
 		libroService = new ServiceLibro();
 		editorialService = new ServiceEditorial();
 	}
@@ -123,30 +124,30 @@ public class LibroController extends HttpServlet {
 		Editorial e = new Editorial();
 		e.setId(new Long(editorial));
 		l.setEditorial(e);
-		
+
 		try {
-			
-			if(!"".equals(id)) {
-				//modificar
+
+			if (!"".equals(id)) {
+				// modificar
 				l.setId(new Long(id));
-				if(!libroService.modificar(l)) {
-					alert = new Alert(alert.SUCCESS, "Libro modificado con exito.");
-				}else {
-					alert = new Alert(alert.DANGER, "El libro no se ha podido modificar.");
+				if (!libroService.modificar(l)) {
+					alert = new Alert(Alert.SUCCESS, "Libro modificado con exito.");
+				} else {
+					alert = new Alert(Alert.DANGER, "El libro no se ha podido modificar.");
 				}
-			}else {
-				//añadir
+			} else {
+				// añadir
 				int numeroLibrosAnadir = Integer.parseInt(cantidad);
-				for(int i=0; i < numeroLibrosAnadir; i++) {
-					if(!libroService.crear(l)) {
-						alert = new Alert(alert.SUCCESS, "El libro se ha insertado con exito.");
-					}else {
-						alert = new Alert(alert.DANGER, "El libro no se ha podido insertar.");
+				for (int i = 0; i < numeroLibrosAnadir; i++) {
+					if (!libroService.crear(l)) {
+						alert = new Alert(Alert.SUCCESS, "El libro se ha insertado con exito.");
+					} else {
+						alert = new Alert(Alert.DANGER, "El libro no se ha podido insertar.");
 					}
 				}
 			}
-		}catch(Exception f) {
-			f.printStackTrace();
+		} catch (Exception f) {
+			LOG.error(f);
 			alert = new Alert();
 		}
 
@@ -157,14 +158,14 @@ public class LibroController extends HttpServlet {
 	}
 
 	private void irFormulario(HttpServletRequest request) throws Exception {
-		if(id!=null) {
-			//modificar
+		if (id != null) {
+			// modificar
 			Libro libro = libroService.buscarId(Long.parseLong(id));
-			
+
 			request.setAttribute("libro", libro);
-			
+
 		}
-		
+
 		List<Editorial> editoriales = editorialService.listar();
 		request.setAttribute("editoriales", editoriales);
 
@@ -172,22 +173,22 @@ public class LibroController extends HttpServlet {
 	}
 
 	private void eliminar(HttpServletRequest request) throws Exception {
-		
+
 		try {
-			
-			if(!libroService.eliminar(Long.parseLong(id))) {
-				alert = new Alert(alert.SUCCESS, "Libro elinimado correctamente.");
-			}else {
-				alert = new Alert(alert.DANGER, "No se ha podido eliminar el libro.");
+
+			if (!libroService.eliminar(Long.parseLong(id))) {
+				alert = new Alert(Alert.SUCCESS, "Libro elinimado correctamente.");
+			} else {
+				alert = new Alert(Alert.DANGER, "No se ha podido eliminar el libro.");
 			}
-			
-		}catch(SQLIntegrityConstraintViolationException g) {
+
+		} catch (SQLIntegrityConstraintViolationException g) {
 			g.printStackTrace();
-			alert = new Alert(alert.DANGER, "No se puede eliminar un libro que este prestado.");
-		}catch(Exception s) {
-			s.printStackTrace();
+			alert = new Alert(Alert.DANGER, "No se puede eliminar un libro que este prestado.");
+		} catch (Exception s) {
+			LOG.error(s);
 		}
-		
+
 		List<Libro> libros = libroService.listar();
 		request.setAttribute("libros", libros);
 		view = VIEW_LISTADO;
@@ -196,7 +197,7 @@ public class LibroController extends HttpServlet {
 	private void getParameters(HttpServletRequest request) {
 
 		op = request.getParameter("op");
-		if(op == null) {
+		if (op == null) {
 			op = OP_LISTAR;
 		}
 		id = request.getParameter("id");

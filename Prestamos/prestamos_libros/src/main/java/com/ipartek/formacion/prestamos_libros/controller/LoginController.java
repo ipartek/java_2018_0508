@@ -13,6 +13,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.log4j.Logger;
+
 import com.ipartek.formacion.prestamos_libros.controller.pojo.Alert;
 import com.ipartek.formacion.prestamos_libros.pojo.Prestamo;
 import com.ipartek.formacion.prestamos_libros.pojo.UsuarioLogin;
@@ -23,6 +25,7 @@ import com.ipartek.formacion.prestamos_libros.service.ServicePrestamo;
  */
 @WebServlet("/login")
 public class LoginController extends HttpServlet {
+	private final static Logger LOG = Logger.getLogger(LoginController.class);
 	private static final long serialVersionUID = 1L;
 	private ServicePrestamo prestamoService;
 	
@@ -103,14 +106,14 @@ public class LoginController extends HttpServlet {
 					
 					request.setAttribute("prestamos", prestamos);
 				}else{
-					alert = new Alert(alert.DANGER, "Contraseña incorrecta");
+					alert = new Alert(Alert.DANGER, "Contraseña incorrecta");
 				}
 			}else{
-				alert = new Alert(alert.DANGER, "Usuario incorrecto");
+				alert = new Alert(Alert.DANGER, "Usuario incorrecto");
 			}
 			
 		}catch(Exception e){
-			e.printStackTrace();
+			LOG.error(e);
 		}finally {
 			session.setAttribute("alert", alert);			
 			//response.sendRedirect(request.getContextPath() + view );

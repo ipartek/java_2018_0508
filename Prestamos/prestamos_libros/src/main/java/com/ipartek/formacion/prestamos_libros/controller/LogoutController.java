@@ -8,11 +8,14 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.log4j.Logger;
+
 /**
  * Servlet implementation class LogoutController
  */
 @WebServlet("/logout")
 public class LogoutController extends HttpServlet {
+	private final static Logger LOG = Logger.getLogger(LogoutController.class);
 	private static final long serialVersionUID = 1L;
 
 	/**
@@ -43,7 +46,7 @@ public class LogoutController extends HttpServlet {
 			
 			
 		}catch (Exception e) {
-			e.printStackTrace();
+			LOG.error(e);
 		}finally {
 			response.sendRedirect(request.getContextPath() + "/inicio" ); 
 		}

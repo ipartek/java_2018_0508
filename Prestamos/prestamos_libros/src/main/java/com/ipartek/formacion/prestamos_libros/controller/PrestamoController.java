@@ -13,6 +13,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.log4j.Logger;
+
 import com.ipartek.formacion.prestamos_libros.controller.pojo.Alert;
 import com.ipartek.formacion.prestamos_libros.pojo.Libro;
 import com.ipartek.formacion.prestamos_libros.pojo.Prestamo;
@@ -24,6 +26,7 @@ import com.ipartek.formacion.prestamos_libros.service.ServicePrestamo;
  */
 @WebServlet("/backoffice/prestamo")
 public class PrestamoController extends HttpServlet {
+	private final static Logger LOG = Logger.getLogger(PrestamoController.class);
 	private static final long serialVersionUID = 1L;
 	private ServicePrestamo prestamoService;
 	
@@ -137,15 +140,15 @@ public class PrestamoController extends HttpServlet {
 					p.setFech_inicio(new java.sql.Date(sdf.parse(fecha_inicio).getTime()));
 					
 					if(!prestamoService.crear(p)) {
-						alert = new Alert(alert.SUCCESS, "El prestamo se dio de alta correctamente.");
+						alert = new Alert(Alert.SUCCESS, "El prestamo se dio de alta correctamente.");
 					}else {
-						alert = new Alert(alert.DANGER, "No se pudo dar de alta el prestamo.");
+						alert = new Alert(Alert.DANGER, "No se pudo dar de alta el prestamo.");
 					}
 				}catch(SQLIntegrityConstraintViolationException x) {
 					x.printStackTrace();
-					alert = new Alert(alert.DANGER, "Ese prestamo ya existe, introduce otro por favor.");
+					alert = new Alert(Alert.DANGER, "Ese prestamo ya existe, introduce otro por favor.");
 				}catch(Exception e) {
-					e.printStackTrace();
+					LOG.error(e);
 				}
 				
 				List<Prestamo> prestados = prestamoService.listar();
@@ -165,13 +168,13 @@ public class PrestamoController extends HttpServlet {
 					p.setFecha_devuelto(new java.sql.Date(sdf.parse(fecha_devolucion).getTime()));
 					
 					if(!prestamoService.devolver(p)) {
-						alert = new Alert(alert.SUCCESS, "Se realizo la devolución con exito.");
+						alert = new Alert(Alert.SUCCESS, "Se realizo la devolución con exito.");
 					}else {
-						alert = new Alert(alert.DANGER, "No se pudo realizar la devolución.");
+						alert = new Alert(Alert.DANGER, "No se pudo realizar la devolución.");
 					}
 					
 				}catch(Exception e) {
-					e.printStackTrace();
+					LOG.error(e);
 				}
 				
 				List<Prestamo> devueltos2 = prestamoService.listardevueltos();
@@ -212,13 +215,13 @@ public class PrestamoController extends HttpServlet {
 					p.setUsuario(u);
 					
 					if(!prestamoService.modificarPrestamo(p, prestamoAntiguo)) {
-						alert = new Alert(alert.SUCCESS, "El prestamo se ha modificado correctamente.");
+						alert = new Alert(Alert.SUCCESS, "El prestamo se ha modificado correctamente.");
 					}else {
-						alert = new Alert(alert.DANGER, "No se pudo modificar el prestamo.");
+						alert = new Alert(Alert.DANGER, "No se pudo modificar el prestamo.");
 					}
 					
 				}catch(Exception e) {
-					e.printStackTrace();
+					LOG.error(e);
 				}
 				
 				List<Prestamo> librosPrestados = prestamoService.listar();
@@ -262,13 +265,13 @@ public class PrestamoController extends HttpServlet {
 					p.setUsuario(u);
 					
 					if(!prestamoService.modificarHistorico(p, prestamoAntiguo)) {
-						alert = new Alert(alert.SUCCESS, "El prestamo del historico se ha modificado correctamente.");
+						alert = new Alert(Alert.SUCCESS, "El prestamo del historico se ha modificado correctamente.");
 					}else {
-						alert = new Alert(alert.DANGER, "No se pudo modificar el prestamo del historico.");
+						alert = new Alert(Alert.DANGER, "No se pudo modificar el prestamo del historico.");
 					}
 					
 				}catch(Exception e) {
-					e.printStackTrace();
+					LOG.error(e);
 				}
 				
 				List<Prestamo> dev = prestamoService.listardevueltos();
