@@ -1,4 +1,4 @@
-package com.ipartek.formacion.prestamos_libros.controller.pojo;
+package com.ipartek.formacion.prestamos_libros.pojo;
 
 public class Alert {
 	
