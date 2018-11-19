@@ -2,7 +2,7 @@ CREATE DATABASE  IF NOT EXISTS `prestamos_libros` /*!40100 DEFAULT CHARACTER SET
 USE `prestamos_libros`;
 -- MySQL dump 10.13  Distrib 8.0.12, for Win64 (x86_64)
 --
--- Host: localhost    Database: prestamos_libros
+-- Host: 127.0.0.1    Database: prestamos_libros
 -- ------------------------------------------------------
 -- Server version	8.0.12
 
@@ -29,7 +29,7 @@ CREATE TABLE `editorial` (
   `nombre` varchar(100) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `nombre_UNIQUE` (`nombre`)
-) ENGINE=InnoDB AUTO_INCREMENT=42 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=58 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -38,7 +38,7 @@ CREATE TABLE `editorial` (
 
 LOCK TABLES `editorial` WRITE;
 /*!40000 ALTER TABLE `editorial` DISABLE KEYS */;
-INSERT INTO `editorial` VALUES (35,'ENI'),(36,'GRUPO ANAYA, S.A'),(40,'VALE2');
+INSERT INTO `editorial` VALUES (53,'asassssss'),(39,'BGGJKK'),(47,'BGGJKKjjjjj'),(57,'dvxfgfdg'),(35,'ENI'),(36,'GRUPO ANAYA, S.A'),(48,'NUEVA5'),(56,'NUzdcfdfEVA5');
 /*!40000 ALTER TABLE `editorial` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -57,7 +57,7 @@ CREATE TABLE `libro` (
   PRIMARY KEY (`id`),
   KEY `fk_libro_editorial_idx` (`id_editorial`),
   CONSTRAINT `fk_libro_editorial` FOREIGN KEY (`id_editorial`) REFERENCES `editorial` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=70 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=86 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -66,7 +66,7 @@ CREATE TABLE `libro` (
 
 LOCK TABLES `libro` WRITE;
 /*!40000 ALTER TABLE `libro` DISABLE KEYS */;
-INSERT INTO `libro` VALUES (19,'JAVA 7','978-84-415-2988-5',36),(20,'HTML5 Y CSS3','987-2-409-00702-6',35),(23,'HTML5, CSS3, JAVASCRIPT','978-2-7460-9669-1',35),(46,'MYSQL 5.1','978-84-415-2523-8',36),(58,'HTML5, CSS3 Y JAVASCRIPT','978-84-415-3527-5',36),(59,'MYSQL 5.1','978-84-415-2523-8',36),(60,'MYSQL 5.1','978-84-415-2523-8',36),(62,'JAVA 8','978-2-7460-9347-8',35),(63,'HTML5, CSS3 Y JAVASCRIPT','978-84-415-3527-5',36),(64,'JAVA SE 6','978-84-415-2348-7',36),(65,'el tunel','qwerty',35),(66,'el tunel','qwerty',35),(67,'el tunel','qwerty',35),(68,'el tunel','qwerty',35);
+INSERT INTO `libro` VALUES (19,'JAVA 7','978-84-415-2988-5',36),(20,'HTML5 Y CSS3','987-2-409-00702-6',35),(23,'HTMdL5, CSSgg3, JAVASCRIPT','978-2-7460-9669-1',35),(46,'MYSQL 5.1','978-84-415-2523-8',36),(58,'HTML5, CSS3 Y JAVASCRIPT','978-84-415-3527-5',36),(59,'MYSQL 5.1','978-84-415-2523-8',36),(60,'MYSQL 5.1','978-84-415-2523-8',36),(62,'JAVA 8','978-2-7460-9347-8',35),(63,'HTML5, CSS3 Y JAVASCRIPT','978-84-415-3527-5',36),(64,'JAVA SE 6','978-84-415-2348-7',36),(68,'el tunel','qwerty',35),(76,'adsdsd','978-84-55hj-2988-5',36),(77,'adsdsd','978-84-55hj-2988-5',36),(79,'dfghj','978-84-555-2988-5',36),(80,'adsdssd','978-84-55hj-2988-5',36),(81,'cassssssss','978-84-59hj-2988-5',36),(82,'casaaaaa','978-84-55hj-2988-5',36),(83,'casaasaaa','978-84-55hj-2988-5',36),(84,'casaasssaaa','978-84-55hj-2988-5',36);
 /*!40000 ALTER TABLE `libro` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -97,14 +97,14 @@ CREATE TABLE `prestamo` (
 
 LOCK TABLES `prestamo` WRITE;
 /*!40000 ALTER TABLE `prestamo` DISABLE KEYS */;
-INSERT INTO `prestamo` VALUES (19,18,'2018-10-31 00:00:00','2018-11-15 00:00:00','2018-10-31 00:00:00'),(19,21,'2018-09-30 00:00:00','2018-10-15 00:00:00','2018-09-09 00:00:00'),(20,12,'2018-11-02 00:00:00','2018-11-13 00:00:00','2018-11-21 00:00:00'),(46,1,'2018-10-29 00:00:00','2018-11-13 00:00:00','2018-10-31 00:00:00'),(62,20,'2018-10-31 00:00:00','2018-11-16 00:00:00','2018-11-02 00:00:00'),(64,15,'2018-11-01 00:00:00','2018-11-12 00:00:00','2018-11-22 00:00:00'),(64,17,'2018-10-31 00:00:00','2018-11-15 00:00:00','2018-11-02 00:00:00');
+INSERT INTO `prestamo` VALUES (60,12,'2018-11-16 00:00:00','2018-11-30 00:00:00','2018-12-22 00:00:00');
 /*!40000 ALTER TABLE `prestamo` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
 /*!50003 SET @saved_cs_results     = @@character_set_results */ ;
 /*!50003 SET @saved_col_connection = @@collation_connection */ ;
-/*!50003 SET character_set_client  = utf8mb4 */ ;
-/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET character_set_client  = utf8 */ ;
+/*!50003 SET character_set_results = utf8 */ ;
 /*!50003 SET collation_connection  = utf8_general_ci */ ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_ENGINE_SUBSTITUTION' */ ;
@@ -130,7 +130,7 @@ CREATE TABLE `usuario` (
   `nombre_apellidos` varchar(150) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `nombre_apellidos_UNIQUE` (`nombre_apellidos`)
-) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=35 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -139,7 +139,7 @@ CREATE TABLE `usuario` (
 
 LOCK TABLES `usuario` WRITE;
 /*!40000 ALTER TABLE `usuario` DISABLE KEYS */;
-INSERT INTO `usuario` VALUES (1,' ADRIAN PEROZZO DIAZ'),(17,'ADRIAN GARCIA SANTOS'),(19,'ADRIANA PRADO ALONSO'),(15,'AINARA GOITIA ARENAZA'),(2,'ALAIN  ARRIZABALAGA'),(18,'ANDREA MARIA PEREZ MILLAN'),(16,'ASIER CORNEJO PANDURO'),(21,'LUIS GALDOS GARCÃA'),(12,'RAUL ABEJON DELGADO'),(20,'VALERIA VALENCIA BAUTISTA');
+INSERT INTO `usuario` VALUES (1,' ADRIAN PEROZZO DIAZ'),(17,'ADRIAN GARCIA SANTOS'),(19,'ADRIANA PRADO ALONSO'),(15,'AINARA GOITIA ARENAZA'),(18,'ANDREA MARIA PEREZ MILLAN'),(16,'ASIER CORNEJO PANDURO'),(34,'hkjjaaaakjke'),(21,'LUIS GALDOS GARCÃƒÂ�A'),(12,'RAUL ABEJON DELGADO'),(20,'VALERIA VALENCIA BAUTISTA');
 /*!40000 ALTER TABLE `usuario` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -219,11 +219,11 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `editorialesInsert`(IN nom varchar(255), OUT id INT )
+CREATE DEFINER=`root`@`localhost` PROCEDURE `editorialesInsert`(IN nom varchar(255), OUT id INT)
 BEGIN
 
 INSERT INTO editorial (`nombre`) VALUES (nom);
-SET id = LAST_INSERT_ID();
+SET id = last_insert_id();
 
 END ;;
 DELIMITER ;
@@ -262,7 +262,7 @@ DELIMITER ;
 /*!50003 SET @saved_col_connection = @@collation_connection */ ;
 /*!50003 SET character_set_client  = utf8mb4 */ ;
 /*!50003 SET character_set_results = utf8mb4 */ ;
-/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
+/*!50003 SET collation_connection  = utf8_general_ci */ ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
@@ -309,7 +309,8 @@ DELIMITER ;;
 CREATE DEFINER=`root`@`localhost` PROCEDURE `librosGetAll`()
 BEGIN
 
-SELECT l.id, l.titulo, l.isbn, e.nombre FROM libro as l, editorial as e
+SELECT l.id, l.titulo, l.isbn, l.id_editorial, e.nombre 
+FROM libro as l, editorial as e
 
 WHERE e.id = l.id_editorial
 
@@ -354,6 +355,7 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `librosInsert`(IN titulo varchar(255
 BEGIN
 INSERT INTO libro (`titulo`, `isbn`, `id_editorial` ) VALUES (LOWER(titulo), LOWER(isbn), id_editorial);
 SET id_editorial = LAST_INSERT_ID();
+
 END ;;
 DELIMITER ;
 /*!50003 SET sql_mode              = @saved_sql_mode */ ;
@@ -409,7 +411,7 @@ DELIMITER ;
 /*!50003 SET @saved_col_connection = @@collation_connection */ ;
 /*!50003 SET character_set_client  = utf8mb4 */ ;
 /*!50003 SET character_set_results = utf8mb4 */ ;
-/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
+/*!50003 SET collation_connection  = utf8_general_ci */ ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
@@ -445,6 +447,27 @@ UPDATE prestamo
 SET fecha_devuelto = fdevuelto
 WHERE id_libro = idlibro AND id_usuario = idusuario AND fecha_inicio = finicio;
 
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `prestamosEsLibroPrestado` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8 */ ;
+/*!50003 SET character_set_results = utf8 */ ;
+/*!50003 SET collation_connection  = utf8_general_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'NO_AUTO_VALUE_ON_ZERO' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `prestamosEsLibroPrestado`(IN idLibro INT)
+BEGIN
+select id_libro
+from prestamo
+where id_libro = idLibro AND fecha_devuelto is null;
 END ;;
 DELIMITER ;
 /*!50003 SET sql_mode              = @saved_sql_mode */ ;
@@ -532,6 +555,27 @@ BEGIN
 SELECT id, titulo FROM libro WHERE id NOT IN(
 SELECT id_libro FROM prestamo WHERE fecha_devuelto IS NULL
 );
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `prestamosTienePrestados` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8 */ ;
+/*!50003 SET character_set_results = utf8 */ ;
+/*!50003 SET collation_connection  = utf8_general_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'NO_AUTO_VALUE_ON_ZERO' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `prestamosTienePrestados`(IN idUsuario INT)
+BEGIN
+	select id_usuario
+    from prestamo
+    where id_usuario = idUsuario AND fecha_devuelto is null;
 END ;;
 DELIMITER ;
 /*!50003 SET sql_mode              = @saved_sql_mode */ ;
@@ -648,9 +692,10 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `usuariosInsert`(IN nom varchar(255))
+CREATE DEFINER=`root`@`localhost` PROCEDURE `usuariosInsert`(IN nom varchar(255), OUT id INT)
 BEGIN
 INSERT INTO usuario (`nombre_apellidos`) VALUES (nom);
+SET id = last_insert_id();
 END ;;
 DELIMITER ;
 /*!50003 SET sql_mode              = @saved_sql_mode */ ;
@@ -688,4 +733,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-11-07 19:55:39
+-- Dump completed on 2018-11-19 10:07:30
