@@ -29,7 +29,7 @@ public class ServicePrestamo implements IServicePrestamo {
 	public static final String EXCEPTION_LIBRO_DEVUELTO = "Libro no tiene un prestamos activo";
 	public static final String EXCEPTION_USUARIO_DEVUELTO = "Usuario no tiene un prestamos activo";
 	
-	private ServicePrestamo() {	
+	public ServicePrestamo() {	
 		daoPrestamo = PrestamoDAO.getInstance();
 		daoLibro = LibroDAO.getInstance();
 		daoUsuario = UsuarioDAO.getInstance();		
@@ -174,8 +174,8 @@ public class ServicePrestamo implements IServicePrestamo {
 	
 	@Override
 	public boolean modificarHistorico(Prestamo p, Prestamo prestamoAntiguo) throws Exception {
-		boolean resul = false;
 		
+		boolean resul = false;
 		
 		Prestamo prestamo = daoPrestamo.getByIds(prestamoAntiguo.getLibro().getId(), prestamoAntiguo.getUsuario().getId(), prestamoAntiguo.getFech_inicio());
 		if(prestamo.getLibro() != null) {

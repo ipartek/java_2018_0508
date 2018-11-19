@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.ipartek.formacion.prestamos_libros.pojo.Alert;
+import com.ipartek.formacion.prestamos_libros.controller.pojo.Alert;
 import com.ipartek.formacion.prestamos_libros.pojo.Libro;
 import com.ipartek.formacion.prestamos_libros.pojo.Prestamo;
 import com.ipartek.formacion.prestamos_libros.pojo.Usuario;
@@ -164,7 +164,7 @@ public class PrestamoController extends HttpServlet {
 					p.setFech_inicio( new java.sql.Date(sdf.parse(fecha_inicio).getTime()));
 					p.setFecha_devuelto(new java.sql.Date(sdf.parse(fecha_devolucion).getTime()));
 					
-					if(!prestamoService.modificar(p)) {
+					if(!prestamoService.devolver(p)) {
 						alert = new Alert(alert.SUCCESS, "Se realizo la devolución con exito.");
 					}else {
 						alert = new Alert(alert.DANGER, "No se pudo realizar la devolución.");

@@ -167,10 +167,11 @@ public class PrestamosController {
 		return response;
 	}
 	
-	@ApiOperation(value = "Prestamo Modificado", response = Prestamo.class)
+	@ApiOperation(value = "Prestamo Modificado", response = Prestamo.class, notes = "Campos Obligatorios: <ol><li><b>fech_inicio</b> Fecha inicio</li><li><b>libro.id</b> Identificador del Libro </li><li><b>usuario.id</b> Identificador del Usuario </li></ol>")
 	@ApiResponses( value = {
-			@ApiResponse (code = 200, message = "Prestamo Modificado"),
-			@ApiResponse (code = 409, message = "<o><li>Prestamo no se ha podido moficar el prestamos por que los datos son incorrectos</li></o>")}
+			@ApiResponse (code = 201, message = "Prestamo Modificado", response = Prestamo.class),
+			@ApiResponse(code = 400, message = "Faltan campos obligatorios", response = ResponseMensaje.class),
+			@ApiResponse (code = 409, message = "<o><li>No existe le Libro o Usuario</li><li>Datos no validos</li></o>")}
 	)
 	
 	@RequestMapping(value = "/{idUsuario}/{idLibro}/{finicio}", method = RequestMethod.PUT)
@@ -180,15 +181,20 @@ public class PrestamosController {
 		
 		
 		try {
-			
-			prestamoNuevo.setUsuario(new Usuario(idUsuario,""));
-			prestamoNuevo.setLibro(new Libro(idLibro, "", "",null));
-			prestamoNuevo.setFech_inicio(finicio);
-			
-			boolean modificado = servicePrestamo.modificarHistorico(prestamoNuevo, prestamoNuevo);
-			if(modificado) {
+			Prestamo p = new Prestamo();
+			Libro l = new Libro();
+			Usuario u = new Usuario();
+			l.setId(idLibro);
+			p.setLibro(l);
+			u.setId(idUsuario);
+			p.setUsuario(u);
+			p.setFech_inicio(finicio);
+
+			boolean modificado = servicePrestamo.modificarHistorico(prestamoNuevo, p);
+			if (modificado) {
 				response = new ResponseEntity<Object>(prestamoNuevo, HttpStatus.OK);
-			}else {
+		
+			} else {
 				response = new ResponseEntity<Object>(prestamoNuevo, HttpStatus.INTERNAL_SERVER_ERROR);
 			}
 		} catch (Exception e) {
@@ -196,7 +202,7 @@ public class PrestamosController {
 			ResponseMensaje msj = new ResponseMensaje("Error");
 			response = new ResponseEntity<>(msj, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
-		
+
 		return response;
 	}
 }

@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.ipartek.formacion.prestamos_libros.model.EditorialDAO;
 import com.ipartek.formacion.prestamos_libros.model.LibroDAO;
-import com.ipartek.formacion.prestamos_libros.pojo.Alert;
+import com.ipartek.formacion.prestamos_libros.controller.pojo.Alert;
 import com.ipartek.formacion.prestamos_libros.pojo.Editorial;
 import com.ipartek.formacion.prestamos_libros.pojo.Libro;
 import com.ipartek.formacion.prestamos_libros.service.ServiceEditorial;

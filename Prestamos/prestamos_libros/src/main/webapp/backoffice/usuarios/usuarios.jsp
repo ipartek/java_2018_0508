@@ -36,7 +36,7 @@
                   			<c:forEach items="${usuarios}" var="u">
 		                        <tr>
 		                          <td>${u.id}</td>
-		                          <td>${u.nombre_apellidos}</td>
+		                          <td>${u.nombreApellido}</td>
 		                          <td>
 		                              <a class="btn btn-primary btn-action mr-1" data-toggle="tooltip" title="Edit" href="usuario?op=4&id=${u.id}"><i class="ion ion-edit"></i></a>
 		                              <a onclick="confirmar(event)" class="btn btn-danger btn-action" data-toggle="tooltip" title="Delete" href="usuario?op=3&id=${u.id}"><i class="ion ion-trash-b"></i></a>

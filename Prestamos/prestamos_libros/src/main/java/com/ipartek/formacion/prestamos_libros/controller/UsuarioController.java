@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.ipartek.formacion.prestamos_libros.model.UsuarioDAO;
-import com.ipartek.formacion.prestamos_libros.pojo.Alert;
+import com.ipartek.formacion.prestamos_libros.controller.pojo.Alert;
 import com.ipartek.formacion.prestamos_libros.pojo.Usuario;
 import com.ipartek.formacion.prestamos_libros.service.ServiceUsuario;
 
@@ -111,7 +111,7 @@ public class UsuarioController extends HttpServlet {
 
 	private void guardar(HttpServletRequest request) throws Exception {
 		Usuario u = new Usuario();
-		u.setNombre_apellidos(nombre_apellidos);
+		u.setNombreApellido(nombre_apellidos);
 
 		try {
 		
