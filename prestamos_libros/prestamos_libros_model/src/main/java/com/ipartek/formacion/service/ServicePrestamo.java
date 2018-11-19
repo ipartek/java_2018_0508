@@ -161,6 +161,7 @@ public class ServicePrestamo implements IServicePrestamo {
 
 		// comprobar Existe Libro y Usuario
 		Prestamo prestamo = daoPrestamo.getById(idPrestamo);
+		
 		if(prestamo==null) {
 			throw new Exception(EXCEPTION_PRESTAMO_NO_EXISTE);
 		}

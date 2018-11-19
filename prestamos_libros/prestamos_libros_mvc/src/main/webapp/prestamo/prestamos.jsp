@@ -88,12 +88,12 @@
 				<tbody>
 					<c:forEach items="${prestamos}" var="p">
 						<tr>
-							<td><a href="prestamos?op=<%=CrudControllable.OP_IR_FORMULARIO %>&id=${p.id}">${p.alumno.nombre}  ${p.alumno.apellidos}</a></td>
-							<td><a href="prestamos?op=<%=CrudControllable.OP_IR_FORMULARIO %>&id=${p.id}">${p.libro.titulo}</a></td>
+							<td><a href="prestamos?op=<%=CrudControllable.OP_IR_FORMULARIO %>&id=${p.id}">${p.alumno.id} - ${p.alumno.nombre}  ${p.alumno.apellidos}</a></td>
+							<td><a href="prestamos?op=<%=CrudControllable.OP_IR_FORMULARIO %>&id=${p.id}">${p.libro.id} - ${p.libro.titulo}</a></td>
 							<td>${ p.diasRestantes()}</td>
 							<td><a href="prestamos?op=<%=CrudControllable.OP_IR_FORMULARIO %>&id=${p.id}">${p.fecha_inicio}</a></td>
 							<td>${p.fecha_fin}</td>
-							<td><i onclick="showModalModificar(${p.id}, ${p.fecha_devuelto})" style="color:grey;" class="notika-icon notika-edit"></i></td>				
+							<td><i onclick="showModalModificar(${p.id}, ${p.alumno.id}, ${p.libro.id}, ${p.fecha_inicio}, ${p.fecha_devuelto})" style="color:grey;" class="notika-icon notika-edit"></i></td>				
 							</tr>
 						</c:forEach>
 					</tbody>
@@ -114,6 +114,10 @@
 			      	<form action="prestamos?op=<%=CrudControllable.OP_MODIFICAR%>" method="post">			      		
 			      		<input name="fecha_devolucion" type="date" value="${prestamo.fecha_devuelto}" required class="form-control input-sm">
 			      		<input type="hidden" name="id" id="id" value="-1">
+			      		<input type="hidden" name="id_alumno" id="id_alumno" value="${p.alumno.id}">
+			      		<input type="hidden" name="id_libro" id="id_libro" value="${p.libro.id}">
+			      		<input type="hidden" name="fecha_inicio" id="fecha_inicio" value="${p.fecha_inicio}">
+			      		
 			      		<input type="submit" class="" value="Devolver">
 			      	</form>
 			      

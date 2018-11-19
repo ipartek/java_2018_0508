@@ -79,11 +79,14 @@
     });
 	
 		
-		function showModalModificar( id, fecha_devuelto ){
+		function showModalModificar( id, id_alumno, id_libro, fecha_inicio, fecha_devuelto ){
 			
-			console.log('showModalModificar id=' + id+ ' fecha_devuelto='+ fecha_devuelto);
+			console.log('showModalModificar id=' + id+ ' id_alumno=' + id_alumno+ ' id_libro=' + id_libro + ' fecha_inicio='+ fecha_inicio + ' fecha_devuelto='+ fecha_devuelto);
 			$('#modalModificar').modal('show');
 			document.getElementById('id').value = id;
+			document.getElementById('id_alumno').value = id_alumno;
+			document.getElementById('id_libro').value = id_libro;
+			document.getElementById('fecha_inicio').value = fecha_inicio;
 			document.getElementById('fecha_devuelto').value = fecha_devuelto;
 		}
 		

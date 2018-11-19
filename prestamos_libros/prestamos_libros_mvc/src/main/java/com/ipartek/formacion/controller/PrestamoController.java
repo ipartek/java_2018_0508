@@ -260,12 +260,19 @@ public class PrestamoController extends HttpServlet implements CrudControllable 
 		try {
 
 			p.setId(Long.parseLong(id));
+			p.setAlumno(srvcAlumno.buscar(Long.parseLong(id_alumno)));
+			p.setLibro(srvcLibro.buscar(Long.parseLong(id_libro)));
+
 			try {
 				SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-				java.util.Date parsed = format.parse(fecha_devolucion);
-				java.sql.Date sqlDateDevolucion = new java.sql.Date(parsed.getTime());
+				java.util.Date parseFI = format.parse(fecha_inicio);
+				java.util.Date parseFD = format.parse(fecha_devolucion);
 
-				p.setFecha_devuelto(sqlDateDevolucion);
+				java.sql.Date sqlDateDevolucionFI = new java.sql.Date(parseFI.getTime());
+				java.sql.Date sqlDateDevolucionFD = new java.sql.Date(parseFD.getTime());
+
+				p.setFecha_inicio(sqlDateDevolucionFI);
+				p.setFecha_devuelto(sqlDateDevolucionFD);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
