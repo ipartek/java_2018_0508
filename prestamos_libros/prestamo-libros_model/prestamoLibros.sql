@@ -49,7 +49,7 @@ CREATE TABLE IF NOT EXISTS `libro` (
   PRIMARY KEY (`id`),
   KEY `fk_libro_tipo_editorial_idx` (`id_tipo_editorial`),
   CONSTRAINT `fk_libro_tipo_editorial` FOREIGN KEY (`id_tipo_editorial`) REFERENCES `tipo_editorial` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8;
 
 -- Volcando datos para la tabla prestamo_libros.libro: ~12 rows (aproximadamente)
 /*!40000 ALTER TABLE `libro` DISABLE KEYS */;
@@ -64,7 +64,8 @@ REPLACE INTO `libro` (`id`, `titulo`, `isbn`, `id_tipo_editorial`) VALUES
 	(8, 'MySQL 5.1', '978-84-415-2523-8', 1),
 	(9, 'Java 7', '978-84-415-2988-5', 1),
 	(10, 'HTML5 y CSS3', '978-2-409-00702-6', 2),
-	(11, 'HTML5 y CSS3', '978-2-409-00702-6', 2);
+	(11, 'HTML5 y CSS3', '978-2-409-00702-6', 2),
+	(12, 'fefrdsfdsff', 'sdfdsfdsfw4534534', 1);
 /*!40000 ALTER TABLE `libro` ENABLE KEYS */;
 
 -- Volcando estructura para tabla prestamo_libros.prestado
@@ -84,8 +85,10 @@ CREATE TABLE IF NOT EXISTS `prestado` (
 -- Volcando datos para la tabla prestamo_libros.prestado: ~2 rows (aproximadamente)
 /*!40000 ALTER TABLE `prestado` DISABLE KEYS */;
 REPLACE INTO `prestado` (`id_libro`, `id_alumno`, `fecha_inicio`, `fecha_final`, `fecha_devuelto`) VALUES
+	(2, 2, '2018-11-19', '2018-12-06', '2018-11-18'),
 	(7, 7, '2018-11-15', '2018-11-30', '2018-11-19'),
-	(8, 8, '2018-11-15', '2018-11-30', NULL);
+	(7, 8, '2018-11-15', '2018-11-30', NULL),
+	(8, 3, '2018-11-19', '2018-12-04', NULL);
 /*!40000 ALTER TABLE `prestado` ENABLE KEYS */;
 
 -- Volcando estructura para tabla prestamo_libros.tipo_editorial
@@ -276,8 +279,8 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `libroGetAll`()
 BEGIN
 SELECT l.id, l.titulo, l.isbn, l.id_tipo_editorial, te.editorial 
 FROM libro as l 
-INNER JOIN tipo_editorial as te ON l.id_tipo_editorial = te.id
-LEFT JOIN prestado as p ON l.id = p.id_libro;
+INNER JOIN tipo_editorial as te ON l.id_tipo_editorial = te.id;
+
 
 
 END//
