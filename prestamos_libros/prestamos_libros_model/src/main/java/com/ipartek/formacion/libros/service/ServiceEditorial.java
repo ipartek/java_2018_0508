@@ -6,12 +6,11 @@ import com.ipartek.formacion.libros.model.EditorialDAO;
 import com.ipartek.formacion.libros.pojo.Editorial;
 
 public class ServiceEditorial implements ICRUDService<Editorial> {
-	
+
 	private static ServiceEditorial INSTANCE = null;
 
 	private static EditorialDAO editorialDao;
-	
-	
+
 	private ServiceEditorial() {
 		super();
 		editorialDao = EditorialDAO.getInstance();
@@ -26,32 +25,31 @@ public class ServiceEditorial implements ICRUDService<Editorial> {
 		return INSTANCE;
 	}
 
-	
 	@Override
 	public List<Editorial> listar() throws Exception {
-		
+
 		return editorialDao.getAll();
 	}
 
 	@Override
 	public Editorial obtener(long id) throws Exception {
-		
+
 		return editorialDao.getById(id);
 	}
 
 	@Override
 	public boolean crear(Editorial pojo) throws Exception {
-	
-		boolean resul = false;			
+
+		boolean resul = false;
 		resul = editorialDao.insert(pojo);
-		
+
 		return resul;
 	}
 
 	@Override
 	public boolean modificar(Editorial pojo) throws Exception {
-		
-		boolean resul = false;		
+
+		boolean resul = false;
 		resul = editorialDao.update(pojo);
 
 		return resul;
@@ -59,13 +57,11 @@ public class ServiceEditorial implements ICRUDService<Editorial> {
 
 	@Override
 	public boolean eliminar(String id) throws Exception {
-		
+
 		boolean resul = false;
 		resul = editorialDao.delete(id);
-		
+
 		return resul;
 	}
 
-	
-	
 }

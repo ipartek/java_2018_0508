@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.ipartek.formacion.libros.model.AlumnoDAO;
-import com.ipartek.formacion.libros.model.EditorialDAO;
 import com.ipartek.formacion.libros.model.LibroDAO;
 import com.ipartek.formacion.libros.model.PrestamoDAO;
 import com.ipartek.formacion.libros.pojo.Alumno;
@@ -19,14 +18,13 @@ public class ServicePrestamo implements IPrestamoService {
 	private static PrestamoDAO prestamosDAO;
 	private static LibroDAO librosDAO;
 	private static AlumnoDAO alumnosDAO;
-	private static EditorialDAO editorialDAO;
 
 	private ServicePrestamo() {
 		super();
 		prestamosDAO = PrestamoDAO.getInstance();
 		librosDAO = LibroDAO.getInstance();
 		alumnosDAO = AlumnoDAO.getInstance();
-		editorialDAO = EditorialDAO.getInstance();
+
 	}
 
 	public static synchronized ServicePrestamo getInstance() {
@@ -183,7 +181,7 @@ public class ServicePrestamo implements IPrestamoService {
 		}
 
 		// comprobamos que esten disponibles los datos
-		if(nuevoAlumno != idAlumno) {
+		if (nuevoAlumno != idAlumno) {
 			alumnosDisponibles = (ArrayList<Alumno>) alumnosDAO.getAllDisponible();
 			if (!alumnosDisponibles.contains(aSugerido)) {
 
@@ -191,8 +189,8 @@ public class ServicePrestamo implements IPrestamoService {
 
 			}
 		}
-		
-		if(nuevoLibro != idLibro) {
+
+		if (nuevoLibro != idLibro) {
 			librosDisponibles = (ArrayList<Libro>) librosDAO.getAllDisponibles();
 			if (!librosDisponibles.contains(lSugerido)) {
 
@@ -200,13 +198,6 @@ public class ServicePrestamo implements IPrestamoService {
 
 			}
 		}
-		
-
-		// comprobamos que los nuevos datos que corresponden a la actualizacion son
-		// coherentes(LIBRO Y ALUMNno QUE EXISTAN Y ESTEN LIBRES)
-
-		Libro l = librosDAO.getById(idLibro);
-		Alumno a = alumnosDAO.getById(idAlumno);
 
 		resul = prestamosDAO.update(idAlumno, idLibro, fechaInicio, nuevoAlumno, nuevoLibro, nuevaFecha, fechaFin,
 				fechaRetorno);

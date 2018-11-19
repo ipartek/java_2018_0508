@@ -4,21 +4,18 @@ import java.sql.Date;
 
 public class Prestamo {
 
-	private static final long MILLSECS_PER_DAY = 24 * 60 * 60 * 1000;
-	
-	
 	private Alumno alumno;
-	
+
 	private Libro libro;
-	
+
 	private Date fechaInicio;
 	private Date fechaFin;
 	private Date fechaRetorno;
-	//private int diasRestantes;
+	// private int diasRestantes;
 
 	public Prestamo() {
 		super();
-		
+
 		this.alumno = new Alumno();
 		this.libro = new Libro();
 
@@ -30,10 +27,9 @@ public class Prestamo {
 		this.libro = libro;
 		this.fechaInicio = fechaInicio;
 		this.fechaFin = fechaFin;
-		//this.diasRestantes = this.getDiasRestantes();
+		// this.diasRestantes = this.getDiasRestantes();
 
 	}
-	
 
 	public Alumno getAlumno() {
 		return alumno;
@@ -80,26 +76,22 @@ public class Prestamo {
 		return "Prestamo [alumno=" + alumno + ", libro=" + libro + ", fechaInicio=" + fechaInicio + ", fechaFin="
 				+ fechaFin + ", fechaRetorno=" + fechaRetorno + "]";
 	}
-	
-	
 
-	/*public int getDiasRestantes() {
-		 
-		java.util.Date fechaInicial= new java.util.Date();
-		java.util.Date fechaFinal= new java.util.Date(fechaFin.getTime());
- 
-		int dias=(int) ((fechaFinal.getTime()-fechaInicial.getTime())/MILLSECS_PER_DAY);
-		
-		return dias;
-	}
-	
-	
-
-	public void setDiasRestantes(int diasRestantes) {
-		this.diasRestantes = diasRestantes;
-	}*/
-
-	
-	
+	/*
+	 * public int getDiasRestantes() {
+	 * 
+	 * java.util.Date fechaInicial= new java.util.Date(); java.util.Date fechaFinal=
+	 * new java.util.Date(fechaFin.getTime());
+	 * 
+	 * int dias=(int)
+	 * ((fechaFinal.getTime()-fechaInicial.getTime())/MILLSECS_PER_DAY);
+	 * 
+	 * return dias; }
+	 * 
+	 * 
+	 * 
+	 * public void setDiasRestantes(int diasRestantes) { this.diasRestantes =
+	 * diasRestantes; }
+	 */
 
 }
