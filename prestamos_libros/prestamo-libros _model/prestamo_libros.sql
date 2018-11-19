@@ -31,7 +31,7 @@ CREATE TABLE `alumno` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `nombre_UNIQUE` (`nombre`),
   UNIQUE KEY `apellidos_UNIQUE` (`apellidos`)
-) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -68,7 +68,7 @@ CREATE TABLE `libro` (
 
 LOCK TABLES `libro` WRITE;
 /*!40000 ALTER TABLE `libro` DISABLE KEYS */;
-INSERT INTO `libro` VALUES (1,'HTML5,CSS3 y JavaScript','978-84-415-2348-5',1),(2,'HTML5,CSS3 y JavaScript','978-84-415-2348-5',1),(3,'Java SE 6','978-84-415-2348-7',1),(4,'Java 8','978-2-7460-9347-8',2),(5,'HTML5,CSS3 y JavaScript','978-2-7460-9669-1',2),(6,'MySQL 5.1','978-84-415-2523-8',1),(7,'MySQL 5.1','978-84-415-2523-8',1),(8,'MySQL 5.1','978-84-415-2523-8',1),(9,'Java 7','978-84-415-2988-5',1),(11,'Modificado3333','11111113333',3),(17,'Modificado','222222222',2);
+INSERT INTO `libro` VALUES (1,'HTML5,CSS3 y JavaScript','978-84-415-2348-5',1),(2,'HTML5,CSS3 y JavaScript','978-84-415-2348-5',1),(3,'Java SE 6','978-84-415-2348-7',1),(4,'Java 8','978-2-7460-9347-8',2),(5,'HTML5,CSS3 y JavaScript','978-2-7460-9669-1',2),(6,'MySQL 5.1','978-84-415-2523-8',1),(7,'MySQL 5.1','978-84-415-2523-8',1),(8,'MySQL 5.1','978-84-415-2523-8',1),(9,'Java 7','978-84-415-2988-5',1);
 /*!40000 ALTER TABLE `libro` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -99,7 +99,7 @@ CREATE TABLE `prestado` (
 
 LOCK TABLES `prestado` WRITE;
 /*!40000 ALTER TABLE `prestado` DISABLE KEYS */;
-INSERT INTO `prestado` VALUES (1,1,'2018-11-19','2018-11-29',NULL),(2,2,'2018-11-15','2018-11-30',NULL),(3,3,'2018-11-19','2018-12-04','2018-12-02'),(4,4,'2018-11-12','2018-11-27','2018-11-28'),(5,5,'2018-11-19','2018-12-04',NULL);
+INSERT INTO `prestado` VALUES (1,1,'2018-11-19','2018-11-29',NULL),(2,2,'2018-11-15','2018-11-30',NULL),(3,3,'2018-11-19','2018-12-04','2018-12-02'),(4,4,'2018-11-12','2018-11-27','2018-11-28'),(5,2,'2018-11-19','2018-12-04','2018-12-03'),(5,5,'2018-11-19','2018-12-04',NULL);
 /*!40000 ALTER TABLE `prestado` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
@@ -442,14 +442,13 @@ DELIMITER ;
 /*!50003 SET character_set_results = utf8mb4 */ ;
 /*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
-/*!50003 SET sql_mode              = 'NO_AUTO_VALUE_ON_ZERO' */ ;
+/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
 CREATE DEFINER=`root`@`localhost` PROCEDURE `libroGetAll`()
 BEGIN
 SELECT l.id, l.titulo, l.isbn, l.id_tipo_editorial, te.editorial 
 FROM libro as l 
-INNER JOIN tipo_editorial as te ON l.id_tipo_editorial = te.id
-LEFT JOIN prestado as p ON l.id = p.id_libro;
+INNER JOIN tipo_editorial as te ON l.id_tipo_editorial = te.id;
 
 
 END ;;
@@ -742,4 +741,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-11-19  9:17:03
+-- Dump completed on 2018-11-19 11:34:58

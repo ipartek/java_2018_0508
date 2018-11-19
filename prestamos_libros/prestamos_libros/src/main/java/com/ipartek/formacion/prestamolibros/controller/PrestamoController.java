@@ -239,7 +239,6 @@ public class PrestamoController extends HttpServlet implements CrudControllable 
 
 	private void historico(HttpServletRequest request) throws Exception {
 		request.setAttribute("historico", servicioPrestamo.historico());
-		LOG.debug("Listar histórico");
 		view = "prestamos/historico.jsp";
 
 	}
