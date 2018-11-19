@@ -24,7 +24,8 @@
 
 	<dependencies>
 	
-		<dependency>			
+		<!-- Model prestamos_libros -->
+		<dependency>
 			<groupId>com.ipartek.formacion</groupId>
 			<artifactId>prestamos_libros_model</artifactId>
 			<version>1.0</version>

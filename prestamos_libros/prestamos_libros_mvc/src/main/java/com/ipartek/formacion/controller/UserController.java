@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import com.ipartek.formacion.pojo.Alert;
+import com.ipartek.formacion.controller.pojo.Alert;
 
 /**
  * Servlet implementation class UserController

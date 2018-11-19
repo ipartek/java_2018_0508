@@ -19,7 +19,7 @@ public class ServicePrestamo implements IServicePrestamo {
 	private static LibroDAO daoLibro = LibroDAO.getInstance();
 	private static AlumnoDAO daoAlumno = AlumnoDAO.getInstance();
 	
-	public static final String EXCEPTION_PARAMETROS_INCORRECTOS = "Necesitamos idLibro, idUsuario y FechaInicio";
+	public static final String EXCEPTION_PARAMETROS_INCORRECTOS = "Necesitamos idLibro, idUsuario y FechaInicio válidos";
 	public static final String EXCEPTION_NO_EXISTE_ALUMNO_LIBRO = "No podemos prestar si no existe el Alumno o el Libro";
 	public static final String EXCEPTION_LIBRO_PRESTADO = "Libro ya tiene un prestamos activo";
 	public static final String EXCEPTION_ALUMNO_PRESTADO = "Alumno ya tiene un prestamos activo";

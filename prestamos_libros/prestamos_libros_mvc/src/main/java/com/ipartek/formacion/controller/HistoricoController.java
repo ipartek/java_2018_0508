@@ -10,11 +10,11 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.ipartek.formacion.pojo.Alert;
-import com.ipartek.formacion.pojo.Prestamo;
-import com.ipartek.formacion.service.ServiceAlumno;
-import com.ipartek.formacion.service.ServiceLibro;
-import com.ipartek.formacion.service.ServicePrestamo;
+import com.ipartek.formacion.controller.pojo.Alert;
+import com.ipartek.formacion.prestamos_libros.pojo.Prestamo;
+import com.ipartek.formacion.prestamos_libros.service.ServiceAlumno;
+import com.ipartek.formacion.prestamos_libros.service.ServiceLibro;
+import com.ipartek.formacion.prestamos_libros.service.ServicePrestamo;
 
 /**
  * Servlet implementation class HistoricoController

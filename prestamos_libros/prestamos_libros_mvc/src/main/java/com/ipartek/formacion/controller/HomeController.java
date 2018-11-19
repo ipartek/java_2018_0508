@@ -13,12 +13,12 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.ipartek.formacion.model.CrudControllable;
-import com.ipartek.formacion.pojo.Alert;
-import com.ipartek.formacion.pojo.Alumno;
-import com.ipartek.formacion.pojo.Libro;
-import com.ipartek.formacion.pojo.Prestamo;
-import com.ipartek.formacion.service.ServicePrestamo;
+import com.ipartek.formacion.controller.pojo.Alert;
+import com.ipartek.formacion.prestamos_libros.model.CrudControllable;
+import com.ipartek.formacion.prestamos_libros.pojo.Alumno;
+import com.ipartek.formacion.prestamos_libros.pojo.Libro;
+import com.ipartek.formacion.prestamos_libros.pojo.Prestamo;
+import com.ipartek.formacion.prestamos_libros.service.ServicePrestamo;
 
 /**
  * Servlet implementation class HomeController
@@ -123,7 +123,9 @@ public class HomeController extends HttpServlet implements CrudControllable {
 	private void devolverLibro(HttpServletRequest request) {
 		try {
 			if(!fechaRetorno.equals("")) {
-				servicePrestamo.devolver(Long.parseLong(idLibro), Long.parseLong(idAlumno), Date.valueOf(fechaInicio), Date.valueOf(fechaRetorno));
+				Prestamo p = new Prestamo(Date.valueOf(fechaInicio), new Alumno(Long.parseLong(idAlumno),""), new Libro(Long.parseLong(idLibro), "", "", 1, null));
+				p.setFecha_retorno(Date.valueOf(fechaRetorno));
+				servicePrestamo.devolver(p);
 			}
 		}catch(Exception e) {
 			e.printStackTrace();
@@ -224,8 +226,8 @@ public class HomeController extends HttpServlet implements CrudControllable {
 					alert = new Alert(Alert.ALERT_WARNING, "Debes seleccionar un alumno y un libro obligatoriamente.");
 				} else {
 					// Crear Prestamo nuevo
-					if (servicePrestamo.prestar(Long.parseLong(idLibroUpdate), Long.parseLong(idAlumnoUpdate),
-							Date.valueOf(fechaInicioUpdate))) {
+					Prestamo p = new Prestamo(Date.valueOf(fechaInicio), new Alumno(Long.parseLong(idAlumno),""), new Libro(Long.parseLong(idLibro), "", "", 1, null));
+					if (servicePrestamo.prestar(p)) {
 						alert = new Alert(Alert.ALERT_SUCCESS, "Préstamo creado con éxito.");
 					}
 				}

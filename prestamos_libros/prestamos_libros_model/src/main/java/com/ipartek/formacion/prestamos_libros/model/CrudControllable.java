@@ -1,4 +1,4 @@
-package com.ipartek.formacion.model;
+package com.ipartek.formacion.prestamos_libros.model;
 
 import java.io.IOException;
 

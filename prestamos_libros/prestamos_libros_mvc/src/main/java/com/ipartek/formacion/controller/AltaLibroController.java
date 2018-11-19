@@ -10,12 +10,12 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.ipartek.formacion.model.CrudControllable;
-import com.ipartek.formacion.pojo.Alert;
-import com.ipartek.formacion.pojo.Editorial;
-import com.ipartek.formacion.pojo.Libro;
-import com.ipartek.formacion.service.ServiceEditorial;
-import com.ipartek.formacion.service.ServiceLibro;
+import com.ipartek.formacion.controller.pojo.Alert;
+import com.ipartek.formacion.prestamos_libros.model.CrudControllable;
+import com.ipartek.formacion.prestamos_libros.pojo.Editorial;
+import com.ipartek.formacion.prestamos_libros.pojo.Libro;
+import com.ipartek.formacion.prestamos_libros.service.ServiceEditorial;
+import com.ipartek.formacion.prestamos_libros.service.ServiceLibro;
 
 /**
  * Servlet implementation class AltaLibroController

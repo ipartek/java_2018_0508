@@ -261,7 +261,7 @@ public class PrestamosController {
 			response = new ResponseEntity<>(msj, HttpStatus.CONFLICT);
 		} catch (Exception e) {
 			LOG.error(e);
-			ResponseMensaje msj = new ResponseMensaje("No existe el libro.");
+			ResponseMensaje msj = new ResponseMensaje(e.getMessage());
 			response = new ResponseEntity<>(msj, HttpStatus.NOT_FOUND);
 		}
 

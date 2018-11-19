@@ -12,12 +12,20 @@
 	<properties>		
 		<java-version>1.8</java-version>
 		<mysql.version>5.1.47</mysql.version>
+		<javax.servlet.api>3.0.1</javax.servlet.api>
 	</properties>
 
 
 	<!-- librerias o .JARs que necesitamos -->
 	<dependencies>
 
+		<!-- Web Project 3.0 -->
+		<dependency>			
+			<groupId>javax.servlet</groupId>
+			<artifactId>javax.servlet-api</artifactId>
+			<version>${javax.servlet.api}</version>			
+			<scope>provided</scope>
+		</dependency>
 
 		<!-- libreria MySQL -->
 		<dependency>
