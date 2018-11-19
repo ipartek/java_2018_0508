@@ -4,7 +4,6 @@ import java.sql.Date;
 import java.text.SimpleDateFormat;
 import java.util.List;
 
-import com.ipartek.formacion.prestamos_libros.model.EditorialDAO;
 import com.ipartek.formacion.prestamos_libros.model.LibroDAO;
 import com.ipartek.formacion.prestamos_libros.model.PrestamoDAO;
 import com.ipartek.formacion.prestamos_libros.model.UsuarioDAO;

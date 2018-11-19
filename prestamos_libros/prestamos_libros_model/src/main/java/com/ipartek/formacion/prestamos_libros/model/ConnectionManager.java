@@ -1,7 +1,6 @@
 package com.ipartek.formacion.prestamos_libros.model;
 
 import java.sql.Connection;
-import java.sql.DriverManager;
 
 import javax.naming.InitialContext;
 import javax.sql.DataSource;

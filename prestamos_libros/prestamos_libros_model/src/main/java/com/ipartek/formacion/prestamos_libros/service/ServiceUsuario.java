@@ -2,7 +2,6 @@ package com.ipartek.formacion.prestamos_libros.service;
 
 import java.util.List;
 
-import com.ipartek.formacion.prestamos_libros.model.EditorialDAO;
 import com.ipartek.formacion.prestamos_libros.model.UsuarioDAO;
 import com.ipartek.formacion.prestamos_libros.pojo.Usuario;
 

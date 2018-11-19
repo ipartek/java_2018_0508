@@ -20,7 +20,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ipartek.formacion.prestamos_libros.pojo.Libro;
-import com.ipartek.formacion.prestamos_libros.pojo.Usuario;
 import com.ipartek.formacion.prestamos_libros.service.ServiceLibro;
 
 import io.swagger.annotations.Api;

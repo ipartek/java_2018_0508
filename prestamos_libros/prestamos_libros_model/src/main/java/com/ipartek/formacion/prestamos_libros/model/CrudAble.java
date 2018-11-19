@@ -1,6 +1,5 @@
 package com.ipartek.formacion.prestamos_libros.model;
 
-import java.sql.SQLException;
 import java.util.List;
 
 /**
