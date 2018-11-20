@@ -5,5 +5,5 @@
 	-Abrir el archivo youtube.sql de la carpeta raíz con un gestor de BBDD.
 	
 	
-![Esquema de la BBDD](https://github.com/adam-p/markdown-here/raw/master/src/common/images/icon48.png "Logo Title Text 1")
+![Esquema de la BBDD](https://github.com/ipartek/java_2018_0508/blob/asierCornejo/youtube/service/Esquema.JPG)
 	
