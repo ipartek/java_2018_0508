@@ -2,10 +2,10 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.ipartek.formacion</groupId>
-	<artifactId>youtube_app</artifactId>
-	<packaging>war</packaging>
+	<artifactId>youtube_model</artifactId>
+	<packaging>jar</packaging>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>youtube_app</name>
+	<name>youtube_model</name>
 	<url>http://localhost:8080/youtube/</url>
 
 	<!-- Variables comunes para todo el POM -->
@@ -22,33 +22,11 @@
 	<!-- Librerias o .JARs que necesitamos -->
 	<dependencies>
 
-		<!-- Web Project 3.0 -->
+		<!-- Libreria MySQL -->
 		<dependency>
-			<groupId>javax.servlet</groupId>
-			<artifactId>javax.servlet-api</artifactId>
-			<version>${javax.servlet.api}</version>
-			<scope>provided</scope>
-		</dependency>
-		
-		<!-- MODELO DE LA APP CREADO EN CLASE -->
-		<dependency>
-			<groupId>com.ipartek.formacion</groupId>
-			<artifactId>youtube_model</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
-		</dependency>
-
-		<dependency>
-			<groupId>javax.servlet.jsp</groupId>
-			<artifactId>jsp-api</artifactId>
-			<version>${javax.servlet.jsp.version}</version>
-			<scope>provided</scope>
-		</dependency>
-
-		<!-- Taglib - Java Server Tag Library -->
-		<dependency>
-			<groupId>javax.servlet</groupId>
-			<artifactId>jstl</artifactId>
-			<version>${javax.servlet.jstl.version}</version>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
+			<version>5.1.47</version>
 		</dependency>
 
 		<!-- Validaciones -->
@@ -80,7 +58,6 @@
 			<version>2.2.4</version>
 			<scope>test</scope>
 		</dependency>
-		
 		<dependency>
 			<groupId>org.glassfish.web</groupId>
 			<artifactId>javax.el</artifactId>
@@ -88,8 +65,11 @@
 			<scope>test</scope>
 		</dependency>
 
+
+
 	</dependencies>
-	
+
+
 	<build>
 
 		<plugins>
@@ -118,6 +98,6 @@
 		</plugins>
 
 
-		<finalName>youtube_app</finalName>
+		<finalName>youtube_model</finalName>
 	</build>
 </project>
