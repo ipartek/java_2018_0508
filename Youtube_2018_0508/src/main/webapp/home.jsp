@@ -4,7 +4,7 @@
 <%@page import="java.time.format.DateTimeFormatter"%>
 <%@page import="java.util.Date"%>
 <%@page import="com.ipartek.formacion.pojo.Usuario"%>
-<%@page import="com.ipartek.formacion.pojo.Alert"%>
+<%@page import="com.ipartek.formacion.controller.pojo.Alert"%>
 <%@page import="com.ipartek.formacion.controller.HomeController"%>
 <%@page import="com.ipartek.formacion.pojo.Video"%>
 <%@page import="java.util.ArrayList"%>

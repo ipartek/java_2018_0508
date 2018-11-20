@@ -16,9 +16,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.ipartek.formacion.controller.pojo.Alert;
 import com.ipartek.formacion.model.ComentarioArrayDAO;
 import com.ipartek.formacion.model.VideoDAO;
-import com.ipartek.formacion.pojo.Alert;
 import com.ipartek.formacion.pojo.Comentario;
 import com.ipartek.formacion.pojo.Usuario;
 import com.ipartek.formacion.pojo.Video;
@@ -122,7 +122,7 @@ public class HomeController extends HttpServlet {
 		req.setAttribute("videos", videos);
 		req.setAttribute("videoInicio", videoInicio);
 		
-		req.setAttribute("pa", "Sentencia del PA: "+daoVideo.ejemploPA(videoInicio.getId()));
+//		req.setAttribute("pa", "Sentencia del PA: "+daoVideo.ejemploPA(videoInicio.getId()));
 		
 		String playlist = "";
 		for(int i = 1; i<videos.size(); i++) {

@@ -23,7 +23,8 @@ public class UsuarioDAO implements Crudable<Usuario>{
 												+ " FROM youtube.usuario as u, youtube.rol as r"
 												+ " WHERE u.id_rol = r.id AND u.id = ?;";
 	private static final String SQL_GET_BY_NOMBRE = "SELECT u.id as 'id_usuario', u.nombre as 'nombre_usuario', u.password, id_rol as 'id_rol', r.nombre as 'rol_nombre'"
-													+ " FROM youtube.usuario as u, youtube.rol as r";
+													+ " FROM youtube.usuario as u, youtube.rol as r"
+													+ " WHERE u.id_rol = r.id AND u.nombre = ? AND u.password = ?;";
 private static final String SQL_GET_NOMBRE = "SELECT u.id as 'id_usuario', u.nombre as 'nombre_usuario', u.password, id_rol as 'id_rol', r.nombre as 'rol_nombre'"
 													+ " FROM youtube.usuario as u, youtube.rol as r"
 													+ " WHERE u.id_rol = r.id AND u.nombre = ?;";
