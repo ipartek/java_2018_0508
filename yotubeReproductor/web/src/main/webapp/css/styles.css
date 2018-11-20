@@ -1,0 +1,26 @@
+i{
+	color: #FFF;
+}
+
+ul.idioma a{
+	text-decoration: none;
+	padding: 5px;
+	color: #FFF;
+}
+
+ul.idioma li.active a{
+	color: #ffc107!important;
+	text-decoration: underline;	
+}
+.alert-success{
+	top: 35px;
+}
+/* formulaio 
+*********************************************/
+
+.form-comentario textarea{
+	width: 85%  !important;; 
+}
+.form-comentario input [type = "submit"]{
+	/*height: 44vh;*/
+}
