@@ -9,8 +9,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.andrea.perez.controller.pojo.Alert;
 import com.andrea.perez.model.ComentarioDAO;
-import com.andrea.perez.pojo.Alert;
 
 /**
  * Servlet implementation class backofficeComentariosAprobar

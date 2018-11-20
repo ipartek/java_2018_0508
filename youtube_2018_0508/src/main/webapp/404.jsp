@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <%@page import="com.andrea.perez.pojo.Usuario"%>
-<%@page import="com.andrea.perez.pojo.Alert"%>
+<%@page import="com.andrea.perez.controller.pojo.Alert"%>
 <%@page import="com.andrea.perez.controller.HomeController"%>
 <%@page import="com.andrea.perez.pojo.Video"%>
 <%@page import="java.util.ArrayList"%>

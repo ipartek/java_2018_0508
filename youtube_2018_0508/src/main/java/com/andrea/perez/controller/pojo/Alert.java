@@ -1,4 +1,4 @@
-package com.andrea.perez.pojo;
+package com.andrea.perez.controller.pojo;
 
 public class Alert {
 	

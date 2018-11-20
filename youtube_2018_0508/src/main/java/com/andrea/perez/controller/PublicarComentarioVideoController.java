@@ -10,8 +10,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.andrea.perez.controller.pojo.Alert;
 import com.andrea.perez.model.ComentarioDAO;
-import com.andrea.perez.pojo.Alert;
 import com.andrea.perez.pojo.Comentario;
 import com.andrea.perez.pojo.Usuario;
 import com.andrea.perez.pojo.Video;

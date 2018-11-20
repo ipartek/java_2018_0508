@@ -9,9 +9,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.andrea.perez.controller.pojo.Alert;
 import com.andrea.perez.model.UsuarioDAO;
 import com.andrea.perez.model.VideoDAO;
-import com.andrea.perez.pojo.Alert;
 import com.andrea.perez.pojo.Usuario;
 import com.andrea.perez.pojo.Video;
 
