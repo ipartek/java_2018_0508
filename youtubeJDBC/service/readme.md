@@ -1,6 +1,6 @@
 # Servicio
 
-Contiene 4 projectos independientes
+Interfaz entre la bd y controlador
 
 	- Service : Projecto encargado del acceso a los datos, capa servicio
 	- Api rest : Projecto Rest para json con spring
