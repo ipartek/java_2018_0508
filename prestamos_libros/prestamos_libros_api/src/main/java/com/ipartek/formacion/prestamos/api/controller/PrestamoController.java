@@ -204,8 +204,9 @@ public class PrestamoController {
 
 	}
 
-	@ApiOperation(value = "Devuelve un préstamo con la fecha de devolución introducida (en formato JSON). Es necesario:"
-			+ "<ul><li>Fecha devolucion</li></ol>", notes = "Devuelve un cuerpo vacío, el código de respuesta o, en caso de error, el mensaje.", response = Prestamo.class)
+	@ApiOperation(value = "Devuelve un préstamo con la fecha de devolución introducida (en formato JSON).", notes = "Devuelve un cuerpo vacío, el código de respuesta o, en caso de error, el mensaje. "
+			+ "Es necesario:" + 
+			"			+ \"<ul><li>Fecha devolucion</li></ol>", response = Prestamo.class)
 
 	@ApiResponses(value = {
 			@ApiResponse(code = 200, message = "Préstamo correctamente devuelto.", response = Prestamo.class),
