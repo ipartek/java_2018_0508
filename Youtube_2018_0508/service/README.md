@@ -5,7 +5,7 @@
 Para realizar la conexión a la Base de Datos, lo primero que tenemos que hacer es coger el archivo [Youtube.sql](https://github.com/ipartek/java_2018_0508/blob/adrianaprado/Youtube_2018_0508/service/Youtube.sql) 
 donde se encuentra toda la jerarquia de tablas. Este archivo lo podemos encontrar en la carpeta raiz de Youtube_Service.
 
-Copiamos el contenido del archivo .sql y lo pegamos en nuestra base de datos para que cree todas las tablas y sus datos.
+Copiamos el contenido del archivo **.sql** y lo pegamos en nuestra base de datos para que cree todas las tablas y sus datos.
 
 El diagrama de la base de datos tiene que quedar de la siguiente forma para que esté correcto:
 
@@ -16,7 +16,7 @@ El diagrama de la base de datos tiene que quedar de la siguiente forma para que 
 
 Una vez montada la BBDD, debemos realizar varios cambios desde Eclipse para que al ejecutar el proyecto, podamos conectarnos a la BBDD.
 
-Lo primero que se tiene que hacer es actualizar el pom.xml con la dependencia de MySQL
+Lo primero que se tiene que hacer es actualizar el pom.xml con la dependencia de MySQL:
 
 ```xml
 	<dependency>
@@ -30,10 +30,10 @@ A continuación, creamos un fichero llamado, por ejemplo, **database.properties*
 
 Ejemplo:
 
--- ddbb.driver=com.mysql.jdbc.Driver
+ddbb.driver=com.mysql.jdbc.Driver
 ddbb.url=jdbc:mysql://127.0.0.1:3306/youtube?useSSL=false
 ddbb.user=root
-ddbb.pass=root --
+ddbb.pass=root
 
 Por último, creamos una nueva clase java **ConnectionManager.java** donde se realiza la conexión a la BBDD, clase a la cual habrá que llamar cada vez que se quiera realizar alguna alta, baja,
 modificación o consulta.
