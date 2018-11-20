@@ -15,9 +15,9 @@ public class ComentarioDAO implements CrudAble<Comentario> {
 
 	private static ComentarioDAO INSTANCE = null;
 	
-	private final String SQL_GET_ALL_BY_VIDEO_ID = "SELECT c.id as 'id_comentario', texto,  u.id as 'id_usuario', c.id_video, fecha, aprobado,  u.nombre as 'nombre_usuario'" +
-												   " FROM comentario as c, usuario as u" +
-												   " WHERE c.id_usuario = u.id AND c.id_video = ? AND aprobado = '1'" +
+	private final String SQL_GET_ALL_BY_VIDEO_ID = "SELECT c.id as 'id_comentario', texto,  u.id as 'id_usuario', c.id_video, fecha, aprobado,  u.nombre as 'nombre_usuario', v.nombre as 'nombre_video'" +
+												   " FROM comentario as c, usuario as u, video as v" +
+												   " WHERE c.id_usuario = u.id AND c.id_video = v.id AND c.id_video = ? AND aprobado = '1'" +
 												   " ORDER BY c.id DESC" +
 												   " LIMIT 500;";
 	

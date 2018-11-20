@@ -9,7 +9,6 @@ import java.util.List;
 
 import com.ipartek.formacion.youtube.pojo.Usuario;
 import com.ipartek.formacion.youtube.pojo.Video;
-import java.sql.CallableStatement;
 
 public class VideoDAO implements CrudAble<Video> {
 
@@ -164,7 +163,7 @@ public class VideoDAO implements CrudAble<Video> {
 		}
 		return v;
 	}
-	
+	/*
 	public String ejemploPA(long idVideo) {
 		
 		String resul = "PETA FIJO";
@@ -193,6 +192,6 @@ public class VideoDAO implements CrudAble<Video> {
 		return resul;
 	}
 	
-	
+	*/
 
 }
