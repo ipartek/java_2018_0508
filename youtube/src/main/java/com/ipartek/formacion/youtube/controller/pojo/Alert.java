@@ -1,4 +1,4 @@
-package com.ipartek.formacion.youtube.pojo;
+package com.ipartek.formacion.youtube.controller.pojo;
 
 public class Alert {
 	
