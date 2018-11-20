@@ -11,7 +11,7 @@
         	
 			 <div class="row">
 			 	
-	        	<div class="col-xl-1 col-lg-1 col-md-2  col-sm-2 col-1 columna-menu"  >
+	        	<div class="col-xl-2 col-lg-1 col-md-2  col-sm-2 col-1 columna-menu"  >
 		        <%@ include file="../includes/navbar-vertical.jsp" %>
 		        </div>
 		        <div class="col-xl-11 col-lg-11 col-md-10 col-sm-10 col-11 columna-contenido" >

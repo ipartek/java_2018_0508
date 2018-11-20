@@ -112,9 +112,9 @@ function showModalForm(codVista, id,  codOp, titulo,isbn,idEditorial) {
 
 		case 4: // EDITORIAL
 
-			updateForm.action = "editoriales";
-			document.getElementById("btnEliminar").href = "editoriales?id="
-					+ id + "&op=" + codOp;
+            document.getElementById("btnEliminar").setAttribute("onclick","eliminarEditorial("+id+")");
+  
+            
 			break;
 
 		default:
@@ -127,21 +127,6 @@ function showModalForm(codVista, id,  codOp, titulo,isbn,idEditorial) {
 	
 }
 
-
-function ocultarAlumnos(){
-
-	var select = document.getElementById("alumnos");
-	var boton = document.getElementById("btnNuevoAlumno");
-	var botonListado = document.getElementById("btnListaAlumno");
-	console.log(select);
-	select.style.display = "none";
-	boton.style.display = "none";
-	botonListado.style.display = "inline-block";
-	select.value = 0 ;
-	var nuevaEditorial = document.getElementById("nuevoAlumno");
-	nuevaEditorial.type = "text";
-
-}
 
 function ocultarEditoriales(){
 
@@ -158,52 +143,6 @@ function ocultarEditoriales(){
 	
 }
 
-function ocultarLibros(){
-
-	var select = document.getElementById("libros");
-	var boton = document.getElementById("btnNuevoLibro");
-	var botonListado = document.getElementById("btnListaLibro");
-
-	console.log(select);
-	select.style.display = "none";
-	boton.style.display = "none";
-
-	botonListado.style.display = "inline-block";
-	select.value = 0 ;
-
-	var tituloLibroNuevo = document.getElementById("rowTitulo");
-	var isbnLibroNuevo = document.getElementById("rowIsbn");
-	var editorialLibroNuevo = document.getElementById("rowEditorial");
-	
-	tituloLibroNuevo.style.display= "block";
-	isbnLibroNuevo.style.display= "block";
-	editorialLibroNuevo.style.display= "block";
-
-}
-
-function mostrarLibros(){
-
-	var select = document.getElementById("libros");
-	var boton = document.getElementById("btnNuevoLibro");
-	var botonListado = document.getElementById("btnListaLibro");
-
-	console.log(select);
-	select.style.display = "inline-block";
-	boton.style.display = "inline-block";
-	botonListado.style.display = "none";
-	select.value = 0 ;
-	var nuevaEditorial = document.getElementById("nuevaEditorial");
-	nuevaEditorial.type = "hidden";
-	var tituloLibroNuevo = document.getElementById("rowTitulo");
-	var isbnLibroNuevo = document.getElementById("rowIsbn");
-	var editorialLibroNuevo = document.getElementById("rowEditorial");
-	
-	tituloLibroNuevo.style.display= "none";
-	isbnLibroNuevo.style.display= "none";
-	editorialLibroNuevo.style.display= "none";
-
-}
-
 function mostrarEditoriales(){
 	var select = document.getElementById("editorial");
 	var boton = document.getElementById("botonNuevadit");
@@ -214,20 +153,6 @@ function mostrarEditoriales(){
 	botonListado.style.display = "none";
 	select.value = 0 ;
 	var nuevaEditorial = document.getElementById("nuevaEditorial");
-	nuevaEditorial.type = "hidden";
-	
-}
-
-function mostrarAlumnos(){
-	var select = document.getElementById("alumnos");
-	var boton = document.getElementById("btnNuevoAlumno");
-	var botonListado = document.getElementById("btnListaAlumno");
-	console.log(select);
-	select.style.display = "inline-block";
-	boton.style.display = "inline-block";
-	botonListado.style.display = "none";
-	select.value = 0 ;
-	var nuevaEditorial = document.getElementById("nuevoAlumno");
 	nuevaEditorial.type = "hidden";
 	
 }
@@ -416,73 +341,6 @@ function cargarEditoriales(dropdown,idEditorial) {
 
 }
 
-function showInputDialogDevolver(codOp, alumno, libro, fechaInicio) {
-
-	var modalForm = $('#modalModificar');
-
-	var updateForm = document.getElementById("updateForm");
-
-	limpiarFormulario();
-
-	updateForm.title="Devolución de Préstamo de Libro";
-	var divGroup = document.createElement("div");
-	divGroup.classList.add("form-group");
-
-	var input = document.createElement("input");
-	var label = document.createElement("label");
-
-	label.htmlFor = "fechaRetorno";
-	label.innerHTML = "Fecha de Devolución";
-
-	input.type = "date";
-	input.name = "fechaRetorno";
-	input.id = "fechaRetorno";
-	input.classList.add("form-control");
-	input.attributes.required = "";
-
-	document.getElementById("updateForm").appendChild(divGroup);
-	divGroup.appendChild(label);
-	divGroup.appendChild(input);
-
-	addInputHidden("op", codOp);
-	addInputHidden("alumnos", alumno);
-	addInputHidden("libros", libro);
-	addInputHidden("fechaInicio", fechaInicio);
-
-	addInputSubmit();
-
-	updateForm.action = "prestamos";
-
-	$('#fechaRetorno').val(new Date().toDateInputValue());
-
-	modalForm.modal();
-
-}
-
-// Fecha por defecto
-Date.prototype.toDateInputValue = (function() {
-	var local = new Date(this);
-	local.setMinutes(this.getMinutes() - this.getTimezoneOffset());
-	return local.toJSON().slice(0, 10);
-});
-
-function addInputHidden(name, value) {
-
-	var divGroup = document.createElement("div");
-	divGroup.classList.add("form-group");
-
-	var input = document.createElement("input");
-
-	input.type = "hidden";
-	input.name = name;
-	input.value = value;
-	input.classList.add("form-control");
-
-	document.getElementById("updateForm").appendChild(divGroup);
-	divGroup.appendChild(input);
-
-}
-
 
 
 $(document).ready(function() {
@@ -495,18 +353,18 @@ $(document).ready(function() {
 
 
 // Habilitar datatables
-$(document).ready(function() {
-	//$('#tablaOrdenable').DataTable();
-	$('#tablaOrdenable').dataTable( {
-        "order": [[ 0, 'desc' ], [ 1, 'desc' ]],
+// $(document).ready(function() {
+// 	//$('#tablaOrdenable').DataTable();
+// 	$('#tablaOrdenable').dataTable( {
+//         "order": [[ 0, 'desc' ], [ 1, 'desc' ]],
         
-		"language": {
-	        "url": "//cdn.datatables.net/plug-ins/1.10.19/i18n/Spanish.json"
-		}
-    } );
+// 		"language": {
+// 	        "url": "//cdn.datatables.net/plug-ins/1.10.19/i18n/Spanish.json"
+// 		}
+//     } );
 
 
-});
+// });
 
 $(function () {
 	  $('[data-toggle="tooltip"]').tooltip()

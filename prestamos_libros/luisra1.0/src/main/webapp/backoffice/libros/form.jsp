@@ -59,10 +59,10 @@
 				</div> --%>
 				<!-- CARGAR ALUMNOS -->
 				<div class="form-row">
-						<div class="col-4">		
+						<div class="col-12">		
 							<label for="editorial">Editorial</label> <%-- <a data-toggle="modal" onclick="showModalForm(2, '${ l.id }', <%= ICRUDController.OP_GUARDAR %>);" class="btn btn-lg btn-primary">Crear editorial</a> --%>
 						</div>
-						<div class="col-4">
+						<div class="col-12">
 							<select name="editorial" id="editorial" class="form-control">	
 						   		<c:forEach items="${ editoriales }" var="editorial">
 							   		<option  value="${ editorial.id }" ${ ( editorial.id == libro.editorial.id) ? 'selected' : '' }>${ editorial.nombre }</option>
@@ -70,10 +70,11 @@
 							</select>
 							<input type="hidden" class="form-control"  name="nuevaEditorial" id="nuevaEditorial" placeholder="nombre de la nueva editorial" >
 						</div>
-						<div class="col-2">
+						<div class="col-12">
 							<button id="botonNuevadit" type="button" onclick="ocultarEditoriales()" class="btn btn-lg btn-primary">Nueva editorial</button>
 							 <button id="botonListado" style="display:none;" type="button" onclick="mostrarEditoriales()" class="btn  btn-lg btn-primary">Lista editoriales</button>
-						</div>		
+						</div>	
+				</div>	
 
       		     
       		    <!-- OPERACIÓN = GUARDAR -->	

@@ -36,7 +36,7 @@ ul {
 
 li {
 	list-style-type: none;
-	padding: 10px 0 10px 0px;
+	/*padding: 10px 0 10px 0px;*/
 	border-bottom: 1px solid #222;
 	transform: translateY(55px);
 	text-align: center;
@@ -82,4 +82,21 @@ table {
 
 .alert {
 	width: 100%;
+}
+
+.custom-sidebar{
+	width: 19vh;
+	font-size:15px;
+	margin:0;
+    padding:0;
+}
+
+.custom-sidebar-icon{
+    float:left;
+    margin-left:5px;
+}
+
+.custom-sidebar-icon2{
+    float:left;
+    margin-left:-5px;
 }
