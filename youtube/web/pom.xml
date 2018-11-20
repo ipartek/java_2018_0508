@@ -2,7 +2,7 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.ipartek.formacion.youtube</groupId>
-	<artifactId>web</artifactId>
+	<artifactId>youtube-web</artifactId>
 	<packaging>war</packaging>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>youtube</name>
@@ -10,7 +10,7 @@
 
 	<!-- variables comunes para todo el POM -->
 	<properties>
-		<app.name>youtube</app.name>
+		<app.name>youtube-web</app.name>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<java-version>1.8</java-version>
 		<junit.version>4.12</junit.version>
