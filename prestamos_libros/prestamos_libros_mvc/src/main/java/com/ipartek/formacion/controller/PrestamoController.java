@@ -26,7 +26,7 @@ import com.ipartek.formacion.service.ServicePrestamo;
 @WebServlet("/prestamos")
 public class PrestamoController extends HttpServlet implements CrudControllable {
 	private static final long serialVersionUID = 1L;
-	
+
 	private final static Logger LOG = Logger.getLogger(PrestamoController.class);
 
 	private static ServicePrestamo srvcPrestamo = null;
@@ -183,7 +183,10 @@ public class PrestamoController extends HttpServlet implements CrudControllable 
 				srvcPrestamo.prestar(p);
 				alerta = new Alert("El registro se ha creado con exito.", Alert.SUCCESS);
 				view = VIEW_LISTADO;
-				session.setAttribute("prestamos", srvcPrestamo.prestados());
+
+				ArrayList<Prestamo> prestamos = srvcPrestamo.prestados();
+				session.setAttribute("prestamos", prestamos);
+				session.setAttribute("n_prestamos", prestamos.size());
 
 			} else {
 				p.setId(Long.parseLong(id));
@@ -212,13 +215,14 @@ public class PrestamoController extends HttpServlet implements CrudControllable 
 					} else {
 						SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
 						java.util.Date parsefi = format.parse(fecha_inicio);
+						java.util.Date parseff = format.parse(fecha_fin);
 						java.util.Date parsefd = format.parse(fecha_devolucion);
 						java.sql.Date sqlDateDevolucionfi = new java.sql.Date(parsefi.getTime());
-						java.sql.Date sqlDateDevolucionff = new java.sql.Date(parsefi.getTime());
+						java.sql.Date sqlDateDevolucionff = new java.sql.Date(parseff.getTime());
 						java.sql.Date sqlDateDevolucionfd = new java.sql.Date(parsefd.getTime());
 
 						p.setFecha_inicio(sqlDateDevolucionfi);
-						p.setFecha_inicio(sqlDateDevolucionff);
+						p.setFecha_fin(sqlDateDevolucionff);
 						p.setFecha_devuelto(sqlDateDevolucionfd);
 
 						alerta = new Alert();
@@ -269,14 +273,13 @@ public class PrestamoController extends HttpServlet implements CrudControllable 
 
 			try {
 				SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-				java.util.Date parseFI = format.parse(fecha_inicio);
-				java.util.Date parseFD = format.parse(fecha_devolucion);
+				java.util.Date parsefi = format.parse(fecha_inicio);
+				java.util.Date parsefd = format.parse(fecha_devolucion);
+				java.sql.Date sqlDateDevolucionfi = new java.sql.Date(parsefi.getTime());
+				java.sql.Date sqlDateDevolucionfd = new java.sql.Date(parsefd.getTime());
 
-				java.sql.Date sqlDateDevolucionFI = new java.sql.Date(parseFI.getTime());
-				java.sql.Date sqlDateDevolucionFD = new java.sql.Date(parseFD.getTime());
-
-				p.setFecha_inicio(sqlDateDevolucionFI);
-				p.setFecha_devuelto(sqlDateDevolucionFD);
+				p.setFecha_inicio(sqlDateDevolucionfi);
+				p.setFecha_devuelto(sqlDateDevolucionfd);
 			} catch (Exception e) {
 				LOG.debug(e);
 			}
@@ -286,7 +289,10 @@ public class PrestamoController extends HttpServlet implements CrudControllable 
 			srvcPrestamo.devolver(p);
 			alerta = new Alert("El registro se ha devuelto con exito.", Alert.SUCCESS);
 			view = VIEW_LISTADO;
-			session.setAttribute("prestamos", srvcPrestamo.prestados());
+
+			ArrayList<Prestamo> prestamos = srvcPrestamo.prestados();
+			session.setAttribute("prestamos", prestamos);
+			session.setAttribute("n_prestamos", prestamos.size());
 
 		} catch (Exception e) {
 			LOG.debug(e);
