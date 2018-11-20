@@ -10,25 +10,51 @@
 	<div class="row">
 		<form action="prestamos" method="post">
 			
-			<div class="form-group">
-				<label for="libro">Libro:</label>
-				<select id="libro" name="libro" class="form-control">
-					<option value="${libro.id}">${libro.id} - ${libro.titulo} (${libro.editorial.editorial})</option>
-					<c:forEach items = "${libros}" var = "l">
-						<option value="${l.id }">${l.id} - ${l.titulo} (${l.editorial.editorial})</option>
-					</c:forEach>
-				</select>			
-			</div>
+			<c:if test="${empty fechaDevuelto}">
 			
-			<div class="form-group">
-				<label for="alumno">Alumno:</label>
-				<select id="alumno" name="alumno" class="form-control">
-					<option value="${alumno.id}">${alumno.nombre} ${alumno.apellidos}</option>
-					<c:forEach items = "${alumnos}" var = "a">
-						<option value="${a.id }">${a.nombre} ${a.apellidos}</option>
-					</c:forEach>
-				</select>	
-			</div>
+				<div class="form-group">
+					<label for="libro">Libro:</label>
+					<select id="libro" name="libro" class="form-control">
+						<option value="${libro.id}">${libro.id} - ${libro.titulo} (${libro.editorial.editorial})</option>
+						<c:forEach items = "${libros}" var = "l">
+							<option value="${l.id }">${l.id} - ${l.titulo} (${l.editorial.editorial})</option>
+						</c:forEach>
+					</select>			
+				</div>
+				
+				<div class="form-group">
+					<label for="alumno">Alumno:</label>
+					<select id="alumno" name="alumno" class="form-control">
+						<option value="${alumno.id}">${alumno.nombre} ${alumno.apellidos}</option>
+						<c:forEach items = "${alumnos}" var = "a">
+							<option value="${a.id }">${a.nombre} ${a.apellidos}</option>
+						</c:forEach>
+					</select>	
+				</div>
+				
+			</c:if>
+			
+			<c:if test="${not empty fechaDevuelto}">
+			
+				<div class="form-group">
+					<label for="libro">Libro:</label>
+					<select id="libro" name="libro" class="form-control">
+						<c:forEach items = "${todosLibros}" var = "l">
+							<option value="${l.id }">${l.id} - ${l.titulo} (${l.editorial.editorial})</option>
+						</c:forEach>
+					</select>			
+				</div>
+				
+				<div class="form-group">
+					<label for="alumno">Alumno:</label>
+					<select id="alumno" name="alumno" class="form-control">
+						<c:forEach items = "${todosAlumnos}" var = "a">
+							<option value="${a.id }">${a.nombre} ${a.apellidos}</option>
+						</c:forEach>
+					</select>	
+				</div>
+				
+			</c:if>
 			
 			<div class="form-group">
 				<label for="fechaInicio">Fecha de inicio</label>

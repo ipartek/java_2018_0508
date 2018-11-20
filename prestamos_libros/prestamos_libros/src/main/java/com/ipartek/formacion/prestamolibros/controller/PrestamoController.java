@@ -231,6 +231,8 @@ public class PrestamoController extends HttpServlet implements CrudControllable 
 		request.setAttribute("alumno", servicioAlumno.buscar(Long.parseLong(idAlumno)));
 		request.setAttribute("libros", servicioPrestamo.librosDisponibles());
 		request.setAttribute("alumnos", servicioPrestamo.alumnosDisponibles());
+		request.setAttribute("todosLibros", servicioLibro.listar());
+		request.setAttribute("todosAlumnos", servicioAlumno.listar());
 		request.setAttribute("fechaInicio", fechaInicio);
 		request.setAttribute("fechaFin", fechaFin);
 		request.setAttribute("fechaDevuelto", fechaDevolucion);
