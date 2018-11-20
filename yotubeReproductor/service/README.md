@@ -1,1 +1,1 @@
-# service: Proyecto encargado del acceso a datos, capa Servicio
+# Proyecto encargado del acceso a datos, capa Servicio
