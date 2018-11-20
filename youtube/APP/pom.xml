@@ -1,8 +1,8 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-	<groupId>com.ipartek.formacion</groupId>
-	<artifactId>youtube_app</artifactId>
+	<groupId>com.ipartek.formacion.youtube</groupId>
+	<artifactId>web</artifactId>
 	<packaging>war</packaging>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>youtube_app</name>
@@ -10,6 +10,8 @@
 
 	<!-- Variables comunes para todo el POM -->
 	<properties>
+		<app.name>youtube</app.name>
+		<app.deploy.name>youtube</app.deploy.name>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<java-version>1.8</java-version>
 		<junit.version>4.12</junit.version>
@@ -32,8 +34,8 @@
 		
 		<!-- MODELO DE LA APP CREADO EN CLASE -->
 		<dependency>
-			<groupId>com.ipartek.formacion</groupId>
-			<artifactId>youtube_model</artifactId>
+			<groupId>com.ipartek.formacion.youtube</groupId>
+			<artifactId>service</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
 
@@ -118,6 +120,6 @@
 		</plugins>
 
 
-		<finalName>youtube_app</finalName>
+		<finalName>${app.name}</finalName>
 	</build>
 </project>

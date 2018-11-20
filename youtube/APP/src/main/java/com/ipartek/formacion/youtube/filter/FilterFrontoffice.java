@@ -1,7 +1,6 @@
 package com.ipartek.formacion.youtube.filter;
 
 import java.io.IOException;
-import java.util.Enumeration;
 
 import javax.servlet.DispatcherType;
 import javax.servlet.Filter;
