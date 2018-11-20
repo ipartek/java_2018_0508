@@ -114,7 +114,6 @@ function editar( posicion, event){
                     console.warn('409 Conflicto ' + request.responseText);
                     var responseError = JSON.parse(request.responseText);
                     var errores = "";
-                    
                     responseError.errores.forEach( el => {
                         errores += `${el}<br>`; 
                     });
