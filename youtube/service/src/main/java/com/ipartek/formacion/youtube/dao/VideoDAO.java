@@ -1,4 +1,4 @@
-package com.ipartek.formacion.youtube.model;
+package com.ipartek.formacion.youtube.dao;
 
 import java.sql.CallableStatement;
 import java.sql.Connection;
@@ -8,6 +8,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.ipartek.formacion.youtube.conection.ConnectionManager;
 import com.ipartek.formacion.youtube.pojo.Usuario;
 import com.ipartek.formacion.youtube.pojo.Video;
 
