@@ -13,9 +13,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import com.ipartek.formacion.youtube.Alert;
 import com.ipartek.formacion.youtube.Rol;
 import com.ipartek.formacion.youtube.Usuario;
+import com.ipartek.formacion.youtube.controller.pojo.Alert;
 import com.ipartek.formacion.youtube.model.UsuarioDAO;
 
 @WebServlet("/login")

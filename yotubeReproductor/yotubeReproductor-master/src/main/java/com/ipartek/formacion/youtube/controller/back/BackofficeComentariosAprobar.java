@@ -12,8 +12,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.jsoup.Connection.Request;
 
-import com.ipartek.formacion.youtube.Alert;
 import com.ipartek.formacion.youtube.Comentario;
+import com.ipartek.formacion.youtube.controller.pojo.Alert;
 import com.ipartek.formacion.youtube.model.ComentarioDAO;
 import com.ipartek.formacion.youtube.model.UsuarioDAO;
 import com.ipartek.formacion.youtube.model.VideoDAO;

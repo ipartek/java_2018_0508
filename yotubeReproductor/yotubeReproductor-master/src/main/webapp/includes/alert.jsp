@@ -1,6 +1,6 @@
 
 
-<%@page import="com.ipartek.formacion.youtube.Alert"%>
+<%@page import="com.ipartek.formacion.youtube.controller.pojo.Alert"%>
 <%
 	Alert alert=(Alert)request.getAttribute("alert");
 	if(alert !=null){
