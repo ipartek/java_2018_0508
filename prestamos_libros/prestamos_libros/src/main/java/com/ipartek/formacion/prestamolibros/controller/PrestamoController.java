@@ -298,7 +298,7 @@ public class PrestamoController extends HttpServlet implements CrudControllable 
 			Date parsed2 = format.parse(fechaInicio);
 			java.sql.Date sqlInicio = new java.sql.Date(parsed2.getTime());
 
-			if (servicioPrestamo.devolver(Long.parseLong(idLibro), Long.parseLong(idAlumno), sqlInicio,
+			if (servicioPrestamo.devolver(Long.parseLong(idAlumno), Long.parseLong(idLibro), sqlInicio,
 					sqlDevolucion)) {
 				alert = new Alert(Alert.SUCCESS, "Préstamo finalizado");
 

@@ -61,7 +61,7 @@ public static final String EXCEPTION_ALUMNO_SIN_PRESTAMO = "El alumno indicado n
 		boolean resul = false;
 		
 		if(comprobarDatosDevolucion(idLibro, idAlumno, fechaInicio, fechaDevolucion)) {
-			resul = daoPrestamo.devolver(idLibro, idAlumno, fechaInicio, fechaDevolucion);
+			resul = daoPrestamo.devolver(idAlumno, idLibro, fechaInicio, fechaDevolucion);
 		}
 		
 		return resul;
