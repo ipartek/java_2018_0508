@@ -141,6 +141,7 @@ public class HomeController extends HttpServlet implements CrudControllable {
 				p.setFecha_prestado(Date.valueOf(fechaInicio));
 				p.setFecha_retorno(Date.valueOf(fechaRetorno));
 
+				alert = new Alert(Alert.ALERT_SUCCESS, "Prestamo devuelto correctamente.");
 				servicePrestamo.devolver(p);
 			}
 		} catch (Exception e) {
