@@ -1,4 +1,4 @@
-package com.andrea.perez.model;
+package com.andrea.perez.youtube.dao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -177,7 +177,7 @@ public class UsuarioDAO implements Crudable<Usuario> {
 		return u;
 	}
 
-	public boolean getByNombreRepetido(String nombre) throws SQLException {
+	public boolean getByNombreRepetido(String nombre) throws Exception {
 		boolean resul = false;
 		try (Connection con = ConnectionManager.getConnection();
 				PreparedStatement ps = con.prepareStatement(SQL_GET_BY_NOMBRE_RETIDO)) {

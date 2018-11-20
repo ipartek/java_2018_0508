@@ -1,4 +1,4 @@
-package com.andrea.perez.model;
+package com.andrea.perez.youtube.dao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -45,7 +45,7 @@ public class ComentarioDAO implements Crudable<Comentario> {
 	}
 
 	@Override
-	public boolean insert(Comentario pojo) throws SQLException {
+	public boolean insert(Comentario pojo) throws Exception {
 		boolean resul = false;
 
 		try (Connection con = ConnectionManager.getConnection();
@@ -232,7 +232,7 @@ public class ComentarioDAO implements Crudable<Comentario> {
 		return resul;
 	}
 
-	public int cantComentariosUsuario(int id, String sql, String op) {
+	public int cantComentariosUsuario(int id, String sql, String op) throws Exception {
 
 		int cant = 0;
 		try (Connection con = ConnectionManager.getConnection(); PreparedStatement ps = con.prepareStatement(sql);) {

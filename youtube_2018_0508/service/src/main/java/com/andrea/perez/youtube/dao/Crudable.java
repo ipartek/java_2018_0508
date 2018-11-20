@@ -1,4 +1,4 @@
-package com.andrea.perez.model;
+package com.andrea.perez.youtube.dao;
 
 
 import java.util.List;
