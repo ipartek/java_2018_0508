@@ -1,0 +1,107 @@
+
+body{
+	height:30rem;
+	padding-bottom: 10px;
+	padding-top: 100px;
+	text-align: center;
+}
+
+.video-placeholder iframe{
+	width: 800px;
+}
+
+/*Estilos navbar*/
+.fixed-top {
+    position: fixed;
+    top: 0;
+    right: 0;
+    left: 0;
+    z-index: 1030;
+    padding-bottom: 0px;
+    padding-top: 0px;
+}
+
+/*Estilo para el icono de usuario*/
+.fa-user{
+    color:white;
+    font-size: 15px;
+    padding-top: 0px;
+}
+
+/*Estilo navbar usuario*/
+.usuario{
+	
+    display: flex;
+    align-items: right;
+    padding-left: 20rem;
+}
+.usuario label{
+	color:white;
+}
+.usuario input{
+	margin: 6px;
+}
+
+.navbar-dark .navbar-nav .nav-link {
+    color: white!important;
+}
+
+.nav-item a{
+	padding-left: 5px;
+}
+.navbar-brand img{
+	width:40px;
+	height:35px;
+}
+
+
+
+.form-inline .usuario{
+	
+    display: flex;
+    align-items: right;
+    padding-left: 30rem;
+}
+.form-inline .usuario label{
+	color:white;
+}
+
+.navbar-dark .navbar-nav .nav-link {
+    color: white!important;
+}
+
+
+/*Estilo para el logo*/
+.logo{
+    width:50px;
+}
+
+.error{
+	height:30rem;
+	padding-bottom: 10px;
+	padding-top: 100px;
+	text-align: center;
+}
+
+.pb-5, .py-5 {
+	margin-top: 10px;
+    padding-bottom: 1rem!important;
+    padding-top: 1rem!important;
+}
+
+/**/
+main.container{
+	min-height:70vh;
+}
+
+/*Estilos del comentario*/
+.form-comentario textarea {
+	width: 85% !important;
+}
+
+.modal-body{
+	max-height: 50vh;
+	overflow-y: scroll;
+}
+
+

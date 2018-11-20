@@ -1,0 +1,49 @@
+img{
+	    width: 25px;
+    margin-top: -6px;
+}
+i{
+	width: 35px;
+}
+
+i.list{
+	width: 50px;
+}
+
+.container {
+    width: 1080px;
+    padding-top: 20px;
+}
+.input-group-addon {
+    padding: 6px 0px;
+    font-size: 20px;
+    color: #fcf8e3;
+    background-color: #5cb85c;
+}
+
+.alert {
+    padding: 15px;
+    padding-left: 30px;
+    padding-right: 40px;
+    margin-bottom: 0px;
+    margin-top: 15px;
+    border: 1px solid transparent;
+    border-radius: 4px;
+}
+.thumbnail{
+	    width: 135px;
+}
+
+.panel.panel-color{
+	background-color:#060354;
+	color:#E3E2F7;
+}
+
+.hover-hand{
+	cursor: pointer;
+}
+
+.modal-body{
+	max-height: 25vh;
+	overflow-y: scroll;
+}
