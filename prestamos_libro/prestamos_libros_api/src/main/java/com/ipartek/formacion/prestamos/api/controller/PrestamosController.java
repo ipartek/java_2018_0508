@@ -143,7 +143,7 @@ public class PrestamosController {
 		return response;
 	}
 
-	@ApiOperation(value = "Devolver prestamo", response = Prestamo.class, notes = "Campos obligatorios:<ol><li><b>identificador del libro</b></li><li><b>identificador del alumno</b></li><li><b>fecha que se realiza el prestamo</b></li><li><b>Fecha de devolución del libro</b></li></ol>")
+	@ApiOperation(value = "Devolver prestamo", response = Prestamo.class, notes = "Campos obligatorios:<ol><li><b>identificador del libro</b></li><li><b>identificador del alumno</b></li><li><b>fecha que se realiza el prestamo</b></li><li><b>Fecha retorno</b></li></ol>")
 	@RequestMapping(value = "/{idLibro}/{idALumno}/{fecha_prestado}", method = RequestMethod.DELETE)
 	public ResponseEntity<Object> devolver(@PathVariable long idLibro, @PathVariable long idALumno,
 			@PathVariable Date fecha_prestado, @RequestBody Prestamo prestamo) throws Exception {
