@@ -30,7 +30,7 @@
               <div class="card-header"><h4>Acceso Administrador</h4></div>
 
               <div class="card-body">
-                <form method="POST" action="<%=request.getContextPath()%>/login" class="needs-validation" novalidate="">
+                <form method="POST" action="<%=request.getContextPath()%>/login" class="needs-validation">
                   <div class="form-group">
                     <label for="usuario">Usuario</label>
                     <input id="usuario" type="text" class="form-control" name="usuario" value="${cookie.cNombre.value}" tabindex="1" required autofocus>
