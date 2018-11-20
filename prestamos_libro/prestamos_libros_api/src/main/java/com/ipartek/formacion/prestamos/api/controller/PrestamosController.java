@@ -312,6 +312,7 @@ public class PrestamosController {
 					l.setEditorial(e);
 
 					prestamo.setLibro(l);
+					LOG.debug("Prestamo modificado correctamente");
 					
 					response = new ResponseEntity<>(prestamo, HttpStatus.OK);
 				} else {
