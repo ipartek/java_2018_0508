@@ -49,7 +49,7 @@ public class UsuarioController extends HttpServlet {
 	}
 
 	public void init(ServletConfig config) throws ServletException {
-		usuarioService = new ServiceUsuario();
+		usuarioService = ServiceUsuario.getInstance();
 
 	}
 

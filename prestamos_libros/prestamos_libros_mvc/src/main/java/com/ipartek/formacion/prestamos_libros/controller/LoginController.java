@@ -38,7 +38,7 @@ public class LoginController extends HttpServlet {
 	 * @see Servlet#init(ServletConfig)
 	 */
 	public void init(ServletConfig config) throws ServletException {
-		prestamoService = new ServicePrestamo();
+		prestamoService = ServicePrestamo.getInstance();
 	}
 
 	/**

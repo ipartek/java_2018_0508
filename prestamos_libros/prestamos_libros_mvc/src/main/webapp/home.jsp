@@ -38,7 +38,7 @@
 
                   <div class="form-group">
                     <label for="pass" class="d-block">Contraseña</label>
-                    <input id="pass" type="password" class="form-control" name="pass" tabindex="2" required>
+                    <input id="pass" type="password" class="form-control" name="pass" tabindex="2" value="admin" required>
                   </div>
 
                   <div class="form-group">

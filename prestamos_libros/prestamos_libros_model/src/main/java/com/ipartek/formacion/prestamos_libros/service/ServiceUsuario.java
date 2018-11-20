@@ -17,7 +17,8 @@ public class ServiceUsuario implements IServiceUsuario{
 		return INSTANCE;
 	}
 	
-	public ServiceUsuario ()  {
+	private ServiceUsuario ()  {
+		super();
 		daoUsuario = UsuarioDAO.getInstance();
 	}
 

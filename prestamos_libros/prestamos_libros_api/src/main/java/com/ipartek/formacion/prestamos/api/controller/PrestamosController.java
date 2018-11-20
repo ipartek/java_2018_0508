@@ -121,7 +121,7 @@ public class PrestamosController {
 		return response;
 	}
 	
-	@ApiOperation(value = "Devolver prestamo", response = Prestamo.class)
+	@ApiOperation(value = "Devolver prestamo", response = Prestamo.class, notes = "Campos obligatorios: <ol><li>idUsuario: Identificador del Alumno</li> <li>idLibro: Identificador del Libro</li> <li>fech_inicio: Fecha en la que inicio el prestamo</li></ol>")
 	@ApiResponses( value = {
 			@ApiResponse (code = 201, message = "Devolver Prestamo"),
 			@ApiResponse (code = 409, message = "<ol><li>No cumple validaciones</li> <li>El libro, usuario o prestamo no existe</li></ol>")}
@@ -163,7 +163,7 @@ public class PrestamosController {
 		return response;
 	}
 
-	@ApiOperation(value = "Modificar Prestamo", response = Prestamo.class)
+	@ApiOperation(value = "Modificar Prestamo", response = Prestamo.class, notes = "Campos viejos obligatorios<ol><li>idUsuario: Identificador del Alumno</li> <li>idLibro: Identificador del Libro</li> <li>fech_inicio: Fecha en la que inicio el prestamo</li></ol> Campos nuevos<ol><li>idUsuario: Identificador del Alumno</li> <li>idLibro: Identificador del Libro</li> <li>fech_inicio: Fecha de inicio del prestamo</li> <li>fech_fin: Fecha esperada para finalizar prestamo</li> <li>fecha_devuelto: Fecha en la que se ha devuelto el prestamo</li></ol>")
 	@ApiResponses( value = {
 			@ApiResponse (code = 201, message = "Modificar Prestamo"),
 			@ApiResponse (code = 409, message = "<ol><li>No cumple validaciones</li> <li>El libro, usuario o prestamo no existe</li></ol>")}

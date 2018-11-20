@@ -17,7 +17,8 @@ public class ServiceLibro implements IServiceLibro{
 		return INSTANCE;
 	}
 	
-	public ServiceLibro ()  {
+	private ServiceLibro ()  {
+		super();
 		daoLibro = LibroDAO.getInstance();
 	}
 
