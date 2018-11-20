@@ -7,7 +7,8 @@ import javax.servlet.annotation.WebListener;
 import javax.servlet.http.HttpSessionAttributeListener;
 import javax.servlet.http.HttpSessionBindingEvent;
 
-import com.ipartek.formacion.pojo.Usuario;
+import com.ipartek.formacion.youtube.pojo.Usuario;
+
 
 /**
  * Application Lifecycle Listener implementation class ContadorUsuariosListener

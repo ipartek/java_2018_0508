@@ -14,9 +14,9 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.ipartek.formacion.controller.pojo.Alert;
-import com.ipartek.formacion.model.UsuarioDAO;
-import com.ipartek.formacion.pojo.Rol;
-import com.ipartek.formacion.pojo.Usuario;
+import com.ipartek.formacion.youtube.model.UsuarioDAO;
+import com.ipartek.formacion.youtube.pojo.Rol;
+import com.ipartek.formacion.youtube.pojo.Usuario;
 
 /**
  * Servlet implementation class UserController

@@ -1,4 +1,4 @@
-package com.ipartek.formacion.model;
+package com.ipartek.formacion.youtube.model;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -7,9 +7,9 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.ipartek.formacion.pojo.Comentario;
-import com.ipartek.formacion.pojo.Usuario;
-import com.ipartek.formacion.pojo.Video;
+import com.ipartek.formacion.youtube.pojo.Comentario;
+import com.ipartek.formacion.youtube.pojo.Usuario;
+import com.ipartek.formacion.youtube.pojo.Video;
 import com.mysql.jdbc.Statement;
 
 public class ComentarioArrayDAO implements Crudable<Comentario>{

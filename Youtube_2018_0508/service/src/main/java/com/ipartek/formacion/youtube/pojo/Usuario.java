@@ -1,4 +1,4 @@
-package com.ipartek.formacion.pojo;
+package com.ipartek.formacion.youtube.pojo;
 
 public class Usuario {
 	private long id;

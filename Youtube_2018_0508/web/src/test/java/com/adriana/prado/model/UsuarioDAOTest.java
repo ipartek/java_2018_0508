@@ -8,8 +8,9 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import com.ipartek.formacion.model.UsuarioDAO;
-import com.ipartek.formacion.pojo.Usuario;
+import com.ipartek.formacion.youtube.model.UsuarioDAO;
+import com.ipartek.formacion.youtube.pojo.Usuario;
+
 
 public class UsuarioDAOTest {
 	

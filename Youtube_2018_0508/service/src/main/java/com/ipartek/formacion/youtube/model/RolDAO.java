@@ -1,4 +1,4 @@
-package com.ipartek.formacion.model;
+package com.ipartek.formacion.youtube.model;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -6,7 +6,7 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.ipartek.formacion.pojo.Rol;
+import com.ipartek.formacion.youtube.pojo.Rol;
 import com.mysql.jdbc.Statement;
 
 public class RolDAO implements Crudable<Rol>{

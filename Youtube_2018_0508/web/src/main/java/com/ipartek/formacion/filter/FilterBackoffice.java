@@ -15,8 +15,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import com.ipartek.formacion.pojo.Rol;
-import com.ipartek.formacion.pojo.Usuario;
+import com.ipartek.formacion.youtube.pojo.Rol;
+import com.ipartek.formacion.youtube.pojo.Usuario;
+
 
 /**
  * Filtramos todas las request que coincidan con urlPatterns = { "/backoffice/*" }

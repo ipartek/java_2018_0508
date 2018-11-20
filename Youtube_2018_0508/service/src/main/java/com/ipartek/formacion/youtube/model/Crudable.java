@@ -1,4 +1,4 @@
-package com.ipartek.formacion.model;
+package com.ipartek.formacion.youtube.model;
 
 import java.util.List;
 

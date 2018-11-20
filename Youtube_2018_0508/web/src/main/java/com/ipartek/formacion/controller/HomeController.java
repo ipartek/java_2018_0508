@@ -17,11 +17,10 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.ipartek.formacion.controller.pojo.Alert;
-import com.ipartek.formacion.model.ComentarioArrayDAO;
-import com.ipartek.formacion.model.VideoDAO;
-import com.ipartek.formacion.pojo.Comentario;
-import com.ipartek.formacion.pojo.Usuario;
-import com.ipartek.formacion.pojo.Video;
+import com.ipartek.formacion.youtube.model.ComentarioArrayDAO;
+import com.ipartek.formacion.youtube.model.VideoDAO;
+import com.ipartek.formacion.youtube.pojo.Usuario;
+import com.ipartek.formacion.youtube.pojo.Video;
 
 /**
  * Servlet implementation class HomeController

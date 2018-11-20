@@ -10,10 +10,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.ipartek.formacion.controller.pojo.Alert;
-import com.ipartek.formacion.model.ComentarioArrayDAO;
-import com.ipartek.formacion.model.RolDAO;
-import com.ipartek.formacion.model.UsuarioDAO;
-import com.ipartek.formacion.model.VideoDAO;
+import com.ipartek.formacion.youtube.model.ComentarioArrayDAO;
+import com.ipartek.formacion.youtube.model.RolDAO;
+import com.ipartek.formacion.youtube.model.UsuarioDAO;
+import com.ipartek.formacion.youtube.model.VideoDAO;
 
 /**
  * Servlet implementation class BackofficeController
