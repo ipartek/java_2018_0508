@@ -1,0 +1,58 @@
+body{
+	font-size: 23px;
+}
+
+span.badge {
+    font-size: 44px!important;
+}
+
+a.tam_Font {
+    font-size: 10px;
+}
+
+.thumbnail{
+	width: 150px;
+	height: 75px;
+}
+
+i.tam_back {
+    font-size: 69px;
+}
+
+.comentarioCorto{
+	overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 500px;
+    height: 20px;
+    white-space: nowrap;
+}
+
+td {
+    font-size: 17px;
+}
+
+div.modal-fondo{
+	background-color: #fcf8e3;
+}
+
+
+.pie-tarjeta{
+	padding-left: 4px;
+}
+
+.btn-aprobar{
+	    font-size: 1em;
+}
+
+/*icono cursor mano*/
+.hover-hand{
+	cursor:pointer;
+}
+
+.modal-body {
+    max-height: 50vh;
+    overflow-y: auto;
+}
+
+
+
