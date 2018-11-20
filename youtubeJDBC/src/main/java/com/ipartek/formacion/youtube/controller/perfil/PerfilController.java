@@ -16,10 +16,10 @@ import javax.servlet.http.HttpSession;
 
 import org.jsoup.Connection.Request;
 
+import com.ipartek.formacion.youtube.controller.pojo.Alert;
 import com.ipartek.formacion.youtube.model.ComentariosDao;
 import com.ipartek.formacion.youtube.model.UsuariosDaoJDBC;
 import com.ipartek.formacion.youtube.model.VideoDAO;
-import com.ipartek.formacion.youtube.pojo.Alert;
 import com.ipartek.formacion.youtube.pojo.Comentario;
 import com.ipartek.formacion.youtube.pojo.Usuario;
 import com.ipartek.formacion.youtube.pojo.Video;
