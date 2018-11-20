@@ -1,7 +1,6 @@
 package com.andrea.perez.controller.back;
 
 import java.io.IOException;
-import java.util.ArrayList;
 
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
@@ -12,7 +11,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.andrea.perez.model.ComentarioDAO;
 import com.andrea.perez.pojo.Alert;
-import com.andrea.perez.pojo.Comentario;
 
 /**
  * Servlet implementation class backofficeComentariosAprobar
