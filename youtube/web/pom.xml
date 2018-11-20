@@ -10,6 +10,7 @@
 
 	<!-- variables comunes para todo el POM -->
 	<properties>
+		<app.name>youtube</app.name>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<java-version>1.8</java-version>
 		<junit.version>4.12</junit.version>
@@ -136,6 +137,6 @@
 		</plugins>
 
 
-		<finalName>youtube</finalName>
+		<finalName>${app.name}</finalName>
 	</build>
 </project>
