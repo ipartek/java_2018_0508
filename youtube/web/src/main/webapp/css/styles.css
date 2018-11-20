@@ -1,0 +1,101 @@
+*{
+	margin:0;
+	padding:0;
+}
+
+img{
+	max-width:100%;
+}
+
+nav li img{
+	width:25px;
+	height:auto;
+}
+
+.youtube-logo{
+	color:#cc181e;
+}
+
+.selector-idiomas li a{
+	opacity:0.5;
+}
+
+.selector-idiomas li a:hover{
+	opacity:1;
+}
+
+.selector-idiomas li a.idioma-activo{
+	opacity:1;
+}
+
+.container{
+	margin:0 auto;
+	max-width:1024px;
+	width:100%;
+}
+
+.container h1:first-of-type{
+	margin-top:1em;
+}
+
+.logeado{
+	color:#fff;
+}
+
+.enlaceRegistro:hover{
+	cursor:pointer;
+}
+
+.cabecera-error{
+	text-align:center;
+	margin-bottom:2em;
+	margin-top:5em;
+}
+
+.cabecera-error img{
+	width:300px;
+	height:auto;
+}
+
+.error{
+	margin:0 auto;
+	margin-bottom:3em;
+	background-color:#ccc;
+	border:1px solid dimgray;
+	border-radius:10px;
+	text-align:center;
+	padding:2em;
+	width:50%;
+}
+
+.error a{
+	background-color:#f00;
+	border-color:#f00;
+}
+
+.error a:hover{
+	color:#f00;
+	background-color:#fff;
+}
+
+/*	FORMULARIO COMENTARIO
+****************************************/
+
+div.form-comentario textarea{
+	width:85%!important;
+	resize:none;
+}
+
+.detalleComentario{
+	padding:0 1.2em;
+}
+
+.comentario-publico{
+	max-height:200px;
+	overflow-y:auto;
+}
+
+footer.home-footer{
+	display:flex;
+	justify-content:space-around;
+}
