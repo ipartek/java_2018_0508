@@ -1,7 +1,12 @@
 # Proyecto encargado del acceso a datos, capa Servicio.
 
-## Instalación BBDD:
+## Instalación BBDD
 	-Para instalar la base de datos ejecutar el script youtube.sql
+	
+## Conexión a BBDD
+	-Se utiliza un DriverManager para establecer la conexión.
+	-La cofiguración se encuentra en el fichero database.properties.
+	-Para comprobar si establece conexión, ejecute el test ConnectionManagerTest.
 
 ## Diagrama BBDD
 	
