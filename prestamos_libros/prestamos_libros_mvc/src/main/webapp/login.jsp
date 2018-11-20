@@ -1,8 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
 <%@ include file="includes/header.jsp" %>
+	<c:if test="${not empty alerta}">
+		<%@ include file="../includes/alerta.jsp"%>
+	</c:if>
     <!-- Login Register area Start-->
     <div class="login-content">
+    
         <!-- Login -->
         <div class="nk-block toggled" id="l-login">
         	<form action="login" method="post">
