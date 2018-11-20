@@ -1,32 +1,38 @@
 package com.ipartek.formacion.youtube.model;
 
+import java.io.InputStream;
 import java.sql.Connection;
+import java.sql.DriverManager;
+import java.util.Properties;
 
-import javax.naming.InitialContext;
-import javax.sql.DataSource;
+import org.jboss.logging.Logger;
 
 public class ConnectionManager {
 
 	private static Connection conn;
+	
+	private static final Logger LOG = Logger.getLogger(ConnectionManager.class);
 
-	public static Connection getConnection() {
+	public static Connection getConnection() throws Exception {
 
 		conn = null;
 
-		try {
-			InitialContext ctx = new InitialContext();
-			DataSource ds = (DataSource) ctx.lookup("java:comp/env/jdbc/mydb");
+		// cargar properties
+		Properties prop = new Properties();
 
-			if (ds == null) {
-				throw new Exception("Data source no encontrado!");
-			}
+		InputStream input = ConnectionManager.class.getClassLoader().getResourceAsStream("database.properties");
+		prop.load(input);
+		
+		LOG.debug("Cargado fichero de propiedades database.properties.");
 
-			conn = ds.getConnection();
+		// comprobar que exista .jar para mysql
+		Class.forName(prop.getProperty("ddbb.driver")).newInstance();
 
-		} catch (Exception e) {
-
-			e.printStackTrace();
-		}
+		// crear conexion
+		conn = DriverManager.getConnection(prop.getProperty("ddbb.url"), prop.getProperty("ddbb.user"),
+				prop.getProperty("ddbb.pass"));
+		
+		LOG.debug("Conexión establecida.");
 
 		return conn;
 

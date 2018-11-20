@@ -1,11 +1,13 @@
-# Lista de Reproducción de Youtube
+# Lista de Reproducción de Youtube 
 
-Permite crear listas de reproducción de youtube personalizadas mediante la API de youtube.com
+## Aplicación WEB en Java 3.0 y Bootstrap 4 (Server-Side)
 
-Se han creado 4 proyectos independientes:
+Aplicación web del proeycto Lista de Reproducción de Youtube que permite crear listas de reproducción personalizadas, así como crear usuarios con diferentes y roles y publicar comentarios.
 
-	- Angular 	-> Cliente en Angular 2 y Bootstrap 4, que se alimenta de la API Rest.
-	- API Rest 	-> Servicio facilitado para los clientes.
-	- Web App	-> Proyecto web (Server-side) realizado en Java 3.0 y Bootstrap 4.
-	- Service	-> Capa del Modelo en el Modelo-Vista-Controlador.
+Se incluyen los siguientes archivos:
+
+	-	BBDD_Youtube.sql -> Script para la creación de la base de datos, incluye datos de prueba.
+	-	Diagrama_BBDDYoutube.png -> Diagrama de entidad-relación de la base de datos.
+
+![alt text](https://github.com/ipartek/java_2018_0508/blob/luisgaldos/youtube/model/Diagrama_BBDDYoutube.png)
 	

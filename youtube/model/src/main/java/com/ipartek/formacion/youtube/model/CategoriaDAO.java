@@ -17,7 +17,7 @@ public class CategoriaDAO implements CrudAble<Categoria> {
 	private final String SQL_GET_ALL = "SELECT idcategoria, nombre FROM categoria ORDER BY idcategoria ASC LIMIT 1000;";
 	private final String SQL_GET_BY_ID = "SELECT idcategoria, nombre FROM categoria WHERE idrol = ?;";
 	private final String SQL_GET_BY_NAME = "SELECT idcategoria, nombre FROM categoria WHERE nombre = ?;";
-	
+
 	private final String SQL_INSERT = "INSERT INTO categoria (nombre) VALUES (?);";
 	private final String SQL_UPDATE = "UPDATE categoria SET nombre = ? WHERE idcategoria = ?;";
 	private final String SQL_DELETE = "DELETE FROM categoria WHERE idcategoria = ?;";
@@ -33,10 +33,10 @@ public class CategoriaDAO implements CrudAble<Categoria> {
 		return INSTANCE;
 	}
 
-	//------------ GETTERS ---------------//
-	//-----------------------------------//
+	// ------------ GETTERS ---------------//
+	// -----------------------------------//
 	@Override
-	public List<Categoria> getAll() throws SQLException {
+	public List<Categoria> getAll() throws Exception {
 		ArrayList<Categoria> categorias = new ArrayList<Categoria>();
 
 		try (Connection cnx = ConnectionManager.getConnection();
@@ -47,13 +47,13 @@ public class CategoriaDAO implements CrudAble<Categoria> {
 
 				categorias.add(rowMapper(rs)); // Mapear ResultSet
 			}
-		} 
+		}
 
 		return categorias;
 	}
 
 	@Override
-	public Categoria getById(long l) throws SQLException {
+	public Categoria getById(long l) throws Exception {
 		Categoria categoria = null;
 
 		try (Connection cnx = ConnectionManager.getConnection();
@@ -67,12 +67,12 @@ public class CategoriaDAO implements CrudAble<Categoria> {
 				}
 
 			}
-		} 
+		}
 
 		return categoria;
 	}
-	
-	public Categoria getByName(String categNombre) throws SQLException {
+
+	public Categoria getByName(String categNombre) throws Exception {
 		Categoria categoria = null;
 
 		try (Connection cnx = ConnectionManager.getConnection();
@@ -86,18 +86,18 @@ public class CategoriaDAO implements CrudAble<Categoria> {
 				}
 
 			}
-		} 
+		}
 		return categoria;
 	}
-	
-	//------------ SETTERS ---------------//
-	//-----------------------------------//
+
+	// ------------ SETTERS ---------------//
+	// -----------------------------------//
 	@Override
-	public boolean insert(Categoria pojo) throws SQLException {
+	public boolean insert(Categoria pojo) throws Exception {
 		boolean result = false;
 
-		Connection cnx = ConnectionManager.getConnection();
-				PreparedStatement ps = cnx.prepareStatement(SQL_INSERT, Statement.RETURN_GENERATED_KEYS);
+		try (Connection cnx = ConnectionManager.getConnection();
+				PreparedStatement ps = cnx.prepareStatement(SQL_INSERT, Statement.RETURN_GENERATED_KEYS);) {
 
 			ps.setString(1, pojo.getNombre());
 
@@ -114,48 +114,48 @@ public class CategoriaDAO implements CrudAble<Categoria> {
 					}
 				}
 			}
+		}
 
 		return result;
 	}
 
 	@Override
-	public boolean update(Categoria pojo) throws SQLException {
+	public boolean update(Categoria pojo) throws Exception {
 		boolean result = false;
-		
+
 		try (Connection cnx = ConnectionManager.getConnection();
-			PreparedStatement ps = cnx.prepareStatement(SQL_UPDATE)) {
+				PreparedStatement ps = cnx.prepareStatement(SQL_UPDATE)) {
 
 			ps.setString(1, pojo.getNombre());
-			ps.setLong  (2, pojo.getId());
-			
-			if (ps.executeUpdate() == 1 ) {
-				result = true;
-			}			
-		}
-	
-		return result;
-	}
+			ps.setLong(2, pojo.getId());
 
-	@Override
-	public boolean delete(long l) throws SQLException {
-		boolean result = false;
-
-		try (Connection cnx = ConnectionManager.getConnection();
-				PreparedStatement ps = cnx.prepareStatement(SQL_DELETE);) {
-
-			ps.setLong(1, l);			
-			
-			if ( ps.executeUpdate() == 1 ) {
+			if (ps.executeUpdate() == 1) {
 				result = true;
 			}
 		}
 
 		return result;
 	}
-	
-	
-	//--------- PRIVATE FUNCTIONS --------//
-	//-----------------------------------//
+
+	@Override
+	public boolean delete(long l) throws Exception {
+		boolean result = false;
+
+		try (Connection cnx = ConnectionManager.getConnection();
+				PreparedStatement ps = cnx.prepareStatement(SQL_DELETE);) {
+
+			ps.setLong(1, l);
+
+			if (ps.executeUpdate() == 1) {
+				result = true;
+			}
+		}
+
+		return result;
+	}
+
+	// --------- PRIVATE FUNCTIONS --------//
+	// -----------------------------------//
 	private Categoria rowMapper(ResultSet rs) throws SQLException {
 
 		Categoria categoria = new Categoria();
@@ -164,7 +164,7 @@ public class CategoriaDAO implements CrudAble<Categoria> {
 
 			categoria.setId(rs.getLong("idcategoria"));
 			categoria.setNombre(rs.getString("nombre"));
-			
+
 		}
 
 		return categoria;

@@ -109,7 +109,7 @@ public class VideoDAO implements CrudAble<Video> {
 	// ------------ SETTERS ---------------//
 	// -----------------------------------//
 	@Override
-	public boolean insert (Video pojo) throws SQLException {
+	public boolean insert (Video pojo) throws Exception {
 		boolean result = false;
 
 		try (Connection cnx = ConnectionManager.getConnection();
@@ -137,7 +137,7 @@ public class VideoDAO implements CrudAble<Video> {
 	}
 
 	@Override
-	public boolean update (Video pojo) throws SQLException {
+	public boolean update (Video pojo) throws Exception {
 
 		boolean result = false;
 		try (Connection cnx = ConnectionManager.getConnection();

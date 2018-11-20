@@ -163,7 +163,7 @@ public class ComentarioDAO implements CrudAble<Comentario> {
 	// ------------ SETTERS ---------------//
 	// -----------------------------------//
 	@Override
-	public boolean insert(Comentario pojo) throws SQLException {
+	public boolean insert(Comentario pojo) throws Exception {
 		boolean result = false;
 
 		try (Connection cnx = ConnectionManager.getConnection();
@@ -191,7 +191,7 @@ public class ComentarioDAO implements CrudAble<Comentario> {
 	}
 
 	@Override
-	public boolean update(Comentario pojo) throws SQLException {
+	public boolean update(Comentario pojo) throws Exception {
 
 		boolean result = false;
 		try (Connection cnx = ConnectionManager.getConnection();

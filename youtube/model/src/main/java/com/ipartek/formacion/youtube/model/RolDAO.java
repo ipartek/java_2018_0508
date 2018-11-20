@@ -36,7 +36,7 @@ public class RolDAO implements CrudAble<Rol> {
 	//------------ GETTERS ---------------//
 	//-----------------------------------//
 	@Override
-	public List<Rol> getAll() throws SQLException {
+	public List<Rol> getAll() throws Exception {
 		ArrayList<Rol> roles = new ArrayList<Rol>();
 
 		try (Connection cnx = ConnectionManager.getConnection();
@@ -53,7 +53,7 @@ public class RolDAO implements CrudAble<Rol> {
 	}
 
 	@Override
-	public Rol getById(long l) throws SQLException {
+	public Rol getById(long l) throws Exception {
 		Rol rol = null;
 
 		try (Connection cnx = ConnectionManager.getConnection();
@@ -72,7 +72,7 @@ public class RolDAO implements CrudAble<Rol> {
 		return rol;
 	}
 	
-	public Rol getByName(String usuarioNombre) throws SQLException {
+	public Rol getByName(String usuarioNombre) throws Exception {
 		Rol rol = null;
 
 		try (Connection cnx = ConnectionManager.getConnection();
@@ -93,7 +93,7 @@ public class RolDAO implements CrudAble<Rol> {
 	//------------ SETTERS ---------------//
 	//-----------------------------------//
 	@Override
-	public boolean insert(Rol pojo) throws SQLException {
+	public boolean insert(Rol pojo) throws Exception {
 		boolean result = false;
 
 		Connection cnx = ConnectionManager.getConnection();
@@ -119,7 +119,7 @@ public class RolDAO implements CrudAble<Rol> {
 	}
 
 	@Override
-	public boolean update(Rol pojo) throws SQLException {
+	public boolean update(Rol pojo) throws Exception {
 		boolean result = false;
 		
 		try (Connection cnx = ConnectionManager.getConnection();
@@ -137,7 +137,7 @@ public class RolDAO implements CrudAble<Rol> {
 	}
 
 	@Override
-	public boolean delete(long l) throws SQLException {
+	public boolean delete(long l) throws Exception {
 		boolean result = false;
 
 		try (Connection cnx = ConnectionManager.getConnection();

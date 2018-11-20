@@ -17,7 +17,7 @@ import java.util.List;
 public interface CrudAble<P> {
 	
 	//Create
-	boolean insert(P pojo) throws SQLException;
+	boolean insert(P pojo) throws SQLException, Exception;
 	
 	//Read
 	/**
@@ -34,10 +34,10 @@ public interface CrudAble<P> {
 	P getById(long id) throws Exception;
 	
 	//Upadte
-	boolean update(P pojo) throws SQLException;
+	boolean update(P pojo) throws SQLException, Exception;
 	
 	//Delete
-	boolean delete(long id) throws SQLException;
+	boolean delete(long id) throws SQLException, Exception;
 
 	
 

@@ -53,7 +53,7 @@ public class UsuarioDAO implements CrudAble<Usuario> {
 	// ------------ GETTERS ---------------//
 	// -----------------------------------//
 	@Override
-	public List<Usuario> getAll() throws SQLException {
+	public List<Usuario> getAll() throws Exception {
 
 		ArrayList<Usuario> usuarios = new ArrayList<Usuario>();
 		Usuario usuario = null;
@@ -72,7 +72,7 @@ public class UsuarioDAO implements CrudAble<Usuario> {
 	}
 
 	@Override
-	public Usuario getById(long l) throws SQLException {
+	public Usuario getById(long l) throws Exception {
 		Usuario usuario = null;
 
 		try (Connection cnx = ConnectionManager.getConnection();
@@ -90,7 +90,7 @@ public class UsuarioDAO implements CrudAble<Usuario> {
 		return usuario;
 	}
 
-	public Usuario getByName(String usuarioNombre) throws SQLException {
+	public Usuario getByName(String usuarioNombre) throws Exception {
 		Usuario usuario = null;
 
 		try (Connection cnx = ConnectionManager.getConnection();
@@ -108,7 +108,7 @@ public class UsuarioDAO implements CrudAble<Usuario> {
 		return usuario;
 	}
 
-	public Usuario login(Usuario pojo) throws SQLException {
+	public Usuario login(Usuario pojo) throws Exception {
 		Usuario usuario = null;
 
 		Connection cnx = ConnectionManager.getConnection();
@@ -131,7 +131,7 @@ public class UsuarioDAO implements CrudAble<Usuario> {
 	// ------------ SETTERS ---------------//
 	// -----------------------------------//
 	@Override
-	public boolean insert(Usuario pojo) throws SQLException {
+	public boolean insert(Usuario pojo) throws Exception {
 		boolean result = false;
 
 		try (Connection con = ConnectionManager.getConnection();
@@ -159,7 +159,7 @@ public class UsuarioDAO implements CrudAble<Usuario> {
 	}
 
 	@Override
-	public boolean update(Usuario pojo) throws SQLException {
+	public boolean update(Usuario pojo) throws Exception {
 		boolean result = false;
 
 		try (Connection cnx = ConnectionManager.getConnection();
@@ -178,7 +178,7 @@ public class UsuarioDAO implements CrudAble<Usuario> {
 	}
 
 	@Override
-	public boolean delete(long l) throws SQLException {
+	public boolean delete(long l) throws Exception {
 		boolean result = false;
 
 		try (Connection cnx = ConnectionManager.getConnection();
