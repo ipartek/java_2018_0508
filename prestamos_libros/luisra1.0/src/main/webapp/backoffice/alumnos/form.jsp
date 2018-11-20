@@ -27,7 +27,7 @@
 						<label class="col-2" for="nombre">Nombre</label>
 					</div>
 				  	<div class="col-8">
-				   		<input class="col-10" type="text" class="form-control" name="nombre" id="nombre" value="${ alumno.nombre }" autofocus>
+				   		<input class="col-10" type="text" class="form-control" name="nombre" id="nombre" value="${ alumno.nombre }" min="2" max="50" autofocus>
 				   	</div>
 				</div>
       		     

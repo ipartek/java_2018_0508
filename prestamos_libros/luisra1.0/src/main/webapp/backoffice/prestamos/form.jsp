@@ -37,7 +37,7 @@
 			                        <label for="nuevoTitulo">Título</label> 
 			                    </div>
 			                    <div class="col">
-			                        <input type="text" name="nuevoTitulo">
+			                        <input type="text" name="nuevoTitulo" >
 			                    </div>
 			            </div>
             
@@ -46,7 +46,7 @@
 			                        <label for="nuevoIsbn">ISBN</label>   
 			                    </div>
 			                    <div class="col">
-			                        <input type="text" name="nuevoIsbn">
+			                        <input type="text" name="nuevoIsbn" >
 			                    </div>
 			            </div>
                 
@@ -55,21 +55,21 @@
 			                        <label for="ejemplares">Num Ejemplares</label> 
 			                    </div>
 			                    <div class="col">
-			                        <input type="number" name="ejemplares">
+			                        <input type="number" name="ejemplares" >
 			                    </div>
 			            </div>
             
-			            <div class="form-row" id="rowEditorial" style="display:none; border:1px solid black;">
+			            <div class="form-row" id="rowEditorial" style="display:none; ">
 			                <div class="col-4">     
 			                    <label for="editorial">Editorial</label> 
 			                </div>
 			                <div class="col-4">
-			                    <select name="editorial" id="editorial" class="form-control">   
+			                    <select name="editorial" id="editorial" class="form-control"  >   
 			                        <c:forEach items="${ editoriales }" var="editorial">
-			                            <option  value="${ editorial.id }" ${ ( editorial.id == libro.editorial.id) ? 'selected' : '' }>${ editorial.nombre }</option>
+			                            <option  value="${ editorial.id }" ${ ( editorial.id == libro.editorial.id) ? 'selected' : '' } >${ editorial.nombre }</option>
 			                        </c:forEach>
 			                    </select>
-			                    <input type="hidden" class="form-control"  name="nuevaEditorial" id="nuevaEditorial" placeholder="nombre de la nueva editorial" >
+			                    <input type="hidden" class="form-control"  name="nuevaEditorial" id="nuevaEditorial" placeholder="nombre de la nueva editorial" required="required">
 			                </div>
 			                <div class="col-2">
 	                            <button id="botonNuevadit" type="button" onclick="ocultarEditoriales()" class="btn btn-lg btn-primary">Nueva editorial</button>
@@ -114,7 +114,7 @@
 				   		<label for="fechaInicio">Fecha de Inicio</label>
 				   	</div>
 				   	<div class="col-4">
-				   		<input type="date" class="form-control" name="fechaInicio" value="${ prestamo.fechaInicio }">
+				   		<input type="date" class="form-control" name="fechaInicio" value="${ prestamo.fechaInicio }" >
 					</div>
 				</div>
 				

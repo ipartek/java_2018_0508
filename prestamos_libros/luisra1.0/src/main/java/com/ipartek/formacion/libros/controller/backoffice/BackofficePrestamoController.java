@@ -142,6 +142,9 @@ public class BackofficePrestamoController extends HttpServlet implements ICRUDCo
 		} catch (Exception e) { // Errores que no son de SQL
 			LOG.debug(e.getMessage());
 			alert = new Alert();
+			alert.setTipo(Alert.DANGER);
+			alert.setTexto(e.getMessage());
+			e.printStackTrace();
 			
 		
 		} finally {
@@ -185,8 +188,15 @@ public class BackofficePrestamoController extends HttpServlet implements ICRUDCo
 	@Override
 	public void guardar(HttpServletRequest request) throws Exception {
 		
+		if(fechaInicio == null || "".contains(fechaInicio)) {
+			
+			alert.setTipo(Alert.DANGER);
+			alert.setTexto("El campo fecha de inicio es requerido");
+			throw new Exception("El capo fecha de inicio es requerido");
+		}
 		
 		if(nuevoAlumno != null && !"".contains(nuevoAlumno)) {
+			nuevoAlumno = nuevoAlumno.trim();
 			ArrayList<Alumno> alumnos = (ArrayList<Alumno>) alumnoServicio.listar();
 			Alumno nAlumno = new Alumno();
 			nAlumno.setNombre(nuevoAlumno);
@@ -198,17 +208,21 @@ public class BackofficePrestamoController extends HttpServlet implements ICRUDCo
 			
 			id_alumno = String.valueOf(nAlumno.getId());
 		}
+		if(editorial == null) {
+			editorial = "";
+		}
 		
-		if( !nuevoTitulo.equals("") && !nuevoIsbn.equals("") && !editorial.equals("")	|| !nuevaEditorial.equals("")  ) {
+		nuevaEditorial = nuevaEditorial.trim();
+		if( !nuevoTitulo.equals("") && !nuevoIsbn.equals("") && !editorial.equals("")  || !nuevaEditorial.equals("")  ) {
 			Editorial e = new Editorial();
-			if(nuevaEditorial != null && !nuevaEditorial.contains(nuevaEditorial)) {
+			if(nuevaEditorial != null && !"".contains(nuevaEditorial)) {
 				
 				e.setNombre(nuevaEditorial);
 				editorialServicio.crear(e);
 				editorial = String.valueOf(e.getId());
 			}else {
 				e = editorialServicio.obtener(Long.parseLong(editorial));
-				System.out.println("as");
+				
 			}
 			Libro l = new Libro();
 			l.setTitulo(nuevoTitulo);
@@ -220,6 +234,17 @@ public class BackofficePrestamoController extends HttpServlet implements ICRUDCo
 		}
 		
 		//prestamoServicio.obtenerPorId(Long.parseLong(id_alumno),Long.parseLong(id_libro), parseDate(fechaInicio));
+		
+		if(id_alumno == null) {
+			alert.setTipo(Alert.DANGER);
+			alert.setTexto("El campo alumno debe estar completo");
+			throw new Exception("El campo alumno debe estar completo");
+		}
+		if(id_libro == null) {
+			alert.setTipo(Alert.DANGER);
+			alert.setTexto("Los campos del libro deben estar completos");
+			throw new Exception("Los campos del libro deben estar completos");
+		}
 		
 		if ("-1".equals(id)) {
 			

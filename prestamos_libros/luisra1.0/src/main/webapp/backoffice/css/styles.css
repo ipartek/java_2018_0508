@@ -72,6 +72,10 @@ table {
 	width: 100%;
 }
 
+#editorial{
+	width: 280%;
+}
+
 #tablaOrdenable_wrapper {
 	
 	width: 100%;
@@ -85,7 +89,7 @@ table {
 }
 
 .custom-sidebar{
-	width: 19vh;
+	width: 16vh;
 	font-size:15px;
 	margin:0;
     padding:0;

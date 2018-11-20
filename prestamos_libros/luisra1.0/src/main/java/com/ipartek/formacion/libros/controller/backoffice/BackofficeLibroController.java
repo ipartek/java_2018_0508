@@ -85,6 +85,33 @@ public class BackofficeLibroController extends HttpServlet implements ICRUDContr
 		try {
 
 			getParameters(request);
+			
+			if(titulo != null) {
+				alert = new Alert();
+				if(titulo.length() <= 2 || titulo.length() >= 50) {
+					
+					throw new Exception("El nombre del Libro debe tener entre 2 y 50 caracteres");
+				}
+			}
+			
+			if(isbn != null) {
+				alert = new Alert();
+				if(isbn.length() <= 11 || isbn.length() >= 19) {
+					
+					throw new Exception("El Codigo ISBN debe contenerentre 11 y 19 caracteres");
+				}
+			}
+			
+			if(idEditorial == null || "".contains(idEditorial)) {
+				if(nuevaEditorial != null) {
+					alert = new Alert();
+					if(nuevaEditorial.length() <= 2 || nuevaEditorial.length() >= 50) {
+						
+						throw new Exception("El nombre de la editorial debe contener entre 2 y 50 caracteres ");
+					}
+				}
+			}
+			
 
 			switch (op) {
 			case OP_ELIMINAR:
@@ -108,8 +135,7 @@ public class BackofficeLibroController extends HttpServlet implements ICRUDContr
 		} catch (Exception e) {
 			alert = new Alert();
 			alert.setTipo(Alert.DANGER);
-			alert.setTexto("La editorial con la que intenta dar de alta o actulizar el nuevo libro ya existe\n"
-					+ "Intentelo con una de las existentes y introduzca una nueva");
+			alert.setTexto(e.getMessage());
 			LOG.debug(e.getMessage());
 			view = VIEW_FORMULARIO;
 			

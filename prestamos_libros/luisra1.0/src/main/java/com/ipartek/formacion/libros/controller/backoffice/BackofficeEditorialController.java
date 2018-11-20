@@ -75,6 +75,15 @@ public class BackofficeEditorialController extends HttpServlet implements ICRUDC
 		try {
 
 			getParameters(request);
+			
+			if(nombre != null) {
+				alert = new Alert();
+				nombre= nombre.trim();
+				if(nombre.length() <= 2 || nombre.length() >= 50) {
+					
+					throw new Exception("El nombre de la Editorial debe tener entre 2 y 50 caracteres");				
+				}
+			}
 
 			switch (op) {
 			case OP_ELIMINAR:
@@ -107,6 +116,8 @@ public class BackofficeEditorialController extends HttpServlet implements ICRUDC
 		} catch (Exception e) { // Errores que no son de SQL
 			LOG.debug(e.getMessage());
 			alert = new Alert();
+			alert.setTipo(Alert.DANGER);
+			alert.setTexto(e.getMessage());
 			view = VIEW_LISTADO;
 			
 			
