@@ -1,0 +1,43 @@
+i{
+	color: #FFF;
+}
+
+ul.idioma a{
+	text-decoration: none;
+	padding: 5px;
+	color: #FFF;
+}
+
+ul.idioma li.active a{
+	color: #ffc107!important;
+	text-decoration: underline;	
+}	
+
+div.botonCrear{
+	margin-bottom: 10px;
+    margin-top: 10px;
+    margin-left: 0px;
+    padding: 1em;
+}
+
+
+td{
+	text-align: center;
+}
+
+
+/*******************************************************/
+.form-comentario textarea{
+	width: 85% !important;
+	resize: none;
+	overflow-y: scroll
+}
+
+p.comentario{
+	max-height:200px;
+	overflow-y: scroll;
+	
+}
+
+.form-comentario input[type="submit"]{
+}
