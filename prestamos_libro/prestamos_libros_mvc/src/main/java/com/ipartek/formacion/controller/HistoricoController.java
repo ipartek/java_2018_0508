@@ -2,6 +2,7 @@ package com.ipartek.formacion.controller;
 
 import java.io.IOException;
 import java.sql.Date;
+import java.util.List;
 
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
@@ -29,8 +30,6 @@ public class HistoricoController extends HttpServlet {
 	private final static Logger LOG = Logger.getLogger(HistoricoController.class);
 
 	private static ServicePrestamo servicePrestamo;
-	private static ServiceAlumno serviceAlumno;
-	private static ServiceLibro serviceLibro;
 
 	private static final String VIEW_HISTORY_PRESTAMO = "historico/listaHistorico.jsp";
 	private static final String VIEW_FORM_MODIFICAR = "historico/formPrestamoModificar.jsp";
@@ -60,16 +59,14 @@ public class HistoricoController extends HttpServlet {
 	public void init(ServletConfig config) throws ServletException {
 		super.init(config);
 		servicePrestamo = ServicePrestamo.getInstance();
-		serviceAlumno = ServiceAlumno.getInstance();
-		serviceLibro = ServiceLibro.getInstance();
+
 	}
 
 	@Override
 	public void destroy() {
 		super.destroy();
 		servicePrestamo = null;
-		serviceAlumno = null;
-		serviceLibro = null;
+
 	}
 
 	/**
@@ -126,6 +123,9 @@ public class HistoricoController extends HttpServlet {
 
 	private void irFormulario(HttpServletRequest request) throws Exception {
 
+		List<Libro> librosDis = servicePrestamo.librosDisponibles();
+		List<Alumno> alumnosDis = servicePrestamo.alumnosDisponibles();
+			
 		Prestamo p = new Prestamo();
 
 		Libro l = new Libro();
@@ -138,11 +138,14 @@ public class HistoricoController extends HttpServlet {
 
 		p.setFecha_prestado(Date.valueOf(fechaInicio));
 
+		
 		p = servicePrestamo.buscarPorId(p);
+		librosDis.add(p.getLibro());
+		alumnosDis.add(p.getAlumno());
 
 		request.setAttribute("prestamo", p);
-		request.setAttribute("libros", serviceLibro.listar());
-		request.setAttribute("alumnos", serviceAlumno.listar());
+		request.setAttribute("libros", librosDis);
+		request.setAttribute("alumnos", alumnosDis);
 		view = VIEW_FORM_MODIFICAR;
 	}
 
@@ -157,10 +160,10 @@ public class HistoricoController extends HttpServlet {
 			} else {
 				alert = new Alert(Alert.ALERT_DANGER, "Ha ocurrido un error no controlado.");
 				LOG.error("Ha ocurrido un error no controlado.");
-				
+
 			}
 		} catch (Exception e) {
-			
+
 			view = VIEW_FORM_MODIFICAR;
 			LOG.error(e);
 		}
