@@ -1,4 +1,4 @@
-package com.ipartek.formacion.youtube;
+package com.ipartek.formacion.youtube.pojo;
 
 public class Usuario {
 

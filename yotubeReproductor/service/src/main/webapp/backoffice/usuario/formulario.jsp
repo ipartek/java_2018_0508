@@ -1,5 +1,5 @@
 
-<%@page import="com.ipartek.formacion.youtube.Usuario"%>
+<%@page import="com.ipartek.formacion.youtube.pojo.Usuario"%>
 <%@ include file="../includes/header.jsp" %>
 <%@ include file="../includes/nav.jsp" %>
 

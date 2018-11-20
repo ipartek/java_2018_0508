@@ -1,4 +1,4 @@
-<%@page import="com.ipartek.formacion.youtube.controller.back.CrudControllable"%>
+<%@page import="com.ipartek.formacion.youtube.pojo.CrudControllable"%>
 <%@ include file="../includes/header.jsp" %>
 <%@ include file="../includes/nav.jsp" %>
 

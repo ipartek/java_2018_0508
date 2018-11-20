@@ -1,4 +1,4 @@
-package com.ipartek.formacion.youtube.model;
+package com.ipartek.formacion.youtube.dao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -7,8 +7,9 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.ipartek.formacion.youtube.Comentario;
-import com.ipartek.formacion.youtube.Usuario;
+import com.ipartek.formacion.youtube.connection.ConnectionManager;
+import com.ipartek.formacion.youtube.pojo.Comentario;
+import com.ipartek.formacion.youtube.pojo.Usuario;
 
 public class ComentarioDAO implements CrudAble<Comentario> {
 	public static ComentarioDAO INSTANCE = null;

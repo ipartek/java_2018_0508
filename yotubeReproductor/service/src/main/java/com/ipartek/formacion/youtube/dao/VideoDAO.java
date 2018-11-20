@@ -1,4 +1,4 @@
-package com.ipartek.formacion.youtube.model;
+package com.ipartek.formacion.youtube.dao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -7,8 +7,9 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.ipartek.formacion.youtube.Usuario;
-import com.ipartek.formacion.youtube.Video;
+import com.ipartek.formacion.youtube.connection.ConnectionManager;
+import com.ipartek.formacion.youtube.pojo.Usuario;
+import com.ipartek.formacion.youtube.pojo.Video;
 
 public class VideoDAO implements CrudAble<Video> {
 

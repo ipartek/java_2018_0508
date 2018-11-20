@@ -4,7 +4,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 
 <%@page import="com.ipartek.formacion.youtube.controller.HomeController"%>
-<%@page import="com.ipartek.formacion.youtube.Video"%>
+<%@page import="com.ipartek.formacion.youtube.pojo.Video"%>
 <%@page import="java.util.ArrayList"%>
 
 
