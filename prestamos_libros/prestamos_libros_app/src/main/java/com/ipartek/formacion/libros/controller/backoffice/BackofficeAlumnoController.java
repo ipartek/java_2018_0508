@@ -37,18 +37,18 @@ public class BackofficeAlumnoController extends HttpServlet implements ICRUDCont
 
 	@Override
 	public void init(ServletConfig config) throws ServletException {
-		
+
 		super.init(config);
 		alumnoService = ServiceAlumno.getInstance();
-		
+
 	}
 
 	@Override
 	public void destroy() {
-		
+
 		super.destroy();
 		alumnoService = null;
-		
+
 	}
 
 	/**
@@ -71,7 +71,7 @@ public class BackofficeAlumnoController extends HttpServlet implements ICRUDCont
 			throws ServletException, IOException {
 
 		alert = null;
-		
+
 		try {
 
 			getParameters(request);
@@ -118,36 +118,56 @@ public class BackofficeAlumnoController extends HttpServlet implements ICRUDCont
 	@Override
 	public void listar(HttpServletRequest request) throws Exception {
 
-		
 		view = VIEW_LISTADO;
 		request.getSession().setAttribute("alumnos", alumnoService.listar());
 	}
 
 	@Override
 	public void guardar(HttpServletRequest request) throws SQLException {
-		Alumno alumno = new Alumno();
-
-		alumno.setId(Long.parseLong(id));
-		alumno.setNombre(nombre);
+		Alumno a;
+		boolean resul = false;
+		alert = new Alert();
 
 		try {
 
-			if (alumno.getId() > 0) {
-				
-				alumnoService.modificar(alumno);
-				//daoAlumno.update(alumno); // UPDATE
-				alert = new Alert(Alert.SUCCESS, "Alumno modificado.");
-				listar(request);
+			if (nombre != null && !nombre.trim().isEmpty() && nombre.length() > 3) {
 
-			} else {
-				
-				alumnoService.crear(alumno);
-				//daoAlumno.insert(alumno); // INSERT
-				alert = new Alert(Alert.SUCCESS, "Alumno creado.");
-				listar(request);
-				
+				a = alumnoService.obtener(Long.parseLong(id));
+
+				if (a != null) { // Modificar Alumno encontrado
+
+					a.setNombre(nombre);
+					resul = alumnoService.modificar(a);
+
+					if (resul == true) {
+						alert.setTipo(Alert.SUCCESS);
+						alert.setTexto("Alumno modificado correctamente.");
+					}
+
+				} else { // Crear alumno
+
+					a = new Alumno();
+					a.setNombre(nombre);
+					resul = alumnoService.crear(a);
+
+					if (resul == true) {
+
+						alert.setTipo(Alert.SUCCESS);
+						alert.setTexto("Alumno insertado correctamente.");
+
+					}
+				}
+
+				request.setAttribute("alumno", a);
+
+			} else { // Nombre vacío
+
+				alert.setTipo(Alert.WARNING);
+				alert.setTexto("El nombre debe contener al menos 3 caracteres.");
+
 			}
 
+			listar(request);
 		} catch (SQLIntegrityConstraintViolationException e) { // Error entrada duplicada
 
 			alert = new Alert(Alert.WARNING, "el alumno ya existe.");
@@ -165,9 +185,6 @@ public class BackofficeAlumnoController extends HttpServlet implements ICRUDCont
 			view = VIEW_FORMULARIO;
 			e.printStackTrace();
 		}
-
-		
-		request.setAttribute("alumno", alumno);
 
 	}
 

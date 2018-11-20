@@ -19,22 +19,22 @@ import com.ipartek.formacion.libros.pojo.Alumno;
  */
 @WebServlet("/backoffice/alumnos_")
 public class AlumnosController extends HttpServlet implements ICRUDController {
-	
+
 	private static final long serialVersionUID = 1L;
 
 	private static final String VISTA_LISTA = "alumnos/index.jsp";
 	private static AlumnoDAO alumnosDAO;
-	
+
 	private String op;
 	private String id;
-	
+
 	Alert alert;
 	String vista;
 	String nombre;
 
 	@Override
 	public void init(ServletConfig config) throws ServletException {
-		
+
 		super.init(config);
 		alumnosDAO = AlumnoDAO.getInstance();
 	}
@@ -57,7 +57,7 @@ public class AlumnosController extends HttpServlet implements ICRUDController {
 		try {
 			alert = new Alert();
 			getParameters(request);
-			
+
 			switch (op) {
 
 			case OP_IR_FORMULARIO:
@@ -65,27 +65,27 @@ public class AlumnosController extends HttpServlet implements ICRUDController {
 				break;
 
 			case OP_ELIMINAR:
-				
+
 				eliminar(request);
 				break;
 
 			case OP_GUARDAR:
-				
+
 				guardar(request);
 				break;
 
 			default:
-				
+
 				listar(request);
 			}
 
 		} catch (Exception e) {
-			
+
 			e.printStackTrace();
 			alert = new Alert();
-	
+
 		} finally {
-			
+
 			request.getSession().setAttribute("alert", alert);
 			request.getRequestDispatcher(vista).forward(request, response);
 		}
@@ -102,58 +102,67 @@ public class AlumnosController extends HttpServlet implements ICRUDController {
 	}
 
 	@Override
-	public void listar(HttpServletRequest request) throws SQLException, Exception {
-		
-		vista = VISTA_LISTA;
-		request.getSession().setAttribute("alumnos", alumnosDAO.getAll());
-		//Reseteamos la alarma al cargar el listado que por defecto sale mensaje de error
-		if(alumnosDAO.getAll() != null) {
-			alert.setTexto("");
-			alert.setTipo("");
-		}
-		
-
-	}
-
-	@Override
 	public void guardar(HttpServletRequest request) throws SQLException, Exception {
 
-		Alumno a = new Alumno();
+		Alumno a;
 		boolean resul = false;
 		alert = new Alert();
-		
-		a = alumnosDAO.getById(Long.parseLong(id));
 
-		if (a != null) {
-			a.setNombre(nombre);
-			resul = alumnosDAO.update(a);
+		if (nombre != null && !nombre.trim().isEmpty() && nombre.length() > 3) {
 
-			if (resul == true) {
-				
-				alert.setTipo(Alert.SUCCESS);
-				alert.setTexto("Alumno modificado correctamente.");
+			a = alumnosDAO.getById(Long.parseLong(id));
+
+			if (a != null) { // Modificar Alumno encontrado
+
+				a.setNombre(nombre);
+				resul = alumnosDAO.update(a);
+
+				if (resul == true) {
+					alert.setTipo(Alert.SUCCESS);
+					alert.setTexto("Alumno modificado correctamente.");
+				}
+
+			} else { // Crear alumno
+
+				a = new Alumno();
+				a.setNombre(nombre);
+				resul = alumnosDAO.insert(a);
+
+				if (resul == true) {
+
+					alert.setTipo(Alert.SUCCESS);
+					alert.setTexto("Alumno insertado correctamente.");
+
+				}
 			}
-		} else {
-			
-			a = new Alumno();
-			a.setNombre(nombre);
-			resul = alumnosDAO.insert(a);
-			
-			if (resul == true) {
-				
-				alert.setTipo(Alert.SUCCESS);
-				alert.setTexto("Alumno insertado correctamente.");
-			}
+		} else { // Nombre vacío
+
+			alert.setTipo(Alert.WARNING);
+			alert.setTexto("El nombre debe contener al menos 3 caracteres.");
+
 		}
-	
+
 		listar(request);
 
 	}
 
 	@Override
+	public void listar(HttpServletRequest request) throws SQLException, Exception {
+
+		vista = VISTA_LISTA;
+		request.getSession().setAttribute("alumnos", alumnosDAO.getAll());
+		// Reseteamos la alarma al cargar el listado que por defecto sale mensaje de
+		// error
+		if (alumnosDAO.getAll() != null) {
+			alert.setTexto("");
+			alert.setTipo("");
+		}
+
+	}
+
+	@Override
 	public void irFormularioDeAlta(HttpServletRequest request) throws NumberFormatException, Exception {
-		
-		
+
 	}
 
 	@Override
@@ -162,14 +171,14 @@ public class AlumnosController extends HttpServlet implements ICRUDController {
 		boolean resul = false;
 
 		resul = alumnosDAO.delete(id);
-		
+
 		if (resul) {
-			
+
 			alert = new Alert();
 			alert.setTipo(Alert.SUCCESS);
 			alert.setTexto("Alumno eliminado correctamente");
 		}
-		
+
 		listar(request);
 
 	}

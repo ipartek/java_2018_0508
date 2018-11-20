@@ -60,9 +60,13 @@
 	</div> <!--  /.row -->
 	
 	<!-- REPRODUCTOR -->
+	<div class="row">
+	
 	<!-- 16:9 ASPECT RATIO -->
-	<div class="embed-responsive embed-responsive-16by9">
-	  <div class="embed-responsive-item" id="video-placeholder"></div>
+		<div class="embed-responsive embed-responsive-21by9">
+	  	<div class="embed-responsive-item" id="video-placeholder"></div>
+	  
+	 </div>
      
      <!-- PLAYER CONTROLS -->
   		

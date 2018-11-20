@@ -12,7 +12,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.ipartek.formacion.libros.pojo.Alert;
-import com.ipartek.formacion.libros.pojo.Editorial;
 import com.ipartek.formacion.libros.pojo.Libro;
 import com.ipartek.formacion.libros.service.ServiceEditorial;
 import com.ipartek.formacion.libros.service.ServiceLibro;
@@ -26,7 +25,6 @@ public class BackofficeLibroController extends HttpServlet implements ICRUDContr
 	private static final long serialVersionUID = 1L;
 	private static ServiceLibro libroService = null;
 	private static ServiceEditorial editorialService = null;
-	
 
 	private static final String VIEW_LISTADO = "libros/index.jsp";
 	private static final String VIEW_FORMULARIO = "libros/form.jsp";
@@ -40,8 +38,6 @@ public class BackofficeLibroController extends HttpServlet implements ICRUDContr
 
 	private String titulo;
 	private String isbn;
-	private String idEditorial;
-	private String nuevaEditorial;
 
 	@Override
 	public void init(ServletConfig config) throws ServletException {
@@ -78,7 +74,7 @@ public class BackofficeLibroController extends HttpServlet implements ICRUDContr
 			throws ServletException, IOException {
 
 		alert = null;
-		
+
 		try {
 
 			getParameters(request);
@@ -103,13 +99,13 @@ public class BackofficeLibroController extends HttpServlet implements ICRUDContr
 			}
 
 		} catch (Exception e) {
+
 			alert = new Alert();
 			alert.setTipo(Alert.DANGER);
 			alert.setTexto("La editorial con la que intenta dar de alta o actulizar el nuevo libro ya existe\n"
 					+ "Intentelo con una de las existentes.");
 			e.printStackTrace();
 			view = VIEW_FORMULARIO;
-			
 
 		} finally {
 
@@ -126,8 +122,7 @@ public class BackofficeLibroController extends HttpServlet implements ICRUDContr
 		n_ejemplares = request.getParameter("ejemplares");
 		titulo = request.getParameter("titulo");
 		isbn = request.getParameter("isbn");
-		idEditorial = request.getParameter("editorial");
-		nuevaEditorial = request.getParameter("nuevaEditorial");
+
 	}
 
 	@Override
@@ -141,40 +136,39 @@ public class BackofficeLibroController extends HttpServlet implements ICRUDContr
 
 	@Override
 	public void guardar(HttpServletRequest request) throws Exception {
-		Libro libro = new Libro();
-
-		libro.setId(Long.parseLong(id));
-		libro.setTitulo(titulo);
-		libro.setIsbn(isbn);
-		
-		if(idEditorial != null) {
-			Editorial editorial = new Editorial();
-			editorial.setId(Integer.parseInt(idEditorial));
-			libro.setEditorial(editorial);
-		}
-		
-		if(nuevaEditorial != null && !"".contentEquals(nuevaEditorial)) {
-			Editorial editorial = new Editorial();
-			editorial.setNombre(nuevaEditorial);
-			editorialService.crear(editorial);
-			libro.setEditorial(editorial);
-		}
-		
-
+		Libro libro;
 		try {
 
-			if (libro.getId() > 0) {
+			if (titulo != null && !titulo.trim().isEmpty() && titulo.length() < 3) {
 
-				libroService.modificar(libro); // UPDATE
-				alert = new Alert(Alert.SUCCESS, "Libro modificado.");
-				listar(request);
+				libro = new Libro();
 
-			} else {
+				libro.setId(Long.parseLong(id));
+				libro.setTitulo(titulo);
+				libro.setIsbn(isbn);
 
-				libroService.crearVarios(libro, Integer.parseInt(n_ejemplares));
-				alert = new Alert(Alert.SUCCESS, "Libro creado.");
-				listar(request);
+				if (libro.getId() > 0) {
+
+					libroService.modificar(libro); // UPDATE
+					alert = new Alert(Alert.SUCCESS, "Libro modificado.");
+					listar(request);
+
+				} else {
+
+					libroService.crearVarios(libro, Integer.parseInt(n_ejemplares));
+					alert = new Alert(Alert.SUCCESS, "Libro creado.");
+					listar(request);
+
+				}
+				request.setAttribute("libro", libro);
+			} else { // Nombre vacío
+
+				alert.setTipo(Alert.WARNING);
+				alert.setTexto("El nombre de la editorial debe contener al menos 3 caracteres.");
+
 			}
+
+			view = VIEW_FORMULARIO;
 
 		} catch (SQLIntegrityConstraintViolationException e) { // Error entrada duplicada
 
@@ -193,8 +187,6 @@ public class BackofficeLibroController extends HttpServlet implements ICRUDContr
 			view = VIEW_FORMULARIO;
 			e.printStackTrace();
 		}
-
-		request.setAttribute("libro", libro);
 
 	}
 

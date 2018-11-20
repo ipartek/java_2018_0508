@@ -15,12 +15,6 @@
               <h1 class="page-header">Historial de Préstamos</h1>
           </div> 
       </div> 
-     
-      <div class="row margin-bottom-5">
-      		<div class="col-md-4">
-      			<a href="prestamos?id=-1&op=<%= ICRUDController.OP_IR_FORMULARIO %>" class="btn btn-success mb-3">Crear Nuevo</a>
-      		</div>	
-      </div>
       
       <div class="row">
       

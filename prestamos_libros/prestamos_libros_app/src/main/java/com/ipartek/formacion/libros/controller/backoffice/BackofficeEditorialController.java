@@ -15,7 +15,6 @@ import com.ipartek.formacion.libros.pojo.Alert;
 import com.ipartek.formacion.libros.pojo.Editorial;
 import com.ipartek.formacion.libros.service.ServiceEditorial;
 
-
 /**
  * Servlet implementation class BackofficeUsuarioController
  */
@@ -68,7 +67,7 @@ public class BackofficeEditorialController extends HttpServlet implements ICRUDC
 			throws ServletException, IOException {
 
 		alert = null;
-		
+
 		try {
 
 			getParameters(request);
@@ -93,11 +92,11 @@ public class BackofficeEditorialController extends HttpServlet implements ICRUDC
 			}
 
 		} catch (SQLIntegrityConstraintViolationException e) { // Error entrada duplicada
-			
+
 			alert = new Alert(Alert.WARNING, "Esta intentando alterar un registro que tiene relacion con otros");
 
 		} catch (SQLException e) { // Longitud de campos incorrecta
-			
+
 			alert = new Alert(Alert.WARNING, "Alguno de los campos tiene una longitud incorrecta.");
 			e.printStackTrace();
 
@@ -106,6 +105,7 @@ public class BackofficeEditorialController extends HttpServlet implements ICRUDC
 			alert = new Alert();
 			e.printStackTrace();
 			view = VIEW_LISTADO;
+
 		} finally {
 
 			request.getSession().setAttribute("alert", alert);
@@ -120,11 +120,10 @@ public class BackofficeEditorialController extends HttpServlet implements ICRUDC
 		id = request.getParameter("id");
 		nombre = request.getParameter("nombre");
 	}
-	
 
 	@Override
 	public void listar(HttpServletRequest request) throws Exception {
-		
+
 		view = VIEW_LISTADO;
 		request.getSession().setAttribute("editoriales", editorialService.listar());
 	}
@@ -132,31 +131,40 @@ public class BackofficeEditorialController extends HttpServlet implements ICRUDC
 	@Override
 	public void guardar(HttpServletRequest request) throws SQLException {
 		Editorial editorial = new Editorial();
-		
+
 		editorial.setId(Long.parseLong(id));
 		editorial.setNombre(nombre);
 
 		try {
 
-			if (editorial.getId() > 0) {
+			if (nombre != null && !nombre.trim().isEmpty() && nombre.length() > 3) {
+
+				if (editorial.getId() > 0) {
+
+					editorialService.modificar(editorial);// UPDATE
+					alert = new Alert(Alert.SUCCESS, "Editorial modificado.");
+					listar(request);
+				} else {
+
+					editorialService.crear(editorial); // INSERT
+					alert = new Alert(Alert.SUCCESS, "Editorial creado.");
+					listar(request);
+				}
 				
-				editorialService.modificar(editorial);//UPDATE
-				alert = new Alert(Alert.SUCCESS, "Editorial modificado.");
-				listar(request);
-			} else {
-				
-				editorialService.crear(editorial); // INSERT
-				alert = new Alert(Alert.SUCCESS, "Editorial creado.");
-				listar(request);
+			} else { // Nombre vacío
+
+				alert.setTipo(Alert.WARNING);
+				alert.setTexto("El nombre debe contener al menos 3 caracteres.");
+
 			}
 
 		} catch (SQLIntegrityConstraintViolationException e) { // Error entrada duplicada
-			
+
 			alert = new Alert(Alert.WARNING, "La editorial ya existe.");
 			view = VIEW_FORMULARIO;
 
 		} catch (SQLException e) { // Longitud de campos incorrecta
-			
+
 			alert = new Alert(Alert.WARNING, "Alguno de los campos tiene una longitud incorrecta.");
 			view = VIEW_FORMULARIO;
 			e.printStackTrace();
@@ -168,7 +176,6 @@ public class BackofficeEditorialController extends HttpServlet implements ICRUDC
 			e.printStackTrace();
 		}
 
-		
 		request.setAttribute("editorial", editorial);
 
 	}
@@ -178,11 +185,11 @@ public class BackofficeEditorialController extends HttpServlet implements ICRUDC
 		alert = null;
 
 		if (id.equalsIgnoreCase("-1")) {
-			
+
 			request.getSession().setAttribute("editorial", new Editorial());
-		
+
 		} else {
-			
+
 			request.getSession().setAttribute("editorial", editorialService.obtener(Long.parseLong(id)));
 		}
 
@@ -192,24 +199,19 @@ public class BackofficeEditorialController extends HttpServlet implements ICRUDC
 
 	@Override
 	public void eliminar(HttpServletRequest request) throws Exception {
-		
 
-			if (editorialService.eliminar(id)) {
-				
-				alert = new Alert(Alert.SUCCESS, "Editorial eliminado.");
-				view = VIEW_LISTADO;
-				listar(request);
-			}else {
-				
-				alert = new Alert(Alert.WARNING, "No podemos eliminar la editorial porque tiene libros asociados.");
-				view = VIEW_LISTADO;
-				
-			}
+		if (editorialService.eliminar(id)) {
 
-		
+			alert = new Alert(Alert.SUCCESS, "Editorial eliminado.");
+			view = VIEW_LISTADO;
+			listar(request);
+		} else {
 
-			
-		
+			alert = new Alert(Alert.WARNING, "No podemos eliminar la editorial porque tiene libros asociados.");
+			view = VIEW_LISTADO;
+
+		}
+
 	}
 
 }

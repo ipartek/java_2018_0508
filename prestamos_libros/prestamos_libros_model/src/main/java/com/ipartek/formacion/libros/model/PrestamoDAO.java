@@ -123,32 +123,21 @@ public class PrestamoDAO implements CrudAble<Prestamo> {
 			// Se ejecuta el procedimiento almacenado
 			int affectedRows = sp.executeUpdate();
 
-			if (!sp.getBoolean("o_alumno_ok")) {
+			if (affectedRows == 1) {
 
-				throw new Exception("El alumno introducido ya tiene un préstamo asociado.");
+				resul = true;
 
-			} else if (!sp.getBoolean("o_libro_ok")) {
+				pojo.setFechaFin(sp.getDate("o_fecha_fin"));
 
-				throw new Exception("El libro introducido ya tiene un préstamo asociado.");
+				pojo.getLibro().setTitulo(sp.getString("o_libro_titulo"));
+				pojo.getLibro().setIsbn(sp.getString("o_libro_isbn"));
+				pojo.getLibro().getEditorial().setId(sp.getInt("o_editorial_id"));
+				pojo.getLibro().getEditorial().setNombre(sp.getString("o_editorial_nombre"));
 
-			} else {
-
-				if (affectedRows == 1) {
-
-					resul = true;
-
-					pojo.setFechaFin(sp.getDate("o_fecha_fin"));
-
-					pojo.getLibro().setTitulo(sp.getString("o_libro_titulo"));
-					pojo.getLibro().setIsbn(sp.getString("o_libro_isbn"));
-					pojo.getLibro().getEditorial().setId(sp.getInt("o_editorial_id"));
-					pojo.getLibro().getEditorial().setNombre(sp.getString("o_editorial_nombre"));
-
-					pojo.getAlumno().setNombre(sp.getString("o_alumno_nombre"));
-
-				}
+				pojo.getAlumno().setNombre(sp.getString("o_alumno_nombre"));
 
 			}
+
 		}
 		return resul;
 	}
@@ -160,21 +149,19 @@ public class PrestamoDAO implements CrudAble<Prestamo> {
 
 		try (Connection con = ConnectionManager.getConnection();
 				CallableStatement sp = con
-						.prepareCall("{CALL prestamoUpdate(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)}");) {
+						.prepareCall("{CALL prestamoUpdate(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)}");) {
 
 			// Se cargan los parametros de entrada
 			sp.setLong("p_alumno", idAlumno);
 			sp.setLong("p_libro", idlibro);
 			sp.setDate("p_inicio", fechaInicio);
-			
-			sp.setLong("p_nuevoAlumno", idAlumno);
-			sp.setLong("p_nuevoLibro", idlibro);
-			sp.setDate("p_nuevaFecha", fechaInicio);
-			sp.setLong("p_fin", idlibro);
-			sp.setDate("p_retorno", fechaInicio);
 
-			sp.registerOutParameter("o_alumno_ok", Types.BOOLEAN);
-			sp.registerOutParameter("o_libro_ok", Types.BOOLEAN);
+			sp.setLong("p_nuevoAlumno", nuevoAlumno);
+			sp.setLong("p_nuevoLibro", nuevoLibro);
+			sp.setDate("p_nuevaFecha", nuevaFecha);
+			sp.setDate("p_fin", fechaFin);
+			sp.setDate("p_retorno", fechaRetorno);
+
 			sp.registerOutParameter("o_fecha_fin", Types.DATE);
 			sp.registerOutParameter("o_editorial_id", Types.INTEGER);
 			sp.registerOutParameter("o_editorial_nombre", Types.VARCHAR);
@@ -185,21 +172,9 @@ public class PrestamoDAO implements CrudAble<Prestamo> {
 			// Se ejecuta el procedimiento almacenado
 			int affectedRows = sp.executeUpdate();
 
-			if (!sp.getBoolean("o_alumno_ok")) {
+			if (affectedRows == 1) {
 
-				throw new Exception("El alumno introducido ya tiene un préstamo asociado.");
-
-			} else if (!sp.getBoolean("o_libro_ok")) {
-
-				throw new Exception("El libro introducido ya tiene un préstamo asociado.");
-
-			} else {
-
-				if (affectedRows == 1) {
-
-					resul = true;
-
-				}
+				resul = true;
 
 			}
 		}

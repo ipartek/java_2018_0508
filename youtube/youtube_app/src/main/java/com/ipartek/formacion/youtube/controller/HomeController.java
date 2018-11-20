@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.sql.SQLException;
-import java.sql.SQLIntegrityConstraintViolationException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -86,14 +85,14 @@ public class HomeController extends HttpServlet {
 
 			e.printStackTrace();
 		}
-		
+
 		isRandom = getCookieValue("cRandom", request);
 		System.out.println(isRandom);
 
 		// Recoger Parametros genéricos
 		id = request.getParameter("id");
 		op = request.getParameter("op");
-		
+
 		if (idNo == 0) { // Ningún video ha sido cargado
 
 			idNo = videos.get(0).getId(); // Video por defecto
@@ -102,27 +101,27 @@ public class HomeController extends HttpServlet {
 
 			int rndmPos = (int) (Math.random() * videos.size());
 			idNo = videos.get(rndmPos).getId();
-			
+
 			op = null;
-			
+
 			System.out.println(idNo);
 			System.out.println("Random generado");
 
 		} else if (id != null && !id.isEmpty()) { // Casteamos a Long el ID recibido
-			
+
 			idNo = Long.parseLong(id);
 			System.out.println(idNo);
 
-		} 
-		
+		}
+
 		try {
-			
+
 			videoInicio = daoVideo.getById(idNo); // Actualizar video de inicio
-		
+
 		} catch (Exception e) {
-	
+
 			e.printStackTrace();
-		}	
+		}
 
 		setIdioma(request, response); // Establecer idioma
 
@@ -140,16 +139,15 @@ public class HomeController extends HttpServlet {
 
 			e.printStackTrace();
 		}
-		
+
 		// Enviar Atributos
 		enviarAtributos(request);
 
 		// Ir a la vista
 		request.getRequestDispatcher("home.jsp").forward(request, response);
 
-
 	}
-	
+
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
 	 *      response)
@@ -184,13 +182,12 @@ public class HomeController extends HttpServlet {
 				}
 			}
 
-
 			cargarComentarios();
 
 		} catch (Exception e) {
 
 			e.printStackTrace();
-			
+
 		}
 	}
 
@@ -217,9 +214,9 @@ public class HomeController extends HttpServlet {
 					break;
 				}
 			} else {
-				
+
 				insertarVideo(request, videoInicio);
-				
+
 			}
 
 			reproducirPrimerVideo(); // Recuperamos el primer video de la lista
@@ -230,11 +227,9 @@ public class HomeController extends HttpServlet {
 			e.printStackTrace();
 		}
 
-=======
 		// Enviar Atributos
 		enviarAtributos(request);
 		request.getRequestDispatcher("home.jsp").forward(request, response);
->>>>>>> branch 'luisgaldos' of https://github.com/ipartek/java_2018_0508.git
 	}
 
 	private String getCookieValue(String cName, HttpServletRequest request) {
@@ -261,95 +256,6 @@ public class HomeController extends HttpServlet {
 
 	}
 
-<<<<<<< HEAD
-=======
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
-	 *      response)
-	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-
-		try {
-
-			if (op != null) {
-
-				switch (op) {
-				case OP_PREV:
-
-					reproducirSiguiente(false);
-					break;
-
-				case OP_NEXT:
-
-					reproducirSiguiente(true);
-					break;
-
-				case OP_ELIMINAR:
-
-					eliminarVideo(idNo);
-					alert = new Alert(Alert.PRIMARY, "Video eliminado.");
-					break;
-
-				default:
-
-					reproducirPrimerVideo();
-					break;
-				}
-			}
-
-
-			cargarComentarios();
-
-		} catch (Exception e) {
-
-			e.printStackTrace();
-
-		}
-	}
-
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
-	 *      response)
-	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-		try {
-
-			if (op != null) {
-
-				switch (op) {
-				case OP_MODIFICAR:
-
-					modificarVideo(request);
-					alert = new Alert(Alert.SUCCESS, "Video correctamente modificado.");
-					break;
-
-				default:
-
-					reproducirPrimerVideo();
-					break;
-				}
-			} else {
-				
-				insertarVideo(request, videoInicio);
-				alert = new Alert(Alert.SUCCESS, "Video correctamente insertado.");
-			}
-
-			reproducirPrimerVideo(); // Recuperamos el primer video de la lista
-
-		} catch (SQLIntegrityConstraintViolationException e) {
-			
-			alert = new Alert(Alert.WARNING, "Ya existe un video con ese código.");
-		
-		} catch (Exception e) {
-
-			alert = new Alert();
-			e.printStackTrace();
-		}
-		
-	}
->>>>>>> branch 'luisgaldos' of https://github.com/ipartek/java_2018_0508.git
 
 	private void reproducirPrimerVideo() throws Exception {
 
@@ -370,7 +276,7 @@ public class HomeController extends HttpServlet {
 			if (actualPos == videos.size() - 1) { // Estamos en el ÚLTIMO video
 
 				actualPos = 0;
-			
+
 			} else { // Podemos Avanzar
 
 				actualPos++;
@@ -381,7 +287,7 @@ public class HomeController extends HttpServlet {
 			if (actualPos == 0) { // Estamos en el PRIMER video
 
 				actualPos = videos.size() - 1;
-			
+
 			} else { // Podemos retroceder
 
 				actualPos--;
@@ -422,14 +328,11 @@ public class HomeController extends HttpServlet {
 
 			alert = new Alert(Alert.DANGER, "El video no se ha podido insertar. Posiblemente, el código ya exista.");
 
-<<<<<<< HEAD
 		} else {
-			
+
 			alert = new Alert(Alert.SUCCESS, "Video correctamente insertado.");
 		}
-=======
-		} 
->>>>>>> branch 'luisgaldos' of https://github.com/ipartek/java_2018_0508.git
+
 	}
 
 	/**
@@ -476,7 +379,8 @@ public class HomeController extends HttpServlet {
 
 		} else { // Video no eliminado
 
-			alert = new Alert(Alert.DANGER, "El video no puedo eliminarse. Posiblemente, no se encuentre en la base de datos.");
+			alert = new Alert(Alert.DANGER,
+					"El video no puedo eliminarse. Posiblemente, no se encuentre en la base de datos.");
 		}
 
 	}
@@ -490,27 +394,23 @@ public class HomeController extends HttpServlet {
 		try {
 
 			if (idioma == null) {
-				
+
 				idioma = (String) session.getAttribute("locale");
 			}
 
 			if (idioma == null) {
 
 				idioma = request.getLocale().toString(); // Conseguir idioma del usuario a traves de la request
-				
+
 				if (idioma.length() != 5) {
-					
+
 					idioma = "es_ES";
 				}
 			}
 		} catch (Exception e) {
 
 			idioma = "es_ES"; // Idioma por defecto
-<<<<<<< HEAD
-		
-=======
-			
->>>>>>> branch 'luisgaldos' of https://github.com/ipartek/java_2018_0508.git
+
 		} finally {
 
 			session.setAttribute("idioma", idioma); // Guardar en session el idioma
