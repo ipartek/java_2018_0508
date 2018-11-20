@@ -22,6 +22,12 @@
 
 	<!-- librerias o .JARs que necesitamos -->
 	<dependencies>
+	
+		<dependency>
+			<groupId>com.ipartek.formacion.youtube</groupId>
+			<artifactId>youtube-service</artifactId>
+			<version>1.0</version>
+		</dependency>
 
 		<!-- Web Project 3.0 -->
 		<dependency>
