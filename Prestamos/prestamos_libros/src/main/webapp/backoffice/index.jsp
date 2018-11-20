@@ -28,7 +28,7 @@
 	                          <th>Nombre y Apellidos</th>
 	                          <th>Dias Restantes</th>
 	                          <th>Fecha Prestamo</th>
-	                          <th>Fecha Devolución</th> 
+	                          <th>Fecha Fin</th> 
 	                          <th></th>
 	                          <th></th>
                         	</tr>
