@@ -2,6 +2,7 @@ package com.ipartek.formacion.controller;
 
 import java.io.IOException;
 import java.sql.Date;
+import java.util.List;
 
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
@@ -13,9 +14,9 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.log4j.Logger;
 
 import com.ipartek.formacion.controller.pojo.Alert;
+import com.ipartek.formacion.prestamos_libros.pojo.Alumno;
+import com.ipartek.formacion.prestamos_libros.pojo.Libro;
 import com.ipartek.formacion.prestamos_libros.pojo.Prestamo;
-import com.ipartek.formacion.prestamos_libros.service.ServiceAlumno;
-import com.ipartek.formacion.prestamos_libros.service.ServiceLibro;
 import com.ipartek.formacion.prestamos_libros.service.ServicePrestamo;
 
 /**
@@ -26,8 +27,6 @@ public class HistoricoController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
 	private static ServicePrestamo servicePrestamo;
-	private static ServiceAlumno serviceAlumno;
-	private static ServiceLibro serviceLibro;
 	
 	// Logger
 	private final static Logger LOG = Logger.getLogger(HistoricoController.class);
@@ -61,10 +60,6 @@ public class HistoricoController extends HttpServlet {
 		super.init(config);
 		servicePrestamo = ServicePrestamo.getInstance();
 		LOG.trace("Servicio prestamo instanciado");
-		serviceAlumno = ServiceAlumno.getInstance();
-		LOG.trace("Servicio alumno instanciado");
-		serviceLibro = ServiceLibro.getInstance();
-		LOG.trace("Servicio libro instanciado");
 	}
 
 	@Override
@@ -72,10 +67,6 @@ public class HistoricoController extends HttpServlet {
 		super.destroy();
 		servicePrestamo = null;
 		LOG.trace("Servicio prestamo destruido");
-		serviceAlumno = null;
-		LOG.trace("Servicio alumno destruido");
-		serviceLibro = null;
-		LOG.trace("Servicio libro destruido");
 	}
 	
 	/**
@@ -128,11 +119,21 @@ public class HistoricoController extends HttpServlet {
 	private void irFormulario(HttpServletRequest request) throws Exception {
 		Prestamo prestamo = new Prestamo();
 		
+		List<Libro> librosDis = servicePrestamo.librosDisponibles();
+		List<Alumno> alumnosDis = servicePrestamo.alumnosDisponibles();
+		
 		prestamo = servicePrestamo.buscarPorId(Long.parseLong(idLibro), Long.parseLong(idAlumno), Date.valueOf(fechaInicio));
 		
+		librosDis.add(prestamo.getLibro());
+		alumnosDis.add(prestamo.getAlumno());
+		
 		request.setAttribute("prestamo", prestamo);
-		request.setAttribute("libros", serviceLibro.listar());
-		request.setAttribute("alumnos", serviceAlumno.listar());
+		
+		request.setAttribute("libros", librosDis);
+		request.setAttribute("alumnos", alumnosDis);
+		
+//		request.setAttribute("libros", servicePrestamo.librosDisponibles());
+//		request.setAttribute("alumnos", servicePrestamo.alumnosDisponibles());
 		view = VIEW_FORM_MODIFICAR;
 	}
 

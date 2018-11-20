@@ -155,10 +155,22 @@ public class ServicePrestamo implements IServicePrestamo {
 		boolean alumnoEncontrado = false;
 		boolean libroEncontrado = false;
 		
+		if(idAlumnoNew < 1) {
+			idAlumnoNew = idAlumnoOld;
+		}
+		
+		if(idLibroNew < 1) {
+			idLibroNew = idLibroOld;
+		}
+		
+		if(fechaPrestadoNew == null) {
+			fechaPrestadoNew = fechaPrestadoOld;
+		}
+		
 		Prestamo p = new Prestamo(fechaPrestadoNew, new Alumno(idAlumnoNew, ""), new Libro(idLibroNew, "", "", 1, null));
 		comprobaciones(p);
 		
-		if(idAlumnoOld != idAlumnoNew) {
+		if(idAlumnoOld != idAlumnoNew && idAlumnoNew > 0) {
 			ArrayList<Alumno> alumnosDisponibles = (ArrayList<Alumno>) this.alumnosDisponibles();
 			for(int i=0; i<alumnosDisponibles.size();i++) {
 				if(alumnosDisponibles.get(i).getId() == idAlumnoNew) {
@@ -170,7 +182,7 @@ public class ServicePrestamo implements IServicePrestamo {
 			alumnoEncontrado = true;
 		}
 		
-		if(idLibroOld != idLibroNew) {
+		if(idLibroOld != idLibroNew && idLibroNew > 0) {
 			ArrayList<Libro> librosDisponibles = (ArrayList<Libro>) this.librosDisponibles();
 			for(int i=0; i<librosDisponibles.size();i++) {
 				if(librosDisponibles.get(i).getId() == idLibroNew) {
@@ -183,6 +195,17 @@ public class ServicePrestamo implements IServicePrestamo {
 		}
 		
 		if(alumnoEncontrado && libroEncontrado) {
+			
+			p = daoPrestamo.buscarPorId(idLibroOld, idAlumnoOld, fechaPrestadoOld);
+			
+			if(fechaFinal == null) {
+				fechaFinal = p.getFecha_fin();
+			}
+			
+			if(fechaRetorno == null) {
+				fechaRetorno = p.getFecha_retorno();
+			}
+			
 			if (daoPrestamo.updateAll(idAlumnoOld, idLibroOld, fechaPrestadoOld, idAlumnoNew, idLibroNew, fechaPrestadoNew, fechaFinal, fechaRetorno)) {
 				resul=true;
 			}

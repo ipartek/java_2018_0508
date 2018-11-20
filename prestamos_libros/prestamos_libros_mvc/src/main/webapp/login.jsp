@@ -34,12 +34,12 @@
 			                        
 			                        <div class="form-group">
 			                            <label for="nombre_usuario" class="required">Nombre:</label>
-			                            <input type="text" class="form-control" id="user" name="user" autofocus required placeholder="Ej. admin" />
+			                            <input type="text" class="form-control" id="user" name="user" autofocus required placeholder="Ej. admin" value="ander"/>
 			                        </div>
 			                                    
 			                        <div class="form-group">
 			                            <label for="pass" class="required">Contraseña</label>
-			                            <input type="password" class="form-control" id="pass" name="pass" minlength="5" maxlength="10" required placeholder="Contraseña (5 a 10 caracteres)" />
+			                            <input type="password" class="form-control" id="pass" name="pass" minlength="5" maxlength="10" required placeholder="Contraseña (5 a 10 caracteres)" value="12345"/>
 			                        </div>
 			                                    
 			                        <button type="submit" class="btn btn-outline-primary btn-block">Acceder</button>
