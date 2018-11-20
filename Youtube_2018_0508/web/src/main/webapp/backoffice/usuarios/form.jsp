@@ -1,8 +1,8 @@
 <!-- Formulario de Usuarios -->
 
 <%@page import="com.ipartek.formacion.controller.back.BackofficeUsuarioController"%>
-<%@page import="com.ipartek.formacion.pojo.Usuario"%>
-<%@page import="com.ipartek.formacion.pojo.Rol"%>
+<%@page import="com.ipartek.formacion.youtube.pojo.Usuario"%>
+<%@page import="com.ipartek.formacion.youtube.pojo.Rol"%>
 <%@include file="../includes/taglibs.jsp"%>
 
 <%@include file="../includes/header.jsp"%>

@@ -3,10 +3,10 @@
 <%@page import="java.time.LocalDateTime"%>
 <%@page import="java.time.format.DateTimeFormatter"%>
 <%@page import="java.util.Date"%>
-<%@page import="com.ipartek.formacion.pojo.Usuario"%>
+<%@page import="com.ipartek.formacion.youtube.pojo.Usuario"%>
 <%@page import="com.ipartek.formacion.controller.pojo.Alert"%>
 <%@page import="com.ipartek.formacion.controller.HomeController"%>
-<%@page import="com.ipartek.formacion.pojo.Video"%>
+<%@page import="com.ipartek.formacion.youtube.pojo.Video"%>
 <%@page import="java.util.ArrayList"%>
 
 

@@ -1,8 +1,8 @@
 <!-- Formulario de Videos -->
 
 <%@page import="com.ipartek.formacion.controller.back.BackofficeVideoController"%>
-<%@page import="com.ipartek.formacion.pojo.Video"%>
-<%@page import="com.ipartek.formacion.pojo.Usuario"%>
+<%@page import="com.ipartek.formacion.youtube.pojo.Video"%>
+<%@page import="com.ipartek.formacion.youtube.pojo.Usuario"%>
 <%@include file="../includes/taglibs.jsp"%>
 
 <%@include file="../includes/header.jsp"%>

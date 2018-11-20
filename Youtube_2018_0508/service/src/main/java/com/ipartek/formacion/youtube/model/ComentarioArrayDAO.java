@@ -3,7 +3,6 @@ package com.ipartek.formacion.youtube.model;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -149,7 +148,7 @@ public class ComentarioArrayDAO implements Crudable<Comentario>{
 	}
 
 	@Override
-	public boolean update(Comentario comentarioUpdate) throws SQLException {
+	public boolean update(Comentario comentarioUpdate) throws Exception {
 		boolean resul = false;
 		try(Connection con =  ConnectionManager.getConnection();
 			PreparedStatement ps = con.prepareStatement(SQL_UPDATE);){
@@ -167,7 +166,7 @@ public class ComentarioArrayDAO implements Crudable<Comentario>{
 		return resul;
 	}
 	
-	public boolean aprobar(String [] ids) throws SQLException {
+	public boolean aprobar(String [] ids) throws Exception {
 		boolean resul = false;
 		
 		String in = "(";

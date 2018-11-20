@@ -5,8 +5,8 @@
 <%@page import="java.text.SimpleDateFormat"%>
 <%@page import="java.text.DateFormat"%>
 <%@page import="java.net.URLDecoder"%>
-<%@page import="com.ipartek.formacion.pojo.Usuario"%>
-<%@page import="com.ipartek.formacion.pojo.Rol"%>
+<%@page import="com.ipartek.formacion.youtube.pojo.Usuario"%>
+<%@page import="com.ipartek.formacion.youtube.pojo.Rol"%>
 
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top mb-2">
 		<div class="container">
