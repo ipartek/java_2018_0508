@@ -50,9 +50,8 @@ public class PrestamoController extends HttpServlet implements CrudControllable 
 	private String oldFechaInicio;
 	private String fechaDevolucion;
 	private String fechaActual;
-	
-	private final static Logger LOG = Logger.getLogger(PrestamoController.class);
 
+	private final static Logger LOG = Logger.getLogger(PrestamoController.class);
 
 	@Override
 	public void init(ServletConfig config) throws ServletException {
@@ -119,7 +118,7 @@ public class PrestamoController extends HttpServlet implements CrudControllable 
 			throws ServletException, IOException {
 		session = request.getSession();
 		redirect = false;
-		
+
 		try {
 			Date date = new Date();
 			fechaActual = new SimpleDateFormat("yyyy-MM-dd").format(date);
@@ -235,6 +234,8 @@ public class PrestamoController extends HttpServlet implements CrudControllable 
 		request.setAttribute("fechaInicio", fechaInicio);
 		request.setAttribute("fechaFin", fechaFin);
 		request.setAttribute("fechaDevuelto", fechaDevolucion);
+		request.setAttribute("todosLibros", servicioLibro.listar());
+		request.setAttribute("todosAlumnos", servicioAlumno.listar());
 
 	}
 
@@ -282,7 +283,6 @@ public class PrestamoController extends HttpServlet implements CrudControllable 
 		view = "prestamos/formulario.jsp";
 		request.setAttribute("libros", servicioPrestamo.librosDisponibles());
 		request.setAttribute("alumnos", servicioPrestamo.alumnosDisponibles());
-		
 
 	}
 
