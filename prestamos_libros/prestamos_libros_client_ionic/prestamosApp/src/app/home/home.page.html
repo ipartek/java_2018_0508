@@ -1,0 +1,32 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>
+      Prestamos
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+  <h2>Editoriales</h2>
+
+  <ion-grid>
+    <ion-row>
+      <ion-col col-8>
+          <ion-input type="text" placeholder="Nombre" [(ngModel)]="nombre"></ion-input>
+      </ion-col>
+      <ion-col col-4>
+          <button ion-button (click)="crear()">Crear</button>
+      </ion-col>
+    </ion-row>
+
+
+  </ion-grid>
+
+  <p *ngIf="!editoriales">Cargando...</p>
+
+    <ion-list>
+        <button ion-item *ngFor="let editorial of editoriales" (click)="irDetalle(editorial)">
+          {{ editorial }}
+        </button>
+      </ion-list>
+</ion-content>
