@@ -14,8 +14,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.ipartek.formacion.youtube.controller.pojo.Alert;
 import com.ipartek.formacion.youtube.model.UsuarioDAO;
-import com.ipartek.formacion.youtube.pojo.Alert;
 import com.ipartek.formacion.youtube.pojo.Rol;
 import com.ipartek.formacion.youtube.pojo.Usuario;
 
@@ -29,7 +29,7 @@ public class LoginController extends HttpServlet {
 	private static UsuarioDAO daoUsuario;
 	
 	private static final String VIEW_INICIO_ADMIN = "/backoffice/inicio";
-	private static final String VIEW_INICIO_USER = "/perfil";
+	private static final String VIEW_INICIO_USER = "/inicio";
 	 
     
 	/**
