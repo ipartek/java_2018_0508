@@ -1,9 +1,11 @@
-package com.ipartek.formacion.youtube.model;
+package com.ipartek.formacion.youtube.conection;
 
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.fail;
 
 import org.junit.Test;
+
+import com.ipartek.formacion.youtube.conection.ConnectionManager;
 
 public class ConnectionManagerTest {
 
