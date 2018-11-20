@@ -48,7 +48,7 @@ public class EditorialController extends HttpServlet {
 	 * @see HttpServlet#HttpServlet()
 	 */
 	public EditorialController() {
-		super();
+
 		// TODO Auto-generated constructor stub
 	}
 
@@ -56,7 +56,7 @@ public class EditorialController extends HttpServlet {
 	 * @see Servlet#init(ServletConfig)
 	 */
 	public void init(ServletConfig config) throws ServletException {
-		editorialService = new ServiceEditorial();
+		editorialService = ServiceEditorial.getInstance();
 	}
 
 	/**

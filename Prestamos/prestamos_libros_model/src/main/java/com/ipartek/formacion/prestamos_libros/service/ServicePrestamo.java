@@ -12,12 +12,14 @@ import com.ipartek.formacion.prestamos_libros.pojo.Prestamo;
 import com.ipartek.formacion.prestamos_libros.pojo.Usuario;
 
 public class ServicePrestamo implements IServicePrestamo {
+	
+	private static ServicePrestamo INSTANCE = null;
 
 	private PrestamoDAO daoPrestamo;
 	private LibroDAO daoLibro;
 	private UsuarioDAO daoUsuario;
 	
-	private static ServicePrestamo INSTANCE = null;
+	
 	
 	public static final String EXCEPTION_PARAMETROS_INCORRECTOS = "Necesitamos idLibro, idUsuario y FechaInicio";
 	public static final String EXCEPTION_NO_EXISTE_USUARIO_LIBRO = "No podemos prestar si no existe el Usuario o Libro";
@@ -32,6 +34,7 @@ public class ServicePrestamo implements IServicePrestamo {
 	public static final String EXCEPTION_NO_EXISTE_PRESTAMO = "El prestamo no existe";
 	
 	private ServicePrestamo() {	
+		super();
 		daoPrestamo = PrestamoDAO.getInstance();
 		daoLibro = LibroDAO.getInstance();
 		daoUsuario = UsuarioDAO.getInstance();		
@@ -98,9 +101,7 @@ public class ServicePrestamo implements IServicePrestamo {
 
 	@Override
 	public boolean devolver(Prestamo p) throws Exception {
-		
-		
-		boolean resul = false;	
+
 		long idLibro = -1;
 		long idUsuario = -1;
 		Date fInicio = null;

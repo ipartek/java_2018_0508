@@ -7,11 +7,12 @@ import com.ipartek.formacion.prestamos_libros.pojo.Libro;
 
 public class ServiceLibro implements IServiceLibro{
 	
-	private LibroDAO daoLibro = LibroDAO.getInstance();
 	private static ServiceLibro INSTANCE = null;
+	private static LibroDAO daoLibro = LibroDAO.getInstance();
+	
 	
 	private ServiceLibro ()  {
-		// TODO Auto-generated constructor stub
+		super();
 	}
 	public static synchronized ServiceLibro getInstance() {
 		if (INSTANCE == null) {
