@@ -13,7 +13,7 @@ public class ServiceEditorial implements IServiceEditorial{
 	private static ServiceEditorial INSTANCE = null;
 	
 	private ServiceEditorial ()  {
-		// TODO Auto-generated constructor stub
+		super();
 	}
 	
 	public static synchronized ServiceEditorial getInstance() {
