@@ -12,3 +12,8 @@ Usamos **DriverManager** en vez de Pool de conexiones del servidor.
 
 Para poder cambiar la conexión a la bbdd, mirar fichero:
 	src\main\resources\ **database.properties**
+
+## Instalación 
+
+Para poder importar la base datos con sus tablas e información, mirar script **youtube.sql**
+
