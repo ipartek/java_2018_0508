@@ -163,4 +163,11 @@ public class ServiceUsuario implements IServiceUsuario {
 		return resul;
 	}
 
+
+	@Override
+	public List<Usuario> listarPublicos() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }
