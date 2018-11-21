@@ -8,6 +8,6 @@ Proyecto JAR para conectar con la base de datos, encargado de dar servicio al re
 
 ## Configuración conexión de la base de datos.
 	Para poder cambiar la conexión a la BBDD, mirar fichero:
-	src/main/resources/**database.properties
+	src/main/resources/** database.properties
 
 
