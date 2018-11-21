@@ -5,4 +5,4 @@
  * @author Curso
  *
  */
-package com.andrea.perez.pojo;
+package com.andrea.perez.youtube.pojo;

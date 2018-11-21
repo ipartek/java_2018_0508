@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Set;
 
 import javax.validation.ConstraintViolation;
+import javax.validation.Validation;
 import javax.validation.Validator;
 import javax.validation.ValidatorFactory;
 
@@ -15,6 +16,7 @@ import com.andrea.perez.youtube.dao.UsuarioDAO;
 import com.andrea.perez.youtube.pojo.Rol;
 import com.andrea.perez.youtube.pojo.Usuario;
 import com.andrea.perez.youtube.service.IServiceUsuario;
+import com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationException;
 
 public class ServicioUsuario implements IServiceUsuario {
 
@@ -28,7 +30,8 @@ public class ServicioUsuario implements IServiceUsuario {
 	private ServicioUsuario() {
 		super();
 		daoUsuario = UsuarioDAO.getInstance();
-
+		factory = Validation.buildDefaultValidatorFactory();
+		validator = factory.getValidator();
 	}
 
 	public static synchronized ServicioUsuario getInstance() {
@@ -93,7 +96,7 @@ public class ServicioUsuario implements IServiceUsuario {
 
 		try {
 			Rol rol = new Rol();
-			rol.setId(Rol.ROL_USER);
+			rol.setId(Rol.ROL_USER);			
 			usuario.setRol(rol);
 
 			if (violations.size() > 0) {
@@ -108,10 +111,16 @@ public class ServicioUsuario implements IServiceUsuario {
 				throw new Exception(violations.toString());
 				
 			} else {
+				
 				if (daoUsuario.insert(usuario)) {
 					resul = true;
 				}
 			}
+			
+		}catch (MySQLIntegrityConstraintViolationException e) {
+
+			LOG.error(e);
+			throw new Exception(e);
 
 		} catch (Exception e) {
 			LOG.error(e);
@@ -126,6 +135,10 @@ public class ServicioUsuario implements IServiceUsuario {
 		boolean resul = false;
 		Set<ConstraintViolation<Usuario>> violations = validator.validate(usuario);
 
+		Rol rol = new Rol();
+		rol.setId(Rol.ROL_USER);
+		usuario.setRol(rol);
+		
 		try {
 			if (violations.size() > 0) {
 				/* No ha pasado la valiadacion, iterar sobre los mensajes de validacion */
@@ -159,6 +172,19 @@ public class ServicioUsuario implements IServiceUsuario {
 			resul = true;
 		}
 		return resul;
+	}
+
+	@Override
+	public List<Usuario> listarPublicos() {
+		//TODO capar los passwords  y rol
+		List<Usuario> usuarios = new ArrayList<Usuario>();
+
+		try {
+			usuarios = daoUsuario.getAll();
+		} catch (Exception e) {
+			LOG.error(e);
+		}
+		return usuarios;
 	}
 
 }

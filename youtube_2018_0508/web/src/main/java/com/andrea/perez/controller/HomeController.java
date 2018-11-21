@@ -17,10 +17,10 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.andrea.perez.controller.pojo.Alert;
-import com.andrea.perez.model.ComentarioDAO;
-import com.andrea.perez.model.VideoDAO;
-import com.andrea.perez.pojo.Usuario;
-import com.andrea.perez.pojo.Video;
+import com.andrea.perez.youtube.dao.ComentarioDAO;
+import com.andrea.perez.youtube.dao.VideoDAO;
+import com.andrea.perez.youtube.pojo.Usuario;
+import com.andrea.perez.youtube.pojo.Video;
 
 /**
  * Servlet implementation class HomeController

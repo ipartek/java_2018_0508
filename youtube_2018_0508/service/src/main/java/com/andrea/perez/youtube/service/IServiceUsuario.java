@@ -24,11 +24,20 @@ public interface IServiceUsuario{
 	Usuario buscarPorId(long idUsuario);
 
 	/**
-	 * Coleccion de usuarios limitado a 1000 y ordenado por id DESC.
+	 * Coleccion de usuarios limitado a 1000 y ordenado por id DESC(administradores y publico).
 	 * 
 	 * @return
 	 */
 	List<Usuario> listar();
+	
+	
+	/**
+	 * Coleccion de usuarios publicos, no se muestra password
+	 * @return
+	 */
+	List<Usuario> listarPublicos();
+	
+	
 
 	/**
 	 * Creamos un nuevo usuario con Rol por defecto 'usuario' que no es administrador.

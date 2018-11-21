@@ -1,4 +1,4 @@
-package com.andrea.perez.pojo;
+package com.andrea.perez.youtube.pojo;
 
 public class Usuario {
 	private long id;

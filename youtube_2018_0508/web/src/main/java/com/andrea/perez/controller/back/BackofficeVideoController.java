@@ -10,10 +10,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.andrea.perez.controller.pojo.Alert;
-import com.andrea.perez.model.UsuarioDAO;
-import com.andrea.perez.model.VideoDAO;
-import com.andrea.perez.pojo.Usuario;
-import com.andrea.perez.pojo.Video;
+import com.andrea.perez.youtube.dao.UsuarioDAO;
+import com.andrea.perez.youtube.dao.VideoDAO;
+import com.andrea.perez.youtube.pojo.Usuario;
+import com.andrea.perez.youtube.pojo.Video;
 
 /**
  * Servlet implementation class BackofficeUsuarioController

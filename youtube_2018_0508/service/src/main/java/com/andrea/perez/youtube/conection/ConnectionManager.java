@@ -16,6 +16,7 @@ public class ConnectionManager {
 
 		conn = null;
 		try {
+			LOG.debug("DENTRO DE CONNECTION MANNAGER");
 			// cargar properties
 			Properties prop = new Properties();
 

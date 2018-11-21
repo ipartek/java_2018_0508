@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.andrea.perez.pojo.Usuario;
+import com.andrea.perez.youtube.pojo.Usuario;
 
 /**
  * Servlet implementation class ComentarioController

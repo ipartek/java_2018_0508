@@ -12,8 +12,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.andrea.perez.controller.pojo.Alert;
-import com.andrea.perez.model.RolDAO;
-import com.andrea.perez.pojo.Rol;
+import com.andrea.perez.youtube.dao.RolDAO;
+import com.andrea.perez.youtube.pojo.Rol;
 
 /**
  * Servlet implementation class BackofficeUsuarioController
