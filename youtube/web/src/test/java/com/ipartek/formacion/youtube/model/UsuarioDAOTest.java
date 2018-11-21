@@ -1,6 +1,8 @@
 package com.ipartek.formacion.youtube.model;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
 import org.junit.After;
 import org.junit.AfterClass;
@@ -8,6 +10,7 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import com.ipartek.formacion.youtube.dao.UsuarioDAO;
 import com.ipartek.formacion.youtube.pojo.Usuario;
 
 public class UsuarioDAOTest {

@@ -1,9 +1,6 @@
 package com.ipartek.formacion.youtube.controller.back;
 
 import java.io.IOException;
-import java.sql.SQLException;
-import java.sql.SQLIntegrityConstraintViolationException;
-import java.sql.Time;
 import java.util.Date;
 
 import javax.servlet.ServletConfig;
@@ -13,13 +10,11 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.ipartek.formacion.youtube.model.ComentarioDAO;
-import com.ipartek.formacion.youtube.model.RolDAO;
-import com.ipartek.formacion.youtube.model.UsuarioDAO;
-import com.ipartek.formacion.youtube.model.VideoDAO;
+import com.ipartek.formacion.youtube.dao.ComentarioDAO;
+import com.ipartek.formacion.youtube.dao.UsuarioDAO;
+import com.ipartek.formacion.youtube.dao.VideoDAO;
 import com.ipartek.formacion.youtube.pojo.Alert;
 import com.ipartek.formacion.youtube.pojo.Comentario;
-import com.ipartek.formacion.youtube.pojo.Rol;
 
 /**
  * Servlet implementation class BackofficeUsuarioController
