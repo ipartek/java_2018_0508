@@ -12,4 +12,4 @@ Usamos  **DriverManager** en vez de Pool de conexión del servidor.
 Para poder cambiar la conexión a la bbd,mirar fichero:
 \src\main\resources\database.properties
 
-## Para poder importar la base de datos con sus tablas e información, mirar script **youtube.sql**
+Para poder importar la base de datos con sus tablas e información, mirar script **youtube.sql**
