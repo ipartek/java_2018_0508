@@ -4,7 +4,7 @@ import java.util.List;
 
 import com.ipartek.formacion.youtube.pojo.Usuario;
 
-public interface IServiceUsuario extends Singleton<IServiceUsuario>{
+public interface IServiceUsuario{
 
 	/**
 	 * Login para iniciar sesión

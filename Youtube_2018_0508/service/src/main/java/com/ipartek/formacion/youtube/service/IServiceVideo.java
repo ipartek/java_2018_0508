@@ -4,7 +4,7 @@ import java.util.List;
 
 import com.ipartek.formacion.youtube.pojo.Video;
 
-public interface IServiceVideo extends Singleton<IServiceVideo> {
+public interface IServiceVideo{
 	
 	/**
 	 * Coleccion de videos limitad a 1000 y en orden descendente

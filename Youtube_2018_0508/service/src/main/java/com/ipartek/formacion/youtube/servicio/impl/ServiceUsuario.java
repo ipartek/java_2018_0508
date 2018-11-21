@@ -1,4 +1,4 @@
-package com.ipartek.formacion.youtube.service;
+package com.ipartek.formacion.youtube.servicio.impl;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,7 +11,9 @@ import javax.validation.ValidatorFactory;
 import org.apache.log4j.Logger;
 
 import com.ipartek.formacion.youtube.model.UsuarioDAO;
+import com.ipartek.formacion.youtube.pojo.Rol;
 import com.ipartek.formacion.youtube.pojo.Usuario;
+import com.ipartek.formacion.youtube.service.IServiceUsuario;
 
 public class ServiceUsuario implements IServiceUsuario {
 	
@@ -31,8 +33,7 @@ public class ServiceUsuario implements IServiceUsuario {
 		daoUsuario = UsuarioDAO.getInstance();
 	}
 
-	@Override
-	public IServiceUsuario getInstance() {
+	public static synchronized ServiceUsuario getInstance() {
 		if (INSTANCE == null) {
 			INSTANCE = new ServiceUsuario();
 		}
@@ -76,38 +77,57 @@ public class ServiceUsuario implements IServiceUsuario {
 	}
 
 	@Override
-	public boolean crear(Usuario u) throws Exception {
+	public boolean crear(Usuario u) throws Exception{
 		boolean resul = false;
-		Set<ConstraintViolation<Usuario>> violations = validator.validate(u);
-		if (violations.isEmpty()) {
-			if(daoUsuario.insert(u)) {
-				LOG.debug("Usuario creado");
-				return true;
-			}
-		}else {
-			for (ConstraintViolation<Usuario> violation : violations) {
-				LOG.debug("Error de validacion al crear usuario: " + violation.getPropertyPath() + ": "
-						+ violation.getMessage());
-			}
-		}
 		
+		try {
+			Rol rol = new Rol();
+			rol.setId(Rol.ROL_USER);
+			u.setRol(rol);
+			
+			Set<ConstraintViolation<Usuario>> violations = validator.validate(u);
+			if (violations.isEmpty()) {
+				if(daoUsuario.insert(u)) {
+					LOG.debug("Usuario creado");
+					resul = true;
+				}
+			}else {
+				for (ConstraintViolation<Usuario> violation : violations) {
+					LOG.debug("Error de validacion al crear usuario: " + violation.getPropertyPath() + ": "
+							+ violation.getMessage());
+				}
+				throw new Exception(violations.toString());
+			}
+			
+		}catch(Exception e){
+			LOG.error(e);
+			throw new Exception(e);
+		}
+
 		return resul;
 	}
 
 	@Override
 	public boolean modificar(Usuario u) throws Exception {
 		boolean resul = false;
-		Set<ConstraintViolation<Usuario>> violations = validator.validate(u);
-		if (violations.isEmpty()) {
-			if(daoUsuario.update(u)) {
-				LOG.debug("Usuario modificado");
-				resul = true;
+		
+		try {
+			Set<ConstraintViolation<Usuario>> violations = validator.validate(u);
+			if (violations.isEmpty()) {
+				if(daoUsuario.update(u)) {
+					LOG.debug("Usuario modificado");
+					resul = true;
+				}
+			}else {
+				for (ConstraintViolation<Usuario> violation : violations) {
+					LOG.debug("Error de validacion al modificar usuario: " + violation.getPropertyPath() + ": "
+							+ violation.getMessage());
+				}
+				throw new Exception(violations.toString());
 			}
-		}else {
-			for (ConstraintViolation<Usuario> violation : violations) {
-				LOG.debug("Error de validacion al modificar usuario: " + violation.getPropertyPath() + ": "
-						+ violation.getMessage());
-			}
+		}catch(Exception e) {
+			LOG.error(e);
+			throw new Exception(e);
 		}
 		
 		return resul;
@@ -116,10 +136,16 @@ public class ServiceUsuario implements IServiceUsuario {
 	@Override
 	public boolean eliminar(long id) throws Exception {
 		boolean resul = false;
-		if(daoUsuario.delete(Long.toString(id))) {
-			LOG.debug("Usuario eliminado");
-			resul = true;
+		try {
+			if(daoUsuario.delete(Long.toString(id))) {
+				LOG.debug("Usuario eliminado");
+				resul = true;
+			}
+		}catch(Exception e) {
+			LOG.error(e);
+			throw new Exception(e);
 		}
+		
 		return resul;
 	}
 

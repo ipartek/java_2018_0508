@@ -1,11 +1,11 @@
-package com.ipartek.formacion.youtube.conection;
+package com.ipartek.formacion.youtube.connection;
 
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.fail;
 
 import org.junit.Test;
 
-import com.ipartek.formacion.youtube.conection.ConnectionManager;
+import com.ipartek.formacion.youtube.model.ConnectionManager;
 
 public class ConnectionManagerTest {
 
@@ -18,8 +18,7 @@ public class ConnectionManagerTest {
 		}catch (Exception e) {
 			e.printStackTrace();
 			fail("No podemos establecer conexion con bbdd");
-		}	
-		
+		}
 		
 	}
 

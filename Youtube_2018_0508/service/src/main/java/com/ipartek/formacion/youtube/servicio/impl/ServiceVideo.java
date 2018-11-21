@@ -1,4 +1,4 @@
-package com.ipartek.formacion.youtube.service;
+package com.ipartek.formacion.youtube.servicio.impl;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,6 +12,7 @@ import org.apache.log4j.Logger;
 
 import com.ipartek.formacion.youtube.model.VideoDAO;
 import com.ipartek.formacion.youtube.pojo.Video;
+import com.ipartek.formacion.youtube.service.IServiceVideo;
 
 public class ServiceVideo implements IServiceVideo {
 
@@ -31,8 +32,7 @@ public class ServiceVideo implements IServiceVideo {
 		daoVideo = VideoDAO.getInstance();
 	}
 
-	@Override
-	public IServiceVideo getInstance() {
+	public static synchronized ServiceVideo getInstance() {
 		if (INSTANCE == null) {
 			INSTANCE = new ServiceVideo();
 		}
