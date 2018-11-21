@@ -26,6 +26,13 @@
 			<artifactId>mysql-connector-java</artifactId>
 			<version>5.1.47</version>
 		</dependency>
+		
+		<!-- Spring Logger -->
+        <dependency>
+	        <groupId>log4j</groupId>
+	        <artifactId>log4j</artifactId>
+	        <version>1.2.17</version>
+	    </dependency>
 
 		<!-- Validaciones -->
 		<dependency>
