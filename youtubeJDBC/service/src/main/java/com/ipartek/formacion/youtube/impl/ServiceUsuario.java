@@ -18,6 +18,7 @@ import com.ipartek.formacion.youtube.service.IServiceUsuario;
 
 public class ServiceUsuario implements IServiceUsuario {
 
+	private static ServiceUsuario INSTANCE = null;
 	private static UsuariosDaoJDBC daoUsuario = null;
 	private final static Logger LOG = Logger.getLogger(ServiceUsuario.class);
 
@@ -26,11 +27,17 @@ public class ServiceUsuario implements IServiceUsuario {
 
 	public static synchronized IServiceUsuario getInstance() {
 
+		if (INSTANCE == null) {
+			INSTANCE = new ServiceUsuario();
+		}
+
+		return INSTANCE;
+	}
+
+	public ServiceUsuario() {
 		daoUsuario = UsuariosDaoJDBC.getInstance();
 		factory = Validation.buildDefaultValidatorFactory();
 		validator = (Validator) factory.getValidator();
-
-		return null;
 	}
 
 	@Override
