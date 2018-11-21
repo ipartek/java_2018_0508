@@ -1,9 +1,17 @@
 package com.ipartek.formacion.youtube.pojo;
 
+import javax.validation.constraints.Size;
+
+import org.hibernate.validator.constraints.NotBlank;
+
 public class Usuario {
 	
 	private long id;
+	@NotBlank
+	@Size(min=2, max=50)
 	private String nombre;
+	@NotBlank
+	@Size(min=6, max=20)
 	private String password;	
 	private Rol rol;
 	
