@@ -29,6 +29,12 @@ public interface IServiceUsuario {
 	List<Usuario> listar();
 	
 	/**
+	 * Coleccion de usuario publicos, no se muestra password
+	 * @return
+	 */
+	List<Usuario> listarPublicos();
+	
+	/**
 	 * Creamos un nuevo usuario, por defecto ROL == ' usuario', no es 'administrador'
 	 * @param usuario
 	 * @return true si crea, false en caso contrario

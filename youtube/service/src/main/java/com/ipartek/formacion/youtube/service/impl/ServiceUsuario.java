@@ -1,5 +1,6 @@
 package com.ipartek.formacion.youtube.service.impl;
 
+import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
@@ -87,6 +88,23 @@ public class ServiceUsuario implements IServiceUsuario {
 		}	
 		return resul;
 	}
+	
+	@Override
+	public List<Usuario> listarPublicos() {
+		List<Usuario> resul = null;
+		try {
+			resul = daoUsuario.getAll();
+			if(resul != null) {
+				LOG.debug("usuarios recuperados " + resul.size());
+			}else {
+				resul = new ArrayList<Usuario>();
+			}
+		}catch(Exception e) {
+			LOG.error(e);
+		}
+		
+		return resul;
+	}
 
 	@Override
 	public boolean crear(Usuario usuario) throws Exception {
@@ -110,7 +128,8 @@ public class ServiceUsuario implements IServiceUsuario {
 				throw new Exception(violations.toString());
 				
 			}	
-			
+		}catch (SQLIntegrityConstraintViolationException e) {
+			LOG.debug("Ya existe el Usuario, por favor prueba con otro nombre");
 		}catch (Exception e) {
 			LOG.error(e);
 			throw new Exception(e);
@@ -135,7 +154,8 @@ public class ServiceUsuario implements IServiceUsuario {
 				LOG.debug("Validacion no correcta " + violations);
 				
 			}	
-			
+		}catch (SQLIntegrityConstraintViolationException e) {
+			LOG.debug("Ya existe el Usuario, por favor prueba con otro nombre");
 		}catch (Exception e) {
 			LOG.error(e);
 			throw new Exception(e);
@@ -154,7 +174,8 @@ public class ServiceUsuario implements IServiceUsuario {
 			}else {
 				LOG.debug("usuario NO encontrado id " + idUsurio);
 			}	
-			
+		}catch (SQLIntegrityConstraintViolationException e) {
+			LOG.debug("No se puede eliminar si tiene videos asociados");
 		}catch (Exception e) {
 			LOG.error(e);
 			throw new Exception(e);
