@@ -7,7 +7,6 @@ import java.util.Properties;
 
 import org.apache.log4j.Logger;
 
-
 public class ConnectionManager {
 
 	private final static Logger LOG = Logger.getLogger(ConnectionManager.class);
@@ -16,22 +15,24 @@ public class ConnectionManager {
 	public static Connection getConnection() throws Exception {
 
 		conn = null;
+		try {
+			// cargar properties
+			Properties prop = new Properties();
 
-		//cargar properties
-				Properties prop = new Properties();
-				
-				InputStream input = ConnectionManager.class.getClassLoader().getResourceAsStream("database.properties");	
-				prop.load(input);
-				
-				
-				//comprobar que exista .jar para mysql
-				Class.forName(prop.getProperty("ddbb.driver")).newInstance();
+			InputStream input = ConnectionManager.class.getClassLoader().getResourceAsStream("database.properties");
+			prop.load(input);
+			LOG.debug("cargado fichero .properties");
 
-				//crear conexion
-				conn = DriverManager.getConnection(
-									prop.getProperty("ddbb.url"), 
-									prop.getProperty("ddbb.user"),
-									prop.getProperty("ddbb.pass"));		
+			// comprobar que exista .jar para mysql
+			Class.forName(prop.getProperty("ddbb.driver")).newInstance();
+			LOG.debug("existe driver mysql");
+			// crear conexion
+			conn = DriverManager.getConnection(prop.getProperty("ddbb.url"), prop.getProperty("ddbb.user"),
+					prop.getProperty("ddbb.pass"));
+			LOG.debug("Conexion establecida");
+		} catch (Exception e) {
+			LOG.error("Fallo en la conexion de la base de datos: " + e);
+		}
 
 		return conn;
 
