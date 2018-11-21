@@ -13,8 +13,12 @@ Proyecto JAR para conectar con la base de datos, encargado de dar servicio al re
 
 ## Configracion a la bd 
 
-Para cambiar los datos de configuracion a la base de datos mirar el archivo .
+	Para cambiar los datos de configuracion a la base de datos mirar el archivo .
 	java_2018_0508\youtubeJDBC\service\src\main\resources\database.properties
+	
+## Instalacion de de la bd
+
+	java_2018_0508\youtubeJDBC\service\
 	
 	
 
