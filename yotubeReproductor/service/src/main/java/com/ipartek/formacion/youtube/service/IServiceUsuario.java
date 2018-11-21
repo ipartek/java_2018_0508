@@ -4,7 +4,7 @@ import java.util.List;
 
 import com.ipartek.formacion.youtube.pojo.Usuario;
 
-public interface IServiceUsuario extends Singleton<IServiceUsuario> {
+public interface IServiceUsuario {
 	
 	/**
 	 * Login para iniciar session
@@ -23,10 +23,15 @@ public interface IServiceUsuario extends Singleton<IServiceUsuario> {
 	Usuario buscarPorId(long idUsuario);
 	
 	/**
-	 * Coleccion de usuarios limitado a 1000 y orden desc por id
+	 * Coleccion de usuarios (Administradores y Usuario) limitado a 1000 y orden desc por id
 	 * @return
 	 */
 	List<Usuario> listar();
+	/**
+	 * Coleccion de Usuarios publicos, no se muestra password 
+	 * @return
+	 */
+	List<Usuario> listarPublicos();
 	/**
 	 * Creammos un nuevo usuario, por defecto ROL == 'usuario', no es 'administrador'
 	 * @param usuario
@@ -48,6 +53,6 @@ public interface IServiceUsuario extends Singleton<IServiceUsuario> {
 	 * @return true si eliminar 
 	 * @throws Exception si tiene videos asociados
 	 */
-	boolean eliminar (Usuario idUsuario) throws Exception;
+	boolean eliminar (long idUsuario) throws Exception;
 
 }

@@ -9,7 +9,7 @@ import com.ipartek.formacion.youtube.pojo.Usuario;
 import com.ipartek.formacion.youtube.service.IServiceUsuario;
 
 public class ServiceUsuario implements IServiceUsuario {
-	
+
 	private final static Logger LOG = Logger.getLogger(ServiceUsuario.class);
 	private static ServiceUsuario INSTANCE = null;
 	private static UsuarioDAO daoUsuario = null;
@@ -19,8 +19,8 @@ public class ServiceUsuario implements IServiceUsuario {
 		daoUsuario = UsuarioDAO.getInstance();
 	}
 
-	@Override
-	public ServiceUsuario getInstance() {
+
+	public static synchronized IServiceUsuario getInstance() {
 		if (INSTANCE == null) {
 			INSTANCE = new ServiceUsuario();
 		}
@@ -43,32 +43,71 @@ public class ServiceUsuario implements IServiceUsuario {
 
 	@Override
 	public Usuario buscarPorId(long idUsuario) {
-		// TODO Auto-generated method stub
+
+		try {
+			Usuario u = daoUsuario.getById(Long.toString(idUsuario));
+			return u;
+
+		} catch (Exception e) {
+			LOG.error(e);
+		}
 		return null;
 	}
 
 	@Override
 	public List<Usuario> listar() {
-		// TODO Auto-generated method stub
-		return null;
+
+		List<Usuario> u = null;
+		try {
+			u = daoUsuario.getAll();
+		} catch (Exception e) {
+			LOG.error(e);
+		}
+		return u;
 	}
 
 	@Override
 	public boolean crear(Usuario usuario) throws Exception {
-		// TODO Auto-generated method stub
-		return false;
+		boolean resul = false;
+
+		if (daoUsuario.insert(usuario)) {
+			resul = true;
+		}
+
+		return resul;
 	}
 
 	@Override
 	public boolean modificar(Usuario usuario) throws Exception {
-		// TODO Auto-generated method stub
-		return false;
+		boolean resul = false;
+
+		if (daoUsuario.update(usuario)) {
+			resul = true;
+		}
+
+		return resul;
 	}
 
 	@Override
-	public boolean eliminar(Usuario idUsuario) throws Exception {
+	public boolean eliminar(long idUsuario) {
+		boolean resul = false;
+		try {
+
+			if (daoUsuario.delete(Long.toString(idUsuario))) {
+				resul = true;
+			}
+
+		} catch (Exception e) {
+			LOG.error(e);
+		}
+		return resul;
+	}
+
+
+	@Override
+	public List<Usuario> listarPublicos() {
 		// TODO Auto-generated method stub
-		return false;
+		return null;
 	}
 
 }
