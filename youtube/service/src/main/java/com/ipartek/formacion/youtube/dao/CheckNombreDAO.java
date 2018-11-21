@@ -5,6 +5,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import com.ipartek.formacion.youtube.conection.ConnectionManager;
+
 public class CheckNombreDAO {
 
 	private static CheckNombreDAO INSTANCE = null;
