@@ -4,7 +4,7 @@ import java.util.List;
 
 import com.ipartek.formacion.youtube.pojo.Usuario;
 
-public interface IServiceUsuario {
+public interface IServiceUsuario extends Singleton<IServiceUsuario> {
 	
 	/**
 	 * Login para iniciar session
@@ -36,11 +36,18 @@ public interface IServiceUsuario {
 	boolean crear (Usuario usuario) throws Exception;
 	
 	/**
-	 * Modificar todos los atributos de un Usuario y No podemos modificar el ROL
+	 * Modificar todos los atributos de un Usuario y  podemos modificar el ROL
 	 * @param usuario
-	 * @return true si crea, false en caso contrario 
+	 * @return true si modifica, false en caso contrario, false si no se encuentra 
 	 * @throws Exception
 	 */
-	boolean modificar (Usuario usuario) throws Exception;
+	boolean modificar (Usuario usuario ) throws Exception;
+	/**
+	 * Eliminar fisicamente un usuario
+	 * @param uModificar
+	 * @return true si eliminar 
+	 * @throws Exception si tiene videos asociados
+	 */
+	boolean eliminar (Usuario idUsuario) throws Exception;
 
 }
