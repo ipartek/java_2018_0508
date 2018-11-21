@@ -24,11 +24,18 @@ public interface IServiceUsuario{
 	Usuario buscarPorId(long idUsuario) throws Exception;
 	
 	/**
-	 * Colección de usuarios limitado a 1000 y orden DESC por ID 
+	 * Colección de usuarios (ADMINISTRADORES Y NORMAL) limitado a 1000 y orden DESC por ID 
 	 * @return
 	 * @throws Exception 
 	 */
 	List<Usuario> listar() throws Exception;
+	
+	/**
+	 * Colección de usuarios publicos. No se muestra password
+	 * @return
+	 * @throws Exception
+	 */
+	List<Usuario> listarPublicos() throws Exception;
 	
 	/**
 	 * Creamos nuevo usuario por defecto rol ='Usuario', no es 'administrador'

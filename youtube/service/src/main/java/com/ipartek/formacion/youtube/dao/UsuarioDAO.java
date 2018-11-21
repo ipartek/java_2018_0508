@@ -20,6 +20,9 @@ public class UsuarioDAO implements CrudAble<Usuario> {
 	                                   " FROM usuario as u, rol as r" +
 	                                   " WHERE u.id_rol = r.id" +
 	                                   " ORDER BY u.id DESC LIMIT 500;";
+	private final String SQL_GET_PUBLICO = "SELECT u.id as 'id_usuario', u.nombre as 'nombre_usuario'" +
+            " FROM usuario as u" +
+            " ORDER BY u.id DESC LIMIT 500;";
 	
 	private final String SQL_GET_BY_ID = "SELECT u.id as 'id_usuario', u.nombre as 'nombre_usuario', password, id_rol as 'id_rol', r.nombre as 'nombre_rol'" +
             " FROM usuario as u, rol as r" +
@@ -115,6 +118,23 @@ public class UsuarioDAO implements CrudAble<Usuario> {
 
 		return usuarios;
 	}
+	
+	public List<Usuario> getPublico() throws Exception {
+		Usuario usuario = null;
+
+		ArrayList<Usuario> usuarios = new ArrayList<Usuario>();
+		try (Connection con = ConnectionManager.getConnection();
+				PreparedStatement ps = con.prepareStatement(SQL_GET_PUBLICO);
+				ResultSet rs = ps.executeQuery();) {
+
+			while (rs.next()) {
+				usuarios.add(rowMapperUsuarioPublico(rs, usuario));
+			}
+
+		} 
+
+		return usuarios;
+	}
 
 	@Override
 	public Usuario getById(long id) throws Exception{
@@ -162,7 +182,11 @@ public class UsuarioDAO implements CrudAble<Usuario> {
 
 			ps.setString(1, pojo.getNombre());
 			ps.setString(2, pojo.getPassword());
+			try {
 			ps.setLong(3, pojo.getRol().getId());
+			}catch (Exception e) {
+				e.printStackTrace();
+			}
 			ps.setLong(4, pojo.getId());
 			if (ps.executeUpdate() == 1) {
 				resul = true;
@@ -244,6 +268,35 @@ public class UsuarioDAO implements CrudAble<Usuario> {
 		}
 		return u;
 	}
+	
+	private Usuario rowMapperUsuarioPublico(ResultSet rs, Usuario u) throws Exception {
+		if (u == null) {
+			u = new Usuario();
+		} else {
+
+		}
+
+		if (rs != null) {
+
+			u.setNombre(rs.getString("nombre_usuario"));
+					
+			u.setId(rs.getLong("id_usuario"));
+			try {
+				Rol rol = new Rol();
+				rol.setId(rs.getLong("id_rol"));
+				rol.setNombre(rs.getString("nombre_rol"));
+				u.setRol(rol);
+			}catch(Exception e) {
+				e.printStackTrace();
+			}
+			
+			
+			
+			
+		}
+		return u;
+	}
+	
 	private Usuario rowMapperBuscar(ResultSet rs) throws Exception {
 		Usuario u = new Usuario();
 		if (u == null) {

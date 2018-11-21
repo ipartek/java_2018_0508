@@ -163,4 +163,21 @@ public class ServiceUsuario implements IServiceUsuario {
 		return resul;
 	}
 
+
+	@Override
+	public List<Usuario> listarPublicos() throws Exception {
+		List<Usuario> resul = null;
+		try {					
+			resul = daoUsuario.getPublico();
+			if ( resul != null ) {
+				LOG.debug("usuarios recuperados " + resul.size());
+			}else {
+				resul = new ArrayList<Usuario>();				
+			}	
+		}catch (Exception e) {
+			LOG.error(e);
+		}	
+		return resul;
+	}
+
 }
