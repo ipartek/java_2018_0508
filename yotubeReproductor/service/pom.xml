@@ -65,6 +65,14 @@
 			<version>8.0.51</version>
 			<scope>test</scope>
 		</dependency>
+		<!-- Lower o Trazas -->
+
+		<dependency>
+			<groupId>log4j</groupId>
+			<artifactId>log4j</artifactId>
+			<version>1.2.17</version>
+		</dependency>
+		
 
 
 		<!-- Validaciones Test -->
