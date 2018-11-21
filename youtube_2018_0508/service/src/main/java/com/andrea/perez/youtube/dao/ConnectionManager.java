@@ -5,8 +5,12 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.util.Properties;
 
+import org.apache.log4j.Logger;
+
+
 public class ConnectionManager {
 
+	private final static Logger LOG = Logger.getLogger(ConnectionManager.class);
 	private static Connection conn;
 
 	public static Connection getConnection() throws Exception {
