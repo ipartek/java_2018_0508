@@ -32,7 +32,7 @@
 				   		<label for="titulo">Título</label>
 				   	</div>
 				   	<div class="col-4">
-				   		<input type="text" class="form-control" name="titulo" id="titulo" value="${ libro.titulo }" autofocus>
+				   		<input type="text" class="form-control" name="titulo" id="titulo" value="${ libro.titulo }" autofocus required="required" placeholder="Nombre del nuevo libro">
 				   	</div>
 				</div>
 				<div class="form-row">
@@ -40,7 +40,7 @@
 				   		<label for="isbn">Código Isbn</label>
 				   	</div>
 				   	<div class="col-8">
-				   		<input type="text" class="form-control" name="isbn" id="isbn" value="${ libro.isbn }" >
+				   		<input type="text" class="form-control" name="isbn" id="isbn" value="${ libro.isbn }" required="required" placeholder="Entre 11 y 19 caracteres">
 				   	</div>
 				</div>
 				<c:if test="${ (libro.id == -1) }">
@@ -68,7 +68,7 @@
 							   		<option  value="${ editorial.id }" ${ ( editorial.id == libro.editorial.id) ? 'selected' : '' }>${ editorial.nombre }</option>
 						   		</c:forEach>
 							</select>
-							<input type="hidden" class="form-control"  name="nuevaEditorial" id="nuevaEditorial" placeholder="nombre de la nueva editorial" >
+							<input type="hidden" class="form-control"  name="nuevaEditorial" id="nuevaEditorial" placeholder="nombre de la nueva editorial" required="required">
 						</div>
 						<div class="col-12">
 							<button id="botonNuevadit" type="button" onclick="ocultarEditoriales()" class="btn btn-lg btn-primary">Nueva editorial</button>

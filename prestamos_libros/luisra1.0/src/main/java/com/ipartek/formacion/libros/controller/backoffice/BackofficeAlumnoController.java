@@ -78,16 +78,7 @@ public class BackofficeAlumnoController extends HttpServlet implements ICRUDCont
 		try {
 
 			getParameters(request);
-			if(nombre != null) {
-				alert = new Alert();
-				nombre = nombre.trim();
-				if(nombre.length() <= 2 || nombre.length() >= 50) {
-					
-					throw new Exception("El nombre del alumno debe tener entre 2 y 50 caracteres");
-
-					
-				}
-			}
+			
 
 			switch (op) {
 			case OP_ELIMINAR:
@@ -110,7 +101,7 @@ public class BackofficeAlumnoController extends HttpServlet implements ICRUDCont
 
 		} catch (Exception e) {
 			LOG.debug(e.getMessage());
-			view = VIEW_LISTADO;
+			view = VIEW_FORMULARIO;
 			alert.setTexto(e.getMessage());
 			alert.setTipo(Alert.DANGER);
 			
@@ -181,9 +172,9 @@ public class BackofficeAlumnoController extends HttpServlet implements ICRUDCont
 
 		} catch (Exception e) { // Errores que no son de SQL
 			LOG.debug(e.getMessage());
-			alert = new Alert();
+			alert = new Alert(Alert.DANGER,e.getMessage());
 			view = VIEW_FORMULARIO;
-			e.printStackTrace();
+			
 		}
 
 		

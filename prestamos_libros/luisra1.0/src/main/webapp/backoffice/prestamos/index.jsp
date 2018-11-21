@@ -12,7 +12,7 @@
   		
       <div class="row">
           <div class="col-lg-12">
-              <h1 class="page-header">Prestamos Activos</h1>
+              <h1 class="page-header">Préstamos Activos</h1>
           </div> 
       </div> 
      

@@ -174,10 +174,14 @@ function ocultarLibros(){
 	var tituloLibroNuevo = document.getElementById("rowTitulo");
 	var isbnLibroNuevo = document.getElementById("rowIsbn");
 	var editorialLibroNuevo = document.getElementById("rowEditorial");
+	var nuevoTitulo = document.getElementById("nuevoTitulo");
+	var nuevoIsbn = document.getElementById("nuevoIsbn");
 	
 	tituloLibroNuevo.style.display= "block";
 	isbnLibroNuevo.style.display= "block";
 	editorialLibroNuevo.style.display= "block";
+	nuevoTitulo.type= "text";
+	nuevoIsbn.type= "text";
 
 }
 
@@ -197,10 +201,14 @@ function mostrarLibros(){
 	var tituloLibroNuevo = document.getElementById("rowTitulo");
 	var isbnLibroNuevo = document.getElementById("rowIsbn");
 	var editorialLibroNuevo = document.getElementById("rowEditorial");
+	var nuevoTitulo = document.getElementById("nuevoTitulo");
+	var nuevoIsbn = document.getElementById("nuevoIsbn");
 	
 	tituloLibroNuevo.style.display= "none";
 	isbnLibroNuevo.style.display= "none";
 	editorialLibroNuevo.style.display= "none";
+	nuevoTitulo.type= "hidden";
+	nuevoIsbn.type= "hidden";
 
 }
 

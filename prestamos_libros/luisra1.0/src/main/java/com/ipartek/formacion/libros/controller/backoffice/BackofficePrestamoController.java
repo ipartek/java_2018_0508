@@ -141,9 +141,7 @@ public class BackofficePrestamoController extends HttpServlet implements ICRUDCo
 
 		} catch (Exception e) { // Errores que no son de SQL
 			LOG.debug(e.getMessage());
-			alert = new Alert();
-			alert.setTipo(Alert.DANGER);
-			alert.setTexto(e.getMessage());
+			alert = new Alert(Alert.DANGER,e.getMessage());
 			e.printStackTrace();
 			
 		
@@ -188,18 +186,17 @@ public class BackofficePrestamoController extends HttpServlet implements ICRUDCo
 	@Override
 	public void guardar(HttpServletRequest request) throws Exception {
 		
-		if(fechaInicio == null || "".contains(fechaInicio)) {
-			
-			alert.setTipo(Alert.DANGER);
-			alert.setTexto("El campo fecha de inicio es requerido");
-			throw new Exception("El capo fecha de inicio es requerido");
-		}
 		
 		if(nuevoAlumno != null && !"".contains(nuevoAlumno)) {
+			
 			nuevoAlumno = nuevoAlumno.trim();
-			ArrayList<Alumno> alumnos = (ArrayList<Alumno>) alumnoServicio.listar();
 			Alumno nAlumno = new Alumno();
-			nAlumno.setNombre(nuevoAlumno);
+			if(nuevoAlumno.length() >= 2 && nuevoAlumno.length() <= 50) {
+				nAlumno.setNombre(nuevoAlumno);
+			}else {
+				throw new Exception("El nombre del alumno debe contener entre 2 y 50 caracteres");
+			}
+			
 			
 			if(!alumnoServicio.crear(nAlumno)) {
 				alert.setTipo(Alert.DANGER);
@@ -207,17 +204,30 @@ public class BackofficePrestamoController extends HttpServlet implements ICRUDCo
 			}
 			
 			id_alumno = String.valueOf(nAlumno.getId());
-		}
-		if(editorial == null) {
-			editorial = "";
+			
 		}
 		
 		nuevaEditorial = nuevaEditorial.trim();
+		
+		if(editorial == null) {
+			if( nuevaEditorial.equals("") || nuevaEditorial.length() < 2 || nuevaEditorial.length() > 50) {
+				throw new Exception("El nombre de la editorial debe contener entre 2 y 50 caracteres");
+			}
+			
+		}
+		
+		
+		
 		if( !nuevoTitulo.equals("") && !nuevoIsbn.equals("") && !editorial.equals("")  || !nuevaEditorial.equals("")  ) {
 			Editorial e = new Editorial();
 			if(nuevaEditorial != null && !"".contains(nuevaEditorial)) {
 				
-				e.setNombre(nuevaEditorial);
+				if(nuevaEditorial.length() >= 2 && nuevaEditorial.length() <= 50) {
+					e.setNombre(nuevaEditorial);
+				}else {
+					throw new Exception("El nombre de la editorial debe contener entre 2 y 50 caracteres");
+				}
+				
 				editorialServicio.crear(e);
 				editorial = String.valueOf(e.getId());
 			}else {
@@ -225,7 +235,12 @@ public class BackofficePrestamoController extends HttpServlet implements ICRUDCo
 				
 			}
 			Libro l = new Libro();
-			l.setTitulo(nuevoTitulo);
+			if(nuevoTitulo.length() > 2 && nuevoTitulo.length() < 50) {
+				l.setTitulo(nuevoTitulo);
+			}else {
+				throw new Exception("El titulo del libro debe contener entre 2 y 50 caracteres");
+			}
+			
 			l.setIsbn(nuevoIsbn);
 			l.setEditorial(e);
 			libroServicio.crearVarios(l, 1);
@@ -233,18 +248,15 @@ public class BackofficePrestamoController extends HttpServlet implements ICRUDCo
 			id_libro = String.valueOf(l.getId() );
 		}
 		
-		//prestamoServicio.obtenerPorId(Long.parseLong(id_alumno),Long.parseLong(id_libro), parseDate(fechaInicio));
+		if(id_libro == null) {
+			id_libro = "-1";
+		}
 		
 		if(id_alumno == null) {
-			alert.setTipo(Alert.DANGER);
-			alert.setTexto("El campo alumno debe estar completo");
-			throw new Exception("El campo alumno debe estar completo");
+			id_alumno = "-1";
 		}
-		if(id_libro == null) {
-			alert.setTipo(Alert.DANGER);
-			alert.setTexto("Los campos del libro deben estar completos");
-			throw new Exception("Los campos del libro deben estar completos");
-		}
+				
+
 		
 		if ("-1".equals(id)) {
 			
@@ -268,10 +280,16 @@ public class BackofficePrestamoController extends HttpServlet implements ICRUDCo
 	
 	private java.sql.Date parseDate(String fecha) throws ParseException {
 		
-		SimpleDateFormat sdf1 = new SimpleDateFormat("yyyy-MM-dd");
-		java.util.Date date = sdf1.parse(fecha);
-		java.sql.Date sqlStartDate = new java.sql.Date(date.getTime());
-		
+		java.sql.Date sqlStartDate = null;
+
+		if (!fecha.equals("")) {
+
+			SimpleDateFormat sdf1 = new SimpleDateFormat("yyyy-MM-dd");
+			java.util.Date date = sdf1.parse(fecha);
+			sqlStartDate = new java.sql.Date(date.getTime());
+
+		}
+
 		return sqlStartDate;
 		
 	}

@@ -17,7 +17,6 @@ import com.ipartek.formacion.libros.pojo.Alert;
 import com.ipartek.formacion.libros.pojo.Editorial;
 import com.ipartek.formacion.libros.service.ServiceEditorial;
 
-
 /**
  * Servlet implementation class BackofficeUsuarioController
  */
@@ -71,19 +70,10 @@ public class BackofficeEditorialController extends HttpServlet implements ICRUDC
 			throws ServletException, IOException {
 
 		alert = null;
-		
+
 		try {
 
 			getParameters(request);
-			
-			if(nombre != null) {
-				alert = new Alert();
-				nombre= nombre.trim();
-				if(nombre.length() <= 2 || nombre.length() >= 50) {
-					
-					throw new Exception("El nombre de la Editorial debe tener entre 2 y 50 caracteres");				
-				}
-			}
 
 			switch (op) {
 			case OP_ELIMINAR:
@@ -106,21 +96,20 @@ public class BackofficeEditorialController extends HttpServlet implements ICRUDC
 
 		} catch (SQLIntegrityConstraintViolationException e) { // Error entrada duplicada
 			LOG.debug(e.getMessage());
-			alert = new Alert(Alert.WARNING, "Esta intentando alterar un registro que tiene relacion con otros");
+			if(e.getMessage().contains("Duplicate entry"));
+			alert = new Alert(Alert.WARNING, "Editorial ya existente");
+			view = VIEW_FORMULARIO;
 
 		} catch (SQLException e) { // Longitud de campos incorrecta
 			LOG.debug(e.getMessage());
 			alert = new Alert(Alert.WARNING, "Alguno de los campos tiene una longitud incorrecta.");
-			
+			view = VIEW_FORMULARIO;
 
 		} catch (Exception e) { // Errores que no son de SQL
 			LOG.debug(e.getMessage());
-			alert = new Alert();
-			alert.setTipo(Alert.DANGER);
-			alert.setTexto(e.getMessage());
-			view = VIEW_LISTADO;
-			
-			
+			alert = new Alert(Alert.DANGER, e.getMessage());
+			view = VIEW_FORMULARIO;
+
 		} finally {
 
 			request.getSession().setAttribute("alert", alert);
@@ -135,56 +124,33 @@ public class BackofficeEditorialController extends HttpServlet implements ICRUDC
 		id = request.getParameter("id");
 		nombre = request.getParameter("nombre");
 	}
-	
 
 	@Override
 	public void listar(HttpServletRequest request) throws Exception {
-		
+
 		view = VIEW_LISTADO;
 		request.getSession().setAttribute("editoriales", editorialService.listar());
 	}
 
 	@Override
-	public void guardar(HttpServletRequest request) throws SQLException {
+	public void guardar(HttpServletRequest request) throws Exception {
 		Editorial editorial = new Editorial();
-		
+
 		editorial.setId(Long.parseLong(id));
 		editorial.setNombre(nombre);
 
-		try {
+		if (editorial.getId() > 0) {
 
-			if (editorial.getId() > 0) {
-				
-				editorialService.modificar(editorial);//UPDATE
-				alert = new Alert(Alert.SUCCESS, "Editorial modificado.");
-				listar(request);
-			} else {
-				
-				editorialService.crear(editorial); // INSERT
-				alert = new Alert(Alert.SUCCESS, "Editorial creado.");
-				listar(request);
-			}
+			editorialService.modificar(editorial);// UPDATE
+			alert = new Alert(Alert.SUCCESS, "Editorial modificado.");
+			listar(request);
+		} else {
 
-		} catch (SQLIntegrityConstraintViolationException e) { // Error entrada duplicada
-			LOG.debug(e.getMessage());
-			view = VIEW_LISTADO;
-			alert = new Alert(Alert.WARNING, "La editorial ya existe.");
-			view = VIEW_FORMULARIO;
-
-		} catch (SQLException e) { // Longitud de campos incorrecta
-			LOG.debug(e.getMessage());
-			alert = new Alert(Alert.WARNING, "Alguno de los campos tiene una longitud incorrecta.");
-			view = VIEW_FORMULARIO;
-			
-
-		} catch (Exception e) { // Errores que no son de SQL
-			LOG.debug(e.getMessage());
-			alert = new Alert();
-			view = VIEW_FORMULARIO;
-			
+			editorialService.crear(editorial); // INSERT
+			alert = new Alert(Alert.SUCCESS, "Editorial creado.");
+			listar(request);
 		}
 
-		
 		request.setAttribute("editorial", editorial);
 
 	}
@@ -194,11 +160,11 @@ public class BackofficeEditorialController extends HttpServlet implements ICRUDC
 		alert = null;
 
 		if (id.equalsIgnoreCase("-1")) {
-			
+
 			request.getSession().setAttribute("editorial", new Editorial());
-		
+
 		} else {
-			
+
 			request.getSession().setAttribute("editorial", editorialService.obtener(Long.parseLong(id)));
 		}
 
@@ -208,24 +174,19 @@ public class BackofficeEditorialController extends HttpServlet implements ICRUDC
 
 	@Override
 	public void eliminar(HttpServletRequest request) throws Exception {
-		
 
-			if (editorialService.eliminar(id)) {
-				
-				alert = new Alert(Alert.SUCCESS, "Editorial eliminado.");
-				view = VIEW_LISTADO;
-				listar(request);
-			}else {
-				
-				alert = new Alert(Alert.WARNING, "No podemos eliminar la editorial porque tiene libros asociados.");
-				view = VIEW_LISTADO;
-				
-			}
+		if (editorialService.eliminar(id)) {
 
-		
+			alert = new Alert(Alert.SUCCESS, "Editorial eliminado.");
+			view = VIEW_LISTADO;
+			listar(request);
+		} else {
 
-			
-		
+			alert = new Alert(Alert.WARNING, "No podemos eliminar la editorial porque tiene libros asociados.");
+			view = VIEW_LISTADO;
+
+		}
+
 	}
 
 }

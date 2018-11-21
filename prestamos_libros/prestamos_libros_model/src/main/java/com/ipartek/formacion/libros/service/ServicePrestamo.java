@@ -7,7 +7,9 @@ import java.util.List;
 import com.ipartek.formacion.libros.model.AlumnoDAO;
 import com.ipartek.formacion.libros.model.LibroDAO;
 import com.ipartek.formacion.libros.model.PrestamoDAO;
+import com.ipartek.formacion.libros.pojo.Alert;
 import com.ipartek.formacion.libros.pojo.Alumno;
+import com.ipartek.formacion.libros.pojo.Editorial;
 import com.ipartek.formacion.libros.pojo.Libro;
 import com.ipartek.formacion.libros.pojo.Prestamo;
 
@@ -66,26 +68,17 @@ public class ServicePrestamo implements IPrestamoService {
 		ArrayList<Libro> librosDisponibles = new ArrayList<Libro>();
 		ArrayList<Prestamo> prestamosTotales = new ArrayList<Prestamo>();
 
-		try {
-			if (idAlumno < 0 || idLibro < 0 || fechaInicio == null) {
-
-				throw new Exception("Algun parametro no contiene el formato esperado");
-			}
-
-		} catch (Exception e) {
-
-		}
 
 		// comprobamos que los alumno y libro que nos solicitan existen
 		Alumno a = alumnosDAO.getById(idAlumno);
 
 		if (a == null) {
-			throw new Exception("El Alumno propuesto no existe");
+			throw new Exception("Seleccione un alumno");
 		}
 
 		Libro l = librosDAO.getById(idLibro);
 		if (l == null) {
-			throw new Exception("Libro propuesto no existe");
+			throw new Exception("Seleccione un Libro");
 		}
 
 		// si existen comprobamos que esten disponibles
@@ -242,7 +235,25 @@ public class ServicePrestamo implements IPrestamoService {
 
 	public boolean modificarPrestamoActivo(long idAlumno, long idlibro, Date fechaInicio, long nuevoAlumno,
 			long nuevoLibro, Date nuevaFecha, Date fechaFin) throws Exception {
+		
 		boolean resul;
+		
+		if(fechaInicio == null ) {
+
+			throw new Exception("El capo fecha de inicio es requerido");
+		}
+		
+				
+		if(idAlumno <= 0 ) {
+
+			throw new Exception("El campo alumno debe estar completo");
+		}
+		
+		if(idlibro <= 0) {
+
+			throw new Exception("Los campos del libro deben estar completos");
+		}
+		
 
 		resul = prestamosDAO.update(idAlumno, idlibro, fechaInicio, nuevoAlumno, nuevoLibro, nuevaFecha, fechaFin,
 				null);
@@ -252,14 +263,22 @@ public class ServicePrestamo implements IPrestamoService {
 
 	@Override
 	public List<Prestamo> historico() throws Exception {
-
+		try {
+			return prestamosDAO.getAllHistorico();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		return prestamosDAO.getAllHistorico();
 	}
 
 	public boolean modificarHistorico(long idAlumno, long idlibro, Date fechaInicio, long nuevoAlumno, long nuevoLibro,
 			Date nuevaFecha, Date fechaFin, Date fechaRetorno) throws Exception {
+		
 		boolean resul;
-
+		if(nuevaFecha == null) {
+			throw new Exception("La fecha de inicio es un campo requerido");
+		}
+		
 		resul = prestamosDAO.update(idAlumno, idlibro, fechaInicio, nuevoAlumno, nuevoLibro, nuevaFecha, fechaFin,
 				fechaRetorno);
 

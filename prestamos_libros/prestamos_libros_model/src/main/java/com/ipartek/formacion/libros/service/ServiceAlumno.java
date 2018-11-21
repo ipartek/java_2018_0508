@@ -3,6 +3,7 @@ package com.ipartek.formacion.libros.service;
 import java.util.List;
 
 import com.ipartek.formacion.libros.model.AlumnoDAO;
+import com.ipartek.formacion.libros.pojo.Alert;
 import com.ipartek.formacion.libros.pojo.Alumno;
 
 public class ServiceAlumno implements ICRUDService<Alumno> {
@@ -44,7 +45,15 @@ public class ServiceAlumno implements ICRUDService<Alumno> {
 
 	@Override
 	public boolean crear(Alumno pojo) throws Exception {
-
+		if(pojo.getNombre() != null) {
+			
+			pojo.setNombre(pojo.getNombre().trim()); ;
+			if(pojo.getNombre().length() < 2 || pojo.getNombre().length() > 50) {
+				
+				throw new Exception("El nombre del alumno debe tener entre 2 y 50 caracteres");
+			}
+		}
+		
 		boolean resul = false;
 		resul = alumnosDAO.insert(pojo);
 
@@ -53,7 +62,16 @@ public class ServiceAlumno implements ICRUDService<Alumno> {
 
 	@Override
 	public boolean modificar(Alumno pojo) throws Exception {
-
+		
+		if(pojo.getNombre() != null) {
+			
+			pojo.setNombre(pojo.getNombre().trim()); ;
+			if(pojo.getNombre().length() <= 2 || pojo.getNombre().length() >= 50) {
+				
+				throw new Exception("El nombre del alumno debe tener entre 2 y 50 caracteres");
+			}
+		}
+		
 		boolean resul = false;
 		resul = alumnosDAO.update(pojo);
 

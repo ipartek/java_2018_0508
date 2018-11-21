@@ -50,7 +50,7 @@
 				   		<label for="nuevaFecha">Fecha de Inicio</label>
 				   	</div>
 				   	<div class="col">
-				   		<input type="date" class="form-control" name="nuevaFecha" value="${ prestamo.fechaInicio }">
+				   		<input type="date" class="form-control" name="nuevaFecha" value="${ prestamo.fechaInicio }" required="required">
 					</div>
 				</div>
 				

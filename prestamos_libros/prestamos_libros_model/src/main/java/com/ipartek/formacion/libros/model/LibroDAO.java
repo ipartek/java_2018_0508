@@ -127,7 +127,7 @@ public class LibroDAO implements CrudAble<Libro> {
 	public boolean update(Libro pojo) throws Exception {
 		boolean resul;
 		try (Connection con = ConnectionManager.getConnection();
-				CallableStatement sp = con.prepareCall("{CALL libroUpdate(?,?,?,?)}");) {
+				CallableStatement sp = con.prepareCall("{CALL libroUpdate(?,?,?,?,?,?)}");) {
 
 			// se cargan los parametros de entrada
 			sp.setLong("p_id", pojo.getId());
@@ -136,12 +136,12 @@ public class LibroDAO implements CrudAble<Libro> {
 			sp.setLong("p_editorial", pojo.getEditorial().getId());
 			
 			// parametros de salida
-			//sp.registerOutParameter("o_id", Types.INTEGER);
-			//sp.registerOutParameter("o_nombreEditorial", Types.VARCHAR);
+			sp.registerOutParameter("o_id", Types.INTEGER);
+			sp.registerOutParameter("o_nombreEditorial", Types.VARCHAR);
 			
 			int resultado = sp.executeUpdate();
-			//pojo.setId(sp.getInt("p_id"));
-			//pojo.getEditorial().setNombre(sp.getString("o_nombreEditorial"));
+			pojo.setId(sp.getInt("o_id"));
+			pojo.getEditorial().setNombre(sp.getString("o_nombreEditorial"));
 			
 			//pojo.getEditorial().setNombre(sp.getString("o_nombreEditorial"));
 

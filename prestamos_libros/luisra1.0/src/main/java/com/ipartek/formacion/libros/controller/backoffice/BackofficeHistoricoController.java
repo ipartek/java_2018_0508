@@ -113,12 +113,10 @@ public class BackofficeHistoricoController extends HttpServlet implements ICRUDC
 		} catch (SQLException e) { // Longitud de campos incorrecta
 			LOG.debug(e.getMessage());
 			alert = new Alert(Alert.WARNING, "Alguno de los campos tiene una longitud incorrecta.");
-			
 
 		} catch (Exception e) { // Errores que no son de SQL
 			LOG.debug(e.getMessage());
-			alert = new Alert();
-			
+			alert = new Alert(Alert.DANGER,e.getMessage());
 
 		} finally {
 
@@ -166,9 +164,15 @@ public class BackofficeHistoricoController extends HttpServlet implements ICRUDC
 
 	private java.sql.Date parseDate(String fecha) throws ParseException {
 
-		SimpleDateFormat sdf1 = new SimpleDateFormat("yyyy-MM-dd");
-		java.util.Date date = sdf1.parse(fecha);
-		java.sql.Date sqlStartDate = new java.sql.Date(date.getTime());
+		java.sql.Date sqlStartDate = null;
+
+		if (!fecha.equals("")) {
+
+			SimpleDateFormat sdf1 = new SimpleDateFormat("yyyy-MM-dd");
+			java.util.Date date = sdf1.parse(fecha);
+			sqlStartDate = new java.sql.Date(date.getTime());
+
+		}
 
 		return sqlStartDate;
 

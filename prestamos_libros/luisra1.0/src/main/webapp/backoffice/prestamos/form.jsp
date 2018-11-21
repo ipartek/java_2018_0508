@@ -20,12 +20,13 @@
       		
 					
 				<div class="form-row" id="rowLibro">
+				    <!--******** SECCION LIBRO********** -->
 					<div class="col-4">
 				   		<label for="libros">Libro</label>
 				   	</div>
 				   	<div class="col-4">
 						<!-- CARGAR LIBROS -->
-						<select name="libros" class="form-control" id="libros">
+						<select name="libros" class="form-control" id="libros" >
 							<option value="${ prestamo.libro.id }" selected>${ prestamo.libro.titulo }</option>
 					   		<c:forEach items="${ libros }" var="libro">
 						   		<option value="${ libro.id }" ${ ( libro.id == prestamo.libro.id) ? 'selected' : '' }>${ libro.titulo }</option>
@@ -37,7 +38,7 @@
 			                        <label for="nuevoTitulo">Título</label> 
 			                    </div>
 			                    <div class="col">
-			                        <input type="text" name="nuevoTitulo" >
+			                        <input type="hidden" name="nuevoTitulo" id="nuevoTitulo" placeholder="Nombre del nuevo libro" minlength="2" maxlength="50" required="required">
 			                    </div>
 			            </div>
             
@@ -46,7 +47,7 @@
 			                        <label for="nuevoIsbn">ISBN</label>   
 			                    </div>
 			                    <div class="col">
-			                        <input type="text" name="nuevoIsbn" >
+			                        <input type="hidden" name="nuevoIsbn" id="nuevoIsbn" value="123456789012" placeholder="Entre 11 y 19 caracteres " minlength="11" maxlength="19" required="required">
 			                    </div>
 			            </div>
                 
@@ -64,12 +65,12 @@
 			                    <label for="editorial">Editorial</label> 
 			                </div>
 			                <div class="col-4">
-			                    <select name="editorial" id="editorial" class="form-control"  >   
+			                    <select name="editorial" id="editorial" class="form-control custom-select"  >   
 			                        <c:forEach items="${ editoriales }" var="editorial">
 			                            <option  value="${ editorial.id }" ${ ( editorial.id == libro.editorial.id) ? 'selected' : '' } >${ editorial.nombre }</option>
 			                        </c:forEach>
 			                    </select>
-			                    <input type="hidden" class="form-control"  name="nuevaEditorial" id="nuevaEditorial" placeholder="nombre de la nueva editorial" required="required">
+			                    <input type="hidden" class="form-control custom-select"  name="nuevaEditorial" id="nuevaEditorial" placeholder="nombre de la nueva editorial" minlength="2" maxlength="50" required="required">
 			                </div>
 			                <div class="col-2">
 	                            <button id="botonNuevadit" type="button" onclick="ocultarEditoriales()" class="btn btn-lg btn-primary">Nueva editorial</button>
@@ -87,7 +88,7 @@
 				</div>
 				
 				
-				
+				<!-- *********SECCION ALUMNO*********** -->
 				<div class="form-row" id="rowAlumno">
 					<div class="col-4">
 				   		<label for="nuevoAlumno">Alumno</label>
@@ -100,7 +101,7 @@
 						   		<option value="${ alumno.id }" ${ ( alumno.id == prestamo.alumno.id) ? 'selected' : '' }>${ alumno.nombre }</option>
 					   		</c:forEach>
 						</select>
-						<input type="hidden" class="form-control"  name="nuevoAlumno" id="nuevoAlumno" placeholder="nombre del nuevo alumno" >
+						<input type="hidden" class="form-control"  name="nuevoAlumno" id="nuevoAlumno"  placeholder="Nombre del nuevo alumno" required="required" minlength="2" maxlength="50">
 					</div>
 					<div class="col-4">
 					   <button id="btnNuevoAlumno" type="button" onclick="ocultarAlumnos()" class="btn btn-primary">Nuevo Alumno</button>
@@ -108,16 +109,17 @@
 					</div>
 				</div>
 				
-				
+				<!-- FECHA INICIO -->
 				<div class="form-row" id="rowInicio">
 					<div class="col-4">
 				   		<label for="fechaInicio">Fecha de Inicio</label>
 				   	</div>
 				   	<div class="col-4">
-				   		<input type="date" class="form-control" name="fechaInicio" value="${ prestamo.fechaInicio }" >
+				   		<input type="date" class="form-control" name="fechaInicio" value="${ prestamo.fechaInicio }" required="required">
 					</div>
 				</div>
 				
+				<!-- FECHA FIN -->
 				<div class="form-row" id="rowFin">
 					<div class="col-4">
 				   		<label for="fechaFin">Fecha de Fin</label>
