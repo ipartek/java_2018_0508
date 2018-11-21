@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Set;
 
 import javax.validation.ConstraintViolation;
+import javax.validation.Validation;
 import javax.validation.Validator;
 import javax.validation.ValidatorFactory;
 
@@ -30,6 +31,10 @@ public class ServiceVideo implements IServiceVideo {
 	private ServiceVideo() {
 		super();
 		daoVideo = VideoDAO.getInstance();
+		
+		// Crear Factoria y Validador
+		factory = Validation.buildDefaultValidatorFactory();
+		validator = factory.getValidator();
 	}
 
 	public static synchronized ServiceVideo getInstance() {

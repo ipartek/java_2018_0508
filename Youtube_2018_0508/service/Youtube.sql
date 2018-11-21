@@ -36,7 +36,7 @@ CREATE TABLE `comentario` (
   KEY `comentario_has_video_idx` (`id_video`),
   CONSTRAINT `comentario_has_usuario` FOREIGN KEY (`id_usuario`) REFERENCES `usuario` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `comentario_has_video` FOREIGN KEY (`id_video`) REFERENCES `video` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -45,7 +45,7 @@ CREATE TABLE `comentario` (
 
 LOCK TABLES `comentario` WRITE;
 /*!40000 ALTER TABLE `comentario` DISABLE KEYS */;
-INSERT INTO `comentario` VALUES (2,'2018-10-11 09:10:34','Gran video, me he reido mucho',0,1,2),(3,'2018-10-11 09:12:16','Vaya mierda de video. Me desuscribo',0,1,3);
+INSERT INTO `comentario` VALUES (2,'2018-10-11 09:10:34','Gran video, me he reido mucho',1,1,2),(3,'2018-10-11 09:12:16','Vaya mierda de video. Me desuscribo',1,1,3),(19,'2018-10-11 13:13:37','Lorem ipsum dolor sit amet consectetur adipiscing elit vestibulum fringilla porta at, neque netus habitasse nullam ridiculus ligula imperdiet sociis dictum eget tristique, sed aenean egestas sociosqu consequat posuere metus quis dui nam. Condimentum sociosqu dis velit ridiculus suscipit, enim urna lobortis iaculis sem, proin nulla faucibus vivamus. A sagittis eleifend id nec nulla iaculis nostra, magnis eget porta cum vel nibh blandit venenatis, vestibulum aliquet fames fringilla in malesuada. Lorem ipsum dolor sit amet consectetur adipiscing elit vestibulum fringilla porta at, neque netus habitasse nullam ridiculus ligula imperdiet sociis dictum eget tristique, sed aenean egestas sociosqu consequat posuere metus quis dui nam. Condimentum sociosqu dis velit ridiculus suscipit, enim urna lobortis iaculis sem, proin nulla faucibus vivamus. A sagittis eleifend id nec nulla iaculis nostra, magnis eget porta cum vel nibh blandit venenatis, vestibulum aliquet fames fringilla in malesuada.Lorem ipsum dolor sit amet consectetur adipiscing elit vestibulum fringilla porta at, neque netus habitasse nullam ridiculus ligula imperdiet sociis dictum eget tristique, sed aenean egestas sociosqu consequat posuere metus quis dui nam. Condimentum sociosqu dis velit ridiculus suscipit, enim urna lobortis iaculis sem, proin nulla faucibus vivamus. A sagittis eleifend id nec nulla iaculis nostra, magnis eget porta cum vel nibh blandit venenatis, vestibulum aliquet fames fringilla in malesuada.Lorem ipsum dolor sit amet consectetur adipiscing elit vestibulum fringilla porta at, neque netus habitasse nullam ridiculus ligula imperdiet sociis dictum eget tristique, sed aenean egestas sociosqu consequat posuere metus quis dui nam. Condimentum sociosqu dis velit ridiculus suscipit, enim urna lobortis iaculis sem, proin nulla faucibus vivamus. A sagittis eleifend id nec nulla iaculis nostra, magnis eget porta cum vel nibh blandit venenatis, vestibulum aliquet fames fringilla in malesuada.Lorem ipsum dolor sit amet consectetur adipiscing elit vestibulum fringilla porta at, neque netus habitasse nullam ridiculus ligula imperdiet sociis dictum eget tristique, sed aenean egestas sociosqu consequat posuere metus quis dui nam. Condimentum sociosqu dis velit ridiculus suscipit, enim urna lobortis iaculis sem, proin nulla faucibus vivamus. A sagittis eleifend id nec nulla iaculis nostra, magnis eget porta cum vel nibh blandit venenatis, vestibulum aliquet fames fringilla in malesuada. Lorem ipsum dolor sit amet consectetur adipiscing elit vestibulum fringilla porta at, neque netus habitasse nullam ridiculus ligula imperdiet sociis dictum eget tristique, sed aenean egestas sociosqu consequat posuere metus quis dui nam. Condimentum sociosqu dis velit ridiculus suscipit, enim urna lobortis iaculis sem, proin nulla faucibus vivamus. A sagittis eleifend id nec nulla iaculis nostra, magnis eget porta cum vel nibh blandit venenatis, vestibulum aliquet fames fringilla in malesuada.Lorem ipsum dolor sit amet consectetur adipiscing elit vestibulum fringilla porta at, neque netus habitasse nullam ridiculus ligula imperdiet sociis dictum eget tristique, sed aenean egestas sociosqu consequat posuere metus quis dui nam. Condimentum sociosqu dis velit ridiculus suscipit, enim urna lobortis iaculis sem, proin nulla faucibus vivamus. A sagittis eleifend id nec nulla iaculis nostra, magnis eget porta cum vel nibh blandit venenatis, vestibulum aliquet fames fringilla in malesuada.Lorem ipsum dolor sit amet consectetur adipiscing elit vestibulum fringilla porta at, neque netus habitasse nullam ridiculus ligula imperdiet sociis dictum eget tristique, sed aenean egestas sociosqu consequat posuere metus quis dui nam. Condimentum sociosqu dis velit ridiculus suscipit, enim urna lobortis iaculis sem, proin nulla faucibus vivamus. A sagittis eleifend id nec nulla iaculis nostra, magnis eget porta cum vel nibh blandit venenatis, vestibulum aliquet fames fringilla in malesuada.Lorem ipsum dolor sit amet consectetur adipiscing elit vestibulum fringilla porta at, neque netus habitasse nullam ridiculus ligula imperdiet sociis dictum eget tristique, sed aenean egestas sociosqu consequat posuere metus quis dui nam. Condimentum sociosqu dis velit ridiculus suscipit, enim urna lobortis iaculis sem, proin nulla faucibus vivamus. A sagittis eleifend id nec nulla iaculis nostra, magnis eget porta cum vel nibh blandit venenatis, vestibulum aliquet fames fringilla in malesuada.',1,44,4),(21,'2018-10-11 14:05:52','Que buena película y que gran canción!!',1,1,4),(22,'2018-10-15 13:37:19','Ejemplo ejemplo ejemplo',0,44,3);
 /*!40000 ALTER TABLE `comentario` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -90,7 +90,7 @@ CREATE TABLE `usuario` (
   UNIQUE KEY `nombre_UNIQUE` (`nombre`),
   KEY `usuario_has_rol_idx` (`id_rol`),
   CONSTRAINT `usuario_has_rol` FOREIGN KEY (`id_rol`) REFERENCES `rol` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=28 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -99,7 +99,7 @@ CREATE TABLE `usuario` (
 
 LOCK TABLES `usuario` WRITE;
 /*!40000 ALTER TABLE `usuario` DISABLE KEYS */;
-INSERT INTO `usuario` VALUES (1,'admin','admin',1),(2,'manolo','12345',2),(3,'pepi','12345',2),(4,'user','user',2),(5,'manoli','manoli',2),(6,'pepe','pepe',3),(7,'jorge','jorge',2);
+INSERT INTO `usuario` VALUES (1,'admin','admin',1),(2,'manolo','12345',2),(3,'pepi','12345',2),(4,'user','user',2),(5,'manoli','manoli',2),(6,'pepe','pepe',2),(7,'jorge','jorge',2);
 /*!40000 ALTER TABLE `usuario` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -131,6 +131,10 @@ LOCK TABLES `video` WRITE;
 INSERT INTO `video` VALUES (1,'yGnfFW-vyzU','The Devil and The Huntsman - King Arthur Soundtrack',1),(31,'jJllPxkHGPE','Blancanieves y los siete enanitos: Ay ho/Cavar, cavar',6),(32,'UtF6Jej8yb4','Avicii I\'s - The Nights',6),(38,'aL6xNZ9pnbI','Miku Hatsune (Vocaloid) - Senbonzakura',1),(40,'sVwrQ2n13eQ','Autos de choque del FARY',5),(42,'Pzqr3rVZNso','EL RENO RENARDO - Camino Moria (videolyric by Azzurro)',6),(43,'p32b5nNq1zw','Iron Maiden - Fear of The Dark (HQ)',5),(44,'NFSyl3pwa-A','Maricarmen - La Pegatina (videoclip oficial)',6);
 /*!40000 ALTER TABLE `video` ENABLE KEYS */;
 UNLOCK TABLES;
+
+--
+-- Dumping routines for database 'youtube'
+--
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -141,4 +145,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-10-11  9:15:46
+-- Dump completed on 2018-11-21 13:34:37

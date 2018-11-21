@@ -18,6 +18,10 @@ public class UsuarioDAO implements Crudable<Usuario>{
 												+" FROM youtube.usuario as u, youtube.rol as r"
 												+" WHERE u.id_rol = r.id"
 												+" ORDER BY u.id DESC LIMIT 500";
+	private static final String SQL_GET_ALL_PUBLICOS = "SELECT u.id as 'id_usuario', u.nombre as 'nombre_usuario', id_rol as 'id_rol', r.nombre as 'rol_nombre'"
+			+" FROM youtube.usuario as u, youtube.rol as r"
+			+" WHERE u.id_rol = r.id"
+			+" ORDER BY u.id DESC LIMIT 500";
 	private static final String SQL_GET_BY_ID = "SELECT u.id as 'id_usuario', u.nombre as 'nombre_usuario', u.password, id_rol as 'id_rol', r.nombre as 'rol_nombre'"
 												+ " FROM youtube.usuario as u, youtube.rol as r"
 												+ " WHERE u.id_rol = r.id AND u.id = ?;";
@@ -195,6 +199,31 @@ private static final String SQL_GET_NOMBRE = "SELECT u.id as 'id_usuario', u.nom
 			}	
 		}
 		return resul;
+	}
+	
+	public List<Usuario> publicList() throws Exception{
+		ArrayList<Usuario> usuarios = new ArrayList<Usuario>();
+		Usuario u = null;
+		try(Connection con =  ConnectionManager.getConnection();
+			PreparedStatement ps = con.prepareStatement(SQL_GET_ALL_PUBLICOS);){
+			ResultSet rs = ps.executeQuery();
+
+			//Mapear ResultSet a ArrayList
+			while(rs.next()) {
+				u = new Usuario();
+				u.setId(rs.getLong("id_usuario"));
+				u.setNombre( rs.getString("nombre_usuario"));
+				
+				Rol rol = new Rol();
+				rol.setId(rs.getLong("id_rol"));
+				rol.setNombre(rs.getString("rol_nombre"));
+				
+				u.setRol(rol);
+				
+				usuarios.add(u);
+			}
+		}
+		return usuarios;
 	}
 
 	private Usuario rowMapper(ResultSet rs) throws Exception{
