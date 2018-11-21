@@ -5,8 +5,6 @@ import static org.junit.Assert.fail;
 
 import org.junit.Test;
 
-import com.andrea.perez.youtube.dao.ConnectionManager;
-
 public class ConnectionManagerTest {
 
 	@Test

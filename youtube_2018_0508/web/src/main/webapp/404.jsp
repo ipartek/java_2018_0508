@@ -1,8 +1,8 @@
 <!DOCTYPE html>
-<%@page import="com.andrea.perez.pojo.Usuario"%>
+<%@page import="com.andrea.perez.youtube.pojo.Usuario"%>
 <%@page import="com.andrea.perez.controller.pojo.Alert"%>
 <%@page import="com.andrea.perez.controller.HomeController"%>
-<%@page import="com.andrea.perez.pojo.Video"%>
+<%@page import="com.andrea.perez.youtube.pojo.Video"%>
 <%@page import="java.util.ArrayList"%>
 
 <%@ page isErrorPage="true" %>

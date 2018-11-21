@@ -3,12 +3,12 @@ package com.andrea.perez.youtube.dao;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.andrea.perez.pojo.Rol;
-import com.andrea.perez.pojo.Usuario;
+import com.andrea.perez.youtube.conection.ConnectionManager;
+import com.andrea.perez.youtube.pojo.Rol;
+import com.andrea.perez.youtube.pojo.Usuario;
 import com.mysql.jdbc.Statement;
 
 public class UsuarioDAO implements Crudable<Usuario> {
@@ -51,7 +51,7 @@ public class UsuarioDAO implements Crudable<Usuario> {
 
 				ps.setString(1, pojo.getNombre().trim());
 				ps.setString(2, pojo.getContrasena().trim());
-				ps.setLong(3, pojo.getRol());
+				ps.setLong(3, pojo.getRol().getId());
 
 				int affectedRows = ps.executeUpdate();
 
@@ -119,7 +119,7 @@ public class UsuarioDAO implements Crudable<Usuario> {
 
 			ps.setString(1, pojo.getNombre());
 			ps.setString(2, pojo.getContrasena());
-			ps.setLong(3, pojo.getRol());
+			ps.setLong(3, pojo.getRol().getId());
 			ps.setLong(4, pojo.getId());
 
 			int affectedRows = ps.executeUpdate();
@@ -210,7 +210,7 @@ public class UsuarioDAO implements Crudable<Usuario> {
 			rol.setId(rs.getLong("id_rol"));
 			rol.setNombre(rs.getString("nombre_rol"));
 
-			u.setRol((int) rol.getId());
+			u.setRol(rol);
 		}
 		return u;
 	}

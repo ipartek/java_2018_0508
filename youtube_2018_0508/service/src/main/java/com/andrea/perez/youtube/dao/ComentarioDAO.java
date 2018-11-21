@@ -7,9 +7,10 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.andrea.perez.pojo.Comentario;
-import com.andrea.perez.pojo.Usuario;
-import com.andrea.perez.pojo.Video;
+import com.andrea.perez.youtube.conection.ConnectionManager;
+import com.andrea.perez.youtube.pojo.Comentario;
+import com.andrea.perez.youtube.pojo.Usuario;
+import com.andrea.perez.youtube.pojo.Video;
 import com.mysql.jdbc.Statement;
 
 public class ComentarioDAO implements Crudable<Comentario> {

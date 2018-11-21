@@ -1,5 +1,5 @@
 <%@page import="com.andrea.perez.controller.back.BackofficeRolController"%>
-<%@page import="com.andrea.perez.pojo.Rol"%>
+<%@page import="com.andrea.perez.youtube.pojo.Rol"%>
 <%@include file="../includes/header.jsp"%>    
 <%@include file="../includes/aside.jsp"%> 
 

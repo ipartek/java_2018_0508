@@ -1,6 +1,6 @@
 <%@page import="com.andrea.perez.controller.back.BackofficeVideoController"%>
-<%@page import="com.andrea.perez.pojo.Video"%>
-<%@page import="com.andrea.perez.pojo.Usuario"%>
+<%@page import="com.andrea.perez.youtube.pojo.Video"%>
+<%@page import="com.andrea.perez.youtube.pojo.Usuario"%>
 
 <%@include file="../includes/header.jsp"%>
 

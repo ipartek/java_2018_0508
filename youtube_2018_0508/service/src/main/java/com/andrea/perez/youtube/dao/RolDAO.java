@@ -6,7 +6,8 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.andrea.perez.pojo.Rol;
+import com.andrea.perez.youtube.conection.ConnectionManager;
+import com.andrea.perez.youtube.pojo.Rol;
 import com.mysql.jdbc.Statement;
 
 public class RolDAO implements Crudable<Rol> {

@@ -1,4 +1,4 @@
-<%@page import="com.andrea.perez.pojo.Rol"%>
+<%@page import="com.andrea.perez.youtube.pojo.Rol"%>
 <%@include file="taglibs.jsp"%>
 	<!-- Navigation -->
 <%@page import="java.util.Date"%>

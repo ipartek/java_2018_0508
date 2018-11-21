@@ -1,17 +1,26 @@
-package com.andrea.perez.pojo;
+package com.andrea.perez.youtube.pojo;
+
+import javax.validation.constraints.Size;
+
+import org.hibernate.validator.constraints.NotBlank;
 
 public class Usuario {
 	private long id;
+	
+	@NotBlank
+	@Size(min=2,max=50)
 	private String nombre;
+	@NotBlank
+	@Size(min=6,max=20)
 	private String contrasena;
-	private int rol;
+	private Rol rol;
 
 	public Usuario() {
 		super();
 		this.id = -1;
 		this.nombre = "";
 		this.contrasena = "";
-		this.rol = 1;
+		this.rol = new Rol();
 
 	}
 
@@ -19,15 +28,7 @@ public class Usuario {
 		this();
 		this.nombre = nombre;
 		this.contrasena = contraseña;
-	}
-
-	public int getRol() {
-		return rol;
-	}
-
-	public void setRol(int rol) {
-		this.rol = rol;
-	}
+	}	
 
 	public long getId() {
 		return id;
@@ -53,9 +54,19 @@ public class Usuario {
 		this.contrasena = contraseña;
 	}
 
+	public Rol getRol() {
+		return rol;
+	}
+
+	public void setRol(Rol rol) {
+		this.rol = rol;
+	}
+
 	@Override
 	public String toString() {
 		return "Usuario [id=" + id + ", nombre=" + nombre + ", contrasena=" + contrasena + ", rol=" + rol + "]";
 	}
+
+	
 
 }

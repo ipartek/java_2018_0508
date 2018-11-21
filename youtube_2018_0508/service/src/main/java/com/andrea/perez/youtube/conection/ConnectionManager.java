@@ -1,4 +1,4 @@
-package com.andrea.perez.youtube.dao;
+package com.andrea.perez.youtube.conection;
 
 import java.io.InputStream;
 import java.sql.Connection;
