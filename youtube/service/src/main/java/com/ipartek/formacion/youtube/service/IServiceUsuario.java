@@ -4,7 +4,7 @@ import java.util.List;
 
 import com.ipartek.formacion.youtube.pojo.Usuario;
 
-public interface IServiceUsuario extends Singleton<IServiceUsuario> {
+public interface IServiceUsuario {
 	
 		
 	/**
@@ -51,6 +51,6 @@ public interface IServiceUsuario extends Singleton<IServiceUsuario> {
 	 * @throws Exception si tiene videos asociados
 	 */
 	boolean eliminar(long idUsurio) throws Exception;
-	
 
+	
 }
