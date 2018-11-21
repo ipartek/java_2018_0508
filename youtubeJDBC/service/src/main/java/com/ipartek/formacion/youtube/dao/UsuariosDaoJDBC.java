@@ -67,9 +67,13 @@ public class UsuariosDaoJDBC implements CrudAble<Usuario> {
 			// nos devuelve un entero representado el numero de registros afectados por la
 			// query
 			rows = ps.executeUpdate();
-			flag = true;
+			if(rows  > 0) {
+				flag = true;
+				System.out.println(rows + " registros afectados en la accion de insertar Usuario");
+			}
+			
 		} 
-		System.out.println(rows + " registros afectados en la accion de insertar Usuario");
+		
 		return flag;
 	}
 
@@ -171,6 +175,7 @@ public class UsuariosDaoJDBC implements CrudAble<Usuario> {
 			//usuario.setId("id_usuario");
 			Rol rol = new Rol();
 			rol.setId((int) rs.getLong("id_rol"));
+			rol.setNombre(rs.getString("nombre_rol"));
 			usuario.setRol(rol);
 
 		}

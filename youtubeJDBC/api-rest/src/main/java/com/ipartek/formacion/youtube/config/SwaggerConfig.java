@@ -31,11 +31,11 @@ public class SwaggerConfig {
     }
      
     private ApiInfo apiInfo() {
-        ApiInfo apiInfo = new ApiInfo("Prestamos Rest API",
+        ApiInfo apiInfo = new ApiInfo("Youtube api",
                                         "",
                                         "1.0",
                                         "",
-                                        new Contact("Ipartek", "https://www.ipartek.com/", "librosipartek@gmail.com"),
+                                        new Contact("Ipartek", "https://www.ipartek.com/", "raul.abejon.delgado@gmail.com"),
                                         "Apache License",
                                         "");
         return apiInfo;

@@ -1,5 +1,6 @@
 package com.ipartek.formacion.youtube.impl;
 
+import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
@@ -112,6 +113,7 @@ public class ServiceUsuario implements IServiceUsuario {
 		try {
 			Rol rol = new Rol();
 			rol.setId(Rol.ROL_USER);
+			u.setRol(rol);
 
 			Set<ConstraintViolation<Usuario>> violations = validator.validate(u);
 			String[] errores = new String[violations.size()];
@@ -132,9 +134,16 @@ public class ServiceUsuario implements IServiceUsuario {
 					resul = true;
 				}
 			}
+		}catch (SQLIntegrityConstraintViolationException e) { // Error entrada duplicada
+			
+			if (e.getMessage().contains("Duplicate entry")){
+				LOG.debug(e.getMessage());
+				throw new Exception(e.getMessage());
+			}
+
 		} catch (Exception e) {
 			LOG.error(e);
-			throw new Exception();
+			throw new Exception(e.getMessage());
 		}
 
 		return resul;
