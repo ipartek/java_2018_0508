@@ -1,6 +1,7 @@
 # Service: proyecto encargado del acceso a datos, capa Servicio.
 
 Proyecto JAR para conectar con la base de datos, encargado de dar servicio al resto de aplicaciones.
+Usamos **DriverManager** en vez de Pool de conexiones del servidor.
 
 ## Modelo Base de datos
 
@@ -8,6 +9,6 @@ Proyecto JAR para conectar con la base de datos, encargado de dar servicio al re
 
 ## Configuración conexión de la base de datos.
 	Para poder cambiar la conexión a la BBDD, mirar fichero:
-	src/main/resources/ **database.properties**
+	src\main\resources\ **database.properties**
 
 
