@@ -5,7 +5,7 @@ Usamos **DriverManager** en vez de Pool de conexiones del servidor.
 
 ## Modelo Base Datos
 
-![alt modelo base datos](https://github.com/ipartek/java_2018_0508/youtube/service/modelo_base_datos.png)
+![alt modelo base datos](https://github.com/ipartek/java_2018_0508/blob/master/youtube/service/modelo_base_datos.png)
 
 
 ## configuracion conexión Base Datos
