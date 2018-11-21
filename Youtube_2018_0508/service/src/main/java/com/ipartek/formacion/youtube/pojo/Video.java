@@ -3,9 +3,17 @@ package com.ipartek.formacion.youtube.pojo;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.validation.constraints.Size;
+
+import org.hibernate.validator.constraints.NotBlank;
+
 public class Video {
 	private long id;
+	@NotBlank
+	@Size(min=11, max=11)
 	private String codigo;
+	@NotBlank
+	@Size(min=3, max=150)
 	private String titulo;
 	private String descripcion;
 	private Usuario usuario;
