@@ -3,12 +3,14 @@ package com.ipartek.formacion.youtube.dao;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
 import com.ipartek.formacion.youtube.connection.ConnectionManager;
 import com.ipartek.formacion.youtube.pojo.Rol;
 import com.ipartek.formacion.youtube.pojo.Usuario;
+import com.ipartek.formacion.youtube.pojo.UsuarioPublico;
 import com.mysql.jdbc.Statement;
 
 public class UsuarioDAO implements CrudAble<Usuario> {
@@ -19,6 +21,10 @@ public class UsuarioDAO implements CrudAble<Usuario> {
 										" FROM usuario as u, rol as r" +
 										" WHERE u.id_rol = r.id" + 
 										" ORDER BY u.id DESC LIMIT 1000;";
+	
+	private final String SQL_GET_ALL_PUBLIC = "SELECT u.id as 'id_usuario', u.nombre as 'nombre_usuario'" + 
+											  " FROM usuario as u" +
+											  " ORDER BY u.id DESC LIMIT 1000;";
 	
 	private final String SQL_GET_BY_ID = "SELECT u.id as 'id_usuario', u.nombre as 'nombre_usuario', password, id_rol as 'id_rol', r.nombre as 'nombre_rol'" +
 										 " FROM usuario as u, rol as r" + 
@@ -79,6 +85,27 @@ public class UsuarioDAO implements CrudAble<Usuario> {
 		ArrayList<Usuario> usuarios = new ArrayList<Usuario>();
 		try (Connection con = ConnectionManager.getConnection();
 				PreparedStatement ps = con.prepareStatement(SQL_GET_ALL);
+			){
+			
+			try(ResultSet rs = ps.executeQuery()){
+
+				while (rs.next()) {
+					usuarios.add(rowMapper(rs, usuario));
+				}
+			
+			}
+
+		} 
+
+		return usuarios;
+	}
+
+	public List<UsuarioPublico> getAllPublic() throws Exception {
+		UsuarioPublico usuario = null;
+
+		ArrayList<UsuarioPublico> usuarios = new ArrayList<UsuarioPublico>();
+		try (Connection con = ConnectionManager.getConnection();
+				PreparedStatement ps = con.prepareStatement(SQL_GET_ALL_PUBLIC);
 			){
 			
 			try(ResultSet rs = ps.executeQuery()){
@@ -202,6 +229,22 @@ public class UsuarioDAO implements CrudAble<Usuario> {
 			u.setRol(rol);
 			
 		}
+		return u;
+	}
+
+	private UsuarioPublico rowMapper(ResultSet rs, UsuarioPublico u) throws SQLException {
+		
+		if (u == null) {
+			u = new UsuarioPublico();
+		} 
+
+		if (rs != null) {
+
+			u.setNombre(rs.getString("nombre_usuario"));
+			u.setId(rs.getLong("id_usuario"));
+			
+		}
+		
 		return u;
 	}
 
