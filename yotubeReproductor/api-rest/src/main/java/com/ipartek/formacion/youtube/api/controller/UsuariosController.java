@@ -1,7 +1,10 @@
 package com.ipartek.formacion.youtube.api.controller;
 
+import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.ArrayList;
+import java.util.Set;
 
+import javax.validation.ConstraintViolation;
 import javax.validation.Validation;
 import javax.validation.Validator;
 import javax.validation.ValidatorFactory;
@@ -10,6 +13,8 @@ import org.apache.log4j.Logger;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -19,6 +24,9 @@ import com.ipartek.formacion.youtube.service.IServiceUsuario;
 import com.ipartek.formacion.youtube.service.impl.ServiceUsuario;
 
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
 
 @Api(tags = { "Usuarios" }, produces = "application/json", description = "Gestion Usuarios")
 //Para poder habilitar Cors, para llamadas javasct, la llamadas a ajax no funcionaria si no ponemos esto
@@ -42,9 +50,13 @@ public class UsuariosController {
 		validator = factory.getValidator();
 	}
 
-	@RequestMapping(value = { "/", "" }, method = RequestMethod.GET)
+	@ApiOperation(value = "Listado Usuarios")
+	@ApiResponses(value = { @ApiResponse(code = 200, message = "Listado Usuarios"),
+			@ApiResponse(code = 204, message = "No se encontro los Usuarios") })
 
-// es una respuesta que tiene dos parametros el cuerpo que son los datos ArrayList<Usuario> y codigo 
+	@RequestMapping( method = RequestMethod.GET)
+	//value = { "/", "" }, por que si no me creo dos GET osea dos listar
+// Es una respuesta que tiene dos parametros el cuerpo que son los datos ArrayList<Usuario> y codigo 
 	public ResponseEntity<ArrayList<Usuario>> listado() {
 		ResponseEntity<ArrayList<Usuario>> response = new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 
@@ -64,5 +76,140 @@ public class UsuariosController {
 
 		return response;
 	}
+	
+	@ApiOperation(value = "Detalle Usuario")
+	@ApiResponses(value = { @ApiResponse(code = 200, message = "Detalle Usuario"),
+			@ApiResponse(code = 404, message = "No se encontro Usuario valor incorrecto") })
+
+	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
+	public ResponseEntity<Usuario> detalle(@PathVariable long id) {
+
+		ResponseEntity<Usuario> response = new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+		try {
+
+			Usuario usuario = serviceUsuario.buscarPorId(id);
+			if (usuario != null && usuario.getId() > 1) {
+				response = new ResponseEntity<>(usuario, HttpStatus.OK);
+			} else {
+				response = new ResponseEntity<>(HttpStatus.NOT_FOUND);
+			}
+
+		} catch (Exception e) {
+			LOG.error(e);
+		}
+		return response;
+	}
+	
+	@ApiOperation(value = "Usuario Eliminado")
+	@ApiResponses(value = { @ApiResponse(code = 200, message = "Usuario Elimminado"),
+			@ApiResponse(code = 404, message = "No se encontro Usuario"),
+			@ApiResponse(code = 409, message = "No se puede eliminar Usuario si tiene Videos\"") })
+	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
+	public ResponseEntity<Object> eliminar(@PathVariable long id) {
+
+		ResponseEntity<Object> response = new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+		try {
+
+			if (serviceUsuario.eliminar(id)) {
+				response = new ResponseEntity<>(HttpStatus.OK);
+			} else {
+				response = new ResponseEntity<>(new ResponseMensaje("Usuario no Encontrado"), HttpStatus.NOT_FOUND);
+			}
+
+		} catch (SQLIntegrityConstraintViolationException e) {
+		
+			response = new ResponseEntity<>(new ResponseMensaje("No se puede eliminar si tiene Videos asociados"),
+					HttpStatus.CONFLICT);
+			LOG.debug("No se puede eliminar si tiene Videos asociados");
+		} catch (Exception e) {
+			LOG.error(e);
+		}
+		return response;
+	}
+	
+	@ApiOperation(value = "Usuario Creado", response = Usuario.class)
+	@ApiResponses(value = { @ApiResponse(code = 201, message = "Usuario Creado"),
+			@ApiResponse(code = 409, message = " <o><li>No cumple validaciones</li> <li>Nombre Usuario ya existe</li></o>") })
+	@RequestMapping(method = RequestMethod.POST)
+	public ResponseEntity<Object> crear(@RequestBody Usuario usuario) {
+
+		ResponseEntity<Object> response = new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+		try {
+
+			Set<ConstraintViolation<Usuario>> violations = validator.validate(usuario);
+
+			if (violations.isEmpty()) {
+
+				if (serviceUsuario.crear(usuario)) {
+					response = new ResponseEntity<>(usuario, HttpStatus.CREATED);
+				} else {
+					response = new ResponseEntity<>(HttpStatus.CONFLICT);
+				}
+
+			} else {
+				ResponseMensaje mensaje = new ResponseMensaje("Los datos no son correctos");
+				for (ConstraintViolation<Usuario> v : violations) {
+					mensaje.addError(v.getPropertyPath() + ": " + v.getMessage());
+				}
+				;
+				response = new ResponseEntity<>(mensaje, HttpStatus.CONFLICT);
+			}
+
+		} catch (SQLIntegrityConstraintViolationException e) {
+	
+
+			ResponseMensaje msj = new ResponseMensaje("Ya existe el Usuario, por favor prueba con otro nombre");
+			response = new ResponseEntity<>(msj, HttpStatus.CONFLICT);
+			LOG.debug("Ya existe el Usuario, por favor prueba con otro nombre");
+		} catch (Exception e) {
+			LOG.error(e);
+		}
+		return response;
+	}
+	
+	@ApiOperation(value = "Usuario Modificado", response = Usuario.class)
+	@ApiResponses(value = { @ApiResponse(code = 201, message = "Usuario Modificado"),
+			@ApiResponse(code = 404, message = "No se encontro usuario"),
+			@ApiResponse(code = 409, message = "<o><li>No se puede modificar Usuario con el mismo nombre</li> <li>Caracteres vacios") })
+
+	@RequestMapping(value = "/{id}", method = RequestMethod.PUT)
+	public ResponseEntity<Object> modificar(@PathVariable long id, @RequestBody Usuario usuario) {
+
+		ResponseEntity<Object> response = new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+		try {
+
+			Set<ConstraintViolation<Usuario>> violations = validator.validate(usuario);
+			if (violations.isEmpty()) {
+
+				usuario.setId(id);
+				if (serviceUsuario.modificar(usuario)) {
+					response = new ResponseEntity<>(usuario, HttpStatus.OK);
+				} else {
+					response = new ResponseEntity<>(HttpStatus.CONFLICT);
+				}
+
+			} else {
+				ResponseMensaje mensaje = new ResponseMensaje("Los datos no son correctos");
+				for (ConstraintViolation<Usuario> v : violations) {
+					mensaje.addError(v.getPropertyPath() + ": " + v.getMessage());
+				}
+				;
+				response = new ResponseEntity<>(
+						new ResponseMensaje("Ya existe la Usuario, por favor prueba con otro nombre"),
+						HttpStatus.CONFLICT);
+			}
+
+		} catch (SQLIntegrityConstraintViolationException e) {
+			response = new ResponseEntity<>(
+					new ResponseMensaje("Ya existe la Usuario, por favor prueba con otro nombre"), HttpStatus.CONFLICT);
+			LOG.debug("Ya existe la Usuario, por favor prueba con otro nombre");
+		} catch (Exception e) {
+			// TODO gestionar duplicate key entry
+			LOG.error(e);
+		}
+		return response;
+	}
+
+
 
 }

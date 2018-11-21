@@ -53,6 +53,6 @@ public interface IServiceUsuario {
 	 * @return true si eliminar 
 	 * @throws Exception si tiene videos asociados
 	 */
-	boolean eliminar (long idUsuario) throws Exception;
+	boolean eliminar (long id) throws Exception;
 
 }

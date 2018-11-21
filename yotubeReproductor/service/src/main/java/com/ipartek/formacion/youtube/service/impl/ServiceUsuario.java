@@ -1,5 +1,6 @@
 package com.ipartek.formacion.youtube.service.impl;
 
+import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.List;
 
 import org.apache.log4j.Logger;
@@ -89,14 +90,16 @@ public class ServiceUsuario implements IServiceUsuario {
 	}
 
 	@Override
-	public boolean eliminar(long idUsuario) {
+	public boolean eliminar(long id)  throws Exception {
 		boolean resul = false;
 		try {
 
-			if (daoUsuario.delete(Long.toString(idUsuario))) {
+			if (daoUsuario.delete(Long.toString(id))) {
 				resul = true;
 			}
 
+		} catch (SQLIntegrityConstraintViolationException e) {
+			LOG.debug("No se puede eliminar si tiene Videos asociados");
 		} catch (Exception e) {
 			LOG.error(e);
 		}
