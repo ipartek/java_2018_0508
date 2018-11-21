@@ -5,8 +5,8 @@
 	
 ## Conexión a BBDD
 	-Se utiliza un DriverManager para establecer la conexión.
-	-La cofiguración se *encuentra* en el fichero src/main/resources/ **database.properties** .
-	-Para comprobar si **establece** conexión, ejecute el test src/main/java/ **ConnectionManagerTest** .
+	-La cofiguración se encuentra en el fichero src/main/resources/ **database.properties** .
+	-Para comprobar si establece conexión, ejecute el test src/main/java/ **ConnectionManagerTest** .
 
 ## Diagrama BBDD
 	
