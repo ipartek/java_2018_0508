@@ -5,12 +5,11 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.util.Properties;
 
+
 public class ConnectionManager {
 
 	private static Connection conn;
 	
-
-
 	public static Connection getConnection() throws Exception {
 
 		conn = null;
@@ -21,7 +20,6 @@ public class ConnectionManager {
 		InputStream input = ConnectionManager.class.getClassLoader().getResourceAsStream("database.properties");	
 		prop.load(input);
 		
-		
 		//comprobar que exista .jar para mysql
 		Class.forName(prop.getProperty("ddbb.driver")).newInstance();
 
@@ -29,7 +27,7 @@ public class ConnectionManager {
 		conn = DriverManager.getConnection(
 							prop.getProperty("ddbb.url"), 
 							prop.getProperty("ddbb.user"),
-							prop.getProperty("ddbb.pass"));		
+							prop.getProperty("ddbb.pass"));
 
 		return conn;
 
