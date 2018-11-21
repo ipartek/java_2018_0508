@@ -35,7 +35,7 @@ public class ServiceUsuario implements IServiceUsuario{
 		try {
 			Usuario u = new Usuario(nombre, password);
 			resul = daoUsuario.login(u);
-			LOG.debug("Usuario recuperado " + resul);
+			LOG.debug("Usuario recuperado: " + resul);
 		}catch(Exception e) {
 			LOG.error(e);
 		}
@@ -45,32 +45,78 @@ public class ServiceUsuario implements IServiceUsuario{
 
 	@Override
 	public Usuario buscarPorId(long idUsuario) {
-		// TODO Auto-generated method stub
-		return null;
+		Usuario resul = null;
+		
+		try {
+			resul = daoUsuario.getById(Long.toString(idUsuario));
+		}catch(Exception e) {
+			LOG.error(e);
+		}
+		
+		return resul;
 	}
 
 	@Override
 	public List<Usuario> listar() {
-		// TODO Auto-generated method stub
-		return null;
+		List<Usuario> usuarios = null;
+		
+		try {
+			usuarios = daoUsuario.getAll();
+			LOG.debug("Usuarios recuperados: " + usuarios);
+		}catch(Exception e) {
+			LOG.error(e);
+		}
+		
+		return usuarios;
 	}
 
 	@Override
 	public boolean crear(Usuario usuario) throws Exception {
-		// TODO Auto-generated method stub
-		return false;
+		boolean resul = false;
+		
+		try {
+			if(daoUsuario.insert(usuario)) {
+				resul = true;
+				LOG.debug("Usuario insertado; " + usuario);
+			}
+			
+		}catch(Exception e) {
+			LOG.error(e);
+		}
+		
+		return resul;
 	}
 
 	@Override
 	public boolean modificar(Usuario usuario) throws Exception {
-		// TODO Auto-generated method stub
-		return false;
+		boolean resul = false;
+		
+		try {
+			if(daoUsuario.update(usuario)) {
+				resul = true;
+				LOG.debug("Usuario modificado: " + usuario);
+			}
+		}catch(Exception e) {
+			LOG.error(e);
+		}
+		
+		return resul;
 	}
 
 	@Override
 	public boolean eliminar(long idUsuario) throws Exception {
-		// TODO Auto-generated method stub
-		return false;
+		boolean resul = false;
+		
+		try {
+			if(daoUsuario.delete(Long.toString(idUsuario))) {
+				resul = true;
+				LOG.debug("Usuario con ID " + idUsuario + " eliminado");
+			}
+		}catch(Exception e) {
+			LOG.error(e);
+		}
+		
+		return resul;
 	}
 
 }
