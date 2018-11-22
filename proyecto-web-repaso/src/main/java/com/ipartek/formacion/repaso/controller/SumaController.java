@@ -23,15 +23,23 @@ public class SumaController extends HttpServlet {
 		
 		String p1 = request.getParameter("op1");
 		String p2 = request.getParameter("op2");
-		//validar
-		
-		
-	// Aplicar la logica de negocio o llamo a la capa de servicio
-	String resultado = p1 + p2;
-		
-	// responde al usuario (enviar atributos e ir vista)
-	request.setAttribute("suma", resultado);
-	request.getRequestDispatcher("resultado.jsp").forward(request, response);
+		if ((p1 != null) || (p2 != null)) {
+			try {
+				int uno = Integer.parseInt(p1);
+				int dos = Integer.parseInt(p2);
+				int suma = uno + dos;
+			
+				request.setAttribute("suma", suma);
+				request.getRequestDispatcher("resultado.jsp").forward(request, response);
+			
+			
+			} catch(IOException e) {
+				
+			}
+		} 
+
+	
+
 	}
 
 	/**
