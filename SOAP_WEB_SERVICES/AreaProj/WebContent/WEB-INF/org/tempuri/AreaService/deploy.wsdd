@@ -1,0 +1,34 @@
+<!-- Use this file to deploy some handlers/chains and services      -->
+<!-- Two ways to do this:                                           -->
+<!--   java org.apache.axis.client.AdminClient deploy.wsdd          -->
+<!--      after the axis server is running                          -->
+<!-- or                                                             -->
+<!--   java org.apache.axis.utils.Admin client|server deploy.wsdd   -->
+<!--      from the same directory that the Axis engine runs         -->
+
+<deployment
+    xmlns="http://xml.apache.org/axis/wsdd/"
+    xmlns:java="http://xml.apache.org/axis/wsdd/providers/java">
+
+  <!-- Services from AreaService WSDL service -->
+
+  <service name="AreaServiceSOAP" provider="java:RPC" style="document" use="literal">
+      <parameter name="wsdlTargetNamespace" value="http://tempuri.org/AreaService/"/>
+      <parameter name="wsdlServiceElement" value="AreaService"/>
+      <parameter name="schemaUnqualified" value="http://tempuri.org/AreaService/"/>
+      <parameter name="wsdlServicePort" value="AreaServiceSOAP"/>
+      <parameter name="className" value="org.tempuri.AreaService.AreaServiceSOAPSkeleton"/>
+      <parameter name="wsdlPortType" value="AreaService"/>
+      <parameter name="typeMappingVersion" value="1.2"/>
+      <parameter name="allowedMethods" value="*"/>
+
+      <typeMapping
+        xmlns:ns="http://tempuri.org/AreaService/"
+        qname="ns:dimensions"
+        type="java:org.tempuri.AreaService.Dimensions"
+        serializer="org.apache.axis.encoding.ser.BeanSerializerFactory"
+        deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory"
+        encodingStyle=""
+      />
+  </service>
+</deployment>
