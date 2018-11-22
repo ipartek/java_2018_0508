@@ -7,7 +7,7 @@ public class Video {
 	private long id;
 	private String codigo;
 	private String nombre;
-	private Usuario usuario;
+	private UsuarioPrivado usuario;
 	
 	
 	public Video() {
@@ -15,11 +15,11 @@ public class Video {
 		this.id = -1;
 		this.codigo="";
 		this.nombre = "Surf Search Spot 2 0 video promo";
-		this.usuario= new Usuario();
+		this.usuario= new UsuarioPrivado();
 		
 	}
 	
-	public Video(String codigo, String nombre,Usuario usuario) throws Exception {
+	public Video(String codigo, String nombre,UsuarioPrivado usuario) throws Exception {
 		this();
 		this.id = -1;
 		this.setCodigo(codigo);
@@ -70,11 +70,11 @@ public class Video {
 		return codigo;
 	}
 
-	public Usuario getUsuario() {
+	public UsuarioPrivado getUsuario() {
 		return usuario;
 	}
 
-	public void setUsuario(Usuario usuarrio) {
+	public void setUsuario(UsuarioPrivado usuarrio) {
 		this.usuario = usuarrio;
 	}
 

@@ -2,7 +2,7 @@ package com.ipartek.formacion.youtube.service;
 
 import java.util.List;
 
-import com.ipartek.formacion.youtube.pojo.Usuario;
+import com.ipartek.formacion.youtube.pojo.UsuarioPrivado;
 import com.ipartek.formacion.youtube.pojo.Video;
 
 public interface IServiceVideo extends Singleton<IServiceVideo> {

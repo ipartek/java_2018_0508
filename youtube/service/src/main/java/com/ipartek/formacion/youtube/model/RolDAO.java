@@ -31,7 +31,7 @@ public class RolDAO implements CrudAble<Rol> {
 	}
 
 	@Override
-	public List<Rol> getAll() throws Exception {
+	public List<Rol> getAllPublico() throws Exception {
 		Rol rol = null;
 
 		ArrayList<Rol> roles = new ArrayList<Rol>();

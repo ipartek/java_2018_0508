@@ -8,7 +8,7 @@ import java.util.List;
 
 import com.ipartek.formacion.youtube.conecction.ConnectionManager;
 import com.ipartek.formacion.youtube.pojo.Comentario;
-import com.ipartek.formacion.youtube.pojo.Usuario;
+import com.ipartek.formacion.youtube.pojo.UsuarioPrivado;
 import com.ipartek.formacion.youtube.pojo.Video;
 import com.mysql.jdbc.Statement;
 
@@ -72,7 +72,7 @@ public class ComentarioDAO implements CrudAble<Comentario> {
 	}
 
 	@Override
-	public List<Comentario> getAll() throws Exception {
+	public List<Comentario> getAllPublico() throws Exception {
 		
 
 		return null;
@@ -190,7 +190,7 @@ public class ComentarioDAO implements CrudAble<Comentario> {
 			c.setFecha(rs.getTimestamp("fecha"));
 			c.setTexto(rs.getString("texto"));
 
-			Usuario u = new Usuario();
+			UsuarioPrivado u = new UsuarioPrivado();
 			u.setId(rs.getLong("id_usuario"));
 			u.setNombre(rs.getString("nombre_usuario"));
 			c.setUsuario(u);

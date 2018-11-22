@@ -11,12 +11,12 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 import com.ipartek.formacion.youtube.pojo.Rol;
-import com.ipartek.formacion.youtube.pojo.Usuario;
+import com.ipartek.formacion.youtube.pojo.UsuarioPrivado;
 import com.ipartek.formacion.youtube.service.impl.ServiceUsuario;
 
 public class ServiceUsuarioTest {
 	private static IServiceUsuario serviceUsuario;
-	private static Usuario usuarioMock;
+	private static UsuarioPrivado usuarioMock;
 	private static Rol rol;
 	private static final String NOMBRE_MOCK = "mock23wesds";
 	private static final String PASSWORD_MOCK = "masse¡_2@oLk23ws";
@@ -34,7 +34,7 @@ public class ServiceUsuarioTest {
 	@Before
 	public void setUp() throws Exception {
 
-		usuarioMock = new Usuario(NOMBRE_MOCK, PASSWORD_MOCK);
+		usuarioMock = new UsuarioPrivado(NOMBRE_MOCK, PASSWORD_MOCK);
 		assertTrue(serviceUsuario.crear(usuarioMock));
 	}
 

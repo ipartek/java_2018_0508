@@ -9,7 +9,7 @@ public class Comentario {
 	private boolean aprobado;
 	private Date fecha;
 	private Video video;
-	private Usuario usuario;
+	private UsuarioPrivado usuario;
 	
 	public Comentario() {
 		super();
@@ -18,7 +18,7 @@ public class Comentario {
 		this.aprobado = false;
 		this.fecha = null;
 		this.video = new Video();
-		this.usuario = new Usuario();
+		this.usuario = new UsuarioPrivado();
 	}
 
 	public long getId() {
@@ -61,11 +61,11 @@ public class Comentario {
 		this.video = video;
 	}
 
-	public Usuario getUsuario() {
+	public UsuarioPrivado getUsuario() {
 		return usuario;
 	}
 
-	public void setUsuario(Usuario usuario) {
+	public void setUsuario(UsuarioPrivado usuario) {
 		this.usuario = usuario;
 	}
 

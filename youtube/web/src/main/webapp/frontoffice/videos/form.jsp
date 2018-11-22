@@ -1,6 +1,6 @@
 <%@page import="com.ipartek.formacion.youtube.controller.CrudControllable"%>
 <%@page import="com.ipartek.formacion.youtube.controller.back.BackofficeVideoController"%>
-<%@page import="com.ipartek.formacion.youtube.pojo.Usuario"%>
+<%@page import="com.ipartek.formacion.youtube.pojo.UsuarioPrivado"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
 <%@ include file="../includes/header.jsp" %>

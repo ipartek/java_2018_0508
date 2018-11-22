@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.ipartek.formacion.youtube.conecction.ConnectionManager;
-import com.ipartek.formacion.youtube.pojo.Usuario;
+import com.ipartek.formacion.youtube.pojo.UsuarioPrivado;
 import com.ipartek.formacion.youtube.pojo.Video;
 import com.mysql.jdbc.Statement;
 
@@ -66,7 +66,7 @@ public class VideoDAO implements CrudAble<Video> {
 	}
 
 	@Override
-	public List<Video> getAll() {
+	public List<Video> getAllPublico() {
 
 		ArrayList<Video> videos = new ArrayList<Video>();
 		try (Connection con = ConnectionManager.getConnection();
@@ -166,7 +166,7 @@ public class VideoDAO implements CrudAble<Video> {
 
 	private Video rowMapper(ResultSet rs) throws Exception {
 		Video video = new Video();
-		Usuario usuario = new Usuario();
+		UsuarioPrivado usuario = new UsuarioPrivado();
 		if (rs != null) {
 			video.setId(rs.getLong("id"));
 			video.setCodigo(rs.getString("codigo"));

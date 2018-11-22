@@ -2,6 +2,8 @@ package com.ipartek.formacion.youtube.model;
 
 import java.util.List;
 
+import com.ipartek.formacion.youtube.pojo.Usuario;
+
 /**
  * Interfaz para especificar los metodos de <b>CRUD</b>:
  * <ul>
@@ -23,7 +25,7 @@ public interface CrudAble<P> {
 	 * Recupera todos los pojo
 	 * @return si no existe resultados retorna Lista vacia, no null
 	 */
-	List<P> getAll()throws Exception;
+	List<Usuario> getAllPublico()throws Exception;
 	
 	/**
 	 * Buscamos un pojo por su identificador
