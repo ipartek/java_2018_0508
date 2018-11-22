@@ -1,4 +1,4 @@
-package com.ipartek.formacion.youtube.conecction;
+package com.ipartek.formacion.repaso.conection;
 
 import java.io.InputStream;
 import java.sql.Connection;
