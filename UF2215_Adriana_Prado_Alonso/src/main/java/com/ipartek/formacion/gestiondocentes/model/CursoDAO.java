@@ -198,5 +198,4 @@ public class CursoDAO {
 		}
 		return cursos;
 	}
-	
 }
