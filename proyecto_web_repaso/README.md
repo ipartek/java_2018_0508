@@ -13,5 +13,5 @@ Conceptos que vamos a manejar:
 	- DAO: Para acceder desde Java a la BBDD.
 	- JDBC: Api para gestionar la BBDD (PreparedStatement, CallableStatement).
 	- LOGGER: Sistema de trazas.
-	- VALIDACIONES: Usaremos la api jacax.validation.
+	- VALIDACIONES: Usaremos la api javax.validation.
 	- BOOTSTRAP: Para maquetar UI.
