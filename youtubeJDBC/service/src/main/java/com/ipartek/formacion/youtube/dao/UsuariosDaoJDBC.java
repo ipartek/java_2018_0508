@@ -93,16 +93,14 @@ public class UsuariosDaoJDBC implements CrudAble<Usuario> {
 	}
 
 	@Override
-	public Usuario getById(String id) throws Exception{
+	public Usuario getById(long id) throws Exception{
 		Usuario u = new Usuario();
 		PreparedStatement ps = null;
 		try (Connection conexion = ConnectionManager.getConnection();) {
 			int index = 1;
 			ps = conexion.prepareStatement(SQL_SELECT_BY_ID);
-			ps.setString(index, id);// parametro 1
+			ps.setLong(index, id);// parametro 1
 
-
-			System.out.println("Pasando por checkByNamePass UsuariosDaoJDBC");
 			ResultSet rs = ps.executeQuery();
 			while (rs.next()) {
 				u = (rowMapper(rs));

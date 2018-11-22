@@ -31,7 +31,7 @@ public interface CrudAble<P> {
 	 * @param id
 	 * @return VideoYoutube si lo encuentra, null si no lo encuentra
 	 */
-	P getById(String id) throws Exception;
+	P getById(long id) throws Exception;
 	
 	//Upadte
 	boolean update(P pojo) throws Exception;

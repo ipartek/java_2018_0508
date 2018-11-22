@@ -1,6 +1,5 @@
 package com.ipartek.formacion.youtube.impl;
 
-import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
@@ -21,6 +20,7 @@ public class ServiceUsuario implements IServiceUsuario {
 
 	private static ServiceUsuario INSTANCE = null;
 	private static UsuariosDaoJDBC daoUsuario = null;
+	
 	private final static Logger LOG = Logger.getLogger(ServiceUsuario.class);
 
 	static ValidatorFactory factory = null;
@@ -82,7 +82,7 @@ public class ServiceUsuario implements IServiceUsuario {
 		try {
 
 			if (idUsuario > 0) {
-				u = daoUsuario.getById(String.valueOf(idUsuario));
+				u = daoUsuario.getById(idUsuario);
 			}
 
 		} catch (Exception e) {
@@ -110,9 +110,10 @@ public class ServiceUsuario implements IServiceUsuario {
 	public boolean crear(Usuario u) throws Exception {
 		boolean resul = false;
 
-		try {
+
 			Rol rol = new Rol();
 			rol.setId(Rol.ROL_USER);
+			rol.setNombre("usuario");
 			u.setRol(rol);
 
 			Set<ConstraintViolation<Usuario>> violations = validator.validate(u);
@@ -134,17 +135,7 @@ public class ServiceUsuario implements IServiceUsuario {
 					resul = true;
 				}
 			}
-		}catch (SQLIntegrityConstraintViolationException e) { // Error entrada duplicada
-			
-			if (e.getMessage().contains("Duplicate entry")){
-				LOG.debug(e.getMessage());
-				throw new Exception(e.getMessage());
-			}
-
-		} catch (Exception e) {
-			LOG.error(e);
-			throw new Exception(e.getMessage());
-		}
+		
 
 		return resul;
 	}
@@ -155,6 +146,13 @@ public class ServiceUsuario implements IServiceUsuario {
 
 		Set<ConstraintViolation<Usuario>> violations = validator.validate(u);
 		String[] errores = new String[violations.size()];
+		
+		//preguntamos por el campo rol
+		//viene sin el campo rol y hay que completarlo
+		if(u.getRol().getId() < 0) {
+			Usuario usuarioOrig = daoUsuario.getById(u.getId());
+			u.setRol(usuarioOrig.getRol());
+		}
 
 		if (violations.size() > 0) {
 

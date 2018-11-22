@@ -1,11 +1,21 @@
 package com.ipartek.formacion.youtube.pojo;
 
+import javax.validation.constraints.Size;
+
+import org.hibernate.validator.constraints.NotBlank;
+
 public class Video {
 
 	public static final int CODIGO_LONGITUD = 11;
 	
 	private long id;
+	
+	@NotBlank
+	@Size (max = 11, min =  11 )
 	private String codigo;
+	
+	@NotBlank
+	@Size (max = 50, min =  2 )
 	private String nombre;
 	private Usuario usuario;
 	private Comentario comentario;

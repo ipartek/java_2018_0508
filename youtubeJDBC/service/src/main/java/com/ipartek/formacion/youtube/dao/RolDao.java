@@ -74,12 +74,12 @@ public class RolDao implements CrudAble<Rol> {
 	}
 
 	@Override
-	public Rol getById(String id) throws Exception{
+	public Rol getById(long id) throws Exception{
 		Rol rol = null;
 		try (Connection con = ConnectionManager.getConnection();
 				PreparedStatement ps = con.prepareStatement(SQL_GET_BY_ID);) {
 
-			ps.setString(1, id);
+			ps.setLong(1, id);
 
 			try (ResultSet rs = ps.executeQuery()) {
 				while (rs.next()) {

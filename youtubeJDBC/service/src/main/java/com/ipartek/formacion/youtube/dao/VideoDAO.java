@@ -44,7 +44,7 @@ public class VideoDAO implements CrudAble<Video> {
 	}
 
 	@Override
-	public boolean insert(Video pojo) {
+	public boolean insert(Video pojo) throws Exception {
 		boolean resul = false;
 
 		try (Connection con = ConnectionManager.getConnection();
@@ -52,7 +52,7 @@ public class VideoDAO implements CrudAble<Video> {
 			int index = 1;
 			ps.setString(index++, pojo.getCodigo());
 			ps.setString(index++, pojo.getNombre());
-			ps.setInt(index, (int) pojo.getUsuario().getId());
+			ps.setLong(index,  pojo.getUsuario().getId());
 
 			int affectedRows = ps.executeUpdate();
 			if (affectedRows == 1) {
@@ -66,9 +66,7 @@ public class VideoDAO implements CrudAble<Video> {
 				}
 			}
 
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+		} 
 		return resul;
 	}
 
@@ -92,12 +90,12 @@ public class VideoDAO implements CrudAble<Video> {
 	}
 
 	@Override
-	public Video getById(String id) {
+	public Video getById(long id) {
 		Video video = null;
 		try (Connection con = ConnectionManager.getConnection();
 				PreparedStatement ps = con.prepareStatement(SQL_GET_BY_ID);) {
 
-			ps.setString(1, id);
+			ps.setLong(1, id);
 
 			try (ResultSet rs = ps.executeQuery()) {
 				while (rs.next()) {

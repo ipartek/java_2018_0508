@@ -209,12 +209,12 @@ public class ComentariosDao implements CrudAble<Comentario> {
 	}
 
 	@Override
-	public Comentario getById(String id) throws Exception {
+	public Comentario getById(long id) throws Exception {
 		Comentario comentario = null;
 		ArrayList<Comentario> comentarios = new ArrayList<Comentario>();
 		try (Connection con = ConnectionManager.getConnection();
 				PreparedStatement ps = con.prepareStatement(SQL_GET_BY_ID);) {
-			ps.setInt(1, Integer.parseInt(id));
+			ps.setLong(1, id);
 			try (ResultSet rs = ps.executeQuery()) {
 				while (rs.next()) {
 					comentario = rowMapper(rs, comentario);

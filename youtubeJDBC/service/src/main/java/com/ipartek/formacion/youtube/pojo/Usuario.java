@@ -26,7 +26,11 @@ public class Usuario {
 		this.rol = new Rol();
 	}
 
-		
+	public Usuario(long id) {
+		this();
+
+		this.id = id;
+	}
 
 	public Usuario(String nombre, String pass) {
 		this();
