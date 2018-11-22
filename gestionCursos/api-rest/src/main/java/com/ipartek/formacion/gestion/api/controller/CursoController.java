@@ -24,7 +24,6 @@ import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 
 @Api(tags = { "Cursos" }, produces = "application/json", description = "Gestion Cursos")
-//Para poder habilitar Cors, para llamadas javasct, la llamadas a ajax no funcionaria si no ponemos esto
 @CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("/cursos")
@@ -39,18 +38,15 @@ public class CursoController {
 	public CursoController() {
 		super();
 		serviceCurso = ServiceCurso.getInstance();
-		// Crear factoria y Validar
 		factory = Validation.buildDefaultValidatorFactory();
 		validator = factory.getValidator();
 	}
 
-	@ApiOperation(value = "Listado Cursos y profesores")
+	@ApiOperation(value = "Listado Cursos y profesores", notes = "Listado Cursos y Profesores que lo imparten: <ol><li><b> Nombre del curso:  </b> cursoNom </li><li> Identificador del Curso </li><li><b> Numero horas: </b> nHora <li><b> Nombre y Apellidos Profesor:  </b></li> </li></ol>")
 	@ApiResponses(value = { @ApiResponse(code = 200, message = "Listado Cursos y Profesores"),
 			@ApiResponse(code = 204, message = "No se encontro los Cursos y Profesores") })
 
 	@RequestMapping(method = RequestMethod.GET)
-	// value = { "/", "" }, por que si no me creo dos GET osea dos listar
-// Es una respuesta que tiene dos parametros el cuerpo que son los datos ArrayList<Usuario> y codigo 
 	public ResponseEntity<ArrayList<Curso>> listado() {
 		ResponseEntity<ArrayList<Curso>> response = new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 

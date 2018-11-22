@@ -11,35 +11,28 @@ public class ConnectionManager {
 
 	private final static Logger LOG = Logger.getLogger(ConnectionManager.class);
 	private static Connection conn;
-	
-
 
 	public static Connection getConnection() throws Exception {
 
 		conn = null;
 		try {
-			
-		
-		//cargar properties
-		Properties prop = new Properties();
-		
-		InputStream input = ConnectionManager.class.getClassLoader().getResourceAsStream("database.properties");	
-		prop.load(input);
-		LOG.debug("cargado fichero properties");
-		
-		
-		
-		//comprobar que exista .jar para mysql
-		Class.forName(prop.getProperty("ddbb.driver")).newInstance();
-		LOG.debug("Existe el driver mwsql");
-		//crear conexion
-		conn = DriverManager.getConnection(
-							prop.getProperty("ddbb.url"), 
-							prop.getProperty("ddbb.user"),
-							prop.getProperty("ddbb.pass"));
-		LOG.debug("conexion establecida");
+
+			// cargar properties
+			Properties prop = new Properties();
+
+			InputStream input = ConnectionManager.class.getClassLoader().getResourceAsStream("database.properties");
+			prop.load(input);
+			LOG.debug("cargado fichero properties");
+
+			// comprobar que exista .jar para mysql
+			Class.forName(prop.getProperty("ddbb.driver")).newInstance();
+			LOG.debug("Existe el driver mwsql");
+			// crear conexion
+			conn = DriverManager.getConnection(prop.getProperty("ddbb.url"), prop.getProperty("ddbb.user"),
+					prop.getProperty("ddbb.pass"));
+			LOG.debug("conexion establecida");
 		} catch (Exception e) {
-	LOG.fatal("Error establecido en la base de datos", e);
+			LOG.fatal("Error establecido en la base de datos", e);
 		}
 		return conn;
 

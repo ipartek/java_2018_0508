@@ -27,11 +27,11 @@ public class SwaggerConfig {
     }
      
     private ApiInfo apiInfo() {
-        ApiInfo apiInfo = new ApiInfo("Prestamos - Rest API",
+        ApiInfo apiInfo = new ApiInfo("Cursos y Profesores - Rest API",
                                         "",
                                         "1.0",
                                         "",
-                                        new Contact("Valeria Valencia", "https://github.com/valeria20000", "edwin@baculsoft.com"),
+                                        new Contact("Valeria Valencia", "https://github.com/valeria20000", "valencia@bautista.com"),
                                         "Apache License",
                                         "");
         return apiInfo;

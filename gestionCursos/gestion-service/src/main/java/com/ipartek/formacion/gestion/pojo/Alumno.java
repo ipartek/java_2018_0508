@@ -4,8 +4,6 @@ public class Alumno {
 	private long codigo;
 	private String nombre;
 	private String apellidos;
-	private Curso curso;
-	private Profesor profesor;
 
 	public long getCodigo() {
 		return codigo;
@@ -31,26 +29,9 @@ public class Alumno {
 		this.apellidos = apellidos;
 	}
 
-	public Curso getCurso() {
-		return curso;
-	}
-
-	public void setCurso(Curso curso) {
-		this.curso = curso;
-	}
-
-	public Profesor getProfesor() {
-		return profesor;
-	}
-
-	public void setProfesor(Profesor profesor) {
-		this.profesor = profesor;
-	}
-
 	@Override
 	public String toString() {
-		return "Alumno [codigo=" + codigo + ", nombre=" + nombre + ", apellidos=" + apellidos + ", curso=" + curso
-				+ ", profesor=" + profesor + "]";
+		return "Alumno [codigo=" + codigo + ", nombre=" + nombre + ", apellidos=" + apellidos + "]";
 	}
 
 }
