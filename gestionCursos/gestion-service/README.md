@@ -6,7 +6,7 @@ _Proyecto JAR para conectar con la base de datos, encargado de dar servicio al r
 _Usamos **DriverManager** en vez de Pool de conexiones del servidor_
 
 ### Diagrama Base de Datos Gestion Cursos y Profesores      
-![Imagen de la Base de datos](https://raw.githubusercontent.com/ipartek/java_2018_0508/valeriaValencia/yotubeReproductor/service/src/main/doc/img/diagrama_youtube_BBDD.png?raw=true "Imagen de la Base de datos")
+![Imagen de la Base de datos](https://raw.githubusercontent.com/ipartek/java_2018_0508/valeriaValencia/gestion/service/src/main/doc/img/diagrama_BBDD_diagrama.png?raw=true "Imagen de la Base de datos")
 
 ### Configuracion conexión Base Datos
 _Para poder cambiar la conexion a la ddbb, mirar fichero:
