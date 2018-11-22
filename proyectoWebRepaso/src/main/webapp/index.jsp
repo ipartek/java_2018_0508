@@ -15,29 +15,32 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 <link rel="stylesheet" href="css/styles.css">
 
-    <title>Hello, world!</title>
+    <title>Repaso APP WEB</title>
   </head>
   <body>
   	<header>
   		<div class=container>
-  			<h1>Repaso MVC</h1>
+  			<h1 class="text-center">Repaso MVC</h1>
   		</div>
   		
   	</header>
   
   	<main class="container">
+  	
   		<!-- Tratamiento de las alertas -->
-		<c:if test="${not empty alert}">
-			<div class="alert ${alert.tipo} alert-dismissible" role="alert">
-				<button type="button" class="close" data-dismiss="alert" aria-label="Close">
-					<span aria-hidden="true">&times;</span>
-				</button>
-				<strong>${alert.texto}</strong>
+		<c:if test="${not empty alerta}">
+			<div class="alert alert-warning alert-dismissible fade show" role="alert">
+  				<span >${alerta}</span>
+  				<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+    				<span aria-hidden="true">&times;</span>
+  				</button>
 			</div>
 		</c:if>
+		
+		
   	
   	
-  	<h2>Repaso Servlet o Controlador</h2>
+  		<h2>Repaso Servlet o Controlador</h2>
   		<p>Vamos a enviar datos por GET y POST</p>
   		<p>El mapping del controlador es <b>/flujo-clasico</b> JSP->Servlet ->JSP</p>
   		<p><b>SJP -> SERVLET </b> enviamos<b> parametros</b></p>
@@ -49,12 +52,27 @@
 			  <div class="row">
 				    <div class="col-sm ">
 					     <h3>PETICION GET</h3> 
-					    <p> Las peticiones GET se envian los paramtros en la URL</p>
-					    <pre><code>/flujo-clasico?p1=4&p2=3</code></pre>
+					    <p> Las peticiones GET se envian los parametros en la URL</p>
+					    <pre><code><a class="btn btn-outline-success" href="flujo-clasico?p1=4&p2=3">Sumar Parámetros</a></code></pre>
 				    </div>
-				    <div class="col-sm ">
+				    <div class="col-sm">
 					     <h3>PETICION POST</h3> 
 					     <p>Las peticiones POST se envian los parametros a traves de los formularios</p>
+					     <form action="flujo-clasico" method="post">
+					     	<span><b>Sumar 2 numeros enteros:</b></span>
+							  <div class="form-group">
+							   
+							    <label for="p2">Primer número:</label>
+							    <input type="number" class="form-control" name="p1" placeholder="Inserte numero entero" autofocus>
+							  </div>
+							  <div class="form-group">
+							    <label for="p2">Segundo número:</label>
+							    <input type="number" class="form-control" name="p2" placeholder="Inserte numero entero">
+							  </div>
+							  <div>
+							  <input type="submit" class="btn btn-outline-success" value="Sumar parámetros">
+							  </div>
+						</form>
 				    </div>			    
 			  </div>
 		</div>

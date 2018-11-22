@@ -1,22 +1,40 @@
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
-<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+	<link rel="stylesheet" href="css/styles.css">
 
-<!-- Tratamiento de las alertas -->
-		<c:if test="${not empty alert}">
-			<div class="alert ${alert.tipo} alert-dismissible" role="alert">
-				<button type="button" class="close" data-dismiss="alert" aria-label="Close">
-					<span aria-hidden="true">&times;</span>
-				</button>
-				<strong>${alert.texto}</strong>
+    <title>Repaso APP WEB</title>
+  </head>
+  <body>
+  
+  <header>
+  	<div class=container>
+  			<h1 class="text-center">Resultado MVC</h1>
+  	</div>
+  </header>
+  	
+  	<main class="container ">
+  		<p class="text-center">El resultado de sumar los 2 parametros es:</p>
+  		<div class=" container">
+			<div class="row">
+				<h4 class ="p-3 mb-2 bg-primary text-white col border border-dark mr-3">(Usando Expresion Lenguange) Total :<spam class="text-warning">${suma}</spam>  </h4>
+				<h4 class="p-3 mb-2 bg-primary text-white col border border-dark">(Usando Scriplet) Total: <span class="text-warning"><%= request.getAttribute("suma")%></span></h4>
 			</div>
-		</c:if>
+		</div> 
+  	</main>	
+    
 
-<p>El resultado de sumar los 2 parametros es:</p>
-<h2>Expresion Lenguange</h2>
-<p>${suma}</p>
-
-<h2>Scriplet</h2>
-<p><%=request.getAttribute("suma") %></p>
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+  </body>
+</html>
