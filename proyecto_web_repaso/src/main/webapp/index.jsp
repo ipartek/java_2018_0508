@@ -1,6 +1,3 @@
-
-
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -53,11 +50,9 @@
 			<div class="col-6">
 				<h2>Peticion get</h2>
 				Las peticiones get se envian parametros atraves de la url
-				<pre>
-					<code>/flujo-clasico?op1=1&op2=2</code>
-				</pre>
+				<pre><code>/flujo-clasico?op1=1&op2=2</code></pre>
 				<p>Suma 3 + 5</p>
-				<a href="flujo-clasico?op1=31&op2=5"class="btn btn-primary">Enviar</a>
+				<a href="flujo-clasico?op1=3&op2=5"class="btn btn-primary">Enviar</a>
 			</div>
 			<div class="col-6">
 				<h2>Peticion post</h2>
