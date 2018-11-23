@@ -73,6 +73,8 @@
 	  	<h5 class="card-header bg-primary text-white">Crear Videojuego</h5>
 	  	<div class="card-body">
 		
+			<p class="text-danger">${info}</p>
+		
 		  	<form action="videojuego" method="post">
 		  	
 		  		<div class="form-group">
@@ -82,7 +84,7 @@
 				
 				<div class="form-group">
 				    <label for="fechaLanzamiento">Fecha Lanzamiento</label>
-				    <input type="date" class="form-control" name="fechaLanzamiento">				    
+				    <input type="date" required class="form-control" name="fechaLanzamiento">				    
 				</div>
 		  	
 		  		<input type="submit" value="crear" class="btn btn-primary">

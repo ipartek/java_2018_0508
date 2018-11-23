@@ -12,3 +12,14 @@
 	
 </c:if>
 
+
+<c:if test="${empty juegos}">
+	*Lo sentimos pero no existen juegos todavia
+</c:if>
+
+<ol>
+<c:forEach items="${juegos}" var="j">
+	<li>${j}</li>	
+</c:forEach>
+</ol>
+

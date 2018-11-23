@@ -26,6 +26,11 @@ public class Juego {
 		this.fechaLanzamiento = new Date(Calendar.getInstance().getTimeInMillis());
 	}
 
+	public Juego(String titulo) {
+		this();
+		this.titulo = titulo;
+	}
+
 	public long getId() {
 		return id;
 	}
