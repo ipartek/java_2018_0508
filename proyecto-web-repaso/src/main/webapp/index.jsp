@@ -37,10 +37,10 @@
 				    <div class="col-6">
 				    	<h3>Peticion GET</h3>
 				    	<p>En las peticiones GET los parametros se envian en la URL</p>
-				    	<pre><code>/flujo-clasico?op1=5&op2=13</code></pre>
+				    	<p><code>/flujo-clasico?op1=5&op2=13</code></p>
 			      
-			      		<a class="btn btn-success" href="flujo-clasico?op1=5&op2=13">Peticion correcta</a>
-			      		<a class="btn btn-warning" href="flujo-clasico?op2=13">Peticion Sin un Parametro</a>
+			      		<a class="btn btn-success mb-2" href="flujo-clasico?op1=5&op2=13">Peticion correcta</a><br>
+			      		<a class="btn btn-warning mb-2" href="flujo-clasico?op2=13">Peticion Sin un Parametro</a><br>
 			      		<a class="btn btn-danger" href="flujo-clasico?op1=letras&op2=13">Peticion con Parametro NO Integer</a>
 				    </div>
 				    <div class="col-6">
@@ -64,7 +64,7 @@
 		</div> <!-- /.card-header -->
 		
 		<div class="card mb-3">
-	  		<h5 class="card-header bg-primary">Repaso Servlet o Controlador</h5>
+	  		<h5 class="card-header bg-primary">Crear o Listar Videojuego</h5>
 	  		<div class="card-body">
 	  			<c:if test="${not empty info}">
 	  				<span class="bg-danger text-white p-2">${info}</span>
@@ -81,6 +81,7 @@
 						</div>
 		    			<input type="submit" value="Crear" class="btn btn-primary btn-block mb-3">
 		    		</form>
+		    		<a href="videojuego" class="btn btn-outline-success btn-block">Listar</a>
 				</div> <!-- /.container -->
 			</div> <!-- /.card-body -->
 		</div> <!-- /.card-header -->

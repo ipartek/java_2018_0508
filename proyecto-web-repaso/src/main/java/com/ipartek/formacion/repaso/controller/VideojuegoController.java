@@ -51,8 +51,8 @@ public class VideojuegoController extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+		request.setAttribute("juegos", dao.getAll());
+		request.getRequestDispatcher(VIEW_LIST).forward(request, response);
 	}
 
 	/**

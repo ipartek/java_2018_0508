@@ -1,9 +1,10 @@
-<p>El resultado de sumar los dos parametros es:</p>
+<p style="color:red">${msj}</p>
 
-<h2>Expression Lenguage</h2>
+<p>El resultado de sumar los dos paremetros es:</p>
+
+<h2>EL: Expresion Lenguage</h2>
 <p>${suma}</p>
+
 
 <h2>Scriplet</h2>
 <p><%=request.getAttribute("suma")%></p>
-
-<p class="text-danger">${mensaje}</p>
