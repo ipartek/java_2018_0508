@@ -32,6 +32,12 @@ public class Juego {
 		this.titulo = titulo;
 		this.fechaLanzamiento = fechaLanzamiento;
 	}
+	
+	public Juego(String titulo) {
+		this();
+		this.titulo = titulo;
+	}
+
 
 	public long getId() {
 		return id;

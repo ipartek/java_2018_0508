@@ -79,9 +79,8 @@
 							<label for="fechaLanzamiento">Fecha de Lanzamiento</label>
 						   	<input type="date" class="form-control" id="fechaLanzamiento" name="fechaLanzamiento" required>
 						</div>
-		    			<input type="submit" value="Crear" class="btn btn-primary btn-block">
+		    			<input type="submit" value="Crear" class="btn btn-primary btn-block mb-3">
 		    		</form>
-				
 				</div> <!-- /.container -->
 			</div> <!-- /.card-body -->
 		</div> <!-- /.card-header -->
