@@ -14,34 +14,41 @@
     <title>Repaso</title>
   </head>
   <body>
-<c:if test="${not empty juego}">
-	<h2>Videojuego Creado</h2>
-	<p>ID: ${juego.id}</p>
-	<p>Titulo: ${juego.titulo}</p>
-	<p>Fecha de Lanzamiento: ${juego.fechaLanzamiento}</p>
-</c:if>
-
-<c:if test="${empty juegos}">
-<p>${msj}</p>
-</c:if>
-
-<h2>Listado de Videojuegos</h2>
-<div class="container">
-	<div class="row">
-		<c:forEach items="${juegos}" var="j">
-		<div class="col-4">
-			<div class="card mb-3" style="width: 18rem;">
-			  <div class="card-header">
-			  	<h4 class="card-title">${j.id} - ${j.titulo}</h4>
-			  </div>
-			  <div class="card-body">
-				<p class="card-text">Lanzamiento: ${j.fechaLanzamiento}</p>
-			  </div>
+  
+  <header>
+    	<div class="container">
+  			<h1>Repaso MVC</h1>
+  		</div>
+  </header>
+  	
+	<c:if test="${not empty juego}">
+		<h2>Videojuego Creado</h2>
+		<p>ID: ${juego.id}</p>
+		<p>Titulo: ${juego.titulo}</p>
+		<p>Fecha de Lanzamiento: ${juego.fechaLanzamiento}</p>
+	</c:if>
+	
+	<c:if test="${empty juegos}">
+	<p>${msj}</p>
+	</c:if>
+	
+	<div class="container">
+	<h2 class="mb-3">Listado de Videojuegos</h2>
+		<div class="row">
+			<c:forEach items="${juegos}" var="j">
+			<div class="col-4">
+				<div class="card mb-3" style="width: 18rem;">
+				  <div class="card-header">
+				  	<h4 class="card-title">${j.id} - ${j.titulo}</h4>
+				  </div>
+				  <div class="card-body">
+					<p class="card-text">Lanzamiento: ${j.fechaLanzamiento}</p>
+				  </div>
+				</div>
 			</div>
+			</c:forEach>
 		</div>
-		</c:forEach>
 	</div>
-</div>
 
 <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
