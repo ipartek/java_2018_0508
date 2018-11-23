@@ -2,7 +2,6 @@ package com.ipartek.formacion.repaso.controller;
 
 import java.io.IOException;
 import java.sql.Date;
-import java.util.ArrayList;
 import java.util.Set;
 
 import javax.servlet.ServletConfig;
@@ -18,6 +17,7 @@ import javax.validation.ValidatorFactory;
 
 import org.apache.log4j.Logger;
 
+import com.ipartek.formacion.repaso.dao.JuegoDAO;
 import com.ipartek.formacion.repaso.pojo.Juego;
 
 /**
@@ -32,6 +32,8 @@ public class VideojuegoController extends HttpServlet {
 	private static final String VIEW_INDEX = "index.jsp";
 	private static final String VIEW_LIST = "listado.jsp";
 
+	private static JuegoDAO dao;
+
 	private ValidatorFactory factory;
 	private Validator validator;
 
@@ -40,6 +42,7 @@ public class VideojuegoController extends HttpServlet {
 		super.init(config);
 		factory = Validation.buildDefaultValidatorFactory();
 		validator = factory.getValidator();
+		dao = new JuegoDAO();
 	}
 
 	/**
@@ -83,7 +86,7 @@ public class VideojuegoController extends HttpServlet {
 				request.setAttribute("info", violations);
 			}
 
-			request.setAttribute("juegos", juegosMock());
+			request.setAttribute("juegos", dao.getAll());
 
 		} catch (Exception e) {
 
@@ -95,16 +98,6 @@ public class VideojuegoController extends HttpServlet {
 		}
 
 		LOG.trace("salgo");
-	}
-
-	private ArrayList<Juego> juegosMock() {
-
-		ArrayList<Juego> juegos = new ArrayList<Juego>();
-		juegos.add(new Juego("GTA"));
-		juegos.add(new Juego("Tomcat"));
-		juegos.add(new Juego("Tony Hawks"));
-		juegos.add(new Juego("Moneky Island"));
-		return juegos;
 	}
 
 }
