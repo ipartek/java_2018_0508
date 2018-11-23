@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
+	<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -116,6 +117,40 @@
 	    </form>
 	  </div>
 </div>
+<div class="card mt-3">
+	 <div class="card-header mt-3 bg-primary">
+	    LOGIN Y FILTRO
+	  </div>
+	  <div class="card-body">
+	  <c:if test="${not empty sessionScope.login  }">
+	  <a href="videojuego" type="button" class="btn btn-success btn-lg"
+					tabindex="-1" role="button" aria-disabled="true">Acceder privado</a>
+					<h3 class="text-success">${msgLogin}</h3>
+	  </c:if>
+	  
+	  <c:if test="${empty sessionScope.login }">
+	  <a href="videojuego"type="button" class="btn btn-danger btn-lg"
+					tabindex="-1" role="button" aria-disabled="true">Acceder privado</a>
+					<h3 class="text-danger">${msgLogin}</h3>
+	  </c:if>
+	    <h5 class="card-title">Login</h5>
+	    
+		<form action="login" method="POST">
+			  <div class="form-group">
+				    <label for="nombre">Nombre</label>
+				    <input type="text" class="form-control" id="nombre" name="nombre" aria-describedby="emailHelp" placeholder="Introduce tu nombre">
+			  </div>
+			  <div class="form-group">
+				    <label for="password">Contraseña</label>
+				    <input type="password" class="form-control" id="password" name="password"placeholder="Introduce tu password">
+			  </div>
+		  	  <button type="submit" class="btn btn-primary">Logearse</button>
+		</form>
+
+</div>
+
+
+
 	</main>
 	<!-- Optional JavaScript -->
 	<!-- jQuery first, then Popper.js, then Bootstrap JS -->

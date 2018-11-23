@@ -17,9 +17,11 @@
 			<br>
 			Fecha lanzamiento: ${juego.fechaLanzamiento}
 		</c:if>
+		<hr>
+		<h2>Listado de videojuegos</h2>
 	
 		<c:if test="${ empty juegos }">
-			<h2>Lo sentimospero no tenemos juegos todavia</h2>
+			<h2>Lo sentimos pero no tenemos juegos todavia</h2>
 			
 		</c:if>
 			<c:forEach items="${juegos}" var="j">

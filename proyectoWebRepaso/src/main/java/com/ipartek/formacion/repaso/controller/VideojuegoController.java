@@ -2,7 +2,7 @@ package com.ipartek.formacion.repaso.controller;
 
 import java.io.IOException;
 import java.sql.Date;
-import java.util.ArrayList;
+import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.Set;
 
 import javax.servlet.ServletConfig;
@@ -33,7 +33,6 @@ public class VideojuegoController extends HttpServlet {
 	private String msg;
 	private String titulo;
 	private String fechaLanzamiento;
-	private ArrayList<Juego> juegos = new ArrayList<Juego>();
 	ValidatorFactory factory = null;
 	Validator validator = null;
 
@@ -42,7 +41,7 @@ public class VideojuegoController extends HttpServlet {
 		super.init(config);
 		factory = Validation.buildDefaultValidatorFactory();
 		validator = factory.getValidator();
-		daojuego= new JuegoDAO();
+		daojuego = JuegoDAO.getInstance();
 	}
 
 	/**
@@ -52,6 +51,11 @@ public class VideojuegoController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		LOG.trace("Entro por GET");
+		view="listado.jsp";
+		request.setAttribute("juegos", daojuego.getAll());
+		request.getRequestDispatcher(view).forward(request, response);
+		
+		
 
 	}
 
@@ -72,22 +76,31 @@ public class VideojuegoController extends HttpServlet {
 			// Creacion del juego parseando la fecha
 
 			Juego juego = new Juego(titulo, Date.valueOf(fechaLanzamiento));
-			request.setAttribute("juego", juego);
 
 			// Validaciones de javax
 			Set<ConstraintViolation<Juego>> violations = validator.validate(juego);
 			if (violations.isEmpty()) {
-				juegos.add(juego);
+
+				if (daojuego.crear(juego)) {
+					request.setAttribute("juego", juego);
+					view = "listado.jsp";
+					// Mensaje y jsp a la que iremos
+					msg = "Juego " + juego.getTitulo() + " creado correctamente";
+				} else {
+					
+					msg = "El juego no se ha podido crear";
+				}
+
 				request.setAttribute("juegos", daojuego.getAll());
 
-				// Mensaje y jsp a la que iremos
-				msg = "Juego " + juego.getTitulo() + " creado correctamente";
-				view = "listado.jsp";
 			} else {
 				for (ConstraintViolation<Juego> constraint : violations) {
 					msg = constraint.getPropertyPath() + " : " + constraint.getMessage();
 				}
 			}
+		} catch (SQLIntegrityConstraintViolationException e) {
+			LOG.error(e);
+			msg = "El titulo de este videojuego ya existe";
 		} catch (IllegalArgumentException e) {
 
 			msg = "Lo sentimos pero algún campo no es correcto";
