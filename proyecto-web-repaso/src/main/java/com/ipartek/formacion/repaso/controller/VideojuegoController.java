@@ -79,9 +79,18 @@ public class VideojuegoController extends HttpServlet {
 			// validar
 			Set<ConstraintViolation<Juego>> violations = validator.validate(juego);
 			if (violations.isEmpty()) {
-				// TODO guardar en bbdd
-				request.setAttribute("juego", juego);
-				view = VIEW_LIST;
+
+				try {
+					if (dao.crear(juego)) {
+						request.setAttribute("juego", juego);
+						view = VIEW_LIST;
+					} else {
+						request.setAttribute("info", "Lo sentimos pero no se ha podido crear");
+					}
+				} catch (Exception e) {
+					request.setAttribute("info", "El videojuego ya existe, por favor elije otro titulo");
+				}
+
 			} else {
 				request.setAttribute("info", violations);
 			}

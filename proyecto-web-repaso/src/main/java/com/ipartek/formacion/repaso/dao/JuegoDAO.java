@@ -10,6 +10,7 @@ import org.apache.log4j.Logger;
 
 import com.ipartek.formacion.repaso.conection.ConnectionManager;
 import com.ipartek.formacion.repaso.pojo.Juego;
+import com.mysql.jdbc.Statement;
 
 public class JuegoDAO {
 
@@ -18,6 +19,7 @@ public class JuegoDAO {
 	// TODO patron singleton
 
 	private static final String SQL_LISTADO = "SELECT id, titulo, fecha_lanzamiento FROM juego ORDER BY id DESC LIMIT 500;";
+	private static final String SQL_INSERT = "INSERT INTO `juego` (`titulo`, `fecha_lanzamiento`) VALUES ( ?, ? );";
 
 	public List<Juego> getAll() {
 		ArrayList<Juego> juegos = new ArrayList<Juego>();
@@ -40,6 +42,34 @@ public class JuegoDAO {
 			LOG.error(e);
 		}
 		return juegos;
+	}
+
+	public boolean crear(Juego juego) throws Exception {
+		boolean resul = false;
+
+		try (Connection con = ConnectionManager.getConnection();
+				PreparedStatement pst = con.prepareStatement(SQL_INSERT, Statement.RETURN_GENERATED_KEYS);) {
+
+			pst.setString(1, juego.getTitulo());
+			pst.setDate(2, juego.getFechaLanzamiento());
+
+			int affetcedRows = pst.executeUpdate();
+			if (affetcedRows == 1) {
+
+				try (ResultSet rs = pst.getGeneratedKeys()) {
+
+					while (rs.next()) {
+						juego.setId(rs.getLong(1));
+						resul = true;
+					}
+
+				}
+
+			}
+
+		}
+
+		return resul;
 	}
 
 }
