@@ -1,3 +1,4 @@
+<%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %>
 <!doctype html>
 <html lang="en">
   <head>
@@ -19,41 +20,71 @@
   		</div>
   	</header>
 
-    <main class="container">
-    
-    	<h2>Repaso Servlet o Controlador</h2>
-		<p>Vamos a enviar datos por GET y POST</p>
-		<p>El mapping del controlador es <b>/flujo-clasico</b>: JSP -> Servlet -> JSP</p>
-		<p><b>JSP -> Servlet</b>: enviamos <b>parametros</b></p>
-		<p><b>Servlet -> JSP</b>: enviamos <b>atributos</b></p>
+	<main class="container">
+		<div class="card mt-3 mb-3">
+	  		<h5 class="card-header bg-primary">Repaso Servlet o Controlador</h5>
+	  		<div class="card-body">
+				<p>Vamos a enviar datos por GET y POST</p>
+				<p>El mapping del controlador es <b>/flujo-clasico</b>: JSP -> Servlet -> JSP</p>
+				<p><b>JSP -> Servlet</b>: enviamos <b>parametros</b></p>
+				<p><b>Servlet -> JSP</b>: enviamos <b>atributos</b></p>
+				
+				<hr>
+				<p>El servlet va a recibir dos parametros <b>p1</b> y <b>p2</b> los sumara y lo enviara como atributo <b>suma</b> a resultado.jsp</p>
+				
+				<div class="container">
+				  <div class="row">
+				    <div class="col-6">
+				    	<h3>Peticion GET</h3>
+				    	<p>En las peticiones GET los parametros se envian en la URL</p>
+				    	<pre><code>/flujo-clasico?op1=5&op2=13</code></pre>
+			      
+			      		<a class="btn btn-success" href="flujo-clasico?op1=5&op2=13">Peticion correcta</a>
+			      		<a class="btn btn-warning" href="flujo-clasico?op2=13">Peticion Sin un Parametro</a>
+			      		<a class="btn btn-danger" href="flujo-clasico?op1=letras&op2=13">Peticion con Parametro NO Integer</a>
+				    </div>
+				    <div class="col-6">
+				    	<h3>Peticion POST</h3>
+				    	<p>En las peticiones POST los paramentos se envian a traves de un formulario</p>
+				    	<form action="flujo-clasico" method="post">
+				    		<div class="form-group">
+						    	<label for="op1">Primer numero</label>
+						    	<input type="text" class="form-control" id="op1" name="op1" placeholder="5" required>
+						  	</div>
+						  	<div class="form-group">
+						    	<label for="op2">Segundo numero</label>
+						    	<input type="text" class="form-control" id="op2" name="op2" placeholder="13" required>
+						  	</div>
+						  	<button type="submit" class="btn btn-primary btn-block">Submit</button>
+				    	</form>
+				    </div>
+				  </div>
+				</div> <!-- /.container -->
+			</div> <!-- /.card-body -->
+		</div> <!-- /.card-header -->
 		
-		<hr>
-		<p>El servlet va a recibir dos parametros <b>p1</b> y <b>p2</b> los sumara y lo enviara como atributo <b>suma</b> a resultado.jsp</p>
-		
-		<div class="container">
-		  <div class="row">
-		    <div class="col-6">
-		    	<h3>Peticion GET</h3>
-		    	<p>En las peticiones GET los parametros se envian en la URL</p>
-		    	<a href="flujo-clasico?op1=5&op2=13" class="btn btn-primary btn-block"><code>/flujo-clasico?op1=5&op2=13</code></a>
-		    </div>
-		    <div class="col-6">
-		    	<h3>Peticion POST</h3>
-		    	<p>En las peticiones POST los paramentos se envian a traves de un formulario</p>
-		    	<form action="flujo-clasico" method="post">
-		    		<div class="form-group">
-				    	<label for="op1">Primer numero</label>
-				    	<input type="text" class="form-control" id="op1" name="op1" placeholder="5" required>
-				  	</div>
-				  	<div class="form-group">
-				    	<label for="op2">Segundo numero</label>
-				    	<input type="text" class="form-control" id="op2" name="op2" placeholder="13" required>
-				  	</div>
-				  	<button type="submit" class="btn btn-primary btn-block">Submit</button>
-		    	</form>
-		    </div>
-		  </div>
-		</div>
+		<div class="card mb-3">
+	  		<h5 class="card-header bg-primary">Repaso Servlet o Controlador</h5>
+	  		<div class="card-body">
+	  			<c:if test="${not empty info}">
+	  				<span class="bg-danger text-white p-2">${info}</span>
+	  			</c:if>
+		    	<div class="container mt-3">
+		    		<form action="videojuego" method="post">
+		    			<div class="form-group">
+							<label for="titulo">Titulo</label>
+						   	<input type="text" class="form-control" id="titulo" name="titulo" placeholder="Minimo 2 y Maximo 150 caracteres" required>
+						</div>
+						<div class="form-group">
+							<label for="fechaLanzamiento">Fecha de Lanzamiento</label>
+						   	<input type="date" class="form-control" id="fechaLanzamiento" name="fechaLanzamiento" required>
+						</div>
+		    			<input type="submit" value="Crear" class="btn btn-primary btn-block">
+		    		</form>
+				
+				</div> <!-- /.container -->
+			</div> <!-- /.card-body -->
+		</div> <!-- /.card-header -->
 		
     </main><!-- /.container -->
 

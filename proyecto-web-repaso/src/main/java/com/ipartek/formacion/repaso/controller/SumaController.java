@@ -22,27 +22,32 @@ public class SumaController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String mensaje = "";
+		LOG.trace("entro");
+
 		try {
-			//recibir parametros			
-			int p1 = Integer.parseInt(request.getParameter("op1"));
-			int p2 = Integer.parseInt(request.getParameter("op2"));
+			// recibir parametros
+			String p1 = request.getParameter("op1");
+			String p2 = request.getParameter("op2");
+			// validar
 			
-			//validar
-			
-			//aplicarla logica de negocio o llamo a la capa Servicio
-			int resultado = p1 + p2;
-			
-			//respondo al usuario (enviar atributos e ir a la vista)
+			// aplicar la logica de negocio - o llamo a capa Servicio
+
+			int resultado = Integer.parseInt(p1) + Integer.parseInt(p2);
+
+			// responde al usuario ( enviar atributos e ir vista )
 			request.setAttribute("suma", resultado);
-		}catch(Exception e) {
-			mensaje = "Introduce correctamente los numeros por favor";
-			request.setAttribute("mensaje", mensaje);
-			e.printStackTrace();
+			
+		} catch (NumberFormatException e) {
+			request.setAttribute("msj", "Deben ser numeros y no contener letras");
+		
+		} catch (Exception e) {
+			request.setAttribute("msj", "Lo sentimos pero se produjo un fallo");
 			LOG.error(e);
-		}finally {
+		} finally {
 			request.getRequestDispatcher("resultado.jsp").forward(request, response);
 		}
+
+		LOG.trace("salgo");
 	}
 
 	/**
