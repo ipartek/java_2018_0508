@@ -45,6 +45,7 @@ public class SumaControler extends HttpServlet {
 
 	private void doProcess(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		LOG.debug("Entro al controller");
 		try {
 			// Recibir parametros
 			getParameters(request, response);
@@ -55,6 +56,8 @@ public class SumaControler extends HttpServlet {
 			// Enviar atributos
 			request.setAttribute("suma", suma);
 			view = "resultado.jsp";
+			
+			LOG.debug("Salgo del controller");
 		}catch(NullPointerException e) {
 			LOG.error("NULL.....Se esperaba 2 números.");
 			request.setAttribute("alerta", "Valores no validos, inserte 2 números");
