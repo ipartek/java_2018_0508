@@ -41,7 +41,7 @@ public class VideojuegoController extends HttpServlet {
 		super.init(config);
 		factory = Validation.buildDefaultValidatorFactory();
 		validator = factory.getValidator();
-		dao = new JuegoDAO();
+		dao = JuegoDAO.getInstance();
 	}
 
 	/**

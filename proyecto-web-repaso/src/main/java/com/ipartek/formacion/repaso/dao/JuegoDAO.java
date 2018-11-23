@@ -15,8 +15,18 @@ import com.ipartek.formacion.repaso.pojo.Juego;
 public class JuegoDAO {
 
 	private static final Logger LOG = Logger.getLogger(JuegoDAO.class);
+	private static JuegoDAO INSTANCE = null;
 
-	// TODO patron singleton
+	private JuegoDAO() {
+		super();
+	}
+
+	public static synchronized JuegoDAO getInstance() {
+		if (INSTANCE == null) {
+			INSTANCE = new JuegoDAO();
+		}
+		return INSTANCE;
+	}
 
 	private static final String SQL_LISTADO = "SELECT id, titulo, fecha_lanzamiento FROM juego ORDER BY id DESC LIMIT 500;";
 	private static final String SQL_INSERT = "INSERT INTO `juego` (`titulo`, `fecha_lanzamiento`) VALUES (?, ?);";
