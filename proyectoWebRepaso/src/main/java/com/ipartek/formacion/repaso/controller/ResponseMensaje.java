@@ -1,4 +1,4 @@
-package com.ipartek.formacion.controller;
+package com.ipartek.formacion.repaso.controller;
 
 import java.util.ArrayList;
 

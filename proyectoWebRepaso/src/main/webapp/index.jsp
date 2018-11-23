@@ -1,30 +1,8 @@
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-
-<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
-
-<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
-
-<!doctype html>
-<html lang="en">
-<head>
-<!-- Required meta tags -->
-<meta charset="utf-8">
-<meta name="viewport"
-	content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
-<!-- Bootstrap CSS -->
-<link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
-	integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
-	crossorigin="anonymous">
-<link rel="stylesheet" href="css/styles.css">
-
-<title>Repaso APP WEB</title>
-</head>
-<body>
+<%@ include file="includes/head.jsp" %>
 	<header>
 		<div class=container>
 			<h1 class="text-center">Repaso MVC</h1>
+			<a class="btn btn-warning mb-3" href="login.jsp">Login para probar Filtro</a>
 		</div>
 
 	</header>
@@ -41,7 +19,7 @@
 	  <div class="card-body">
 	    <!-- Tratamiento de las alertas get POST-->
 	    <c:if test="${empty alerta}">
-	    	${alerta=null};
+	    	${alerta=null}
 	    </c:if>
 	    
 		<c:if test="${not empty alerta}">
@@ -99,7 +77,7 @@
 			</div>
 			<div class="card-body">
 				<c:if test="${empty alertaJuego}">
-			    	${alertaJuego=null};
+			    	${alertaJuego=null}
 				</c:if>
 				<c:if
 					test="${not empty alertaJuego}">
@@ -128,6 +106,7 @@
 				</form>
 			</div>	
 		</div>
+		
 		<!-- card videoJuego -->
 	<!-- //container -->
 </main>

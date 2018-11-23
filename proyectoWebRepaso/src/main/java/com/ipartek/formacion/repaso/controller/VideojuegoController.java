@@ -1,4 +1,4 @@
-package com.ipartek.formacion.controller;
+package com.ipartek.formacion.repaso.controller;
 
 import java.io.IOException;
 import java.sql.Date;
@@ -17,7 +17,7 @@ import javax.validation.ValidatorFactory;
 
 import org.apache.log4j.Logger;
 
-import com.ipartek.formacion.DAO.JuegoDAO;
+import com.ipartek.formacion.repaso.DAO.JuegoDAO;
 import com.ipartek.formacion.repaso.pojo.Juego;
 import com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationException;
 

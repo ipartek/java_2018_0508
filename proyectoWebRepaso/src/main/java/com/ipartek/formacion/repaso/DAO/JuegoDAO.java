@@ -1,4 +1,4 @@
-package com.ipartek.formacion.DAO;
+package com.ipartek.formacion.repaso.DAO;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
