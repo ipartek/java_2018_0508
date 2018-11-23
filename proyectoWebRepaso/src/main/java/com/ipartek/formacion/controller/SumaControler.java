@@ -64,7 +64,7 @@ public class SumaControler extends HttpServlet {
 			request.setAttribute("alerta", "Valores no validos, inserte 2 números");
 			view = "index.jsp";
 		} catch (Exception e) {
-			request.setAttribute("INESPERADO......alerta", "INESPERADO...Valores no validos, inserte 2 números");
+			request.setAttribute("alerta", "INESPERADO...Valores no validos, inserte 2 números");
 			LOG.error(e);
 		}
 
