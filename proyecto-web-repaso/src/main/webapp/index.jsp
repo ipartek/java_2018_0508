@@ -18,129 +18,118 @@
 <title>Reppaso MVC</title>
 </head>
 <body>
-
-	<header>
-		<div class="container">
-			<h1>Repaso MVC</h1>
-		</div>
-	</header>
-
-	<main class="container">
-
-
-	<div class="card">
-		<h5 class="card-header bg-primary">Crear un Videojuego</h5>
-		<div class="card-body">
-
-
-			<h2>Repaso Servlet o Controlador</h2>
-			<p>Vamos a enviar datos por GET y POST</p>
-			<p>
-				El mapping del controlador es <b>/flujo-clasico</b>JSP -> Servlet ->
-				JSP
-			</p>
-			<p>
-				<b>JSP -> SERVLET</b> enviamos <b>parametros</b>
-			</p>
-			<p>
-				<b>SERVLET -> JSP</b> enviamos <b>atributos</b>
-			</p>
-
-			<hr>
-			<p>
-				El servlet va a recibir dos para metros <b>p1</b> <b>p2</b> los
-				sumara y lo enviara como atributo <b>suma</b> resultado JSP
-			</p>
-			<div class="container">
-				<div class="row">
-					<div class="col-6">
-						<h2>PETICION GET</h2>
-						<p>Las peticiones GET se envian los parametros en la URL</p>
-
-						<button type="button" class="btn btn-primary">SUMA</button>
-						<pre>
-						      <code>
-						      /flujo-clasico?numero1=5&"numero2"=13
-						      </code>
-						      </pre>
-					</div>
-					<div class="col-6">
-						<h2>PETICION POST</h2>
-						<p>Las peticiones POST se envian los parametros a traves de un
-							formulario</p>
-
-						<form action="/flujo-clasico" method="POST">
-							<table>
-								<tr>
-									<td>Ingrese numero 1 :</td>
-									<td><input type="text" name="op1"></td>
-								</tr>
-								<tr>
-									<td>Ingrese numero 2 :</td>
-									<td><input type="text" name="op2"></td>
-								</tr>
-								<tr>
-									<td><input type="submit" name="enviar" value="Sumar">
-									</td>
-								</tr>
-							</table>
-						</form>
-
-						<pre>
-						      <code>
-						      /flujo-clasico?op1=5&op2=13
-						      </code>
-						      </pre>
-					</div>
-
-
-				</div>
-			</div>
-		</div>
-	</div>
-
-
-	<div class="card mt-3">
-		<h5 class="card-header bg-primary text-white">Featured</h5>
-		<div class="card-body">
-		
-		<p class="text-danger">${info}</p>
-		
+  
+  
+  	<header>
+  		<div class="container">
+  			
+  			<h1>Repaso MVC</h1>
+  			
+  			<li class="nav-item active">
+		         <!-- usuario sin pasar por login -->
+		         <c:if test="${empty sessionScope.usuario}">
+		            <!-- formulario Login -->
+		            		<p class="text-danger">${msj}</p>	
+		            <form action="login" method="post" class="form-inline mt-2 mt-md-0">
+		            
+		           		<input name="usuario" value="usuario" class="form-control mr-sm-2" type="text" placeholder="Nombre Usuario" required pattern=".{3,30}">
+		           		<input name="pass" value="" class="form-control mr-sm-2" type="password" placeholder="Contraseña" required pattern=".{2,50}">		           		 
+		           <button class="btn btn-outline-info my-2 my-sm-0" type="submit">Entrar</button>
+		         </form>
+		       </c:if>         
+		        
+		         
+		         <c:if test="${not empty sessionScope.usuario}">
+		           <div class="nav-user">             	
+		           	<i class="fas fa-user"> ${usuario.nombre}</i>             	
+		           	<a href="" class="btn btn-success">Acceder Privado</a>
+		           </div>              
+		       </c:if>
+		        
+         </li>  
+  		</div>
+  	</header>
+  
+  	<main class="container">
+  	
+  	<div class="card">
+	  	<h5 class="card-header bg-primary  text-white">Repaso Servlet o Controlador</h5>
+	  	<div class="card-body">
+	  		
+	    	<p>Vamos a enviar datos por GET y POST</p>
+	    	<p>El mapping del controlador es <b>/flujo-clasico</b> JSP -> Servelt -> JSP</p>
+	    	<p><b>JSP -> SERVLET</b> enviamos <b>parametros</b></p>
+	    	<p><b>SERVLET -> JSP</b> enviamos <b>atributos</b></p>
+	    	
+	    	<hr>
+	    	<p>El servlet va a recibir dos parametros <b>p1</b> y <b>p2</b> los sumara y lo envia como atributo <b>suma</b> a resultado.jsp<p>
+	    	
+	    	<div class="container">
+			  <div class="row">
+			    <div class="col-6">
+			      <h2>Peticion GET</h2>
+			      <p>Las peticiones GET se envian los parametros en la URL.</p>
+			      <pre><code>/flujo-clasico?op1=5&op2=13</code></pre>
+			      
+			      <a class="btn btn-success" href="flujo-clasico?op1=5&op2=13">Peticion correcta</a>
+			      <a class="btn btn-warning" href="flujo-clasico?op2=13">Peticion Sin un Parametro</a>
+			      <a class="btn btn-danger" href="flujo-clasico?op1=letras&op2=13">Peticion con Parametro NO Integer</a>
+			      
+			    </div>
+			    <div class="col-6">
+			      <h2>Peticion POST</h2>
+			      <p>Las peticiones POST se envian los parametros a traves de un formulario.</p>
+			      <form action="/flujo-clasico" method="post">
+			      
+			      	<label for="op1">Primer Numero</label>
+			      	<input type="text" name="op1">
+			      	<br>
+			      	<label for="op2">Segundo Numero</label>
+			      	<input type="text" name="op2">
+			      	<br>
+			      	<input type="submit" value="sumar" class="btn btn-primary">
+			      </form>
+			    </div>		   
+			  </div>
+			</div> 
+			<!-- <div class="container"> --> 
 			
-			<form action="videojuego" method="POST">
-
-				<div class="form-group">
-					<label for="titulo">Titulo</label> <input type="text" class="form-control" id="titulo" name="titulo" placeholder="minimo 2 maximo 150">
+		</div><!-- <div class="card-body"> -->
+	</div><!-- <div class="card"> -->
+	
+	
+	<div class="card mt-3 ">
+	  	<h5 class="card-header bg-primary text-white">Crear Videojuego</h5>
+	  	<div class="card-body">
+		
+			<p class="text-danger">${info}</p>
+		
+		  	<form action="videojuego" method="post">
+		  	
+		  		<div class="form-group">
+				    <label for="titulo">Titulo</label>
+				    <input type="text" class="form-control" name="titulo" placeholder="minimo 2 letras max 150">				    
 				</div>
 				
 				<div class="form-group">
-					<label for="fechaLanzamiento">Fecha Lanzamiento</label> <input type="date" class="form-control" id="fechaLanzamiento" name="fechaLanzamiento" placeholder="">
+				    <label for="fechaLanzamiento">Fecha Lanzamiento</label>
+				    <input type="date" required class="form-control" name="fechaLanzamiento">				    
 				</div>
-				<input type="submit" value="crear" class="btn btn-primary">
+		  	
+		  		<input type="submit" value="crear" class="btn btn-primary">
+		  	</form>	
+	    	
+		</div><!-- <div class="card-body"> -->
+	</div><!-- <div class="card"> -->
+		
+    	
+    </main>
 
-			</form>
-		</div>
-	</div>
-	
-	
-	
-	</main>
-
-
-
-
-	<!-- Optional JavaScript -->
-	<!-- jQuery first, then Popper.js, then Bootstrap JS -->
-	<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
-		integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
-		crossorigin="anonymous"></script>
-	<script
-		src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
-		integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
-		crossorigin="anonymous"></script>
-	<script
-		src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
-		integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
-		crossorigin="anonymous"></script>
-</body>
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    
+  </body>
 </html>
