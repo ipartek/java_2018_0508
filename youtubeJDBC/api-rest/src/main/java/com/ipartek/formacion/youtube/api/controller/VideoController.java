@@ -1,5 +1,6 @@
 package com.ipartek.formacion.youtube.api.controller;
 
+import java.sql.SQLException;
 import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.ArrayList;
 import java.util.Set;
@@ -36,7 +37,7 @@ import io.swagger.annotations.ApiResponses;
 @CrossOrigin(origins = "*") // Para habilitar post habilita llamadas ajasx
 @RestController
 @RequestMapping("/videos")
-@Api(tags = { "Servicio /videos" }, description = "Clase VideoController", consumes = "application/json")
+@Api(tags = { "Servicio /videos" }, description = "Gestion de videos", consumes = "application/json")
 public class VideoController {
 
 	IServiceVideo serviceVideo = null;
@@ -127,67 +128,18 @@ public class VideoController {
 		return response;
 	}
 
-/*	@ApiOperation(value = "Eliminar Usuario", notes = "Eliminar usuario por id. Si el usuario esta asociada con algun prestamo no podra ser eliminado")
-	@ApiResponses(value = { @ApiResponse(code = 200, message = "usuario eliminado"),
-			@ApiResponse(code = 400, message = "El requerimiento enviado por el cliente era sintácticamente incorrecto, se espera un campo numerico"),
-			@ApiResponse(code = 404, message = "Error intentando un usuario que no encontramos"),
-			@ApiResponse(code = 409, message = "No puedes borrar un usaurio con libros asociados ") })
-	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
-	public ResponseEntity<Object> eliminar(@PathVariable long id) {
 
-		ResponseEntity<Object> response = new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-		ResponseMensaje rm = new ResponseMensaje();
 
-		try {
-
-			if (serviceUsuario.eliminarUsuario(id)) {
-
-				response = new ResponseEntity<>(HttpStatus.NO_CONTENT);
-
-			} else {
-
-				rm.setMensaje("Usuario no encontrado en la base de datos");
-
-				response = new ResponseEntity<>(rm, HttpStatus.NOT_FOUND);
-			}
-
-		} catch (SQLIntegrityConstraintViolationException x) {
-			if (x.getMessage().contains("foreign key")) {
-				String[] errores = new String[1];
-				rm.setMensaje("Error");
-				errores[0] = "El usuario que intenta borrar tiene registros asociados.";
-				rm.setErrores(errores);
-				response = new ResponseEntity<>(rm, HttpStatus.CONFLICT);
-				LOG.debug(x.getMessage());
-			}
-
-		} catch (Exception e) {
-
-			LOG.error(e.getMessage());
-		}
-		return response;
-	}
-*/
-	
-	@ApiOperation(value = "Crear Video",
-			notes = "Para la creacion de un video se espera un objeto json con los siguientes requisitos <br>"
+	@ApiOperation(value = "Crear Video", notes = "Para la creacion de un video se espera un objeto json con los siguientes requisitos <br>"
 			+ "<h2>Requisitos para la creacion de un video</h2>" + "<ul>"
 			+ "<li>No puede haber videos sin usuarios, pero si se pueden crear sin comentarios</li>"
-			+ "<li>El nombre debe ser mayor de 2 y menor de 50 caracteres</li>"
-			+ "<li>No puede estar vacio</li>"
+			+ "<li>El nombre debe ser mayor de 2 y menor de 50 caracteres</li>" + "<li>No puede estar vacio</li>"
 			+ "<li>No se permiten nombres de videos duplicadas</li>"
 			+ "<li>El codigo del video debe contener 11 caracteres</li></ul>"
-			+ "<h6>Plantilla minima para la creacion de un video</h6>"
-			+ "<pre>"
-			+ "{\r\n" + 
-			"  \"codigo\": \"8tC5vjvuE-A\",\r\n" + 
-			"  \"nombre\": \"blake\",\r\n" + 
-			"  \"usuario\": {\r\n" + 
-			"    \"id\":4,\r\n" + 
-			"    }\r\n" + 
-			"}"
-			+ "</pre>"
-			
+			+ "<h6>Plantilla minima para la creacion de un video</h6>" + "<pre>" + "{\r\n"
+			+ "  \"codigo\": \"8tC5vjvuE-A\",\r\n" + "  \"nombre\": \"blake\",\r\n" + "  \"usuario\": {\r\n"
+			+ "    \"id\":4,\r\n" + "    }\r\n" + "}" + "</pre>"
+
 			, response = Video.class)
 	@ApiResponses(value = { @ApiResponse(code = 201, message = "video Creado", responseContainer = "nose"),
 			@ApiResponse(code = 400, message = "Verifique los datos enviados"),
@@ -222,15 +174,14 @@ public class VideoController {
 			} else {
 				Usuario u = serviceUsuario.buscarPorId(video.getUsuario().getId());
 				video.setUsuario(u);
-				
+
 				if (serviceVideo.crear(video)) {
 
 					response = new ResponseEntity<>(video, HttpStatus.CREATED);
 
 				} else {
-					
-					
-					response = new ResponseEntity<>( HttpStatus.CONFLICT);
+
+					response = new ResponseEntity<>(HttpStatus.CONFLICT);
 				}
 			}
 		} catch (SQLIntegrityConstraintViolationException e) {
@@ -239,12 +190,12 @@ public class VideoController {
 			if (e.getMessage().contains("Duplicate entry")) {
 				String[] errores = new String[1];
 				rm.setMensaje("Error de integridad");
-				errores[0] = "El usuario ya existe";
+				errores[0] = "El Video ya existe";
 				rm.setErrores(errores);
 				response = new ResponseEntity<>(rm, HttpStatus.CONFLICT);
 			}
 
-		}  catch (Exception e) {
+		} catch (Exception e) {
 			LOG.error(e.getMessage());
 			e.printStackTrace();
 			rm.setMensaje("Hemos tenido un problema");
@@ -254,91 +205,85 @@ public class VideoController {
 
 		return response;
 	}
-	
-	
-	
-@ApiOperation(value = "Modificar Videos", notes = "Para la modificacion de un video se espera un objeto json .<br>"
-		+ "El id del video se la pasamos en campo id como @pathvariable"
-		+ "<h2>Requisitos para la modificacion de un video</h2>" + "<ul>"
-		+ "<li>La modificacion del codigo del video tiene que ser por otro de 11 caracteres</li>" + "<li>No puede estar vacio</li>"
-		+ "<li>No se permiten videos con codigo duplicado, por lo que si ya existe devolvera un error de respuesta 409</li>"
-		+ "<li>El titulo de la cancion debe contener entre 2 y 150 caracteres</li>" + "</ul>"
-				+ "<b>Formato esperado</b><br>"
-				+ "<pre>{\r\n" + 
-				"  \"codigo\": \"string\",\r\n" + 
-				"  \"nombre\": \"string\",\r\n" + 
-				"  \"usuario\": {\r\n" + 
-				"    \"id\": 0\r\n" + 
-				"  }\r\n" + 
-				"}</pre>",response=Video.class)
-@ApiResponses(value = {
 
-		@ApiResponse(code = 201, message = "Modificacion correcta"),
-		@ApiResponse(code = 400, message = "No encontrado"),
-		@ApiResponse(code = 409, message = "Modificacion del nombre de un usuario por un nombre ya existente<br> El nombre contiene menos de 2 o mas de 50 caracteres") })
-@RequestMapping(value = "/{id}", method = RequestMethod.PUT)
-public ResponseEntity<Object> modificar(@PathVariable long id, @RequestBody Video video) {
+	@ApiOperation(value = "Modificar Videos", notes = "Para la modificacion de un video se espera un objeto json .<br>"
+			+ "El id del video se la pasamos en campo id como @pathvariable"
+			+ "<h2>Requisitos para la modificacion de un video</h2>" + "<ul>"
+			+ "<li>La modificacion del codigo del video tiene que ser por otro de 11 caracteres</li>"
+			+ "<li>No puede estar vacio</li>"
+			+ "<li>No se permiten videos con codigo duplicado, por lo que si ya existe devolvera un error de respuesta 409</li>"
+			+ "<li>El titulo de la cancion debe contener entre 2 y 150 caracteres</li>" + "</ul>"
+			+ "<b>Formato esperado</b><br>" + "<pre>{\r\n" + "  \"codigo\": \"string\",\r\n"
+			+ "  \"nombre\": \"string\",\r\n" + "  \"usuario\": {\r\n" + "    \"id\": 0\r\n" + "  }\r\n"
+			+ "}</pre>", response = Video.class)
+	@ApiResponses(value = {
 
-	ResponseEntity<Object> response = new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-	ResponseMensaje rm = new ResponseMensaje();
+			@ApiResponse(code = 201, message = "Modificacion correcta"),
+			@ApiResponse(code = 400, message = "Algun campo no cumple con las condiciones ejemplo codigo cancion no tiene el numero de caracteres "),
+			@ApiResponse(code = 409, message = "Modificacion del nombre de un usuario por un nombre ya existente<br> El nombre contiene menos de 2 o mas de 50 caracteres") })
+	@RequestMapping(value = "/{id}", method = RequestMethod.PUT)
+	public ResponseEntity<Object> modificar(@PathVariable long id, @RequestBody Video videoModif) {
 
-	try {
+		ResponseEntity<Object> response = new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+		ResponseMensaje rm = new ResponseMensaje();
 
-		Set<ConstraintViolation<Video>> violations = validator.validate(video);
-		String[] errores = new String[violations.size()];
+		try {
 
-		if (violations.size() > 0) {
+			Set<ConstraintViolation<Video>> violations = validator.validate(videoModif);
+			String[] errores = new String[violations.size()];
 
-			int contador = 0;
-			// No ha pasado la valiadacion, iterar sobre los mensajes de validacion
-			for (ConstraintViolation<Video> violation : violations) {
+			if (violations.size() > 0) {
 
-				errores[contador] = violation.getPropertyPath() + " :" + violation.getMessage();
-				contador++;
+				int contador = 0;
+				// No ha pasado la valiadacion, iterar sobre los mensajes de validacion
+				for (ConstraintViolation<Video> violation : violations) {
 
-			}
-			rm.setErrores(errores);
-			rm.setMensaje("Error de validación");
+					errores[contador] = violation.getPropertyPath() + " :" + violation.getMessage();
+					contador++;
 
-			response = new ResponseEntity<>(rm, HttpStatus.CONFLICT);
+				}
+				rm.setErrores(errores);
+				rm.setMensaje("Error de validación");
 
-		} else {
-
-			video.setId(id);
-
-			if (serviceVideo.modificarVideo(video)) {
-				
-				
-				response = new ResponseEntity<>(video, HttpStatus.CREATED);
+				response = new ResponseEntity<>(rm, HttpStatus.CONFLICT);
 
 			} else {
+				videoModif.setId(id);
 
-				response = new ResponseEntity<>(HttpStatus.CONFLICT);
+				if (serviceVideo.modificarVideo(videoModif)) {
+
+					response = new ResponseEntity<>(videoModif, HttpStatus.CREATED);
+
+				} else {
+
+					response = new ResponseEntity<>(HttpStatus.CONFLICT);
+				}
 			}
-		}
 
-	} catch (SQLIntegrityConstraintViolationException x) {
-		LOG.debug(x.getMessage());
-		if (x.getMessage().contains("Duplicate entry")) {
-			String[] errores = new String[1];
-			rm.setMensaje("Error");
-				errores[0] = "El usuario ya existe";
-			rm.setErrores(errores);
-			response = new ResponseEntity<>(rm,HttpStatus.CONFLICT);
-		}
-		if(x.getMessage().contains("Cannot add or update a child row")) {
-			String[] errores = new String[1];
-			rm.setMensaje("Error");
+		} catch (SQLIntegrityConstraintViolationException x) {
+			LOG.debug(x.getMessage());
+			if (x.getMessage().contains("Duplicate entry")) {
+				String[] errores = new String[1];
+				rm.setMensaje("Error");
+				errores[0] = "El Codigo de la cancion ya existe";
+				rm.setErrores(errores);
+				response = new ResponseEntity<>(rm, HttpStatus.CONFLICT);
+			}
+			if (x.getMessage().contains("Cannot add or update a child row")) {
+				String[] errores = new String[1];
+				rm.setMensaje("Error");
 				errores[0] = "El alumno debe contener un rol";
-			rm.setErrores(errores);
-			response = new ResponseEntity<>(rm,HttpStatus.CONFLICT);
+				rm.setErrores(errores);
+				response = new ResponseEntity<>(rm, HttpStatus.CONFLICT);
+			}
+
+		}catch (SQLException e) {
+			e.printStackTrace();
+		} catch (Exception e) {
+			LOG.error(e.getMessage());
+			e.printStackTrace();
 		}
 
-	} catch (Exception e) {
-		LOG.error(e.getMessage());
-		e.printStackTrace();
+		return response;
 	}
-
-	return response;
-}
 }

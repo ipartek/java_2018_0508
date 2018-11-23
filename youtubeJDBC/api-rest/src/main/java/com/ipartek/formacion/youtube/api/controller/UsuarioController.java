@@ -33,7 +33,7 @@ import io.swagger.annotations.ApiResponses;
 @CrossOrigin(origins = "*") // Para habilitar post habilita llamadas ajasx
 @RestController
 @RequestMapping("/usuarios")
-@Api(tags = { "Servicio /usuarios" }, description = "Clase UsuarioController", consumes = "application/json")
+@Api(tags = { "Servicio /usuarios" }, description = "Gestion de usuarios", consumes = "application/json")
 public class UsuarioController {
 
 	IServiceUsuario serviceUsuario = null;
@@ -157,8 +157,12 @@ public class UsuarioController {
 			}
 
 		} catch (Exception e) {
-
-			LOG.error(e.getMessage());
+			String[] errores = new String[1];
+			rm.setMensaje("Error");
+			errores[0] = e.getMessage();
+			rm.setErrores(errores);
+			response = new ResponseEntity<>(rm, HttpStatus.CONFLICT);
+			LOG.debug(e.getMessage());
 		}
 		return response;
 	}
@@ -167,10 +171,11 @@ public class UsuarioController {
 	@ApiOperation(value = "Crear usuario", notes = "Para la creacion de un usuario se espera un objeto json con un unico campo llamado nombre.<br>"
 			+ "<h2>Requisitos para la creacion de un usuario</h2>" + "<ul>"
 			+ "<li>Debe ser mayor de 2 y menor de 50 caracteres</li>" + "<li>No puede estar vacio</li>"
-			+ "<li>No se permiten usuarios duplicadas</li>" + "</ul>", response = Usuario.class)
-	@ApiResponses(value = { @ApiResponse(code = 201, message = "Usuario Creada", responseContainer = "nose"),
+			+ "<li>No se permiten usuarios duplicadas</li>"
+			+ "<li>La contraseña debe tener un minimo de 6 caracteres</li>" + "</ul>", response = Usuario.class)
+	@ApiResponses(value = { @ApiResponse(code = 201, message = "Usuario Creado", responseContainer = "nose"),
 			@ApiResponse(code = 400, message = "Verifique los datos enviados"),
-			@ApiResponse(code = 409, message = "Conflictos :<br> Usuario existente.<br>Nombre del usuario menor de 2 caracteres<br>Nombre usuario mayor 50") })
+			@ApiResponse(code = 409, message = "Conflictos :<br> Usuario existente.<br>Nombre del usuario debe tener entre 2 y 50 caracteres<br>") })
 
 	@RequestMapping(method = RequestMethod.POST, consumes = "application/json")
 	public ResponseEntity<Object> crear(@RequestBody Usuario usuario) {
@@ -234,11 +239,12 @@ public class UsuarioController {
 	
 	
 
-@ApiOperation(value = "Modificar Alumnos", notes = "Para la modificacion de un usuario se espera un objeto json con un unico campo llamado nombre.<br>"
-		+ "El id de la editorial se la pasamos en campo id como @pathvariable"
+@ApiOperation(value = "Modificar Alumnos", notes = "Para la modificacion de un usuario se espera un objeto json .<br>"
+		
 		+ "<h2>Requisitos para la modificacion de un usuario</h2>" + "<ul>"
+		+ "<li>El id del editorial se la pasamos en campo id como @pathvariable</li>"
 		+ "<li>Debe ser mayor de 2 y menor de 50 caracteres</li>" + "<li>No puede estar vacio</li>"
-		+ "<li>No se permiten editoriales duplicadas</li>" + "</ul>")
+		+ "<li>La contraseña debe tener un minimo de 6 caracteres</li>" + "</ul>", response = Usuario.class)
 @ApiResponses(value = {
 
 		@ApiResponse(code = 201, message = "Modificacion correcta"),

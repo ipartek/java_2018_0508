@@ -1,6 +1,5 @@
 package com.ipartek.formacion.youtube.dao;
 
-
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -12,37 +11,32 @@ import com.ipartek.formacion.youtube.conection.ConnectionManager;
 import com.ipartek.formacion.youtube.pojo.Rol;
 import com.ipartek.formacion.youtube.pojo.Usuario;
 
-public class UsuariosDaoJDBC implements CrudAble<Usuario> {
+public class UsuariosDAO implements CrudAble<Usuario> {
 
-	private static UsuariosDaoJDBC INSTANCE = null;
+	private static UsuariosDAO INSTANCE = null;
 	private static List<Usuario> usuarios = null;
 	// querys CRUD
-	private final String SQL_GET_ALL = "SELECT u.id as 'id_usuario',u.nombre as 'nombre_usuario', password, id_rol as 'id_rol',r.nombre as 'nombre_rol'"+
-	"  FROM usuario as u , rol as r"+
-	"  WHERE u.id_rol = r.id"+
-	"  order by u.id ASC limit 1000;";
+	private final String SQL_GET_ALL = "SELECT u.id as 'id_usuario',u.nombre as 'nombre_usuario', password, id_rol as 'id_rol',r.nombre as 'nombre_rol'"
+			+ "  FROM usuario as u , rol as r" + "  WHERE u.id_rol = r.id" + "  order by u.id ASC limit 1000;";
 	private final String SQL_INSERT = "INSERT INTO usuario(nombre,password,id_rol) VALUES(?,?,?);";
 	private final String SQL_UPDATE = "UPDATE usuario SET nombre=?,password=?,id_rol = ?  WHERE id=? ;";
 	private final String SQL_SELECT = "SELECT id,nombre, password, id_rol FROM usuario ORDER BY id DESC ;";
 	private final String SQL_DELETE = "DELETE from usuario WHERE id=?;";
-	private final String SQL_SELECT_BY_NAMEPASS = "SELECT u.id  as 'id_usuario',u.nombre as 'nombre_usuario', password, id_rol as 'id_rol'"+
-			" FROM usuario as u, rol as r"+
-			" WHERE u.nombre = ? and password = ? ;" ;
-	private final String SQL_SELECT_BY_NAME = "SELECT id as 'id_usuario',nombre as 'nombre_usuario', password, id_rol FROM usuario WHERE nombre = ?;";
-	private final String SQL_SELECT_BY_ID = "SELECT u.id as 'id_usuario',u.nombre as 'nombre_usuario', password, id_rol as 'id_rol', r.nombre as 'nombre_rol'"+
-	" FROM usuario as u, rol as r"+
-	" WHERE u.id = ?;";
+	private final String SQL_SELECT_BY_NAMEPASS = "SELECT u.id  as 'id_usuario',u.nombre as 'nombre_usuario', password, id_rol as 'id_rol,r.nombre as 'nombre_rol''"
+			+ " FROM usuario as u, rol as r" + " WHERE u.nombre = ? and password = ? ;";
+	private final String SQL_SELECT_BY_NAME = "SELECT u.id as 'id_usuario',u.nombre as 'nombre_usuario', password, id_rol as 'id_rol',r.nombre as 'nombre_rol'"
+			+ "  FROM usuario as u , rol as r" + "  WHERE u.id_rol = r.id and u.nombre = ?"  + "  order by u.id ASC limit 1000;";
+	private final String SQL_SELECT_BY_ID = "SELECT u.id as 'id_usuario',u.nombre as 'nombre_usuario', password, id_rol as 'id_rol', r.nombre as 'nombre_rol'"
+			+ " FROM usuario as u, rol as r" + " WHERE u.id = ?;";
 
-
-
-	private UsuariosDaoJDBC() {
+	private UsuariosDAO() {
 
 		usuarios = new ArrayList<Usuario>();
 	}
 
-	public static synchronized UsuariosDaoJDBC getInstance() {
+	public static synchronized UsuariosDAO getInstance() {
 		if (INSTANCE == null) {
-			INSTANCE = new UsuariosDaoJDBC();
+			INSTANCE = new UsuariosDAO();
 		}
 		return INSTANCE;
 	}
@@ -63,17 +57,16 @@ public class UsuariosDaoJDBC implements CrudAble<Usuario> {
 			ps.setString(index++, pojo.getNombre());// parametro 1
 			ps.setString(index++, pojo.getPass());// parametro 3
 			ps.setInt(index, pojo.getRol().getId());// parametro 3
-			System.out.println("INSERTANDO ");
 			// nos devuelve un entero representado el numero de registros afectados por la
 			// query
 			rows = ps.executeUpdate();
-			if(rows  > 0) {
+			if (rows > 0) {
 				flag = true;
 				System.out.println(rows + " registros afectados en la accion de insertar Usuario");
 			}
-			
-		} 
-		
+
+		}
+
 		return flag;
 	}
 
@@ -88,12 +81,12 @@ public class UsuariosDaoJDBC implements CrudAble<Usuario> {
 			while (rs.next()) {
 				usuariosArray.add(rowMapper(rs));
 			}
-		} 
+		}
 		return usuariosArray;
 	}
 
 	@Override
-	public Usuario getById(long id) throws Exception{
+	public Usuario getById(long id) throws Exception {
 		Usuario u = new Usuario();
 		PreparedStatement ps = null;
 		try (Connection conexion = ConnectionManager.getConnection();) {
@@ -105,50 +98,50 @@ public class UsuariosDaoJDBC implements CrudAble<Usuario> {
 			while (rs.next()) {
 				u = (rowMapper(rs));
 			}
-			if(u.getNombre() == "" && u.getPass() == "") {
+			if (u.getNombre() == "" && u.getPass() == "") {
 				u = null;
-			}		
+			}
 		}
-			return u;
-		}
+		return u;
+	}
 
 	@Override
-	public boolean delete(String id) throws Exception{
+	public boolean delete(String id) throws Exception {
 		String idString = String.valueOf(id);
 		PreparedStatement ps = null;
 		boolean resul = false;
 		int rows;
-		
-		try(Connection conexion = ConnectionManager.getConnection();) {
-			
+
+		try (Connection conexion = ConnectionManager.getConnection();) {
+
 			int index = 1;
 			ps = conexion.prepareStatement(SQL_DELETE);
 			ps.setString(index, idString);// parametro 1
 			rows = ps.executeUpdate();
 			if (rows == 1) {
 				resul = true;
-			}else {
+			} else {
 				resul = false;
 			}
-			
-		} 
+
+		}
 		return resul;
 	}
 
 	@Override
 	public boolean update(Usuario pojo) throws Exception {
 		/**
-		 * nombre=?,password=? WHERE id=? 
+		 * nombre=?,password=? WHERE id=?
 		 */
 		PreparedStatement ps = null;
 		boolean resul = false;
 		int rows;
-		
-		try(Connection conexion = ConnectionManager.getConnection();) {
-			
+
+		try (Connection conexion = ConnectionManager.getConnection();) {
+
 			int index = 1;
 			ps = conexion.prepareStatement(SQL_UPDATE);
-			
+
 			ps.setString(index++, pojo.getNombre());// parametro 1
 			ps.setString(index++, pojo.getPass());// parametro 1
 			ps.setInt(index++, pojo.getRol().getId());// parametro 1
@@ -156,11 +149,11 @@ public class UsuariosDaoJDBC implements CrudAble<Usuario> {
 			rows = ps.executeUpdate();
 			if (rows == 1) {
 				resul = true;
-			}else {
+			} else {
 				resul = false;
 			}
-			
-		} 
+
+		}
 		return resul;
 	}
 
@@ -170,7 +163,7 @@ public class UsuariosDaoJDBC implements CrudAble<Usuario> {
 			usuario.setId(rs.getInt("id_usuario"));
 			usuario.setNombre(rs.getString("nombre_usuario"));
 			usuario.setPass(rs.getString("password"));
-			//usuario.setId("id_usuario");
+
 			Rol rol = new Rol();
 			rol.setId((int) rs.getLong("id_rol"));
 			rol.setNombre(rs.getString("nombre_rol"));
@@ -194,7 +187,7 @@ public class UsuariosDaoJDBC implements CrudAble<Usuario> {
 			while (rs.next()) {
 				usuario = (rowMapper(rs));
 			}
-			if(usuario.getNombre() == "" && usuario.getPass() == "") {
+			if (usuario.getNombre() == "" && usuario.getPass() == "") {
 				usuario = null;
 			}
 
@@ -204,10 +197,10 @@ public class UsuariosDaoJDBC implements CrudAble<Usuario> {
 		return usuario;
 	}
 
-	public boolean checkByName(String nombreUsuario) {
-		boolean resul = false;
+	public Usuario checkByName(String nombreUsuario) {
+
 		Usuario usuario = new Usuario();
-		int rows = 0;
+		
 		try (Connection conexion = ConnectionManager.getConnection();
 				PreparedStatement ps = conexion.prepareStatement(SQL_SELECT_BY_NAME);) {
 			int index = 1;
@@ -217,7 +210,7 @@ public class UsuariosDaoJDBC implements CrudAble<Usuario> {
 			while (rs.next()) {
 				usuario = (rowMapper(rs));
 				if (usuario != null) {
-					resul = true;
+					
 				}
 
 			}
@@ -225,6 +218,6 @@ public class UsuariosDaoJDBC implements CrudAble<Usuario> {
 			e.printStackTrace();
 		}
 
-		return resul;
+		return usuario;
 	}
 }

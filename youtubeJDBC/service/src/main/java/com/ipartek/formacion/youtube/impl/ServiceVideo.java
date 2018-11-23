@@ -11,6 +11,7 @@ import javax.validation.ValidatorFactory;
 
 import org.apache.log4j.Logger;
 
+import com.ipartek.formacion.youtube.dao.UsuariosDAO;
 import com.ipartek.formacion.youtube.dao.VideoDAO;
 import com.ipartek.formacion.youtube.pojo.Rol;
 import com.ipartek.formacion.youtube.pojo.Usuario;
@@ -22,6 +23,7 @@ public class ServiceVideo implements IServiceVideo {
 
 	private static ServiceVideo INSTANCE = null;
 	private static VideoDAO daoVideo = null;
+	private static UsuariosDAO daoUsuario = null;
 
 	private final static Logger LOG = Logger.getLogger(ServiceVideo.class);
 
@@ -39,6 +41,7 @@ public class ServiceVideo implements IServiceVideo {
 
 	public ServiceVideo() {
 		daoVideo = VideoDAO.getInstance();
+		daoUsuario = UsuariosDAO.getInstance();
 		factory = Validation.buildDefaultValidatorFactory();
 		validator = (Validator) factory.getValidator();
 	}
@@ -60,8 +63,8 @@ public class ServiceVideo implements IServiceVideo {
 		try {
 			videos = (ArrayList<Video>) daoVideo.getAll();
 		}
-			
-		 catch (Exception e) {
+
+		catch (Exception e) {
 			LOG.error(e.getMessage());
 		}
 
@@ -71,8 +74,6 @@ public class ServiceVideo implements IServiceVideo {
 	@Override
 	public boolean crear(Video v) throws Exception {
 		boolean resul = false;
-		
-
 
 		Set<ConstraintViolation<Video>> violations = validator.validate(v);
 		String[] errores = new String[violations.size()];
@@ -90,7 +91,9 @@ public class ServiceVideo implements IServiceVideo {
 
 		} else {
 			if (daoVideo.insert(v)) {
+
 				resul = true;
+				setUsuario(v);
 			}
 		}
 
@@ -98,46 +101,48 @@ public class ServiceVideo implements IServiceVideo {
 	}
 
 	@Override
-	public boolean modificarVideo(Video v) throws Exception {
+	public boolean modificarVideo(Video vActu) throws Exception {
 		boolean resul = false;
 
-		/*Set<ConstraintViolation<Video>> violations = validator.validate(v);
+		Set<ConstraintViolation<Video>> violations = validator.validate(vActu);
 		String[] errores = new String[violations.size()];
-
-		// preguntamos por el campo rol
-		// viene sin el campo rol y hay que completarlo
-		if (u.getRol().getId() < 0) {
-			Usuario usuarioOrig = daoVideo.getById(String.valueOf(u.getId()));
-			u.setRol(usuarioOrig.getRol());
-		}
 
 		if (violations.size() > 0) {
 
 			int contador = 0;
 
 			// No tenemos ningun fallo, la Validacion es correcta
-			for (ConstraintViolation<Usuario> violation : violations) {
+			for (ConstraintViolation<Video> violation : violations) {
 
 				errores[contador] = violation.getPropertyPath() + ":" + violation.getMessage();
 				contador++;
 			}
 
 		} else {
-			if (daoUsuario.update(u)) {
+
+			if (daoVideo.update(vActu)) {
+
 				resul = true;
+				setUsuario(vActu);
 			}
+
 		}
-*/
+
 		return resul;
 	}
 
 	@Override
 	public boolean eliminarVideo(long id) throws Exception {
 		boolean resul = false;
-		/*if (daoUsuario.delete(String.valueOf(id))) {
-			resul = true;
-		}*/
 		return resul;
+	}
+
+	private void setUsuario(Video vActu) throws Exception {
+		// completamos los campos del resultado
+		Usuario u = daoUsuario.getById(vActu.getUsuario().getId());
+		u.setPass("*****");
+		vActu.setUsuario(u);
+
 	}
 
 	@Override

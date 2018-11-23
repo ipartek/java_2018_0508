@@ -14,7 +14,7 @@ import com.ipartek.formacion.youtube.pojo.Video;
 public class VideoDAO implements CrudAble<Video> {
 
 	private static VideoDAO INSTANCE = null;
-	private static UsuariosDaoJDBC usuariosJDBC;
+	private static UsuariosDAO usuariosJDBC;
 	private static List<Video> videos = null;
 	private final String SQL_GET_ALL = "SELECT v.id as 'video_id', codigo, v.nombre as 'nombre_video',id_usuario,  u.nombre as 'nombre_usuario' , u.id_rol as 'rol', r.nombre as 'rol_nombre' "
 			+ " FROM video as v , usuario as u , rol as r" + " WHERE v.id_usuario = u.id AND u.id_rol = r.id"
@@ -28,7 +28,7 @@ public class VideoDAO implements CrudAble<Video> {
 	private final String SQL_GET_BY_ID = "SELECT  v.id as 'video_id', codigo, v.nombre as 'nombre_video',id_usuario,u.nombre as 'nombre_usuario'"+ 
 			" FROM video as v, usuario as u" +
 			" WHERE v.id = ?;";
-	private final String SQL_UPDATE = "UPDATE video SET codigo= ? , nombre= ?,id_usuario= ? WHERE id = ?;";
+	private final String SQL_UPDATE = "UPDATE `youtube_casa`.`video` SET `codigo`=?, `nombre`=?, `id_usuario`=? WHERE `id`= ?;";
 	private final String SQL_DELETE = "DELETE FROM video WHERE id = ?;";
 	private final String SQL_INSERT = "INSERT INTO video (codigo, nombre, id_usuario) VALUES (?,?,?);";
 
@@ -129,7 +129,7 @@ public class VideoDAO implements CrudAble<Video> {
 	}
 
 	@Override
-	public boolean update(Video pojo) {
+	public boolean update(Video pojo) throws Exception {
 		boolean resul = false;
 		int affectedRows;
 		try (Connection con = ConnectionManager.getConnection();
@@ -142,10 +142,7 @@ public class VideoDAO implements CrudAble<Video> {
 			if (affectedRows == 1) {
 				resul = true;
 			}
-		} catch (Exception e) {
-			e.printStackTrace();
-
-		}
+		} 
 		return resul;
 	}
 

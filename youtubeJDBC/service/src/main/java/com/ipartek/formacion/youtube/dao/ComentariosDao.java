@@ -29,7 +29,7 @@ public class ComentariosDao implements CrudAble<Comentario> {
 			+ " WHERE c.id_video = v.id and c.id_usuario = ? and  u.nombre = ?" + " ORDER BY c.id DESC LIMIT 500;";
 	private final String SQL_DELETE = "DELETE FROM comentario WHERE id = ?;";
 	private final String SQL_INSERT = "INSERT INTO comentario ( texto ,id_video  ,id_usuario ) VALUES (?,?,? );";
-	private final String SQL_UPDATE = "UPDATE comentario SET  texto = ?  ,id_video = ?   ,id_usuario = ?  WHERE id = ?;";
+	private final String SQL_UPDATE = "UPDATE comentario SET  texto = ?  ,id_video = ?  ,id_usuario = ?  WHERE id = ?;";
 	private final String SQL_UPDATE_APROBADO = "UPDATE comentario SET  aprobado = ?  WHERE id = ?;";
 	private final String SQL_UPDATE_APROBADO_MASIVO = "UPDATE comentario SET  aprobado = ?  WHERE id = ?;";
 
@@ -127,12 +127,11 @@ public class ComentariosDao implements CrudAble<Comentario> {
 	}
 
 	@Override
-	public boolean update(Comentario pojo) throws Exception {
+	public boolean update(Comentario pojo) {
 		boolean resul = false;
-		try (Connection con = ConnectionManager.getConnection();
-				PreparedStatement ps = con.prepareStatement(SQL_UPDATE, Statement.RETURN_GENERATED_KEYS);) {
+		try (Connection con = ConnectionManager.getConnection();) {
 			int index = 1;
-
+			PreparedStatement ps = con.prepareStatement(SQL_UPDATE, Statement.RETURN_GENERATED_KEYS);
 			ps.setString(index++, pojo.getTexto());
 			ps.setLong(index++, pojo.getVideo().getId());
 			ps.setLong(index++, pojo.getUsuario().getId());
@@ -140,15 +139,16 @@ public class ComentariosDao implements CrudAble<Comentario> {
 
 			int affectedRows = ps.executeUpdate();
 			if (affectedRows == 1) {
-
+				resul = true;
 				// consegir el id generado
 				ResultSet rs = ps.getGeneratedKeys();
 				while (rs.next()) {
 					pojo.setId(rs.getLong(1));
-					resul = true;
+					
 					System.out.println(rs.getLong(1));
 				}
 			}
+			
 
 		} catch (Exception e) {
 			e.printStackTrace();

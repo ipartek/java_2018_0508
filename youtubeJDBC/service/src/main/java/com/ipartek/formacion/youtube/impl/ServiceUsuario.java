@@ -11,7 +11,7 @@ import javax.validation.ValidatorFactory;
 
 import org.apache.log4j.Logger;
 
-import com.ipartek.formacion.youtube.dao.UsuariosDaoJDBC;
+import com.ipartek.formacion.youtube.dao.UsuariosDAO;
 import com.ipartek.formacion.youtube.pojo.Rol;
 import com.ipartek.formacion.youtube.pojo.Usuario;
 import com.ipartek.formacion.youtube.service.IServiceUsuario;
@@ -19,7 +19,7 @@ import com.ipartek.formacion.youtube.service.IServiceUsuario;
 public class ServiceUsuario implements IServiceUsuario {
 
 	private static ServiceUsuario INSTANCE = null;
-	private static UsuariosDaoJDBC daoUsuario = null;
+	private static UsuariosDAO daoUsuario = null;
 	
 	private final static Logger LOG = Logger.getLogger(ServiceUsuario.class);
 
@@ -36,7 +36,7 @@ public class ServiceUsuario implements IServiceUsuario {
 	}
 
 	public ServiceUsuario() {
-		daoUsuario = UsuariosDaoJDBC.getInstance();
+		daoUsuario = UsuariosDAO.getInstance();
 		factory = Validation.buildDefaultValidatorFactory();
 		validator = (Validator) factory.getValidator();
 	}
@@ -132,6 +132,9 @@ public class ServiceUsuario implements IServiceUsuario {
 
 			} else {
 				if (daoUsuario.insert(u)) {
+					
+					Usuario usuarioId = daoUsuario.checkByName(u.getNombre());
+					u.setId(usuarioId.getId());
 					resul = true;
 				}
 			}
@@ -177,6 +180,9 @@ public class ServiceUsuario implements IServiceUsuario {
 	@Override
 	public boolean eliminarUsuario(long id) throws Exception {
 		boolean resul = false;
+		if(daoUsuario.getById(id).getNombre().contains("admin")) {
+			throw new Exception("Imposible eliminar el usuario");
+		}
 		if (daoUsuario.delete(String.valueOf(id))) {
 			resul = true;
 		}
