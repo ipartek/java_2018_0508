@@ -14,7 +14,7 @@
 
 	<div class="row mt-4 justify-content-center">
 		<div class="col col-6 text-center">
-			<a class="btn btn-block btn-outline-${(not empty usuario)?'success':'danger'}" href="/privado/privado.jsp">Acceder Privado</a>
+			<a class="btn btn-block btn-outline-${(not empty usuario)?'success':'danger'}" href="privado/privado.jsp">Acceder Privado</a>
 		</div>
 	</div>
 	<h1 class="text-center mt-2">Iniciar sesión</h1>

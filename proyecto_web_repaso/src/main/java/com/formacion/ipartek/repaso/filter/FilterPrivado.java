@@ -27,7 +27,7 @@ public class FilterPrivado implements Filter {
 	private final static Logger LOG = Logger.getLogger(FilterPrivado.class);
 
 	private final static String VIEW_LOGIN = "/login.jsp";
-	private final static String VIEW_PRIVADO = "privado/privado.jsp";
+	private final static String VIEW_PRIVADO = "/privado/privado.jsp";
 
 	private String view = "";
 	private Alert alert = null;
@@ -66,14 +66,12 @@ public class FilterPrivado implements Filter {
 				view = VIEW_LOGIN;
 				LOG.debug("Sin sesión");
 				alert = new Alert(Alert.ALERT_DANGER, "Debes estar logueado para acceder aqui");
+				session.setAttribute("alert", alert);
+				res.sendRedirect(req.getContextPath() + view);
 			}
-
-			session.setAttribute("alert", alert);
+			
 		} catch (Exception e) {
 			LOG.error(e);
-			view = VIEW_LOGIN;
-		} finally {
-			req.setAttribute("alert", alert);
 			res.sendRedirect(req.getContextPath() + view);
 		}
 	}
