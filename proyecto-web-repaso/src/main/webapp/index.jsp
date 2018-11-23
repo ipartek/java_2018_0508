@@ -86,6 +86,32 @@
 			</div> <!-- /.card-body -->
 		</div> <!-- /.card-header -->
 		
+		<div class="card mb-3">
+	  		<h5 class="card-header bg-primary">Filtro de Seguridad</h5>
+	  		<div class="card-body">
+	  			<c:if test="${not empty fallo}">
+	  				<span class="bg-danger text-white p-2">${fallo}</span>
+	  			</c:if>
+	  			<c:if test="${not empty sessionScope.logear}">
+	  				<span class="bg-danger text-white p-2">${sessionScope.logear}</span>
+	  			</c:if>
+		    	<div class="container mt-3">
+		    		<form action="login" method="post">
+		    			<div class="form-group">
+							<label for="usuario">Usuario</label>
+						   	<input value="admin" type="text" class="form-control" id="usuario" name="usuario" placeholder="Nombre del usuario" required>
+						</div>
+						<div class="form-group">
+							<label for="password">Contraseña</label>
+						   	<input value="admin" type="password" class="form-control" id="password" name="password" placeholder="Contraseña del usuario" required>
+						</div>
+		    			<input type="submit" value="Acceder" class="btn btn-success btn-block mb-3">
+		    		</form>
+		    		<a href="backoffice/backoffice.jsp" class="btn btn-danger btn-block">Acceder Privado</a>
+				</div> <!-- /.container -->
+			</div> <!-- /.card-body -->
+		</div> <!-- /.card-header -->
+		
     </main><!-- /.container -->
 
     <!-- Optional JavaScript -->
