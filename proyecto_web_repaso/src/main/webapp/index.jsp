@@ -52,7 +52,6 @@
 						<p>En las peticiones GET se envían los parámetros en la URL.</p>
 						<pre><code>/flujo-clasico?op1=5&op2=13</code></pre>
 						<a href="flujo-clasico?op1=5&op2=13" class="btn btn-primary">Sumar 5 + 13</a>
-						<h3 class="text-danger">${msgError}</h3>
 					</div>
 					<div class="col-6">
 						<h2>Petición POST</h2>
@@ -62,11 +61,11 @@
 
 							<div class="form-group">
 								<label for="op1">Parámetro 1</label> 
-								<input type="text" class="form-control" id="op1" name="op1" placeholder="Introduzca un número">
+								<input type="text" class="form-control" id="op1" name="op1" placeholder="Introduzca un número" required>
 							</div>
 							<div class="form-group">
 								<label for="op2">Parámetro 2</label> 
-								<input type="text" class="form-control" id="op2" name="op2" placeholder="Introduzca un número">
+								<input type="text" class="form-control" id="op2" name="op2" placeholder="Introduzca un número" required>
 							</div>
 
 							<button type="submit" class="btn btn-primary btn-block">Sumar</button>
@@ -83,7 +82,8 @@
 	<div class="card mt-4">
 		<h5 class="card-header bg-primary text-white">Crear un Videojuego</h5>
 		<div class="card-body">
-			
+		
+			<p class="text-danger">${msgError}</p>
 			<form action="videojuego" method="post">
 				
 				<div class="form-group">

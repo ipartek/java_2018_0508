@@ -26,11 +26,9 @@ public class Juego {
 		this.fechaLanzamiento = new Date(Calendar.getInstance().getTime().getTime());
 	}
 
-	public Juego(long id, String titulo, Date fechaLanzamiento) {
+	public Juego(String titulo) {
 		this();
-		this.id = id;
 		this.titulo = titulo;
-		this.fechaLanzamiento = fechaLanzamiento;
 	}
 
 	public long getId() {
