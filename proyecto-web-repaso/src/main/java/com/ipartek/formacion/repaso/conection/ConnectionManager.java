@@ -11,36 +11,35 @@ public class ConnectionManager {
 
 	private final static Logger LOG = Logger.getLogger(ConnectionManager.class);
 	private static Connection conn;
-	
 
 	public static Connection getConnection() {
 
 		conn = null;
 		try {
-			//cargar properties
+			// cargar properties
 			Properties prop = new Properties();
-			
-			InputStream input = ConnectionManager.class.getClassLoader().getResourceAsStream("database.properties");	
+
+			InputStream input = ConnectionManager.class.getClassLoader().getResourceAsStream("database.properties");
 			prop.load(input);
 			LOG.debug("cargado fichero properties");
-			
-			//comprobar que exista .jar para mysql
+
+			// comprobar que exista .jar para mysql
 			Class.forName(prop.getProperty("ddbb.driver")).newInstance();
 			LOG.debug("Existe driver mysql");
-	
-			//crear conexion
-			conn = DriverManager.getConnection(
-								prop.getProperty("ddbb.url"), 
-								prop.getProperty("ddbb.user"),
-								prop.getProperty("ddbb.pass"));
-			
+
+			// crear conexion
+			conn = DriverManager.getConnection(prop.getProperty("ddbb.url"), prop.getProperty("ddbb.user"),
+					prop.getProperty("ddbb.pass"));
+
+			conn.setAutoCommit(false);
+
 			LOG.debug("conexion establecida");
 
-		}catch (Exception e) {
-			
-			LOG.fatal("Erro estableciendo conexion base datos" , e);
-			
-		}	
+		} catch (Exception e) {
+
+			LOG.fatal("Error estableciendo conexion base datos", e);
+
+		}
 		return conn;
 
 	}

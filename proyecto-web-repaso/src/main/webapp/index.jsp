@@ -93,6 +93,13 @@
 		</div><!-- <div class="card-body"> -->
 	</div><!-- <div class="card"> -->
 		
+		
+	<div class="card mt-3 ">
+	  	<h5 class="card-header bg-primary text-white">COMMIT y ROLLBACK</h5>
+	  	<div class="card-body">
+	  		<a href="transaccion">Lanzar Proceso</a>
+	  	</div>
+  	</div>	
     	
     </main>
 
