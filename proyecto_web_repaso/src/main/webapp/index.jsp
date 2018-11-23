@@ -19,7 +19,7 @@
 		<%@include file="includes/alert.jsp"%>
 		
 		<div class="card">
-			<div class="card-header">
+			<div class="card-header bg-primary text-white">
 				<span>Repaso Servlet o Controlador</span>
 			</div>
 			<div class="card-body">
@@ -74,8 +74,8 @@
 		
 		<hr>
 		
-		<div class="card">
-			<div class="card-header">
+		<div class="card mb-4 ">
+			<div class="card-header bg-primary text-white">
 				<span>Crear videojuego</span>
 			</div>
 			<div class="card-body">
