@@ -10,8 +10,11 @@
 <p>${msj}</p>
 </c:if>
 
-<ol>
+<h2>Listado de Videojuegos</h2>
 <c:forEach items="${juegos}" var="j"> 
-	<li>${j}</li>
+<ul>
+	<li>ID: ${j.id}</li>
+</ul>
+	<p>Titulo: ${j.titulo}</p>
+	<p>Fecha de Lanzamiento: ${j.fechaLanzamiento}</p>
 </c:forEach>
-</ol>
