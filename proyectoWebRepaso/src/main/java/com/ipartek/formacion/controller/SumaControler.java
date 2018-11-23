@@ -58,17 +58,13 @@ public class SumaControler extends HttpServlet {
 			view = "resultado.jsp";
 			
 			LOG.debug("Salgo del controller");
-		}catch(NullPointerException e) {
-			LOG.error("NULL.....Se esperaba 2 números.");
-			request.setAttribute("alerta", "Valores no validos, inserte 2 números");
-			view = "index.jsp";
-		
+				
 		} catch (NumberFormatException e) {
 			LOG.error("NUMBERFORMAT.....Se esperaba 2 números.");
 			request.setAttribute("alerta", "Valores no validos, inserte 2 números");
 			view = "index.jsp";
 		} catch (Exception e) {
-			request.setAttribute("INESPERADO......alerta", "Valores no validos, inserte 2 números");
+			request.setAttribute("INESPERADO......alerta", "INESPERADO...Valores no validos, inserte 2 números");
 			LOG.error(e);
 		}
 

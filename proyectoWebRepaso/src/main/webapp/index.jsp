@@ -53,7 +53,15 @@
 				    <div class="col-sm ">
 					     <h3>PETICION GET</h3> 
 					    <p> Las peticiones GET se envian los parametros en la URL</p>
-					    <pre><code><a class="btn btn-outline-success" href="flujo-clasico?p1=4&p2=3">Sumar Parámetros</a></code></pre>
+					    <div class="row">
+					    	 <pre><code><a class="btn btn-outline-success" href="flujo-clasico?p1=4&p2=3">Sumar Parámetros correcto</a></code></pre>
+					    </div>
+					    <div class="row">
+					  <pre><code><a class="btn btn-outline-warning" href="flujo-clasico?pergreg1=4&p2=3">Sumar Parámetros Null</a></code></pre>
+					    </div>
+					    <div class="row">
+					 <pre><code><a class="btn btn-outline-danger" href="flujo-clasico?p1=f&p2=3">Sumar Parámetros No int</a></code></pre>
+					    </div>
 				    </div>
 				    <div class="col-sm">
 					     <h3>PETICION POST</h3> 
