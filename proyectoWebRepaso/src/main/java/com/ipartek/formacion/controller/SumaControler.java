@@ -23,7 +23,7 @@ public class SumaControler extends HttpServlet {
 	private int suma;
 	private static String view = "";
 
-	private final static Logger LOG = Logger.getLogger(ConnectionManager.class);
+	private final static Logger LOG = Logger.getLogger(SumaControler.class);
 
 	private void getParameters(HttpServletRequest request, HttpServletResponse response) {
 		p1 = Integer.parseInt(request.getParameter("p1"));
