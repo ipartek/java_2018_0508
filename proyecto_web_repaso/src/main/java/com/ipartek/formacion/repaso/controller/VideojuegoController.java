@@ -2,7 +2,6 @@ package com.ipartek.formacion.repaso.controller;
 
 import java.io.IOException;
 import java.sql.Date;
-import java.util.ArrayList;
 import java.util.Set;
 
 import javax.servlet.ServletConfig;
@@ -18,6 +17,7 @@ import javax.validation.ValidatorFactory;
 
 import org.apache.log4j.Logger;
 
+import com.ipartek.formacion.repaso.dao.JuegoDAO;
 import com.ipartek.formacion.repaso.pojo.Juego;
 
 /**
@@ -27,15 +27,21 @@ import com.ipartek.formacion.repaso.pojo.Juego;
 public class VideojuegoController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private final static Logger LOG = Logger.getLogger(VideojuegoController.class);
+	
 	private static final String VIEW_INDEX = "index.jsp";
 	private static final String VIEW_LISTADO = "listado.jsp";
+	
+	private static JuegoDAO daoJuego;
+	
 	private String msgError;
+	
 	private ValidatorFactory factory;
 	private Validator validator;
 	
 	@Override
 	public void init(ServletConfig config) throws ServletException {
 		super.init(config);
+		daoJuego = JuegoDAO.getInstance();
 		factory = Validation.buildDefaultValidatorFactory();
 		validator = factory.getValidator();
 	}
@@ -43,6 +49,7 @@ public class VideojuegoController extends HttpServlet {
 	@Override
 	public void destroy() {
 		super.destroy();
+		daoJuego = null;
 		factory = null;
 		validator = null;
 	}
@@ -101,22 +108,10 @@ public class VideojuegoController extends HttpServlet {
 		}finally {
 			
 			request.setAttribute("juego", juego);
-			request.setAttribute("juegos", juegosMock());
+			request.setAttribute("juegos", daoJuego.getAll());
 			request.setAttribute("msgError", msgError);
 			request.getRequestDispatcher(view).forward(request, response);
 		}
-		
-	}
-	
-	private ArrayList<Juego> juegosMock(){
-		
-		ArrayList<Juego> juegos = new ArrayList<Juego>();	
-		juegos.add(new Juego("The Simpsons Hit & Run"));	
-		juegos.add(new Juego("Killzone 2"));	
-		juegos.add(new Juego("Grand Theft Auto San Andreas"));	
-		juegos.add(new Juego("Red Dead Redemption"));
-		
-		return juegos;
 		
 	}
 

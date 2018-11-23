@@ -9,32 +9,33 @@
 		<title>Listado de videojuegos</title>
 	</head>
 	<body>
-	
-		<c:if test="${not empty juego}">
-			<h2>Video juego creado:</h2>
-			<p>Id: ${juego.id}</p>
-			<p>Titulo: ${juego.titulo}</p>
-			<p>Fecha de lanzamiento: ${juego.fechaLanzamiento}</p>
-		</c:if>
-	
-		<c:if test="${not empty juegos}">
+		<main role="main" class="container">
+			<c:if test="${not empty juego}">
+				<h2>Video juego creado:</h2>
+				<p>Id: ${juego.id}</p>
+				<p>Titulo: ${juego.titulo}</p>
+				<p>Fecha de lanzamiento: ${juego.fechaLanzamiento}</p>
+			</c:if>
 		
-			<h2>Listado de juegos disponibles:</h2>
+			<c:if test="${not empty juegos}">
 			
-			<c:forEach items="${juegos}" var="j">
-				<p>Id: ${j.id}</p>
-				<p>Titulo: ${j.titulo}</p>
-				<p>Fecha de lanzamiento: ${j.fechaLanzamiento}</p>		
-				<hr>		
-			</c:forEach>
-		
-		</c:if>
-		
-		<c:if test="${empty juegos}">
-		
-			<h2 class="text-warning">Aun no disponemos de juegos en nuestra base de datos</h2>
-		
-		</c:if>
+				<h2>Listado de juegos disponibles:</h2>
+				
+				<c:forEach items="${juegos}" var="j">
+					<p>Id: ${j.id}</p>
+					<p>Titulo: ${j.titulo}</p>
+					<p>Fecha de lanzamiento: ${j.fechaLanzamiento}</p>		
+					<hr>		
+				</c:forEach>
+			
+			</c:if>
+			
+			<c:if test="${empty juegos}">
+			
+				<h2 class="text-warning">Aun no disponemos de juegos en nuestra base de datos</h2>
+			
+			</c:if>
+		</main>
 		
 	</body>
 </html>
