@@ -63,7 +63,7 @@
 			</div> <!-- /.card-body -->
 		</div> <!-- /.card-header -->
 		
-		<div class="card mb-3">
+		<div class="card mb-3" id="section_database">
 	  		<h5 class="card-header bg-primary">Crear o Listar Videojuego</h5>
 	  		<div class="card-body">
 	  			<c:if test="${not empty info}">
@@ -86,7 +86,7 @@
 			</div> <!-- /.card-body -->
 		</div> <!-- /.card-header -->
 		
-		<div class="card mb-3">
+		<div class="card mb-3" id="section_seguridad">
 	  		<h5 class="card-header bg-primary">Filtro de Seguridad</h5>
 	  		<div class="card-body">
 	  			<c:if test="${not empty fallo}">
@@ -94,6 +94,7 @@
 	  			</c:if>
 	  			<c:if test="${not empty sessionScope.logear}">
 	  				<span class="bg-danger text-white p-2">${sessionScope.logear}</span>
+	  				${sessionScope.logear = ""}
 	  			</c:if>
 		    	<div class="container mt-3">
 		    		<form action="login" method="post">

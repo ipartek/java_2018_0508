@@ -53,11 +53,11 @@ public class FiltroBackoffice implements Filter {
 			} else {
 				// usuario no logeado
 				session.setAttribute("logear", "Para acceder al privado debes estar logeado");
-				res.sendRedirect(req.getContextPath() + "/index.jsp");
+				res.sendRedirect(req.getContextPath() + "/index.jsp#section_seguridad");
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
-			res.sendRedirect(req.getContextPath() + "/index.jsp");
+			res.sendRedirect(req.getContextPath() + "/index.jsp#section_seguridad");
 		}
 	}
 
