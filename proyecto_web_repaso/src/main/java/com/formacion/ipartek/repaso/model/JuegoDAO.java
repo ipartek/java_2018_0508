@@ -23,6 +23,10 @@ public class JuegoDAO {
 
 	private static final String SQL_INSERT = "INSERT INTO juego (titulo, fecha_lanzamiento) VALUES(?,?);";
 
+	private static final String SQL_UPDATE = "";
+
+//	private static final String SQL_DELETE = "";
+
 	private JuegoDAO() {
 		super();
 	}
@@ -76,6 +80,36 @@ public class JuegoDAO {
 					rs.close();
 				}
 			}
+
+		} catch (Exception e) {
+			LOG.error(e);
+		}
+		return resul;
+	}
+
+	public boolean update(Juego j) {
+		boolean resul = false;
+		try (Connection con = ConnectionManager.getConnection();
+				PreparedStatement ps = con.prepareStatement(SQL_UPDATE);) {
+			ps.setString(1, j.getTitulo());
+			ps.setDate(2, j.getFecha_lanzamiento());
+
+			int affectedRows = ps.executeUpdate();
+
+			if (affectedRows == 1) {
+
+			}
+
+		} catch (Exception e) {
+			LOG.error(e);
+		}
+		return resul;
+	}
+
+	public boolean delete(long id) {
+		boolean resul = false;
+		try (Connection con = ConnectionManager.getConnection();
+				PreparedStatement ps = con.prepareStatement(SQL_UPDATE);) {
 
 		} catch (Exception e) {
 			LOG.error(e);

@@ -5,14 +5,8 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 
 <%@include file="includes/header.jsp"%>
-
-	<header class="shadow-sm p-3 mb-5 rounded">
 	
-		<div class="container">
-			<h1 class="text-center">Hello, world!</h1>
-		</div>
-
-	</header>
+<%@include file="includes/navbar.jsp"%>
 	
 	<main class="container">
 	

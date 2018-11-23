@@ -6,6 +6,7 @@
 
 <c:if test="${empty alert }">
 	${alert = null }
+	${sessionScope.alert=null}
 </c:if>
 
 <c:if test="${not empty alert }">
