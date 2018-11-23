@@ -23,28 +23,74 @@
   
   	<main class="container">
   	
-  		<h2>Repaso Servlet o Controlador</h2>
-    	<p>Vamos a enviar datos por GET y POST</p>
-    	<p>El mapping del controlador es <b>/flujo-clasico</b> JSP -> Servelt -> JSP</p>
-    	<p><b>JSP -> SERVLET</b> enviamos <b>parametros</b></p>
-    	<p><b>SERVLET -> JSP</b> enviamos <b>atributos</b></p>
-    	
-    	<hr>
-    	<p>El servlet va a recibir dos parametros <b>p1</b> y <b>p2</b> los sumara y lo envia como atributo <b>suma</b> a resultado.jsp<p>
-    	
-    	<div class="container">
-		  <div class="row">
-		    <div class="col-6">
-		      <h2>Peticion GET</h2>
-		      <p>Las peticiones GET se envian los parametros en la URL.</p>
-		      <pre><code>/flujo-clasico?op1=5&op2=13</code></pre>
-		    </div>
-		    <div class="col-6">
-		      <h2>Peticion POST</h2>
-		      <p>Las peticiones POST se envian los parametros a traves de un formulario.</p>
-		    </div>		   
-		  </div>
-		</div>  
+  	<div class="card">
+	  	<h5 class="card-header bg-primary  text-white">Repaso Servlet o Controlador</h5>
+	  	<div class="card-body">
+	  		
+	    	<p>Vamos a enviar datos por GET y POST</p>
+	    	<p>El mapping del controlador es <b>/flujo-clasico</b> JSP -> Servelt -> JSP</p>
+	    	<p><b>JSP -> SERVLET</b> enviamos <b>parametros</b></p>
+	    	<p><b>SERVLET -> JSP</b> enviamos <b>atributos</b></p>
+	    	
+	    	<hr>
+	    	<p>El servlet va a recibir dos parametros <b>p1</b> y <b>p2</b> los sumara y lo envia como atributo <b>suma</b> a resultado.jsp<p>
+	    	
+	    	<div class="container">
+			  <div class="row">
+			    <div class="col-6">
+			      <h2>Peticion GET</h2>
+			      <p>Las peticiones GET se envian los parametros en la URL.</p>
+			      <pre><code>/flujo-clasico?op1=5&op2=13</code></pre>
+			      
+			      <a class="btn btn-success" href="flujo-clasico?op1=5&op2=13">Peticion correcta</a>
+			      <a class="btn btn-warning" href="flujo-clasico?op2=13">Peticion Sin un Parametro</a>
+			      <a class="btn btn-danger" href="flujo-clasico?op1=letras&op2=13">Peticion con Parametro NO Integer</a>
+			      
+			    </div>
+			    <div class="col-6">
+			      <h2>Peticion POST</h2>
+			      <p>Las peticiones POST se envian los parametros a traves de un formulario.</p>
+			      <form action="/flujo-clasico" method="post">
+			      
+			      	<label for="op1">Primer Numero</label>
+			      	<input type="text" name="op1">
+			      	<br>
+			      	<label for="op2">Segundo Numero</label>
+			      	<input type="text" name="op2">
+			      	<br>
+			      	<input type="submit" value="sumar" class="btn btn-primary">
+			      </form>
+			    </div>		   
+			  </div>
+			</div> 
+			<!-- <div class="container"> --> 
+			
+		</div><!-- <div class="card-body"> -->
+	</div><!-- <div class="card"> -->
+	
+	
+	<div class="card mt-3 ">
+	  	<h5 class="card-header bg-primary text-white">Crear Videojuego</h5>
+	  	<div class="card-body">
+		
+		  	<form action="videojuego" method="post">
+		  	
+		  		<div class="form-group">
+				    <label for="titulo">Titulo</label>
+				    <input type="text" class="form-control" name="titulo" placeholder="minimo 2 letras max 150">				    
+				</div>
+				
+				<div class="form-group">
+				    <label for="fechaLanzamiento">Fecha Lanzamiento</label>
+				    <input type="date" class="form-control" name="fechaLanzamiento">				    
+				</div>
+		  	
+		  		<input type="submit" value="crear" class="btn btn-primary">
+		  	</form>	
+	    	
+		</div><!-- <div class="card-body"> -->
+	</div><!-- <div class="card"> -->
+		
     	
     </main>
 

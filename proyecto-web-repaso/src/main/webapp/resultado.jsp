@@ -1,3 +1,7 @@
+
+
+<p style="color:red">${msj}</p>
+
 <p>El resultado de sumar los dos paremetros es:</p>
 
 <h2>EL: Expresion Lenguage</h2>
