@@ -2,6 +2,7 @@ package com.ipartek.formacion.repaso.controller;
 
 import java.io.IOException;
 import java.sql.Date;
+import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.Set;
 
 import javax.servlet.ServletConfig;
@@ -59,8 +60,9 @@ public class VideojuegoController extends HttpServlet {
 	 */
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-		request.getRequestDispatcher("listado.jsp").forward(request, response);
+
+		request.setAttribute("juegos", daoJuego.getAll());
+		request.getRequestDispatcher(VIEW_LISTADO).forward(request, response);
 	}
 
 	/**
@@ -86,8 +88,13 @@ public class VideojuegoController extends HttpServlet {
 			Set<ConstraintViolation<Juego>> violations = validator.validate(juego);
 			
 			if(violations.isEmpty()) {
-				view = VIEW_LISTADO;
-				//TODO guardar en BBDD
+				
+				if(daoJuego.crear(juego)) {
+					view = VIEW_LISTADO;
+				
+				}else {
+					msgError = "No se ha podido crear el videojuego";
+				}
 				
 			}else {
 				for (ConstraintViolation<Juego> violation : violations) {
@@ -96,6 +103,10 @@ public class VideojuegoController extends HttpServlet {
 				}
 			
 			}
+			
+		}catch(SQLIntegrityConstraintViolationException e){
+			LOG.error(e);
+			msgError = "El videojuego ya existe, por favor introduce un título diferente";
 			
 		}catch(IllegalArgumentException e){
 			LOG.error(e);

@@ -19,6 +19,9 @@ public class JuegoDAO {
 											+ "FROM juego "
 											+ "ORDER BY id DESC "
 											+ "LIMIT 500;";
+	
+	private static final String SQL_INSERT = "INSERT INTO `juego` (`titulo`, `fecha_lanzamiento`) VALUES (?, ?);";
+	
 	private JuegoDAO() {
 		super();
 	}
@@ -58,6 +61,37 @@ public class JuegoDAO {
 		}
 		
 		return juegos;
+	}
+	
+	public boolean crear(Juego juego) throws Exception{
+		
+		boolean resul = false;
+		
+		try (Connection con = ConnectionManager.getConnection();
+				PreparedStatement pst = con.prepareStatement(SQL_INSERT, PreparedStatement.RETURN_GENERATED_KEYS);
+				) {
+			
+			pst.setString(1, juego.getTitulo());
+			pst.setDate(2, juego.getFechaLanzamiento());
+			
+			int affectedRows = pst.executeUpdate();
+			
+			if(affectedRows == 1) {
+				
+				try(ResultSet rs = pst.getGeneratedKeys()){
+					
+					while(rs.next()) {
+						juego.setId(rs.getLong(1));
+						resul = true;
+					}
+					
+				}
+				
+			}
+			
+		} 
+		
+		return resul;
 	}
 	
 }

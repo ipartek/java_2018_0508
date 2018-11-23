@@ -1,4 +1,5 @@
-<!doctype html>
+<%@ taglib prefix="c" uri ="http://java.sun.com/jsp/jstl/core" %>
+<!Doctype html>
 <html lang="en">
 <head>
 <!-- Required meta tags -->
@@ -97,6 +98,46 @@
 				</div>
 				
 				<button type="submit" class="btn btn-primary btn-block">Crear</button>
+			</form>
+			
+		</div>
+	</div>
+	
+	<div class="card mt-4">
+		<h5 class="card-header bg-primary text-white">Filtro de Seguridad</h5>
+		<div class="card-body">
+		
+			<c:if test="${empty sessionScope.login}">
+			
+				<h3 class="text-danger">${msgLogin}</h3>
+				<a href="videojuego" class="btn btn-outline-danger">Acceder privado</a>
+			
+			</c:if>
+			
+			<c:if test="${not empty sessionScope.login}">
+			
+				<h3 class="text-success">${msgLogin}</h3>
+				<div class="row justify-content-between" id="botonesSesion">
+						<a href="videojuego" class="btn btn-outline-success">Acceder privado</a>
+						<a href="logout" class="btn btn-outline-secondary">Cerrar sesión</a>
+				</div>
+			</c:if>
+			
+			
+		
+			<form action="login" method="post">
+				
+				<div class="form-group">
+					<label for="nombre">Nombre:</label>
+					<input type="text" id="nombre" name="nombre" class="form-control" />
+				</div>
+				
+				<div class="form-group">
+					<label for="pass">Contraseña</label>
+					<input type="password" id="pass" name="pass" class="form-control" />
+				</div>
+				
+				<button type="submit" class="btn btn-primary btn-block">Iniciar sesión</button>
 			</form>
 			
 		</div>
