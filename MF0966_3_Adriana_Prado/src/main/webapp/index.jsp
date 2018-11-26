@@ -31,18 +31,10 @@
 	
 	<hr>
 	
-	<div class="row justify-content-end mt-2 mb-2">
-		<div class="col col-2">
-			<a href="personas?id=-1&op=3" class="btn btn-success">Crear Nuevo</a>
-		</div>
-	</div>
-	
-	<hr>
-	
 	<div class="row">
 		<div class="col">
 			<form action="personas?op=4" method="post">
-				<div class="input-group mb-3">
+				<div class="input-group">
 					<input type="text" name="palabra" class="form-control" placeholder="Buscar... (nombre, email, dni)" aria-label="Buscar... (nombre, email, dni)" aria-describedby="button-addon2">
 					<div class="input-group-append">
 						<select class="btn btn-outline-secondary dropdown-toggle" name="opcionBuscar">
@@ -55,6 +47,14 @@
 					</div>
 				</div>
 			</form>
+		</div>
+	</div>
+	
+	<hr>
+	
+	<div class="row justify-content-end mt-2 mb-2">
+		<div class="col col-2">
+			<a href="personas?id=-1&op=3" class="btn btn-success">Crear Nuevo</a>
 		</div>
 	</div>
 	

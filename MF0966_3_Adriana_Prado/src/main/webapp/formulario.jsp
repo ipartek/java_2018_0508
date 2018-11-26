@@ -34,24 +34,24 @@
 		<div class="form-row">
 			<div class="col col-lg-2">
 				<div class="form-group">
-					<label class="" for="id">Id: </label> 
+					<label class="col-form-label" for="id">Id: </label> 
 					<input class="form-control" readonly="readonly" type="text" name="id" value="${(persona.id==-1)?'':persona.id}" required>
 				</div>
 			</div>
 			<div class="col">
-				<label class="" for="nombre">Nombre: </label> 
+				<label class="col-form-label" for="nombre">Nombre: </label> 
 					<input class="form-control" autofocus type="text" name="nombre" placeholder="Min. 2 y máx. 50 caracteres" value="${persona.nombre}" min-length="2" max-length="50" >
 			</div>
 		</div>
 		<div class="form-row">
 			<div class="col">
 				<div class="form-group">
-					<label class="" for="apellido1">Primer apellido: </label> 
+					<label class="col-form-label" for="apellido1">Primer apellido: </label> 
 					<input class="form-control" type="text" name="apellido1" value="${persona.apellido1}" placeholder="Min. 2 y máx. 50 caracteres" min-length="2" max-length="50" required>
 				</div>
 			</div>
 			<div class="col">
-				<label class="" for="apellido2">Segundo apellido: </label> 
+				<label class="col-form-label" for="apellido2">Segundo apellido: </label> 
 					<input class="form-control" type="text" name="apellido2" placeholder="Min. 2 y máx. 50 caracteres" value="${persona.apellido2}" min-length="2" max-length="50">
 			</div>
 		</div>
@@ -59,12 +59,12 @@
 		<div class="form-row">
 			<div class="col">
 				<div class="form-group">
-					<label class="" for="dni">DNI: </label> 
+					<label class="col-form-label" for="dni">DNI: </label> 
 					<input class="form-control" type="text" name="dni" value="${persona.dni}" placeholder="Ejemplo: 12345678A" min-length="8" max-length="9" required>
 				</div>
 			</div>
 			<div class="col">
-				<label class="" for="email">Correo electrónico: </label> 
+				<label class="col-form-label" for="email">Correo electrónico: </label> 
 					<input class="form-control" type="email" name="email" placeholder="Ejemplo: admin@admin.com" value="${persona.email}" max-length="50">
 			</div>
 		</div>

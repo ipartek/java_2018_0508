@@ -162,6 +162,13 @@ public class PersonaDAO implements Crudable<Persona> {
 		return false;
 	}
 
+	/**
+	 * Metodo que llama la lectura del fichero para insertar masivamente personas en
+	 * la BBDD
+	 * 
+	 * @param personas List<Persona> con todas las personas leidas del fichero ya
+	 *                 listas para insertar
+	 */
 	public void insertMultiple(List<Persona> personas) {
 		Persona pojo = null;
 

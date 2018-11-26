@@ -34,6 +34,7 @@ public class HomeController extends HttpServlet {
 	// Logger
 	private final static Logger LOG = Logger.getLogger(HomeController.class);
 
+	// Vistas por las que se va a navegar
 	private static final String VIEW_HOME = "index.jsp";
 	private static final String VIEW_FORM_PERSONA = "formulario.jsp";
 	private static final String VIEW_BUSQUEDA = "resultadoBusqueda.jsp";
@@ -43,17 +44,20 @@ public class HomeController extends HttpServlet {
 	private static final String BUSCAR_DNI = "dniBuscar";
 	private static final String BUSCAR_EMAIL = "emailBuscar";
 
+	// DAO de Persona
 	private static PersonaDAO daoPersona = null;
 
 	private String view = "";
 	private Alert alert = null;
 
+	// Operandos para las opciones de la app
 	static final String OP_LISTAR = "1";
 	static final String OP_GUARDAR = "2";
 	static final String OP_IR_FORMULARIO = "3";
 	static final String OP_BUSCAR = "4";
 	static final String OP_MIGRAR = "5";
 
+	// Validador
 	ValidatorFactory factory = null;
 	Validator validator = null;
 
@@ -115,23 +119,23 @@ public class HomeController extends HttpServlet {
 			// Dependiendo del valor del parametro op hace una funcion u otra
 			switch (op) {
 			case OP_GUARDAR:
-				guardar(request); // Crea o modifica un usuario en la bbdd
+				guardar(request); // Crea o modifica una personas en la bbdd
 				break;
 
 			case OP_IR_FORMULARIO:
-				irFormulario(request); // Cambia a la vista del formulario de gestion de usuario
+				irFormulario(request); // Cambia a la vista del formulario de gestion de persona
 				break;
 
 			case OP_BUSCAR:
-				buscar(request); // Cambia a la vista del formulario de gestion de usuario
+				buscar(request); // Cambia a la vista del formulario de gestion de persona
 				break;
 
 			case OP_MIGRAR:
-				migrarDatos(request); // Cambia a la vista del formulario de gestion de usuario
+				migrarDatos(request); // Cambia a la vista del formulario de gestion de persona
 				break;
 
 			default: // Listar
-				listar(request); // Cambia a la vista de listado de usuarios
+				listar(request); // Cambia a la vista de listado de personas
 				break;
 			}
 		} catch (Exception e) {
@@ -144,6 +148,12 @@ public class HomeController extends HttpServlet {
 		}
 	}
 
+	/**
+	 * Busca dependiendo de la opcion buscar que reciba: por dni, email y
+	 * nombre/apellidos
+	 * 
+	 * @param request
+	 */
 	private void buscar(HttpServletRequest request) {
 		ArrayList<Persona> personasEncontradas = new ArrayList<Persona>();
 		Persona personaEncontrada = new Persona();
@@ -264,6 +274,13 @@ public class HomeController extends HttpServlet {
 		opcionBuscar = request.getParameter("opcionBuscar");
 	}
 
+	/**
+	 * Lee del fichero personas.txt, crea objetos persona por cada linea y los
+	 * inserta en la BBDD
+	 * 
+	 * @param request
+	 * @throws Exception
+	 */
 	private void migrarDatos(HttpServletRequest request) throws Exception {
 		ArrayList<Persona> personas = new ArrayList<Persona>();
 		Persona p = null;
