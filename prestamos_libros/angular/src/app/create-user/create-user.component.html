@@ -1,0 +1,54 @@
+<h1>Guardar usuarios</h1>
+<div class="row justify-content-center">
+  <div class="col-8">
+
+    <form type="post">
+        <div *ngIf="!isValid"  class="alert alert-danger" role="alert">
+            {{msg}}
+          </div>
+      <div class="row ">
+          <div class="form-group">
+              <label class="control-label col-sm-2" for="nombre">
+                <span class="required">*</span>Primer nombre:</label>
+              <div class="col-sm-10">
+                <input type="text" class="form-control" name="nombre" id="nombre" [(ngModel)]="user.firstName" placeholder="Ingrese su primer nombre">
+              </div>
+            </div>
+            <!-- <div class="form-group">
+              <label class="control-label col-sm-2" for="secondName">Segundo Nombre:</label>
+              <div class="col-sm-10">
+                <input type="text" class="form-control" name="secondName" [(ngModel)]="user.secondName" id="secondName" placeholder="Ingrese su segundo nombre">
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="control-label col-sm-2" for="firstSurname">
+                <span class="required">*</span>Primer Apellido:</label>
+              <div class="col-sm-10">
+                <input type="text" class="form-control" name="firstSurname" [(ngModel)]="user.firstSurname" id="firstSurname" placeholder="Ingrese su primer apellido">
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="control-label col-sm-2" for="secondSurname">Segundo Apellido:</label>
+              <div class="col-sm-10">
+                <input type="text" class="form-control" name="secondSurname" [(ngModel)]="user.secondSurname" id="secondSurname" placeholder="Ingrese su segundo apellido">
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="control-label col-sm-2" for="phone">Teléfono:</label>
+              <div class="col-sm-10">
+                <input type="tel" class="form-control" name="phone" [(ngModel)]="user.phone" id="phone" placeholder="Ingrese su teléfono">
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="control-label col-sm-2" for="address">
+                <span class="required">*</span>Dirección:</label>
+              <div class="col-sm-10">
+                <input type="text" class="form-control" name="address" [(ngModel)]="user.address" id="address" placeholder="Ingrese su dirección">
+              </div>
+            </div> -->
+    </div>
+      
+      <button type="submit" (click)="saveOrUpdate()" class="btn btn-lg btn-block btn-primary">Guardar</button>
+    </form>
+</div>
+</div>
