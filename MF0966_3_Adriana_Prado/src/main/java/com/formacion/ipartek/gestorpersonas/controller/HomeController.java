@@ -38,6 +38,7 @@ public class HomeController extends HttpServlet {
 	private static final String VIEW_HOME = "index.jsp";
 	private static final String VIEW_FORM_PERSONA = "formulario.jsp";
 	private static final String VIEW_BUSQUEDA = "resultadoBusqueda.jsp";
+	private static final String VIEW_DETALLE_MIGRACION = "detalleMigracion.jsp";
 
 	// OPCIONES DE LA BUSQUEDA POSIBLES
 	private static final String BUSCAR_NOMBRE = "nombreBuscar";
@@ -221,6 +222,10 @@ public class HomeController extends HttpServlet {
 			persona.setEmail(email);
 
 			Set<ConstraintViolation<Persona>> violations = validator.validate(persona);
+			
+			if(!id.equals("")) {
+				persona.setId(Long.parseLong(id));
+			}
 
 			if (violations.isEmpty()) {
 				if (id.equals("")) {
@@ -232,7 +237,6 @@ public class HomeController extends HttpServlet {
 					}
 				} else {
 					// Modificar persona existente
-					persona.setId(Long.parseLong(id));
 					if (daoPersona.update(persona)) {
 						alert = new Alert(Alert.ALERT_SUCCESS, "Persona modificada con éxito.");
 					} else {
@@ -284,6 +288,9 @@ public class HomeController extends HttpServlet {
 	private void migrarDatos(HttpServletRequest request) throws Exception {
 		ArrayList<Persona> personas = new ArrayList<Persona>();
 		Persona p = null;
+		int contadorLineas = 0;
+		int contadorCorrectos = 0;
+		int contadorErrores = 0;
 
 		LOG.debug("Preparando para leer fichero");
 
@@ -300,6 +307,7 @@ public class HomeController extends HttpServlet {
 				while ((linea = bf.readLine()) != null) {
 					p = new Persona();
 					String[] tokens = linea.split(",");
+					//Si la linea tiene el numero esperado de tokens por linea entra
 					if (tokens.length == 7) {
 						for (int i = 0; i < tokens.length; i++) {
 							if (i == 0) {
@@ -311,17 +319,30 @@ public class HomeController extends HttpServlet {
 							} else if (i == 4) {
 								p.setEmail(tokens[i]);
 							} else if (i == 5) {
-								p.setDni(tokens[i]);
+								if(tokens[i].length() < 9) {
+									contadorErrores++;
+								}else {
+									p.setDni(tokens[i]);
+								}
 							}
 						}
+						if(!p.getDni().equals("")) {
+							personas.add(p);
+							contadorCorrectos++;
+						}
+						
+					}else {
+						contadorErrores++;
 					}
-
-					personas.add(p);
+					contadorLineas++;
 				}
 
 				// Llamada al DAO para insertar los registros
 				daoPersona.insertMultiple(personas);
-				request.setAttribute("personas", daoPersona.getAll());
+//				request.setAttribute("personas", daoPersona.getAll());
+				request.setAttribute("leidos", contadorLineas);
+				request.setAttribute("correctos", contadorCorrectos);
+				request.setAttribute("errores", contadorErrores);
 
 			} finally {
 				bf.close();
@@ -335,7 +356,7 @@ public class HomeController extends HttpServlet {
 
 		LOG.debug("Terminada lectura fichero");
 
-		view = VIEW_HOME;
+		view = VIEW_DETALLE_MIGRACION;
 	}
 
 }
