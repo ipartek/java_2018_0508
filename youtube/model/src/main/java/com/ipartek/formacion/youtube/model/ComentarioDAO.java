@@ -246,7 +246,7 @@ public class ComentarioDAO implements CrudAble<Comentario> {
 			comentario.setFecha(rs.getTimestamp("fecha"));
 			
 			usuario.setId(rs.getLong("id_usuario"));
-			usuario.setNombre(rs.getString("us_nombre"));
+			usuario.setAlias(rs.getString("us_nombre"));
 			
 			video.setId(rs.getLong("id_video"));
 			video.setNombre(rs.getString("vid_nombre"));

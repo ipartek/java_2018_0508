@@ -1,6 +1,8 @@
 package com.ipartek.formacion.youtube.pojo;
 
-import java.sql.Date;
+import javax.validation.constraints.Size;
+
+import org.hibernate.validator.constraints.NotBlank;
 
 public class Usuario {
 	
@@ -8,18 +10,14 @@ public class Usuario {
 	public static final int STATUS_ACTIVO = 1;
 	
 	private long id;
-	private String nombre;
-	private String apellido1;
-	private String apellido2;
-	private Date fecha_alta;
-	private String descripcion;
-	private String imagen;
+
+	@NotBlank
+	@Size(max=50,min=2)
 	private String alias;
-	private String password;
-	private String email;
-	private String direccion;
-	private int status;
 	
+	@NotBlank
+	@Size(max=20,min=6)
+	private String password;
 	
 	private Rol rol; // 1: Admin, 2: Usuario
 
@@ -27,7 +25,6 @@ public class Usuario {
 	public Usuario() {
 		super();
 		this.id = -1;
-		this.nombre = "";
 		this.password = "";
 		this.rol = new Rol();
 	}
@@ -47,54 +44,6 @@ public class Usuario {
 		this.id = id;
 	}
 
-	public String getNombre() {
-		return nombre;
-	}
-
-	public void setNombre(String nombre) {
-		this.nombre = nombre;
-	}
-
-	public String getApellido1() {
-		return apellido1;
-	}
-
-	public void setApellido1(String apellido1) {
-		this.apellido1 = apellido1;
-	}
-
-	public String getApellido2() {
-		return apellido2;
-	}
-
-	public void setApellido2(String apellido2) {
-		this.apellido2 = apellido2;
-	}
-
-	public Date getFecha_alta() {
-		return fecha_alta;
-	}
-
-	public void setFecha_alta(Date fecha_alta) {
-		this.fecha_alta = fecha_alta;
-	}
-
-	public String getDescripcion() {
-		return descripcion;
-	}
-
-	public void setDescripcion(String descripcion) {
-		this.descripcion = descripcion;
-	}
-
-	public String getImagen() {
-		return imagen;
-	}
-
-	public void setImagen(String imagen) {
-		this.imagen = imagen;
-	}
-
 	public String getAlias() {
 		return alias;
 	}
@@ -111,30 +60,6 @@ public class Usuario {
 		this.password = password;
 	}
 
-	public String getEmail() {
-		return email;
-	}
-
-	public void setEmail(String email) {
-		this.email = email;
-	}
-
-	public String getDireccion() {
-		return direccion;
-	}
-
-	public void setDireccion(String direccion) {
-		this.direccion = direccion;
-	}
-
-	public int getStatus() {
-		return status;
-	}
-
-	public void setStatus(int status) {
-		this.status = status;
-	}
-
 	public Rol getRol() {
 		return rol;
 	}
@@ -143,14 +68,9 @@ public class Usuario {
 		this.rol = rol;
 	}
 
-	// OVERRIDES
 	@Override
 	public String toString() {
-		return "Usuario [id=" + id + ", nombre=" + nombre + ", apellido1=" + apellido1 + ", apellido2=" + apellido2
-				+ ", fecha_alta=" + fecha_alta + ", descripcion=" + descripcion + ", imagen=" + imagen + ", alias="
-				+ alias + ", password=" + password + ", email=" + email + ", direccion=" + direccion + "status=" + status + ", rol=" + rol + "]";
+		return "Usuario [id=" + id + ", alias=" + alias + ", password=" + password + ", rol=" + rol + "]";
 	}
-
-	
 
 }

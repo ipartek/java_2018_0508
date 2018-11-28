@@ -1,63 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-	<groupId>com.ipartek.formacion</groupId>
-	<artifactId>youtube_model</artifactId>
-	<packaging>jar</packaging>
-	<version>0.0.1-SNAPSHOT</version>
-	<name>youtube_model</name>
-	<url>http://localhost:8080/youtube/</url>
 
-	<!-- Variables comunes para todo el POM -->
+	<groupId>com.ipartek.formacion.youtube</groupId>
+	<artifactId>youtube-api</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<packaging>war</packaging>
+
+	<name>youtube-api</name>
+	<description>API REST con Spring 4</description>
+	
+	<!-- variables comunes para usar en el POM -->
 	<properties>
+		<app.name>youtube-api</app.name>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<java-version>1.8</java-version>
 		<junit.version>4.12</junit.version>
 		<javax.servlet.api>3.0.1</javax.servlet.api>
-		<javax.servlet.jsp.version>2.2</javax.servlet.jsp.version>
-		<javax.servlet.jstl.version>1.2</javax.servlet.jstl.version>
+		<springframework.version>4.3.0.RELEASE</springframework.version>
+        <jackson.library>2.7.5</jackson.library>
 	</properties>
 
-
-	<!-- Librerias o .JARs que necesitamos -->
 	<dependencies>
-
-		<!-- Libreria MySQL -->
+	
+		<!-- MODELO DE LA APP CREADO EN CLASE -->
 		<dependency>
-			<groupId>mysql</groupId>
-			<artifactId>mysql-connector-java</artifactId>
-			<version>5.1.47</version>
+			<groupId>com.ipartek.formacion.youtube</groupId>
+			<artifactId>youtube-service</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
-
-		<!-- Validaciones -->
+		
+		<!-- Web Project 3.0 -->
+		<dependency>			
+			<groupId>javax.servlet</groupId>
+			<artifactId>javax.servlet-api</artifactId>
+			<version>${javax.servlet.api}</version>			
+			<scope>provided</scope>
+		</dependency>
+		
+		<!-- Spring -->
 		<dependency>
-			<groupId>javax.validation</groupId>
-			<artifactId>validation-api</artifactId>
-			<version>1.1.0.Final</version>
-		</dependency>
-
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-core</artifactId>
+            <version>${springframework.version}</version>
+        </dependency>
+        
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-web</artifactId>
+            <version>${springframework.version}</version>
+        </dependency>
+        
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-webmvc</artifactId>
+            <version>${springframework.version}</version>
+        </dependency>
+		
+		<!-- LOGGER -->
 		<dependency>
-			<groupId>org.hibernate</groupId>
-			<artifactId>hibernate-validator</artifactId>
-			<version>5.2.4.Final</version>
-		</dependency>
-
-
-		<!-- Testing -->
+        <groupId>log4j</groupId>
+        <artifactId>log4j</artifactId>
+        <version>1.2.17</version>
+    	</dependency>
+		
+		<!-- Object parse to JSON -->
+		  <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+            <version>${jackson.library}</version>
+        </dependency>
+		
+		<!-- SWAGGER -->
+		<dependency>
+            <groupId>io.springfox</groupId>
+            <artifactId>springfox-swagger2</artifactId>
+            <version>2.5.0</version>
+        </dependency>
+ 
+        <dependency>
+            <groupId>io.springfox</groupId>
+            <artifactId>springfox-swagger-ui</artifactId>
+            <version>2.5.0</version>
+        </dependency>
+        
+        <!-- Testing -->
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
 			<version>${junit.version}</version>
-			<scope>test</scope> <!-- solo se usa para Test, cuando se crea el projecto no se usa esta libreria -->
+			<scope>test</scope> <!-- solo se usa para Test, cuando se crea el projecto no se incluye -->
 		</dependency>
-
-		<!-- Validaciones Test -->
+        
+        <!-- Testing javax.validation -->
 		<dependency>
 			<groupId>javax.el</groupId>
 			<artifactId>javax.el-api</artifactId>
 			<version>2.2.4</version>
 			<scope>test</scope>
 		</dependency>
+
 		<dependency>
 			<groupId>org.glassfish.web</groupId>
 			<artifactId>javax.el</artifactId>
@@ -65,11 +108,39 @@
 			<scope>test</scope>
 		</dependency>
 
+		<!-- Testing: cargar contex.xml para que funcione Datasource por JNDI  -->
+		<dependency>
+			<groupId>com.github.h-thurow</groupId>
+			<artifactId>TomcatJNDI</artifactId>
+			<version>1.0.0</version>
+			<scope>test</scope>
+		</dependency>
 
+		<dependency>
+			<groupId>com.github.h-thurow</groupId>
+			<artifactId>tomcat8jndi</artifactId>
+			<version>1.0.0</version>
+			<scope>test</scope>
+		</dependency>
 
+		<dependency>
+			<groupId>org.apache.tomcat</groupId>
+			<artifactId>tomcat-dbcp</artifactId>
+			<version>7.0.79</version>
+			<scope>test</scope>
+		</dependency>
+		
+		<!-- https://mvnrepository.com/artifact/org.jsoup/jsoup -->
+		<dependency>
+		    <groupId>org.jsoup</groupId>
+		    <artifactId>jsoup</artifactId>
+		    <version>1.11.3</version>
+		</dependency>
+		
+		
+	
 	</dependencies>
-
-
+	
 	<build>
 
 		<plugins>
@@ -98,6 +169,7 @@
 		</plugins>
 
 
-		<finalName>youtube_model</finalName>
+		<finalName>${app.name}</finalName>
 	</build>
+
 </project>

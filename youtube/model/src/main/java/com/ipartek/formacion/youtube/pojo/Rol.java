@@ -14,6 +14,13 @@ public class Rol {
 		this.id = -1;
 		this.nombre = "";
 	}
+	
+	public Rol ( long id ) {
+		
+		this();
+		this.id = id;
+		
+	}
 
 	public Rol(int id, String nombre) {
 		this();
