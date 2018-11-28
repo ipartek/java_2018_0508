@@ -12,8 +12,17 @@
 	<div class="row mt-5">
 		<div class="col"><h1>Listado de Personas</h1></div>
 	</div>
+	
 	<div class="row">
-	<div class="col ml-auto"><a href="inicio?op=<%= HomeController.OP_CARGAR_DATOS  %>" class="btn btn-danger">Cargar Datos</a></div>
+		<div class="col">
+			<p>Lineas Leidas: ${ resultado.filasTotales }</p>
+			<p>Lineas Insertadas: ${ resultado.filasIntroducidas }</p>
+			<p>Lineas Evitadas: ${ resultado.filasEvitadas }</p>
+		</div>
+	</div>
+	
+	<div class="row">
+		<div class="col ml-auto"><a href="inicio?op=<%= HomeController.OP_CARGAR_DATOS  %>" class="btn btn-danger">Cargar Datos</a></div>
 		<div class="col"><a href="inicio?id=-1&op=<%= HomeController.OP_IR_FORMULARIO %>" class="btn btn-success mb-3">Crear Nuevo</a></div>
 	</div>
 	

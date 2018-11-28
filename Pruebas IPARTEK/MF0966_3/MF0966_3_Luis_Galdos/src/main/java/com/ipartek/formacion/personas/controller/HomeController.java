@@ -1,5 +1,6 @@
 package com.ipartek.formacion.personas.controller;
 
+import java.io.File;
 import java.io.IOException;
 
 import javax.servlet.ServletConfig;
@@ -14,6 +15,7 @@ import org.apache.log4j.Logger;
 import com.ipartek.formacion.personas.service.PersonaService;
 import com.ipartek.personas.personas.pojo.Alert;
 import com.ipartek.personas.personas.pojo.Persona;
+import com.ipartek.personas.personas.pojo.ResultadoVolcadoDeDatos;
 
 /**
  * Servlet implementation class SumaController
@@ -29,6 +31,8 @@ public class HomeController extends HttpServlet {
 
 	public static final String OP_CARGAR_DATOS = "1";
 	public static final String OP_IR_FORMULARIO = "2";
+	
+	private static final String FILE_NAME = "personas.txt"; // Los datos están separado por comas
 
 	private static final long serialVersionUID = 1L;
 
@@ -117,7 +121,7 @@ public class HomeController extends HttpServlet {
 
 				if (servicio.crear(persona)) {
 
-					alert = new Alert(Alert.SUCCESS, "Persona modificada.");
+					alert = new Alert(Alert.SUCCESS, "Persona insertada.");
 
 				}
 
@@ -140,25 +144,32 @@ public class HomeController extends HttpServlet {
 
 		} finally {
 
+			request.getSession().setAttribute("alert", alert);
 			request.getRequestDispatcher(view).forward(request, response);
 
 		}
 	}
 
 	private void cargarDatos(HttpServletRequest request) throws Exception {
-
+		
+		ResultadoVolcadoDeDatos resultado = null;
+		
 		if (!iniciado) {
-
-			String ruta = request.getRealPath("/datos/personas.txt"); // Ruta fisica
-
-			LOG.debug(ruta);
-
-			servicio.cargarPersonasDesdeFichero(ruta);
+			
+			File archivo = new File(getClass().getClassLoader().getResource( FILE_NAME ).getFile());
+			
+			resultado = servicio.cargarPersonasDesdeFichero( archivo );
 
 			iniciado = true;
+			
 			LOG.debug("Datos cargados.");
 
+		} else {
+			
+			alert = new Alert(Alert.PRIMARY, "Los datos ya han sido introducidos en la Base de Datos.");
 		}
+		
+		request.getSession().setAttribute("resultado", resultado);
 
 	}
 

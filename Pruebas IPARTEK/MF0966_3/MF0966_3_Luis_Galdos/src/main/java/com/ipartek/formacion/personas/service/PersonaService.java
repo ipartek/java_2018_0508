@@ -5,12 +5,19 @@ import java.io.File;
 import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 import java.util.StringTokenizer;
+
+import javax.validation.ConstraintViolation;
+import javax.validation.Validation;
+import javax.validation.Validator;
+import javax.validation.ValidatorFactory;
 
 import org.apache.log4j.Logger;
 
 import com.ipartek.formacion.personas.model.PersonaDAO;
 import com.ipartek.personas.personas.pojo.Persona;
+import com.ipartek.personas.personas.pojo.ResultadoVolcadoDeDatos;
 
 public class PersonaService {
 
@@ -19,12 +26,19 @@ public class PersonaService {
 	private static final String TOKENIZER_DELIMITER = ","; // Los datos están separado por comas
 
 	private static PersonaDAO daoPersona;
+	private static StringTokenizer tokens;
+	private static ValidatorFactory factory;
+	private static Validator validator;
 
 	private static ArrayList<Persona> personas;
 
 	private static Persona persona;;
 	
 	private static PersonaService INSTANCE = null;
+	
+	private static int totalLineas;
+	private static int lineasInsertadas;
+	private static int lineasEvitadas;
 
 	public static synchronized PersonaService getInstance() {
 		if (INSTANCE == null) {
@@ -37,22 +51,30 @@ public class PersonaService {
 		super();
 		
 		daoPersona = PersonaDAO.getInstance();	// Inicializiar Data Access Object
+		factory = Validation.buildDefaultValidatorFactory();
+		validator = factory.getValidator();
 	}
 
-	public void cargarPersonasDesdeFichero(String ruta) throws Exception {
-
-		leerFichero(ruta);
-		insertarDatos();
-	}
-
-	public void leerFichero(String ruta) throws Exception {
+	public ResultadoVolcadoDeDatos cargarPersonasDesdeFichero(File archivo) throws Exception {
 
 		personas = new ArrayList<Persona>();
-		File archivo;
+		
+		leerFichero( archivo );
+		
+		insertarDatos();
+		
+		return new ResultadoVolcadoDeDatos(totalLineas, lineasInsertadas, lineasEvitadas);
+
+	}
+
+	public int leerFichero(File archivo) throws Exception {
+
+		totalLineas = 0;
+		lineasEvitadas = 0;
+		lineasInsertadas = 0;
+
 		FileReader fr;
 		BufferedReader br;
-
-		archivo = new File(ruta); // Abrimos el fichero, lanza NullPointerException
 
 		fr = new FileReader(archivo); // Cargamos el FileReader, lanza FileNotFoundException
 
@@ -62,22 +84,22 @@ public class PersonaService {
 
 		while ((linea = br.readLine()) != null) { // Lectura del fichero linea a linea
 
-			personas.add( procesarLinea(linea) ); // Crear objeto a partir de la linea
-			LOG.debug("linea");
+			procesarLinea( linea ); // Comprobar los datos
+			LOG.debug( linea );
+			totalLineas++;
 			
 		}
-		
-		LOG.debug("Num Personas: " + personas.size());
 
 		if (null != fr) {
 			fr.close();
 		}
-
+		
+		return totalLineas;
 	}
 
-	private Persona procesarLinea(String linea) throws Exception {
+	private void procesarLinea(String linea) throws Exception {
 
-		StringTokenizer tokens = new StringTokenizer(linea, TOKENIZER_DELIMITER);
+		tokens = new StringTokenizer(linea, TOKENIZER_DELIMITER);
 
 		// Es necesario conocer el formato de los datos
 		// en la linea para poder insertar correctamente los datos.
@@ -85,7 +107,8 @@ public class PersonaService {
 		persona = new Persona();
 
 		if (tokens.countTokens() == 7) { // Evitamos las líneas incorrectas
-
+			
+			// Los campos deben seguir un orden de lectura estricto
 			persona.setNombre(tokens.nextToken());
 			persona.setApellido1(tokens.nextToken());
 			persona.setApellido2(tokens.nextToken());
@@ -93,23 +116,54 @@ public class PersonaService {
 			tokens.nextToken(); // Avanzamos en el tokenizer para evitar la edad (no requerida en el ejercicio)
 
 			persona.setEmail(tokens.nextToken());
-			persona.setDni(tokens.nextToken());
-			persona.setRol(tokens.nextToken());
+			persona.setDni( tokens.nextToken() );
+			persona.setRol( tokens.nextToken() );
+			
+			validarPersona( persona );	
+		
+		} else {	// Línea incorrecta
+			
+			lineasEvitadas++;
+			
 		}
 
-		return persona;
+	}
+
+	private void validarPersona(Persona persona) {
+		
+		Set<ConstraintViolation<Persona>> violations = validator.validate(persona);
+		
+		if ( violations.size() == 0 ) { // Persona OK
+			
+			personas.add( persona );
+			lineasInsertadas++;
+			
+		} else {
+			
+			lineasEvitadas++;
+			
+		}
+		
+		
 	}
 
 	private void insertarDatos() throws Exception {
-
+		
+		LOG.debug("Personas size: " + personas.size());
+		LOG.debug("Líneas leidas: " + totalLineas);
+		LOG.debug("Líneas evitadas: " + lineasEvitadas);
+		
+		LOG.debug("Lineas ignoradas antes del INSERT: " + lineasEvitadas);
+		
 		if (personas != null) {
 
-			daoPersona.insertMultiple(personas);
+			daoPersona.insertMultiple( personas );
 
 		} else {
 			
 			LOG.debug("No hay personas en el array.");
 		}
+		
 
 	}
 	
@@ -134,11 +188,5 @@ public class PersonaService {
 		
 		return daoPersona.getById(id);
 	}
-
-	/*
-	 * public static void main(String[] args) { try { cargarPersonasDesdeFichero();
-	 * } catch (Exception e) { // TODO Auto-generated catch block
-	 * e.printStackTrace(); } }
-	 */
 
 }

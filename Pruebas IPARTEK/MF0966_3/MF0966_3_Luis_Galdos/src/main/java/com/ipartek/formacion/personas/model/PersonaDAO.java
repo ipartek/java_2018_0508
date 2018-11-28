@@ -1,7 +1,9 @@
 package com.ipartek.formacion.personas.model;
 
+import java.sql.BatchUpdateException;
 import java.sql.CallableStatement;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Types;
@@ -12,11 +14,12 @@ import org.apache.log4j.Logger;
 
 import com.ipartek.formacion.personas.connection.ConnectionManager;
 import com.ipartek.personas.personas.pojo.Persona;
+import com.mysql.jdbc.Statement;
 
 public class PersonaDAO implements CrudAble<Persona> {
 
 	private static final Logger LOG = Logger.getLogger(PersonaDAO.class);
-	
+
 	private static PersonaDAO INSTANCE = null;
 
 	public static synchronized PersonaDAO getInstance() {
@@ -31,8 +34,7 @@ public class PersonaDAO implements CrudAble<Persona> {
 	}
 
 	/* GETTERS */
-
-	
+	// ----------------------------------------------//
 	@Override
 	public List<Persona> getAll() throws Exception {
 
@@ -51,7 +53,7 @@ public class PersonaDAO implements CrudAble<Persona> {
 	}
 
 	/* SETTERS */
-
+	// ----------------------------------------------//
 	@Override
 	public Persona getById(long id) throws Exception {
 		Persona a = null;
@@ -76,8 +78,8 @@ public class PersonaDAO implements CrudAble<Persona> {
 
 	@Override
 	public boolean insert(Persona pojo) throws Exception {
-		boolean resul = false ;
-		
+		boolean resul = false;
+
 		try (Connection con = ConnectionManager.getConnection();
 				CallableStatement sp = con.prepareCall("{CALL personaInsert(?, ?, ?, ?, ?, ?, ?)}");) {
 
@@ -102,67 +104,87 @@ public class PersonaDAO implements CrudAble<Persona> {
 
 				resul = true;
 
-			} 
+			}
 
 		}
 		return resul;
 	}
-	
-	public boolean insertMultiple(ArrayList<Persona> personas) throws Exception {
-		
-		boolean resul = false;
-		
-		try (Connection con = ConnectionManager.getConnection();
-				CallableStatement sp = con.prepareCall("{CALL personaInsert(?, ?, ?, ?, ?, ?, ?)}");) {
 
-			con.setAutoCommit(false);
+	public void insertMultiple(ArrayList<Persona> personas) throws SQLException {
 
-			int i = 0;
+		int id;
+		final int batchSize = 1000;
+		int count = 0;
+		int successCount = 0;
+		int failCount = 0;
+		int notAavailable = 0;
 
-			for (Persona pojo : personas) {	// Para cada persona en personas
+		String sql = "INSERT INTO persona (nombre, apellido1, apellido2, dni, email, rol)"
+				+ " VALUES (?, ? , ? , ? , ? , ? )";
 
-				// Se cargan los parametros de entrada
-				sp.setString("p_nombre", pojo.getNombre());
-				sp.setString("p_apellido1", pojo.getApellido1());
-				sp.setString("p_apellido2", pojo.getApellido2());
-				sp.setString("p_dni", pojo.getDni());
-				sp.setString("p_mail", pojo.getEmail());
-				sp.setString("p_rol", pojo.getRol());
+		try (Connection con = ConnectionManager.getConnection()) {
 
-				// Se registra parametros de salida
-				sp.registerOutParameter("o_id", Types.INTEGER);
+			PreparedStatement ps = con.prepareStatement(sql);
 
-				// Se ejecuta el procedimiento almacenado
-				int resultado = sp.executeUpdate();
+			try {
+				for (Persona pojo : personas) {
 
-				if (resultado == 1) {
+					// Se cargan los parametros de entrada
+					ps.setString(1, pojo.getNombre());
+					ps.setString(2, pojo.getApellido1());
+					ps.setString(3, pojo.getApellido2());
+					ps.setString(4, pojo.getDni());
+					ps.setString(5, pojo.getEmail());
+					ps.setString(6, pojo.getRol());
 
-					int id = sp.getInt("o_id");
-					pojo.setId(id);
-					LOG.debug(pojo);
+					ps.addBatch();
 
-				} else {
-					
-					//con.rollback();
+					if (++count % batchSize == 0) {	// INSERT 1000 ROWS
+						LOG.debug(count);
+						ps.executeBatch();
+					}
 				}
-					
-				// Eliminar al acabar las pruebas
-				/*
-				i++;
-				if (i == 50) {
-					break;
+				
+				ps.executeBatch(); // INSERT REMAINING RECORDS
+
+			} catch (BatchUpdateException buex) {
+
+				buex.printStackTrace();
+
+				LOG.error(buex);
+
+				int[] updateCounts = buex.getUpdateCounts();
+
+				for (int i = 0; i < updateCounts.length; i++) {
+
+					if (updateCounts[i] >= 0) {
+						successCount++;
+
+					} else if (updateCounts[i] == Statement.SUCCESS_NO_INFO) {
+						notAavailable++;
+
+					} else if (updateCounts[i] == Statement.EXECUTE_FAILED) {
+						failCount++;
+						LOG.debug("Failed to execute record at:" + i);
+
+					} 
 				}
-				*/
+				
+				ps.e
+				
+				
+			} finally {
+
+				LOG.info("Number of affected rows before Batch Error :: " + successCount);
+				LOG.info("Number of affected rows not available:" + notAavailable);
+				LOG.info("Failed Count in Batch because of Error:" + failCount);
+				ps.close();
+				con.close();
 			}
+		}
 
-			con.commit();
-			resul = true;
-
-		} 
-
-		return resul;
 	}
-	
+
 	@Override
 	public boolean delete(String id) throws Exception {
 		boolean resul = false;
@@ -186,17 +208,16 @@ public class PersonaDAO implements CrudAble<Persona> {
 
 	}
 
-
 	@Override
 	public boolean update(Persona pojo) throws Exception {
-		
+
 		boolean resul = false;
-		
+
 		try (Connection con = ConnectionManager.getConnection();
 				CallableStatement sp = con.prepareCall("{CALL personaUpdate(?, ?, ?, ?, ?, ?, ?)}");) {
-			
+
 			// Se cargan los parametros de entrada
-			
+
 			sp.setLong("p_id", pojo.getId());
 			sp.setString("p_nombre", pojo.getNombre());
 			sp.setString("p_apellido1", pojo.getApellido1());
@@ -211,15 +232,15 @@ public class PersonaDAO implements CrudAble<Persona> {
 			if (resultado == 1) {
 				resul = true;
 
-			} 
+			}
 		}
 		return resul;
 	}
-	
+
 	private Persona rowMapper(ResultSet rs) throws SQLException {
 
 		Persona persona = new Persona();
-		
+
 		persona.setId(rs.getLong("idPersona"));
 		persona.setDni(rs.getString("dni"));
 		persona.setNombre(rs.getString("nombre"));
@@ -227,11 +248,9 @@ public class PersonaDAO implements CrudAble<Persona> {
 		persona.setApellido2(rs.getString("apellido2"));
 		persona.setEmail(rs.getString("email"));
 		persona.setRol(rs.getString("rol"));
-		
-		
+
 		return persona;
 
 	}
-
 
 }
