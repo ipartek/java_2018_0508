@@ -63,7 +63,10 @@ public class PersonaService {
 		
 		insertarDatos();
 		
-		return new ResultadoVolcadoDeDatos(totalLineas, lineasInsertadas, lineasEvitadas);
+		return new ResultadoVolcadoDeDatos( 
+				totalLineas, 
+				lineasInsertadas, 
+				lineasEvitadas );
 
 	}
 
@@ -81,11 +84,12 @@ public class PersonaService {
 		br = new BufferedReader(fr); // Abrimos el buffer
 
 		String linea;
+		
+		LOG.debug("Leyendo el archivo, por favor espere...");
 
 		while ((linea = br.readLine()) != null) { // Lectura del fichero linea a linea
 
 			procesarLinea( linea ); // Comprobar los datos
-			LOG.debug( linea );
 			totalLineas++;
 			
 		}
@@ -93,6 +97,8 @@ public class PersonaService {
 		if (null != fr) {
 			fr.close();
 		}
+		
+		LOG.debug( "Lectura de archivo completada." );
 		
 		return totalLineas;
 	}
@@ -119,7 +125,17 @@ public class PersonaService {
 			persona.setDni( tokens.nextToken() );
 			persona.setRol( tokens.nextToken() );
 			
-			validarPersona( persona );	
+			
+			if ( validarPersona( persona ).size() == 0 ) { // Persona OK
+				
+				personas.add( persona );
+				lineasInsertadas++;
+				
+			} else {	// Validaciones incorrectas
+				
+				lineasEvitadas++;
+				
+			}
 		
 		} else {	// Línea incorrecta
 			
@@ -129,31 +145,21 @@ public class PersonaService {
 
 	}
 
-	private void validarPersona(Persona persona) {
+	private Set<ConstraintViolation<Persona>> validarPersona(Persona persona) {
 		
-		Set<ConstraintViolation<Persona>> violations = validator.validate(persona);
+		Set<ConstraintViolation<Persona>> violations = validator.validate( persona );
 		
-		if ( violations.size() == 0 ) { // Persona OK
-			
-			personas.add( persona );
-			lineasInsertadas++;
-			
-		} else {
-			
-			lineasEvitadas++;
-			
-		}
+		return violations;
 		
 		
 	}
 
 	private void insertarDatos() throws Exception {
 		
-		LOG.debug("Personas size: " + personas.size());
-		LOG.debug("Líneas leidas: " + totalLineas);
-		LOG.debug("Líneas evitadas: " + lineasEvitadas);
-		
-		LOG.debug("Lineas ignoradas antes del INSERT: " + lineasEvitadas);
+		LOG.debug( "Líneas leidas: " + totalLineas );
+		LOG.debug( "Líneas aceptadas: " + lineasInsertadas );
+		LOG.debug( "Personas creadas: " + personas.size() );
+		LOG.debug( "Líneas evitadas: " + lineasEvitadas) ;
 		
 		if (personas != null) {
 
@@ -161,20 +167,33 @@ public class PersonaService {
 
 		} else {
 			
-			LOG.debug("No hay personas en el array.");
+			LOG.debug( "No hay personas en el array." );
 		}
 		
-
 	}
 	
 	public boolean crear( Persona persona ) throws Exception {
 
-		return daoPersona.insert( persona );
+		boolean result = false;
+		
+		if ( validarPersona( persona ).size() == 0 ) {
+			
+			result =  daoPersona.insert( persona );
+		}
+		
+		return result;
 	}
 
 	public boolean modificar( Persona persona ) throws Exception {
 
-		return daoPersona.update( persona );
+		boolean result = false;
+		
+		if ( validarPersona( persona ).size() == 0 ) {
+			
+			result =  daoPersona.update( persona );
+		}
+		
+		return result;
 	}
 
 
@@ -184,9 +203,9 @@ public class PersonaService {
 		
 	}
 
-	public Object obtenerId(long id) throws Exception {
+	public Persona obtenerId(long id) throws Exception {
 		
-		return daoPersona.getById(id);
+		return daoPersona.getById( id );
 	}
 
 }

@@ -112,12 +112,12 @@ public class PersonaDAO implements CrudAble<Persona> {
 
 	public void insertMultiple(ArrayList<Persona> personas) throws SQLException {
 
-		int id;
-		final int batchSize = 1000;
-		int count = 0;
+		final int BATCH_SIZE = 1000;
+		int count = 0;		// Si count % 1000 -> executeBatch()
 		int successCount = 0;
 		int failCount = 0;
 		int notAavailable = 0;
+		int ind = 0;	// Nos dirá el bloque de inserción actual
 
 		String sql = "INSERT INTO persona (nombre, apellido1, apellido2, dni, email, rol)"
 				+ " VALUES (?, ? , ? , ? , ? , ? )";
@@ -127,6 +127,10 @@ public class PersonaDAO implements CrudAble<Persona> {
 			PreparedStatement ps = con.prepareStatement(sql);
 
 			try {
+				
+				LOG.debug("Se van a insertar " + personas.size() + " registros.");
+				LOG.debug("Por favor, espere...");
+				
 				for (Persona pojo : personas) {
 
 					// Se cargan los parametros de entrada
@@ -139,12 +143,17 @@ public class PersonaDAO implements CrudAble<Persona> {
 
 					ps.addBatch();
 
-					if (++count % batchSize == 0) {	// INSERT 1000 ROWS
-						LOG.debug(count);
+					if (++count % BATCH_SIZE == 0) {	// INSERT 1000 ROWS
+						
 						ps.executeBatch();
+						ind++;			// Siguiente bloque de inserciones 
+						
+						LOG.debug(count + " registros insertados...");
+						LOG.debug("Por favor, espere...");
 					}
 				}
 				
+				LOG.debug("Insertando " + ( count - BATCH_SIZE * ind )+ " registros restantes...");
 				ps.executeBatch(); // INSERT REMAINING RECORDS
 
 			} catch (BatchUpdateException buex) {
@@ -158,26 +167,26 @@ public class PersonaDAO implements CrudAble<Persona> {
 				for (int i = 0; i < updateCounts.length; i++) {
 
 					if (updateCounts[i] >= 0) {
+						
 						successCount++;
 
 					} else if (updateCounts[i] == Statement.SUCCESS_NO_INFO) {
+						
 						notAavailable++;
 
 					} else if (updateCounts[i] == Statement.EXECUTE_FAILED) {
+						
 						failCount++;
-						LOG.debug("Failed to execute record at:" + i);
+						LOG.debug("Falló al insertar el registro:" + i + ( BATCH_SIZE * ind ));
 
 					} 
 				}
 				
-				ps.e
-				
-				
 			} finally {
 
-				LOG.info("Number of affected rows before Batch Error :: " + successCount);
-				LOG.info("Number of affected rows not available:" + notAavailable);
-				LOG.info("Failed Count in Batch because of Error:" + failCount);
+				LOG.info("Número de filas insertadas antes del Batch Error: " + successCount);
+				LOG.info("Número de filas con estado No Disponible durante el Batch:" + notAavailable);
+				LOG.info("Número de filas que produjeron errores durante el Batch:" + failCount);
 				ps.close();
 				con.close();
 			}

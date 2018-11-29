@@ -83,9 +83,9 @@ public class HomeController extends HttpServlet {
 
 			case OP_IR_FORMULARIO:
 
-				irFormulario(request);
-				listar( request );
+				irFormulario( request );
 				break;
+				
 			default:
 
 				listar(request);
@@ -99,7 +99,7 @@ public class HomeController extends HttpServlet {
 		} finally {
 
 			request.setAttribute("alert", alert);
-			request.getRequestDispatcher(view).forward(request, response);
+			request.getRequestDispatcher( view ).forward(request, response);
 
 		}
 

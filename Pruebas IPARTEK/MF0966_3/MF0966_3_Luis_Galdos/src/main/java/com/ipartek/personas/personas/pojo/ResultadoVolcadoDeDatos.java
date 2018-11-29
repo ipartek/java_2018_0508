@@ -1,5 +1,17 @@
 package com.ipartek.personas.personas.pojo;
 
+/**
+ * Clase creada para el control del resultado del volcado de datos
+ * desde un archivo .txt.
+ * <br>Sus atributos son:
+ * <ul>
+ * <li><b>int</b> filasTotales, total de filas leidas.</li>
+ * <li><b>int</b> filasIntroducidas, total de filas insertadas.</li>
+ * <li><b>int</b> filasEvitadas, total de filas evitadas.</li>
+ * </ul>
+ * @author Luis
+ *
+ */
 public class ResultadoVolcadoDeDatos {
 
 	private int filasTotales;
