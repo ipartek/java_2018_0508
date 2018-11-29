@@ -12,12 +12,17 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.log4j.Logger;
+
 import com.ipartek.formacion.gestor.dao.PersonaDAO;
 import com.ipartek.formacion.gestor.pojo.Persona;
 
 @WebServlet("/migracion")
 public class MigracionController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	
+	private static final Logger LOG = Logger.getLogger(MigracionController.class);
+	
 	private PersonaDAO dao;
 
 	public void init(ServletConfig config) throws ServletException {
@@ -62,7 +67,8 @@ public class MigracionController extends HttpServlet {
 			br.close();
 			
 		} catch (Exception e) {
-			e.printStackTrace();
+			LOG.error(e);
+			
 		}finally {
 			request.setAttribute("personasTotales", personasTotales);
 			request.setAttribute("personasCreadas", personasCreadas);

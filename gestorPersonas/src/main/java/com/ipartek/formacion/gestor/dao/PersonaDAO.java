@@ -207,6 +207,8 @@ public class PersonaDAO {
 
 			}
 
+		}catch (Exception e) {
+			LOG.error(e);
 		}
 
 		return resul;
@@ -231,7 +233,7 @@ public class PersonaDAO {
 			}
 
 		} catch (Exception e) {
-			e.printStackTrace();
+			LOG.error(e);
 		}
 
 		return resul;

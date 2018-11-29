@@ -7,6 +7,9 @@
 			<div class="row justify-content-center mb-4">
 				<div class="col-10">
 					<div>
+			
+		<%@include file="includes/alert.jsp"%>
+
 						<form action="persona" class="form-inline my-2 my-lg-0" method="GET">
 							<input type="hidden" name="op" value="2">
 							<select name="filtro" class="form-control" >

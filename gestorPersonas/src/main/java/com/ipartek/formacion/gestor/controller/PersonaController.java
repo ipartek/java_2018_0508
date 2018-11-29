@@ -18,6 +18,7 @@ import javax.validation.ValidatorFactory;
 import org.apache.log4j.Logger;
 
 import com.ipartek.formacion.gestor.dao.PersonaDAO;
+import com.ipartek.formacion.gestor.pojo.Alert;
 import com.ipartek.formacion.gestor.pojo.Persona;
 
 /**
@@ -25,13 +26,20 @@ import com.ipartek.formacion.gestor.pojo.Persona;
  */
 @WebServlet("/persona")
 public class PersonaController extends HttpServlet {
+	
+	private static final Logger LOG = Logger.getLogger(PersonaController.class);
+	
 	private static final long serialVersionUID = 1L;
 	private static final String VIEW_LISTADO = "index.jsp";
 	private static final String VIEW_FORMULARIO = "formulario.jsp";
+	
 	private PersonaDAO dao;
+	
+	private Alert alert = null;
+	
 	private ValidatorFactory factory;
 	private Validator validator;
-	private static final Logger LOG = Logger.getLogger(PersonaController.class);
+
 
 	public void init(ServletConfig config) throws ServletException {
 		super.init(config);
@@ -52,6 +60,7 @@ public class PersonaController extends HttpServlet {
 		}
 		
 		try {
+			alert = null;
 			
 			switch (op) {
 			case "1":
@@ -61,22 +70,38 @@ public class PersonaController extends HttpServlet {
 				view = VIEW_FORMULARIO;
 				break;
 			case "2":
-				String filtro = request.getParameter("filtro");
-				String palabra = request.getParameter("palabra");
-				
-				if("0".equals(filtro)) {
-					List<Persona> personas = dao.getAll();
-					request.setAttribute("personas", personas);
-				}else if("1".equals(filtro)) {
-					List<Persona> personas = dao.getAllDni(palabra);
-					request.setAttribute("personas", personas);
-				}else if("2".equals(filtro)) {
-					List<Persona> personas = dao.getAllEmail(palabra);
-					request.setAttribute("personas", personas);
+				try {
+					
+					String filtro = request.getParameter("filtro");
+					String palabra = request.getParameter("palabra");
+					
+				if (palabra != null && !palabra.equals("")) {   //&& !opcionBuscar.equals("-1")
+
+					if("0".equals(filtro)) {
+						List<Persona> personas = dao.getAll();
+						request.setAttribute("personas", personas);
+					}else if("1".equals(filtro)) {
+						List<Persona> personas = dao.getAllDni(palabra);
+						request.setAttribute("personas", personas);
+					}else if("2".equals(filtro)) {
+						List<Persona> personas = dao.getAllEmail(palabra);
+						request.setAttribute("personas", personas);
+					}else {
+						List<Persona> personas = dao.getAllNombreApellidos(palabra);
+						request.setAttribute("personas", personas);
+					}
 				}else {
-					List<Persona> personas = dao.getAllNombreApellidos(palabra);
-					request.setAttribute("personas", personas);
+					alert = new Alert(Alert.ALERT_WARNING,
+							"Debe selecionar una opcion e inserte los caracteres.");
+					request.setAttribute("alert", alert);
+					view = VIEW_LISTADO;
 				}
+					
+				} catch (Exception e) {
+					LOG.error(e);
+					view = VIEW_LISTADO;
+				}
+			
 				
 				break;
 			default:
@@ -87,7 +112,9 @@ public class PersonaController extends HttpServlet {
 
 		} catch (Exception e) {
 			LOG.error(e);
-
+			view = VIEW_LISTADO;
+			alert = new Alert(Alert.DANGER, "Ha ocurrido un error no controlado.");
+			request.setAttribute("alert", alert);
 		} finally {
 			request.getRequestDispatcher(view).forward(request, response);
 		}
@@ -123,15 +150,26 @@ public class PersonaController extends HttpServlet {
 					if (id == null || "".equals(id)) {
 						if (dao.crear(persona)) {
 							List<Persona> personas = dao.getAll();
+							alert = new Alert(Alert.SUCCESS, "Persona creada.");
+							
 							request.setAttribute("personas", personas);
+							request.setAttribute("alert", alert);
 						} else {
-							request.setAttribute("info", "Lo sentimos pero no se ha podido crear");
+							alert = new Alert(Alert.WARNING, "Lo sentimos no se ha podido crear");
+							request.setAttribute("alert", alert);
 						}
 					} else {
 						persona.setId(Long.parseLong(id));
-						dao.modificar(persona);
-						List<Persona> personas = dao.getAll();
-						request.setAttribute("personas", personas);
+						if(dao.modificar(persona)) {
+							List<Persona> personas = dao.getAll();
+							request.setAttribute("personas", personas);
+							alert = new Alert(Alert.SUCCESS, "Persona modificada.");
+							request.setAttribute("alert", alert);
+						}else {
+							alert = new Alert(Alert.WARNING, "Lo sentimos no se ha podido modificar");
+							request.setAttribute("alert", alert);
+						}
+						
 					}
 				} catch (Exception e) {
 					LOG.error(e);
