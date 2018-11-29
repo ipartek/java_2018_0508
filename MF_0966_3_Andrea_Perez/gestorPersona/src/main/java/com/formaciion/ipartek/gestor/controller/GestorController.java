@@ -43,7 +43,6 @@ public class GestorController extends HttpServlet {
 	private static final String VIEW_FORM_PERSONA = "formPersona.jsp";
 	private static final String VIEW_INDEX_PERSONA = "listado.jsp";
 	private static final String VIEW_RESUMEN_MIGRACION = "resumenMigracion.jsp";
-	private static final String VIEW_BUSQUEDA="resultadoBusqueda.jsp";
 
 	private static PersonaDAO daoPersona;
 
