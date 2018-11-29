@@ -1,7 +1,10 @@
 # Proyecto Gestion de personas
 
-*Antes de arrancar la App se debe copiar la carpeta datosMigrar que está en la raiz del proyecto y pegarla en la unidad C. Ejemplo: <b>C:/datosMigrar/personas.txt</b>
-	Para cambiar la ruta donde lee la App, basta con ir al <b>GestorController.java</b> y buscar la función migrarDatos();
+
+## TODO :
+* Importar la base de datos gestor_persona.sql para crear la tabla.	
+* Antes de arrancar la App se debe copiar la carpeta datosMigrar que está en la raiz del proyecto y pegarla en la unidad C. Ejemplo: <b>C:/datosMigrar/personas.txt</b>
+Para cambiar la ruta donde lee la App, basta con ir al <b>GestorController.java</b> y buscar la función migrarDatos();
 
 ### Contenido:
 * Buscador que hace varias busquedas a la vez en una unica SELECT por (dni, nombre, primer apellido,segundo apellido,email).
