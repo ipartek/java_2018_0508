@@ -82,7 +82,7 @@ public class VideojuegoController extends HttpServlet {
 
 				try {
 					if (dao.crear(juego)) {
-						request.setAttribute("juego", juego);
+						request.setAttribute("juegos", dao.getAll());
 						view = VIEW_LIST;
 					} else {
 						request.setAttribute("info", "Lo sentimos pero no se ha podido crear");
@@ -95,7 +95,6 @@ public class VideojuegoController extends HttpServlet {
 				request.setAttribute("info", violations);
 			}
 
-			request.setAttribute("juegos", dao.getAll());
 
 		} catch (Exception e) {
 

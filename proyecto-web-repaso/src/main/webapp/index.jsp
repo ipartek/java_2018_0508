@@ -29,22 +29,19 @@
 		         <!-- usuario sin pasar por login -->
 		         <c:if test="${empty sessionScope.usuario}">
 		            <!-- formulario Login -->
-		            		<p class="text-danger">${msj}</p>	
+		            		<p class="text-danger">${msj}</p>
+		            <a href="privado/privadologin.jsp" class="btn btn-primary">Acceder privado</a>
 		            <form action="login" method="post" class="form-inline mt-2 mt-md-0">
 		            
+		            	 
+		            
+		           	
 		           		<input name="usuario" value="usuario" class="form-control mr-sm-2" type="text" placeholder="Nombre Usuario" required pattern=".{3,30}">
 		           		<input name="pass" value="" class="form-control mr-sm-2" type="password" placeholder="Contraseña" required pattern=".{2,50}">		           		 
 		           <button class="btn btn-outline-info my-2 my-sm-0" type="submit">Entrar</button>
 		         </form>
 		       </c:if>         
-		        
-		         
-		         <c:if test="${not empty sessionScope.usuario}">
-		           <div class="nav-user">             	
-		           	<i class="fas fa-user"> ${usuario.nombre}</i>             	
-		           	<a href="" class="btn btn-success">Acceder Privado</a>
-		           </div>              
-		       </c:if>
+
 		        
          </li>  
   		</div>
