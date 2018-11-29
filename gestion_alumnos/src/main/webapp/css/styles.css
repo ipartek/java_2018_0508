@@ -1,6 +1,11 @@
-h1 {
-	text-align: center;
+.main-h1 {
+	text-align: left;
 	background: teal;
+	
+}
+
+.main-h1 > button{
+    margin-bottom: 10px;
 }
 
 .formulario{
@@ -10,4 +15,16 @@ h1 {
 
 .col-10 {
 	margin-top: 100px;
+}
+
+.resumen > div > p {
+	margin-bottom: 3px;
+	height: 1px;
+}
+
+.resumen {
+	margin-top:-10px;
+}
+hr{
+	margin-top:-15px;
 }

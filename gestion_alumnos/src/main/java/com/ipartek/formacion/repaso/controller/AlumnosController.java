@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStream;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
@@ -15,6 +16,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.Logger;
 
+import com.ipartek.formacion.repaso.pojo.Alert;
 import com.ipartek.formacion.repaso.pojo.Alumno;
 import com.ipartek.formacion.repaso.service.AlumnoService;
 
@@ -126,6 +128,7 @@ public class AlumnosController extends HttpServlet {
 						vista = FORMULARIO;
 					}
 				}
+				break;
 			case BUSCAR_POR:
 				ArrayList<Alumno> alumnoBuscado = new ArrayList<Alumno>();
 				alumnoBuscado = (ArrayList<Alumno>) alumnoService.buscarPor(busqueda);
@@ -135,7 +138,7 @@ public class AlumnosController extends HttpServlet {
 			}
 
 			
-			cargarAlumnos();
+			
 			request.setAttribute("alumnos", alumnoService.listar());
 
 		}catch (SQLException e){
@@ -151,58 +154,6 @@ public class AlumnosController extends HttpServlet {
 		}
 	}
 
-	private void cargarAlumnos() {
-		File archivo = null;
-		FileReader fr = null;
-		BufferedReader br = null;
-		Alumno a = new Alumno();
-
-		try {
-
-			if (alumnoService.listar().size() <= 0) {
-
-				archivo = new File("/home/drohne/java/java_2018_0508/gestion_alumnos/alumnos.txt");
-				fr = new FileReader(archivo);
-				br = new BufferedReader(fr);
-
-				// Lectura del fichero
-				String linea = null;
-
-				while ((linea = br.readLine()) != null) {
-
-					System.out.println(linea.length());
-					String[] lineaCampos = new String[linea.length()];
-					lineaCampos = linea.split(",");
-					if (lineaCampos.length == 7) {
-
-						a.setNombre(lineaCampos[0]);
-						a.setApellido1(lineaCampos[1]);
-						a.setApellido2(lineaCampos[2]);
-						a.setDni(lineaCampos[3]);
-						a.setEmail(lineaCampos[4]);
-
-						alumnoService.crear(a);
-					}
-					continue;
-
-				}
-			}
-
-		} catch (Exception e) {
-			e.printStackTrace();
-		} finally {
-			// En el finally cerramos el fichero, para asegurarnos
-			// que se cierra tanto si todo va bien como si salta
-			// una excepcion.
-			try {
-				if (null != fr) {
-					fr.close();
-				}
-			} catch (Exception e2) {
-				e2.printStackTrace();
-			}
-		}
-
-	}
+	
 
 }

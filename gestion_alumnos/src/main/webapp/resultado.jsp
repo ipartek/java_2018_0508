@@ -22,12 +22,12 @@
 <table id="myTable" class="display" style="width:100%">
         <thead>
             <tr>
-                <th>Name</th>
-                <th>Position</th>
-                <th>Office</th>
-                <th>Age</th>
-                <th>Start date</th>
-                <th>Salary</th>
+                <th>Id</th>
+                <th>Nombre</th>
+                <th>Apellido1</th>
+                <th>Apellido2</th>
+                <th>Dni</th>
+                <th>Email</th>
                 <th>Opciones</th>
             </tr>
         </thead>
@@ -45,12 +45,12 @@
         </tbody>
         <tfoot>
             <tr>
-                <th>Name</th>
-                <th>Position</th>
-                <th>Office</th>
-                <th>Age</th>
-                <th>Start date</th>
-                <th>Salary</th>
+                <th>Id</th>
+                <th>Nombre</th>
+                <th>Apellido1</th>
+                <th>Apellido2</th>
+                <th>Dni</th>
+                <th>Email</th>
                 <th>Opciones</th>
             </tr>
         </tfoot>
