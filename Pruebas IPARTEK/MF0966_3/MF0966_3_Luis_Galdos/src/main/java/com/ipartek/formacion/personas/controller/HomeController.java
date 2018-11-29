@@ -1,7 +1,10 @@
 package com.ipartek.formacion.personas.controller;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.sql.SQLIntegrityConstraintViolationException;
+import java.util.Set;
 
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
@@ -9,13 +12,15 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.validation.ConstraintViolation;
 
 import org.apache.log4j.Logger;
 
+import com.ipartek.formacion.personas.pojo.Alert;
+import com.ipartek.formacion.personas.pojo.Persona;
+import com.ipartek.formacion.personas.pojo.ResultadoUpdate;
+import com.ipartek.formacion.personas.pojo.ResultadoVolcadoDeDatos;
 import com.ipartek.formacion.personas.service.PersonaService;
-import com.ipartek.personas.personas.pojo.Alert;
-import com.ipartek.personas.personas.pojo.Persona;
-import com.ipartek.personas.personas.pojo.ResultadoVolcadoDeDatos;
 
 /**
  * Servlet implementation class SumaController
@@ -31,7 +36,7 @@ public class HomeController extends HttpServlet {
 
 	public static final String OP_CARGAR_DATOS = "1";
 	public static final String OP_IR_FORMULARIO = "2";
-	
+
 	private static final String FILE_NAME = "personas.txt"; // Los datos están separado por comas
 
 	private static final long serialVersionUID = 1L;
@@ -74,37 +79,46 @@ public class HomeController extends HttpServlet {
 			listar(request);
 			recogerParametros(request);
 
-			switch (op) {
-			case OP_CARGAR_DATOS:
+			if (op != null) {
 
-				cargarDatos(request);
-				listar( request );
-				break;
+				switch (op) {
+				case OP_CARGAR_DATOS:
 
-			case OP_IR_FORMULARIO:
+					cargarDatos(request);
+					listar(request);
+					break;
 
-				irFormulario( request );
-				break;
-				
-			default:
+				case OP_IR_FORMULARIO:
 
-				listar(request);
-				break;
+					irFormulario(request);
+					break;
+
+				default:
+
+					listar(request);
+					break;
+				}
 			}
+
+		} catch (FileNotFoundException e) {
+
+			LOG.error(e);
+			alert = new Alert(Alert.DANGER, "No se ha podido encontrar el fichero.");
 
 		} catch (Exception e) {
 
+			e.printStackTrace();
 			LOG.error(e);
 
 		} finally {
 
-			request.setAttribute("alert", alert);
-			request.getRequestDispatcher( view ).forward(request, response);
+			request.getSession().setAttribute("alert", alert);
+			response.sendRedirect(view);
 
 		}
 
 	}
-	
+
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
 	 *      response)
@@ -113,30 +127,56 @@ public class HomeController extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
+		ResultadoUpdate resultadoUpdate;
+
 		try {
 
 			recogerFormulario(request);
 
 			if (id.equals("-1")) { // Nueva Persona
 
-				if (servicio.crear(persona)) {
+				resultadoUpdate = servicio.crear(persona);
+
+				if (resultadoUpdate.isResult()) {
 
 					alert = new Alert(Alert.SUCCESS, "Persona insertada.");
 
+				} else {
+
+					crearAlertViolations(request, resultadoUpdate.getViolations());
+
 				}
 
-			} else {
+			} else { // Modificar Persona
 
 				persona.setId(Long.parseLong(id));
 
-				if (servicio.modificar(persona)) {
+				resultadoUpdate = servicio.modificar(persona);
+
+				if (resultadoUpdate.isResult()) {
 
 					alert = new Alert(Alert.SUCCESS, "Persona modificada.");
+
+				} else {
+
+					crearAlertViolations(request, resultadoUpdate.getViolations());
 
 				}
 			}
 
-			listar(request);
+			if (resultadoUpdate.isResult()) {
+
+				listar(request);
+
+			} else {
+
+				irFormulario(request);
+
+			}
+
+		} catch (SQLIntegrityConstraintViolationException e) {
+
+			LOG.error(e);
 
 		} catch (Exception e) {
 
@@ -150,25 +190,47 @@ public class HomeController extends HttpServlet {
 		}
 	}
 
+	private void crearAlertViolations(HttpServletRequest request, Set<ConstraintViolation<Persona>> violations)
+			throws NumberFormatException, Exception {
+
+		StringBuilder sb = new StringBuilder();
+
+		sb.append("Se encontraron los siguientes errores: <br>");
+		sb.append("<ul>");
+
+		for (ConstraintViolation<Persona> v : violations) {
+
+			sb.append("<li>" + v.getMessage() + "</li>");
+		}
+
+		sb.append("</ul>");
+		alert = new Alert(Alert.WARNING, sb.toString());
+
+		request.getSession().setAttribute("alert", alert);
+		irFormulario(request);
+
+	}
+
 	private void cargarDatos(HttpServletRequest request) throws Exception {
-		
+
 		ResultadoVolcadoDeDatos resultado = null;
-		
-		if (!iniciado) {
-			
-			File archivo = new File(getClass().getClassLoader().getResource( FILE_NAME ).getFile());
-			
-			resultado = servicio.cargarPersonasDesdeFichero( archivo );
+
+		if ( !iniciado ) {
+
+			File archivo = new File(getClass().getClassLoader().getResource(FILE_NAME).getFile());
+
+			resultado = servicio.cargarPersonasDesdeFichero(archivo);
 
 			iniciado = true;
-			
-			LOG.debug("Datos cargados.");
+
+			LOG.debug("Datos volcados.");
+			alert = new Alert(Alert.SUCCESS, "Datos correctamente cargados.");
 
 		} else {
-			
-			alert = new Alert(Alert.PRIMARY, "Los datos ya han sido introducidos en la Base de Datos.");
+
+			alert = new Alert( Alert.PRIMARY, "Los datos ya han sido volcados en la Base de Datos." );
 		}
-		
+
 		request.getSession().setAttribute("resultado", resultado);
 
 	}
@@ -177,24 +239,24 @@ public class HomeController extends HttpServlet {
 
 		if (id.equalsIgnoreCase("-1")) { // Crear Persona
 
-			request.setAttribute("persona", new Persona());
+			persona = new Persona();
 
 		} else { // Modificar Persona
 
-			request.setAttribute("persona", servicio.obtenerId(Long.parseLong(id)));
+			persona = servicio.obtenerId(Long.parseLong(id));
 		}
 
+		request.getSession().setAttribute("persona", persona);
 		view = FORM_VIEW;
 
 	}
 
 	private void listar(HttpServletRequest request) throws Exception {
 
-		request.setAttribute("personas", servicio.listar());
+		request.getSession().setAttribute("personas", servicio.listar());
 		view = HOME_VIEW;
 
 	}
-
 
 	private void recogerFormulario(HttpServletRequest request) {
 

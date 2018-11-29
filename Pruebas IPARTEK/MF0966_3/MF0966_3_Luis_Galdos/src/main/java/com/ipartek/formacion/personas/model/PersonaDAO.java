@@ -12,13 +12,23 @@ import java.util.List;
 
 import org.apache.log4j.Logger;
 
+import com.google.gson.JsonElement;
 import com.ipartek.formacion.personas.connection.ConnectionManager;
-import com.ipartek.personas.personas.pojo.Persona;
+import com.ipartek.formacion.personas.pojo.Persona;
 import com.mysql.jdbc.Statement;
 
 public class PersonaDAO implements CrudAble<Persona> {
 
 	private static final Logger LOG = Logger.getLogger(PersonaDAO.class);
+	
+	private static final String SQL_INSERT = "INSERT INTO persona (nombre, apellido1, apellido2, dni, email, rol)"
+			+ " VALUES (?, ? , ? , ? , ? , ? )";
+	
+	private static final String SQL_BUSQUEDA = 
+			"SELECT * FROM persona WHERE dni LIKE ?"
+			+ " OR nombre LIKE ?"
+			+ " OR email LIKE ?"
+			+ " LIMIT 100";
 
 	private static PersonaDAO INSTANCE = null;
 
@@ -119,20 +129,22 @@ public class PersonaDAO implements CrudAble<Persona> {
 		int notAavailable = 0;
 		int ind = 0;	// Nos dirá el bloque de inserción actual
 
-		String sql = "INSERT INTO persona (nombre, apellido1, apellido2, dni, email, rol)"
-				+ " VALUES (?, ? , ? , ? , ? , ? )";
+		
 
 		try (Connection con = ConnectionManager.getConnection()) {
 
-			PreparedStatement ps = con.prepareStatement(sql);
+			PreparedStatement ps = con.prepareStatement(SQL_INSERT);
 
 			try {
 				
 				LOG.debug("Se van a insertar " + personas.size() + " registros.");
 				LOG.debug("Por favor, espere...");
 				
+				LOG.debug("Preparando BATCH Nº " + ( ind+1 ));
+				
 				for (Persona pojo : personas) {
 
+					
 					// Se cargan los parametros de entrada
 					ps.setString(1, pojo.getNombre());
 					ps.setString(2, pojo.getApellido1());
@@ -148,7 +160,8 @@ public class PersonaDAO implements CrudAble<Persona> {
 						ps.executeBatch();
 						ind++;			// Siguiente bloque de inserciones 
 						
-						LOG.debug(count + " registros insertados...");
+						LOG.debug(count + " registros insertados.");
+						LOG.debug("Preparando BATCH Nº " + ( ind+1 ));
 						LOG.debug("Por favor, espere...");
 					}
 				}
@@ -245,6 +258,31 @@ public class PersonaDAO implements CrudAble<Persona> {
 		}
 		return resul;
 	}
+	
+	public ArrayList<Persona> buscar(String txtBusqueda) throws SQLException {
+		
+		ArrayList<Persona> personas = new ArrayList<Persona>();
+		
+		LOG.debug( txtBusqueda );
+		
+		try (Connection con = ConnectionManager.getConnection();
+				PreparedStatement ps = con.prepareStatement(SQL_BUSQUEDA);) {
+
+				ps.setString(1, "%" + txtBusqueda + "%");
+				ps.setString(2, "%" + txtBusqueda + "%");
+				ps.setString(3, txtBusqueda);
+				
+			try (ResultSet rs = ps.executeQuery();) {
+				while (rs.next()) {
+					personas.add(rowMapper(rs));
+				}
+			}
+		}
+		
+		LOG.debug(personas.size() + " personas encontradas.");
+
+		return personas;
+	}
 
 	private Persona rowMapper(ResultSet rs) throws SQLException {
 
@@ -261,5 +299,6 @@ public class PersonaDAO implements CrudAble<Persona> {
 		return persona;
 
 	}
+
 
 }

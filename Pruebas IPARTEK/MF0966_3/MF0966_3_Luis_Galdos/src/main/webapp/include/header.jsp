@@ -31,14 +31,12 @@
     <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <link href="vendor/bootstrap/css/bootstrap-toggle.min.css" rel="stylesheet">
 
-    
     <!-- My own CSS -->
     <link href="css/styles.css?v10" rel="stylesheet"></link>
     
-    <!-- jQuery -->
+    <!-- DATATABLE -->
     <link href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css" rel="stylesheet">
     
-
   </head>
 
   <body>

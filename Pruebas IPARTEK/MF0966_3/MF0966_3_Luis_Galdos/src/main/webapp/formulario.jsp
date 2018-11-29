@@ -9,6 +9,9 @@
 
 <div class="container mt-5">
 
+	<!-- NAVBAR STARTS HERE -->
+	<%@ include file="include/alert.jsp"%>
+	
 	<div class="row mt-5">
 		<div class="col"><h1 class="page-header">${ (persona.id == -1) ? 'Crear Persona' : persona.dni }</h1></div>
 	</div>
@@ -51,7 +54,6 @@
 		    </div>
       	</div>
       </div>
-	  
 	  
 	  <div class="form-group">
 	    <label for="nombre">E-mail</label>

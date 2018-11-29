@@ -3,6 +3,7 @@ package com.ipartek.formacion.personas.service;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
@@ -15,9 +16,12 @@ import javax.validation.ValidatorFactory;
 
 import org.apache.log4j.Logger;
 
+import com.google.gson.JsonElement;
 import com.ipartek.formacion.personas.model.PersonaDAO;
-import com.ipartek.personas.personas.pojo.Persona;
-import com.ipartek.personas.personas.pojo.ResultadoVolcadoDeDatos;
+import com.ipartek.formacion.personas.pojo.Persona;
+import com.ipartek.formacion.personas.pojo.ResultadoUpdate;
+import com.ipartek.formacion.personas.pojo.ResultadoVolcadoDeDatos;
+
 
 public class PersonaService {
 
@@ -33,9 +37,9 @@ public class PersonaService {
 	private static ArrayList<Persona> personas;
 
 	private static Persona persona;;
-	
+
 	private static PersonaService INSTANCE = null;
-	
+
 	private static int totalLineas;
 	private static int lineasInsertadas;
 	private static int lineasEvitadas;
@@ -49,8 +53,8 @@ public class PersonaService {
 
 	private PersonaService() {
 		super();
-		
-		daoPersona = PersonaDAO.getInstance();	// Inicializiar Data Access Object
+
+		daoPersona = PersonaDAO.getInstance(); // Inicializiar Data Access Object
 		factory = Validation.buildDefaultValidatorFactory();
 		validator = factory.getValidator();
 	}
@@ -58,15 +62,12 @@ public class PersonaService {
 	public ResultadoVolcadoDeDatos cargarPersonasDesdeFichero(File archivo) throws Exception {
 
 		personas = new ArrayList<Persona>();
-		
-		leerFichero( archivo );
-		
+
+		leerFichero(archivo);
+
 		insertarDatos();
-		
-		return new ResultadoVolcadoDeDatos( 
-				totalLineas, 
-				lineasInsertadas, 
-				lineasEvitadas );
+
+		return new ResultadoVolcadoDeDatos(totalLineas, lineasInsertadas, lineasEvitadas);
 
 	}
 
@@ -84,22 +85,22 @@ public class PersonaService {
 		br = new BufferedReader(fr); // Abrimos el buffer
 
 		String linea;
-		
+
 		LOG.debug("Leyendo el archivo, por favor espere...");
 
 		while ((linea = br.readLine()) != null) { // Lectura del fichero linea a linea
 
-			procesarLinea( linea ); // Comprobar los datos
+			procesarLinea(linea); // Comprobar los datos
 			totalLineas++;
-			
+
 		}
 
 		if (null != fr) {
 			fr.close();
 		}
-		
-		LOG.debug( "Lectura de archivo completada." );
-		
+
+		LOG.debug("Lectura de archivo completada.");
+
 		return totalLineas;
 	}
 
@@ -113,7 +114,7 @@ public class PersonaService {
 		persona = new Persona();
 
 		if (tokens.countTokens() == 7) { // Evitamos las líneas incorrectas
-			
+
 			// Los campos deben seguir un orden de lectura estricto
 			persona.setNombre(tokens.nextToken());
 			persona.setApellido1(tokens.nextToken());
@@ -122,90 +123,102 @@ public class PersonaService {
 			tokens.nextToken(); // Avanzamos en el tokenizer para evitar la edad (no requerida en el ejercicio)
 
 			persona.setEmail(tokens.nextToken());
-			persona.setDni( tokens.nextToken() );
-			persona.setRol( tokens.nextToken() );
-			
-			
-			if ( validarPersona( persona ).size() == 0 ) { // Persona OK
-				
-				personas.add( persona );
+			persona.setDni(tokens.nextToken());
+			persona.setRol(tokens.nextToken());
+
+			if (validarPersona(persona).size() == 0) { // Persona OK
+
+				personas.add(persona);
 				lineasInsertadas++;
-				
-			} else {	// Validaciones incorrectas
-				
+
+			} else { // Validaciones incorrectas
+
 				lineasEvitadas++;
-				
+
 			}
-		
-		} else {	// Línea incorrecta
-			
+
+		} else { // Línea incorrecta
+
 			lineasEvitadas++;
-			
+
 		}
 
 	}
 
 	private Set<ConstraintViolation<Persona>> validarPersona(Persona persona) {
-		
-		Set<ConstraintViolation<Persona>> violations = validator.validate( persona );
-		
+
+		Set<ConstraintViolation<Persona>> violations = validator.validate(persona);
+
 		return violations;
-		
-		
+
 	}
 
 	private void insertarDatos() throws Exception {
-		
-		LOG.debug( "Líneas leidas: " + totalLineas );
-		LOG.debug( "Líneas aceptadas: " + lineasInsertadas );
-		LOG.debug( "Personas creadas: " + personas.size() );
-		LOG.debug( "Líneas evitadas: " + lineasEvitadas) ;
-		
+
+		LOG.debug("Líneas leidas: " + totalLineas);
+		LOG.debug("Líneas aceptadas: " + lineasInsertadas);
+		LOG.debug("Personas creadas: " + personas.size());
+		LOG.debug("Líneas evitadas: " + lineasEvitadas);
+
 		if (personas != null) {
 
-			daoPersona.insertMultiple( personas );
+			daoPersona.insertMultiple(personas);
 
 		} else {
-			
-			LOG.debug( "No hay personas en el array." );
-		}
-		
-	}
-	
-	public boolean crear( Persona persona ) throws Exception {
 
-		boolean result = false;
-		
-		if ( validarPersona( persona ).size() == 0 ) {
-			
-			result =  daoPersona.insert( persona );
+			LOG.debug("No hay personas en el array.");
 		}
-		
+
+	}
+
+	public ResultadoUpdate crear(Persona persona) throws Exception {
+
+		ResultadoUpdate result = new ResultadoUpdate();
+
+		Set<ConstraintViolation<Persona>> violations = validarPersona(persona);
+
+		if ( violations.size() == 0 ) {
+
+			result.setResult(daoPersona.insert(persona));
+
+		}
+
+		result.setViolations(violations);
+
 		return result;
 	}
 
-	public boolean modificar( Persona persona ) throws Exception {
+	public ResultadoUpdate modificar(Persona persona) throws Exception {
 
-		boolean result = false;
-		
-		if ( validarPersona( persona ).size() == 0 ) {
-			
-			result =  daoPersona.update( persona );
+		ResultadoUpdate result = new ResultadoUpdate();
+
+		Set<ConstraintViolation<Persona>> violations = validarPersona(persona);
+
+		if ( violations.size() == 0 ) {
+
+			result.setResult( daoPersona.update(persona) );
+
 		}
-		
+
+		result.setViolations( violations );
+
 		return result;
 	}
-
 
 	public List<Persona> listar() throws Exception {
-		
+
 		return daoPersona.getAll();
-		
+
 	}
 
 	public Persona obtenerId(long id) throws Exception {
+
+		return daoPersona.getById(id);
+	}
+
+	public ArrayList<Persona> buscar(String txtBusqueda) throws SQLException {
 		
-		return daoPersona.getById( id );
+		return daoPersona.buscar( txtBusqueda );
 	}
 
 }

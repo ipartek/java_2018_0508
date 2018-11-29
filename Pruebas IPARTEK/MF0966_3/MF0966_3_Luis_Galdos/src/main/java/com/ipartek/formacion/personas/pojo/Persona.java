@@ -1,4 +1,4 @@
-package com.ipartek.personas.personas.pojo;
+package com.ipartek.formacion.personas.pojo;
 
 import javax.validation.constraints.Size;
 

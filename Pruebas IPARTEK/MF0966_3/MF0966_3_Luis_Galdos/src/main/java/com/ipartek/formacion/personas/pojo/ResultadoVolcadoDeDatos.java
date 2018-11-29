@@ -1,4 +1,4 @@
-package com.ipartek.personas.personas.pojo;
+package com.ipartek.formacion.personas.pojo;
 
 /**
  * Clase creada para el control del resultado del volcado de datos
