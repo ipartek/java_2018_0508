@@ -3,16 +3,27 @@
    
 <div class="container">   
 	<div class="container">
+		<h1 class="text-center">Listado de Registros de Personas</h1>
+		
+		<c:if test="${alert.texto!=null}">
+			<div class="alert ${alert.tipo} alert-dismissible show" role="alert">
+				<p>${alert.texto}</p>
+			 	<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+			 		<span aria-hidden="true">&times;</span>
+			 	</button>
+			</div>		
+		</c:if>
+		
 		<div class="row justify-content-end mt-2 mb-5">
 			<div class="col col-2 mb-2">
 				<a href="home?id=-1&op=4" class="btn btn-success">Crear Registro de Persona</a>
 			</div>
-			<form action="home?op=3" class="navbar-form navbar-left" role="search">
-				<label>Buscar por DNI:</label>
+			<form action="home?op=3" class="navbar-form navbar-left" method="POST">
+				<label>Buscador:</label>
 				<div class="form-group">
-					<input type="text" class="form-control" name="buscadni" placeholder="DNI a buscar" value="">
+					<input type="text" class="form-control" name="cadena" placeholder="Inserte dato a buscar" value="" autofocus required>
 				</div>
-				<input type="submit" class="btn btn-default" value="Buscar por DNI ">
+				<input type="submit" class="btn btn-default" value="Buscar ">
 			</form>	
 		</div>
 		<table id="example" class="display" style="width:100%">

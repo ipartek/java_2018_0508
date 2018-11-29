@@ -7,6 +7,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.log4j.Logger;
+
 import com.formaciion.ipartek.gestor.conection.ConnectionManager;
 import com.formaciion.ipartek.gestor.pojo.Persona;
 import com.mysql.jdbc.Statement;
@@ -14,14 +16,11 @@ import com.mysql.jdbc.Statement;
 public class PersonaDAO {
 
 	private static PersonaDAO INSTANCE = null;
-	
+	private final static Logger LOG = Logger.getLogger(PersonaDAO.class);
+
 	private static final String SQL_LISTAR = " SELECT id,nombre,apellido1,apellido2,email,dni FROM gestor_persona.persona ORDER BY id DESC LIMIT 50;";
 	private static final String SQL_INSERT = "INSERT INTO persona (nombre, apellido1,apellido2,email,dni) VALUES (?, ?,?,?,?);";
 	private static final String SQL_GET_BY_ID = "SELECT id,nombre,apellido1,apellido2,email,dni FROM gestor_persona.persona WHERE id=?;";
-	private static final String SQL_GET_BY_DNI = "SELECT id,nombre,apellido1,apellido2,email,dni FROM gestor_persona.persona WHERE dni=?;";
-	private static final String SQL_GET_BY_EMAIL = "SELECT id,nombre,apellido1,apellido2,email,dni FROM gestor_persona.persona WHERE email=?;";
-	private static final String SQL_GET_BY_NOMBRE_APELLIDOS = "SELECT id,nombre,apellido1,apellido2,email,dni FROM gestor_persona.persona WHERE nombre LIKE \"?%\" AND apellido1 LIKE \"?%\" AND apellido2 LIKE \"?%\";";
-	
 	private static final String SQL_UPDATE = "UPDATE persona SET nombre= ? ,apellido1= ?,apellido2=?,email=?,dni=? WHERE id = ?;";
 
 	public static synchronized PersonaDAO getInstance() {
@@ -120,69 +119,24 @@ public class PersonaDAO {
 
 		return p;
 	}
-	
-	public Persona buscarPorDni(String dni) throws SQLException, Exception {
-		
-		Persona p = null;
+
+	public ArrayList<Persona> buscar(String cadena) throws SQLException, Exception {
+
+		ArrayList<Persona> personas = new ArrayList<>();
+
 		try (Connection con = ConnectionManager.getConnection();
-				PreparedStatement ps = con.prepareStatement(SQL_GET_BY_ID);) {
+				PreparedStatement ps = con.prepareStatement("SELECT id,nombre,apellido1,apellido2,email,dni FROM gestor_persona.persona WHERE dni=? OR email=? OR nombre LIKE '%"
+						+ cadena + "%' OR apellido1 LIKE '%" + cadena + "%' OR apellido2 LIKE '%" + cadena	+ "%';");) {
 
-			ps.setString(1, dni);
-
-			try (ResultSet rs = ps.executeQuery();) {
-
-				// Mapear ResultSet al objeto o array objetos
-				while (rs.next()) {
-					p = rowMapper(rs);
-				}
-			}
-
-		}
-
-		return p;
-	}
-	
-public Persona buscarPorEmail(String email) throws SQLException, Exception {
-		
-		Persona p = null;
-		try (Connection con = ConnectionManager.getConnection();
-				PreparedStatement ps = con.prepareStatement(SQL_GET_BY_EMAIL);) {
-
-			ps.setString(1, email);
-
-			try (ResultSet rs = ps.executeQuery();) {
-
-				// Mapear ResultSet al objeto o array objetos
-				while (rs.next()) {
-					p = rowMapper(rs);
-				}
-			}
-
-		}
-
-		return p;
-	}
-	
-	
-	public static List<Persona>buscarNombreApellido(String cadena) throws SQLException, Exception {
-		
-		Persona p=new Persona();
-		
-		List<Persona> personas = new ArrayList<Persona>();
-		
-		try (Connection con = ConnectionManager.getConnection();
-				PreparedStatement ps = con.prepareStatement(SQL_GET_BY_ID);) {
-		
 			ps.setString(1, cadena);
 			ps.setString(2, cadena);
-			ps.setString(3, cadena);
 
 			try (ResultSet rs = ps.executeQuery();) {
 
 				// Mapear ResultSet al objeto o array objetos
 				while (rs.next()) {
-					p = rowMapper(rs);
-					personas.add(p);
+					personas.add(rowMapper(rs));
+
 				}
 			}
 
@@ -190,7 +144,6 @@ public Persona buscarPorEmail(String email) throws SQLException, Exception {
 
 		return personas;
 	}
-	
 
 	private static Persona rowMapper(ResultSet rs) throws Exception {
 		Persona p = new Persona();
@@ -205,6 +158,49 @@ public Persona buscarPorEmail(String email) throws SQLException, Exception {
 
 		}
 		return p;
+	}
+
+	public void insertMultiple(ArrayList<Persona> personas) {
+
+		Persona p = null;
+
+		try (Connection con = ConnectionManager.getConnection();
+				PreparedStatement ps = con.prepareStatement(SQL_INSERT, Statement.RETURN_GENERATED_KEYS);) {
+
+			if (personas.size() > 0) {
+
+				for (int i = 0; i < personas.size(); i++) {
+
+					p = personas.get(i);
+
+					ps.setString(1, p.getNombre().trim());
+					ps.setString(2, p.getApellido1().trim());
+					ps.setString(3, p.getApellido2().trim());
+					ps.setString(4, p.getEmail());
+					ps.setString(5, p.getDni());
+
+					int affectedRows = ps.executeUpdate();
+
+					if (affectedRows == 1) {
+						try (ResultSet rs = ps.getGeneratedKeys()) {
+							while (rs.next()) {
+								p.setId(rs.getLong(1));// devuelve el valor de la primera columna "id" de la bbdd
+
+							}
+						}
+
+					}
+
+				} // end for
+
+			} // end if
+		} catch (SQLException e) {
+
+			LOG.error(e);
+		} catch (Exception e) {
+			LOG.error(e);
+		}
+
 	}
 
 }

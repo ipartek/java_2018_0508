@@ -5,6 +5,9 @@
 <head>	
 	<meta charset="utf-8">
 	<meta name="viewport"content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	
+	
+	<link rel="icon" type="image/png" href="https://www.fip.fr/sites/all/themes/custom/fip/favicon.ico" />
 	<!-- bootstrap -->
 	<link href="//netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
 	

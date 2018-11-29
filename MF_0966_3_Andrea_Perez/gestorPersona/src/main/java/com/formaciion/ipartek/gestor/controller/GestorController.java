@@ -1,6 +1,9 @@
 package com.formaciion.ipartek.gestor.controller;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
 import java.io.IOException;
+import java.sql.SQLException;
 import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.ArrayList;
 import java.util.Set;
@@ -19,7 +22,6 @@ import javax.validation.ValidatorFactory;
 import org.apache.log4j.Logger;
 
 import com.formaciion.ipartek.gestor.DAO.PersonaDAO;
-import com.formaciion.ipartek.gestor.migrar.MigrarDatos;
 import com.formaciion.ipartek.gestor.pojo.Alert;
 import com.formaciion.ipartek.gestor.pojo.Persona;
 
@@ -31,23 +33,23 @@ public class GestorController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	private final static Logger LOG = Logger.getLogger(GestorController.class);
-	
+
 	static final String OP_LISTAR = "1";
 	private static final String OP_GUARDAR = "2"; // Insert o update en funcion del id (-1 o >0)
-//	private static final String OP_BUSCAR_DNI = "3";
+	private static final String OP_BUSCAR = "3";
 	private static final String OP_IR_FORMULARIO = "4";
-//	private static final String OP_BUSCAR_EMAIL = "5";
-//	private static final String OP_BUSCAR_NOMBRE_APELLIDO = "6";
-	private static final String OP_CARGAR_REGISTRO="7";
+	private static final String OP_CARGAR_REGISTRO = "5";
 
 	private static final String VIEW_FORM_PERSONA = "formPersona.jsp";
 	private static final String VIEW_INDEX_PERSONA = "listado.jsp";
+	private static final String VIEW_RESUMEN_MIGRACION = "resumenMigracion.jsp";
+	private static final String VIEW_BUSQUEDA="resultadoBusqueda.jsp";
 
 	private static PersonaDAO daoPersona;
-	
+
 	// Validador
-		ValidatorFactory factory = null;
-		Validator validator = null;
+	ValidatorFactory factory = null;
+	Validator validator = null;
 
 	private String view = "";
 	private Alert alert = null;
@@ -60,6 +62,9 @@ public class GestorController extends HttpServlet {
 	private String apellido2;
 	private String email;
 	private String dni;
+	private String cadena;
+	
+	ArrayList<Persona> personas=null;
 
 	@Override
 	public void init(ServletConfig config) throws ServletException {
@@ -92,9 +97,9 @@ public class GestorController extends HttpServlet {
 
 	public void doProcess(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		
+
 		alert = null;
-		
+
 		try {
 
 			// Recoge los parametros de la request y los guarda en variables
@@ -110,20 +115,14 @@ public class GestorController extends HttpServlet {
 			case OP_IR_FORMULARIO:
 				irFormulario(request); // Cambia a la vista del formulario de gestion de persona
 				break;
-//			case OP_BUSCAR_DNI:
-//				buscarByDNI(request); // Cambia a la vista de listado de persona
-//				break;
-//			case OP_BUSCAR_EMAIL:
-//				buscarByEmail(request); // Cambia a la vista de listado de persona
-//				break;
-//			case OP_BUSCAR_NOMBRE_APELLIDO:
-//				buscarByNombreApellidos(request); // Cambia a la vista de listado de usuarios
-//				break;
+			case OP_BUSCAR:
+				buscar(request); // Cambia a la vista de listado de persona
+				break;
 			case OP_CARGAR_REGISTRO:
 				migrarDatos(request); // Cambia a la vista del formulario de gestion de persona
 				break;
 			default: // Listar
-				listar(request); // Cambia a la vista de listado de personas 
+				listar(request); // Cambia a la vista de listado de personas
 				break;
 			}
 		} catch (Exception e) {
@@ -131,11 +130,10 @@ public class GestorController extends HttpServlet {
 			view = VIEW_INDEX_PERSONA;
 			LOG.error("Ha ocurrido un error no controlado.");
 		} finally {
-			request.setAttribute("alert",alert);
+			request.setAttribute("alert", alert);
 			request.getRequestDispatcher(view).forward(request, response);
 		}
 	}
-	
 
 	public void getParameters(HttpServletRequest request) {
 		op = (request.getParameter("op") != null) ? request.getParameter("op") : OP_LISTAR;
@@ -145,22 +143,23 @@ public class GestorController extends HttpServlet {
 		apellido2 = request.getParameter("apellido2");
 		email = request.getParameter("email");
 		dni = request.getParameter("dni");
+		cadena = request.getParameter("cadena");
 	}
-	
+
 	public void listar(HttpServletRequest request) {
 		view = VIEW_INDEX_PERSONA;
 		try {
-			ArrayList<Persona> personas = (ArrayList<Persona>) daoPersona.listar();
-			request.setAttribute("personas", personas);			
+			personas = (ArrayList<Persona>) daoPersona.listar();
+			request.setAttribute("personas", personas);
 		} catch (Exception e) {
 			LOG.error(e);
 		}
 	}
 
 	public void guardar(HttpServletRequest request) throws Exception {
-		
+
 		view = VIEW_FORM_PERSONA;
-		ArrayList<Persona> personas = new ArrayList<Persona>();
+		personas = new ArrayList<Persona>();
 		Persona p = null;
 
 		try {
@@ -169,16 +168,15 @@ public class GestorController extends HttpServlet {
 			if (id != null && id.equals("")) {
 
 				// Crear Persona nuevo
-				p.setNombre(nombre);				
+				p.setNombre(nombre);
 				p.setApellido1(apellido1);
 				p.setApellido2(apellido2);
 				p.setEmail(email);
 				p.setDni(dni);
-				
-				
+
 				Set<ConstraintViolation<Persona>> violations = validator.validate(p);
-				
-				if(!id.equals("")) {
+
+				if (!id.equals("")) {
 					p.setId(Long.parseLong(id));
 				}
 
@@ -228,8 +226,8 @@ public class GestorController extends HttpServlet {
 				}
 				personas = (ArrayList<Persona>) daoPersona.listar();
 			}
-			
-		}catch (SQLIntegrityConstraintViolationException slqIntegrity) {
+
+		} catch (SQLIntegrityConstraintViolationException slqIntegrity) {
 			slqIntegrity.printStackTrace();
 
 			LOG.debug("El registro <b> " + p.getNombre() + " </b> no se puede registrar porque ya existe!!");
@@ -240,7 +238,7 @@ public class GestorController extends HttpServlet {
 		request.setAttribute("persona", p);
 		request.setAttribute("personas", personas);
 		view = VIEW_FORM_PERSONA;
-	}	
+	}
 
 	public void irFormulario(HttpServletRequest request) throws Exception {
 		Persona persona = null;
@@ -253,10 +251,109 @@ public class GestorController extends HttpServlet {
 		request.setAttribute("persona", persona);
 		view = VIEW_FORM_PERSONA;
 	}
-	
-	private void migrarDatos(HttpServletRequest request) {
-		MigrarDatos.migrar();
-		listar(request);
+
+	private void buscar(HttpServletRequest request) {		
 		
+		try {
+			
+			if (cadena != null && !cadena.equals("")){
+				
+				personas = daoPersona.buscar(cadena);
+				
+				if(personas.size()>0) {
+					alert=new Alert(Alert.ALERT_SUCCESS,"Personas encontradas: " + personas.size());
+				}else {
+					alert=new Alert(Alert.ALERT_WARNING,"No se ha encontrado ningun registro que contenga <b> " + cadena + " </b>");
+				}
+				 view=VIEW_INDEX_PERSONA;
+			}else {
+				alert=new Alert(Alert.ALERT_WARNING,"Debe insertar algun caracter para poder hacer la busqueda");
+			}
+			
+		} catch (SQLException e) {
+
+			LOG.error(e);
+		} catch (Exception e) {
+
+			LOG.error(e);
+		} finally {
+			request.setAttribute("personas", personas);
+		}
+
+	}
+
+	private void migrarDatos(HttpServletRequest request) {
+
+		 personas= new ArrayList<Persona>();
+
+		BufferedReader br = null;
+		Persona p = null;
+		String line = null;
+
+		int contLineas = 0;
+		int contOK = 0;
+		int contError = 0;
+
+		try {
+			br = new BufferedReader(new FileReader("C:/datosMigrar/prueba5personas.txt"));
+
+			while ((line = br.readLine()) != null) {
+
+				p = new Persona();
+
+				String datos[] = line.split(",");
+
+				// Si la linea tiene el nº de datos esperados creamos la persona
+				if (datos.length == 7) {
+					for (int i = 0; i < datos.length; i++) {
+						if (i == 0) {
+							p.setNombre(datos[i]);
+						} else if (i == 1) {
+							p.setApellido1(datos[i]);
+						} else if (i == 2) {
+							p.setApellido2(datos[i]);
+						} else if (i == 4) {
+							p.setEmail(datos[i]);
+						} else if (i == 5) {
+							// se comprueba que el dni sea 9 digitos
+							if (datos[i].length() < 9 || datos[i].length() > 9) {
+								contError++;
+							} else {
+								p.setDni(datos[i]);
+							}
+						}
+					} // end for
+
+					// Se añade persona al array para la inserción
+					if (!p.getDni().equals("")) {
+						personas.add(p);
+						contOK++;
+					} else {
+						contError++;
+					}
+
+					contLineas++;
+
+				} // end if
+
+			}
+			// Cerramos fichero
+			br.close();
+		} catch (IOException e) {
+			LOG.error("Fallo al procesar fichero: " + e.getMessage());
+		} catch (Exception e) {
+			LOG.error(e);
+		} finally {
+			// Llamada al DAO para insertar los registros y pasar los contadores a la vista
+			daoPersona.insertMultiple(personas);
+			request.setAttribute("leidos", contLineas);
+			request.setAttribute("correctos", contOK);
+			request.setAttribute("errores", contError);
+
+			view = VIEW_RESUMEN_MIGRACION;
+
+			LOG.debug("Lectura fichero finalizada");
+		}
+
 	}
 }
