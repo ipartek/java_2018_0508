@@ -300,7 +300,8 @@ public class GestorController extends HttpServlet {
 		int contError = 0;		
 
 		try {
-			br = new BufferedReader(new FileReader("C:/datosMigrar/personas.txt"));
+			//br = new BufferedReader(new FileReader("C:/datosMigrar/personas.txt"));
+			br = new BufferedReader(new FileReader("C:/datosMigrar/prueba5personas.txt"));
 
 			while ((line = br.readLine()) != null) {
 

@@ -28,7 +28,7 @@
 				</div>				
 			</form>	
 		</div>
-		<p class="text-info">total Registros:${correctos}</p>
+		
 		<table id="example" class="display" style="width:100%">
 	        <thead>
 	            <tr>
