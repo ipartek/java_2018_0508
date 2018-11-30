@@ -192,6 +192,9 @@ public class PersonaDAO implements Crudable<Persona> {
 						pojo.setId(rs.getLong(1));
 					}
 					rs.close();
+					
+				}else {
+					LOG.error("Algo ha fallado");
 				}
 			}
 

@@ -298,6 +298,7 @@ public class HomeController extends HttpServlet {
 		File f = new File("C:/ficheros/personas.txt");
 
 		LOG.debug("Leer fichero: " + f.getAbsolutePath());
+		
 		try {
 
 			FileReader fr = new FileReader(f);
