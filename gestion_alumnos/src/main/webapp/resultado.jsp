@@ -1,24 +1,41 @@
  <%@ include file = "includes/header.jsp" %>
  
  <header>
-    <div class="main">
-        <h1>Resultado de la busqueda</h1>
+     
+    <div class="main main-h1">
+        <div class="row buscador">
+           <div class="col-2">
+                <a class="badge badge-success boton-inicio" href="alumnos?op=1">Inicio</a>
+            </div>
+            <div class="col-3">
+                 <form action="alumnos"class="form-inline">
+                  <button type="submit" class="btn btn-primary mb-2">Buscar</button>
+                     <input type="hidden" name="op" value="4">
+                      <div class="form-group mb-2">
+                        <label for="buscador" class="sr-only">Buscador</label>
+                        <input type="text"  id="buscador" name="buscador" value="">
+                      </div>  
+                  </form>
+            </div>
+            <div class="col-4">
+                <h1>Gestion de alumnos</h1>
+            </div>
+            <div class="col-1">
+                 <!-- cargar datos del archivo -->
+                 <form action="archivo"class="form-inline">
+                  <button type="submit" class="badge badge-info boton-inicio mb-2">Cargar datos</button>
+                     <input type="hidden" name="op" value="1">
+                      <div class="form-group mb-2">
+                        <!-- <label for="filename" class="sr-only">Buscador</label>
+                        <input type="file" size=30 value="" name="filename"/> -->
+                      </div>
+                   </form>
+    
+             </div>
+          </div><!-- cierre row    -->
     </div>
- 
  </header>
-      <a href="alumnos?op=1">Inicio</a>
-  <form action="alumnos"class="form-inline">
- <input type="hidden" name="op" value="4">
-  <div class="form-group mb-2">
-    <label for="buscador" class="sr-only">Buscador</label>
-    <input type="text" class="form-control-plaintext" id="buscador" name="buscador" value="">
-  </div>
-  
-  <button type="submit" class="btn btn-primary mb-2">Buscar</button>
-</form>
-        <a href="alumnos?op=1">Inicio</a>
- <div class="main">
- <a href="alumnos?id=-1&op=2">Crear Alumno</a>
+ <main class="container">
 <table id="myTable" class="display" style="width:100%">
         <thead>
             <tr>
@@ -55,9 +72,8 @@
             </tr>
         </tfoot>
     </table> 
+</main>
 
 
-</div>
- 
  
   <%@ include file = "includes/footer.jsp" %>

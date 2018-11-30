@@ -1,18 +1,19 @@
 package com.ipartek.formacion.repaso.controller;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
 import java.io.IOException;
-import java.io.InputStream;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Set;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.validation.ConstraintViolation;
+import javax.validation.Validation;
+import javax.validation.Validator;
+import javax.validation.ValidatorFactory;
 
 import org.apache.log4j.Logger;
 
@@ -27,22 +28,35 @@ import com.ipartek.formacion.repaso.service.AlumnoService;
 public class AlumnosController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	AlumnoService alumnoService = null;
-	
+
 	private final static Logger LOG = Logger.getLogger(AlumnosController.class);
 
-	
-	//vistas
+	// validaciones y alertas
+	ValidatorFactory factory = null;
+	Validator validator = null;
+	Alert alerta = new Alert();
+
+	// vistas
 	final String FORMULARIO = "formulario.jsp";
 	final String LISTADO = "home.jsp";
 	final String RESULTADO = "resultado.jsp";
-	//acciones
+	
+	// acciones
 	final String LISTAR = "1";
 	final String IR_FORMULARIO = "2";
 	final String GUARDAR_ACTUALIZAR = "3";
 	final String BUSCAR_POR = "4";
 	String vista = LISTADO;
 	
-	
+	//variables para los parametros
+	String op ;
+	String id ;
+	String nombre;
+	String apellido1 ;
+	String apellido2 ;
+	String dni ;
+	String email ;
+	String busqueda ;
 
 	/**
 	 * @see HttpServlet#HttpServlet()
@@ -50,8 +64,11 @@ public class AlumnosController extends HttpServlet {
 	public AlumnosController() {
 		super();
 		alumnoService = AlumnoService.getInstance();
+		factory = Validation.buildDefaultValidatorFactory();
+		validator = (Validator) factory.getValidator();
 
 	}
+	
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
@@ -70,90 +87,125 @@ public class AlumnosController extends HttpServlet {
 			throws ServletException, IOException {
 		try {
 			// recoger parametros
-			String op = request.getParameter("op");
-			String id = request.getParameter("id");
-			String nombre = request.getParameter("nombre");
-			String apellido1 = request.getParameter("apellido1");
-			String apellido2 = request.getParameter("apellido2");
-			String dni = request.getParameter("dni");
-			String email = request.getParameter("email");
-			String busqueda = request.getParameter("buscador");
+			op = request.getParameter("op");
+			id = request.getParameter("id");
+			nombre = request.getParameter("nombre");
+			apellido1 = request.getParameter("apellido1");
+			apellido2 = request.getParameter("apellido2");
+			dni = request.getParameter("dni");
+			email = request.getParameter("email");
+			busqueda = request.getParameter("buscador");			
+			Alumno a = new Alumno();
+			alerta = new Alert();
+			
 			// procesar parametros validad
 
-			if (op == null || op.equals("")) {
+/*			if (op == null || op.equals("")) {
 				op = "1";
-			}
+			}*/
 
 			switch (op) {
+
 			case LISTAR:
 				vista = LISTADO;
 				break;
 
 			case IR_FORMULARIO:
 
+				
 				if (id.equals("-1")) {
 					vista = FORMULARIO;
+
 				} else {
+					a = crearAlumno();//le pasamos los valores al editar
 					vista = FORMULARIO;
-					Alumno a = new Alumno();
-					a.setId(Long.parseLong(id));
-					a.setNombre(nombre);
-					a.setApellido1(apellido1);
-					a.setApellido2(apellido2);
-					a.setDni(dni);
-					a.setEmail(email);
 					request.setAttribute("alumno", a);
 				}
 				break;
 			case GUARDAR_ACTUALIZAR:
-				Alumno a = new Alumno();
-				a.setId(Long.parseLong(id));
-				a.setNombre(nombre);
-				a.setApellido1(apellido1);
-				a.setApellido2(apellido2);
-				a.setDni(dni);
-				a.setEmail(email);
-				if(id.equals("-1")) {
-					
-					if(alumnoService.crear(a)) {
+				
+				
+				a = crearAlumno();
+				if (id.equals("-1")) {
+
+					if (alumnoService.crear(a)) {
 						vista = LISTADO;
-					}else {
+					} else {
 						vista = FORMULARIO;
 					}
-					
-				}else {
-					if(alumnoService.actualizar(a)) {
+
+				} else {
+					if (alumnoService.actualizar(a)) {
 						vista = LISTADO;
-					}else {
+					} else {
 						vista = FORMULARIO;
 					}
 				}
 				break;
+				
 			case BUSCAR_POR:
 				ArrayList<Alumno> alumnoBuscado = new ArrayList<Alumno>();
 				alumnoBuscado = (ArrayList<Alumno>) alumnoService.buscarPor(busqueda);
-				
-			 	vista = RESULTADO;
-			 	request.setAttribute("alumnosBuscados", alumnoBuscado);
+
+				vista = RESULTADO;
+				request.setAttribute("alumnosBuscados", alumnoBuscado);
 			}
 
-			
-			
 			request.setAttribute("alumnos", alumnoService.listar());
 
-		}catch (SQLException e){
+		} catch (SQLException e) {
+			if (e.getMessage().contains("dni_UNIQUE")){
+				alerta.setTexto("Ya contenemos un alumno con ese dni");
+				alerta.setTipo(Alert.DANGER);
+				vista = FORMULARIO;
+				//request.setAttribute("alerta",alerta);
+			}
 			
 			LOG.error(e.getMessage());
 		}
-		
+
 		catch (Exception e) {
-			
+
 			LOG.error(e.getMessage());
 		} finally {
+			request.setAttribute("alerta", alerta);
 			request.getRequestDispatcher(vista).forward(request, response);
 		}
 	}
-
 	
+	public Alumno crearAlumno() throws Exception {
+		
+		String msg = " ";
+		Alumno a = new Alumno();
+		a.setId(Long.parseLong(id));
+		a.setNombre(nombre);
+		a.setApellido1(apellido1);
+		a.setApellido2(apellido2);
+		a.setDni(dni);
+		a.setEmail(email);
+		
+		Set<ConstraintViolation<Alumno>> violations = validator.validate(a);
+		String[] errores = new String[violations.size()];
+		if (violations.size() > 0) {
+
+			int contador = 0;
+
+			// No tenemos ningun fallo, la Validacion es correcta
+			for (ConstraintViolation<Alumno> violation : violations) {
+
+				errores[contador] = violation.getPropertyPath() + ":" + violation.getMessage();
+				msg += violation.getPropertyPath() + ":" + violation.getMessage()+"<br>";
+				contador++;
+			}
+			alerta.setTipo(Alert.DANGER);
+			alerta.setTexto(msg);
+			throw new Exception();
+			
+
+		}
+		
+		return a;
+		
+	}
 
 }
