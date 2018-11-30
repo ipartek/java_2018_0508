@@ -54,7 +54,7 @@
 	
 	<div class="row justify-content-end mt-2 mb-2">
 		<div class="col col-2">
-			<a href="personas?id=-1&op=3" class="btn btn-success">Crear Nuevo</a>
+			<a href="personas?id=-1&op=3" class="btn btn-success">Dar de alta persona</a>
 		</div>
 	</div>
 	

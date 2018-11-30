@@ -171,6 +171,7 @@ public class PersonaDAO implements Crudable<Persona> {
 	 */
 	public void insertMultiple(List<Persona> personas) {
 		Persona pojo = null;
+		int cont = 0;
 
 		try (Connection con = ConnectionManager.getConnection();
 				PreparedStatement ps = con.prepareStatement(SQL_INSERT, Statement.RETURN_GENERATED_KEYS);) {
@@ -186,17 +187,20 @@ public class PersonaDAO implements Crudable<Persona> {
 				int affectedRows = ps.executeUpdate();
 
 				if (affectedRows == 1) {
+					cont++;
 
 					ResultSet rs = ps.getGeneratedKeys();
 					while (rs.next()) {
 						pojo.setId(rs.getLong(1));
 					}
 					rs.close();
-					
-				}else {
+
+				} else {
 					LOG.error("Algo ha fallado");
 				}
 			}
+
+			LOG.debug("Lineas correctas DAO: " + cont);
 
 		} catch (Exception e) {
 			LOG.error(e);

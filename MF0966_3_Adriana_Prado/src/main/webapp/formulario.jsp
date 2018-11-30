@@ -15,14 +15,10 @@
 	</c:if>
 	
 	<hr>
-
-	<h1 class="text-center">Formulario Persona</h1>
-	
-	<hr>
 	
 	<div class="row">
 		<div class="col-lg-12">
-			<h3 class="page-header">${(persona.id==-1)?'Crear nueva persona:':persona.nombre}</h3>
+			<h2 class="page-header">${(persona.id==-1)?'Crear nueva persona':persona.nombre}</h2>
 		</div>
 		<!-- /.col-lg-12 -->
 	</div>
@@ -30,7 +26,7 @@
 	
 	<hr>
 	
-	<form action ="personas?op=2" method="post">
+	<form action ="personas?op=2" method="post" novalidate="novalidate">
 		<div class="form-row">
 			<div class="col col-lg-2">
 				<div class="form-group">
@@ -40,7 +36,7 @@
 			</div>
 			<div class="col">
 				<label class="col-form-label" for="nombre">Nombre: </label> 
-					<input class="form-control" autofocus type="text" name="nombre" placeholder="Min. 2 y máx. 50 caracteres" value="${persona.nombre}" min-length="2" max-length="50" >
+					<input class="form-control" autofocus type="text" name="nombre" placeholder="Min. 2 y máx. 50 caracteres" value="${persona.nombre}" min-length="2" max-length="50" required>
 			</div>
 		</div>
 		<div class="form-row">
@@ -52,7 +48,7 @@
 			</div>
 			<div class="col">
 				<label class="col-form-label" for="apellido2">Segundo apellido: </label> 
-					<input class="form-control" type="text" name="apellido2" placeholder="Min. 2 y máx. 50 caracteres" value="${persona.apellido2}" min-length="2" max-length="50">
+					<input class="form-control" type="text" name="apellido2" placeholder="Min. 2 y máx. 50 caracteres" value="${persona.apellido2}" min-length="2" max-length="50" required>
 			</div>
 		</div>
 		
@@ -60,12 +56,12 @@
 			<div class="col">
 				<div class="form-group">
 					<label class="col-form-label" for="dni">DNI: </label> 
-					<input class="form-control" type="text" name="dni" value="${persona.dni}" placeholder="Ejemplo: 12345678A" min-length="8" max-length="9" required>
+					<input class="form-control" type="text" name="dni" value="${persona.dni}" placeholder="Ejemplo: 12345678A" min-length="9" max-length="9" required>
 				</div>
 			</div>
 			<div class="col">
 				<label class="col-form-label" for="email">Correo electrónico: </label> 
-					<input class="form-control" type="email" name="email" placeholder="Ejemplo: admin@admin.com" value="${persona.email}" max-length="50">
+					<input class="form-control" type="email" name="email" placeholder="Ejemplo: admin@admin.com" value="${persona.email}" max-length="50" required>
 			</div>
 		</div>
 		

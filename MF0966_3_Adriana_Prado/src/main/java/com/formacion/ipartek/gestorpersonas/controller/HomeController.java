@@ -182,7 +182,7 @@ public class HomeController extends HttpServlet {
 			view = VIEW_HOME;
 		}
 
-		request.setAttribute("alert", alert);
+//		request.setAttribute("alert", alert);
 		request.setAttribute("palabra", palabra);
 		request.setAttribute("personasEncontradas", personasEncontradas);
 	}
@@ -192,7 +192,7 @@ public class HomeController extends HttpServlet {
 		try {
 			ArrayList<Persona> personas = (ArrayList<Persona>) daoPersona.getAll();
 			request.setAttribute("personas", personas);
-			request.setAttribute("alert", alert);
+//			request.setAttribute("alert", alert);
 		} catch (Exception e) {
 			LOG.error(e);
 		}
@@ -222,8 +222,10 @@ public class HomeController extends HttpServlet {
 			persona.setEmail(email);
 
 			Set<ConstraintViolation<Persona>> violations = validator.validate(persona);
-			
-			if(!id.equals("")) {
+
+			// Si el id no es vacio se esta modificando, y si hay errores el id se pierde.
+			// Con esto se evita que el id de la persona se pierda
+			if (!id.equals("")) {
 				persona.setId(Long.parseLong(id));
 			}
 
@@ -258,6 +260,7 @@ public class HomeController extends HttpServlet {
 
 		} catch (Exception e) {
 			LOG.error(e);
+			alert = new Alert(Alert.ALERT_DANGER, "Ha ocurrido un error no controlado");
 		}
 
 		request.setAttribute("persona", persona);
@@ -265,6 +268,11 @@ public class HomeController extends HttpServlet {
 		view = VIEW_FORM_PERSONA;
 	}
 
+	/**
+	 * Recoge todos los parametros de la request y los asigna a variables
+	 * 
+	 * @param request
+	 */
 	private void getParameters(HttpServletRequest request) {
 		op = (request.getParameter("op") != null) ? request.getParameter("op") : OP_LISTAR;
 		id = request.getParameter("id");
@@ -298,7 +306,7 @@ public class HomeController extends HttpServlet {
 		File f = new File("C:/ficheros/personas.txt");
 
 		LOG.debug("Leer fichero: " + f.getAbsolutePath());
-		
+
 		try {
 
 			FileReader fr = new FileReader(f);
@@ -308,7 +316,7 @@ public class HomeController extends HttpServlet {
 				while ((linea = bf.readLine()) != null) {
 					p = new Persona();
 					String[] tokens = linea.split(",");
-					//Si la linea tiene el numero esperado de tokens por linea entra
+					// Si la linea tiene el numero esperado de tokens por linea entra
 					if (tokens.length == 7) {
 						for (int i = 0; i < tokens.length; i++) {
 							if (i == 0) {
@@ -320,23 +328,25 @@ public class HomeController extends HttpServlet {
 							} else if (i == 4) {
 								p.setEmail(tokens[i]);
 							} else if (i == 5) {
-								if(tokens[i].length() < 9) {
+								if (tokens[i].length() != 9) {
 									contadorErrores++;
-								}else {
+								} else {
 									p.setDni(tokens[i]);
 								}
 							}
 						}
-						if(!p.getDni().equals("")) {
+						if (!p.getDni().equals("")) {
 							personas.add(p);
 							contadorCorrectos++;
 						}
-						
-					}else {
+
+					} else {
 						contadorErrores++;
 					}
 					contadorLineas++;
 				}
+
+				LOG.debug("Lineas correctas Controller: " + contadorCorrectos);
 
 				// Llamada al DAO para insertar los registros
 				daoPersona.insertMultiple(personas);

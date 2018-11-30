@@ -5,19 +5,25 @@ import javax.validation.constraints.Size;
 import org.hibernate.validator.constraints.NotBlank;
 
 public class Persona {
+
 	private long id;
+
 	@NotBlank
 	@Size(min = 2, max = 50)
 	private String nombre;
+
 	@NotBlank
 	@Size(min = 2, max = 50)
 	private String apellido1;
+
 	@NotBlank
 	@Size(min = 2, max = 50)
 	private String apellido2;
+
 	@NotBlank
-	@Size(min = 8, max = 9)
+	@Size(min = 9, max = 9)
 	private String dni;
+
 	@NotBlank
 	@Size(min = 2, max = 50)
 	private String email;
