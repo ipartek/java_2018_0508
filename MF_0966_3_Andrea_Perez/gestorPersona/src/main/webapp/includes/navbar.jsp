@@ -1,26 +1,19 @@
-<nav class="navbar navbar-default navbar-inverse" role="navigation">
-		<div class="container-fluid">
-			<!-- Brand and toggle get grouped for better mobile display -->
-			<div class="navbar-header">
-				<button type="button" class="navbar-toggle collapsed"
-					data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-					<span class="sr-only">Toggle navigation</span> <span
-						class="icon-bar"></span> <span class="icon-bar"></span> <span
-						class="icon-bar"></span>
-				</button>
-				<a class="navbar-brand" href="index.jsp">Gestor Personas</a>
-			</div>
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <a class="navbar-brand" href="index.jsp">Gestor Personas</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
 
-			<!-- Collect the nav links, forms, and other content for toggling -->
-			<div class="collapse navbar-collapse"
-				id="bs-example-navbar-collapse-1">
-				<ul class="nav navbar-nav">
-					<li class=" btn btn-outline-success"><a href="home?op=1">Listado Personas</a></li>
-					<li class="btn btn-outline-success"><a href="home?op=5">Migrar datos</a></li>
-										
-				</ul>
-			</div>
-			<!-- /.navbar-collapse -->
-		</div>
-		<!-- /.container-fluid -->
-	</nav>
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item  mr-3">
+		<a href="home?op=1">Listado Personas</a>      
+      <li class="nav-item">
+       <a href="home?op=6">Migrar datos</a>
+      </li>   
+      <li class="nav-item ml-3">
+       <a href="home?id=-1&op=4">Crear Registro</a>
+      </li>     
+    </ul>    
+  </div>
+</nav>

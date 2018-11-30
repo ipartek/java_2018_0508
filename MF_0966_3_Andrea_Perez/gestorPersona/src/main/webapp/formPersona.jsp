@@ -1,4 +1,5 @@
 <%@include file="includes/header.jsp"%>
+
 <%@include file="includes/navbar.jsp"%>
 
 <div class="container">
@@ -13,18 +14,15 @@
 		</div>		
 	</c:if>
 		
-	<form action ="home?op=2" method="post" class="">
-		
-		
-			<div class="form-row">	
-					
+	<form action ="home?op=2" method="post">
+		<div class="row justify-content-center align-items-center">
+			<div class="form-row">						
 					<div class="form-group col-lg-3">
 						<div class="input-group">	
 							<label for="titulo">Nombre: </label> 
 							<input class=" form-control input-sm" type="text" name="nombre" placeholder="min 2 max 50" value="${persona.nombre}" required>
 						</div>
-					</div>
-					
+					</div>					
 					
 					<div class="form-group col-lg-3">
 						<div class="input-group">	
@@ -64,12 +62,10 @@
 			
 			</div>	
 								
-			<div class="row mt-4 mb-4">
-				
-					<input class="form-control btn btn-primary" type="submit" value="${(persona.id<=0) ? 'Crear':'Actualizar' }">
-				
+			<div class="row mt-4 mb-4">				
+					<input class=" btn-lg form-control btn btn-primary " type="submit" value="${(persona.id<=0) ? 'Crear':'Actualizar' }">
 			</div>
-			
+		</div>			
 	</form>
 </div>
 <%@include file="includes/footer.jsp"%>

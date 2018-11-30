@@ -14,18 +14,21 @@
 			</div>		
 		</c:if>
 		
-		<div class="row justify-content-end mt-2 mb-5">
-			<div class="col col-2 mb-2">
-				<a href="home?id=-1&op=4" class="btn btn-success">Crear Registro de Persona</a>
-			</div>
-			<form action="home?op=3" class="navbar-form navbar-left" method="POST">
+		<div class="row justify-content-end">
+			
+			<form action="home?op=3" class="navbar-form navbar-left col-12" method="POST">
 				<label>Buscador:</label>
 				<div class="form-group">
-					<input type="text" class="form-control" name="cadena" placeholder="Inserte dato a buscar" value="" autofocus required>
-				</div>
-				<input type="submit" class="btn btn-default" value="Buscar ">
+					<div class="col col-6">
+						<input type="text" class="form-control" name="cadena" placeholder="Inserte dato a buscar" value="" autofocus required>
+					</div>	
+					<div class="col col-6">
+						<input type="submit" class="btn btn-default " value="Buscar ">
+					</div>						
+				</div>				
 			</form>	
 		</div>
+		<p class="text-info">total Registros:${correctos}</p>
 		<table id="example" class="display" style="width:100%">
 	        <thead>
 	            <tr>

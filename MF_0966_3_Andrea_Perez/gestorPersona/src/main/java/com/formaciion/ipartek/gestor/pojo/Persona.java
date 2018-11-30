@@ -19,6 +19,7 @@ public class Persona {
 	@NotBlank
 	@Size(min = 2, max = 50)
 	String email;
+	@NotBlank
 	@Size(min = 9, max = 9)
 	String dni;
 

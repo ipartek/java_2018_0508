@@ -37,10 +37,12 @@ public class GestorController extends HttpServlet {
 	static final String OP_LISTAR = "1";
 	private static final String OP_GUARDAR = "2"; // Insert o update en funcion del id (-1 o >0)
 	private static final String OP_BUSCAR = "3";
-	private static final String OP_IR_FORMULARIO = "4";
+	private static final String OP_IR_FORMULARIO = "4";	
 	private static final String OP_CARGAR_REGISTRO = "5";
+	private static final String OP_IR_MIGRAR = "6";
+	
 
-	private static final String VIEW_FORM_PERSONA = "formPersona.jsp";
+	private static final String VIEW_FORM_PERSONA = "test.jsp";
 	private static final String VIEW_INDEX_PERSONA = "listado.jsp";
 	private static final String VIEW_RESUMEN_MIGRACION = "resumenMigracion.jsp";
 
@@ -64,6 +66,8 @@ public class GestorController extends HttpServlet {
 	private String cadena;
 	
 	ArrayList<Persona> personas=null;
+	
+	int contOK = 0;
 
 	@Override
 	public void init(ServletConfig config) throws ServletException {
@@ -120,6 +124,10 @@ public class GestorController extends HttpServlet {
 			case OP_CARGAR_REGISTRO:
 				migrarDatos(request); // Cambia a la vista del formulario de gestion de persona
 				break;
+			case OP_IR_MIGRAR:
+				view=VIEW_RESUMEN_MIGRACION;
+				break;
+			
 			default: // Listar
 				listar(request); // Cambia a la vista de listado de personas
 				break;
@@ -127,7 +135,7 @@ public class GestorController extends HttpServlet {
 		} catch (Exception e) {
 			e.printStackTrace();
 			view = VIEW_INDEX_PERSONA;
-			LOG.error("Ha ocurrido un error no controlado.");
+			LOG.error(e +"Ha ocurrido un error no controlado.");
 		} finally {
 			request.setAttribute("alert", alert);
 			request.getRequestDispatcher(view).forward(request, response);
@@ -208,14 +216,7 @@ public class GestorController extends HttpServlet {
 					alert = new Alert(Alert.ALERT_WARNING, error);
 				}
 
-			} else {
-				// Modificar persona existente
-				p.setNombre(nombre);
-				p.setId(Long.parseLong(id));
-				p.setApellido1(apellido1);
-				p.setApellido2(apellido2);
-				p.setEmail(email);
-				p.setDni(dni);
+			} else {				
 
 				if (daoPersona.modificar(p)) {
 					alert = new Alert(Alert.ALERT_SUCCESS, "Persona modificada con éxito.");
@@ -284,24 +285,29 @@ public class GestorController extends HttpServlet {
 	private void migrarDatos(HttpServletRequest request) {
 
 		 personas= new ArrayList<Persona>();
-
-		BufferedReader br = null;
+		 ArrayList<String>erroresInsert=new ArrayList<String>();
+		 ArrayList<Integer>lineasError=new ArrayList<>();
+		 ArrayList<String>msgError=new ArrayList<String>();
+		
+		 BufferedReader br = null;
 		Persona p = null;
 		String line = null;
+		long tiempoTotal=0;
+		long tiempoInicio=0;
+		long tiempoFin=0;
 
-		int contLineas = 0;
-		int contOK = 0;
-		int contError = 0;
+		int contLineas = 0;		
+		int contError = 0;		
 
 		try {
-			br = new BufferedReader(new FileReader("C:/datosMigrar/prueba5personas.txt"));
+			br = new BufferedReader(new FileReader("C:/datosMigrar/personas.txt"));
 
 			while ((line = br.readLine()) != null) {
 
 				p = new Persona();
 
 				String datos[] = line.split(",");
-
+				
 				// Si la linea tiene el nº de datos esperados creamos la persona
 				if (datos.length == 7) {
 					for (int i = 0; i < datos.length; i++) {
@@ -317,25 +323,39 @@ public class GestorController extends HttpServlet {
 							// se comprueba que el dni sea 9 digitos
 							if (datos[i].length() < 9 || datos[i].length() > 9) {
 								contError++;
+								lineasError.add(contLineas+1);
+								msgError.add("el DNI no contiene 9 caracteres");
 							} else {
 								p.setDni(datos[i]);
 							}
 						}
 					} // end for
-
+					
+					
 					// Se añade persona al array para la inserción
 					if (!p.getDni().equals("")) {
 						personas.add(p);
 						contOK++;
 					} else {
 						contError++;
+						lineasError.add(contLineas+1);
+						msgError.add("El DNI esta en blanco");
+						
 					}
 
 					contLineas++;
-
-				} // end if
+					
+				} 
+				else {
+					contLineas++;
+					contError++;
+					lineasError.add(contLineas+1);
+					msgError.add("La linea no contiene 7 datos");
 
 			}
+			
+			}
+			
 			// Cerramos fichero
 			br.close();
 		} catch (IOException e) {
@@ -343,11 +363,22 @@ public class GestorController extends HttpServlet {
 		} catch (Exception e) {
 			LOG.error(e);
 		} finally {
+			
+			tiempoInicio= System.currentTimeMillis();
+			
 			// Llamada al DAO para insertar los registros y pasar los contadores a la vista
 			daoPersona.insertMultiple(personas);
+			
+			tiempoFin=(System.currentTimeMillis() - tiempoInicio);
+			tiempoTotal = ((tiempoFin/1000) % 60) ;
+			
+			request.setAttribute("tiempo", tiempoTotal);
 			request.setAttribute("leidos", contLineas);
 			request.setAttribute("correctos", contOK);
 			request.setAttribute("errores", contError);
+			request.setAttribute("lineasError", erroresInsert);
+			request.setAttribute("cantLineaError", lineasError);
+			request.setAttribute("msg", msgError);
 
 			view = VIEW_RESUMEN_MIGRACION;
 

@@ -18,9 +18,9 @@ public class PersonaDAO {
 	private static PersonaDAO INSTANCE = null;
 	private final static Logger LOG = Logger.getLogger(PersonaDAO.class);
 
-	private static final String SQL_LISTAR = " SELECT id,nombre,apellido1,apellido2,email,dni FROM gestor_persona.persona ORDER BY id DESC LIMIT 50;";
+	private static final String SQL_LISTAR = " SELECT id,nombre,apellido1,apellido2,email,dni FROM persona ORDER BY id DESC LIMIT 50;";
 	private static final String SQL_INSERT = "INSERT INTO persona (nombre, apellido1,apellido2,email,dni) VALUES (?, ?,?,?,?);";
-	private static final String SQL_GET_BY_ID = "SELECT id,nombre,apellido1,apellido2,email,dni FROM gestor_persona.persona WHERE id=?;";
+	private static final String SQL_GET_BY_ID = "SELECT id,nombre,apellido1,apellido2,email,dni FROM persona WHERE id=?;";
 	private static final String SQL_UPDATE = "UPDATE persona SET nombre= ? ,apellido1= ?,apellido2=?,email=?,dni=? WHERE id = ?;";
 
 	public static synchronized PersonaDAO getInstance() {

@@ -1,0 +1,7 @@
+*{
+    margin:0;
+    padding:0;
+}
+main.container{
+	min-height: 68vh; /* vh--> coge un 68% de la altura del dispositivo*/
+}
