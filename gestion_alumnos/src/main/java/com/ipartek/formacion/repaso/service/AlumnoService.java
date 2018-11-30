@@ -2,18 +2,21 @@ package com.ipartek.formacion.repaso.service;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
+import org.apache.log4j.Logger;
+
+import com.ipartek.formacion.repaso.controller.AlumnosController;
 import com.ipartek.formacion.repaso.dao.AlumnoDAO;
 import com.ipartek.formacion.repaso.pojo.Alumno;
 
 public class AlumnoService {
 
 	private static AlumnoService INSTANCE = null;
-	
+
 	AlumnoDAO alumnoDAO = null;
+
+	private final static Logger LOG = Logger.getLogger(AlumnosController.class);
 
 	public static synchronized AlumnoService getInstance() {
 		if (INSTANCE == null) {
@@ -25,10 +28,8 @@ public class AlumnoService {
 	public AlumnoService() {
 		super();
 		alumnoDAO = AlumnoDAO.getInstance();
-		
+
 	}
-	
-	
 
 	public List<Alumno> listar() throws SQLException {
 		ArrayList<Alumno> alumnos = new ArrayList<Alumno>();
@@ -59,14 +60,14 @@ public class AlumnoService {
 	}
 
 	public List<Alumno> buscarPor(String busqueda) throws SQLException {
-		
+
 		List<Alumno> alumnosPorDni = new ArrayList<Alumno>();
 		List<Alumno> alumnosPorEmail = new ArrayList<Alumno>();
 		List<Alumno> alumnosPorNombre = new ArrayList<Alumno>();
 		List<Alumno> alumnosPorapellido1 = new ArrayList<Alumno>();
 		List<Alumno> alumnosPorapellido2 = new ArrayList<Alumno>();
 		List<Alumno> alumnosFinales = new ArrayList<Alumno>();
-		
+
 		alumnosPorDni = alumnoDAO.buscarPorDni(busqueda);
 		alumnosPorEmail = alumnoDAO.buscarPorEmail(busqueda);
 		alumnosPorNombre = alumnoDAO.buscarPorNombre(busqueda);
@@ -75,9 +76,9 @@ public class AlumnoService {
 
 		if (!alumnosPorDni.isEmpty()) {
 
-			concatList(alumnosPorDni,alumnosFinales);		
+			concatList(alumnosPorDni, alumnosFinales);
 		}
-		
+
 		if (!alumnosPorEmail.isEmpty()) {
 
 			concatList(alumnosPorEmail, alumnosFinales);
@@ -94,19 +95,31 @@ public class AlumnoService {
 
 			concatList(alumnosPorapellido2, alumnosFinales);
 		}
-		
-
 
 		return alumnosFinales;
 	}
 
-	public void concatList(List<Alumno> alumnosPorDni,List<Alumno> alumnosFinales) {
+	public void concatList(List<Alumno> alumnosPorDni, List<Alumno> alumnosFinales) {
 
-		for(Alumno a : alumnosPorDni) {
+		for (Alumno a : alumnosPorDni) {
 			alumnosFinales.add(a);
 		}
-		
-		
+
+	}
+
+	public int eliminar() throws SQLException {
+		int lineasBorradas = 0;
+		lineasBorradas = alumnoDAO.eliminarDB();
+
+		return lineasBorradas;
+	}
+
+	public static int convertir(long tiempo) {
+
+		System.out.println("Pasa por util");
+		long startTime;
+
+		return 0;
 	}
 
 }

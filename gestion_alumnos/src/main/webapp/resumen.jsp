@@ -5,7 +5,7 @@
         <h1>
         <a class="badge badge-info boton-resumen-inicio" href="alumnos?op=1">Inicio</a>
         <span>Resumen de la importación</span>
-        <a class="badge badge-info boton-resumen-inicio-drcho" href="archivo?op=1">Cargar Datos</a></h1>
+       
     </div>
  
  </header>
@@ -17,7 +17,18 @@
         
     </div>
  </div>
-
+ 	<c:if test="${ tiempoEjecucion != null }">
+	 <div class="alert alert-dark" role="alert">
+	  <p class="bg-info text-white">El tiempo de ejecucion a sido ${ tiempoEjecucion / 1000} segundos </p>
+	 <p class="bg-info text-white">El tiempo de ejecucion a sido ${ tiempoEjecucion } milisegundos </p>
+	</div>
+	</c:if>
+	<div class="botones-resumen">
+	 	<span><a class="badge badge-danger boton-resumen-inicio-drcho" href="archivo?op=2">Borrar datos</a></span>
+		 <span><a class="badge badge-info boton-resumen-inicio-drcho" href="archivo?op=1">Cargar Datos</a></span>
+	</div>
+	 
+	 
       <table width="100%" id="tabla-resumen">
         <thead style="background: grey;">
             <th>Descripcion :</th>
@@ -26,6 +37,7 @@
             <th>Cantidad</th>
         </thead>
         <tbody>
+	        
 	        
 	        <tr>
 	            <td><span class="alert text-danger">Lineas vacias : </span></td>
@@ -82,6 +94,12 @@
                 
                 <td>${ registrosNoGuardados }</td>
                 <td> ${ registrosNoGuardados }</td>
+            </tr>
+            <tr>
+                <td><span class="alert text-danger">Lineas Borradas : </span></td>
+                
+                <td></td>
+                <td> ${ registrosBorrados }</td>
             </tr>
 	        <tr>
                 <td><span class="alert text-success">totales leidos : </span></td>

@@ -40,23 +40,23 @@ public class AlumnosController extends HttpServlet {
 	final String FORMULARIO = "formulario.jsp";
 	final String LISTADO = "home.jsp";
 	final String RESULTADO = "resultado.jsp";
-	
+
 	// acciones
 	final String LISTAR = "1";
 	final String IR_FORMULARIO = "2";
 	final String GUARDAR_ACTUALIZAR = "3";
 	final String BUSCAR_POR = "4";
 	String vista = LISTADO;
-	
-	//variables para los parametros
-	String op ;
-	String id ;
+
+	// variables para los parametros
+	String op;
+	String id;
 	String nombre;
-	String apellido1 ;
-	String apellido2 ;
-	String dni ;
-	String email ;
-	String busqueda ;
+	String apellido1;
+	String apellido2;
+	String dni;
+	String email;
+	String busqueda;
 
 	/**
 	 * @see HttpServlet#HttpServlet()
@@ -68,7 +68,6 @@ public class AlumnosController extends HttpServlet {
 		validator = (Validator) factory.getValidator();
 
 	}
-	
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
@@ -94,15 +93,15 @@ public class AlumnosController extends HttpServlet {
 			apellido2 = request.getParameter("apellido2");
 			dni = request.getParameter("dni");
 			email = request.getParameter("email");
-			busqueda = request.getParameter("buscador");			
+			busqueda = request.getParameter("buscador");
 			Alumno a = new Alumno();
 			alerta = new Alert();
-			
+
 			// procesar parametros validad
 
-/*			if (op == null || op.equals("")) {
+			if (op == null || op.equals("")) {
 				op = "1";
-			}*/
+			}
 
 			switch (op) {
 
@@ -112,21 +111,21 @@ public class AlumnosController extends HttpServlet {
 
 			case IR_FORMULARIO:
 
-				
 				if (id.equals("-1")) {
 					vista = FORMULARIO;
 
 				} else {
-					a = crearAlumno();//le pasamos los valores al editar
+					a = crearAlumno(request);// le pasamos los valores al editar
 					vista = FORMULARIO;
 					request.setAttribute("alumno", a);
 				}
 				break;
 			case GUARDAR_ACTUALIZAR:
-				
-				
-				a = crearAlumno();
+
+				a = crearAlumno(request);
 				if (id.equals("-1")) {
+					a = crearAlumno(request);
+					request.setAttribute("alumno", a);
 
 					if (alumnoService.crear(a)) {
 						vista = LISTADO;
@@ -142,7 +141,7 @@ public class AlumnosController extends HttpServlet {
 					}
 				}
 				break;
-				
+
 			case BUSCAR_POR:
 				ArrayList<Alumno> alumnoBuscado = new ArrayList<Alumno>();
 				alumnoBuscado = (ArrayList<Alumno>) alumnoService.buscarPor(busqueda);
@@ -154,13 +153,13 @@ public class AlumnosController extends HttpServlet {
 			request.setAttribute("alumnos", alumnoService.listar());
 
 		} catch (SQLException e) {
-			if (e.getMessage().contains("dni_UNIQUE")){
+			if (e.getMessage().contains("dni_UNIQUE")) {
 				alerta.setTexto("Ya contenemos un alumno con ese dni");
 				alerta.setTipo(Alert.DANGER);
 				vista = FORMULARIO;
-				//request.setAttribute("alerta",alerta);
+
 			}
-			
+
 			LOG.error(e.getMessage());
 		}
 
@@ -168,13 +167,24 @@ public class AlumnosController extends HttpServlet {
 
 			LOG.error(e.getMessage());
 		} finally {
+
 			request.setAttribute("alerta", alerta);
 			request.getRequestDispatcher(vista).forward(request, response);
 		}
 	}
-	
-	public Alumno crearAlumno() throws Exception {
-		
+
+	/**
+	 * 
+	 * @param request
+	 *            -> para setear la alarma y el seteo de los datos que haya en el
+	 *            formulario
+	 * @return Alumno a
+	 * @throws Exception
+	 *             Si no se valida el pojo... se corta el proceso para que no siga a
+	 *             la capa de servicio y no terminen datos incoherentes en la db
+	 */
+	private Alumno crearAlumno(HttpServletRequest request) throws Exception {
+
 		String msg = " ";
 		Alumno a = new Alumno();
 		a.setId(Long.parseLong(id));
@@ -183,7 +193,7 @@ public class AlumnosController extends HttpServlet {
 		a.setApellido2(apellido2);
 		a.setDni(dni);
 		a.setEmail(email);
-		
+
 		Set<ConstraintViolation<Alumno>> violations = validator.validate(a);
 		String[] errores = new String[violations.size()];
 		if (violations.size() > 0) {
@@ -194,18 +204,18 @@ public class AlumnosController extends HttpServlet {
 			for (ConstraintViolation<Alumno> violation : violations) {
 
 				errores[contador] = violation.getPropertyPath() + ":" + violation.getMessage();
-				msg += violation.getPropertyPath() + ":" + violation.getMessage()+"<br>";
+				msg += violation.getPropertyPath() + ":" + violation.getMessage() + "<br>";
 				contador++;
 			}
 			alerta.setTipo(Alert.DANGER);
 			alerta.setTexto(msg);
-			throw new Exception();
-			
+			request.setAttribute(("alumno"), a);
 
+			throw new Exception();
 		}
-		
+
 		return a;
-		
+
 	}
 
 }

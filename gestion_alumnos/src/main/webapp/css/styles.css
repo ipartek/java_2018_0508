@@ -42,13 +42,18 @@ hr{
 	float: left;
 }
 .boton-resumen-inicio-drcho{
-	margin-right:30px;
+	margin-right:150px;
 	float: right;
+	font-size: 50px;
 }
 .boton-inicio{
 	font-size:25px;
 	margin-left: 10px;
     margin-top: 5px;
+}
+
+.botones-resumen{
+	margin-bottom: 10px;
 }
 
 .col-10 {

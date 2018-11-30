@@ -8,20 +8,20 @@ public class Alumno {
 	private long id;
 
 	@NotBlank
-	@Length(max=150, min = 1 )
+	@Length(max = 150, min = 1)
 	private String nombre;
 	@NotBlank
-	@Length(max=150, min = 1)
+	@Length(max = 150, min = 1)
 	private String apellido1;
 	@NotBlank
-	@Length(max=150, min = 1)
+	@Length(max = 150, min = 1)
 	private String apellido2;
-	
+
 	@NotBlank
 	@Length(max = 9, min = 9)
 	private String dni;
 	@NotBlank
-	@Length(max=45, min = 1)
+	@Length(max = 45, min = 1)
 	private String email;
 
 	public Alumno() {

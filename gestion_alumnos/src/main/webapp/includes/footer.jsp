@@ -10,13 +10,19 @@
         crossorigin="anonymous"></script>
     <script
         src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+        
+        <script src="js/main.js""></script>
     <script>
+    
+    
     $(document).ready( function () {
         $('#myTable').DataTable( {
             "order": [[ 0, "desc" ]],
             "pageLength": 50
         } );;
     } );
+    
+   
     </script>
     
         </body>

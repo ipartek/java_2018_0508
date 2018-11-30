@@ -17,14 +17,15 @@ public class AlumnoDAO {
 	private static AlumnoDAO INSTANCE = null;
 	private final static Logger LOG = Logger.getLogger(AlumnoDAO.class);
 
-	final String CREAR_ALUMNO = "INSERT INTO gestion_alumnos.alumno(nombre, apellido1 ,apellido2,dni,email) VALUES (?, ? , ? , ? , ?) ;";
-	final String LISTAR_ALUMNOS = "SELECT id, nombre, apellido1, apellido2, dni, email from gestion_alumnos.alumno ORDER BY id desc limit 200  ;";
-	final String ACTUALIZAR_ALUMNOS = "UPDATE `gestion_alumnos`.`alumno` SET nombre = ? , apellido1= ?, apellido2= ?, dni = ? , email = ? WHERE id= ?;";
-	final String BUSCAR_POR_DNI = "SELECT id, nombre, apellido1, apellido2, dni, email from gestion_alumnos.alumno where dni = ?  ORDER BY id desc limit 200 ;";
-	final String BUSCAR_POR_EMAIL = "SELECT id, nombre, apellido1, apellido2, dni, email from gestion_alumnos.alumno where email = ?   ORDER BY id desc limit 200;";
-	final String BUSCAR_POR_NOMBRE = "SELECT id, nombre, apellido1, apellido2, dni, email from gestion_alumnos.alumno where nombre = ?   ORDER BY id desc limit 200;";
-	final String BUSCAR_POR_APELLIDO1 = "SELECT id, nombre, apellido1, apellido2, dni, email from gestion_alumnos.alumno where apellido1 = ?   ORDER BY id desc limit 200;";
-	final String BUSCAR_POR_APELLIDO2 = "SELECT id, nombre, apellido1, apellido2, dni, email from gestion_alumnos.alumno where apellido2 = ?   ORDER BY id desc limit 200;";
+	final String CREAR_ALUMNO = "INSERT INTO alumno(nombre, apellido1 ,apellido2,dni,email) VALUES (?, ? , ? , ? , ?) ;";
+	final String LISTAR_ALUMNOS = "SELECT id, nombre, apellido1, apellido2, dni, email from alumno ORDER BY id desc limit 200  ;";
+	final String ACTUALIZAR_ALUMNOS = "UPDATE `alumno` SET nombre = ? , apellido1= ?, apellido2= ?, dni = ? , email = ? WHERE id= ?;";
+	final String BUSCAR_POR_DNI = "SELECT id, nombre, apellido1, apellido2, dni, email from alumno where dni = ?  ORDER BY id desc limit 200 ;";
+	final String BUSCAR_POR_EMAIL = "SELECT id, nombre, apellido1, apellido2, dni, email from alumno where email = ?   ORDER BY id desc limit 200;";
+	final String BUSCAR_POR_NOMBRE = "SELECT id, nombre, apellido1, apellido2, dni, email from alumno where nombre = ?   ORDER BY id desc limit 200;";
+	final String BUSCAR_POR_APELLIDO1 = "SELECT id, nombre, apellido1, apellido2, dni, email from alumno where apellido1 = ?   ORDER BY id desc limit 200;";
+	final String BUSCAR_POR_APELLIDO2 = "SELECT id, nombre, apellido1, apellido2, dni, email from alumno where apellido2 = ?   ORDER BY id desc limit 200;";
+	final String ELIMINAR_ALUMNOS = "DELETE FROM `alumnos_examen`.`alumno` WHERE (1 = 1);";
 
 	public static synchronized AlumnoDAO getInstance() {
 		if (INSTANCE == null) {
@@ -43,7 +44,7 @@ public class AlumnoDAO {
 				alumnos.add(rowMapper(rs));
 			}
 
-		} 
+		}
 
 		return alumnos;
 	}
@@ -59,7 +60,7 @@ public class AlumnoDAO {
 				alumnos.add(rowMapper(rs));
 			}
 
-		} 
+		}
 
 		return alumnos;
 	}
@@ -75,7 +76,7 @@ public class AlumnoDAO {
 				alumnos.add(rowMapper(rs));
 			}
 
-		} 
+		}
 
 		return alumnos;
 	}
@@ -92,7 +93,7 @@ public class AlumnoDAO {
 				alumnos.add(rowMapper(rs));
 			}
 
-		} 
+		}
 
 		return alumnos;
 	}
@@ -109,7 +110,7 @@ public class AlumnoDAO {
 				alumnos.add(rowMapper(rs));
 			}
 
-		} 
+		}
 
 		return alumnos;
 	}
@@ -126,7 +127,7 @@ public class AlumnoDAO {
 
 			}
 
-		} 
+		}
 
 		return alumnos;
 	}
@@ -154,7 +155,7 @@ public class AlumnoDAO {
 				}
 			}
 
-		} 
+		}
 		return resul;
 	}
 
@@ -190,6 +191,18 @@ public class AlumnoDAO {
 		a.setEmail(rs.getString("email"));
 
 		return a;
+	}
+
+	public int eliminarDB() throws SQLException {
+		int affectedRows = 0;
+		try (Connection con = ConnectionManager.getConnection();
+				PreparedStatement pst = con.prepareStatement(ELIMINAR_ALUMNOS);) {
+
+			// ResultSet rs = pst.executeQuery();
+			affectedRows = pst.executeUpdate();
+
+		}
+		return affectedRows;
 	}
 
 }

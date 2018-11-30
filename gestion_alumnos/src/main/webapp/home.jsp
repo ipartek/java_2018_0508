@@ -1,4 +1,28 @@
  <%@ include file = "includes/header.jsp" %>
+ 
+ <div class="main main-h1">
+  
+  <div class="modal" id="modalCargar" name="modalCargar" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Modal title</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p>Modal body text goes here.</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary">Save changes</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+ 
+  </div>
 
  <header>
      
@@ -20,24 +44,13 @@
 		    <div class="col-4">
 		        <h1>Gestion de alumnos</h1>
 		    </div>
-		    <div class="col-1">
-			     <!-- cargar datos del archivo -->
-			     <form action="archivo"class="form-inline">
-			      <button type="submit" class="badge badge-info boton-inicio mb-2">Cargar datos</button>
-			         <input type="hidden" name="op" value="1">
-			          <div class="form-group mb-2">
-			            <!-- <label for="filename" class="sr-only">Buscador</label>
-			            <input type="file" size=30 value="" name="filename"/> -->
-			          </div>
-			       </form>
-    
-             </div>
+
+             <a class="badge badge-info boton-inicio mb-2" href="resumen.jsp">Migrar datos</a>
+             
           </div><!-- cierre row    -->
     </div>
  </header>
-  <div class="main main-h1">
- 
-  </div>
+  
   <main class="container">
  <div class="container">
 	<!-- <!-- Subir archivos al servidor -->
