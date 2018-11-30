@@ -26,7 +26,7 @@
 	
 	<hr>
 	
-	<form action ="personas?op=2" method="post" novalidate="novalidate">
+	<form action ="personas?op=2" method="post">
 		<div class="form-row">
 			<div class="col col-lg-2">
 				<div class="form-group">

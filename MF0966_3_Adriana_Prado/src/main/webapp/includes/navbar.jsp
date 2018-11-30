@@ -7,7 +7,10 @@
 	<div class="collapse navbar-collapse" id="navbarText">
 	    <ul class="navbar-nav mr-auto">
 	    	<li class="nav-item">
-<!-- 				<a class="nav-link" href="login.jsp">Login</a> -->
+	    		<a class="nav-link" href="personas?id=-1&op=3">Dar de alta persona</a>
+			</li>
+			<li class="nav-item">
+	    		<a class="nav-link" href="detalleMigracion.jsp">Migrar Datos</a>
 			</li>
 	    </ul>
   	</div>

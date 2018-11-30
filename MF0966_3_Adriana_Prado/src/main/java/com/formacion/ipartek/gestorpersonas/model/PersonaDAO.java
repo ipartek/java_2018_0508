@@ -3,6 +3,7 @@ package com.formacion.ipartek.gestorpersonas.model;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -34,6 +35,8 @@ public class PersonaDAO implements Crudable<Persona> {
 
 	private static final String SQL_BUSCAR_POR_DNI = "SELECT id, nombre, apellido1, apellido2, dni, email"
 			+ " FROM persona" + " WHERE dni = ?";
+
+	private static final String SQL_TOTAL_REGISTROS = "SELECT count(id) as total_registros" + " FROM persona;";
 
 	private PersonaDAO() {
 		super();
@@ -104,6 +107,18 @@ public class PersonaDAO implements Crudable<Persona> {
 		return personas;
 	}
 
+	public int totalRegistros() throws SQLException, Exception {
+		int cont = 0;
+		try (Connection con = ConnectionManager.getConnection();
+				PreparedStatement ps = con.prepareStatement(SQL_TOTAL_REGISTROS);) {
+			ResultSet rs = ps.executeQuery();
+			while (rs.next()) {
+				cont = rs.getInt("total_registros");
+			}
+		}
+		return cont;
+	}
+
 	@Override
 	public Persona getById(String id2) throws Exception {
 		Long id = (long) 0;
@@ -171,7 +186,6 @@ public class PersonaDAO implements Crudable<Persona> {
 	 */
 	public void insertMultiple(List<Persona> personas) {
 		Persona pojo = null;
-		int cont = 0;
 
 		try (Connection con = ConnectionManager.getConnection();
 				PreparedStatement ps = con.prepareStatement(SQL_INSERT, Statement.RETURN_GENERATED_KEYS);) {
@@ -187,7 +201,6 @@ public class PersonaDAO implements Crudable<Persona> {
 				int affectedRows = ps.executeUpdate();
 
 				if (affectedRows == 1) {
-					cont++;
 
 					ResultSet rs = ps.getGeneratedKeys();
 					while (rs.next()) {
@@ -199,8 +212,6 @@ public class PersonaDAO implements Crudable<Persona> {
 					LOG.error("Algo ha fallado");
 				}
 			}
-
-			LOG.debug("Lineas correctas DAO: " + cont);
 
 		} catch (Exception e) {
 			LOG.error(e);

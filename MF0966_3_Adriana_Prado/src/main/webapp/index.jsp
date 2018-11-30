@@ -17,7 +17,7 @@
 		<div class="alert alert-info alert-dismissible fade show text-center" role="alert">
 			<span>No se han encontrado registros en la base de datos. Pulsa en <strong>Migrar datos</strong>
 				para insertar los registros del fichero <i class="fas fa-long-arrow-alt-right"></i>
-				<a href="personas?op=5" class="btn btn-dark btn-sm">Migrar datos</a>
+				<a href="detalleMigracion.jsp" class="btn btn-dark btn-sm">Migrar datos</a>
 			</span> 
 			<button type="button" class="close" data-dismiss="alert" aria-label="Close">
 				<span aria-hidden="true">&times;</span>
@@ -25,17 +25,12 @@
 		</div>
 	</c:if>
 	
-	<hr>
-	
-	<h1 class="text-center">Personas</h1>
-	
-	<hr>
-	
-	<div class="row">
+	<!-- Buscador -->
+	<div class="row mt-2 mb-2">
 		<div class="col">
 			<form action="personas?op=4" method="post">
 				<div class="input-group">
-					<input type="text" name="palabra" class="form-control" placeholder="Buscar... (nombre, email, dni)" aria-label="Buscar... (nombre, email, dni)" aria-describedby="button-addon2">
+					<input type="text" name="palabra" value="${palabra}" class="form-control" placeholder="Buscar... (nombre, email, dni)" aria-label="Buscar... (nombre, email, dni)" aria-describedby="button-addon2">
 					<div class="input-group-append">
 						<select class="btn btn-outline-secondary dropdown-toggle" name="opcionBuscar">
 					        <option selected value="-1">Selecciona una opción</option>
@@ -49,21 +44,24 @@
 			</form>
 		</div>
 	</div>
+	<!-- /Buscador -->
 	
-	<hr>
-	
-	<div class="row justify-content-end mt-2 mb-2">
-		<div class="col col-2">
-			<a href="personas?id=-1&op=3" class="btn btn-success">Dar de alta persona</a>
-		</div>
-	</div>
+	<p><b>Número total de registros: ${totalRegistros}</b></p>
 	
 	
-	<hr>
+	<c:if test="${personasEncontradas.size() == 0 && not empty palabra}">
+		<h2 class="mt-4">Resultados de la búsqueda de "<strong>${palabra}</strong>": </h2>
+		<h3 class="text-muted">No se han encontrado registros coincidentes.</h3>
+	</c:if>
+	<c:if test="${personasEncontradas.size() > 0  && not empty palabra}">
+		<h2 class="mt-4">Resultados de la búsqueda de "<strong>${palabra}</strong>": </h2>
+		<h3 class="text-muted">${personasEncontradas.size()} resultado(s) en total.</h3>
+		<hr>
+	</c:if>
 	
 		<div class="col col-lg-12">
 			
-			<table width="100%" class="table table-striped table-bordered table-hover" id="dataTable">
+			<table width="100%" class="table table-striped table-bordered table-hover mb-2" id="dataTable">
 				<thead class="bg-dark text-white">
 					<tr>
 						<th scope="col">Id</th>
@@ -75,6 +73,7 @@
 					</tr>
 				</thead>
 				<tbody>
+				<c:if test="${empty palabra}">
 					<c:forEach items="${personas}" var="p">
 					   <tr>
 					       <td>${p.id}</td>
@@ -85,17 +84,22 @@
 					       <td>${p.email}</td>
 					   </tr>
 				   </c:forEach>
+				</c:if>
+					
+				   <c:if test="${not empty palabra}">
+						<c:forEach items="${personasEncontradas}" var="pe">
+							<tr>
+						    	<td>${pe.id}</td>
+								<td><a href="personas?id=${pe.id}&op=3">${pe.nombre}</a></td>
+								<td>${pe.apellido1}</td>
+								<td>${pe.apellido2}</td>
+								<td>${pe.dni}</td>
+								<td>${pe.email}</td>
+						   </tr>
+						</c:forEach>
+					</c:if>
+				   
 				</tbody>
-				<tfoot class="bg-dark text-white">
-	               	<tr>
-	               		<th scope="col">Id</th>
-						<th scope="col">Nombre</th>
-						<th scope="col">Apellido 1</th>
-						<th scope="col">Apellido 2</th>
-						<th scope="col">DNI</th>
-						<th scope="col">Email</th>
-	           		</tr>
-               </tfoot>
 			</table>
 	</div>
 </main>

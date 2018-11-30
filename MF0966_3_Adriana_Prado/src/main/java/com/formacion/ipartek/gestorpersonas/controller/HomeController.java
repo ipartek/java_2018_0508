@@ -37,13 +37,16 @@ public class HomeController extends HttpServlet {
 	// Vistas por las que se va a navegar
 	private static final String VIEW_HOME = "index.jsp";
 	private static final String VIEW_FORM_PERSONA = "formulario.jsp";
-	private static final String VIEW_BUSQUEDA = "resultadoBusqueda.jsp";
 	private static final String VIEW_DETALLE_MIGRACION = "detalleMigracion.jsp";
 
 	// OPCIONES DE LA BUSQUEDA POSIBLES
 	private static final String BUSCAR_NOMBRE = "nombreBuscar";
 	private static final String BUSCAR_DNI = "dniBuscar";
 	private static final String BUSCAR_EMAIL = "emailBuscar";
+
+	// Errores de busqueda posibles
+	private static String ERROR_SIZE = "Línea incorrecta. Insuficientes datos";
+	private static String ERROR_DNI = "Longitud del DNI incorrecta";
 
 	// DAO de Persona
 	private static PersonaDAO daoPersona = null;
@@ -154,10 +157,12 @@ public class HomeController extends HttpServlet {
 	 * nombre/apellidos
 	 * 
 	 * @param request
+	 * @throws Exception
 	 */
-	private void buscar(HttpServletRequest request) {
+	private void buscar(HttpServletRequest request) throws Exception {
 		ArrayList<Persona> personasEncontradas = new ArrayList<Persona>();
 		Persona personaEncontrada = new Persona();
+		palabra = palabra.trim();
 		try {
 			if (palabra != null && !palabra.equals("") && !opcionBuscar.equals("-1")) {
 
@@ -165,13 +170,18 @@ public class HomeController extends HttpServlet {
 					personasEncontradas = (ArrayList<Persona>) daoPersona.buscarNombre(palabra.toLowerCase());
 				} else if (opcionBuscar.equals(BUSCAR_DNI)) {
 					personaEncontrada = daoPersona.buscarDni(palabra);
-					personasEncontradas.add(personaEncontrada);
+					if (personaEncontrada != null) {
+						personasEncontradas.add(personaEncontrada);
+					}
+
 				} else if (opcionBuscar.equals(BUSCAR_EMAIL)) {
 					personaEncontrada = daoPersona.buscarEmail(palabra);
-					personasEncontradas.add(personaEncontrada);
+					if (personaEncontrada != null) {
+						personasEncontradas.add(personaEncontrada);
+					}
 				}
 
-				view = VIEW_BUSQUEDA;
+				view = VIEW_HOME;
 			} else {
 				alert = new Alert(Alert.ALERT_WARNING,
 						"Debe introducir una palabra y seleccionar una opción para poder buscar.");
@@ -182,8 +192,8 @@ public class HomeController extends HttpServlet {
 			view = VIEW_HOME;
 		}
 
-//		request.setAttribute("alert", alert);
 		request.setAttribute("palabra", palabra);
+		request.setAttribute("personas", daoPersona.getAll());
 		request.setAttribute("personasEncontradas", personasEncontradas);
 	}
 
@@ -191,8 +201,8 @@ public class HomeController extends HttpServlet {
 		view = VIEW_HOME;
 		try {
 			ArrayList<Persona> personas = (ArrayList<Persona>) daoPersona.getAll();
+			request.setAttribute("totalRegistros", daoPersona.totalRegistros());
 			request.setAttribute("personas", personas);
-//			request.setAttribute("alert", alert);
 		} catch (Exception e) {
 			LOG.error(e);
 		}
@@ -295,10 +305,18 @@ public class HomeController extends HttpServlet {
 	 */
 	private void migrarDatos(HttpServletRequest request) throws Exception {
 		ArrayList<Persona> personas = new ArrayList<Persona>();
+		ArrayList<String> errores = new ArrayList<String>();
 		Persona p = null;
+
+		// Contadores
 		int contadorLineas = 0;
 		int contadorCorrectos = 0;
 		int contadorErrores = 0;
+
+		// Tiempos de ejecucion
+		long startTime = 0;
+		long endTime = 0;
+		long tiempoEjecucion = 0;
 
 		LOG.debug("Preparando para leer fichero");
 
@@ -330,6 +348,15 @@ public class HomeController extends HttpServlet {
 							} else if (i == 5) {
 								if (tokens[i].length() != 9) {
 									contadorErrores++;
+									if (!errores.contains(ERROR_DNI)) {
+										ERROR_DNI = ERROR_DNI + " en línea(s): " + (contadorLineas + 1);
+										errores.add(ERROR_DNI);
+									} else {
+										int pos = errores.indexOf(ERROR_DNI);
+										ERROR_DNI = ERROR_DNI + ", " + (contadorLineas + 1);
+										errores.set(pos, ERROR_DNI);
+									}
+
 								} else {
 									p.setDni(tokens[i]);
 								}
@@ -342,18 +369,40 @@ public class HomeController extends HttpServlet {
 
 					} else {
 						contadorErrores++;
+
+						if (!errores.contains(ERROR_SIZE)) {
+							ERROR_SIZE = ERROR_SIZE + " en línea(s): " + (contadorLineas + 1);
+							errores.add(ERROR_SIZE);
+						} else {
+							int pos = errores.indexOf(ERROR_SIZE);
+							ERROR_SIZE = ERROR_SIZE + ", " + (contadorLineas + 1);
+							errores.set(pos, ERROR_SIZE);
+
+						}
 					}
 					contadorLineas++;
 				}
 
 				LOG.debug("Lineas correctas Controller: " + contadorCorrectos);
 
+				startTime = System.currentTimeMillis();
+
 				// Llamada al DAO para insertar los registros
 				daoPersona.insertMultiple(personas);
-//				request.setAttribute("personas", daoPersona.getAll());
+
+				endTime = System.currentTimeMillis();
+
+				tiempoEjecucion = endTime - startTime;
+
+				String tiempoString = String.format("%02d minutos, %02d segundos y %02d milisegundos",
+						((tiempoEjecucion / (1000 * 60)) % 60), (tiempoEjecucion / 1000) % 60,
+						(tiempoEjecucion % 1000));
+
 				request.setAttribute("leidos", contadorLineas);
 				request.setAttribute("correctos", contadorCorrectos);
 				request.setAttribute("errores", contadorErrores);
+				request.setAttribute("erroresRegistrados", errores);
+				request.setAttribute("tiempoEjecucion", tiempoString);
 
 			} finally {
 				bf.close();
